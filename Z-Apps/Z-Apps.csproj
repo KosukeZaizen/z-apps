@@ -8,6 +8,7 @@
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <RootNamespace>Z_Apps</RootNamespace>
+    <UserSecretsId>8e2443f0-d9ce-4c7c-ac55-3e7e33a83223</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
