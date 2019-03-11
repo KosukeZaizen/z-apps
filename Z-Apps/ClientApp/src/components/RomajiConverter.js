@@ -14,10 +14,12 @@ const objN = { "ん": "n" };
 const objN_K = { "ン": "n" };
 const objLongSound = { "oo": "o", "ou": "o", "uu": "u" };
 
-const MSG_PROMPT = "Please type or paste the sentences by [Hiragana] or [Katakana] here.";
+const MSG_PROMPT = "Please type or paste the sentences of [Hiragana] or [Katakana] here.";
+
 
 // 親：<Parent />の定義
 class Parent extends React.Component {
+
     // State（※状態は親が管理）
     // この値はブラウザを閉じたり、リロードするまでは保持される
     constructor(props) {
@@ -25,45 +27,48 @@ class Parent extends React.Component {
         this.state = {
             textVal: "",
             prompt: MSG_PROMPT,
+            inputColor: "redChar",
         };
         this.setStateTextVal = this.setStateTextVal.bind(this);
+        this.initText = this.initText.bind(this);
+    }
+
+
+    initText() {
+        if (this.state.prompt === MSG_PROMPT) {
+            this.setState({
+                prompt: "",
+                inputColor: "blackChar",
+            });
+        }
     }
 
 
     // State(textVal)を変更
     setStateTextVal(textVal) {
 
-        if (prompt === "" && prompt != MSG_PROMPT) {
+        let textVal_r = textVal;
 
-            this.setState({
-                textVal: "",
-                prompt: MSG_PROMPT,
-            });
+        textVal_r = this.convertChars(textVal_r, objTwoChars_K);
+        textVal_r = this.convertChars(textVal_r, objTwoChars);
 
-        } else {
-            let textVal_r = textVal;
+        textVal_r = this.convertChars(textVal_r, objOneChar);
+        textVal_r = this.convertChars(textVal_r, objOneChar_K);
 
-            textVal_r = this.convertChars(textVal_r, objTwoChars_K);
-            textVal_r = this.convertChars(textVal_r, objTwoChars);
+        textVal_r = this.convertChars(textVal_r, objM);
+        textVal_r = this.convertChars(textVal_r, objM_K);
 
-            textVal_r = this.convertChars(textVal_r, objOneChar);
-            textVal_r = this.convertChars(textVal_r, objOneChar_K);
+        textVal_r = this.convertChars(textVal_r, objN);
+        textVal_r = this.convertChars(textVal_r, objN_K);
 
-            textVal_r = this.convertChars(textVal_r, objM);
-            textVal_r = this.convertChars(textVal_r, objM_K);
+        textVal_r = this.convertSmallTsu(textVal_r);
 
-            textVal_r = this.convertChars(textVal_r, objN);
-            textVal_r = this.convertChars(textVal_r, objN_K);
+        textVal_r = this.convertChars(textVal_r, objLongSound);
 
-            textVal_r = this.convertSmallTsu(textVal_r);
-
-            textVal_r = this.convertChars(textVal_r, objLongSound);
-
-            this.setState({
-                textVal: textVal_r,
-                prompt: textVal,
-            });
-        }
+        this.setState({
+            textVal: textVal_r,
+            prompt: textVal,
+        });
     }
 
     convertChars(text, obj) {
@@ -87,6 +92,13 @@ class Parent extends React.Component {
     }
 
 
+    onScrollInput() {
+        let inputArea = document.getElementById("inputArea");
+        let outputArea = document.getElementById("outputArea");
+        outputArea.scrollTop = inputArea.scrollTop;
+    }
+
+
     // <Parent />の表示
     // ここで子となる<ChildInput />と<Child />を記述
     render() {
@@ -104,14 +116,17 @@ class Parent extends React.Component {
                                 <center>Hiragana<br />or<br />Katakana</center>
                             </th>
                             <th>
-                                <center>Romaji<br />（Hepburn-style）</center>
+                                <center>Romaji</center>
                             </th>
                         </tr>
                         <tr>
                             <td className="row">
                                 <ChildInput
+                                    inputColor={this.state.inputColor}
                                     prompt={this.state.prompt}
                                     onChange={(e) => { this.setStateTextVal(e) }}
+                                    onFocus={(e) => { this.initText(e) }}
+                                    onScroll={this.onScrollInput}
                                 />
                             </td>
                             <td className="tdOutput">
@@ -133,6 +148,14 @@ class ChildInput extends React.Component {
         this.props.onChange(e.target.value);
     }
 
+    _onFocus(e) {
+        this.props.onFocus(e.target.value);
+    }
+
+    _onScroll() {
+        this.props.onScroll();
+    }
+
     _onKeyDown(e) {
         if (e.keyCode === 13) { // Enterキー
             //this.props.onSave(e.target.value);
@@ -145,9 +168,12 @@ class ChildInput extends React.Component {
         return (
             <center className="t-area-center">
                 <textarea
-                    id="input"
+                    id="inputArea"
+                    className={this.props.inputColor}
                     onChange={(e) => { this._onChange(e) }}
                     onKeyDown={(e) => { this._onKeyDown(e) }}
+                    onFocus={(e) => { this._onFocus(e) }}
+                    onScroll={() => { this._onScroll() }}
                     value={this.props.prompt}
                 />
             </center>
@@ -163,7 +189,7 @@ class Child extends React.Component {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return <p key={index} className="line-wrap">{line}<br /></p>;
         });
-        return <div id="output" className="lines">{lines}</div>;
+        return <div id="outputArea" className="lines">{lines}</div>;
     }
 };
 
@@ -172,3 +198,4 @@ export default connect(
     state => state.counter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(Parent);
+
