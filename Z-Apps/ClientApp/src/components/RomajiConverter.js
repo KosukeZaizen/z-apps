@@ -16,6 +16,7 @@ const objLongSound = { "oo": "o", "ou": "o", "uu": "u" };
 
 const MSG_PROMPT = "Please type or paste the sentences of [Hiragana] or [Katakana] here.";
 
+let ioArea = [];
 
 // 親：<Parent />の定義
 class Parent extends React.Component {
@@ -93,9 +94,12 @@ class Parent extends React.Component {
 
 
     onScrollInput() {
-        let inputArea = document.getElementById("inputArea");
-        let outputArea = document.getElementById("outputArea");
-        outputArea.scrollTop = inputArea.scrollTop;
+        if (ioArea.length < 2) {
+            console.log("get io");
+            ioArea[0] = document.getElementById("inputArea");
+            ioArea[1] = document.getElementById("outputArea");
+        }
+        ioArea[1].scrollTop = ioArea[0].scrollTop;
     }
 
 
