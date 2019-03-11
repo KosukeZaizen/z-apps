@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/Counter';
-import '../css/ReactTutorial.css';
+import '../css/RomajiConverter.css';
 
 
 function Square(props) {

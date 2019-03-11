@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import '../css/NavMenu.css';
 
 export default class NavMenu extends React.Component {
     constructor(props) {
@@ -37,6 +37,9 @@ export default class NavMenu extends React.Component {
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/react-tutorial">React tutorial</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} className="text-dark" to="/romaji-converter">Romaji converter</NavLink>
                                 </NavItem>
                             </ul>
                         </Collapse>
