@@ -95,7 +95,6 @@ class Parent extends React.Component {
 
     onScrollInput() {
         if (ioArea.length < 2) {
-            console.log("get io");
             ioArea[0] = document.getElementById("inputArea");
             ioArea[1] = document.getElementById("outputArea");
         }
