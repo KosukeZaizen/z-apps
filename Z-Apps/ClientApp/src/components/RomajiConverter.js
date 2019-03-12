@@ -13,8 +13,16 @@ const objM_K = { "ンb": "mb", "ンm": "mm", "ンp": "mp" };
 const objN = { "ん": "n" };
 const objN_K = { "ン": "n" };
 const objLongSound = { "oo": "o", "ou": "o", "uu": "u" };
+const objChangeLine = { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" };
 
 const MSG_PROMPT = "Please type or paste the sentences of [Hiragana] or [Katakana] here.";
+const MSG_NO_COPY_TARGET = "There is no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!";
+const MSG_COPY_DONE = "Copy was done!\r\nYou can paste it anywhere.";
+const MSG_COPY_ERR = "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.";
+
+const BTN_LABEL = "Click here to copy the output Romaji!"
+
+const DISABLED_BUTTON = "btn btn-outline-info btn-lg btn-block";
 
 let ioArea = [];
 
@@ -50,21 +58,21 @@ class Parent extends React.Component {
 
         let textVal_r = textVal;
 
-        textVal_r = this.convertChars(textVal_r, objTwoChars_K);
-        textVal_r = this.convertChars(textVal_r, objTwoChars);
+        textVal_r = convertChars(textVal_r, objTwoChars_K);
+        textVal_r = convertChars(textVal_r, objTwoChars);
 
-        textVal_r = this.convertChars(textVal_r, objOneChar);
-        textVal_r = this.convertChars(textVal_r, objOneChar_K);
+        textVal_r = convertChars(textVal_r, objOneChar);
+        textVal_r = convertChars(textVal_r, objOneChar_K);
 
-        textVal_r = this.convertChars(textVal_r, objM);
-        textVal_r = this.convertChars(textVal_r, objM_K);
+        textVal_r = convertChars(textVal_r, objM);
+        textVal_r = convertChars(textVal_r, objM_K);
 
-        textVal_r = this.convertChars(textVal_r, objN);
-        textVal_r = this.convertChars(textVal_r, objN_K);
+        textVal_r = convertChars(textVal_r, objN);
+        textVal_r = convertChars(textVal_r, objN_K);
 
         textVal_r = this.convertSmallTsu(textVal_r);
 
-        textVal_r = this.convertChars(textVal_r, objLongSound);
+        textVal_r = convertChars(textVal_r, objLongSound);
 
         this.setState({
             textVal: textVal_r,
@@ -72,16 +80,8 @@ class Parent extends React.Component {
         });
     }
 
-    convertChars(text, obj) {
-        for (let key in obj) {
-            let arrText = text.split(key);
-            text = arrText.join(obj[key]);
-        }
-        return text;
-    }
-
     convertSmallTsu(text) {
-        text = this.convertChars(text, { "っch": "tch", "ッch": "tch" });
+        text = convertChars(text, { "っch": "tch", "ッch": "tch" });
 
         let arrText = text.split("");
         for (let index in arrText) {
@@ -92,13 +92,24 @@ class Parent extends React.Component {
         return arrText.join("");
     }
 
-
     onScrollInput() {
-        if (ioArea.length < 2) {
-            ioArea[0] = document.getElementById("inputArea");
-            ioArea[1] = document.getElementById("outputArea");
-        }
+        getIoElement();
         ioArea[1].scrollTop = ioArea[0].scrollTop;
+    }
+
+    onClickCopy() {
+        let strTarget = getCopyTarget();
+
+        if (strTarget.trim() === "") {
+            alert(MSG_NO_COPY_TARGET);
+        } else {
+            if (execCopy(strTarget)) {
+                alert(MSG_COPY_DONE);
+            }
+            else {
+                alert(MSG_COPY_ERR);
+            }
+        }
     }
 
 
@@ -140,6 +151,7 @@ class Parent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+                <button id="btnCopy" onClick={this.onClickCopy} className={DISABLED_BUTTON}>{BTN_LABEL}</button>
             </center>
         );
     }
@@ -196,9 +208,51 @@ class Child extends React.Component {
     }
 };
 
+function getIoElement() {
+    if (ioArea.length < 2) {
+        ioArea[0] = document.getElementById("inputArea");
+        ioArea[1] = document.getElementById("outputArea");
+    }
+}
+
+function convertChars(text, obj) {
+    for (let key in obj) {
+        let arrText = text.split(key);
+        text = arrText.join(obj[key]);
+    }
+    return text;
+}
+
+function getCopyTarget() {
+    getIoElement();
+    return convertChars(ioArea[1].innerHTML, objChangeLine);
+}
+
+function execCopy(string) {
+
+    var tmp = document.createElement("div");
+    var pre = document.createElement('pre');
+
+    pre.style.webkitUserSelect = 'auto';
+    pre.style.userSelect = 'auto';
+
+    tmp.appendChild(pre).textContent = string;
+
+    var s = tmp.style;
+    s.position = 'fixed';
+    s.right = '200%';
+
+    document.body.appendChild(tmp);
+    document.getSelection().selectAllChildren(tmp);
+
+    var result = document.execCommand("copy");
+
+    document.body.removeChild(tmp);
+
+    return result;
+}
 
 export default connect(
     state => state.counter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(Parent);
-
