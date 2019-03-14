@@ -8,7 +8,7 @@ const Home = props => (
     <div className="home">
         <center>
             <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>
-            <p>These are applications made by Kosuke Zaizen.</p>
+            <p>These are applications made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
             <p>I hope you enjoy them!</p><br />
             <Link to="/romaji-converter">Romaji Converter >></Link>
         </center>
