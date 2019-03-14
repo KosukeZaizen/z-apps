@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 export default class Footer extends React.Component {
     render() {
@@ -7,12 +8,11 @@ export default class Footer extends React.Component {
             <footer className="footer">
                 <center>
                     <div className="container text-muted">
-
-                        <span className="text-muted">Copyright Kosuke Zaizen. All rights reserved.<span className='hidden-xs'>　　</span><span className='visible-xs'><br /></span></span>
-
-
-                        <a>Terms of Use</a>
-
+                        <span className="text-muted">Copyright <Link to="/terms">Kosuke Zaizen</Link>. All rights reserved.
+                            <span className='hidden-xs'>　　</span>
+                            <span className='visible-xs'><br /></span>
+                        </span>
+                        <Link to="/terms">Terms of Use</Link>
                     </div>
                 </center>
             </footer>);
