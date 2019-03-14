@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from '../store/Counter';
 import '../css/RomajiConverter.css';
 
-let objCONST = {};
+let objConst = {};
 
 // 親：<Parent />の定義
 class Parent extends React.Component {
@@ -13,7 +13,8 @@ class Parent extends React.Component {
     // この値はブラウザを閉じたり、リロードするまでは保持される
     constructor(props) {
         super(props);
-        objCONST = {
+
+        objConst = {
             objTwoChars: { "きゃ": "kya", "きゅ": "kyu", "きょ": "kyo", "しゃ": "sha", "しゅ": "shu", "しょ": "sho", "ちゃ": "cha", "ちゅ": "chu", "ちょ": "cho", "にゃ": "nya", "にゅ": "nyu", "にょ": "nyo", "ひゃ": "hya", "ひゅ": "hyu", "ひょ": "hyo", "みゃ": "mya", "みゅ": "myu", "みょ": "myo", "りゃ": "rya", "りゅ": "ryu", "りょ": "ryo", "ぎゃ": "gya", "ぎゅ": "gyu", "ぎょ": "gyo", "じゃ": "ja", "じゅ": "ju", "じょ": "jo", "びゃ": "bya", "びゅ": "byu", "びょ": "byo", "ぴゃ": "pya", "ぴゅ": "pyu", "ぴょ": "pyo", "じぇ": "jie", "ちぇ": "chie", "てぃ": "tei", "でぃ": "dei", "でゅ": "deyu", "ふぁ": "fua", "ふぃ": "fui", "ふぇ": "fue", "ふぉ": "fuo", "ゔぁ": "bua", "ゔぃ": "bui", "ゔぇ": "bue", "ゔぉ": "buo" },
             objTwoChars_K: { "キャ": "kya", "キュ": "kyu", "キョ": "kyo", "シャ": "sha", "シュ": "shu", "ショ": "sho", "チャ": "cha", "チュ": "chu", "チョ": "cho", "ニャ": "nya", "ニュ": "nyu", "ニョ": "nyo", "ヒャ": "hya", "ヒュ": "hyu", "ヒョ": "hyo", "ミャ": "mya", "ミュ": "myu", "ミョ": "myo", "リャ": "rya", "リュ": "ryu", "リョ": "ryo", "ギャ": "gya", "ギュ": "gyu", "ギョ": "gyo", "ジャ": "ja", "ジュ": "ju", "ジョ": "jo", "ビャ": "bya", "ビュ": "byu", "ビョ": "byo", "ピャ": "pya", "ピュ": "pyu", "ピョ": "pyo", "ジェ": "jie", "チェ": "chie", "ティ": "tei", "ディ": "dei", "デュ": "deyu", "ファ": "fua", "フィ": "fui", "フェ": "fue", "フォ": "fuo", "ヴァ": "bua", "ヴィ": "bui", "ヴェ": "bue", "ヴォ": "buo" },
             objOneChar: { "あ": "a", "い": "i", "う": "u", "え": "e", "お": "o", "か": "ka", "き": "ki", "く": "ku", "け": "ke", "こ": "ko", "さ": "sa", "し": "shi", "す": "su", "せ": "se", "そ": "so", "た": "ta", "ち": "chi", "つ": "tsu", "て": "te", "と": "to", "な": "na", "に": "ni", "ぬ": "nu", "ね": "ne", "の": "no", "は": "ha", "ひ": "hi", "ふ": "fu", "へ": "he", "ほ": "ho", "ま": "ma", "み": "mi", "む": "mu", "め": "me", "も": "mo", "や": "ya", "ゆ": "yu", "よ": "yo", "ら": "ra", "り": "ri", "る": "ru", "れ": "re", "ろ": "ro", "わ": "wa", "ゐ ": "i", "ゑ": "e", "を": "o", "が": "ga", "ぎ": "gi", "ぐ": "gu", "げ": "ge", "ご": "go", "ざ": "za", "じ": "ji", "ず": "zu", "ぜ": "ze", "ぞ": "zo", "だ": "da", "ぢ": "ji", "づ": "zu", "で": "de", "ど": "do", "ば": "ba", "び": "bi", "ぶ": "bu", "べ": "be", "ぼ": "bo", "ぱ": "pa", "ぴ": "pi", "ぷ": "pu", "ぺ": "pe", "ぽ": "po", "ゔ": "bu", "ー": "" },
@@ -39,7 +40,7 @@ class Parent extends React.Component {
 
         this.state = {
             textVal: "",
-            prompt: objCONST.MSG_PROMPT,
+            prompt: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
         this.setStateTextVal = this.setStateTextVal.bind(this);
@@ -48,7 +49,7 @@ class Parent extends React.Component {
 
 
     initText() {
-        if (this.state.prompt === objCONST.MSG_PROMPT) {
+        if (this.state.prompt === objConst.MSG_PROMPT) {
             this.setState({
                 prompt: "",
                 inputColor: "blackChar",
@@ -62,21 +63,21 @@ class Parent extends React.Component {
 
         let textVal_r = textVal;
 
-        textVal_r = convertChars(textVal_r, objCONST.objTwoChars_K);
-        textVal_r = convertChars(textVal_r, objCONST.objTwoChars);
+        textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
+        textVal_r = convertChars(textVal_r, objConst.objTwoChars);
 
-        textVal_r = convertChars(textVal_r, objCONST.objOneChar);
-        textVal_r = convertChars(textVal_r, objCONST.objOneChar_K);
+        textVal_r = convertChars(textVal_r, objConst.objOneChar);
+        textVal_r = convertChars(textVal_r, objConst.objOneChar_K);
 
-        textVal_r = convertChars(textVal_r, objCONST.objM);
-        textVal_r = convertChars(textVal_r, objCONST.objM_K);
+        textVal_r = convertChars(textVal_r, objConst.objM);
+        textVal_r = convertChars(textVal_r, objConst.objM_K);
 
-        textVal_r = convertChars(textVal_r, objCONST.objN);
-        textVal_r = convertChars(textVal_r, objCONST.objN_K);
+        textVal_r = convertChars(textVal_r, objConst.objN);
+        textVal_r = convertChars(textVal_r, objConst.objN_K);
 
         textVal_r = this.convertSmallTsu(textVal_r);
 
-        textVal_r = convertChars(textVal_r, objCONST.objLongSound);
+        textVal_r = convertChars(textVal_r, objConst.objLongSound);
 
         this.setState({
             textVal: textVal_r,
@@ -98,27 +99,26 @@ class Parent extends React.Component {
 
     onScrollInput() {
         getIoElement();
-        objCONST.ioArea[1].scrollTop = objCONST.ioArea[0].scrollTop;
+        objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
     }
 
     onClickCopy() {
         let strTarget = getCopyTarget();
 
         if (strTarget.trim() === "") {
-            alert(objCONST.MSG_NO_COPY_TARGET);
+            alert(objConst.MSG_NO_COPY_TARGET);
         } else {
             if (execCopy(strTarget)) {
-                alert(objCONST.MSG_COPY_DONE);
+                alert(objConst.MSG_COPY_DONE);
             }
             else {
-                alert(objCONST.MSG_COPY_ERR);
+                alert(objConst.MSG_COPY_ERR);
             }
         }
     }
 
 
-    // <Parent />の表示
-    // ここで子となる<ChildInput />と<Child />を記述
+    //ローマ字変換アプリの表示
     render() {
         return (
             <center>
@@ -155,13 +155,17 @@ class Parent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objCONST.DISABLED_BUTTON}>{objCONST.BTN_LABEL}</button>
+                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.DISABLED_BUTTON}>{objConst.BTN_LABEL}</button>
+                <br />
+                If you want to check Romaji chart, please check this:
+                <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener"> Romaji Chart >></a>
             </center>
         );
     }
 };
 
-// 子1：<ChildInput />の定義（※props経由で親を参照できる）
+
+//入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
     _onChange(e) {
         this.props.onChange(e.target.value);
@@ -182,7 +186,7 @@ class ChildInput extends React.Component {
         }
     }
 
-    // <ChildInput />の表示
+    //入力エリアの表示
     render() {
         return (
             <center className="t-area-center">
@@ -201,9 +205,8 @@ class ChildInput extends React.Component {
 };
 
 
-// 子2：<Child />の定義（※props経由で親を参照できる）
+//ローマ字出力エリア
 class Child extends React.Component {
-    // <Child />の表示
     render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return <p key={index} className="line-wrap">{line}<br /></p>;
@@ -213,9 +216,9 @@ class Child extends React.Component {
 };
 
 function getIoElement() {
-    if (objCONST.ioArea.length < 2) {
-        objCONST.ioArea[0] = document.getElementById("inputArea");
-        objCONST.ioArea[1] = document.getElementById("outputArea");
+    if (objConst.ioArea.length < 2) {
+        objConst.ioArea[0] = document.getElementById("inputArea");
+        objConst.ioArea[1] = document.getElementById("outputArea");
     }
 }
 
@@ -229,7 +232,7 @@ function convertChars(text, obj) {
 
 function getCopyTarget() {
     getIoElement();
-    return convertChars(objCONST.ioArea[1].innerHTML, objCONST.objChangeLine);
+    return convertChars(objConst.ioArea[1].innerHTML, objConst.objChangeLine);
 }
 
 function execCopy(string) {
