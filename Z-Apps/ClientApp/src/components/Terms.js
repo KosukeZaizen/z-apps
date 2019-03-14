@@ -7,7 +7,7 @@ import '../css/Terms.css';
 const Terms = props => (
     <div className="terms">
         <center>
-            <h1>Z-Apps Terms of Use</h1>
+            <h1>Z-Apps<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Terms of Use</h1>
 
             <div className="contents">
                 <hr />
