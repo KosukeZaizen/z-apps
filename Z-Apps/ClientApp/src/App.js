@@ -7,6 +7,7 @@ import ReactTutorial from './components/ReactTutorial';
 import RomajiConverter from './components/RomajiConverter';
 import Terms from './components/Terms';
 import Developer from './components/Developer';
+import HiraganaQuiz from './components/HiraganaQuiz';
 
 export default () => (
     <Layout>
@@ -16,5 +17,6 @@ export default () => (
         <Route path='/romaji-converter' component={RomajiConverter} />
         <Route path='/terms' component={Terms} />
         <Route path='/developer' component={Developer} />
+        <Route path='/hiragana-quiz' component={HiraganaQuiz} />
     </Layout>
 );
