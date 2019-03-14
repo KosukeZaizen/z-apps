@@ -12,7 +12,7 @@ const Terms = props => (
             <div className="contents">
                 <hr />
                 <h2>The ownership of website</h2>
-                <p>This website is developed and owned by Kosuke Zaizen.
+                <p>This website is developed and owned by <Link to="/developer">Kosuke Zaizen</Link>.
                 When you want to use any sentences, images, or programs, you need to get approval from the owner.</p>
                 <hr />
                 <h2>Responsibility</h2>
@@ -21,7 +21,7 @@ const Terms = props => (
                 <hr />
                 <h2>Contact</h2>
                 If there are some trouble, please contact from this link:<br />
-                　<a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener">uni-browser >></a>
+                <a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">uni-browser >></a>
             </div>
         </center>
     </div>

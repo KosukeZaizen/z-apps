@@ -156,8 +156,8 @@ class Parent extends React.Component {
                 </table>
                 <button id="btnCopy" onClick={this.onClickCopy} className={objConst.DISABLED_BUTTON}>{objConst.BTN_LABEL}</button>
                 <br />
-                If you want to check Romaji chart, please check this:
-                <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener"> Romaji Chart >></a>
+                If you want to check Romaji chart, please check this:<br />
+                <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br /><br />
             </center>
         );

@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
             <footer className="footer">
                 <center>
                     <div className="container text-muted">
-                        <span className="text-muted">Copyright <Link to="/terms">Kosuke Zaizen</Link>. All rights reserved.
+                        <span className="text-muted">Copyright <Link to="/developer">Kosuke Zaizen</Link>. All rights reserved.
                             <span className='hidden-xs'>　　</span>
                             <span className='visible-xs'><br /></span>
                         </span>
