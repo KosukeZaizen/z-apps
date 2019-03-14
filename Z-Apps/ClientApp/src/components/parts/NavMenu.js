@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import './NavMenu.css';
 
 export default class NavMenu extends React.Component {
@@ -20,26 +21,26 @@ export default class NavMenu extends React.Component {
     render() {
         return (
             <header>
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
+                <Navbar variant="pills" className="navbar-inverse navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
                     <Container>
-                        <NavbarBrand tag={Link} to="/"><b>Z-Apps</b></NavbarBrand>
+                        <NavbarBrand tag={Link} to="/"><b className="z-apps-title text-light">Z-Apps</b></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                    <NavLink tag={Link} className="text-light" to="/">　Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                                    <NavLink tag={Link} className="text-light" to="/counter">　Counter</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                                    <NavLink tag={Link} className="text-light" to="/fetch-data">　Fetch data</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/react-tutorial">React tutorial</NavLink>
+                                    <NavLink tag={Link} className="text-light" to="/react-tutorial">　React tutorial</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/romaji-converter">Romaji converter</NavLink>
+                                    <NavLink tag={Link} className="text-light" to="/romaji-converter">　Romaji converter</NavLink>
                                 </NavItem>
                             </ul>
                         </Collapse>

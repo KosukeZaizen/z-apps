@@ -1,5 +1,9 @@
 footer {
-    bottom: 10px;
-    position: absolute;
-    width:100%;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    background-color: #EEEEEE;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: small;
 }

@@ -121,11 +121,10 @@ class Parent extends React.Component {
     //ローマ字変換アプリの表示
     render() {
         return (
-            <center>
+            <center className="romaji-converter">
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <br />
                 <span className="redChar">※ Please also check the result by yourself.</span>
                 <table>
                     <tbody>
@@ -159,6 +158,7 @@ class Parent extends React.Component {
                 <br />
                 If you want to check Romaji chart, please check this:
                 <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener"> Romaji Chart >></a>
+                <br /><br />
             </center>
         );
     }

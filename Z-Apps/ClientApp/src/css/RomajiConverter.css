@@ -71,3 +71,8 @@ th {
 #btnCopy {
     max-width: 800px;
 }
+
+.romaji-converter h1 {
+    margin: 25px;
+    line-height: 25px;
+}
