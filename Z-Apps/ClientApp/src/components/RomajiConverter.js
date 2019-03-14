@@ -33,7 +33,7 @@ class Parent extends React.Component {
 
             BTN_LABEL: "Click here to copy the output Romaji!",
 
-            DISABLED_BUTTON: "btn btn-outline-info btn-lg btn-block",
+            DISABLED_BUTTON: "btn btn-info btn-lg btn-block",
 
             ioArea: []
         };
