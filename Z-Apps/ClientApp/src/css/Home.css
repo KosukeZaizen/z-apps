@@ -2,3 +2,7 @@
     margin: 40px;
     line-height: 25px;
 }
+
+.home .initial-message {
+    margin: 0;
+}

@@ -25,7 +25,7 @@ const Developer = props => (
                                         Thank you for using Z-Apps!<br />
                                         I am a Japanese software engineer.<br />
                                         Z-Apps is a website to put apps made by me.<br />
-                                        Mainly I put apps for someone studying Japanese.<br />
+                                        Mainly, I put apps for someone study Japanese.<br />
                                         I hope Z-Apps helps you somehow!
                                  </p>
                                 </td>
