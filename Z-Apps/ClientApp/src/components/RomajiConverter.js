@@ -33,7 +33,7 @@ class Parent extends React.Component {
 
             BTN_LABEL: "Click here to copy the output Romaji!",
 
-            DISABLED_BUTTON: "btn btn-info btn-lg btn-block",
+            COPY_BUTTON: "btn btn-info btn-lg btn-block",
 
             ioArea: []
         };
@@ -154,7 +154,7 @@ class Parent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.DISABLED_BUTTON}>{objConst.BTN_LABEL}</button>
+                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.BTN_LABEL}</button>
                 <br />
                 If you want to check Romaji chart, please check this:<br />
                 <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
