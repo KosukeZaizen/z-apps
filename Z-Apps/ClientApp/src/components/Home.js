@@ -9,9 +9,10 @@ const Home = props => (
     <div className="home">
         <center>
             <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>
-            <p className="initial-message">These are applications made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
-            <p className="initial-message">I hope you enjoy them!</p>
-            <br /><br />
+            <div className="initial-message">
+            <p className="no-margin">These are applications made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
+                <p className="no-margin">I hope you enjoy them!</p>
+            </div>
 
             <Link className="app-button" to="/romaji-converter">
                 <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>

@@ -1,8 +1,13 @@
 .home h1 {
-    margin: 40px;
+    margin-top: 30px;
+    margin-bottom: 40px;
     line-height: 25px;
 }
 
-.home .initial-message {
+.home .no-margin {
     margin: 0;
+}
+
+.home .initial-message {
+    margin-bottom: 40px;
 }
