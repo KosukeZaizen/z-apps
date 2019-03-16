@@ -25,3 +25,7 @@
     height: 100px;
     margin: 15px;
 }
+
+.hiragana-quiz #disp3 {
+    max-width: 600px;
+}

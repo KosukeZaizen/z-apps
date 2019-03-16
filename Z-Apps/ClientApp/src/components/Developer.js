@@ -24,9 +24,8 @@ const Developer = props => (
                                         <br />
                                         Thank you for using Z-Apps!<br />
                                         I am a Japanese software engineer.<br />
-                                        Z-Apps is a website to put apps made by me.<br />
-                                        Mainly, I put apps for someone study Japanese.<br />
-                                        I hope Z-Apps helps you somehow!
+                                        Z-Apps is a website for Japanese learners.<br />
+                                        I hope Z-Apps can help!
                                  </p>
                                 </td>
                             </tr>
@@ -52,8 +51,8 @@ const Developer = props => (
             <br />
             <center>
                 <p>
-                    To contact me, please write message from the link below:<br />
-                        <b><a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">Contact to uni-browser >></a></b>
+                    To contact me, please write a message using the link below:<br />
+                        <b><a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
                     <br /><br />
                     Also, I am writing a blog for someone studying Japanese:<br />
                         <b><a href="https://lingualninja.blogspot.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>

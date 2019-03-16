@@ -27,11 +27,11 @@ class Parent extends React.Component {
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
 
             MSG_PROMPT: "Please type or paste the sentences of [Hiragana] or [Katakana] here.",
-            MSG_NO_COPY_TARGET: "There is no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
+            MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
             MSG_COPY_DONE: "Copy was done!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
 
-            BTN_LABEL: "Click here to copy the output Romaji!",
+            BTN_LABEL: "Click here to copy Romaji!",
 
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
 
@@ -125,7 +125,7 @@ class Parent extends React.Component {
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please also check the result by yourself.</span>
+                <span className="redChar">※ Please check result by yourself.</span>
                 <table>
                     <tbody>
                         <tr>
