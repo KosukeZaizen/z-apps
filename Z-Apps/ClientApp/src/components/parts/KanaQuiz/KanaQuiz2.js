@@ -27,11 +27,11 @@ export default class Quiz2 extends React.Component {
     }
 
     initSet() {
-        let aryKeys = Object.keys(this.listAll);
+        let aryKeys = Object.keys(this.listTmp);
         this.indexQ = aryKeys[Math.floor(Math.random() * aryKeys.length)];
 
         this.question = this.listTmp[this.indexQ];
-        delete this.listTmp[this.indexQ];
+        delete this.listAll[this.indexQ];
 
         //ボタン値セット
         for (let i = 0; i < 4; i++) {
@@ -55,7 +55,7 @@ export default class Quiz2 extends React.Component {
         let question = this.question;
         let answer = this[`btn${i}Value`];
 
-        if (question === this.listAll[answer]) {
+        if (question === this.listTmp[answer]) {
             this.correct += 1;
             alert('Correct!');
         } else {
@@ -66,21 +66,9 @@ export default class Quiz2 extends React.Component {
         if (this.correct + Object.keys(this.incorrectList).length  === maxGame ) {
             this.props.changePage(3);
             this.props.setScore(this.correct);
-            /*
-            var htmlInc = "";
-            if(this.incorrectList){
-                htmlInc = this.incorrectList ? "<h3>Characters you should remember:</h3>" : "";
-            }
-
-            htmlInc += "<h1><table style='font-size: 15pt;'>";
-            for (let key in this.incorrectList) {
-                htmlInc = htmlInc + "<tr><td>&nbsp;&nbsp;&nbsp;" + this.incorrectList[key] + "</td><td> :   </td><td>" + key + "</td>";
-            }
-            htmlInc = htmlInc + "</table></h1>";
-            */
             this.props.setIncorrectList(this.incorrectList);
         } else {
-            delete this.listAll[this.indexQ];
+            delete this.listTmp[this.indexQ];
             this.initSet();
         }
         this.setState({ gameCount: this.state.gameCount + 1,});
