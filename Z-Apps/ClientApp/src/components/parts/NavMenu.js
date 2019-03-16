@@ -34,9 +34,6 @@ export default class NavMenu extends React.Component {
                                     <NavLink tag={Link} className="text-light" to="/fetch-data">　Fetch data</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-light" to="/react-tutorial">　React tutorial</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} className="text-light" to="/romaji-converter">　Romaji converter</NavLink>
                                 </NavItem>
                             </ul>

@@ -1,31 +1,31 @@
-.hiragana-quiz #disp1 {
+.kana-quiz #disp1 {
     max-width: 600px;
 }
 
-.hiragana-quiz h1 {
+.kana-quiz h1 {
     margin: 30px;
 }
 
-.hiragana-quiz .related-articles {
+.kana-quiz .related-articles {
     border: 5px double #333333;
     margin-bottom: 10px;
     padding: 10px;
 }
 
-.hiragana-quiz .font-large {
+.kana-quiz .font-large {
     font-size: large;
 }
 
-.hiragana-quiz  .question {
+.kana-quiz  .question {
     font-size: xx-large;
 }
 
-.hiragana-quiz #disp2 .btn {
+.kana-quiz #disp2 .btn {
     width: 100px;
     height: 100px;
     margin: 15px;
 }
 
-.hiragana-quiz #disp3 {
+.kana-quiz #disp3 {
     max-width: 600px;
 }

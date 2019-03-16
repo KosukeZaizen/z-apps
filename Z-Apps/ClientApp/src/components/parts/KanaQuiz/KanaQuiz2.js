@@ -6,9 +6,6 @@ export default class Quiz2 extends React.Component {
         super(props);
         this.consts = {
             ANSWER_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block active",
-            ANSWER_BUTTON_SUCCESS: "btn btn-success btn-lg btn-block",
-            ANSWER_BUTTON_DANGER: "btn btn-danger btn-lg btn-block",
-            ANSWER_BUTTON_DARK: "btn btn-dark btn-lg btn-block",
         };
         this.state = {
             gameCount: 0,

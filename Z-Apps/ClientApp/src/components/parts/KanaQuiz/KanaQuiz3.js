@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, CardText, CardHeader, CardBody } from 'reactstrap';
+import { Card, Button, CardHeader, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -9,20 +9,19 @@ class IncorrectTable extends React.Component {
         let top = "Characters you should remember:";
         let trList = [];
         for (let key in this.props.incorrectList) {
-            trList.push(<tr key={key}><td>{this.props.incorrectList[key]}</td><td>:</td><td>{key}</td></tr>);
+            trList.push(<tr key={key}><td>{this.props.incorrectList[key]}</td><td>　:　</td><td>{key}</td></tr>);
         }
 
         return (
-            <Card body inverse color="success">
+            <Card body inverse color="primary">
                 <CardHeader tag="h3">{top}</CardHeader>
                 <CardBody>
-                    <CardText>
-                        <table>
-                            <tbody>
-                                {trList}
-                            </tbody>
-                        </table>
-                    </CardText>
+                    <table>
+                        <tbody>
+                            {trList}
+                        </tbody>
+                    </table>
+                    <br />
                     <Button onClick={() => { this.props.changePage(1) }} type="button">Retry</Button>
                 </CardBody>
             </Card>
@@ -37,25 +36,25 @@ class RelatedArticles extends React.Component {
         let linkList = [];
         for (let key in this.props.objLinks) {
             linkList.push(
-                <div>
-                <span className="font-large">
-                    &nbsp; &nbsp;
+                <div key={key}>
+                    <span className="font-large">
+                        &nbsp; &nbsp;
                     <u>
                             <a href={this.props.objLinks[key]} target="_blank" rel="noopener noreferrer">
                                 {key} &gt;&gt;
                             </a>
-                    </u>
-                </span>
-                <br />
+                        </u>
+                    </span>
+                    <br />
                 </div>
-                );
+            );
         }
 
         return (
             <div className="related-articles">
                 <b><span className="font-large">Related articles:</span></b><br />
                 <br />
-                {}
+                {linkList}
             </div>
         );
     }
@@ -63,6 +62,17 @@ class RelatedArticles extends React.Component {
 
 
 export default class Quiz3 extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.consts = {
+            BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block",
+            BUTTON_SUCCESS: "btn btn-success btn-lg btn-block",
+            BUTTON_DANGER: "btn btn-danger btn-lg btn-block",
+            BUTTON_DARK: "btn btn-dark btn-lg btn-block",
+        };
+    }
+
     render() {
         return (
             <div id="disp3">
@@ -80,25 +90,24 @@ export default class Quiz3 extends React.Component {
                     />
                 }
                 <br />
+                <Link to={"/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz"}>
+                    <button
+                        className={this.consts.BUTTON_SUCCESS}
+                    >
+                        {this.props.consts.OTHER_KANA_TYPE} Quiz!
+                    </button>
+                </Link>
                 <br />
-                <div className="related-articles">
-                    <b><span className="font-large">Related articles:</span></b><br />
-                    <br />
-                    <RelatedArticles objLinks={this.props.objLinks} />
-                    <span className="font-large">&nbsp; &nbsp; <u><a href="https://lingualninja.blogspot.com/2018/08/katakana-quiz.html" target="_blank">Katakana quiz &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp; <u><a href="https://lingualninja.blogspot.com/2018/07/hiragana-list.html" target="_blank">Hiragana chart &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp;&nbsp;<u><a href="https://lingualninja.blogspot.com/2018/07/dull-sound.html" target="_blank">Dull sound &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp;&nbsp;<u><a href="https://lingualninja.blogspot.com/2018/07/p-sound.html" target="_blank">P-sound &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp;&nbsp;<u><a href="https://lingualninja.blogspot.com/2018/07/syllabic-nasal.html" target="_blank">Syllabic nasal &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp; <u><a href="https://lingualninja.blogspot.com/2018/07/contracted-sound.html" target="_blank">Contracted sound &gt;&gt;</a></u></span><br />
-                    <br />
-                    <span className="font-large">&nbsp; &nbsp; <u><a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank">Romaji chart&nbsp;&gt;&gt;</a></u></span></div>
-                <br /></div>
+                <Link to={"/romaji-converter"}>
+                    <button
+                        className={this.consts.BUTTON_DANGER}
+                    >
+                        Romaji Converter
+                    </button>
+                </Link>
+                <br />
+                <RelatedArticles objLinks={this.props.consts.OBJ_LINKS} />
+            </div>
         );
     }
 }

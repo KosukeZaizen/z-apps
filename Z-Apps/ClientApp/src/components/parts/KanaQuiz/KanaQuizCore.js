@@ -54,6 +54,7 @@ export default class QuizCore extends React.Component {
         } else if (this.state.pageNum === 3) {
             return (
                 <Quiz3
+                    consts={this.props.consts}
                     changePage={(i) => this.changePage(i)}
                     maxChar={this.state.maxChar}
                     score={this.state.score}
