@@ -31,7 +31,7 @@ export default class Quiz2 extends React.Component {
         this.indexQ = aryKeys[Math.floor(Math.random() * aryKeys.length)];
 
         this.question = this.listTmp[this.indexQ];
-        delete this.listAll[this.indexQ];
+        delete this.listTmp[this.indexQ];
 
         //ボタン値セット
         for (let i = 0; i < 4; i++) {

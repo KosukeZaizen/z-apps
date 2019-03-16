@@ -78,7 +78,7 @@ export default class Quiz3 extends React.Component {
             <div id="disp3">
                 <h1>
                     Your score is:<br />
-                    &nbsp; &nbsp;{this.props.score}
+                    {this.props.score}
                     /
                     {this.props.maxChar}</h1>
                 <br />

@@ -5,7 +5,8 @@
 }
 
 .home .no-margin {
-    margin: 0;
+    margin: 10px;
+    line-height: 10px;
 }
 
 .home .initial-message {
