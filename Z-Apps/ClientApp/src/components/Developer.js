@@ -3,6 +3,18 @@ import { connect } from 'react-redux';
 import '../css/Developer.css';
 import image from '../img/KosukeZaizen.JPG';
 
+function SayHello() {
+    return (
+        <p>
+            <b>Hello! I'm Kosuke Zaizen!</b><br />
+            <br />
+            Thank you for using Z-Apps!<br />
+            I am a Japanese software engineer.<br />
+            Z-Apps is a website for Japanese learners.<br />
+            I hope Z-Apps can help!
+        </p>
+    );
+}
 
 const Developer = props => (
     <div className="developer">
@@ -16,17 +28,10 @@ const Developer = props => (
                         <tbody>
                             <tr>
                                 <td>
-                                    <img width="200px" src={image} alt="Kosuke Zaizen"/>
+                                    <img width="200px" src={image} alt="Kosuke Zaizen" />
                                 </td>
                                 <td className="tdExplanation" valign="top">
-                                    <p>
-                                        <b>Hello! I'm Kosuke Zaizen!</b><br />
-                                        <br />
-                                        Thank you for using Z-Apps!<br />
-                                        I am a Japanese software engineer.<br />
-                                        Z-Apps is a website for Japanese learners.<br />
-                                        I hope Z-Apps can help!
-                                 </p>
+                                    <SayHello />
                                 </td>
                             </tr>
                         </tbody>
@@ -36,31 +41,23 @@ const Developer = props => (
                     <center>
                         <img width="200px" src={image} alt="Kosuke Zaizen" />
                         <br /><br />
-                        <p>
-                            <b>Hello! I'm Kosuke Zaizen!</b><br />
-                            <br />
-                            Thank you for using Z-Apps!<br />
-                            I am a Japanese software engineer.<br />
-                            Z-Apps is a website to put apps made by me.<br />
-                            Mainly I put apps for someone studying Japanese.<br />
-                            I hope Z-Apps helps you somehow!
-                                 </p>
+                        <SayHello />
                     </center>
                 </span>
-            <hr />
-            <br />
-            <center>
-                <p>
-                    To contact me, please write a message using the link below:<br />
+                <hr />
+                <br />
+                <center>
+                    <p>
+                        To contact me, please write a message using the link below:<br />
                         <b><a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
-                    <br /><br />
-                    Also, I am writing a blog for someone studying Japanese:<br />
+                        <br /><br />
+                        Also, I am writing a blog for someone studying Japanese:<br />
                         <b><a href="https://lingualninja.blogspot.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
-                    <br /><br />
-                </p>
-                <NinjaFacebook />
-                <div id="fb-root"></div>
-            </center>
+                        <br /><br />
+                    </p>
+                    <NinjaFacebook />
+                    <div id="fb-root"></div>
+                </center>
             </div>
         </center>
     </div >
