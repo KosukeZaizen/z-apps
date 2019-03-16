@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 export default class Quiz1 extends React.Component {
@@ -31,7 +32,7 @@ export default class Quiz1 extends React.Component {
                 <br />
                 <button
                     id="btn10"
-                    onClick={() => this.startGame(10) }
+                    onClick={() => this.startGame(10)}
                     className={this.consts.START_BUTTON_PRIMARY}
                 >
                     Random 10 characters
@@ -57,13 +58,15 @@ export default class Quiz1 extends React.Component {
                 <br />
                 <hr />
                 <br />
-                <button
-                    id="btnOther"
-                    onClick={() => "start(102)"}
-                    className={this.consts.START_BUTTON_DARK}
-                >
-                    {this.props.consts.OTHER_KANA_TYPE} Quiz
+                <Link to={"/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz"}>
+                    <button
+                        id="btnOther"
+                        onClick={() => "start(102)"}
+                        className={this.consts.START_BUTTON_DARK}
+                    >
+                        {this.props.consts.OTHER_KANA_TYPE} Quiz
                 </button>
+                </Link>
                 <br />
             </div>
         );
