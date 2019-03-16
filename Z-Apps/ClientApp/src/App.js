@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router';
 import Layout from './components/parts/Layout';
 import Home from './components/Home';
-import FetchData from './components/FetchData';
 import RomajiConverter from './components/RomajiConverter';
 import Terms from './components/Terms';
 import Developer from './components/Developer';
@@ -12,7 +11,6 @@ import KatakanaQuiz from './components/KatakanaQuiz';
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
         <Route path='/romaji-converter' component={RomajiConverter} />
         <Route path='/terms' component={Terms} />
         <Route path='/developer' component={Developer} />
