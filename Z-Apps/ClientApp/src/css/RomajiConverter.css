@@ -76,3 +76,8 @@
     margin: 30px;
     line-height: 30px;
 }
+
+.romaji-converter .no-margin {
+    margin: 0;
+    line-height: 10px;
+}

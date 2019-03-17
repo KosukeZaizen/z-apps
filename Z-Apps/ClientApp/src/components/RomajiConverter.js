@@ -156,7 +156,11 @@ class Parent extends React.Component {
                 </table>
                 <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.BTN_LABEL}</button>
                 <br />
-                If you want to check Romaji chart, please check this:<br />
+                <p className="no-margin">
+                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                    please check this:
+                    </p>
+                <br />
                 <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br /><br />
             </center>

@@ -20,3 +20,7 @@
 .developer tr {
     padding: 10px;
 }
+
+.developer .no-margin {
+    line-height: 10px;
+}

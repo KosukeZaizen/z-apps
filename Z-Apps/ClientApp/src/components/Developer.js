@@ -47,14 +47,18 @@ const Developer = props => (
                 <hr />
                 <br />
                 <center>
-                    <p>
-                        To contact me, please write a message using the link below:<br />
+                    <p className="no-margin">
+                        To contact me, please write a message<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                        using the link below:</p><br />
                         <b><a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
-                        <br /><br />
-                        Also, I am writing a blog for someone studying Japanese:<br />
+                        
+                    <br /><br /><br />
+                    <p className="no-margin">
+                        Also, I am writing a blog for people<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                        studying Japanese:</p><br />
                         <b><a href="https://lingualninja.blogspot.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
                         <br /><br />
-                    </p>
+                    
                     <NinjaFacebook />
                     <div id="fb-root"></div>
                 </center>
@@ -80,12 +84,12 @@ class NinjaFacebook extends React.Component {
                 onLoad={this.initNinjaFacebook(document, 'script', 'facebook-jssdk')}
                 className="fb-page"
                 data-href="https://www.facebook.com/Lingual-Ninja-491712431290062/"
-                data-tabs="timeline"
+                data-width="300"
+                data-hight="300"
                 data-small-header="false"
                 data-adapt-container-width="true"
                 data-hide-cover="false"
                 data-show-facepile="true"
-                data-width="500"
             >
                 <blockquote cite="https://www.facebook.com/Lingual-Ninja-491712431290062/" className="fb-xfbml-parse-ignore">
                     <a href="https://www.facebook.com/Lingual-Ninja-491712431290062/">
