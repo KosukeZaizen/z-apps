@@ -161,7 +161,7 @@ class Parent extends React.Component {
                     please check this:
                     </p>
                 <br />
-                <a href="https://lingualninja.blogspot.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
+                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br /><br />
             </center>
         );

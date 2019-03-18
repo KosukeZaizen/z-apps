@@ -56,7 +56,7 @@ const Developer = props => (
                     <p className="no-margin">
                         Also, I am writing a blog for people<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                         studying Japanese:</p><br />
-                        <b><a href="https://lingualninja.blogspot.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
+                        <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
                         <br /><br />
                     
                     <NinjaFacebook />
