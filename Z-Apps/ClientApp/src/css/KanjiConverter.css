@@ -85,6 +85,7 @@
 }
 
 .kanji-converter #btnCopy {
+    margin-top: 10px;
     max-width: 800px;
 }
 
@@ -101,4 +102,8 @@
 
 .kanji-converter .inputKanji {
     max-width: 400px;
+}
+
+.kanji-converter .yahoo {
+    margin: 15px 15px 15px 15px;
 }

@@ -108,9 +108,7 @@ class Parent extends React.Component {
 
     onClickConvert() {
         let convertedHiragana = "へんかんごのひらがな";
-
-        this.setState({ prompt: convertedHiragana, });
-//        this.setStateTextVal(this.state.prompt);
+        this.setStateTextVal(convertedHiragana);
     }
 
     onClickCopy() {
@@ -198,7 +196,17 @@ class Parent extends React.Component {
                     </p>
                 <br />
                 <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
-                <br /><br />
+                <br />
+                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
+                <a href="https://developer.yahoo.co.jp/about">
+                    <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
+                        title="Webサービス by Yahoo! JAPAN"
+                        alt="Web Services by Yahoo! JAPAN"
+                        width="125" height="17" border="0"
+                        className="yahoo"
+                    />
+                </a>
+                {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
             </center>
         );
     }
