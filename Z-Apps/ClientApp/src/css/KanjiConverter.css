@@ -26,9 +26,19 @@
     margin: 0px;
 }
 
-.kanji-converter table {
+.kanji-converter .result-table {
     width: 100%;
     max-width: 800px;
+    height: 150px;
+    font-size: 20px;
+    table-layout: fixed;
+    border: solid;
+    border-color: lightblue;
+}
+
+.kanji-converter .kanji-table {
+    width: 100%;
+    max-width: 400px;
     height: 150px;
     font-size: 20px;
     table-layout: fixed;
@@ -68,6 +78,12 @@
     color: black;
 }
 
+.kanji-converter #btnConvert {
+    max-width: 270px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .kanji-converter #btnCopy {
     max-width: 800px;
 }
@@ -80,4 +96,9 @@
 .kanji-converter .no-margin {
     margin: 0;
     line-height: 10px;
+}
+
+
+.kanji-converter .inputKanji {
+    max-width: 400px;
 }

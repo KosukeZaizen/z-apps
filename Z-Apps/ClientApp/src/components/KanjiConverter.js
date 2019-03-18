@@ -31,20 +31,24 @@ class Parent extends React.Component {
             MSG_COPY_DONE: "Copy was done!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
 
-            BTN_LABEL: "Click here to copy Romaji!",
+            COPY_BTN_LABEL: "Click here to copy Romaji!",
+            CONVERT_BTN_LABEL: "⇓　　Convert!　　⇓",
 
+            CONVERT_BUTTON: "btn btn-dark btn-lg btn-block",
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
 
             ioArea: []
         };
 
         this.state = {
+            inputKanji: "しょきち",
             textVal: "",
             prompt: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
         this.setStateTextVal = this.setStateTextVal.bind(this);
         this.initText = this.initText.bind(this);
+        this.onClickConvert = this.onClickConvert.bind(this);
     }
 
 
@@ -102,6 +106,13 @@ class Parent extends React.Component {
         objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
     }
 
+    onClickConvert() {
+        let convertedHiragana = "へんかんごのひらがな";
+
+        this.setState({ prompt: convertedHiragana, });
+//        this.setStateTextVal(this.state.prompt);
+    }
+
     onClickCopy() {
         let strTarget = getCopyTarget();
 
@@ -125,8 +136,33 @@ class Parent extends React.Component {
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please check result by yourself.</span>
-                <table>
+                <span className="redChar">※ Please check result by yourself.</span><br />
+
+                <table className="kanji-table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <center>Kanji</center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className="row">
+                                <textarea
+                                    className="inputKanji"
+                                    defaultValue={this.state.inputKanji}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button
+                    id="btnConvert"
+                    onClick={this.onClickConvert}
+                    className={objConst.CONVERT_BUTTON}
+                >
+                    {objConst.CONVERT_BTN_LABEL}
+                </button>
+                <table className="result-table">
                     <tbody>
                         <tr>
                             <th>
@@ -154,7 +190,7 @@ class Parent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.BTN_LABEL}</button>
+                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
                 <br />
                 <p className="no-margin">
                     If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
