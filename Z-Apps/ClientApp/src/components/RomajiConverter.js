@@ -160,7 +160,6 @@ class Parent extends React.Component {
                     If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                     please check this:
                     </p>
-                <br />
                 <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br /><br />
             </center>
