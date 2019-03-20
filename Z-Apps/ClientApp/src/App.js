@@ -13,7 +13,7 @@ export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/romaji-converter' component={RomajiConverter} />
-        <Route path='/kanji-converter' component={KanjiConverter} />
+        <Route path='/kanji-converter/:startDateIndex?' component={KanjiConverter} />
         <Route path='/terms' component={Terms} />
         <Route path='/developer' component={Developer} />
         <Route path='/hiragana-quiz' component={HiraganaQuiz} />

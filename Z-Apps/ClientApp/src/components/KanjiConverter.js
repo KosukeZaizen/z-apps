@@ -1,13 +1,35 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/Counter';
+import { Link } from 'react-router-dom';
+import { actionCreators } from '../store/KanjiConverterAction';
 import '../css/KanjiConverter.css';
+
+
 
 let objConst = {};
 
 // 親：<Parent />の定義
 class Parent extends React.Component {
+
+    componentDidMount() {
+        // This method is called when the component is first added to the document
+        this.ensureDataFetched();
+    }
+
+    componentDidUpdate() {
+        // This method is called when the route parameters change
+        this.ensureDataFetched();
+    }
+
+    ensureDataFetched() {
+        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
+        this.props.requestWeatherForecasts(startDateIndex);
+        /*
+        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
+        this.props.requestWeatherForecasts(kanjiChars);
+        */
+    }
 
     // State（※状態は親が管理）
     // この値はブラウザを閉じたり、リロードするまでは保持される
@@ -48,6 +70,7 @@ class Parent extends React.Component {
         };
         this.setStateTextVal = this.setStateTextVal.bind(this);
         this.initText = this.initText.bind(this);
+        this.onChangeKanji = this.onChangeKanji.bind(this);
         this.onClickConvert = this.onClickConvert.bind(this);
     }
 
@@ -61,6 +84,9 @@ class Parent extends React.Component {
         }
     }
 
+    onChangeKanji(kanjiVal) {
+        this.setState({ inputKanji: kanjiVal.target.value });
+    }
 
     // State(textVal)を変更
     setStateTextVal(textVal) {
@@ -107,9 +133,16 @@ class Parent extends React.Component {
     }
 
     onClickConvert() {
+        //★
         // https://jlp.yahooapis.jp/FuriganaService/V1/furigana
+        /*
         let convertedHiragana = "へんかんごのひらがな";
         this.setStateTextVal(convertedHiragana);
+        */
+
+        let startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
+        startDateIndex += 5;
+        this.props.requestWeatherForecasts(startDateIndex);
     }
 
     onClickCopy() {
@@ -135,6 +168,7 @@ class Parent extends React.Component {
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
+                {renderForecastsTable(this.props)}
                 <span className="redChar">※ Please check result by yourself.</span><br />
 
                 <table className="kanji-table">
@@ -147,6 +181,7 @@ class Parent extends React.Component {
                         <tr>
                             <td className="row">
                                 <textarea
+                                    onChange={(e) => { this.onChangeKanji(e) }}
                                     className="inputKanji"
                                     defaultValue={this.state.inputKanji}
                                 />
@@ -154,65 +189,91 @@ class Parent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+                <Link to={`/kanji-converter/${this.state.inputKanji}`}>
                 <button
-                    id="btnConvert"
-                    onClick={this.onClickConvert}
+                        id="btnConvert"
+                        onClick={(e) => { this.onClickConvert(e) }}
                     className={objConst.CONVERT_BUTTON}
                 >
                     {objConst.CONVERT_BTN_LABEL}
-                </button>
-                <table className="result-table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <center>Hiragana</center>
-                            </th>
-                            <th>
-                                <center>Romaji</center>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td className="row">
-                                <ChildInput
-                                    inputColor={this.state.inputColor}
-                                    prompt={this.state.prompt}
-                                    onChange={(e) => { this.setStateTextVal(e) }}
-                                    onFocus={(e) => { this.initText(e) }}
-                                    onScroll={this.onScrollInput}
-                                />
-                            </td>
-                            <td className="tdOutput">
-                                <Child
-                                    textVal={this.state.textVal}
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
-                <br />
-                <p className="no-margin">
-                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                    please check this:
+                    </button>
+                </Link>
+            <table className="result-table">
+                <tbody>
+                    <tr>
+                        <th>
+                            <center>Hiragana</center>
+                        </th>
+                        <th>
+                            <center>Romaji</center>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td className="row">
+                            <ChildInput
+                                inputColor={this.state.inputColor}
+                                prompt={this.state.prompt}
+                                onChange={(e) => { this.setStateTextVal(e) }}
+                                onFocus={(e) => { this.initText(e) }}
+                                onScroll={this.onScrollInput}
+                            />
+                        </td>
+                        <td className="tdOutput">
+                            <Child
+                                textVal={this.state.textVal}
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
+            <br />
+            <p className="no-margin">
+                If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                please check this:
                     </p>
-                <br />
-                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
-                <br />
-                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
-                <a href="https://developer.yahoo.co.jp/about">
-                    <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
-                        title="Webサービス by Yahoo! JAPAN"
-                        alt="Web Services by Yahoo! JAPAN"
-                        width="125" height="17" border="0"
-                        className="yahoo"
-                    />
-                </a>
-                {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
-            </center>
+            <br />
+            <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
+            <br />
+                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */ }
+        <a href="https://developer.yahoo.co.jp/about">
+            <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
+                title="Webサービス by Yahoo! JAPAN"
+                alt="Web Services by Yahoo! JAPAN"
+                width="125" height="17" border="0"
+                className="yahoo"
+            />
+        </a>
+        {/* End Yahoo! JAPAN Web Services Attribution Snippet */ }
+            </center >
         );
     }
 };
 
+function renderForecastsTable(props) {
+    return (
+        <table className='table table-striped'>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.forecasts.map(forecast =>
+                    <tr key={forecast.dateFormatted}>
+                        <td>{forecast.dateFormatted}</td>
+                        <td>{forecast.temperatureC}</td>
+                        <td>{forecast.temperatureF}</td>
+                        <td>{forecast.summary}</td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+    );
+}
 
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
@@ -227,7 +288,7 @@ class ChildInput extends React.Component {
     _onScroll() {
         this.props.onScroll();
     }
-    
+
     //入力エリアの表示
     render() {
         return (
@@ -301,6 +362,6 @@ function execCopy(string) {
 }
 
 export default connect(
-    state => state.counter,
+    state => state.weatherForecasts,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(Parent);
