@@ -182,13 +182,6 @@ class ChildInput extends React.Component {
         this.props.onScroll();
     }
 
-    _onKeyDown(e) {
-        if (e.keyCode === 13) { // Enterキー
-            //this.props.onSave(e.target.value);
-            //e.target.value = "";
-        }
-    }
-
     //入力エリアの表示
     render() {
         return (
@@ -197,7 +190,6 @@ class ChildInput extends React.Component {
                     id="inputArea"
                     className={this.props.inputColor}
                     onChange={(e) => { this._onChange(e) }}
-                    onKeyDown={(e) => { this._onKeyDown(e) }}
                     onFocus={(e) => { this._onFocus(e) }}
                     onScroll={() => { this._onScroll() }}
                     value={this.props.prompt}
