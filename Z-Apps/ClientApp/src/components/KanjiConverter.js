@@ -23,13 +23,13 @@ class Parent extends React.Component {
     }
 
     ensureDataFetched() {
-        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-        this.props.requestWeatherForecasts(startDateIndex);
-        /*
-        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
-        this.props.requestWeatherForecasts(kanjiChars);
-        */
+//        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
+//        this.props.requestWeatherForecasts(startDateIndex);
+
+//        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
+//        this.props.requestWeatherForecasts(kanjiChars);
     }
+
 
     // State（※状態は親が管理）
     // この値はブラウザを閉じたり、リロードするまでは保持される
@@ -72,6 +72,7 @@ class Parent extends React.Component {
         this.initText = this.initText.bind(this);
         this.onChangeKanji = this.onChangeKanji.bind(this);
         this.onClickConvert = this.onClickConvert.bind(this);
+        this.result = "";
     }
 
 
@@ -140,9 +141,13 @@ class Parent extends React.Component {
         this.setStateTextVal(convertedHiragana);
         */
 
-        let startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-        startDateIndex += 5;
+        let startDateIndex = "hello";
+        //startDateIndex += 5;
         this.props.requestWeatherForecasts(startDateIndex);
+
+        this.props.forecasts.map(forecast =>
+            this.result = forecast.dateFormatted
+        )
     }
 
     onClickCopy() {
@@ -168,7 +173,6 @@ class Parent extends React.Component {
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                {renderForecastsTable(this.props)}
                 <span className="redChar">※ Please check result by yourself.</span><br />
 
                 <table className="kanji-table">
@@ -190,90 +194,81 @@ class Parent extends React.Component {
                     </tbody>
                 </table>
                 <Link to={`/kanji-converter/${this.state.inputKanji}`}>
-                <button
+                    <button
                         id="btnConvert"
                         onClick={(e) => { this.onClickConvert(e) }}
-                    className={objConst.CONVERT_BUTTON}
-                >
-                    {objConst.CONVERT_BTN_LABEL}
+                        className={objConst.CONVERT_BUTTON}
+                    >
+                        {objConst.CONVERT_BTN_LABEL}
                     </button>
                 </Link>
-            <table className="result-table">
-                <tbody>
-                    <tr>
-                        <th>
-                            <center>Hiragana</center>
-                        </th>
-                        <th>
-                            <center>Romaji</center>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td className="row">
-                            <ChildInput
-                                inputColor={this.state.inputColor}
-                                prompt={this.state.prompt}
-                                onChange={(e) => { this.setStateTextVal(e) }}
-                                onFocus={(e) => { this.initText(e) }}
-                                onScroll={this.onScrollInput}
-                            />
-                        </td>
-                        <td className="tdOutput">
-                            <Child
-                                textVal={this.state.textVal}
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
-            <br />
-            <p className="no-margin">
-                If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                please check this:
+                <table className="result-table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <center>Hiragana</center>
+                            </th>
+                            <th>
+                                <center>Romaji</center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className="row">
+                                <ChildInput
+                                    inputColor={this.state.inputColor}
+                                    prompt={this.state.prompt}
+                                    onChange={(e) => { this.setStateTextVal(e) }}
+                                    onFocus={(e) => { this.initText(e) }}
+                                    onScroll={this.onScrollInput}
+                                    result={this.result}
+//                                    {/*                                    params={this.props} */}
+                                />
+                            </td>
+                            <td className="tdOutput">
+                                <Child
+                                    textVal={this.state.textVal}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
+                <br />
+                <p className="no-margin">
+                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                    please check this:
                     </p>
-            <br />
-            <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
-            <br />
-                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */ }
-        <a href="https://developer.yahoo.co.jp/about">
-            <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
-                title="Webサービス by Yahoo! JAPAN"
-                alt="Web Services by Yahoo! JAPAN"
-                width="125" height="17" border="0"
-                className="yahoo"
-            />
-        </a>
-        {/* End Yahoo! JAPAN Web Services Attribution Snippet */ }
+                <br />
+                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
+                <br />
+                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
+                <a href="https://developer.yahoo.co.jp/about">
+                    <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
+                        title="Webサービス by Yahoo! JAPAN"
+                        alt="Web Services by Yahoo! JAPAN"
+                        width="125" height="17" border="0"
+                        className="yahoo"
+                    />
+                </a>
+                {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
             </center >
         );
     }
 };
 
-function renderForecastsTable(props) {
+/*
+function renderConvResult(props) {
     return (
-        <table className='table table-striped'>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {props.forecasts.map(forecast =>
-                    <tr key={forecast.dateFormatted}>
-                        <td>{forecast.dateFormatted}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>
+        <div>
+            {props.forecasts.map(forecast =>
+                <span key={forecast.dateFormatted}>
+                    {forecast.dateFormatted}
+                </span>
+            )}
+        </div>
     );
 }
+*/
 
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
@@ -299,7 +294,7 @@ class ChildInput extends React.Component {
                     onChange={(e) => { this._onChange(e) }}
                     onFocus={(e) => { this._onFocus(e) }}
                     onScroll={() => { this._onScroll() }}
-                    value={this.props.prompt}
+                    value={this.props.result}
                 />
             </center>
         );
