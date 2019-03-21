@@ -20,16 +20,24 @@
     width: 100%;
 }
 
-.kanji-converter textarea {
+/* Kanji */
+.kanji-converter #inputKanji {
     width: 100%;
     height: 150px;
+    margin: 0px;
+}
+
+/* Hiragana */
+.kanji-converter #inputArea {
+    width: 100%;
+    height: 200px;
     margin: 0px;
 }
 
 .kanji-converter .result-table {
     width: 100%;
     max-width: 800px;
-    height: 150px;
+    height: 200px;
     font-size: 20px;
     table-layout: fixed;
     border: solid;
@@ -57,13 +65,13 @@
 }
 
 .kanji-converter .tdOutput {
-    height: 150px;
+    height: 200px;
     word-wrap: break-word;
 }
 
 .kanji-converter .lines {
     overflow-y: scroll;
-    height: 150px;
+    height: 200px;
 }
 
 .kanji-converter .line-wrap {

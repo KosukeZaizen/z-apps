@@ -29,7 +29,7 @@ class Parent extends React.Component {
             objLongSound: { "oo": "o", "ou": "o", "uu": "u" },
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
 
-            MSG_PROMPT: "Please type or pasete sentences including Kanji here!\n(Max 250 characters)\nThen push the [Convert] button below.",
+            MSG_PROMPT: "Please type or paste sentences, including Kanji here!\n(Max 250 characters)\nThen push the [Convert] button below.",
             MSG_TYPE_KANJI: "Please input Kanji before pushing [Convert] button!",
 
             MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
