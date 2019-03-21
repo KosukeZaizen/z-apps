@@ -152,7 +152,7 @@ class Parent extends React.Component {
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please check result by yourself.</span><br />
+                <span className="redChar">※ Please also check the result.</span><br />
 
                 <table className="kanji-table">
                     <tbody>

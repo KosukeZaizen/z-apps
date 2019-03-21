@@ -125,7 +125,7 @@ class Parent extends React.Component {
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please check result by yourself.</span>
+                <span className="redChar">※ Please also check the result.</span>
                 <table>
                     <tbody>
                         <tr>
