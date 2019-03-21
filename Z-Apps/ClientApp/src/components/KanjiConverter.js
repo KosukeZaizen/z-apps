@@ -23,11 +23,11 @@ class Parent extends React.Component {
     }
 
     ensureDataFetched() {
-//        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-//        this.props.requestWeatherForecasts(startDateIndex);
+        //        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
+        //        this.props.requestWeatherForecasts(startDateIndex);
 
-//        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
-//        this.props.requestWeatherForecasts(kanjiChars);
+        //        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
+        //        this.props.requestWeatherForecasts(kanjiChars);
     }
 
 
@@ -48,7 +48,7 @@ class Parent extends React.Component {
             objLongSound: { "oo": "o", "ou": "o", "uu": "u" },
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
 
-            MSG_PROMPT: "Please type or paste the sentences of [Hiragana] or [Katakana] here.",
+            MSG_PROMPT: "Please type sentences including Kanji here! And push the [Convert] button below.",
             MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
             MSG_COPY_DONE: "Copy was done!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
@@ -63,9 +63,9 @@ class Parent extends React.Component {
         };
 
         this.state = {
-            inputKanji: "しょきち",
+            inputKanji: objConst.MSG_PROMPT,
             textVal: "",
-            prompt: objConst.MSG_PROMPT,
+            prompt: "",
             inputColor: "redChar",
         };
         this.setStateTextVal = this.setStateTextVal.bind(this);
@@ -77,9 +77,9 @@ class Parent extends React.Component {
 
 
     initText() {
-        if (this.state.prompt === objConst.MSG_PROMPT) {
+        if (this.state.inputKanji === objConst.MSG_PROMPT) {
             this.setState({
-                prompt: "",
+                inputKanji: "",
                 inputColor: "blackChar",
             });
         }
@@ -141,13 +141,9 @@ class Parent extends React.Component {
         this.setStateTextVal(convertedHiragana);
         */
 
-        let startDateIndex = "hello";
+        //let startDateIndex = "hello";
         //startDateIndex += 5;
-        this.props.requestWeatherForecasts(startDateIndex);
-
-        this.props.forecasts.map(forecast =>
-            this.result = forecast.dateFormatted
-        )
+        this.props.requestWeatherForecasts(this.state.inputKanji);
     }
 
     onClickCopy() {
@@ -168,6 +164,11 @@ class Parent extends React.Component {
 
     //ローマ字変換アプリの表示
     render() {
+
+        this.props.forecasts.map(forecast =>
+            this.result = forecast.dateFormatted
+        )
+
         return (
             <center className="kanji-converter">
                 <h1>
@@ -185,23 +186,23 @@ class Parent extends React.Component {
                         <tr>
                             <td className="row">
                                 <textarea
+                                    id="inputKanji"
                                     onChange={(e) => { this.onChangeKanji(e) }}
-                                    className="inputKanji"
-                                    defaultValue={this.state.inputKanji}
+                                    className={this.state.inputColor}
+                                    value={this.state.inputKanji}
+                                    onFocus={(e) => { this.initText(e) }}
                                 />
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <Link to={`/kanji-converter/${this.state.inputKanji}`}>
-                    <button
-                        id="btnConvert"
-                        onClick={(e) => { this.onClickConvert(e) }}
-                        className={objConst.CONVERT_BUTTON}
-                    >
-                        {objConst.CONVERT_BTN_LABEL}
-                    </button>
-                </Link>
+                <button
+                    id="btnConvert"
+                    onClick={(e) => { this.onClickConvert(e) }}
+                    className={objConst.CONVERT_BUTTON}
+                >
+                    {objConst.CONVERT_BTN_LABEL}
+                </button>
                 <table className="result-table">
                     <tbody>
                         <tr>
@@ -215,13 +216,13 @@ class Parent extends React.Component {
                         <tr>
                             <td className="row">
                                 <ChildInput
-                                    inputColor={this.state.inputColor}
+                                    //                                    inputColor={this.state.inputColor}
                                     prompt={this.state.prompt}
-                                    onChange={(e) => { this.setStateTextVal(e) }}
-                                    onFocus={(e) => { this.initText(e) }}
+                                    //                                    onChange={(e) => { this.setStateTextVal(e) }}
+                                    //                                    onFocus={(e) => { this.initText(e) }}
                                     onScroll={this.onScrollInput}
                                     result={this.result}
-//                                    {/*                                    params={this.props} */}
+                                //                                    {/*                                    params={this.props} */}
                                 />
                             </td>
                             <td className="tdOutput">
@@ -272,9 +273,11 @@ function renderConvResult(props) {
 
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
-    _onChange(e) {
-        this.props.onChange(e.target.value);
-    }
+    /*
+        _onChange(e) {
+            this.props.onChange(e.target.value);
+        }
+        */
 
     _onFocus(e) {
         this.props.onFocus(e.target.value);
@@ -291,7 +294,7 @@ class ChildInput extends React.Component {
                 <textarea
                     id="inputArea"
                     className={this.props.inputColor}
-                    onChange={(e) => { this._onChange(e) }}
+                    //                   onChange={(e) => { this._onChange(e) }}
                     onFocus={(e) => { this._onFocus(e) }}
                     onScroll={() => { this._onScroll() }}
                     value={this.props.result}

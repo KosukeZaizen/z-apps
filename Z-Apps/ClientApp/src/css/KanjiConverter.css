@@ -82,6 +82,7 @@
     max-width: 270px;
     margin-top: 10px;
     margin-bottom: 10px;
+    color: white;
 }
 
 .kanji-converter #btnCopy {
@@ -100,7 +101,7 @@
 }
 
 
-.kanji-converter .inputKanji {
+.kanji-converter #inputKanji {
     max-width: 400px;
 }
 
