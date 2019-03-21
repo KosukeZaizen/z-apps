@@ -108,3 +108,18 @@
 .kanji-converter .yahoo {
     margin: 15px 15px 15px 15px;
 }
+
+.kanji-converter .yahoo-text {
+    font-size: x-small;
+}
+
+.yahoo-div {
+    font-size: 150%;
+    background: #f1f1f1;
+    padding: 0.1em 0.5em;
+    border: solid 1px #b3b3b3;
+    border-top: solid 1px #717171;
+    border-bottom: solid 1px #e0e0e0;
+    box-shadow: 0 1px 2px rgba(100, 100, 100, 0.3)inset;
+    max-width: 450px;
+}
