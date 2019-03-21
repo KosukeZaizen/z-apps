@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Z_Apps.Controllers
@@ -12,9 +11,39 @@ namespace Z_Apps.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts(String startDateIndex)
         {
-            return Enumerable.Range(1,1).Select(index => new WeatherForecast
+
+            string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
+
+            //文字コードを指定する
+            System.Text.Encoding enc =
+                System.Text.Encoding.GetEncoding("UTF-8");
+
+            //POST送信する文字列を作成
+            string postData =
+                "sentence=" +
+                System.Web.HttpUtility.UrlEncode(startDateIndex, enc);
+            //バイト型配列に変換
+            byte[] postDataBytes = enc.GetBytes(postData);
+
+            System.Net.WebClient wc = new System.Net.WebClient();
+            //ヘッダにContent-Typeを加える
+            wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+            wc.Headers.Add("User-Agent", "Yahoo AppID: dj00aiZpPXU5cmtFM3VpclBvMCZzPWNvbnN1bWVyc2VjcmV0Jng9NDM-");
+            //データを送信し、また受信する
+            byte[] resData = wc.UploadData(url, postDataBytes);
+            wc.Dispose();
+
+            //受信したデータを表示する
+            string resText = enc.GetString(resData);
+            //Console.WriteLine(resText);
+
+            string strFurigana1 = resText.Split("<Furigana>")[1];
+            string strFurigana2 = strFurigana1.Split("</Furigana>")[0];
+
+
+            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
             {
-                DateFormatted = startDateIndex,
+                DateFormatted = strFurigana2,
             });
         }
 
