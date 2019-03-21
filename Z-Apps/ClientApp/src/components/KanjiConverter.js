@@ -12,25 +12,6 @@ let objConst = {};
 // 親：<Parent />の定義
 class Parent extends React.Component {
 
-    componentDidMount() {
-        // This method is called when the component is first added to the document
-        this.ensureDataFetched();
-    }
-
-    componentDidUpdate() {
-        // This method is called when the route parameters change
-        this.ensureDataFetched();
-    }
-
-    ensureDataFetched() {
-        //        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-        //        this.props.requestWeatherForecasts(startDateIndex);
-
-        //        const kanjiChars = "漢字ですよ";//this.props.match.params.kanjiChars || "";
-        //        this.props.requestWeatherForecasts(kanjiChars);
-    }
-
-
     // State（※状態は親が管理）
     // この値はブラウザを閉じたり、リロードするまでは保持される
     constructor(props) {
@@ -48,7 +29,7 @@ class Parent extends React.Component {
             objLongSound: { "oo": "o", "ou": "o", "uu": "u" },
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
 
-            MSG_PROMPT: "Please type or pasete sentences including Kanji here!\nThen push the [Convert] button below.",
+            MSG_PROMPT: "Please type or pasete sentences including Kanji here!\n(Max 250 characters)\nThen push the [Convert] button below.",
             MSG_TYPE_KANJI: "Please input Kanji before pushing [Convert] button!",
 
             MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
@@ -69,7 +50,6 @@ class Parent extends React.Component {
 
         this.state = {
             inputKanji: objConst.MSG_PROMPT,
-            //            prompt: "",
             inputColor: "redChar",
         };
 
@@ -115,12 +95,6 @@ class Parent extends React.Component {
         textVal_r = convertChars(textVal_r, objConst.objLongSound);
 
         this.textVal = textVal_r;
-        /*
-        this.setState({
-            textVal: textVal_r,
-            prompt: textVal,
-        });
-        */
     }
 
     convertSmallTsu(text) {
@@ -141,15 +115,6 @@ class Parent extends React.Component {
     }
 
     onClickConvert() {
-        //★
-        // https://jlp.yahooapis.jp/FuriganaService/V1/furigana
-        /*
-        let convertedHiragana = "へんかんごのひらがな";
-        this.setStateTextVal(convertedHiragana);
-        */
-
-        //let startDateIndex = "hello";
-        //startDateIndex += 5;
         if (this.state.inputKanji === objConst.MSG_PROMPT || this.state.inputKanji === "") {
             alert(objConst.MSG_TYPE_KANJI);
         } else {
@@ -204,6 +169,7 @@ class Parent extends React.Component {
                                     className={this.state.inputColor}
                                     value={this.state.inputKanji}
                                     onFocus={(e) => { this.initText(e) }}
+                                    maxlength="250"
                                 />
                             </td>
                         </tr>
@@ -230,13 +196,8 @@ class Parent extends React.Component {
                         <tr>
                             <td className="row">
                                 <ChildInput
-                                    //                                    inputColor={this.state.inputColor}
-                                    //                                    prompt={this.state.prompt}
-                                    //                                    onChange={(e) => { this.setStateTextVal(e) }}
-                                    //                                    onFocus={(e) => { this.initText(e) }}
                                     onScroll={this.onScrollInput}
                                     result={this.result}
-                                //                                    params={this.props}
                                 />
                             </td>
                             <td className="tdOutput">
@@ -250,12 +211,10 @@ class Parent extends React.Component {
                 <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
                 <br />
                 <p className="no-margin">
-                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                    If you want to know about Kanji,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                     please check this:
                     </p>
-                <br />
-                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
-                <br />
+                <a href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html" target="_blank" rel="noopener noreferrer"><b>What is Kanji? >></b></a>
                 <br />
                 <br />
                 {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
@@ -277,31 +236,8 @@ class Parent extends React.Component {
     }
 };
 
-/*
-function renderConvResult(props) {
-    return (
-        <div>
-            {props.forecasts.map(forecast =>
-                <span key={forecast.dateFormatted}>
-                    {forecast.dateFormatted}
-                </span>
-            )}
-        </div>
-    );
-}
-*/
-
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
-    /*
-        _onChange(e) {
-            this.props.onChange(e.target.value);
-        }        
-
-    _onFocus(e) {
-        this.props.onFocus(e.target.value);
-    }
-    */
 
     _onScroll() {
         this.props.onScroll();
@@ -314,8 +250,6 @@ class ChildInput extends React.Component {
                 <textarea
                     id="inputArea"
                     className={this.props.inputColor}
-                    //                   onChange={(e) => { this._onChange(e) }}
-                    //                    onFocus={(e) => { this._onFocus(e) }}
                     onScroll={() => { this._onScroll() }}
                     value={this.props.result}
                 />

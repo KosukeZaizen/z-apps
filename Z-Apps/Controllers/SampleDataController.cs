@@ -39,14 +39,22 @@ namespace Z_Apps.Controllers
             //Console.WriteLine(resText);
 
 
-            string[] arrFurigana1 = resText.Split("<Furigana>");
+            string[] arrFurigana1 = resText.Split("<Word>");
 
             string result = "";
             foreach (string str in arrFurigana1)
             {
-                if (str.Contains("</Furigana>") && !str.Contains("</SubWord>"))
+                if (str.Contains("</Word>"))
                 {
-                    result += str.Split("</Furigana>")[0];
+                    string strSurfaceAndFurigana = str.Split("<SubWordList>")[0].Split("</Word>")[0];
+                    if (strSurfaceAndFurigana.Contains("<Furigana>"))
+                    {
+                        result += strSurfaceAndFurigana.Split("<Furigana>")[1].Split("</Furigana>")[0];
+                    }
+                    else
+                    {
+                        result += strSurfaceAndFurigana.Split("<Surface>")[1].Split("</Surface>")[0];
+                    }
                 }
             }
 
