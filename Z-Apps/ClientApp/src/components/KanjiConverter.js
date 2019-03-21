@@ -216,6 +216,7 @@ class Parent extends React.Component {
                 >
                     {objConst.CONVERT_BTN_LABEL}
                 </button>
+                {this.props.isLoading ? <span>Loading...</span> : []}
                 <table className="result-table">
                     <tbody>
                         <tr>

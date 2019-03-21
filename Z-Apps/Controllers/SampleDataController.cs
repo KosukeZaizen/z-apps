@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -37,13 +38,23 @@ namespace Z_Apps.Controllers
             string resText = enc.GetString(resData);
             //Console.WriteLine(resText);
 
-            string strFurigana1 = resText.Split("<Furigana>")[1];
-            string strFurigana2 = strFurigana1.Split("</Furigana>")[0];
+
+            string[] arrFurigana1 = resText.Split("<Furigana>");
+
+            string result = "";
+            foreach (string str in arrFurigana1)
+            {
+                if (str.Contains("</Furigana>") && !str.Contains("</SubWord>"))
+                {
+                    result += str.Split("</Furigana>")[0];
+                }
+            }
+
 
 
             return Enumerable.Range(1, 1).Select(index => new WeatherForecast
             {
-                DateFormatted = strFurigana2,
+                DateFormatted = result,
             });
         }
 
