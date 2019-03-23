@@ -32,7 +32,7 @@ class Parent extends React.Component {
             MSG_PROMPT: "Please type or paste sentences, including Kanji here!\n(Max 250 characters)\nThen push the [Convert] button below.",
             MSG_TYPE_KANJI: "Please input Kanji before pushing [Convert] button!",
 
-            MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
+            MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Kanji and push [Convert] button!",
             MSG_COPY_DONE: "Copy was done!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
 
