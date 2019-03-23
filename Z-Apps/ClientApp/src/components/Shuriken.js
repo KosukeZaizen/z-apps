@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Page1 } from './parts/Shuriken/Page1';
 import { Page2 } from './parts/Shuriken/Page2';
 import '../css/Shuriken.css';
@@ -17,15 +16,19 @@ class ShurikenGame extends React.Component {
         };
     }
 
+    changePage(num) {
+        this.setState({ curPage: num, });
+    }
+
     //入力エリアの表示
     render() {
         if (this.state.curPage === 1) {
             return (
-                <Page1 />
+                <Page1 changePage={(i) => { this.changePage(i) }} />
             );
         } else if (this.state.curPage === 2) {
             return (
-                <Page1 />
+                <Page2 />
             );
         }
     }
