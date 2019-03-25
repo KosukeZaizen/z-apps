@@ -13,7 +13,6 @@ class NavigationItems extends React.Component {
             "Romaji Converter": "/romaji-converter",
             "Hiragana Quiz": "/hiragana-quiz",
             "Katakana Quiz": "/katakana-quiz",
-            "-": "/ninja",
         };
         let linkList = [];
         for (let key in objLinks) {
