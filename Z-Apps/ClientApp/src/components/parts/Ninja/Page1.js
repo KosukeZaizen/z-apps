@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.png';
+import logo from './img/logo.png';
 
 
 export default class Page1 extends React.Component {
@@ -28,14 +28,14 @@ export default class Page1 extends React.Component {
                 <br />
 
                 <center>
-                    If you want to know about Shuriken,<br />
+                    If you want to be a real Ninja,<br />
                     please check this:<br />
                     <a
-                        href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html#how-to-be-ninja1-5"
+                        href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Ninja's tools >>
+                        How to be a Ninja >>
                         </a>
                 </center>
             </div>

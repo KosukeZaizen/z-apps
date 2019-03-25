@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Page1 } from './parts/Shuriken/Page1';
-import { Page2 } from './parts/Shuriken/Page2';
+import { Page1 } from './parts/Ninja/Page1';
+import { Page2 } from './parts/Ninja/Page2';
 import '../css/Shuriken.css';
 
 
-class ShurikenGame extends React.Component {
+class NinjaGame extends React.Component {
 
     constructor(props) {
         super(props);
@@ -34,4 +34,4 @@ class ShurikenGame extends React.Component {
     }
 };
 
-export default connect()(ShurikenGame);
+export default connect()(NinjaGame);

@@ -1,23 +1,24 @@
 import React from 'react';
 
-
-export default class Page2 extends React.Component {
+export default class Obj extends React.Component {
 
     constructor(props) {
         super(props);
         this.consts = {
         };
         this.state = {
+
         };
     }
 
     render() {
+
         return (
-            <div id="page2">
-                Page2
+            <div>
+                <img src={this.props.imgSrc} alt={this.props.imgAlt} width={this.props.width}/>
             </div>
         );
     }
 }
 
-export { Page2 };
+export { Obj };

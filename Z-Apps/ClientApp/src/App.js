@@ -8,7 +8,7 @@ import Terms from './components/Terms';
 import Developer from './components/Developer';
 import HiraganaQuiz from './components/HiraganaQuiz';
 import KatakanaQuiz from './components/KatakanaQuiz';
-import Shuriken from './components/Shuriken';
+import Ninja from './components/Ninja';
 
 export default () => (
     <Layout>
@@ -19,6 +19,6 @@ export default () => (
         <Route path='/romaji-converter' component={RomajiConverter} />
         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
         <Route path='/katakana-quiz' component={KatakanaQuiz} />
-        <Route path='/shuriken' component={Shuriken} />
+        <Route path='/ninja' component={Ninja} />
     </Layout>
 );
