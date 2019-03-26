@@ -38,6 +38,8 @@ export default class Page1 extends React.Component {
                         How to be a Ninja >>
                         </a>
                 </center>
+                <br />
+                <br />
             </div>
         );
     }

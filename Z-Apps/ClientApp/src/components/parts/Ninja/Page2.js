@@ -19,7 +19,7 @@ export default class Page2 extends React.Component {
         let pageStyle = {
             position: "absolute",
             top: 0,
-            left:0,
+            left: 0,
             width: "100%",
             height: "100%",
 //            backgroundImage: `url(${red})`,
