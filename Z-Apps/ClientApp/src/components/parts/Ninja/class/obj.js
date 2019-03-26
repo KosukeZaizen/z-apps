@@ -15,7 +15,7 @@ export default class Obj extends React.Component {
 
         return (
             <div>
-                <img src={this.props.imgSrc} alt={this.props.imgAlt} width={this.props.width}/>
+                <img src={this.props.imgSrc} alt={this.props.imgAlt} width={this.props.width} className="item" />
             </div>
         );
     }

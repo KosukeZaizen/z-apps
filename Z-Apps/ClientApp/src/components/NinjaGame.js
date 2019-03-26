@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja/Page1';
 import { Page2 } from './parts/Ninja/Page2';
-import '../css/Ninja.css';
+import { RotatePhone } from './parts/Ninja/RotateSmartphone';
+import '../css/NinjaGame.css';
 
 
 class NinjaGame extends React.Component {
@@ -20,7 +21,6 @@ class NinjaGame extends React.Component {
         this.setState({ curPage: num, });
     }
 
-    //入力エリアの表示
     render() {
         let style = {
             position: "absolute",
@@ -30,8 +30,10 @@ class NinjaGame extends React.Component {
             height: "100%",
             backgroundColor: "black",
         };
+
         return (
             <center id="ninja-game" style={style}>
+                <RotatePhone />
                 <Pages
                     curPage={this.state.curPage}
                     changePage={(i) => { this.changePage(i) }}

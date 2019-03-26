@@ -8,7 +8,7 @@ import Terms from './components/Terms';
 import Developer from './components/Developer';
 import HiraganaQuiz from './components/HiraganaQuiz';
 import KatakanaQuiz from './components/KatakanaQuiz';
-import Ninja from './components/Ninja';
+import Ninja from './components/NinjaGame';
 
 export default () => (
     <Layout>
