@@ -27,7 +27,11 @@ export default class Page2 extends React.Component {
 
                 /* 背景画像が読み込まれる前に表示される背景のカラー */
                 backgroundColor: "black",
-            }
+            },
+
+            //操作ボタン
+            BUTTON: "btn btn-info btn-lg btn-block",
+
         };
 
         //画面の高さと幅を取得
@@ -39,13 +43,13 @@ export default class Page2 extends React.Component {
             speedX: 0,
             speedY: 0,
             posX: this.UL * 145,
-            posY: this.UL * 74,
+            posY: this.UL * 59,
         }
 
         this.state = {
             pageStyle: {
                 width: pageSize.pageWidth,
-                height: pageSize.pageHeight,
+                height: pageSize.pageHeight - this.UL,
                 ...this.consts.backgroundSetting,
             },
             objsPos: {
@@ -59,17 +63,17 @@ export default class Page2 extends React.Component {
     //---------------↓　resize　↓---------------
     getWindowSize() {
         let pageWidth, pageHeight;
-        this.screenWidth = window.innerWidth;
-        this.screenHeight = window.innerHeight;
+        let screenWidth = parseInt(window.innerWidth, 10);
+        let screenHeight = parseInt(window.innerHeight, 10);
 
-        if (this.screenWidth > this.screenHeight * 16 / 9) {
+        if (screenWidth > screenHeight * 16 / 9) {
             //横長
-            pageHeight = this.screenHeight;
-            pageWidth = parseInt(pageHeight, 10) * 16 / 9 + "px";
+            pageHeight = screenHeight;
+            pageWidth = pageHeight * 16 / 9;
         } else {
             //縦長
-            pageWidth = this.screenWidth;
-            pageHeight = parseInt(pageWidth, 10) * 9 / 16 + "px";
+            pageWidth = screenWidth;
+            pageHeight = pageWidth * 9 / 16;
         }
 
         return { pageWidth: pageWidth, pageHeight: pageHeight };
@@ -87,7 +91,7 @@ export default class Page2 extends React.Component {
             let pageSize = this.getWindowSize();
 
             //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
-            this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+            this.UL = pageSize.pageHeight / 90;
 
 
 
@@ -98,14 +102,14 @@ export default class Page2 extends React.Component {
                 speedX: 0,
                 speedY: 0,
                 posX: this.UL * 145,
-                posY: this.UL * 74,
+                posY: this.UL * 59,
             }
 
             //物体の位置などを更新し、再描画
             this.setState({
                 pageStyle: {
                     width: pageSize.pageWidth,
-                    height: pageSize.pageHeight,
+                    height: pageSize.pageHeight - 15 * this.UL,
                     ...this.consts.backgroundSetting,
                 },
                 objsPos: {
@@ -116,20 +120,53 @@ export default class Page2 extends React.Component {
         }, this.consts.timeStep);
     }
 
+
     render() {
+
+        let controllerStyle = {
+            position: "absolute",
+            top: 75 * this.UL,
+            width: "100%",
+        };
+        let sideButtonStyle = {
+            width: 30 * this.UL,
+            height: 15 * this.UL,
+            fontSize: 4 * this.UL + "px",
+            margin: "1px",
+        };
+        let jumpButtonStyle = {
+            width: 100 * this.UL,
+            height: 15 * this.UL,
+            fontSize: 4 * this.UL,
+            margin: "1px",
+        };
+
         return (
-            <div
-                id="page2"
-                style={this.state.pageStyle}
-                onLoad={() => { this.onLoadPage() }}
-            >
-                <Obj
-                    imgSrc={runningNinja}
-                    imgAlt="Running Ninja"
-                    width="10%"
-                    x={this.state.objsPos.ninjaX}
-                    y={this.state.objsPos.ninjaY}
-                />
+            <div>
+                <div
+                    id="gameScreen"
+                    style={this.state.pageStyle}
+                    onLoad={() => { this.onLoadPage() }}
+                >
+                    <Obj
+                        imgSrc={runningNinja}
+                        imgAlt="Running Ninja"
+                        width="10%"
+                        x={this.state.objsPos.ninjaX}
+                        y={this.state.objsPos.ninjaY}
+                    />
+                </div>
+                    <b>
+                        <table id="controller" style={controllerStyle}>
+                            <tbody>
+                                <tr>
+                                <td align="right"><button style={sideButtonStyle} className={this.consts.BUTTON}> ＜ </button></td>
+                                <td align="center"><button style={jumpButtonStyle} className={this.consts.BUTTON}>　↑　jump　↑　</button></td>
+                                <td align="left"><button style={sideButtonStyle} className={this.consts.BUTTON}> ＞ </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </b>
             </div>
         );
     }

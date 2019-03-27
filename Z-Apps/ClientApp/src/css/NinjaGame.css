@@ -1,11 +1,14 @@
+html {
+    /* ダブルクリックによるズーム防止 */
+    touch-action: manipulation;
+}
 
 @media screen and (orientation: landscape) {
     /* 横画面 */
-    #ninja-game #page2 {
+    #ninja-game #gameScreen {
         position: absolute;
         top: 0px;
         right: 0px;
-        bottom: 0px;
         left: 0px;
         margin: auto;
     }
@@ -17,7 +20,7 @@
 
 @media screen and (orientation: portrait) {
     /* 縦画面 */
-    #ninja-game #page2 {
+    #ninja-game #gameScreen {
         margin: auto;
         width: 100%;
         height: auto;
@@ -25,14 +28,12 @@
 
     #ninja-game #rotatePhone {
         position: absolute;
-        top: 0px;
         right: 0px;
         bottom: 0px;
         left: 0px;
         margin: auto;
         z-index: 999999999;
-        width: 60%;
-        height: 10%;
+        width: 40%;
         background-color: white;
         display: block;
     }
