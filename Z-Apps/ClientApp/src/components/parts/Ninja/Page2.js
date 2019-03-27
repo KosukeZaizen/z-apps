@@ -49,7 +49,7 @@ export default class Page2 extends React.Component {
         this.state = {
             pageStyle: {
                 width: pageSize.pageWidth,
-                height: pageSize.pageHeight - this.UL,
+                height: pageSize.pageHeight - 15 * this.UL,
                 ...this.consts.backgroundSetting,
             },
             objsPos: {
@@ -57,6 +57,13 @@ export default class Page2 extends React.Component {
                 ninjaY: this.ninja.posY,
             }
         };
+
+        //←ボタン押下判定
+        this.lButton = false;
+        //→ボタン押下判定
+        this.rButton = false;
+        //jumpボタン押下判定
+        this.jButton = false;
     }
 
 
@@ -95,15 +102,22 @@ export default class Page2 extends React.Component {
 
 
 
-
-
-
-            this.ninja = {
-                speedX: 0,
-                speedY: 0,
-                posX: this.UL * 145,
-                posY: this.UL * 59,
+            //ボタン押下判定
+            if (this.lButton === true) {
+                console.log("左へ");
+                this.ninja.posX -= 5 * this.UL;
             }
+            if (this.rButton === true) {
+                console.log("右へ");
+                this.ninja.posX += 5 * this.UL;
+            }
+            if (this.jButton === true) {
+                console.log("ジャンプ");
+            }
+
+
+
+
 
             //物体の位置などを更新し、再描画
             this.setState({
@@ -121,19 +135,39 @@ export default class Page2 extends React.Component {
     }
 
 
+    //ボタン押下時処理
+    onClickButton(btnType) {
+        if (btnType === "left") {
+            //←ボタン押下判定
+            this.lButton = true;
+        } else if (btnType === "right") {
+            //→ボタン押下判定
+            this.rButton = true;
+        } else if (btnType === "jump") {
+            //jumpボタン押下判定
+            this.jButton = true;
+        }
+    }
+
+
+
+
     render() {
 
+        //ボタンがあるテーブルのスタイル
         let controllerStyle = {
             position: "absolute",
             top: 75 * this.UL,
             width: "100%",
         };
+        //左右のボタンのスタイル
         let sideButtonStyle = {
             width: 30 * this.UL,
             height: 15 * this.UL,
             fontSize: 4 * this.UL + "px",
             margin: "1px",
         };
+        //ジャンプボタンのスタイル
         let jumpButtonStyle = {
             width: 100 * this.UL,
             height: 15 * this.UL,
@@ -156,17 +190,41 @@ export default class Page2 extends React.Component {
                         y={this.state.objsPos.ninjaY}
                     />
                 </div>
-                    <b>
-                        <table id="controller" style={controllerStyle}>
-                            <tbody>
-                                <tr>
-                                <td align="right"><button style={sideButtonStyle} className={this.consts.BUTTON}> ＜ </button></td>
-                                <td align="center"><button style={jumpButtonStyle} className={this.consts.BUTTON}>　↑　jump　↑　</button></td>
-                                <td align="left"><button style={sideButtonStyle} className={this.consts.BUTTON}> ＞ </button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </b>
+                <b>
+                    <table id="controller" style={controllerStyle}>
+                        <tbody>
+                            <tr>
+                                <td align="right">
+                                    <button
+                                        style={sideButtonStyle}
+                                        className={this.consts.BUTTON}
+                                        onClick={() => { this.onClickButton("left") }}
+                                    >
+                                        {"＜"}
+                                    </button>
+                                </td>
+                                <td align="center">
+                                    <button
+                                        style={jumpButtonStyle}
+                                        className={this.consts.BUTTON}
+                                        onClick={() => { this.onClickButton("jump") }}
+                                    >
+                                        {"↑　jump　↑"}
+                                    </button>
+                                </td>
+                                <td align="left">
+                                    <button
+                                        style={sideButtonStyle}
+                                        className={this.consts.BUTTON}
+                                        onClick={() => { this.onClickButton("right") }}
+                                    >
+                                        {"＞"}
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </b>
             </div>
         );
     }
