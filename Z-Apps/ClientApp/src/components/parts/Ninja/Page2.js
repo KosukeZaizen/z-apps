@@ -52,7 +52,8 @@ export default class Page2 extends React.Component {
                 height: pageSize.pageHeight - 15 * this.UL,
                 ...this.consts.backgroundSetting,
             },
-            objsPos: {
+            ninjaStat: {
+                left: true,
                 ninjaX: this.ninja.posX * this.UL,
                 ninjaY: this.ninja.posY * this.UL,
             }
@@ -94,30 +95,63 @@ export default class Page2 extends React.Component {
         setInterval(() => {
             //タイムステップごとの計算
 
+
+
+            /* ↓　物体速度・位置計算　↓ */
+
+            //忍者の画像の向き
+            let boolLeft = this.state.ninjaStat.left;
+
+            //ボタン押下判定
+            if (this.lButton === false && this.rButton === false) {
+                this.ninja.speedX = 0;
+            } else {
+                if (this.lButton === true) {
+                    this.ninja.speedX -= 1;
+                    boolLeft = true;//画像左向き
+                }
+                if (this.rButton === true) {
+                    this.ninja.speedX += 1;
+                    boolLeft = false;//画像右向き
+                }
+            }
+
+            if (this.jButton === true) {
+                if (this.ninja.speedY === 0) {
+                    this.ninja.speedY = -15;
+                }
+                this.jButton = false;
+            }
+
+            //重力加速度
+            this.ninja.speedY += 2;
+
+            //最大速度補正
+            if (this.ninja.speedX > 2) {
+                this.ninja.speed = 2;
+            } else if (this.ninja.speedX < -2) {
+                this.ninja.speed = -2;
+            }
+
+            //位置計算
+            this.ninja.posX += this.ninja.speedX;
+            this.ninja.posY += this.ninja.speedY;
+
+            //床補正
+            if (this.ninja.posY > 59) {
+                this.ninja.posY = 59;
+                this.ninja.speedY = 0;
+            }
+
+
+            /* ↑　物体速度・位置計算　↑ */
+
+
             //ページサイズ取得（ウィンドウサイズが変更された時のため）
             let pageSize = this.getWindowSize();
 
             //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
             this.UL = pageSize.pageHeight / 90;
-
-
-
-            //ボタン押下判定
-            if (this.lButton === true) {
-                console.log("左へ");
-                this.ninja.posX -= 5;
-            }
-            if (this.rButton === true) {
-                console.log("右へ");
-                this.ninja.posX += 5;
-            }
-            if (this.jButton === true) {
-                console.log("ジャンプ");
-            }
-
-
-
-
 
             //物体の位置などを更新し、再描画
             this.setState({
@@ -126,7 +160,8 @@ export default class Page2 extends React.Component {
                     height: pageSize.pageHeight - 15 * this.UL,
                     ...this.consts.backgroundSetting,
                 },
-                objsPos: {
+                ninjaStat: {
+                    left: boolLeft,
                     ninjaX: this.ninja.posX * this.UL,
                     ninjaY: this.ninja.posY * this.UL,
                 }
@@ -156,16 +191,12 @@ export default class Page2 extends React.Component {
         } else if (btnType === "right") {
             //→ボタン押下判定
             this.rButton = false;
-        } else if (btnType === "jump") {
-            //jumpボタン押下判定
-            this.jButton = false;
         }
     }
 
 
 
     render() {
-
         //ボタンがあるテーブルのスタイル
         let controllerStyle = {
             position: "absolute",
@@ -198,8 +229,9 @@ export default class Page2 extends React.Component {
                         imgSrc={runningNinja}
                         imgAlt="Running Ninja"
                         width="10%"
-                        x={this.state.objsPos.ninjaX}
-                        y={this.state.objsPos.ninjaY}
+                        x={this.state.ninjaStat.ninjaX}
+                        y={this.state.ninjaStat.ninjaY}
+                        boolLeft={this.state.ninjaStat.left}
                     />
                 </div>
                 <b>

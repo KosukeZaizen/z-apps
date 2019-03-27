@@ -56,6 +56,4 @@ function Pages(props) {
     }
 }
 
-
-
 export default connect()(NinjaGame);

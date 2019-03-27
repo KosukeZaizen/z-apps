@@ -27,7 +27,7 @@ export default class Page1 extends React.Component {
                     </span>
                 <br />
 
-                <center>
+                <center style={{color:"white"}}>
                     If you want to be a real Ninja,<br />
                     please check this:<br />
                     <a
