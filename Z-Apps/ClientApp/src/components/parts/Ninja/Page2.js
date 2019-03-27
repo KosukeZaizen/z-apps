@@ -17,6 +17,18 @@ export default class Page2 extends React.Component {
                 width: pageSize.pageWidth,
                 height: pageSize.pageHeight,
                 backgroundImage: `url(${furuie})`,
+
+                /* 画像を常に天地左右の中央に配置 */
+                backgroundPosition: "center center",
+
+                /* 画像をタイル状に繰り返し表示しない */
+                backgroundRepeat: "no-repeat",
+
+                /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+                backgroundSize: "cover",
+
+                /* 背景画像が読み込まれる前に表示される背景のカラー */
+                backgroundColor: "black",
             },
         };
 
@@ -48,6 +60,18 @@ export default class Page2 extends React.Component {
                 width: pageSize.pageWidth,
                 height: pageSize.pageHeight,
                 backgroundImage: `url(${furuie})`,
+
+                /* 画像を常に天地左右の中央に配置 */
+                backgroundPosition: "center center",
+
+                /* 画像をタイル状に繰り返し表示しない */
+                backgroundRepeat: "no-repeat",
+                
+                /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+                backgroundSize: "cover",
+
+                /* 背景画像が読み込まれる前に表示される背景のカラー */
+                backgroundColor: "black",
             }
         });
     }
@@ -57,7 +81,7 @@ export default class Page2 extends React.Component {
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
 
-        if (this.screenWidth > this.screenHeight) {
+        if (this.screenWidth > this.screenHeight * 16 / 9) {
             //横長
             pageHeight = this.screenHeight;
             pageWidth = parseInt(pageHeight, 10) * 16 / 9 + "px";
