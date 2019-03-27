@@ -42,8 +42,8 @@ export default class Page2 extends React.Component {
         this.ninja = {
             speedX: 0,
             speedY: 0,
-            posX: this.UL * 145,
-            posY: this.UL * 59,
+            posX: 145,
+            posY: 59,
         }
 
         this.state = {
@@ -53,8 +53,8 @@ export default class Page2 extends React.Component {
                 ...this.consts.backgroundSetting,
             },
             objsPos: {
-                ninjaX: this.ninja.posX,
-                ninjaY: this.ninja.posY,
+                ninjaX: this.ninja.posX * this.UL,
+                ninjaY: this.ninja.posY * this.UL,
             }
         };
 
@@ -105,11 +105,11 @@ export default class Page2 extends React.Component {
             //ボタン押下判定
             if (this.lButton === true) {
                 console.log("左へ");
-                this.ninja.posX -= 5 * this.UL;
+                this.ninja.posX -= 5;
             }
             if (this.rButton === true) {
                 console.log("右へ");
-                this.ninja.posX += 5 * this.UL;
+                this.ninja.posX += 5;
             }
             if (this.jButton === true) {
                 console.log("ジャンプ");
@@ -127,8 +127,8 @@ export default class Page2 extends React.Component {
                     ...this.consts.backgroundSetting,
                 },
                 objsPos: {
-                    ninjaX: this.ninja.posX,
-                    ninjaY: this.ninja.posY,
+                    ninjaX: this.ninja.posX * this.UL,
+                    ninjaY: this.ninja.posY * this.UL,
                 }
             });
         }, this.consts.timeStep);
@@ -148,7 +148,19 @@ export default class Page2 extends React.Component {
             this.jButton = true;
         }
     }
-
+    //ボタン押下終了時処理
+    onMouseUp(btnType) {
+        if (btnType === "left") {
+            //←ボタン押下判定
+            this.lButton = false;
+        } else if (btnType === "right") {
+            //→ボタン押下判定
+            this.rButton = false;
+        } else if (btnType === "jump") {
+            //jumpボタン押下判定
+            this.jButton = false;
+        }
+    }
 
 
 
@@ -198,7 +210,11 @@ export default class Page2 extends React.Component {
                                     <button
                                         style={sideButtonStyle}
                                         className={this.consts.BUTTON}
-                                        onClick={() => { this.onClickButton("left") }}
+                                        onMouseDown={() => { this.onClickButton("left") }}
+                                        onTouchStart={() => { this.onClickButton("left") }}
+                                        onMouseUp={() => { this.onMouseUp("left") }}
+                                        onMouseOut={() => { this.onMouseUp("left") }}
+                                        onTouchEnd={() => { this.onMouseUp("left") }}
                                     >
                                         {"＜"}
                                     </button>
@@ -207,7 +223,11 @@ export default class Page2 extends React.Component {
                                     <button
                                         style={jumpButtonStyle}
                                         className={this.consts.BUTTON}
-                                        onClick={() => { this.onClickButton("jump") }}
+                                        onMouseDown={() => { this.onClickButton("jump") }}
+                                        onTouchStart={() => { this.onClickButton("jump") }}
+                                        onMouseUp={() => { this.onMouseUp("jump") }}
+                                        onMouseOut={() => { this.onMouseUp("jump") }}
+                                        onTouchEnd={() => { this.onMouseUp("jump") }}
                                     >
                                         {"↑　jump　↑"}
                                     </button>
@@ -216,7 +236,11 @@ export default class Page2 extends React.Component {
                                     <button
                                         style={sideButtonStyle}
                                         className={this.consts.BUTTON}
-                                        onClick={() => { this.onClickButton("right") }}
+                                        onMouseDown={() => { this.onClickButton("right") }}
+                                        onTouchStart={() => { this.onClickButton("right") }}
+                                        onMouseUp={() => { this.onMouseUp("right") }}
+                                        onMouseOut={() => { this.onMouseUp("right") }}
+                                        onTouchEnd={() => { this.onMouseUp("right") }}
                                     >
                                         {"＞"}
                                     </button>
