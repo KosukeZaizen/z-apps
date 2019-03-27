@@ -24,8 +24,15 @@
     }
 
     #ninja-game #rotatePhone {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        margin: auto;
         z-index: 999999999;
-        width: 50%;
+        width: 60%;
+        height: 10%;
         background-color: white;
         display: block;
     }

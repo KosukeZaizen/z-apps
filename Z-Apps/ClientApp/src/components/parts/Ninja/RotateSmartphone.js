@@ -5,10 +5,13 @@ import rotatePhone from './img/rotate-phone.png';
 export default class RotatePhone extends React.Component {
 
     render() {
+        let imgStyle = {
+            backgroundColor: "white",
+        }
         return (
             <div id="rotatePhone">
                 <p>Please rotate your phone.</p>
-                <img width="100%" src={rotatePhone} alt="Please rotate your phone." />
+                <img width="100%" style={imgStyle} src={rotatePhone} alt="Please rotate your phone." />
                 <br />
                 <br />
                 <br />

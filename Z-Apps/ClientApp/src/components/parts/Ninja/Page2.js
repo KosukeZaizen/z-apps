@@ -8,7 +8,10 @@ export default class Page2 extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.consts = {
+            timeStep: 100,
+
             backgroundSetting: {
                 /* 背景画像 */
                 backgroundImage: `url(${furuie})`,
@@ -27,7 +30,18 @@ export default class Page2 extends React.Component {
             }
         };
 
+        //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
+        //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
+        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+
+        this.ninja = {
+            speedX: 0,
+            speedY: 0,
+            posX: this.UL * 145,
+            posY: this.UL * 74,
+        }
+
         this.state = {
             pageStyle: {
                 width: pageSize.pageWidth,
@@ -35,43 +49,14 @@ export default class Page2 extends React.Component {
                 ...this.consts.backgroundSetting,
             },
             objsPos: {
-                ninjaX: 10,
-                ninjaY: 10,
+                ninjaX: this.ninja.posX,
+                ninjaY: this.ninja.posY,
             }
         };
-
-        // when screen size is changed
-        this.setOnResizeWindow();
     }
 
-    // when screen size is changed
-    setOnResizeWindow() {
-        let onResizeWindow = () => { this.onResizeWindow(this) };
 
-        let timer = 0;
-        window.onresize = function () {
-            if (timer > 0) {
-                clearTimeout(timer);
-            }
-
-            timer = setTimeout(function () {
-                onResizeWindow();
-            }, 200);
-        };
-    }
-
-    onResizeWindow() {
-        let pageSize = this.getWindowSize();
-
-        this.setState({
-            pageStyle: {
-                width: pageSize.pageWidth,
-                height: pageSize.pageHeight,
-                ...this.consts.backgroundSetting,
-            }
-        });
-    }
-
+    //---------------↓　resize　↓---------------
     getWindowSize() {
         let pageWidth, pageHeight;
         this.screenWidth = window.innerWidth;
@@ -89,29 +74,54 @@ export default class Page2 extends React.Component {
 
         return { pageWidth: pageWidth, pageHeight: pageHeight };
     }
+    //---------------↑　resize　↑---------------
 
-    onLoadPage(obj) {
-        //1000ミリ秒（1秒）毎に処理を呼び出す
+
+
+    onLoadPage() {
+        //タイムステップ毎に処理を呼び出す
         setInterval(() => {
-            this.setState(
-                {
-                    objsPos: {
-                        ninjaX: this.state.objsPos.ninjaX + 10,
-                        ninjaY: this.state.objsPos.ninjaY + 5,
-                    },
+            //タイムステップごとの計算
+
+            //ページサイズ取得（ウィンドウサイズが変更された時のため）
+            let pageSize = this.getWindowSize();
+
+            //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
+            this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+
+
+
+
+
+
+            this.ninja = {
+                speedX: 0,
+                speedY: 0,
+                posX: this.UL * 145,
+                posY: this.UL * 74,
+            }
+
+            //物体の位置などを更新し、再描画
+            this.setState({
+                pageStyle: {
+                    width: pageSize.pageWidth,
+                    height: pageSize.pageHeight,
+                    ...this.consts.backgroundSetting,
+                },
+                objsPos: {
+                    ninjaX: this.ninja.posX,
+                    ninjaY: this.ninja.posY,
                 }
-            );
-        }, 1000);
+            });
+        }, this.consts.timeStep);
     }
-
-
 
     render() {
         return (
             <div
                 id="page2"
                 style={this.state.pageStyle}
-                onLoad={() => { this.onLoadPage(this) }}
+                onLoad={() => { this.onLoadPage() }}
             >
                 <Obj
                     imgSrc={runningNinja}
