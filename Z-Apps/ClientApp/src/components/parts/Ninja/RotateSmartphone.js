@@ -11,6 +11,7 @@ export default class RotatePhone extends React.Component {
                 <img width="100%" src={rotatePhone} alt="Please rotate your phone." />
                 <br />
                 <br />
+                <br />
             </div>
         );
     }
