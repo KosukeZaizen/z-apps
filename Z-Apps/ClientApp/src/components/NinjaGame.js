@@ -22,6 +22,7 @@ class NinjaGame extends React.Component {
                 posY: 5,
             },
         };
+        //this.changeStage = this.changeStage.bind(this);
     }
 
     changePage(num) {
@@ -32,7 +33,8 @@ class NinjaGame extends React.Component {
         console.log("");
         console.log("change stage");
         console.log("next stage: " + num);
-        console.log("ninja: " + ninja);
+        console.log("ninja.size: " + ninja.size);
+        console.log("ninja.posX: " + ninja.posX);
 
         this.setState({
             stage: num,

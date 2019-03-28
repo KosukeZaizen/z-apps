@@ -33,6 +33,20 @@ export default class Page2 extends React.Component {
             floor2: {
                 size: 200,
                 posX: -20,
+                posY: 76,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor3: {
+                size: 200,
+                posX: -20,
+                posY: 77,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor4: {
+                size: 200,
+                posX: -20,
                 posY: 79,
                 zIndex: 30,
                 onTouch: onTouchBlock,
