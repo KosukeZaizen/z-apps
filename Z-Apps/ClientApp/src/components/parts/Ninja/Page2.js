@@ -166,32 +166,26 @@ export default class Page2 extends React.Component {
                 this.ninja.speedX = 0;
             } else {
                 if (this.lButton === true) {
-                    this.ninja.speedX = -6;
+                    this.ninja.speedX = -3;
                     boolLeft = true;//画像左向き
                 }
                 if (this.rButton === true) {
-                    this.ninja.speedX = 6;
+                    this.ninja.speedX = 3;
                     boolLeft = false;//画像右向き
                 }
             }
 
             if (this.jButton === true) {
                 if (this.ninja.speedY === 0) {
-                    //ジャンプ力は奇数にする（2段ジャンプを防ぐため）
-                    this.ninja.speedY = -11;
+                    //ジャンプの初速は重力加速度の整数倍にならないようにする
+                    //2段ジャンプ対策
+                    this.ninja.speedY = -7.1;
                 }
                 this.jButton = false;
             }
 
             //重力加速度
-            this.ninja.speedY += 2;
-
-            //最大速度補正
-            if (this.ninja.speedX > 2) {
-                this.ninja.speed = 2;
-            } else if (this.ninja.speedX < -2) {
-                this.ninja.speed = -2;
-            }
+            this.ninja.speedY += 0.9;
 
             //位置計算
             this.ninja.posX += this.ninja.speedX;
