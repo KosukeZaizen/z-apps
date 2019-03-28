@@ -33,7 +33,6 @@ class NinjaGame extends React.Component {
 
         return (
             <center id="ninja-game" style={style}>
-                {/*<RotatePhone />*/}
                 <Pages
                     curPage={this.state.curPage}
                     changePage={(i) => { this.changePage(i) }}

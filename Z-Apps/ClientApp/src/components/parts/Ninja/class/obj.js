@@ -12,7 +12,6 @@ export default class Obj extends React.Component {
     }
 
     render() {
-
         let left = this.props.boolLeft ? "" : "scale(-1, 1)";
 
         let style = {

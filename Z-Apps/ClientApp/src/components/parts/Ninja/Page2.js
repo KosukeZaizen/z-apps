@@ -43,10 +43,11 @@ export default class Page2 extends React.Component {
         this.UL = parseInt(pageSize.pageHeight, 10) / 90;
 
         this.ninja = {
+            size: 12,
             speedX: 0,
             speedY: 0,
             posX: 145,
-            posY: 59,
+            posY: 5,
         }
 
         this.state = {
@@ -178,8 +179,8 @@ export default class Page2 extends React.Component {
             this.ninja.posY += this.ninja.speedY;
 
             //床補正
-            if (this.ninja.posY > 59) {
-                this.ninja.posY = 59;
+            if (this.ninja.posY > 75 - this.ninja.size) {
+                this.ninja.posY = 75 - this.ninja.size;
                 this.ninja.speedY = 0;
             }
 
@@ -317,7 +318,7 @@ export default class Page2 extends React.Component {
                     <Obj
                         imgSrc={runningNinja}
                         imgAlt="Running Ninja"
-                        width="10%"
+                        width={this.ninja.size * this.UL}
                         x={this.state.ninjaStat.ninjaX}
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
