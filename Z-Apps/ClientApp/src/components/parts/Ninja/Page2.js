@@ -1,7 +1,8 @@
 import React from 'react';
-import runningNinja from './img/ninja_hashiru.png';
 import furuie from './img/background/furuie5.jpg';
-import { Obj } from './class/obj';
+import { NinjaChar } from './objs/ninja/ninja';
+import { Obj } from './objs/obj';
+import imgRock from './objs/rock/rock.png';
 
 
 export default class Page2 extends React.Component {
@@ -50,6 +51,23 @@ export default class Page2 extends React.Component {
             posY: 5,
         }
 
+        this.objs = {
+            rock1: {
+                size: 10,
+                posX: 100,
+                posY: 67,
+                zIndex: 30,
+                img: imgRock,
+            },
+            rock2: {
+                size: 20,
+                posX: 40,
+                posY: 57,
+                zIndex: 30,
+                img: imgRock,
+            }
+        }
+
         this.state = {
             screenStyle: {
                 width: pageSize.pageWidth,
@@ -96,10 +114,10 @@ export default class Page2 extends React.Component {
                     position: "absolute",
                     top: (screenHeight - pageHeight) / 2,
                 }
-            } else { 
-            this.pageStyle = {
-            };
-        }
+            } else {
+                this.pageStyle = {
+                };
+            }
         } else {
             //縦長
             pageHeight = screenWidth * 9 / 10;
@@ -113,7 +131,7 @@ export default class Page2 extends React.Component {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
-                    left: (screenWidth + pageHeight)/2,
+                    left: (screenWidth + pageHeight) / 2,
                     top: screenHeight / 20,
                 }
             } else {
@@ -159,7 +177,8 @@ export default class Page2 extends React.Component {
 
             if (this.jButton === true) {
                 if (this.ninja.speedY === 0) {
-                    this.ninja.speedY = -15;
+                    //ジャンプ力は奇数にする（2段ジャンプを防ぐため）
+                    this.ninja.speedY = -11;
                 }
                 this.jButton = false;
             }
@@ -183,6 +202,9 @@ export default class Page2 extends React.Component {
                 this.ninja.posY = 75 - this.ninja.size;
                 this.ninja.speedY = 0;
             }
+
+            //オブジェクトから受ける影響
+
 
 
             /* ↑　物体速度・位置計算　↑ */
@@ -292,6 +314,7 @@ export default class Page2 extends React.Component {
             position: "absolute",
             top: 75 * this.UL,
             width: "100%",
+            zIndex: "99999999",
         };
         //左右のボタンのスタイル
         let sideButtonStyle = {
@@ -315,14 +338,25 @@ export default class Page2 extends React.Component {
                     style={this.state.screenStyle}
                     onLoad={() => { this.onLoadPage() }}
                 >
-                    <Obj
-                        imgSrc={runningNinja}
+                    <NinjaChar
                         imgAlt="Running Ninja"
                         width={this.ninja.size * this.UL}
                         x={this.state.ninjaStat.ninjaX}
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
                     />
+
+                    <RenderObjs game={this} />
+                    {/*
+                    <Rock
+                        imgAlt="Rock"
+                        width={this.rock1.size * this.UL}
+                        x={this.rock1.posX * this.UL}
+                        y={this.rock1.posY * this.UL}
+                        boolLeft={true}
+                        zIndex={this.rock1.zIndex}
+                    />
+                    */}
                 </div>
                 <b>
                     <table id="controller" style={controllerStyle}>
@@ -374,6 +408,25 @@ export default class Page2 extends React.Component {
             </div>
         );
     }
+}
+
+function RenderObjs(props) {
+
+    let objList = [];
+    for (let key in props.game.objs) {
+        objList.push(
+            <Obj
+                key={key}
+                width={props.game.objs[key].size * props.game.UL}
+                x={props.game.objs[key].posX * props.game.UL}
+                y={props.game.objs[key].posY * props.game.UL}
+                boolLeft={true}
+                zIndex={props.game.objs[key].zIndex}
+                img={props.game.objs[key].img}
+            />
+        );
+    }
+    return <span>{ objList }</span>;
 }
 
 export { Page2 };
