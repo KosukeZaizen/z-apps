@@ -11,6 +11,10 @@ export default class Page2 extends React.Component {
     constructor(props) {
         super(props);
 
+        //初期描画の時のみtrueとする（2回目以降はfalse）
+        //タイムステップごとの処理の登録を1回のみ行うために用いる
+        this.initFlag = true;
+
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
 
@@ -21,36 +25,8 @@ export default class Page2 extends React.Component {
         this.ninja = this.props.ninja;
 
 
-        //全ステージ共通の壁
-        let objWalls = {
-            floor1: {
-                size: 200,
-                posX: -20,
-                posY: 75,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor2: {
-                size: 200,
-                posX: -20,
-                posY: 76,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor3: {
-                size: 200,
-                posX: -20,
-                posY: 77,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor4: {
-                size: 200,
-                posX: -20,
-                posY: 79,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
+        //全ステージ共通の壁（render内で設定）
+        this.objWalls = {
             leftWall: {
                 size: 300,
                 posX: -310,
@@ -67,65 +43,57 @@ export default class Page2 extends React.Component {
             },
         };
 
-        let bgImg;
-        if (this.props.stage === 1) {
-            // ------------------------------------------------------------
-            // ステージ1
-            // ------------------------------------------------------------
+        //床（必要な場合、render内で設定）
+        this.objFloor = {
+            floor1: {
+                size: 200,
+                posX: -20,
+                posY: 79,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor2: {
+                size: 200,
+                posX: -20,
+                posY: 77,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor3: {
+                size: 200,
+                posX: -20,
+                posY: 76,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor4: {
+                size: 200,
+                posX: -20,
+                posY: 75,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+        };
 
-            //ステージ毎のオブジェクトを配置
-            this.objs = {
-                ...objWalls,
+        //背景の初期設定
+//        this.bgImg = furuie;
+        this.backgroundSetting = {
+            /* 背景画像 */
+            backgroundImage: `url(${furuie})`,
 
-                rock1: {
-                    size: 10,
-                    posX: 100,
-                    posY: 67,
-                    zIndex: 30,
-                    img: imgRock,
-                    onTouch: onTouchBlock,
-                },
-                rock2: {
-                    size: 17,
-                    posX: 40,
-                    posY: 60,
-                    zIndex: 30,
-                    img: imgRock,
-                    onTouch: onTouchBlock,
-                },
-                leftGate: {
-                    size: 300,
-                    posX: -300,
-                    posY: -200,
-                    zIndex: 30,
-                    next: 2,
-                    onTouch: onToughGate,
-                    changeStage: this.props.changeStage,
-                },
+            /* 画像を常に天地左右の中央に配置 */
+            backgroundPosition: "center center",
 
-            }
-            //ステージの背景画像を設定
-            bgImg = furuie;
+            /* 画像をタイル状に繰り返し表示しない */
+            backgroundRepeat: "no-repeat",
 
+            /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+            backgroundSize: "cover",
 
-        } else if (this.props.stage === 2) {
-            // ------------------------------------------------------------
-            // ステージ2
-            // ------------------------------------------------------------
+            /* 背景画像が読み込まれる前に表示される背景のカラー */
+            backgroundColor: "black",
+        };
 
-            //ステージ毎のオブジェクトを配置
-            this.objs = {
-                rock1: {
-                    size: 17,
-                    posX: 70,
-                    posY: 60,
-                    zIndex: 30,
-                    img: imgRock,
-                },
-            }
-            //ステージの背景画像を設定
-            bgImg = bg_red;
-        }
 
 
 
@@ -135,23 +103,6 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         this.consts = {
             timeStep: 100,
-
-            backgroundSetting: {
-                /* 背景画像 */
-                backgroundImage: `url(${bgImg})`,
-
-                /* 画像を常に天地左右の中央に配置 */
-                backgroundPosition: "center center",
-
-                /* 画像をタイル状に繰り返し表示しない */
-                backgroundRepeat: "no-repeat",
-
-                /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
-                backgroundSize: "cover",
-
-                /* 背景画像が読み込まれる前に表示される背景のカラー */
-                backgroundColor: "black",
-            },
 
             //操作ボタン
             BUTTON: "btn btn-info btn-lg btn-block",
@@ -165,7 +116,7 @@ export default class Page2 extends React.Component {
             screenStyle: {
                 width: pageSize.pageWidth,
                 height: pageSize.pageHeight - 15 * this.UL,
-                ...this.consts.backgroundSetting,
+                ...this.backgroundSetting,
             },
             ninjaStat: {
                 left: true,
@@ -243,104 +194,113 @@ export default class Page2 extends React.Component {
 
 
     onLoadPage() {
-        //タイムステップ毎に処理を呼び出す
-        setInterval(() => {
-            //タイムステップごとの計算
+
+        if (this.initFlag) {
+            //タイムステップ毎に処理を呼び出す
+            setInterval(() => {
+                //タイムステップごとの計算
 
 
+                /* ↓　物体速度・位置計算　↓ */
 
-            /* ↓　物体速度・位置計算　↓ */
+                //忍者の画像の向き
+                let boolLeft = this.state.ninjaStat.left;
 
-            //忍者の画像の向き
-            let boolLeft = this.state.ninjaStat.left;
-
-            //ボタン押下判定
-            if (this.lButton === false && this.rButton === false) {
-                this.ninja.speedX = 0;
-            } else {
-                if (this.lButton === true) {
-                    this.ninja.speedX = -3;
-                    boolLeft = true;//画像左向き
+                //ボタン押下判定
+                if (this.lButton === false && this.rButton === false) {
+                    this.ninja.speedX = 0;
+                } else {
+                    if (this.lButton === true) {
+                        this.ninja.speedX = -6;
+                        boolLeft = true;//画像左向き
+                    }
+                    if (this.rButton === true) {
+                        this.ninja.speedX = 6;
+                        boolLeft = false;//画像右向き
+                    }
                 }
-                if (this.rButton === true) {
-                    this.ninja.speedX = 3;
-                    boolLeft = false;//画像右向き
+
+                if (this.jButton === true) {
+                    if (this.ninja.speedY === 0) {
+                        //ジャンプの初速は重力加速度の整数倍にならないようにする
+                        //2段ジャンプ対策
+                        this.ninja.speedY = -11;
+                    }
+                    this.jButton = false;
                 }
-            }
 
-            if (this.jButton === true) {
-                if (this.ninja.speedY === 0) {
-                    //ジャンプの初速は重力加速度の整数倍にならないようにする
-                    //2段ジャンプ対策
-                    this.ninja.speedY = -7.1;
+                //重力加速度
+                this.ninja.speedY += 2.1;
+
+                //落下速度限界
+                if (this.ninja.speedY > 9) {
+                    this.ninja.speedY = 9;
                 }
-                this.jButton = false;
-            }
 
-            //重力加速度
-            this.ninja.speedY += 0.9;
-
-
-            //位置計算
-            this.ninja.posX += this.ninja.speedX;
-            this.ninja.posY += this.ninja.speedY;
+                //位置計算
+                this.ninja.posX += this.ninja.speedX;
+                this.ninja.posY += this.ninja.speedY;
 
 
-            //オブジェクトとの接触判定
+                //オブジェクトとの接触判定
 
-            //忍者の上下左右の端の位置
-            let ninjaLeft = this.ninja.posX;
-            let ninjaRight = ninjaLeft + this.ninja.size;
-            let ninjaTop = this.ninja.posY;
-            let ninjaFoot = ninjaTop + this.ninja.size;
+                //忍者の上下左右の端の位置
+                let ninjaLeft = this.ninja.posX;
+                let ninjaRight = ninjaLeft + this.ninja.size;
+                let ninjaTop = this.ninja.posY;
+                let ninjaFoot = ninjaTop + this.ninja.size;
 
-            for (let key in this.objs) {
-                //オブジェクトの上下左右の端の位置
-                let objLeft = this.objs[key].posX;
-                let objRight = objLeft + this.objs[key].size;
-                let objTop = this.objs[key].posY;
-                let objFoot = objTop + this.objs[key].size;
+                for (let key in this.objs) {
+                    //オブジェクトの上下左右の端の位置
+                    let objLeft = this.objs[key].posX;
+                    let objRight = objLeft + this.objs[key].size;
+                    let objTop = this.objs[key].posY;
+                    let objFoot = objTop + this.objs[key].size;
 
-                //忍者が上から
-                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    this.objs[key].onTouch("upper", this.ninja);
+                    //忍者が上から
+                    if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                        this.objs[key].onTouch("upper", this.ninja);
+                    }
+                    //忍者が右から
+                    if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                        this.objs[key].onTouch("right", this.ninja);
+                    }
+                    //忍者が下から
+                    if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                        this.objs[key].onTouch("lower", this.ninja);
+                    }
+                    //忍者が左から
+                    if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                        this.objs[key].onTouch("left", this.ninja);
+                    }
                 }
-                //忍者が右から
-                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    this.objs[key].onTouch("right", this.ninja);
-                }
-                //忍者が下から
-                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    this.objs[key].onTouch("lower", this.ninja);
-                }
-                //忍者が左から
-                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    this.objs[key].onTouch("left", this.ninja);
-                }
-            }
-            /* ↑　物体速度・位置計算　↑ */
+                /* ↑　物体速度・位置計算　↑ */
 
 
-            //ページサイズ取得（ウィンドウサイズが変更された時のため）
-            let pageSize = this.getWindowSize();
+                //ページサイズ取得（ウィンドウサイズが変更された時のため）
+                let pageSize = this.getWindowSize();
 
-            //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
-            this.UL = pageSize.pageHeight / 90;
+                //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
+                this.UL = pageSize.pageHeight / 90;
 
-            //物体の位置などを更新し、再描画
-            this.setState({
-                screenStyle: {
-                    width: pageSize.pageWidth,
-                    height: pageSize.pageHeight - 15 * this.UL,
-                    ...this.consts.backgroundSetting,
-                },
-                ninjaStat: {
-                    left: boolLeft,
-                    ninjaX: this.ninja.posX * this.UL,
-                    ninjaY: this.ninja.posY * this.UL,
-                }
-            });
-        }, this.consts.timeStep);
+                //物体の位置などを更新し、再描画
+                this.setState({
+                    screenStyle: {
+                        width: pageSize.pageWidth,
+                        height: pageSize.pageHeight - 15 * this.UL,
+                        ...this.backgroundSetting,
+                    },
+                    ninjaStat: {
+                        left: boolLeft,
+                        ninjaX: this.ninja.posX * this.UL,
+                        ninjaY: this.ninja.posY * this.UL,
+                    }
+                });
+            }, this.consts.timeStep);
+
+            //2回目以降の描画時はタイムステップごとの処理を重複して登録しないようにする
+            this.initFlag = false;
+        }
     }
 
     setKeyboardEvent(objGame) {
@@ -438,6 +398,81 @@ export default class Page2 extends React.Component {
             fontSize: 4 * this.UL,
             margin: "1px",
         };
+
+        let bgImg;
+        if (this.props.stage === 1) {
+            // ------------------------------------------------------------
+            // ステージ1
+            // ------------------------------------------------------------
+
+            //ステージ毎のオブジェクトを配置
+            this.objs = {
+                ...this.objWalls,
+                ...this.objFloor,
+
+                rock1: {
+                    size: 10,
+                    posX: 100,
+                    posY: 67,
+                    zIndex: 30,
+                    img: imgRock,
+                    onTouch: onTouchBlock,
+                },
+                rock2: {
+                    size: 17,
+                    posX: 40,
+                    posY: 60,
+                    zIndex: 30,
+                    img: imgRock,
+                    onTouch: onTouchBlock,
+                },
+                leftGateWall: {
+                    size: 300,
+                    posX: -300,
+                    posY: -200,
+                    zIndex: 30,
+                    next: 2,
+                    onTouch: onToughGateWall,
+                    changeStage: this.props.changeStage,
+                },
+            }
+            //ステージの背景画像を設定
+            bgImg = furuie;
+
+        } else if (this.props.stage === 2) {
+            // ------------------------------------------------------------
+            // ステージ2
+            // ------------------------------------------------------------
+
+            //ステージ毎のオブジェクトを配置
+            this.objs = {
+                ...this.objWalls,
+                ...this.objFloor,
+
+                rock1: {
+                    size: 17,
+                    posX: 70,
+                    posY: 60,
+                    zIndex: 30,
+                    img: imgRock,
+                    onTouch: onTouchBlock,
+                },
+                rightGateWall: {
+                    size: 300,
+                    posX: 160,
+                    posY: -200,
+                    zIndex: 30,
+                    next: 1,
+                    onTouch: onToughGateWall,
+                    changeStage: this.props.changeStage,
+                },
+
+            }
+            //ステージの背景画像を設定
+            bgImg = bg_red;
+        }
+
+        this.backgroundSetting.backgroundImage = `url(${bgImg})`;
 
         return (
             <div id="Page2" style={this.pageStyle}>
@@ -587,9 +622,21 @@ function onTouchBlock(from, ninja) {
 }
 
 //=======================================
-// 貫通不可能ブロック用のタッチ関数
+// 別ステージへのゲートのタッチ関数
 //=======================================
-function onToughGate(from, ninja) {
+function onToughGateWall(from, ninja) {
+    if (from === "right") {
+        //右から
+        ninja.posX += 160 - ninja.size;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+
+    } else {
+        //左から
+        ninja.posX = 0;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+    }
     this.changeStage(this.next, ninja);
 }
 

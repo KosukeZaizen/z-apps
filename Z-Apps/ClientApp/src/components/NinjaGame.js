@@ -30,12 +30,6 @@ class NinjaGame extends React.Component {
     }
 
     changeStage(num, ninja) {
-        console.log("");
-        console.log("change stage");
-        console.log("next stage: " + num);
-        console.log("ninja.size: " + ninja.size);
-        console.log("ninja.posX: " + ninja.posX);
-
         this.setState({
             stage: num,
             ninja: ninja,
