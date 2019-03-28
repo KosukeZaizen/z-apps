@@ -37,9 +37,7 @@ export default class Page2 extends React.Component {
 
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
-        if (this.pageStyle) {
-            alert("Please rotate your phone.");
-        }
+
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
         this.UL = parseInt(pageSize.pageHeight, 10) / 90;
 
@@ -60,9 +58,9 @@ export default class Page2 extends React.Component {
                 img: imgRock,
             },
             rock2: {
-                size: 20,
+                size: 17,
                 posX: 40,
-                posY: 57,
+                posY: 60,
                 zIndex: 30,
                 img: imgRock,
             }
@@ -197,7 +195,55 @@ export default class Page2 extends React.Component {
                 this.ninja.speedY = 0;
             }
 
-            //オブジェクトから受ける影響
+
+            //オブジェクトとの接触判定
+
+            //忍者の上下左右の端の位置
+            let ninjaLeft = this.ninja.posX;
+            let ninjaRight = ninjaLeft + this.ninja.size;
+            let ninjaTop = this.ninja.posY;
+            let ninjaFoot = ninjaTop + this.ninja.size;
+
+            for (let key in this.objs) {
+                //オブジェクトの上下左右の端の位置
+                let objLeft = this.objs[key].posX;
+                let objRight = objLeft + this.objs[key].size;
+                let objTop = this.objs[key].posY;
+                let objFoot = objTop + this.objs[key].size;
+
+                //忍者が上から
+                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                    this.ninja.posY = this.objs[key].posY - this.ninja.size;
+                    this.ninja.speedY = 0;
+                    console.log("上から");
+                }
+                //忍者が右から
+                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                    this.ninja.posX = this.objs[key].posX + this.objs[key].size;
+                    this.ninja.speedX = 0;
+                    console.log("右から");
+                }
+                //忍者が下から
+                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                    this.ninja.posY = this.objs[key].posY + this.objs[key].size;
+                    this.ninja.speedY = 0;
+                    console.log("下から");
+                }
+                //忍者が左から
+                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                    this.ninja.posX = this.objs[key].posX - this.ninja.size;
+                    this.ninja.speedX = 0;
+                    console.log("左から");
+                }
+            }
+
+/*
+                size: 10,
+                posX: 100,
+                posY: 67,
+                zIndex: 30,
+                img: imgRock,
+*/
 
 
 
@@ -421,6 +467,41 @@ function RenderObjs(props) {
         );
     }
     return <span>{ objList }</span>;
+}
+
+function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize){
+    //コメントは忍者が右から来た想定
+    if (objRight > ninjaLeft) {
+        //忍者が右から
+        if (objRight < ninjaRight) {
+            //忍者の右端がオブジェクトの右端を左向きに超えてはいない
+            if (objTop < ninjaFoot - ninjaSize * 2 / 3) {
+                //オブジェクトの上をまたいでいない
+                if (objFoot > ninjaTop + ninjaSize * 2 / 3) {
+                    //オブジェクトの下をくぐっていない
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, ninjaSize) {
+    //コメントは忍者が左から来た想定
+    if (objLeft < ninjaRight) {
+        //忍者が左から
+        if (objLeft > ninjaLeft) {
+            //忍者の左端がオブジェクトの左端を右向きに超えてはいない
+            if (objTop < ninjaFoot - ninjaSize * 2 / 3) {
+                //オブジェクトの上をまたいでいない
+                if (objFoot > ninjaTop + ninjaSize * 2 / 3) {
+                    //オブジェクトの下をくぐっていない
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 export { Page2 };
