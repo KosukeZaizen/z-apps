@@ -68,6 +68,9 @@ export default class Page2 extends React.Component {
         this.rButton = false;
         //jumpボタン押下判定
         this.jButton = false;
+
+        //キーボード押下時イベントセット
+        this.setKeyboardEvent(this);
     }
 
 
@@ -86,27 +89,37 @@ export default class Page2 extends React.Component {
                 //横がはみ出たら(正方形に近い画面)
                 pageWidth = screenWidth;
                 pageHeight = pageWidth * 9 / 16;
-            }
-            this.pageStyle = {};
+
+                this.pageStyle = {
+                    //ページの余白設定
+                    position: "absolute",
+                    top: (screenHeight - pageHeight) / 2,
+                }
+            } else { 
+            this.pageStyle = {
+            };
+        }
         } else {
             //縦長
-            pageHeight = screenWidth * 4 / 5;
+            pageHeight = screenWidth * 9 / 10;
             pageWidth = pageHeight * 16 / 9;
 
-            if (pageWidth > screenHeight * 4 / 5) {
+            if (pageWidth > screenHeight * 9 / 10) {
                 //横がはみ出そうだったら(正方形に近い画面)
-                pageWidth = screenHeight * 4 / 5;
+                pageWidth = screenHeight * 9 / 10;
                 pageHeight = pageWidth * 9 / 16;
 
                 this.pageStyle = {
+                    //ページの余白設定
                     position: "absolute",
                     left: (screenWidth + pageHeight)/2,
-                    top: screenHeight / 10,
+                    top: screenHeight / 20,
                 }
             } else {
                 this.pageStyle = {
+                    //ページの余白設定
                     position: "absolute",
-                    left: screenWidth * 9 / 10,
+                    left: screenWidth * 95 / 100,
                     top: (screenHeight - pageWidth) / 2,
                 }
             }
@@ -115,7 +128,6 @@ export default class Page2 extends React.Component {
         return { pageWidth: pageWidth, pageHeight: pageHeight };
     }
     //---------------↑　resize　↑---------------
-
 
 
     onLoadPage() {
@@ -135,11 +147,11 @@ export default class Page2 extends React.Component {
                 this.ninja.speedX = 0;
             } else {
                 if (this.lButton === true) {
-                    this.ninja.speedX -= 1;
+                    this.ninja.speedX = -6;
                     boolLeft = true;//画像左向き
                 }
                 if (this.rButton === true) {
-                    this.ninja.speedX += 1;
+                    this.ninja.speedX = 6;
                     boolLeft = false;//画像右向き
                 }
             }
@@ -197,15 +209,63 @@ export default class Page2 extends React.Component {
         }, this.consts.timeStep);
     }
 
+    setKeyboardEvent(objGame) {
+        // ------------------------------------------------------------
+        // キーボードを押したときに実行されるイベント
+        // ------------------------------------------------------------
+        document.onkeydown = function (e) {
+            if (!e) e = window.event; // レガシー
+
+            // ------------------------------------------------------------
+            // 入力情報を取得
+            // ------------------------------------------------------------
+            // キーコード
+            let keyCode = e.keyCode;
+            let keyType;
+            if (keyCode === 37) {
+                keyType = "left";
+            } else if (keyCode === 39) {
+                keyType = "right";
+            } else if (keyCode === 38) {
+                keyType = "jump";
+            } else if (keyCode === 32) {
+                keyType = "jump";
+            }
+            objGame.onClickButton(keyType);
+        };
+
+        // ------------------------------------------------------------
+        // キーボードを離したときに実行されるイベント
+        // ------------------------------------------------------------
+        document.onkeyup = function (e) {
+            if (!e) e = window.event; // レガシー
+
+            // キーコード
+            let keyCode = e.keyCode;
+            let keyType;
+            if (keyCode === 37) {
+                keyType = "left";
+            } else if (keyCode === 39) {
+                keyType = "right";
+            } else if (keyCode === 38) {
+                keyType = "jump";
+            } else if (keyCode === 32) {
+                keyType = "jump";
+            }
+            objGame.onMouseUp(keyType);
+        };
+    }
 
     //ボタン押下時処理
     onClickButton(btnType) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = true;
+            this.rButton = false;
         } else if (btnType === "right") {
             //→ボタン押下判定
             this.rButton = true;
+            this.lButton = false;
         } else if (btnType === "jump") {
             //jumpボタン押下判定
             this.jButton = true;
@@ -221,6 +281,7 @@ export default class Page2 extends React.Component {
             this.rButton = false;
         }
     }
+
 
 
 
