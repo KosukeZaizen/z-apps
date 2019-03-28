@@ -10,12 +10,46 @@ export default class Page2 extends React.Component {
     constructor(props) {
         super(props);
 
+        //画面の高さと幅を取得
+        let pageSize = this.getWindowSize();
+
+        //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
+        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+
+        //前のステージから受け取った忍者の初期値を設定
+        this.ninja = this.props.ninja;
+
+        //ステージごとの設定
+        let bgImg;
+        if (this.props.stage === 1) {
+            //ステージ毎のオブジェクトを配置
+            this.objs = {
+                rock1: {
+                    size: 10,
+                    posX: 100,
+                    posY: 67,
+                    zIndex: 30,
+                    img: imgRock,
+                },
+                rock2: {
+                    size: 17,
+                    posX: 40,
+                    posY: 60,
+                    zIndex: 30,
+                    img: imgRock,
+                }
+            }
+
+            //ステージの背景画像を設定
+            bgImg = furuie;
+        }
+
         this.consts = {
             timeStep: 100,
 
             backgroundSetting: {
                 /* 背景画像 */
-                backgroundImage: `url(${furuie})`,
+                backgroundImage: `url(${bgImg})`,
 
                 /* 画像を常に天地左右の中央に配置 */
                 backgroundPosition: "center center",
@@ -34,31 +68,6 @@ export default class Page2 extends React.Component {
             BUTTON: "btn btn-info btn-lg btn-block",
 
         };
-
-        //画面の高さと幅を取得
-        let pageSize = this.getWindowSize();
-
-        //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
-        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
-
-        this.ninja = this.props.ninja;
-
-        this.objs = {
-            rock1: {
-                size: 10,
-                posX: 100,
-                posY: 67,
-                zIndex: 30,
-                img: imgRock,
-            },
-            rock2: {
-                size: 17,
-                posX: 40,
-                posY: 60,
-                zIndex: 30,
-                img: imgRock,
-            }
-        }
 
         this.state = {
             screenStyle: {
@@ -230,17 +239,6 @@ export default class Page2 extends React.Component {
                     console.log("左から");
                 }
             }
-
-/*
-                size: 10,
-                posX: 100,
-                posY: 67,
-                zIndex: 30,
-                img: imgRock,
-*/
-
-
-
             /* ↑　物体速度・位置計算　↑ */
 
 
@@ -339,9 +337,6 @@ export default class Page2 extends React.Component {
         }
     }
 
-
-
-
     render() {
         //ボタンがあるテーブルのスタイル
         let controllerStyle = {
@@ -379,18 +374,7 @@ export default class Page2 extends React.Component {
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
                     />
-
                     <RenderObjs game={this} />
-                    {/*
-                    <Rock
-                        imgAlt="Rock"
-                        width={this.rock1.size * this.UL}
-                        x={this.rock1.posX * this.UL}
-                        y={this.rock1.posY * this.UL}
-                        boolLeft={true}
-                        zIndex={this.rock1.zIndex}
-                    />
-                    */}
                 </div>
                 <b>
                     <table id="controller" style={controllerStyle}>
@@ -445,7 +429,6 @@ export default class Page2 extends React.Component {
 }
 
 function RenderObjs(props) {
-
     let objList = [];
     for (let key in props.game.objs) {
         objList.push(

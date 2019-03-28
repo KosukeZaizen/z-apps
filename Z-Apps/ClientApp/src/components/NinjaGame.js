@@ -69,6 +69,7 @@ function Pages(props) {
             <Page2
                 changeStage={(i) => { props.changeStage(i) }}
                 ninja={props.state.ninja}
+                stage={props.state.stage}
             />
         );
     }
