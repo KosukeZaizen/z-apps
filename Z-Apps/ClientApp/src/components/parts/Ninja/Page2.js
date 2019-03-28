@@ -23,7 +23,7 @@ export default class Page2 extends React.Component {
 
         //全ステージ共通の壁
         let objWalls = {
-            floar: {
+            floor: {
                 size: 200,
                 posX: -20,
                 posY: 75,
