@@ -13,19 +13,32 @@ html {
         margin: auto;
     }
 
+    /*
     #ninja-game #rotatePhone {
         display: none;
-    }
+    }*/
 }
 
 @media screen and (orientation: portrait) {
     /* 縦画面 */
-    #ninja-game #gameScreen {
-        margin: auto;
-        width: 100%;
-        height: auto;
+
+    #ninja-game #Page2 {
+        transform-origin: left top;
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
     }
 
+    #ninja-game #gameScreen {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        margin: auto;
+    }
+    /*
     #ninja-game #rotatePhone {
         position: absolute;
         right: 0px;
@@ -36,5 +49,5 @@ html {
         width: 40%;
         background-color: white;
         display: block;
-    }
+    }*/
 }

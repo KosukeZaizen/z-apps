@@ -36,6 +36,9 @@ export default class Page2 extends React.Component {
 
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
+        if (this.pageStyle) {
+            alert("Please rotate your phone.");
+        }
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
         this.UL = parseInt(pageSize.pageHeight, 10) / 90;
 
@@ -47,7 +50,7 @@ export default class Page2 extends React.Component {
         }
 
         this.state = {
-            pageStyle: {
+            screenStyle: {
                 width: pageSize.pageWidth,
                 height: pageSize.pageHeight - 15 * this.UL,
                 ...this.consts.backgroundSetting,
@@ -74,14 +77,39 @@ export default class Page2 extends React.Component {
         let screenWidth = parseInt(window.innerWidth, 10);
         let screenHeight = parseInt(window.innerHeight, 10);
 
-        if (screenWidth > screenHeight * 16 / 9) {
+        if (screenWidth > screenHeight) {
             //横長
             pageHeight = screenHeight;
             pageWidth = pageHeight * 16 / 9;
+
+            if (pageWidth > screenWidth) {
+                //横がはみ出たら(正方形に近い画面)
+                pageWidth = screenWidth;
+                pageHeight = pageWidth * 9 / 16;
+            }
+            this.pageStyle = {};
         } else {
             //縦長
-            pageWidth = screenWidth;
-            pageHeight = pageWidth * 9 / 16;
+            pageHeight = screenWidth * 4 / 5;
+            pageWidth = pageHeight * 16 / 9;
+
+            if (pageWidth > screenHeight * 4 / 5) {
+                //横がはみ出そうだったら(正方形に近い画面)
+                pageWidth = screenHeight * 4 / 5;
+                pageHeight = pageWidth * 9 / 16;
+
+                this.pageStyle = {
+                    position: "absolute",
+                    left: (screenWidth + pageHeight)/2,
+                    top: screenHeight / 10,
+                }
+            } else {
+                this.pageStyle = {
+                    position: "absolute",
+                    left: screenWidth * 9 / 10,
+                    top: (screenHeight - pageWidth) / 2,
+                }
+            }
         }
 
         return { pageWidth: pageWidth, pageHeight: pageHeight };
@@ -155,7 +183,7 @@ export default class Page2 extends React.Component {
 
             //物体の位置などを更新し、再描画
             this.setState({
-                pageStyle: {
+                screenStyle: {
                     width: pageSize.pageWidth,
                     height: pageSize.pageHeight - 15 * this.UL,
                     ...this.consts.backgroundSetting,
@@ -219,10 +247,10 @@ export default class Page2 extends React.Component {
         };
 
         return (
-            <div>
+            <div id="Page2" style={this.pageStyle}>
                 <div
                     id="gameScreen"
-                    style={this.state.pageStyle}
+                    style={this.state.screenStyle}
                     onLoad={() => { this.onLoadPage() }}
                 >
                     <Obj

@@ -46,16 +46,17 @@ const Home = props => (
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
+            <br />
+            <Link to="/ninja">
+            <Card body inverse color="warning">
+                <CardTitle>Comming Soon!</CardTitle>
+                <CardText>A new content is comming soon!</CardText>
+                <Button color="secondary">Check!</Button>
+            </Card>
+            </Link>
+            <br />
 
             {/*}
-
-            <br />
-            <Card body inverse color="warning">
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button color="secondary">Button</Button>
-            </Card>
-            <br />
             <Card body inverse color="info">
                 <CardTitle>Special Title Treatment</CardTitle>
                 <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
