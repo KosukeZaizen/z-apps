@@ -41,13 +41,7 @@ export default class Page2 extends React.Component {
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
         this.UL = parseInt(pageSize.pageHeight, 10) / 90;
 
-        this.ninja = {
-            size: 12,
-            speedX: 0,
-            speedY: 0,
-            posX: 145,
-            posY: 5,
-        }
+        this.ninja = this.props.ninja;
 
         this.objs = {
             rock1: {
