@@ -12,13 +12,24 @@ function Obj(props) {
         zIndex: props.zIndex,
     };
 
-    return (
-        <img
-            src={props.img}
-            width={props.width}
-            style={style}
-        />
-    );
+    if (props.img) {
+        return (
+            <img
+                src={props.img}
+                width={props.width}
+                style={style}
+                alt={"object"}
+            />
+        );
+    } else {
+        return (
+            <div
+                width={props.width}
+                style={style}
+            >
+            </div>
+        );
+    }
 }
 
 export { Obj };

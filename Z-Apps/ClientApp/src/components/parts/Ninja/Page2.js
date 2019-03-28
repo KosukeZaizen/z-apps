@@ -1,5 +1,6 @@
 import React from 'react';
 import furuie from './img/background/furuie5.jpg';
+import bg_red from './img/background/bg_red.jpg';
 import { NinjaChar } from './objs/ninja/ninja';
 import { Obj } from './objs/obj';
 import imgRock from './objs/rock/rock.png';
@@ -19,17 +20,49 @@ export default class Page2 extends React.Component {
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
-        //ステージごとの設定
+
+        //全ステージ共通の壁
+        let objWalls = {
+            floar: {
+                size: 200,
+                posX: -20,
+                posY: 75,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            leftWall: {
+                size: 300,
+                posX: -310,
+                posY: -200,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            rightWall: {
+                size: 300,
+                posX: 170,
+                posY: -200,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+        };
+
         let bgImg;
         if (this.props.stage === 1) {
+            // ------------------------------------------------------------
+            // ステージ1
+            // ------------------------------------------------------------
+
             //ステージ毎のオブジェクトを配置
             this.objs = {
+                ...objWalls,
+
                 rock1: {
                     size: 10,
                     posX: 100,
                     posY: 67,
                     zIndex: 30,
                     img: imgRock,
+                    onTouch: onTouchBlock,
                 },
                 rock2: {
                     size: 17,
@@ -37,13 +70,38 @@ export default class Page2 extends React.Component {
                     posY: 60,
                     zIndex: 30,
                     img: imgRock,
-                }
+                    onTouch: onTouchBlock,
+                },
             }
-
             //ステージの背景画像を設定
             bgImg = furuie;
+
+
+        } else if (this.props.stage === 2) {
+            // ------------------------------------------------------------
+            // ステージ2
+            // ------------------------------------------------------------
+
+            //ステージ毎のオブジェクトを配置
+            this.objs = {
+                rock1: {
+                    size: 17,
+                    posX: 70,
+                    posY: 60,
+                    zIndex: 30,
+                    img: imgRock,
+                },
+            }
+            //ステージの背景画像を設定
+            bgImg = bg_red;
         }
 
+
+
+
+        // ------------------------------------------------------------
+        // 定数設定
+        // ------------------------------------------------------------
         this.consts = {
             timeStep: 100,
 
@@ -69,6 +127,9 @@ export default class Page2 extends React.Component {
 
         };
 
+        // ------------------------------------------------------------
+        // ステート設定
+        // ------------------------------------------------------------
         this.state = {
             screenStyle: {
                 width: pageSize.pageWidth,
@@ -188,6 +249,7 @@ export default class Page2 extends React.Component {
             //重力加速度
             this.ninja.speedY += 0.9;
 
+
             //位置計算
             this.ninja.posX += this.ninja.speedX;
             this.ninja.posY += this.ninja.speedY;
@@ -216,27 +278,19 @@ export default class Page2 extends React.Component {
 
                 //忍者が上から
                 if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    this.ninja.posY = this.objs[key].posY - this.ninja.size;
-                    this.ninja.speedY = 0;
-                    console.log("上から");
+                    this.objs[key].onTouch("upper", this.ninja);
                 }
                 //忍者が右から
                 if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    this.ninja.posX = this.objs[key].posX + this.objs[key].size;
-                    this.ninja.speedX = 0;
-                    console.log("右から");
+                    this.objs[key].onTouch("right", this.ninja);
                 }
                 //忍者が下から
                 if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    this.ninja.posY = this.objs[key].posY + this.objs[key].size;
-                    this.ninja.speedY = 0;
-                    console.log("下から");
+                    this.objs[key].onTouch("lower", this.ninja);
                 }
                 //忍者が左から
                 if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    this.ninja.posX = this.objs[key].posX - this.ninja.size;
-                    this.ninja.speedX = 0;
-                    console.log("左から");
+                    this.objs[key].onTouch("left", this.ninja);
                 }
             }
             /* ↑　物体速度・位置計算　↑ */
@@ -443,10 +497,10 @@ function RenderObjs(props) {
             />
         );
     }
-    return <span>{ objList }</span>;
+    return <span>{objList}</span>;
 }
 
-function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize){
+function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
     //コメントは忍者が右から来た想定
     if (objRight > ninjaLeft) {
         //忍者が右から
@@ -479,6 +533,32 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
         }
     }
     return false;
+}
+
+//=======================================
+// 貫通不可能ブロック用のタッチ関数
+//=======================================
+function onTouchBlock(from, ninja) {
+    if (from === "upper") {
+        //上から
+        ninja.posY = this.posY - ninja.size;
+        ninja.speedY = 0;
+
+    } else if (from === "right") {
+        //右から
+        ninja.posX = this.posX + this.size;
+        ninja.speedX = 0;
+
+    } else if (from === "lower") {
+        //下から
+        ninja.posY = this.posY + this.size;
+        ninja.speedY = 0;
+
+    } else if (from === "left") {
+        //左から
+        ninja.posX = this.posX - ninja.size;
+        ninja.speedX = 0;
+    }
 }
 
 export { Page2 };
