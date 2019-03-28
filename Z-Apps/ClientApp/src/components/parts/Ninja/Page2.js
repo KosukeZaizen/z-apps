@@ -23,10 +23,17 @@ export default class Page2 extends React.Component {
 
         //全ステージ共通の壁
         let objWalls = {
-            floor: {
+            floor1: {
                 size: 200,
                 posX: -20,
                 posY: 75,
+                zIndex: 30,
+                onTouch: onTouchBlock,
+            },
+            floor2: {
+                size: 200,
+                posX: -20,
+                posY: 79,
                 zIndex: 30,
                 onTouch: onTouchBlock,
             },
@@ -72,6 +79,16 @@ export default class Page2 extends React.Component {
                     img: imgRock,
                     onTouch: onTouchBlock,
                 },
+                leftGate: {
+                    size: 300,
+                    posX: -300,
+                    posY: -200,
+                    zIndex: 30,
+                    next: 2,
+                    onTouch: onToughGate,
+                    changeStage: this.props.changeStage,
+                },
+
             }
             //ステージの背景画像を設定
             bgImg = furuie;
@@ -253,12 +270,6 @@ export default class Page2 extends React.Component {
             //位置計算
             this.ninja.posX += this.ninja.speedX;
             this.ninja.posY += this.ninja.speedY;
-
-            //床補正
-            if (this.ninja.posY > 75 - this.ninja.size) {
-                this.ninja.posY = 75 - this.ninja.size;
-                this.ninja.speedY = 0;
-            }
 
 
             //オブジェクトとの接触判定
@@ -559,6 +570,13 @@ function onTouchBlock(from, ninja) {
         ninja.posX = this.posX - ninja.size;
         ninja.speedX = 0;
     }
+}
+
+//=======================================
+// 貫通不可能ブロック用のタッチ関数
+//=======================================
+function onToughGate(from, ninja) {
+    this.changeStage(this.next, ninja);
 }
 
 export { Page2 };

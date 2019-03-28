@@ -29,9 +29,15 @@ class NinjaGame extends React.Component {
     }
 
     changeStage(num, ninja) {
+        console.log("");
+        console.log("change stage");
+        console.log("next stage: " + num);
+        console.log("ninja: " + ninja);
+
         this.setState({
             stage: num,
             ninja: ninja,
+            curPage: 2,
         });
     }
 
@@ -51,6 +57,7 @@ class NinjaGame extends React.Component {
                 <Pages
                     state={this.state}
                     changePage={(i) => { this.changePage(i) }}
+                    changeStage={(i, j) => { this.changeStage(i, j) }}
                 />
             </center>
         )
@@ -67,7 +74,7 @@ function Pages(props) {
     } else if (props.state.curPage === 2) {
         return (
             <Page2
-                changeStage={(i) => { props.changeStage(i) }}
+                changeStage={(i, j) => { props.changeStage(i, j) }}
                 ninja={props.state.ninja}
                 stage={props.state.stage}
             />
