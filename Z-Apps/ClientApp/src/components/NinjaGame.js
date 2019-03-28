@@ -13,11 +13,26 @@ class NinjaGame extends React.Component {
         };
         this.state = {
             curPage: 1,
+            stage: 1,
+            ninja: {
+                size: 12,
+                speedX: 0,
+                speedY: 0,
+                posX: 145,
+                posY: 5,
+            },
         };
     }
 
     changePage(num) {
         this.setState({ curPage: num, });
+    }
+
+    changeStage(num, ninja) {
+        this.setState({
+            stage: num,
+            ninja: ninja,
+        });
     }
 
     render() {
@@ -34,7 +49,7 @@ class NinjaGame extends React.Component {
         return (
             <center id="ninja-game" style={style}>
                 <Pages
-                    curPage={this.state.curPage}
+                    state={this.state}
                     changePage={(i) => { this.changePage(i) }}
                 />
             </center>
@@ -43,13 +58,18 @@ class NinjaGame extends React.Component {
 };
 
 function Pages(props) {
-    if (props.curPage === 1) {
+    if (props.state.curPage === 1) {
         return (
-            <Page1 changePage={(i) => { props.changePage(i) }} />
+            <Page1
+                changePage={(i) => { props.changePage(i) }}
+            />
         );
-    } else if (props.curPage === 2) {
+    } else if (props.state.curPage === 2) {
         return (
-            <Page2 />
+            <Page2
+                changeStage={(i) => { props.changeStage(i) }}
+                ninja={props.state.ninja}
+            />
         );
     }
 }
