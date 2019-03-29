@@ -13,6 +13,10 @@ import imgTree1 from './objs/tree1.png';
 import imgKanban1 from './objs/kanban1.png';
 //看板の矢印
 import imgArrow1 from './objs/arrow1.png';
+//火
+import imgfire1 from './objs/fire1.png';
+//シバ
+import imgShiba from './objs/shiba.png';
 
 
 //背景画像//---------------------------
@@ -493,7 +497,7 @@ export default class Page2 extends React.Component {
 
                 rock1: {
                     size: 17,
-                    posX: 70,
+                    posX: 55,
                     posY: 60,
                     zIndex: 30,
                     img: imgRock,
@@ -552,6 +556,23 @@ export default class Page2 extends React.Component {
                     next: 2,
                     onTouch: onToughGateWall,
                     changeStage: this.props.changeStage,
+                },
+                fire1: {
+                    size: 13,
+                    posX: 74,
+                    posY: 62,
+                    zIndex: 20,
+                    img: imgfire1,
+                    onTouch: onToughFire,
+                    jumpHeight: 21,
+                },
+                shiba: {
+                    size: 10,
+                    posX: 30,
+                    posY: 62,
+                    zIndex: 20,
+                    img: imgShiba,
+                    onTouch: onToughShiba1,
                 },
             }
             //ステージの背景画像を設定
@@ -745,6 +766,25 @@ function onToughGateWall(from, ninja) {
     this.changeStage(this.next, ninja);
 
     return "changed";
+}
+
+//=======================================
+// ステージ3のシバにタッチ
+//=======================================
+function onToughShiba1(from, ninja) {
+    if (!ninja.musasabi) {
+        ninja.musasabi = true;
+        alert("You can fly using updrafts from fire!");
+    }
+}
+
+//=======================================
+// 炎にタッチ
+//=======================================
+function onToughFire(from, ninja) {
+    if (ninja.musasabi) {
+        ninja.speedY = this.jumpHeight * (-1);
+    }
 }
 
 export { Page2 };

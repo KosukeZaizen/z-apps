@@ -13,6 +13,7 @@ function Obj(props) {
     };
 
     if (props.img) {
+    //imgという引数を受け取っている場合、画像要素を生成
         return (
             <img
                 src={props.img}
@@ -22,6 +23,7 @@ function Obj(props) {
             />
         );
     } else {
+        //該当の引数を受け取っていない場合、div要素を生成
         return (
             <div
                 width={props.width}
