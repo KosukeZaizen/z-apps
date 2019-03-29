@@ -13,6 +13,10 @@ import imgTree1 from './objs/tree1.png';
 import imgKanban1 from './objs/kanban1.png';
 //看板の矢印
 import imgArrow1 from './objs/arrow1.png';
+//鳥居
+import imgTorii from './objs/torii.png';
+//Welcomeのフレーム
+import imgFrame from './objs/frame.jpg';
 //火
 import imgfire1 from './objs/fire1.png';
 //シバ
@@ -217,7 +221,7 @@ export default class Page2 extends React.Component {
 
 
     onLoadPage() {
-
+        //初回描画時のみ処理の登録を行う
         if (this.initFlag) {
             //タイムステップ毎に処理を呼び出す
             setInterval(() => {
@@ -450,8 +454,8 @@ export default class Page2 extends React.Component {
                 },
                 rock2: {
                     size: 17,
-                    posX: 40,
-                    posY: 63,
+                    posX: 50,
+                    posY: 65,
                     zIndex: 20,
                     img: imgRock,
                     onTouch: onTouchBlock,
@@ -497,8 +501,8 @@ export default class Page2 extends React.Component {
 
                 rock1: {
                     size: 17,
-                    posX: 55,
-                    posY: 60,
+                    posX: 50,
+                    posY: 63,
                     zIndex: 30,
                     img: imgRock,
                     onTouch: onTouchBlock,
@@ -507,7 +511,7 @@ export default class Page2 extends React.Component {
                     size: 60,
                     posX: 120,
                     posY: 20,
-                    zIndex: 10,
+                    zIndex: 15,
                     img: imgTree1,
                     onTouch: onTouchNothing,
                 },
@@ -516,6 +520,56 @@ export default class Page2 extends React.Component {
                     posX: 120,
                     posY: 30,
                     onTouch: onTouchTree,
+                },
+                toriiPic: {
+                    size: 120,
+                    posX: 35,
+                    posY: 3,
+                    zIndex: 10,
+                    img: imgTorii,
+                    onTouch: onTouchNothing,
+                },
+                toriiActual: {
+                    size: 120,
+                    posX: 35,
+                    posY: 9,
+                    zIndex: 10,
+                    onTouch: onTouchTree,
+                },
+                toriiFramePic: {
+                    size: 40,
+                    posX: 75,
+                    posY: 5,
+                    zIndex: 30,
+                    img: imgFrame,
+                    onTouch: onTouchNothing,
+                },
+                toriiMessage1: {
+                    size: 30,
+                    posX: 87,
+                    posY: 10,
+                    zIndex: 30,
+                    message: "Welcome",
+                    fontSize: 4,
+                    onTouch: onTouchNothing,
+                },
+                toriiMessage2: {
+                    size: 30,
+                    posX: 93,
+                    posY: 15,
+                    zIndex: 30,
+                    message: "to",
+                    fontSize: 4,
+                    onTouch: onTouchNothing,
+                },
+                toriiMessage3: {
+                    size: 30,
+                    posX: 89,
+                    posY: 20,
+                    zIndex: 30,
+                    message: "Japan!",
+                    fontSize: 4,
+                    onTouch: onTouchNothing,
                 },
                 rightGateWall: {
                     size: 300,
@@ -564,7 +618,7 @@ export default class Page2 extends React.Component {
                     zIndex: 20,
                     img: imgfire1,
                     onTouch: onToughFire,
-                    jumpHeight: 21,
+                    jumpHeight: 23,
                 },
                 shiba: {
                     size: 10,
@@ -661,6 +715,8 @@ function RenderObjs(props) {
                 boolLeft={props.game.objs[key].boolLeft}
                 zIndex={props.game.objs[key].zIndex}
                 img={props.game.objs[key].img}
+                message={props.game.objs[key].message}
+                fontSize={props.game.objs[key].fontSize * props.game.UL}
             />
         );
     }
@@ -673,9 +729,9 @@ function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninj
         //忍者が右から
         if (objRight < ninjaRight) {
             //忍者の右端がオブジェクトの右端を左向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 2 / 3) {
+            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 2 / 3) {
+                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }
@@ -690,9 +746,9 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
         //忍者が左から
         if (objLeft > ninjaLeft) {
             //忍者の左端がオブジェクトの左端を右向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 2 / 3) {
+            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 2 / 3) {
+                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }

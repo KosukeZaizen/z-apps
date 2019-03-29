@@ -10,6 +10,7 @@ function Obj(props) {
         top: props.y,
         transform: left,
         zIndex: props.zIndex,
+        fontSize: props.fontSize,
     };
 
     if (props.img) {
@@ -29,6 +30,7 @@ function Obj(props) {
                 width={props.width}
                 style={style}
             >
+                {props.message}
             </div>
         );
     }
