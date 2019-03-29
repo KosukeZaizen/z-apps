@@ -2,7 +2,7 @@ import React from 'react';
 
 function Obj(props) {
 
-    let left = props.boolLeft ? "" : "scale(-1, 1)";
+    let left = props.boolLeft ? "scale(-1, 1)" : "";
 
     let style = {
         position: "absolute",

@@ -11,6 +11,7 @@ function NinjaChar(props) {
         left: props.x,
         top: props.y,
         transform: left,
+        zIndex: 25,
     };
 
     return (

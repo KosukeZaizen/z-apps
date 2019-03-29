@@ -1,9 +1,28 @@
 import React from 'react';
-import furuie from './img/background/furuie5.jpg';
-import bg_red from './img/background/bg_red.jpg';
 import { NinjaChar } from './objs/ninja/ninja';
 import { Obj } from './objs/obj';
-import imgRock from './objs/rock/rock.png';
+
+
+//オブジェクト素材画像----------------
+
+//岩
+import imgRock from './objs/rock.png';
+//木
+import imgTree1 from './objs/tree1.png';
+//看板
+import imgKanban1 from './objs/kanban1.png';
+//看板の矢印
+import imgArrow1 from './objs/arrow1.png';
+
+
+//背景画像//---------------------------
+
+//stage1
+import furuie from './img/background/furuie5.jpg';
+//stage2
+import town1 from './img/background/town1.jpg';
+//stage3
+import ryokan1 from './img/background/ryokan1.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -76,7 +95,7 @@ export default class Page2 extends React.Component {
         };
 
         //背景の初期設定
-//        this.bgImg = furuie;
+        //        this.bgImg = furuie;
         this.backgroundSetting = {
             /* 背景画像 */
             backgroundImage: `url(${furuie})`,
@@ -251,6 +270,10 @@ export default class Page2 extends React.Component {
                 let ninjaFoot = ninjaTop + this.ninja.size;
 
                 for (let key in this.objs) {
+
+                    //途中でステージ遷移したら、関数を中止するためのフラグ
+                    let stageChangedFlag = "";
+
                     //オブジェクトの上下左右の端の位置
                     let objLeft = this.objs[key].posX;
                     let objRight = objLeft + this.objs[key].size;
@@ -259,20 +282,23 @@ export default class Page2 extends React.Component {
 
                     //忍者が上から
                     if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        this.objs[key].onTouch("upper", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch("upper", this.ninja);
                     }
                     //忍者が右から
                     if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        this.objs[key].onTouch("right", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch("right", this.ninja);
                     }
                     //忍者が下から
                     if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        this.objs[key].onTouch("lower", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch("lower", this.ninja);
                     }
                     //忍者が左から
                     if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        this.objs[key].onTouch("left", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch("left", this.ninja);
                     }
+
+                    //ステージ遷移をしていたら、関数中止
+                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
                 }
                 /* ↑　物体速度・位置計算　↑ */
 
@@ -383,6 +409,7 @@ export default class Page2 extends React.Component {
             top: 75 * this.UL,
             width: "100%",
             zIndex: "99999999",
+            backgroundColor: "black",
         };
         //左右のボタンのスタイル
         let sideButtonStyle = {
@@ -401,11 +428,10 @@ export default class Page2 extends React.Component {
 
         let bgImg;
         if (this.props.stage === 1) {
+
             // ------------------------------------------------------------
             // ステージ1
             // ------------------------------------------------------------
-
-            //ステージ毎のオブジェクトを配置
             this.objs = {
                 ...this.objWalls,
                 ...this.objFloor,
@@ -413,18 +439,35 @@ export default class Page2 extends React.Component {
                 rock1: {
                     size: 10,
                     posX: 100,
-                    posY: 67,
-                    zIndex: 30,
+                    posY: 70,
+                    zIndex: 20,
                     img: imgRock,
                     onTouch: onTouchBlock,
                 },
                 rock2: {
                     size: 17,
                     posX: 40,
-                    posY: 60,
-                    zIndex: 30,
+                    posY: 63,
+                    zIndex: 20,
                     img: imgRock,
                     onTouch: onTouchBlock,
+                },
+                kanban1Pic: {
+                    size: 20,
+                    posX: 7,
+                    posY: 60,
+                    zIndex: 10,
+                    img: imgKanban1,
+                    onTouch: onTouchNothing,
+                },
+                kanban1ArrowPic: {
+                    size: 10,
+                    posX: 11,
+                    posY: 63,
+                    boolLeft: true,
+                    zIndex: 11,
+                    img: imgArrow1,
+                    onTouch: onTouchNothing,
                 },
                 leftGateWall: {
                     size: 300,
@@ -440,11 +483,10 @@ export default class Page2 extends React.Component {
             bgImg = furuie;
 
         } else if (this.props.stage === 2) {
+
             // ------------------------------------------------------------
             // ステージ2
             // ------------------------------------------------------------
-
-            //ステージ毎のオブジェクトを配置
             this.objs = {
                 ...this.objWalls,
                 ...this.objFloor,
@@ -457,6 +499,20 @@ export default class Page2 extends React.Component {
                     img: imgRock,
                     onTouch: onTouchBlock,
                 },
+                tree1Pic: {
+                    size: 60,
+                    posX: 120,
+                    posY: 20,
+                    zIndex: 10,
+                    img: imgTree1,
+                    onTouch: onTouchNothing,
+                },
+                tree1Actual: {
+                    size: 60,
+                    posX: 120,
+                    posY: 30,
+                    onTouch: onTouchTree,
+                },
                 rightGateWall: {
                     size: 300,
                     posX: 160,
@@ -466,10 +522,40 @@ export default class Page2 extends React.Component {
                     onTouch: onToughGateWall,
                     changeStage: this.props.changeStage,
                 },
-
+                leftGateWall: {
+                    size: 300,
+                    posX: -300,
+                    posY: -200,
+                    zIndex: 30,
+                    next: 3,
+                    onTouch: onToughGateWall,
+                    changeStage: this.props.changeStage,
+                },
             }
             //ステージの背景画像を設定
-            bgImg = bg_red;
+            bgImg = town1;
+
+        } else if (this.props.stage === 3) {
+
+            // ------------------------------------------------------------
+            // ステージ3
+            // ------------------------------------------------------------
+            this.objs = {
+                ...this.objWalls,
+                ...this.objFloor,
+
+                rightGateWall: {
+                    size: 300,
+                    posX: 160,
+                    posY: -200,
+                    zIndex: 30,
+                    next: 2,
+                    onTouch: onToughGateWall,
+                    changeStage: this.props.changeStage,
+                },
+            }
+            //ステージの背景画像を設定
+            bgImg = ryokan1;
         }
 
         this.backgroundSetting.backgroundImage = `url(${bgImg})`;
@@ -551,7 +637,7 @@ function RenderObjs(props) {
                 width={props.game.objs[key].size * props.game.UL}
                 x={props.game.objs[key].posX * props.game.UL}
                 y={props.game.objs[key].posY * props.game.UL}
-                boolLeft={true}
+                boolLeft={props.game.objs[key].boolLeft}
                 zIndex={props.game.objs[key].zIndex}
                 img={props.game.objs[key].img}
             />
@@ -621,6 +707,25 @@ function onTouchBlock(from, ninja) {
     }
 }
 
+
+//=======================================
+// 上から乗れる木のタッチ関数
+//=======================================
+function onTouchTree(from, ninja) {
+    if (from === "upper") {
+        //上から
+        ninja.posY = this.posY - ninja.size;
+        ninja.speedY = 0;
+
+    }
+}
+
+//=======================================
+// 何も起こらないタッチ関数
+//=======================================
+function onTouchNothing() {
+}
+
 //=======================================
 // 別ステージへのゲートのタッチ関数
 //=======================================
@@ -638,6 +743,8 @@ function onToughGateWall(from, ninja) {
         ninja.speedY = 0;
     }
     this.changeStage(this.next, ninja);
+
+    return "changed";
 }
 
 export { Page2 };
