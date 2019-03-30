@@ -147,8 +147,7 @@ export default class Page2 extends React.Component {
             FIRST_SCROLL_MESSAGE:
                 "Hello, newbie! My name is Pochi. I am a Ninja Master!\n" +
                 "I heared you came to Japan to learn Ninja Skills!\n" +
-                "To learn, please come to my house by pushing [＜] button below this screen!",
-
+                "Please come to my house by pushing [＜] button at the button of the screen!",
 
             //ジャンプの説明
             JUMP_INSTRUCTION_TITLE: "How to jump!",
