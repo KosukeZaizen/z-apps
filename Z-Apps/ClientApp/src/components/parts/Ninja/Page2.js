@@ -138,13 +138,21 @@ export default class Page2 extends React.Component {
             BUTTON: "btn btn-info btn-lg btn-block",
 
             //最初の巻物のタイトル
-            FIRST_SCROLL_TITLE: "Welcome to Japan!",
+            FIRST_SCROLL_TITLE: "Come to my house!",
 
             //最初の巻物のメッセージ
             FIRST_SCROLL_MESSAGE:
-                "Hello, newbie.\n" +
-                "My name is shiba.I am a Ninja Master.\n" +
-                "My name is shiba.I am a Ninja Master.\n",
+                "Hello, newbie! My name is Shiba. I am a Ninja Master!\n" +
+                "I heared you came to Japan to learn Ninja Skills!\n" +
+                "If you want to learn, please come to my house.",
+
+            SHIBA_SCROLL_TITLE:
+                "Nice to meet you!",
+
+            SHIBA_SCROLL_MESSAGE:
+                "I'm Shiba!\n" +
+                "To become a Ninja Master, you should collect scrolls of four elements!\n" +
+                "I have one of them. Please read the scroll there!",
         };
 
         // ------------------------------------------------------------
@@ -681,6 +689,9 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
+                        title: this.consts.SHIBA_SCROLL_TITLE,
+                        message: this.consts.SHIBA_SCROLL_MESSAGE,
+                        fontSize: 3,
                     },
                 }
                 //ステージの背景画像を設定
