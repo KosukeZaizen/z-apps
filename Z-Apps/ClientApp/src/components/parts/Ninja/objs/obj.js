@@ -44,22 +44,22 @@ export default class Obj extends React.Component {
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: size,
-                    lineHeight: fontSize/20,
+                    lineHeight: fontSize / 20,
                 };
 
                 let btnWidth = size / 3;
                 let styleBtnClose = {
                     position: "absolute",
                     left: posX + size / 3,
-                    top: posY + size *3/10,
+                    top: posY + size * 3 / 10,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: btnWidth,
                 };
 
                 let h1Style = {
-                    margin: size/50,
-                    fontSize: fontSize*3/2,
+                    margin: size / 50,
+                    fontSize: fontSize * 3 / 2,
                 };
 
                 let arrlines = message.split("\n");
@@ -125,6 +125,27 @@ export default class Obj extends React.Component {
                     alt={"object"}
                 />
             );
+        } else if (this.props.obj.divType) {
+            let size = this.props.obj.size * UL;
+            let posX = this.props.obj.posX * UL;
+            let posY = this.props.obj.posY * UL;
+            let zIndex = this.props.obj.zIndex;
+
+            let style = {
+                position: "absolute",
+                left: posX,
+                top: posY,
+                zIndex: zIndex,
+                width: size,
+                height:size,
+            };
+            return (
+                <div
+                    style={style} className={this.props.obj.divType}
+                >
+                </div>
+            );
+
         } else {
             //該当の引数を受け取っていない場合、div要素を生成
             let size = this.props.obj.size * UL;

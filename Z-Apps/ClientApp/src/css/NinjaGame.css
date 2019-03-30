@@ -51,3 +51,13 @@ html {
         display: block;
     }*/
 }
+
+#ninja-game .water {
+    background-color: skyblue;
+    opacity: 0.5;
+}
+
+#ninja-game .outOfScreen {
+    background-color: black;
+    z-index: 9999999;
+}

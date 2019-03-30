@@ -71,6 +71,38 @@ export default class Page2 extends React.Component {
         this.ninja.game = this;
 
 
+        //画面外を黒くする要素
+        this.objOutOfScreen = {
+            outOfScreenLeft: {
+                size: 300,
+                posX: -300,
+                posY: -200,
+                onTouch: onTouchNothing,
+                divType: "outOfScreen",
+            },
+            outOfScreenRight: {
+                size: 300,
+                posX: 160,
+                posY: -200,
+                onTouch: onTouchNothing,
+                divType: "outOfScreen",
+            },
+            outOfScreenTop: {
+                size: 260,
+                posX: -50,
+                posY: -260,
+                onTouch: onTouchNothing,
+                divType: "outOfScreen",
+            },
+            outOfScreenBottom: {
+                size: 260,
+                posX: -50,
+                posY: 90,
+                onTouch: onTouchNothing,
+                divType: "outOfScreen",
+            },
+        };
+
         //全ステージ共通の壁（render内で設定）
         this.objWalls = {
             leftWall: {
@@ -490,6 +522,7 @@ export default class Page2 extends React.Component {
                 // ステージ1
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -590,6 +623,7 @@ export default class Page2 extends React.Component {
                 // ステージ2
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -693,6 +727,7 @@ export default class Page2 extends React.Component {
                 // ステージ3
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -804,6 +839,7 @@ export default class Page2 extends React.Component {
                 // ステージ4
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -897,6 +933,7 @@ export default class Page2 extends React.Component {
                 // ステージ5
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -945,7 +982,15 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchBlock,
                     },
-                    river: {
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: 60,
+                        divType: "water",
+                        zIndex: 40,
+                        onTouch: onTouchNothing,
+                    },
+                    riverActual: {
                         size: 200,
                         posX: -20,
                         posY: 72,
@@ -980,6 +1025,7 @@ export default class Page2 extends React.Component {
                 // ステージ6
                 // ------------------------------------------------------------
                 this.objs = {
+                    ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
@@ -1028,7 +1074,15 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchBlock,
                     },
-                    river: {
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: 60,
+                        divType: "water",
+                        zIndex: 40,
+                        onTouch: onTouchNothing,
+                    },
+                    riverActual: {
                         size: 200,
                         posX: -20,
                         posY: 72,
