@@ -152,7 +152,7 @@ export default class Page2 extends React.Component {
             JUMP_INSTRUCTION_TITLE: "How to jump!",
             JUMP_INSTRUCTION_MESSAGE:
                 "Push the [＜] button which is below this screen.\n" +
-                "Then, keep to push the [＜] button,\n" +
+                "Keep pushing the [＜] button,\n" +
                 "and push [ ↑jump↑ ] button!\n",
 
             //ポチに触った時のメッセージ
@@ -160,7 +160,7 @@ export default class Page2 extends React.Component {
             SHIBA_SCROLL_MESSAGE:
                 "I'm Pochi!\n" +
                 "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
-                "I have one of them. Please get and read the scroll at the alter!",
+                "I have one of them. Please grab the scroll at the alter, and read!",
 
             //火の書（ポチの家の仏壇）
             BUTSUDAN_SCROLL_TITLE: "火の書",
