@@ -139,26 +139,31 @@ export default class Page2 extends React.Component {
             //操作ボタン
             BUTTON: "btn btn-info btn-lg btn-block",
 
-            //最初の巻物のタイトル
-            FIRST_SCROLL_TITLE: "Come to my house!",
 
-            //最初の巻物のメッセージ
+            //スタートと同時に表示される巻物
+            FIRST_SCROLL_TITLE: "Come to my house!",
             FIRST_SCROLL_MESSAGE:
                 "Hello, newbie! My name is Pochi. I am a Ninja Master!\n" +
                 "I heared you came to Japan to learn Ninja Skills!\n" +
                 "If you want to learn, please come to my house.",
 
-            SHIBA_SCROLL_TITLE:
-                "Nice to meet you!",
 
+            //ジャンプの説明
+            JUMP_INSTRUCTION_TITLE: "How to jump!",
+            JUMP_INSTRUCTION_MESSAGE:
+                "Push the [＜] button which is below this screen.\n" +
+                "Then, keep to push the [＜] button,\n" +
+                "and push [ ↑jump↑ ] button!\n",
+
+            //ポチに触った時のメッセージ
+            SHIBA_SCROLL_TITLE: "Nice to meet you!",
             SHIBA_SCROLL_MESSAGE:
                 "I'm Pochi!\n" +
                 "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
-                "I have one of them. Please read the scroll at the stand!",
+                "I have one of them. Please get and read the scroll at the alter!",
 
-            BUTSUDAN_SCROLL_TITLE:
-                "火の書",
-
+            //火の書（ポチの家の仏壇）
+            BUTSUDAN_SCROLL_TITLE: "火の書",
             BUTSUDAN_SCROLL_MESSAGE:
                 "This is the scroll of the fire element.\n" +
                 "You can learn 'Fire Jump' from this scroll.\n" +
@@ -480,7 +485,8 @@ export default class Page2 extends React.Component {
                         posX: 145,
                         posY: 5,
                         zIndex: 20,
-                        onTouch: onTouchFirstScrollOpener,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.FIRST_SCROLL_TITLE,
                         game: this,
                     },
                     firstScroll: {
@@ -496,13 +502,28 @@ export default class Page2 extends React.Component {
                         message: this.consts.FIRST_SCROLL_MESSAGE,
                         fontSize: 3,
                     },
+                    jumpInstruction: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.JUMP_INSTRUCTION_TITLE,
+                        message: this.consts.JUMP_INSTRUCTION_MESSAGE,
+                        fontSize: 3,
+                    },
                     rock1: {
                         size: 10,
                         posX: 100,
                         posY: 70,
                         zIndex: 20,
                         img: imgRock,
-                        onTouch: onTouchBlock,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.JUMP_INSTRUCTION_TITLE,
+                        game: this,
                     },
                     rock2: {
                         size: 17,
@@ -687,8 +708,22 @@ export default class Page2 extends React.Component {
                         posY: 62,
                         zIndex: 20,
                         img: imgShiba,
-                        onTouch: onTouchShiba1,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHIBA_SCROLL_TITLE,
                         game: this,
+                    },
+                    shibaScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHIBA_SCROLL_TITLE,
+                        message: this.consts.SHIBA_SCROLL_MESSAGE,
+                        fontSize: 3,
                     },
                     butsudan: {
                         size: 40,
@@ -705,21 +740,9 @@ export default class Page2 extends React.Component {
                         boolLeft: true,
                         zIndex: 22,
                         img: imgScroll,
-                        onTouch: onTouchScrollButsudan,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.BUTSUDAN_SCROLL_TITLE,
                         game: this,
-                    },
-                    shibaScroll: {
-                        size: 150,
-                        posX: 5,
-                        posY: 5,
-                        zIndex: 1000,
-                        img: imgScrollOpen,
-                        scroll: true,
-                        visible: false,
-                        onTouch: onTouchNothing,
-                        title: this.consts.SHIBA_SCROLL_TITLE,
-                        message: this.consts.SHIBA_SCROLL_MESSAGE,
-                        fontSize: 3,
                     },
                     butsudanScrollOpened: {
                         size: 150,
@@ -818,7 +841,7 @@ function RenderObjs(props) {
             <Obj
                 key={key}
                 obj={props.game.objs[key]}
-                    UL={props.game.UL}
+                UL={props.game.UL}
             />
         );
     }
@@ -861,13 +884,26 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 }
 
 //=======================================
-// ステージ1の最初の説明を開く
+// 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
-function onTouchFirstScrollOpener(ninja) {
-    if (!ninja.firstScroll) {
-        this.game.objs.firstScroll.visible = true;
+function onTouchScrollOpener(ninja) {
+
+    if (ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
+        //まだターゲットの巻物が読まれていない
+
+        let objs = this.game.objs;
+        for (let key in objs) {
+            if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
+                //表示が被らないように、他の巻物を消す
+                objs[key].visible = false;
+            } else if (objs[key].title === this.openTargetTitle) {
+                //該当の巻物を表示する
+                objs[key].visible = true;
+            }
+        }
     }
-    ninja.firstScroll = true;
+    //読み終えたリストの中に該当の巻物を追加
+    ninja.readScroll.push(this.openTargetTitle);
 }
 
 //=======================================
@@ -895,7 +931,6 @@ function onTouchBlock(ninja, from) {
         ninja.speedX = 0;
     }
 }
-
 
 //=======================================
 // 上から乗れる木などのタッチ関数
@@ -934,26 +969,6 @@ function onToughGateWall(ninja, from) {
     this.changeStage(this.next, ninja);
 
     return "changed";
-}
-
-//=======================================
-// ステージ3のシバにタッチ
-//=======================================
-function onTouchShiba1(ninja) {
-    if (!ninja.shibaTalked) {
-        this.game.objs.shibaScroll.visible = true;
-        ninja.shibaTalked = true;
-    }
-}
-
-//=======================================
-// ステージ3の仏壇の巻物にタッチ
-//=======================================
-function onTouchScrollButsudan(ninja) {
-    if (!ninja.fireJump) {
-        this.game.objs.butsudanScrollOpened.visible = true;
-        ninja.fireJump = true;
-    }
 }
 
 //=======================================

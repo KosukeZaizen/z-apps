@@ -20,6 +20,7 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 5,
+                readScroll: [],
             },
         };
         //this.changeStage = this.changeStage.bind(this);
