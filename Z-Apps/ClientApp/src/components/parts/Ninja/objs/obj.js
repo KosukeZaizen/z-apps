@@ -43,6 +43,7 @@ export default class Obj extends React.Component {
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: size,
+                    lineHeight: fontSize/20,
                 };
 
                 let btnWidth = size / 3;
@@ -55,13 +56,14 @@ export default class Obj extends React.Component {
                     width: btnWidth,
                 };
 
-                let h1Margin = {
-                    margin: size/60,
+                let h1Style = {
+                    margin: size/50,
+                    fontSize: fontSize*3/2,
                 };
 
                 let arrlines = message.split("\n");
-                const listlines = arrlines.map((line) =>
-                    <p>{line}</p>
+                const listlines = arrlines.map((line, index) =>
+                    <p key={index}>{line}</p>
                 );
 
                 return (
@@ -73,7 +75,7 @@ export default class Obj extends React.Component {
                         />
                         <div style={styleTexts}>
                             <center>
-                                <h1 style={h1Margin}>{title}</h1>
+                                <h1 style={h1Style}>{title}</h1>
                                 <span>{listlines}</span>
                             </center>
                         </div>
