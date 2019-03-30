@@ -21,6 +21,10 @@ import imgFrame from './objs/frame.jpg';
 import imgfire1 from './objs/fire1.png';
 //シバ
 import imgShiba from './objs/shiba.png';
+//閉じている巻物
+import imgScroll from './objs/scrollObj.png';
+//開いている巻物
+import imgScrollOpen from './objs/scrollOpen.png';
 
 
 //背景画像//---------------------------
@@ -41,6 +45,9 @@ export default class Page2 extends React.Component {
         //初期描画の時のみtrueとする（2回目以降はfalse）
         //タイムステップごとの処理の登録を1回のみ行うために用いる
         this.initFlag = true;
+
+        //前のステージ（ステージ変更判定に利用）
+        this.prevStage = 0;
 
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
@@ -290,19 +297,19 @@ export default class Page2 extends React.Component {
 
                     //忍者が上から
                     if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch("upper", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
                     }
                     //忍者が右から
                     if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch("right", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
                     }
                     //忍者が下から
                     if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch("lower", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
                     }
                     //忍者が左から
                     if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch("left", this.ninja);
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
                     }
 
                     //ステージ遷移をしていたら、関数中止
@@ -434,206 +441,230 @@ export default class Page2 extends React.Component {
             margin: "1px",
         };
 
-        let bgImg;
-        if (this.props.stage === 1) {
+        if (this.prevStage !== this.props.stage) {
+            //ステージ変更時のみ1回実行
 
-            // ------------------------------------------------------------
-            // ステージ1
-            // ------------------------------------------------------------
-            this.objs = {
-                ...this.objWalls,
-                ...this.objFloor,
+            if (this.props.stage === 1) {
 
-                rock1: {
-                    size: 10,
-                    posX: 100,
-                    posY: 70,
-                    zIndex: 20,
-                    img: imgRock,
-                    onTouch: onTouchBlock,
-                },
-                rock2: {
-                    size: 17,
-                    posX: 50,
-                    posY: 65,
-                    zIndex: 20,
-                    img: imgRock,
-                    onTouch: onTouchBlock,
-                },
-                kanban1Pic: {
-                    size: 20,
-                    posX: 7,
-                    posY: 60,
-                    zIndex: 10,
-                    img: imgKanban1,
-                    onTouch: onTouchNothing,
-                },
-                kanban1ArrowPic: {
-                    size: 10,
-                    posX: 11,
-                    posY: 63,
-                    boolLeft: true,
-                    zIndex: 11,
-                    img: imgArrow1,
-                    onTouch: onTouchNothing,
-                },
-                leftGateWall: {
-                    size: 300,
-                    posX: -300,
-                    posY: -200,
-                    zIndex: 30,
-                    next: 2,
-                    onTouch: onToughGateWall,
-                    changeStage: this.props.changeStage,
-                },
+                // ------------------------------------------------------------
+                // ステージ1
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rock1: {
+                        size: 10,
+                        posX: 100,
+                        posY: 70,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    rock2: {
+                        size: 17,
+                        posX: 90,
+                        posY: 65,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    kanban1Pic: {
+                        size: 20,
+                        posX: 7,
+                        posY: 60,
+                        zIndex: 10,
+                        img: imgKanban1,
+                        onTouch: onTouchNothing,
+                    },
+                    kanban1ArrowPic: {
+                        size: 10,
+                        posX: 11,
+                        posY: 63,
+                        boolLeft: true,
+                        zIndex: 11,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    },
+                    scroll1: {
+                        size: 10,
+                        posX: 11,
+                        posY: 13,
+                        boolLeft: true,
+                        zIndex: 11,
+                        img: imgScroll,
+                        onTouch: onTouchNothing,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 2,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = furuie;
+
+            } else if (this.props.stage === 2) {
+
+                // ------------------------------------------------------------
+                // ステージ2
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rock1: {
+                        size: 17,
+                        posX: 50,
+                        posY: 63,
+                        zIndex: 30,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    tree1Pic: {
+                        size: 60,
+                        posX: 120,
+                        posY: 20,
+                        zIndex: 15,
+                        img: imgTree1,
+                        onTouch: onTouchNothing,
+                    },
+                    tree1Actual: {
+                        size: 60,
+                        posX: 120,
+                        posY: 30,
+                        onTouch: onTouchTree,
+                    },
+                    toriiPic: {
+                        size: 120,
+                        posX: 35,
+                        posY: 3,
+                        zIndex: 10,
+                        img: imgTorii,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiActual: {
+                        size: 120,
+                        posX: 35,
+                        posY: 9,
+                        zIndex: 10,
+                        onTouch: onTouchTree,
+                    },
+                    toriiFramePic: {
+                        size: 40,
+                        posX: 75,
+                        posY: 5,
+                        zIndex: 30,
+                        img: imgFrame,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiMessage1: {
+                        size: 30,
+                        posX: 87,
+                        posY: 10,
+                        zIndex: 30,
+                        message: "Welcome",
+                        fontSize: 4,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiMessage2: {
+                        size: 30,
+                        posX: 93,
+                        posY: 15,
+                        zIndex: 30,
+                        message: "to",
+                        fontSize: 4,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiMessage3: {
+                        size: 30,
+                        posX: 89,
+                        posY: 20,
+                        zIndex: 30,
+                        message: "Japan!",
+                        fontSize: 4,
+                        onTouch: onTouchNothing,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 1,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 3,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = town1;
+
+            } else if (this.props.stage === 3) {
+
+                // ------------------------------------------------------------
+                // ステージ3
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 2,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    fire1: {
+                        size: 13,
+                        posX: 74,
+                        posY: 62,
+                        zIndex: 20,
+                        img: imgfire1,
+                        onTouch: onToughFire,
+                        jumpHeight: 25,
+                    },
+                    shiba: {
+                        size: 10,
+                        posX: 30,
+                        posY: 62,
+                        zIndex: 20,
+                        img: imgShiba,
+                        onTouch: onTouchShiba1,
+                        game: this,
+                    },
+                    shibaScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = ryokan1;
             }
-            //ステージの背景画像を設定
-            bgImg = furuie;
-
-        } else if (this.props.stage === 2) {
-
-            // ------------------------------------------------------------
-            // ステージ2
-            // ------------------------------------------------------------
-            this.objs = {
-                ...this.objWalls,
-                ...this.objFloor,
-
-                rock1: {
-                    size: 17,
-                    posX: 50,
-                    posY: 63,
-                    zIndex: 30,
-                    img: imgRock,
-                    onTouch: onTouchBlock,
-                },
-                tree1Pic: {
-                    size: 60,
-                    posX: 120,
-                    posY: 20,
-                    zIndex: 15,
-                    img: imgTree1,
-                    onTouch: onTouchNothing,
-                },
-                tree1Actual: {
-                    size: 60,
-                    posX: 120,
-                    posY: 30,
-                    onTouch: onTouchTree,
-                },
-                toriiPic: {
-                    size: 120,
-                    posX: 35,
-                    posY: 3,
-                    zIndex: 10,
-                    img: imgTorii,
-                    onTouch: onTouchNothing,
-                },
-                toriiActual: {
-                    size: 120,
-                    posX: 35,
-                    posY: 9,
-                    zIndex: 10,
-                    onTouch: onTouchTree,
-                },
-                toriiFramePic: {
-                    size: 40,
-                    posX: 75,
-                    posY: 5,
-                    zIndex: 30,
-                    img: imgFrame,
-                    onTouch: onTouchNothing,
-                },
-                toriiMessage1: {
-                    size: 30,
-                    posX: 87,
-                    posY: 10,
-                    zIndex: 30,
-                    message: "Welcome",
-                    fontSize: 4,
-                    onTouch: onTouchNothing,
-                },
-                toriiMessage2: {
-                    size: 30,
-                    posX: 93,
-                    posY: 15,
-                    zIndex: 30,
-                    message: "to",
-                    fontSize: 4,
-                    onTouch: onTouchNothing,
-                },
-                toriiMessage3: {
-                    size: 30,
-                    posX: 89,
-                    posY: 20,
-                    zIndex: 30,
-                    message: "Japan!",
-                    fontSize: 4,
-                    onTouch: onTouchNothing,
-                },
-                rightGateWall: {
-                    size: 300,
-                    posX: 160,
-                    posY: -200,
-                    zIndex: 30,
-                    next: 1,
-                    onTouch: onToughGateWall,
-                    changeStage: this.props.changeStage,
-                },
-                leftGateWall: {
-                    size: 300,
-                    posX: -300,
-                    posY: -200,
-                    zIndex: 30,
-                    next: 3,
-                    onTouch: onToughGateWall,
-                    changeStage: this.props.changeStage,
-                },
-            }
-            //ステージの背景画像を設定
-            bgImg = town1;
-
-        } else if (this.props.stage === 3) {
-
-            // ------------------------------------------------------------
-            // ステージ3
-            // ------------------------------------------------------------
-            this.objs = {
-                ...this.objWalls,
-                ...this.objFloor,
-
-                rightGateWall: {
-                    size: 300,
-                    posX: 160,
-                    posY: -200,
-                    zIndex: 30,
-                    next: 2,
-                    onTouch: onToughGateWall,
-                    changeStage: this.props.changeStage,
-                },
-                fire1: {
-                    size: 13,
-                    posX: 74,
-                    posY: 62,
-                    zIndex: 20,
-                    img: imgfire1,
-                    onTouch: onToughFire,
-                    jumpHeight: 23,
-                },
-                shiba: {
-                    size: 10,
-                    posX: 30,
-                    posY: 62,
-                    zIndex: 20,
-                    img: imgShiba,
-                    onTouch: onToughShiba1,
-                },
-            }
-            //ステージの背景画像を設定
-            bgImg = ryokan1;
+            this.prevStage = this.props.stage;
         }
 
-        this.backgroundSetting.backgroundImage = `url(${bgImg})`;
+        this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
 
         return (
             <div id="Page2" style={this.pageStyle}>
@@ -709,14 +740,8 @@ function RenderObjs(props) {
         objList.push(
             <Obj
                 key={key}
-                width={props.game.objs[key].size * props.game.UL}
-                x={props.game.objs[key].posX * props.game.UL}
-                y={props.game.objs[key].posY * props.game.UL}
-                boolLeft={props.game.objs[key].boolLeft}
-                zIndex={props.game.objs[key].zIndex}
-                img={props.game.objs[key].img}
-                message={props.game.objs[key].message}
-                fontSize={props.game.objs[key].fontSize * props.game.UL}
+                obj={props.game.objs[key]}
+                    UL={props.game.UL}
             />
         );
     }
@@ -761,7 +786,7 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 //=======================================
 // 貫通不可能ブロック用のタッチ関数
 //=======================================
-function onTouchBlock(from, ninja) {
+function onTouchBlock(ninja, from) {
     if (from === "upper") {
         //上から
         ninja.posY = this.posY - ninja.size;
@@ -788,7 +813,7 @@ function onTouchBlock(from, ninja) {
 //=======================================
 // 上から乗れる木のタッチ関数
 //=======================================
-function onTouchTree(from, ninja) {
+function onTouchTree(ninja, from) {
     if (from === "upper") {
         //上から
         ninja.posY = this.posY - ninja.size;
@@ -806,7 +831,7 @@ function onTouchNothing() {
 //=======================================
 // 別ステージへのゲートのタッチ関数
 //=======================================
-function onToughGateWall(from, ninja) {
+function onToughGateWall(ninja, from) {
     if (from === "right") {
         //右から
         ninja.posX += 160 - ninja.size;
@@ -827,18 +852,18 @@ function onToughGateWall(from, ninja) {
 //=======================================
 // ステージ3のシバにタッチ
 //=======================================
-function onToughShiba1(from, ninja) {
-    if (!ninja.musasabi) {
-        ninja.musasabi = true;
-        alert("You can fly using updrafts from fire!");
+function onTouchShiba1(ninja) {
+    if (!ninja.fireJump) {
+        this.game.objs.shibaScroll.visible = true;
+        ninja.fireJump = true;
     }
 }
 
 //=======================================
 // 炎にタッチ
 //=======================================
-function onToughFire(from, ninja) {
-    if (ninja.musasabi) {
+function onToughFire(ninja) {
+    if (ninja.fireJump) {
         ninja.speedY = this.jumpHeight * (-1);
     }
 }
