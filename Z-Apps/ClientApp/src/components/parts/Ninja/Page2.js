@@ -212,7 +212,7 @@ export default class Page2 extends React.Component {
             KAWARA_SCROLL_TITLE: "Dangerous Waters!",
             KAWARA_SCROLL_MESSAGE:
                 "Normal person should not go this way\n" +
-                "because water flow is to strong.",
+                "because water flow is too strong.",
         };
 
         // ------------------------------------------------------------
