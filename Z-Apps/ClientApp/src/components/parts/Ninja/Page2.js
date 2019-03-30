@@ -60,6 +60,8 @@ export default class Page2 extends React.Component {
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
+        this.ninja.game = this;
+
 
         //全ステージ共通の壁（render内で設定）
         this.objWalls = {
@@ -162,8 +164,8 @@ export default class Page2 extends React.Component {
                 "I have one of them. Please grab the scroll at the alter, and read!",
 
             //火の書（ポチの家の仏壇）
-            BUTSUDAN_SCROLL_TITLE: "火の書",
-            BUTSUDAN_SCROLL_MESSAGE:
+            FIRE_SCROLL_TITLE: "火の書",
+            FIRE_SCROLL_MESSAGE:
                 "This is the scroll of the fire element.\n" +
                 "You can learn 'Fire Jump' from this scroll.\n" +
                 "You can fly using updraft from fire.",
@@ -486,7 +488,6 @@ export default class Page2 extends React.Component {
                         zIndex: 20,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.FIRST_SCROLL_TITLE,
-                        game: this,
                     },
                     firstScroll: {
                         size: 150,
@@ -522,7 +523,6 @@ export default class Page2 extends React.Component {
                         img: imgRock,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.JUMP_INSTRUCTION_TITLE,
-                        game: this,
                     },
                     rock2: {
                         size: 17,
@@ -709,7 +709,6 @@ export default class Page2 extends React.Component {
                         img: imgShiba,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHIBA_SCROLL_TITLE,
-                        game: this,
                     },
                     shibaScroll: {
                         size: 150,
@@ -740,8 +739,7 @@ export default class Page2 extends React.Component {
                         zIndex: 22,
                         img: imgScroll,
                         onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.BUTSUDAN_SCROLL_TITLE,
-                        game: this,
+                        openTargetTitle: this.consts.FIRE_SCROLL_TITLE,
                     },
                     butsudanScrollOpened: {
                         size: 150,
@@ -752,8 +750,8 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
-                        title: this.consts.BUTSUDAN_SCROLL_TITLE,
-                        message: this.consts.BUTSUDAN_SCROLL_MESSAGE,
+                        title: this.consts.FIRE_SCROLL_TITLE,
+                        message: this.consts.FIRE_SCROLL_MESSAGE,
                         fontSize: 3,
                     },
                 }
@@ -890,7 +888,7 @@ function onTouchScrollOpener(ninja) {
     if (ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない
 
-        let objs = this.game.objs;
+        let objs = ninja.game.objs;
         for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
@@ -974,7 +972,7 @@ function onToughGateWall(ninja, from) {
 // 炎にタッチ
 //=======================================
 function onToughFire(ninja) {
-    if (ninja.fireJump) {
+    if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
         ninja.speedY = this.jumpHeight * (-1);
     }
 }
