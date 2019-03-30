@@ -128,10 +128,6 @@ export default class Page2 extends React.Component {
             backgroundColor: "black",
         };
 
-
-
-
-
         // ------------------------------------------------------------
         // 定数設定
         // ------------------------------------------------------------
@@ -141,6 +137,14 @@ export default class Page2 extends React.Component {
             //操作ボタン
             BUTTON: "btn btn-info btn-lg btn-block",
 
+            //最初の巻物のタイトル
+            FIRST_SCROLL_TITLE: "Welcome to Japan!",
+
+            //最初の巻物のメッセージ
+            FIRST_SCROLL_MESSAGE:
+                "Hello, newbie.\n" +
+                "My name is shiba.I am a Ninja Master.\n" +
+                "My name is shiba.I am a Ninja Master.\n",
         };
 
         // ------------------------------------------------------------
@@ -453,6 +457,27 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    openFirstScroll: {
+                        size: 10,
+                        posX: 145,
+                        posY: 5,
+                        zIndex: 20,
+                        onTouch: onTouchFirstScrollOpener,
+                        game: this,
+                    },
+                    firstScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.FIRST_SCROLL_TITLE,
+                        message: this.consts.FIRST_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
                     rock1: {
                         size: 10,
                         posX: 100,
@@ -781,6 +806,15 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
         }
     }
     return false;
+}
+
+//=======================================
+// ステージ1の最初の説明を開く
+//=======================================
+function onTouchFirstScrollOpener(ninja) {
+    if (!ninja.fireJump) {
+        this.game.objs.firstScroll.visible = true;
+    }
 }
 
 //=======================================

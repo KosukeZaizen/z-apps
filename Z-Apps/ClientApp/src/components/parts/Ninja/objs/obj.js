@@ -39,7 +39,7 @@ export default class Obj extends React.Component {
                 let styleTexts = {
                     position: "absolute",
                     left: posX,
-                    top: posY,
+                    top: posY + (size * 9 / 100),
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: size,
@@ -48,12 +48,21 @@ export default class Obj extends React.Component {
                 let btnWidth = size / 3;
                 let styleBtnClose = {
                     position: "absolute",
-                    left: posX + size * 2 / 7,// 「2/7」はただの調整係数
-                    top: posY + size * 4 / 15,// 「2/7」はただの調整係数
+                    left: posX + size / 3,
+                    top: posY + size *3/10,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: btnWidth,
                 };
+
+                let h1Margin = {
+                    margin: size/60,
+                };
+
+                let arrlines = message.split("\n");
+                const listlines = arrlines.map((line) =>
+                    <p>{line}</p>
+                );
 
                 return (
                     <div>
@@ -64,16 +73,17 @@ export default class Obj extends React.Component {
                         />
                         <div style={styleTexts}>
                             <center>
-                                <h1>{title}</h1>
-                                <p>{message}</p>
-                                <button
-                                    style={styleBtnClose}
-                                    onClick={() => { this.onClickOkButtonInScroll() }}
-                                >
-                                    {"Close"}
-                                </button>
+                                <h1 style={h1Margin}>{title}</h1>
+                                <span>{listlines}</span>
                             </center>
                         </div>
+                        <button
+                            className={"btn btn-dark btn-lg btn-block"}
+                            style={styleBtnClose}
+                            onClick={() => { this.onClickOkButtonInScroll() }}
+                        >
+                            {"Close"}
+                        </button>
                     </div>
                 );
             } else {
