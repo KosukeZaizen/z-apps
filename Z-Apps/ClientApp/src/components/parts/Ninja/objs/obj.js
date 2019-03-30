@@ -27,6 +27,7 @@ export default class Obj extends React.Component {
                 let fontSize = this.props.obj.fontSize * UL || 4 * UL;
                 let title = this.props.obj.title;
                 let message = this.props.obj.message;
+                let speakerImg = this.props.obj.speakerImg;
 
                 let styleImg = {
                     position: "absolute",
@@ -86,6 +87,13 @@ export default class Obj extends React.Component {
                         >
                             {"Close"}
                         </button>
+                        <SpeakerImage
+                            img={speakerImg}
+                            size={size}
+                            zIndex={zIndex}
+                            posX={posX}
+                            posY={posY}
+                        />
                     </div>
                 );
             } else {
@@ -142,6 +150,36 @@ export default class Obj extends React.Component {
                 </div>
             );
         }
+    }
+}
+
+//巻物に話者の画像がついていた場合、それも表示する
+function SpeakerImage(props) {
+    let img = props.img;
+
+    if (img) {
+        let size = props.size / 10;
+        let zIndex = props.zIndex + 3;
+        let posX = props.posX + size*1.3;
+        let posY = props.posY + size*0.5;
+
+        let style = {
+            position: "absolute",
+            left: posX,
+            top: posY,
+            zIndex: zIndex,
+        }
+
+        return (
+            <img
+                src={img}
+                width={size}
+                alt={"object"}
+                style={style}
+            />
+        );
+    } else {
+        return <div></div>;
     }
 }
 

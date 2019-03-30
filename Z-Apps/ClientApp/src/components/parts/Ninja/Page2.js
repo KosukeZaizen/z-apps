@@ -7,6 +7,8 @@ import { Obj } from './objs/obj';
 
 //岩
 import imgRock from './objs/rock.png';
+//岩（上下反転）
+import imgRockR from './objs/rockRiverse.png';
 //木
 import imgTree1 from './objs/tree1.png';
 //看板
@@ -19,8 +21,8 @@ import imgTorii from './objs/torii.png';
 import imgFrame from './objs/frame.jpg';
 //火
 import imgfire1 from './objs/fire1.png';
-//シバ
-import imgShiba from './objs/shiba.png';
+//ポチ
+import imgPochi from './objs/pochi.png';
 //閉じている巻物
 import imgScroll from './objs/scrollObj.png';
 //開いている巻物
@@ -37,6 +39,12 @@ import furuie from './img/background/furuie5.jpg';
 import town1 from './img/background/town1.jpg';
 //stage3
 import ryokan1 from './img/background/ryokan1.jpg';
+//stage4
+import riverside1 from './img/background/riverside.jpg';
+//stage5
+import river1 from './img/background/river.jpg';
+//stage6
+import river2 from './img/background/river2.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -168,6 +176,11 @@ export default class Page2 extends React.Component {
                 "This is the scroll of the fire element.\n" +
                 "You can learn 'Fire Jump' from this scroll.\n" +
                 "You can fly using updraft from fire.",
+
+            KAWARA_SCROLL_TITLE: "Dangerous Waters!",
+            KAWARA_SCROLL_MESSAGE:
+                "Normal person should not go this way\n" +
+                "because water flow is to strong.",
         };
 
         // ------------------------------------------------------------
@@ -500,6 +513,7 @@ export default class Page2 extends React.Component {
                         title: this.consts.FIRST_SCROLL_TITLE,
                         message: this.consts.FIRST_SCROLL_MESSAGE,
                         fontSize: 3,
+                        speakerImg: imgPochi,
                     },
                     jumpInstruction: {
                         size: 150,
@@ -705,7 +719,7 @@ export default class Page2 extends React.Component {
                         posX: 50,
                         posY: 62,
                         zIndex: 20,
-                        img: imgShiba,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHIBA_SCROLL_TITLE,
                     },
@@ -721,6 +735,7 @@ export default class Page2 extends React.Component {
                         title: this.consts.SHIBA_SCROLL_TITLE,
                         message: this.consts.SHIBA_SCROLL_MESSAGE,
                         fontSize: 3,
+                        speakerImg: imgPochi,
                     },
                     butsudan: {
                         size: 40,
@@ -753,10 +768,287 @@ export default class Page2 extends React.Component {
                         message: this.consts.FIRE_SCROLL_MESSAGE,
                         fontSize: 3,
                     },
+                    kanban1Pic: {
+                        size: 15,
+                        posX: 18,
+                        posY: 22,
+                        zIndex: 10,
+                        img: imgKanban1,
+                        onTouch: onTouchNothing,
+                    },
+                    kanban1ArrowPic: {
+                        size: 7,
+                        posX: 22,
+                        posY: 25,
+                        boolLeft: true,
+                        zIndex: 11,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -270,
+                        zIndex: 30,
+                        next: 4,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = ryokan1;
+
+            } else if (this.props.stage === 4) {
+
+                // ------------------------------------------------------------
+                // ステージ4
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    kanban1Pic: {
+                        size: 20,
+                        posX: 47,
+                        posY: 60,
+                        zIndex: 10,
+                        img: imgKanban1,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.KAWARA_SCROLL_TITLE,
+                    },
+                    kanban1ArrowPic: {
+                        size: 10,
+                        posX: 51,
+                        posY: 63,
+                        boolLeft: true,
+                        zIndex: 11,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    },
+                    scrollFromKanban: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.KAWARA_SCROLL_TITLE,
+                        message: this.consts.KAWARA_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    rock1: {
+                        size: 17,
+                        posX: 90,
+                        posY: 65,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    rock2: {
+                        size: 20,
+                        posX: 15,
+                        posY: 63,
+                        zIndex: 21,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    rock3Pic: {
+                        size: 50,
+                        posX: -25,
+                        posY: 40,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock3Actual: {
+                        size: 50,
+                        posX: -25,
+                        posY: 43,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 3,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = riverside1;
+
+            } else if (this.props.stage === 5) {
+
+                // ------------------------------------------------------------
+                // ステージ5
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rock1Pic: {
+                        size: 50,
+                        posX: 135,
+                        posY: 40,
+                        zIndex: 20,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 50,
+                        posX: 135,
+                        posY: 43,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    rock2Pic: {
+                        size: 50,
+                        posX: 5,
+                        posY: 40,
+                        zIndex: 15,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Actual: {
+                        size: 50,
+                        posX: 5,
+                        posY: 43,
+                        zIndex: 15,
+                        onTouch: onTouchBlock,
+                    },
+                    rock3Pic: {
+                        size: 50,
+                        posX: -25,
+                        posY: 40,
+                        zIndex: 20,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock3Actual: {
+                        size: 50,
+                        posX: -25,
+                        posY: 43,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    river: {
+                        size: 200,
+                        posX: -20,
+                        posY: 72,
+                        zIndex: 30,
+                        onTouch: onTouchRiverToRight,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 4,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 6,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+
+                }
+                //ステージの背景画像を設定
+                this.bgImg = river1;
+            } else if (this.props.stage === 6) {
+
+                // ------------------------------------------------------------
+                // ステージ6
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rock1Pic: {
+                        size: 50,
+                        posX: 135,
+                        posY: 40,
+                        zIndex: 20,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 50,
+                        posX: 135,
+                        posY: 43,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    rock2Pic: {
+                        size: 90,
+                        posX: -5,
+                        posY: -25,
+                        zIndex: 15,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Actual: {
+                        size: 90,
+                        posX: -5,
+                        posY: -28,
+                        zIndex: 15,
+                        onTouch: onTouchBlock,
+                    },
+                    rock3Pic: {
+                        size: 90,
+                        posX: -25,
+                        posY: -25,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock3Actual: {
+                        size: 90,
+                        posX: -25,
+                        posY: -28,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    river: {
+                        size: 200,
+                        posX: -20,
+                        posY: 72,
+                        zIndex: 30,
+                        onTouch: onTouchRiverToRight,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = river2;
             }
+
             this.prevStage = this.props.stage;
         }
 
@@ -938,6 +1230,16 @@ function onTouchTree(ninja, from) {
         ninja.speedY = 0;
 
     }
+}
+
+//=======================================
+// 右向きにに流れる川へのタッチ関数
+//=======================================
+function onTouchRiverToRight(ninja) {
+    ninja.posX += 10;
+    ninja.posY = this.posY - ninja.size;
+    ninja.speedX = 30;
+    ninja.speedY = 0;
 }
 
 //=======================================
