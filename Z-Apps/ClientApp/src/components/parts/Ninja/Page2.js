@@ -25,6 +25,8 @@ import imgShiba from './objs/shiba.png';
 import imgScroll from './objs/scrollObj.png';
 //開いている巻物
 import imgScrollOpen from './objs/scrollOpen.png';
+//仏壇
+import imgButsudan from './objs/butsudan.png';
 
 
 //背景画像//---------------------------
@@ -142,7 +144,7 @@ export default class Page2 extends React.Component {
 
             //最初の巻物のメッセージ
             FIRST_SCROLL_MESSAGE:
-                "Hello, newbie! My name is Shiba. I am a Ninja Master!\n" +
+                "Hello, newbie! My name is Pochi. I am a Ninja Master!\n" +
                 "I heared you came to Japan to learn Ninja Skills!\n" +
                 "If you want to learn, please come to my house.",
 
@@ -150,9 +152,17 @@ export default class Page2 extends React.Component {
                 "Nice to meet you!",
 
             SHIBA_SCROLL_MESSAGE:
-                "I'm Shiba!\n" +
-                "To become a Ninja Master, you should collect scrolls of four elements!\n" +
-                "I have one of them. Please read the scroll there!",
+                "I'm Pochi!\n" +
+                "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
+                "I have one of them. Please read the scroll at the stand!",
+
+            BUTSUDAN_SCROLL_TITLE:
+                "火の書",
+
+            BUTSUDAN_SCROLL_MESSAGE:
+                "This is the scroll of the fire element.\n" +
+                "You can learn 'Fire Jump' from this scroll.\n" +
+                "You can fly using updraft from fire.",
         };
 
         // ------------------------------------------------------------
@@ -519,7 +529,7 @@ export default class Page2 extends React.Component {
                         img: imgArrow1,
                         onTouch: onTouchNothing,
                     },
-                    scroll1: {
+                    scrollRoof: {
                         size: 10,
                         posX: 11,
                         posY: 13,
@@ -673,11 +683,29 @@ export default class Page2 extends React.Component {
                     },
                     shiba: {
                         size: 10,
-                        posX: 30,
+                        posX: 50,
                         posY: 62,
                         zIndex: 20,
                         img: imgShiba,
                         onTouch: onTouchShiba1,
+                        game: this,
+                    },
+                    butsudan: {
+                        size: 40,
+                        posX: 5,
+                        posY: 32,
+                        zIndex: 20,
+                        img: imgButsudan,
+                        onTouch: onTouchTree,
+                    },
+                    scrollButsudanIcon: {
+                        size: 10,
+                        posX: 19,
+                        posY: 42,
+                        boolLeft: true,
+                        zIndex: 22,
+                        img: imgScroll,
+                        onTouch: onTouchScrollButsudan,
                         game: this,
                     },
                     shibaScroll: {
@@ -691,6 +719,19 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchNothing,
                         title: this.consts.SHIBA_SCROLL_TITLE,
                         message: this.consts.SHIBA_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    butsudanScrollOpened: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.BUTSUDAN_SCROLL_TITLE,
+                        message: this.consts.BUTSUDAN_SCROLL_MESSAGE,
                         fontSize: 3,
                     },
                 }
@@ -823,9 +864,10 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 // ステージ1の最初の説明を開く
 //=======================================
 function onTouchFirstScrollOpener(ninja) {
-    if (!ninja.fireJump) {
+    if (!ninja.firstScroll) {
         this.game.objs.firstScroll.visible = true;
     }
+    ninja.firstScroll = true;
 }
 
 //=======================================
@@ -856,7 +898,7 @@ function onTouchBlock(ninja, from) {
 
 
 //=======================================
-// 上から乗れる木のタッチ関数
+// 上から乗れる木などのタッチ関数
 //=======================================
 function onTouchTree(ninja, from) {
     if (from === "upper") {
@@ -898,8 +940,18 @@ function onToughGateWall(ninja, from) {
 // ステージ3のシバにタッチ
 //=======================================
 function onTouchShiba1(ninja) {
-    if (!ninja.fireJump) {
+    if (!ninja.shibaTalked) {
         this.game.objs.shibaScroll.visible = true;
+        ninja.shibaTalked = true;
+    }
+}
+
+//=======================================
+// ステージ3の仏壇の巻物にタッチ
+//=======================================
+function onTouchScrollButsudan(ninja) {
+    if (!ninja.fireJump) {
+        this.game.objs.butsudanScrollOpened.visible = true;
         ninja.fireJump = true;
     }
 }
