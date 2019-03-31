@@ -1227,6 +1227,24 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    jizo1: {
+                        size: 14,
+                        posX: 40,
+                        posY: 62,
+                        zIndex: 15,
+                        boolLeft: true,
+                        img: imgJizo,
+                        onTouch: onTouchBlock,
+                    },
+                    fire1: {
+                        size: 13,
+                        posX: 97,
+                        posY: 6,
+                        zIndex: 20,
+                        img: imgfire1,
+                        onTouch: onToughFire,
+                        jumpHeight: 20,
+                    },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -1294,7 +1312,6 @@ export default class Page2 extends React.Component {
                         onTouch: onToughFire,
                         jumpHeight: 20,
                     },
-
                     leftGateWall: {
                         size: 300,
                         posX: -300,
