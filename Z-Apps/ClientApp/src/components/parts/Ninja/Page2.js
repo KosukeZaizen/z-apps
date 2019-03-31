@@ -31,6 +31,8 @@ import imgScrollOpen from './objs/scrollOpen.png';
 import imgButsudan from './objs/butsudan.png';
 //イクノ
 import imgIkuno from './objs/ikuno.png';
+//地蔵
+import imgJizo from './objs/jizo.png';
 
 
 //背景画像//---------------------------
@@ -1265,6 +1267,34 @@ export default class Page2 extends React.Component {
                         img: imgRock,
                         onTouch: onTouchBlock,
                     },
+                    jizo1: {
+                        size: 14,
+                        posX: 83,
+                        posY: 24,
+                        zIndex: 15,
+                        boolLeft: true,
+                        img: imgJizo,
+                        onTouch: onTouchBlock,
+                    },
+                    fire1: {
+                        size: 13,
+                        posX: 58,
+                        posY: 17,
+                        zIndex: 20,
+                        img: imgfire1,
+                        onTouch: onToughFire,
+                        jumpHeight: 20,
+                    },
+                    fire2: {
+                        size: 13,
+                        posX: 114,
+                        posY: 13,
+                        zIndex: 20,
+                        img: imgfire1,
+                        onTouch: onToughFire,
+                        jumpHeight: 20,
+                    },
+
                     leftGateWall: {
                         size: 300,
                         posX: -300,
