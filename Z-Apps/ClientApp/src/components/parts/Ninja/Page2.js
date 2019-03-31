@@ -29,6 +29,8 @@ import imgScroll from './objs/scrollObj.png';
 import imgScrollOpen from './objs/scrollOpen.png';
 //仏壇
 import imgButsudan from './objs/butsudan.png';
+//イクノ
+import imgIkuno from './objs/ikuno.png';
 
 
 //背景画像//---------------------------
@@ -45,6 +47,12 @@ import riverside1 from './img/background/riverside.jpg';
 import river1 from './img/background/river.jpg';
 //stage6
 import river2 from './img/background/river2.jpg';
+//stage7
+import jizos from './img/background/jizos.jpg';
+//stage8
+import gardianDog from './img/background/gardianDog.jpg';
+//stage9
+import shrine from './img/background/shrine.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -195,7 +203,7 @@ export default class Page2 extends React.Component {
                 "Keep pushing the [＜] button,\n" +
                 "and push [ ↑jump↑ ] button!\n",
 
-            //ポチに触った時のメッセージ
+            //ポチの家でに触った時のメッセージ
             SHIBA_SCROLL_TITLE: "Nice to meet you!",
             SHIBA_SCROLL_MESSAGE:
                 "I'm Pochi!\n" +
@@ -209,10 +217,25 @@ export default class Page2 extends React.Component {
                 "You can learn 'Fire Jump' from this scroll.\n" +
                 "You can fly using updraft from fire.",
 
+            //河原の看板
             KAWARA_SCROLL_TITLE: "Dangerous Waters!",
             KAWARA_SCROLL_MESSAGE:
                 "Normal person should not go this way\n" +
                 "because water flow is too strong.",
+
+            //川でイクノに触った時のメッセージ
+            IKUNO_SCROLL_TITLE: "Hi",
+            IKUNO_SCROLL_MESSAGE:
+                "I'm your senior, named Ikuno. Nice to meet you.\n" +
+                "If you continue to go, there is a cave. But I think it is difficult to achieve.\n" +
+                "Did you jump to right from the fire in Master Pochi's house?",
+
+            //風の書（宿の屋根の上）
+            AIR_SCROLL_TITLE: "風の書",
+            AIR_SCROLL_MESSAGE:
+                "This is the scroll of the air element.\n" +
+                "You can learn 'Air Walk' from this scroll.\n" +
+                "You can jump while in the air!",
         };
 
         // ------------------------------------------------------------
@@ -328,9 +351,15 @@ export default class Page2 extends React.Component {
 
                 if (this.jButton === true) {
                     if (this.ninja.speedY === 0) {
-                        //ジャンプの初速は重力加速度の整数倍にならないようにする
-                        //2段ジャンプ対策
+                        //通常ジャンプ
                         this.ninja.speedY = -11;
+                    }
+                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
+                        //風の書を読んでいる
+                        if (this.ninja.posY > 14) {
+                            //2段ジャンプ実行限界高度に達していない
+                            this.ninja.speedY = -11;
+                        }
                     }
                     this.jButton = false;
                 }
@@ -519,7 +548,7 @@ export default class Page2 extends React.Component {
             if (this.props.stage === 1) {
 
                 // ------------------------------------------------------------
-                // ステージ1
+                // ステージ1（出発の宿）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -595,14 +624,37 @@ export default class Page2 extends React.Component {
                         img: imgArrow1,
                         onTouch: onTouchNothing,
                     },
-                    scrollRoof: {
+                    airScroll: {
                         size: 10,
                         posX: 11,
                         posY: 13,
                         boolLeft: true,
-                        zIndex: 11,
+                        zIndex: 22,
                         img: imgScroll,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.AIR_SCROLL_TITLE,
+                    },
+                    airScrollOpened: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
                         onTouch: onTouchNothing,
+                        title: this.consts.AIR_SCROLL_TITLE,
+                        message: this.consts.AIR_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 7,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
                         size: 300,
@@ -620,7 +672,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 2) {
 
                 // ------------------------------------------------------------
-                // ステージ2
+                // ステージ2（鳥居がある町）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -724,7 +776,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 3) {
 
                 // ------------------------------------------------------------
-                // ステージ3
+                // ステージ3（ポチの家）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -836,7 +888,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 4) {
 
                 // ------------------------------------------------------------
-                // ステージ4
+                // ステージ4（看板がある河原）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -886,7 +938,7 @@ export default class Page2 extends React.Component {
                         size: 20,
                         posX: 15,
                         posY: 63,
-                        zIndex: 21,
+                        zIndex: 30,
                         img: imgRock,
                         onTouch: onTouchBlock,
                     },
@@ -904,6 +956,14 @@ export default class Page2 extends React.Component {
                         posY: 43,
                         zIndex: 30,
                         onTouch: onTouchBlock,
+                    },
+                    riverPic: {
+                        size: 200,
+                        posX: -175,
+                        posY: 72,
+                        divType: "water",
+                        zIndex: 29,
+                        onTouch: onTouchNothing,
                     },
                     rightGateWall: {
                         size: 300,
@@ -930,7 +990,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 5) {
 
                 // ------------------------------------------------------------
-                // ステージ5
+                // ステージ5（イクノがいる川）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -982,6 +1042,29 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchBlock,
                     },
+                    ikuno: {
+                        size: 10,
+                        posX: 20,
+                        posY: 29,
+                        zIndex: 17,
+                        img: imgIkuno,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.IKUNO_SCROLL_TITLE,
+                    },
+                    ikunoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.IKUNO_SCROLL_TITLE,
+                        message: this.consts.IKUNO_SCROLL_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgIkuno,
+                    },
                     riverPic: {
                         size: 200,
                         posX: -20,
@@ -1022,7 +1105,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 6) {
 
                 // ------------------------------------------------------------
-                // ステージ6
+                // ステージ6（岩の下の水路）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -1101,6 +1184,99 @@ export default class Page2 extends React.Component {
                 }
                 //ステージの背景画像を設定
                 this.bgImg = river2;
+            } else if (this.props.stage === 7) {
+
+                // ------------------------------------------------------------
+                // ステージ7（石像複数）
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 8,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 1,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = jizos;
+            } else if (this.props.stage === 8) {
+
+                // ------------------------------------------------------------
+                // ステージ8 (狛犬)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 9,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 7,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = gardianDog;
+            } else if (this.props.stage === 9) {
+
+                // ------------------------------------------------------------
+                // ステージ9 (神社)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rock1: {
+                        size: 60,
+                        posX: 60,
+                        posY: 35,
+                        zIndex: 20,
+                        boolLeft: true,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 8,
+                        onTouch: onToughGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = shrine;
             }
 
             this.prevStage = this.props.stage;
