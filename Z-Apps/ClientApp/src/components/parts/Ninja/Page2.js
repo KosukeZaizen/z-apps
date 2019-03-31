@@ -238,7 +238,14 @@ export default class Page2 extends React.Component {
                 "This is the scroll of the air element.\n" +
                 "You can learn 'Air Walk' from this scroll.\n" +
                 "You can jump while in the air!",
+
+            //神社入り口のメッセージ
+            SHRINE_ENTRANCE_TITLE: "Shrine with Guardian Dogs",
+            SHRINE_ENTRANCE_MESSAGE:
+                "If you touch the Ksitigarbha in the shrine,\n" +
+                "Guardian Dogs will be angry.",
         };
+
 
         // ------------------------------------------------------------
         // ステート設定
@@ -655,7 +662,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 7,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -664,7 +671,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 2,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -759,7 +766,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 1,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -768,7 +775,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 3,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -791,7 +798,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 2,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     fire1: {
@@ -800,7 +807,7 @@ export default class Page2 extends React.Component {
                         posY: 62,
                         zIndex: 20,
                         img: imgfire1,
-                        onTouch: onToughFire,
+                        onTouch: onTouchFire,
                         jumpHeight: 25,
                     },
                     shiba: {
@@ -880,7 +887,7 @@ export default class Page2 extends React.Component {
                         posY: -270,
                         zIndex: 30,
                         next: 4,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -973,7 +980,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 3,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -982,7 +989,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 5,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1088,7 +1095,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 4,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -1097,7 +1104,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 6,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
 
@@ -1180,7 +1187,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 5,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1196,13 +1203,43 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    kanban1Pic: {
+                        size: 20,
+                        posX: 77,
+                        posY: 60,
+                        zIndex: 10,
+                        img: imgKanban1,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHRINE_ENTRANCE_TITLE,
+                    },
+                    kanban1ArrowPic: {
+                        size: 10,
+                        posX: 82,
+                        posY: 63,
+                        zIndex: 11,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    },
+                    scrollFromKanban: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHRINE_ENTRANCE_TITLE,
+                        message: this.consts.SHRINE_ENTRANCE_MESSAGE,
+                        fontSize: 3,
+                    },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
                         posY: -200,
                         zIndex: 30,
                         next: 8,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -1211,7 +1248,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 1,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1234,7 +1271,7 @@ export default class Page2 extends React.Component {
                         zIndex: 15,
                         boolLeft: true,
                         img: imgJizo,
-                        onTouch: onTouchBlock,
+                        onTouch: onTouchJizo,
                     },
                     fire1: {
                         size: 13,
@@ -1242,7 +1279,8 @@ export default class Page2 extends React.Component {
                         posY: 6,
                         zIndex: 20,
                         img: imgfire1,
-                        onTouch: onToughFire,
+                        fireContinueTime: 20,//2秒
+                        onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
                     rightGateWall: {
@@ -1251,7 +1289,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 9,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -1260,7 +1298,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 7,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1300,7 +1338,7 @@ export default class Page2 extends React.Component {
                         posY: 17,
                         zIndex: 20,
                         img: imgfire1,
-                        onTouch: onToughFire,
+                        onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
                     fire2: {
@@ -1309,7 +1347,7 @@ export default class Page2 extends React.Component {
                         posY: 13,
                         zIndex: 20,
                         img: imgfire1,
-                        onTouch: onToughFire,
+                        onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
                     leftGateWall: {
@@ -1318,7 +1356,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 8,
-                        onTouch: onToughGateWall,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1528,7 +1566,7 @@ function onTouchNothing() {
 //=======================================
 // 別ステージへのゲートのタッチ関数
 //=======================================
-function onToughGateWall(ninja, from) {
+function onTouchGateWall(ninja, from) {
     if (from === "right") {
         //右から
         ninja.posX += 160 - ninja.size;
@@ -1549,10 +1587,26 @@ function onToughGateWall(ninja, from) {
 //=======================================
 // 炎にタッチ
 //=======================================
-function onToughFire(ninja) {
+function onTouchFire(ninja) {
     if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
         ninja.speedY = this.jumpHeight * (-1);
     }
+}
+
+//=======================================
+// 地蔵にタッチ
+//=======================================
+function onTouchJizo(ninja) {
+
+    let objs = ninja.game.objs;
+    for (let key in objs) {
+        if (objs[key].fireContinueTime) {
+            //火を表示する
+            objs[key].visible = true;
+        }
+    }
+    //読み終えたリストの中に該当の巻物を追加
+    ninja.readScroll.push(this.openTargetTitle);
 }
 
 export { Page2 };

@@ -103,29 +103,65 @@ export default class Obj extends React.Component {
 
         } else if (img) {
             //imgという引数を受け取っている場合、画像要素を生成
-            let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
-            let img = this.props.obj.img;
-            let size = this.props.obj.size * UL;
-            let posX = this.props.obj.posX * UL;
-            let posY = this.props.obj.posY * UL;
-            let zIndex = this.props.obj.zIndex;
 
-            let style = {
-                position: "absolute",
-                left: posX,
-                top: posY,
-                transform: rotateLeft,
-                zIndex: zIndex,
-            };
-            return (
-                <img
-                    src={img}
-                    width={size}
-                    style={style}
-                    alt={"object"}
-                />
-            );
+            let fireContinueTime = this.props.obj.fireContinueTime;
+            if (fireContinueTime) {
+                let visible = this.props.obj.visible;
+                if (visible) {
+                    //fireContinueTimeを持っている場合、条件に応じて出現する要素とみなす
+                    let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
+                    let img = this.props.obj.img;
+                    let size = this.props.obj.size * UL;
+                    let posX = this.props.obj.posX * UL;
+                    let posY = this.props.obj.posY * UL;
+                    let zIndex = this.props.obj.zIndex;
+
+                    let style = {
+                        position: "absolute",
+                        left: posX,
+                        top: posY,
+                        transform: rotateLeft,
+                        zIndex: zIndex,
+                    };
+                    return (
+                        <img
+                            src={img}
+                            width={size}
+                            style={style}
+                            alt={"object"}
+                        />
+                    );
+                } else {
+                    return <div></div>;
+                }
+            } else {
+                //fireContinueTimeという要素を持っていない場合、通常の画像要素とみなす
+                let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
+                let img = this.props.obj.img;
+                let size = this.props.obj.size * UL;
+                let posX = this.props.obj.posX * UL;
+                let posY = this.props.obj.posY * UL;
+                let zIndex = this.props.obj.zIndex;
+
+                let style = {
+                    position: "absolute",
+                    left: posX,
+                    top: posY,
+                    transform: rotateLeft,
+                    zIndex: zIndex,
+                };
+                return (
+                    <img
+                        src={img}
+                        width={size}
+                        style={style}
+                        alt={"object"}
+                    />
+                );
+            }
         } else if (this.props.obj.divType) {
+            //水や、画面の外を黒くするためのdiv要素
+            //divTypeの中の文字列がそのままclass名になり、CSSが効く
             let size = this.props.obj.size * UL;
             let posX = this.props.obj.posX * UL;
             let posY = this.props.obj.posY * UL;
@@ -137,7 +173,7 @@ export default class Obj extends React.Component {
                 top: posY,
                 zIndex: zIndex,
                 width: size,
-                height:size,
+                height: size,
             };
             return (
                 <div
@@ -145,7 +181,6 @@ export default class Obj extends React.Component {
                 >
                 </div>
             );
-
         } else {
             //該当の引数を受け取っていない場合、div要素を生成
             let size = this.props.obj.size * UL;
@@ -181,8 +216,8 @@ function SpeakerImage(props) {
     if (img) {
         let size = props.size / 10;
         let zIndex = props.zIndex + 3;
-        let posX = props.posX + size*1.3;
-        let posY = props.posY + size*0.5;
+        let posX = props.posX + size * 1.3;
+        let posY = props.posY + size * 0.5;
 
         let style = {
             position: "absolute",
