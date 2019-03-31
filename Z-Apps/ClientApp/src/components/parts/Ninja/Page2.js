@@ -21,6 +21,8 @@ import imgTorii from './objs/torii.png';
 import imgFrame from './objs/frame.jpg';
 //火
 import imgfire1 from './objs/fire1.png';
+//火（上下反転）
+import imgfireR from './objs/fireReverse.png';
 //ポチ
 import imgPochi from './objs/pochi.png';
 //閉じている巻物
@@ -55,6 +57,8 @@ import jizos from './img/background/jizos.jpg';
 import gardianDog from './img/background/gardianDog.jpg';
 //stage9
 import shrine from './img/background/shrine.jpg';
+//stage10
+import skyStone from './img/background/sky1.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -219,6 +223,20 @@ export default class Page2 extends React.Component {
                 "You can learn 'Fire Jump' from this scroll.\n" +
                 "You can fly using updraft from fire.",
 
+            //風の書（宿の屋根の上）
+            AIR_SCROLL_TITLE: "風の書",
+            AIR_SCROLL_MESSAGE:
+                "This is the scroll of the air element.\n" +
+                "You can learn 'Air Walk' from this scroll.\n" +
+                "You can jump while in the air!",
+
+            //水の書（宇宙の岩の上）
+            WATER_SCROLL_TITLE: "水の書",
+            WATER_SCROLL_MESSAGE:
+                "This is the scroll of the water element.\n" +
+                "You can learn 'Water Spider' from this scroll.\n" +
+                "You can walk at the bottom of the water normally!",
+
             //河原の看板
             KAWARA_SCROLL_TITLE: "Dangerous Waters!",
             KAWARA_SCROLL_MESSAGE:
@@ -229,15 +247,8 @@ export default class Page2 extends React.Component {
             IKUNO_SCROLL_TITLE: "Hi",
             IKUNO_SCROLL_MESSAGE:
                 "I'm your senior, named Ikuno. Nice to meet you.\n" +
-                "If you continue to go, there is a cave. But I think it is difficult to achieve.\n" +
+                "If you continue to go, there is a castle. But I think it is difficult to achieve.\n" +
                 "Did you jump to right from the fire in Master Pochi's house?",
-
-            //風の書（宿の屋根の上）
-            AIR_SCROLL_TITLE: "風の書",
-            AIR_SCROLL_MESSAGE:
-                "This is the scroll of the air element.\n" +
-                "You can learn 'Air Walk' from this scroll.\n" +
-                "You can jump while in the air!",
 
             //神社入り口のメッセージ
             SHRINE_ENTRANCE_TITLE: "Shrine with Guardian Dogs",
@@ -1330,7 +1341,7 @@ export default class Page2 extends React.Component {
                         zIndex: 15,
                         boolLeft: true,
                         img: imgJizo,
-                        onTouch: onTouchBlock,
+                        onTouch: onTouchJizo,
                     },
                     fire1: {
                         size: 13,
@@ -1338,8 +1349,9 @@ export default class Page2 extends React.Component {
                         posY: 17,
                         zIndex: 20,
                         img: imgfire1,
+                        fireContinueTime: 20,//2秒
                         onTouch: onTouchFire,
-                        jumpHeight: 20,
+                        jumpHeight: 30,
                     },
                     fire2: {
                         size: 13,
@@ -1347,8 +1359,9 @@ export default class Page2 extends React.Component {
                         posY: 13,
                         zIndex: 20,
                         img: imgfire1,
+                        fireContinueTime: 20,//2秒
                         onTouch: onTouchFire,
-                        jumpHeight: 20,
+                        jumpHeight: 30,
                     },
                     leftGateWall: {
                         size: 300,
@@ -1359,9 +1372,89 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -310,
+                        zIndex: 30,
+                        next: 10,
+                        onTouch: onTouchGateTopOrBottom,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = shrine;
+            } else if (this.props.stage === 10) {
+
+                // ------------------------------------------------------------
+                // ステージ10 (空の富士山)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+
+                    waterScroll: {
+                        size: 10,
+                        posX: 30,
+                        posY: 12,
+                        boolLeft: true,
+                        zIndex: 18,
+                        img: imgScroll,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.WATER_SCROLL_TITLE,
+                    },
+                    waterScrollOpened: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.WATER_SCROLL_TITLE,
+                        message: this.consts.WATER_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    rock1: {
+                        size: 30,
+                        posX: 20,
+                        posY: 20,
+                        zIndex: 20,
+                        boolLeft: true,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
+                    fire1: {
+                        size: 15,
+                        posX: 20,
+                        posY: 45,
+                        zIndex: 20,
+                        img: imgfireR,
+                        onTouch: onTouchNothing,
+                        jumpHeight: 25,
+                    },
+                    fire2: {
+                        size: 15,
+                        posX: 35,
+                        posY: 45,
+                        zIndex: 20,
+                        img: imgfireR,
+                        onTouch: onTouchNothing,
+                        jumpHeight: 25,
+                    },
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 9,
+                        onTouch: onTouchGateTopOrBottom,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = skyStone;
             }
 
             this.prevStage = this.props.stage;
@@ -1551,10 +1644,13 @@ function onTouchTree(ninja, from) {
 // 右向きにに流れる川へのタッチ関数
 //=======================================
 function onTouchRiverToRight(ninja) {
-    ninja.posX += 10;
-    ninja.posY = this.posY - ninja.size;
-    ninja.speedX = 30;
-    ninja.speedY = 0;
+    if (ninja.readScroll.indexOf(ninja.game.consts.WATER_SCROLL_TITLE) < 0) {
+        //水の書を読んでいなければ、流される
+        ninja.posX += 10;
+        ninja.posY = this.posY - ninja.size;
+        ninja.speedX = 30;
+        ninja.speedY = 0;
+    }
 }
 
 //=======================================
@@ -1564,7 +1660,7 @@ function onTouchNothing() {
 }
 
 //=======================================
-// 別ステージへのゲートのタッチ関数
+// 別ステージへのゲートのタッチ関数（左右）
 //=======================================
 function onTouchGateWall(ninja, from) {
     if (from === "right") {
@@ -1585,10 +1681,38 @@ function onTouchGateWall(ninja, from) {
 }
 
 //=======================================
+// 別ステージへのゲートのタッチ関数（上下）
+//=======================================
+function onTouchGateTopOrBottom(ninja, from) {
+
+    if (from === "upper") {
+        //上から
+        ninja.posY = 0;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+
+    } else if (from === "lower") {
+        //下から
+        ninja.posY += 70 - ninja.size;
+        ninja.speedX = 0;
+        ninja.speedY = -15;
+    }
+    this.changeStage(this.next, ninja);
+
+    return "changed";
+}
+
+//=======================================
 // 炎にタッチ
 //=======================================
 function onTouchFire(ninja) {
+
+    if (this.fireContinueTime && this.visible !== true) {
+        //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
+        return;
+    }
     if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
+        //火の書を読んでいればジャンプする
         ninja.speedY = this.jumpHeight * (-1);
     }
 }
