@@ -32,7 +32,7 @@ import imgScrollOpen from './objs/scrollOpen.png';
 //仏壇
 import imgButsudan from './objs/butsudan.png';
 //イクノ
-import imgIkuno from './objs/ikuno.png';
+import imgShino from './objs/shino.png';
 //地蔵
 import imgJizo from './objs/jizo.png';
 
@@ -61,6 +61,10 @@ import shrine from './img/background/shrine.jpg';
 import skyStone from './img/background/sky1.jpg';
 //stage11
 import castleRiver from './img/background/castleRiver.jpg';
+//stage12
+import castleWall from './img/background/castleWall.jpg';
+//stage13
+import castle from './img/background/castle.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -202,7 +206,7 @@ export default class Page2 extends React.Component {
             FIRST_SCROLL_TITLE: "Come to my house!",
             FIRST_SCROLL_MESSAGE:
                 "Hello, newbie! My name is Pochi. I am a Ninja Master!\n" +
-                "I heared you came to Japan to learn Ninja Skills!\n" +
+                "I heard you came to Japan to learn Ninja Skills!\n" +
                 "Please come to my house by pushing [＜] button at the bottom of the screen!",
 
             //ジャンプの説明
@@ -211,12 +215,19 @@ export default class Page2 extends React.Component {
                 "Keep pushing the [＜] button,\n" +
                 "and push [ ↑jump↑ ] button!\n",
 
-            //ポチの家でに触った時のメッセージ
-            SHIBA_SCROLL_TITLE: "Nice to meet you!",
-            SHIBA_SCROLL_MESSAGE:
+            //ポチの家でポチに触った時のメッセージ
+            POCHI_SCROLL_TITLE: "Nice to meet you!",
+            POCHI_SCROLL_MESSAGE:
                 "I'm Pochi!\n" +
                 "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
                 "I have one of them. Please grab the scroll at the alter, and read!",
+
+            //城でポチに触った時のメッセージ
+            POCHI_SCROLL2_TITLE: "Congratulation!",
+            POCHI_SCROLL2_MESSAGE:
+                "Well done!\n" +
+                "That is your final scroll.\n" +
+                "Please collect it!",
 
             //火の書（ポチの家の仏壇）
             FIRE_SCROLL_TITLE: "火の書",
@@ -239,32 +250,46 @@ export default class Page2 extends React.Component {
                 "You can learn 'Water Spider' from this scroll.\n" +
                 "You can walk in water normally!",
 
+            //地の書（城の岩の上）
+            EARTH_SCROLL_TITLE: "地の書",
+            EARTH_SCROLL_MESSAGE:
+                "This is the scroll of the earth element.\n" +
+                "You can make a mud doll.\n" +
+                "Please push [＜] button and [＞] button at the same time!",
+
             //河原の看板
             KAWARA_SCROLL_TITLE: "Dangerous Waters!",
             KAWARA_SCROLL_MESSAGE:
                 "Normal person should not go this way\n" +
                 "because water flow is too strong.",
 
-            //川でイクノに触った時のメッセージ
-            IKUNO_SCROLL_TITLE: "Hi",
-            IKUNO_SCROLL_MESSAGE:
-                "I'm your senior, named Ikuno.\n" +
+            //川でシノに触った時のメッセージ
+            SHINO_SCROLL_TITLE: "Hi",
+            SHINO_SCROLL_MESSAGE:
+                "I'm your senior, named Shino.\n" +
                 "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
-                "Jump above the fire while pushing [＞] button at Master Pochi's house.",
+                "Touth the fire while pushing [＞] button at Master Pochi's house.",
 
-            //鳥居の上でイクノに触った時のメッセージ
-            IKUNO_SCROLL2_TITLE: "How are you?",
-            IKUNO_SCROLL2_MESSAGE:
+            //鳥居の上でシノに触った時のメッセージ
+            SHINO_SCROLL2_TITLE: "How are you?",
+            SHINO_SCROLL2_MESSAGE:
                 "If you keep right, you can get the Air Element Scroll.\n" +
                 "After getting the scroll, please try to push the [↑jump↑] button twice.\n" +
                 "You can jump in the air twice!",
 
             //水路の岩肌のイクノに触った時のメッセージ
-            IKUNO_SCROLL3_TITLE: "Hello!",
-            IKUNO_SCROLL3_MESSAGE:
-                "After you learned how to jump in the air,\n" +
-                "you should go to the Shrine of Guardian Dogs, to get the Water Element Scroll.\n" +
-                "The shrine is right side of the town where you came.",
+            SHINO_SCROLL3_TITLE: "Hello!",
+            SHINO_SCROLL3_MESSAGE:
+                "After learning to jump in the air,\n" +
+                "please go to the Shrine of Guardian Dogs to get the Water Element Scroll.\n" +
+                "To go to the shrine, keep going right from Master Pochi's house.",
+
+            //城でシノに触った時のメッセージ
+            SHINO_SCROLL4_TITLE: "You did it!",
+            SHINO_SCROLL4_MESSAGE:
+                "You gained all four element skills!\n" +
+                "Now you are a Ninja Master!\n" +
+                "Ninja Masters should go to meet the huge Guardian Dog of the shrine...",
 
             //神社入り口のメッセージ
             SHRINE_ENTRANCE_TITLE: "Shrine of Guardian Dogs",
@@ -724,16 +749,16 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
-                    ikuno: {
+                    shino: {
                         size: 10,
                         posX: 120,
                         posY: 2,
                         zIndex: 27,
-                        img: imgIkuno,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.IKUNO_SCROLL2_TITLE,
+                        openTargetTitle: this.consts.SHINO_SCROLL2_TITLE,
                     },
-                    ikunoScroll: {
+                    shinoScroll: {
                         size: 150,
                         posX: 5,
                         posY: 5,
@@ -742,10 +767,10 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
-                        title: this.consts.IKUNO_SCROLL2_TITLE,
-                        message: this.consts.IKUNO_SCROLL2_MESSAGE,
+                        title: this.consts.SHINO_SCROLL2_TITLE,
+                        message: this.consts.SHINO_SCROLL2_MESSAGE,
                         fontSize: 3,
-                        speakerImg: imgIkuno,
+                        speakerImg: imgShino,
                     },
                     rock1: {
                         size: 17,
@@ -869,16 +894,16 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchFire,
                         jumpHeight: 25,
                     },
-                    shiba: {
+                    pochi: {
                         size: 10,
                         posX: 50,
                         posY: 62,
                         zIndex: 20,
                         img: imgPochi,
                         onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.SHIBA_SCROLL_TITLE,
+                        openTargetTitle: this.consts.POCHI_SCROLL_TITLE,
                     },
-                    shibaScroll: {
+                    pochiScroll: {
                         size: 150,
                         posX: 5,
                         posY: 5,
@@ -887,8 +912,8 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
-                        title: this.consts.SHIBA_SCROLL_TITLE,
-                        message: this.consts.SHIBA_SCROLL_MESSAGE,
+                        title: this.consts.POCHI_SCROLL_TITLE,
+                        message: this.consts.POCHI_SCROLL_MESSAGE,
                         fontSize: 3,
                         speakerImg: imgPochi,
                     },
@@ -1058,7 +1083,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 5) {
 
                 // ------------------------------------------------------------
-                // ステージ5（イクノがいる川）
+                // ステージ5（シノがいる川）
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -1110,16 +1135,16 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchBlock,
                     },
-                    ikuno: {
+                    shino: {
                         size: 10,
                         posX: 20,
                         posY: 29,
                         zIndex: 17,
-                        img: imgIkuno,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.IKUNO_SCROLL_TITLE,
+                        openTargetTitle: this.consts.SHINO_SCROLL_TITLE,
                     },
-                    ikunoScroll: {
+                    shinoScroll: {
                         size: 150,
                         posX: 5,
                         posY: 5,
@@ -1128,10 +1153,10 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
-                        title: this.consts.IKUNO_SCROLL_TITLE,
-                        message: this.consts.IKUNO_SCROLL_MESSAGE,
+                        title: this.consts.SHINO_SCROLL_TITLE,
+                        message: this.consts.SHINO_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: imgIkuno,
+                        speakerImg: imgShino,
                     },
                     riverPic: {
                         size: 200,
@@ -1180,17 +1205,16 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
-
-                    ikuno: {
+                    shino: {
                         size: 10,
                         posX: 73,
                         posY: 5,
                         zIndex: 35,
-                        img: imgIkuno,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.IKUNO_SCROLL3_TITLE,
+                        openTargetTitle: this.consts.SHINO_SCROLL3_TITLE,
                     },
-                    ikunoScroll: {
+                    shinoScroll: {
                         size: 150,
                         posX: 5,
                         posY: 5,
@@ -1199,10 +1223,10 @@ export default class Page2 extends React.Component {
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
-                        title: this.consts.IKUNO_SCROLL3_TITLE,
-                        message: this.consts.IKUNO_SCROLL3_MESSAGE,
+                        title: this.consts.SHINO_SCROLL3_TITLE,
+                        message: this.consts.SHINO_SCROLL3_MESSAGE,
                         fontSize: 3,
-                        speakerImg: imgIkuno,
+                        speakerImg: imgShino,
                     },
                     rock1Pic: {
                         size: 50,
@@ -1270,6 +1294,15 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 5,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 11,
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
@@ -1438,7 +1471,7 @@ export default class Page2 extends React.Component {
                     leftGateWall: {
                         size: 300,
                         posX: -300,
-                        posY: -200,
+                        posY: 0,
                         zIndex: 30,
                         next: 8,
                         onTouch: onTouchGateWall,
@@ -1459,7 +1492,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 10) {
 
                 // ------------------------------------------------------------
-                // ステージ10 (空の富士山)
+                // ステージ10 (空の岩)
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -1528,41 +1561,30 @@ export default class Page2 extends React.Component {
                 //ステージの背景画像を設定
                 this.bgImg = skyStone;
 
-            } else if (this.props.stage === 8) {
+            } else if (this.props.stage === 11) {
 
                 // ------------------------------------------------------------
-                // ステージ8 (狛犬)
+                // ステージ11 (河原の城壁)
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
 
-                    jizo1: {
-                        size: 14,
-                        posX: 40,
-                        posY: 62,
-                        zIndex: 15,
-                        boolLeft: true,
-                        img: imgJizo,
-                        onTouch: onTouchJizo,
-                    },
-                    fire1: {
-                        size: 13,
-                        posX: 97,
-                        posY: 6,
-                        zIndex: 20,
-                        img: imgfire1,
-                        fireContinueTime: 5,//0.5秒
-                        onTouch: onTouchFire,
-                        jumpHeight: 20,
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: 71,
+                        divType: "water",
+                        zIndex: 40,
+                        onTouch: onTouchNothing,
                     },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
                         posY: -200,
                         zIndex: 30,
-                        next: 9,
+                        next: 6,
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
@@ -1571,13 +1593,152 @@ export default class Page2 extends React.Component {
                         posX: -300,
                         posY: -200,
                         zIndex: 30,
-                        next: 7,
+                        next: 12,
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = castleRiver;
+
+            } else if (this.props.stage === 12) {
+
+                // ------------------------------------------------------------
+                // ステージ12 (城壁の岩肌)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 11,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 13,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = castleWall;
+
+            } else if (this.props.stage === 13) {
+
+                // ------------------------------------------------------------
+                // ステージ13 (城)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    pochi: {
+                        size: 10,
+                        posX: 110,
+                        posY: 62,
+                        zIndex: 22,
+                        img: imgPochi,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.POCHI_SCROLL2_TITLE,
+                    },
+                    pochiScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.POCHI_SCROLL2_TITLE,
+                        message: this.consts.POCHI_SCROLL2_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgPochi,
+                    },
+                    earthScrollIcon: {
+                        size: 10,
+                        posX: 85,
+                        posY: 46,
+                        boolLeft: true,
+                        zIndex: 22,
+                        img: imgScroll,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.EARTH_SCROLL_TITLE,
+                    },
+                    earthScrollOpened: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.EARTH_SCROLL_TITLE,
+                        message: this.consts.EARTH_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    rock1Pic: {
+                        size: 40,
+                        posX: 70,
+                        posY: 50,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 40,
+                        posX: 70,
+                        posY: 53,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    shino: {
+                        size: 10,
+                        posX: 30,
+                        posY: 62,
+                        zIndex: 17,
+                        img: imgShino,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHINO_SCROLL4_TITLE,
+                    },
+                    shinoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHINO_SCROLL4_TITLE,
+                        message: this.consts.SHINO_SCROLL4_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgShino,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 12,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = castle;
             }
 
             this.prevStage = this.props.stage;
