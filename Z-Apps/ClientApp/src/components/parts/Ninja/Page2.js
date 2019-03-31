@@ -1600,7 +1600,7 @@ export default class Page2 extends React.Component {
                         posY: -200,
                         zIndex: 30,
                         next: 6,
-                        onTouch: onTouchGateWall,
+                        onTouch: onTouchGateWallStage11,
                         changeStage: this.props.changeStage,
                     },
                     leftGateWall: {
@@ -1971,6 +1971,22 @@ function onTouchGateWall(ninja, from) {
     } else {
         //左から
         ninja.posX = 0;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+    }
+    this.changeStage(this.next, ninja);
+
+    return "changed";
+}
+
+//=======================================
+// 別ステージへのゲートのタッチ関数（ステージ11から水路に戻る場合）
+//=======================================
+function onTouchGateWallStage11(ninja, from) {
+    if (from === "left") {
+        //左から
+        ninja.posX = 0;
+        ninja.posY = 60;
         ninja.speedX = 0;
         ninja.speedY = 0;
     }

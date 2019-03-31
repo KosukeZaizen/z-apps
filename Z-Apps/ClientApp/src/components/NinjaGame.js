@@ -13,8 +13,8 @@ class NinjaGame extends React.Component {
         };
         this.state = {
             curPage: 1,
-            //stage: 13,//デバッグ用（通常時1）★
-            stage: 1,
+            stage: 6,//デバッグ用（通常時1）★
+            //stage: 1,
             ninja: {
                 size: 12,
                 speedX: 0,
