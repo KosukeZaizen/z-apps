@@ -21,8 +21,8 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 5,
-                //readScroll: ["火の書", "風の書", "水の書","地の書"],//デバッグ用（通常時空配列[]）★
-                readScroll: [],
+                readScroll: ["火の書", "風の書", "水の書","地の書"],//デバッグ用（通常時空配列[]）★
+                //readScroll: [],
             },
         };
         //this.changeStage = this.changeStage.bind(this);

@@ -31,10 +31,12 @@ import imgScroll from './objs/scrollObj.png';
 import imgScrollOpen from './objs/scrollOpen.png';
 //仏壇
 import imgButsudan from './objs/butsudan.png';
-//イクノ
+//シノ（先輩くのいち）
 import imgShino from './objs/shino.png';
 //地蔵
 import imgJizo from './objs/jizo.png';
+//ハニワ
+import imgHaniwa from './objs/haniwa.png';
 
 
 //背景画像//---------------------------
@@ -408,6 +410,21 @@ export default class Page2 extends React.Component {
                         this.ninja.speedX = 6;
                         boolLeft = false;//画像右向き
                     }
+                    if (this.lButton === true && this.rButton === true) {
+                        //右と左同時押しでハニワ生成
+                        if (this.ninja.readScroll.indexOf(this.ninja.game.consts.EARTH_SCROLL_TITLE) > 0) {
+                            //地の書を既に読んでいる場合
+                            this.objs.haniwa = {
+                                size: 12,
+                                posX: this.ninja.posX,
+                                posY: this.ninja.posY,
+                                zIndex: 20,
+                                img: imgHaniwa,
+                                onTouch: onTouchNothing,
+                                haniwa:true,
+                            }
+                        }
+                    }
                 }
 
                 if (this.jButton === true) {
@@ -558,11 +575,9 @@ export default class Page2 extends React.Component {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = true;
-            this.rButton = false;
         } else if (btnType === "right") {
             //→ボタン押下判定
             this.rButton = true;
-            this.lButton = false;
         } else if (btnType === "jump") {
             //jumpボタン押下判定
             this.jButton = true;
