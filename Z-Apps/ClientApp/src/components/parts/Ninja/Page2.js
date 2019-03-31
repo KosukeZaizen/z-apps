@@ -235,7 +235,7 @@ export default class Page2 extends React.Component {
             WATER_SCROLL_MESSAGE:
                 "This is the scroll of the water element.\n" +
                 "You can learn 'Water Spider' from this scroll.\n" +
-                "You can walk at the bottom of the water normally!",
+                "You can walk in water normally!",
 
             //河原の看板
             KAWARA_SCROLL_TITLE: "Dangerous Waters!",
@@ -247,14 +247,14 @@ export default class Page2 extends React.Component {
             IKUNO_SCROLL_TITLE: "Hi",
             IKUNO_SCROLL_MESSAGE:
                 "I'm your senior, named Ikuno. Nice to meet you.\n" +
-                "If you continue to go, there is a castle. But I think it is difficult to achieve.\n" +
-                "Did you jump to right from the fire in Master Pochi's house?",
+                "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
+                "Jump above the fire while pushing [＞] button at Master Pochi's house.",
 
             //神社入り口のメッセージ
             SHRINE_ENTRANCE_TITLE: "Shrine with Guardian Dogs",
             SHRINE_ENTRANCE_MESSAGE:
                 "If you touch the Ksitigarbha in the shrine,\n" +
-                "Guardian Dogs will be angry.",
+                "The Guardian Dogs will be angry.",
         };
 
 
@@ -1429,7 +1429,7 @@ export default class Page2 extends React.Component {
                         size: 15,
                         posX: 20,
                         posY: 45,
-                        zIndex: 20,
+                        zIndex: 19,
                         img: imgfireR,
                         onTouch: onTouchNothing,
                         jumpHeight: 25,
@@ -1438,7 +1438,7 @@ export default class Page2 extends React.Component {
                         size: 15,
                         posX: 35,
                         posY: 45,
-                        zIndex: 20,
+                        zIndex: 19,
                         img: imgfireR,
                         onTouch: onTouchNothing,
                         jumpHeight: 25,
