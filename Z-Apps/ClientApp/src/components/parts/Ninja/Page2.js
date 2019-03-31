@@ -59,6 +59,8 @@ import gardianDog from './img/background/gardianDog.jpg';
 import shrine from './img/background/shrine.jpg';
 //stage10
 import skyStone from './img/background/sky1.jpg';
+//stage11
+import castleRiver from './img/background/castleRiver.jpg';
 
 
 export default class Page2 extends React.Component {
@@ -219,7 +221,7 @@ export default class Page2 extends React.Component {
             //火の書（ポチの家の仏壇）
             FIRE_SCROLL_TITLE: "火の書",
             FIRE_SCROLL_MESSAGE:
-                "This is the scroll of the fire element.\n" +
+                "This is the Fire Element Scroll.\n" +
                 "You can learn 'Fire Jump' from this scroll.\n" +
                 "You can fly using updraft from fire.",
 
@@ -246,12 +248,26 @@ export default class Page2 extends React.Component {
             //川でイクノに触った時のメッセージ
             IKUNO_SCROLL_TITLE: "Hi",
             IKUNO_SCROLL_MESSAGE:
-                "I'm your senior, named Ikuno. Nice to meet you.\n" +
+                "I'm your senior, named Ikuno.\n" +
                 "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
                 "Jump above the fire while pushing [＞] button at Master Pochi's house.",
 
+            //鳥居の上でイクノに触った時のメッセージ
+            IKUNO_SCROLL2_TITLE: "How are you?",
+            IKUNO_SCROLL2_MESSAGE:
+                "If you keep right, you can get the Air Element Scroll.\n" +
+                "After getting the scroll, please try to push the [↑jump↑] button twice.\n" +
+                "You can jump in the air twice!",
+
+            //水路の岩肌のイクノに触った時のメッセージ
+            IKUNO_SCROLL3_TITLE: "Hello!",
+            IKUNO_SCROLL3_MESSAGE:
+                "After you learned how to jump in the air,\n" +
+                "you should go to the Shrine of Guardian Dogs, to get the Water Element Scroll.\n" +
+                "The shrine is right side of the town where you came.",
+
             //神社入り口のメッセージ
-            SHRINE_ENTRANCE_TITLE: "Shrine with Guardian Dogs",
+            SHRINE_ENTRANCE_TITLE: "Shrine of Guardian Dogs",
             SHRINE_ENTRANCE_MESSAGE:
                 "If you touch the Ksitigarbha in the shrine,\n" +
                 "The Guardian Dogs will be angry.",
@@ -667,6 +683,15 @@ export default class Page2 extends React.Component {
                         message: this.consts.AIR_SCROLL_MESSAGE,
                         fontSize: 3,
                     },
+                    stepUnderAirScroll: {
+                        size: 40,
+                        posX: 0,
+                        posY: 23,
+                        boolLeft: true,
+                        zIndex: 22,
+                        onTouch: onTouchTree,
+                        openTargetTitle: this.consts.AIR_SCROLL_TITLE,
+                    },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -699,6 +724,29 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    ikuno: {
+                        size: 10,
+                        posX: 120,
+                        posY: 2,
+                        zIndex: 27,
+                        img: imgIkuno,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.IKUNO_SCROLL2_TITLE,
+                    },
+                    ikunoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.IKUNO_SCROLL2_TITLE,
+                        message: this.consts.IKUNO_SCROLL2_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgIkuno,
+                    },
                     rock1: {
                         size: 17,
                         posX: 50,
@@ -1132,6 +1180,30 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+
+                    ikuno: {
+                        size: 10,
+                        posX: 73,
+                        posY: 5,
+                        zIndex: 35,
+                        img: imgIkuno,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.IKUNO_SCROLL3_TITLE,
+                    },
+                    ikunoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.IKUNO_SCROLL3_TITLE,
+                        message: this.consts.IKUNO_SCROLL3_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgIkuno,
+                    },
                     rock1Pic: {
                         size: 50,
                         posX: 135,
@@ -1151,13 +1223,13 @@ export default class Page2 extends React.Component {
                         size: 90,
                         posX: -5,
                         posY: -25,
-                        zIndex: 15,
+                        zIndex: 29,
                         img: imgRock,
                         onTouch: onTouchNothing,
                     },
                     rock2Actual: {
                         size: 90,
-                        posX: -5,
+                        posX: -12,
                         posY: -28,
                         zIndex: 15,
                         onTouch: onTouchBlock,
@@ -1166,7 +1238,7 @@ export default class Page2 extends React.Component {
                         size: 90,
                         posX: -25,
                         posY: -25,
-                        zIndex: 20,
+                        zIndex: 30,
                         img: imgRock,
                         onTouch: onTouchNothing,
                     },
@@ -1455,6 +1527,57 @@ export default class Page2 extends React.Component {
                 }
                 //ステージの背景画像を設定
                 this.bgImg = skyStone;
+
+            } else if (this.props.stage === 8) {
+
+                // ------------------------------------------------------------
+                // ステージ8 (狛犬)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    jizo1: {
+                        size: 14,
+                        posX: 40,
+                        posY: 62,
+                        zIndex: 15,
+                        boolLeft: true,
+                        img: imgJizo,
+                        onTouch: onTouchJizo,
+                    },
+                    fire1: {
+                        size: 13,
+                        posX: 97,
+                        posY: 6,
+                        zIndex: 20,
+                        img: imgfire1,
+                        fireContinueTime: 5,//0.5秒
+                        onTouch: onTouchFire,
+                        jumpHeight: 20,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 9,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 7,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = castleRiver;
             }
 
             this.prevStage = this.props.stage;
