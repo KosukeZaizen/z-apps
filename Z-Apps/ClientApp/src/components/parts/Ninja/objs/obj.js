@@ -106,9 +106,25 @@ export default class Obj extends React.Component {
 
             let fireContinueTime = this.props.obj.fireContinueTime;
             if (fireContinueTime) {
-                let visible = this.props.obj.visible;
-                if (visible) {
-                    //fireContinueTimeを持っている場合、条件に応じて出現する要素とみなす
+                //fireContinueTimeを持っている場合、条件に応じて出現する要素とみなす
+
+                if (this.props.obj.visible) {
+                    //地蔵に触れることでvisibleがtrueになった
+
+                    if (!this.props.obj.fireContinueCount) {
+                        //初回のためカウントが無ければ、初期値を代入
+                        this.props.obj.fireContinueCount = fireContinueTime;
+
+                    } else if (this.props.obj.fireContinueCount <= 1) {
+                        //カウント終了時
+                        this.props.obj.visible = false;
+                        this.props.obj.fireContinueCount = fireContinueTime;
+
+                    } else {
+                        //カウント中
+                        this.props.obj.fireContinueCount -= 1;
+                    }
+
                     let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
                     let img = this.props.obj.img;
                     let size = this.props.obj.size * UL;
@@ -132,6 +148,7 @@ export default class Obj extends React.Component {
                         />
                     );
                 } else {
+                    //visibleがfalse
                     return <div></div>;
                 }
             } else {

@@ -1279,7 +1279,7 @@ export default class Page2 extends React.Component {
                         posY: 6,
                         zIndex: 20,
                         img: imgfire1,
-                        fireContinueTime: 20,//2秒
+                        fireContinueTime: 5,//0.5秒
                         onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
@@ -1601,12 +1601,10 @@ function onTouchJizo(ninja) {
     let objs = ninja.game.objs;
     for (let key in objs) {
         if (objs[key].fireContinueTime) {
-            //火を表示する
+            //fireContinueTimeを持っている要素を表示する
             objs[key].visible = true;
         }
     }
-    //読み終えたリストの中に該当の巻物を追加
-    ninja.readScroll.push(this.openTargetTitle);
 }
 
 export { Page2 };
