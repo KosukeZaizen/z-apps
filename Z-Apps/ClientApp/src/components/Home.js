@@ -49,9 +49,9 @@ const Home = props => (
             <br />
             <Link to="/ninja">
             <Card body inverse color="warning">
-                <CardTitle>Comming Soon!</CardTitle>
-                <CardText>A new content is comming soon!</CardText>
-                <Button color="secondary">Check!</Button>
+                <CardTitle>Lingual Ninja Game!</CardTitle>
+                <CardText>Action game! Be a Ninja ,and collect the scrolls in Japan!</CardText>
+                <Button color="secondary">Play!</Button>
             </Card>
             </Link>
             <br />
