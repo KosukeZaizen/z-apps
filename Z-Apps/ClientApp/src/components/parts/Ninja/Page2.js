@@ -210,112 +210,111 @@ export default class Page2 extends React.Component {
 
 
                 //スタートと同時に表示される巻物
-                FIRST_SCROLL_TITLE: "拙者の屋敷に来るがよい!",
+                FIRST_SCROLL_TITLE: "拙者の屋敷に参るがよい",
                 FIRST_SCROLL_MESSAGE:
-                    "Hello, newbie! My name is Pochi. I am a Ninja Master!\n" +
-                    "I heard you came to Japan to learn Ninja Skills!\n" +
-                    "Please come to my house by pushing [＜] button at the bottom of the screen!",
+                    "よく来たな、異国の者よ。我が名はポチ。忍者マスターである。\n" +
+                    "おぬしは忍術を学ぶため、はるばるこの地へ来たと聞いている。\n" +
+                    "画面下の [＜] ボタンを押し、拙者の家まで来るがよい。",
 
                 //ジャンプの説明
-                JUMP_INSTRUCTION_TITLE: "How to jump!",
+                JUMP_INSTRUCTION_TITLE: "ジャンプの方法",
                 JUMP_INSTRUCTION_MESSAGE:
-                    "Keep pushing the [＜] button,\n" +
-                    "and push [ ↑jump↑ ] button!\n",
+                    "画面下の [＜] ボタンを押しながら、\n" +
+                    "[ ↑jump↑ ] ボタンを押してください。\n",
 
                 //ポチの家でポチに触った時のメッセージ
-                POCHI_SCROLL_TITLE: "Nice to meet you!",
+                POCHI_SCROLL_TITLE: "異国の地よりよく参った！",
                 POCHI_SCROLL_MESSAGE:
-                    "I'm Pochi!\n" +
-                    "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
-                    "I have one of them. Please grab the scroll at the alter, and read!",
+                    "我が名はポチ！\n" +
+                    "忍者マスターになるためには、火、風、水、地の4つの巻物を集めねばならぬ。\n" +
+                    "火の書は既に拙者が持っている。そこの仏壇にある巻物に触れてみるがよい。",
 
                 //城でポチに触った時のメッセージ
-                POCHI_SCROLL2_TITLE: "Congratulation!",
+                POCHI_SCROLL2_TITLE: "よくぞここまで成長した！",
                 POCHI_SCROLL2_MESSAGE:
-                    "Well done!\n" +
-                    "That is your final scroll.\n" +
-                    "Please collect it!",
+                    "これがおぬしの最後の巻物、\n" +
+                    "地の書である！\n" +
+                    "手にするがよい！",
 
                 //火の書（ポチの家の仏壇）
                 FIRE_SCROLL_TITLE: "火の書",
                 FIRE_SCROLL_MESSAGE:
-                    "This is the Fire Element Scroll.\n" +
-                    "You can learn 'Fire Jump' from this scroll.\n" +
-                    "You can fly using updraft from fire.",
+                    "火の力が宿った巻物。\n" +
+                    "炎の上昇気流を利用して、飛び上がることができる。\n" +
+                    "炎に触れてみるがよい。",
 
                 //風の書（宿の屋根の上）
                 AIR_SCROLL_TITLE: "風の書",
                 AIR_SCROLL_MESSAGE:
-                    "This is the scroll of the air element.\n" +
-                    "You can learn 'Air Walk' from this scroll.\n" +
-                    "You can jump while in the air!",
+                    "風の力が宿った巻物\n" +
+                    "空中を自由に跳びまわることができる。\n" +
+                    "空中でもう一度ジャンプボタンを押してみるがよい。",
 
                 //水の書（宇宙の岩の上）
                 WATER_SCROLL_TITLE: "水の書",
                 WATER_SCROLL_MESSAGE:
-                    "This is the scroll of the water element.\n" +
-                    "You can learn 'Water Spider' from this scroll.\n" +
-                    "You can walk in water normally!",
+                    "水の力が宿った巻物。\n" +
+                    "水の流れの影響を受けず、水中を自由に歩き回ることができる。\n" +
+                    "水に潜ってみるがよい。",
 
                 //地の書（城の岩の上）
                 EARTH_SCROLL_TITLE: "地の書",
                 EARTH_SCROLL_MESSAGE:
-                    "This is the scroll of the earth element.\n" +
-                    "You can make a mud doll.\n" +
-                    "Please push [＜] button and [＞] button at the same time!",
+                    "大地の力が宿った巻物。\n" +
+                    "泥のハニワを作ることができる。\n" +
+                    "[＜] ボタンと [＞] ボタンを同時に押してみるがよい。",
 
                 //河原の看板
-                KAWARA_SCROLL_TITLE: "Dangerous Waters!",
+                KAWARA_SCROLL_TITLE: "急流注意！",
                 KAWARA_SCROLL_MESSAGE:
-                    "Normal person should not go this way\n" +
-                    "because water flow is too strong.",
+                    "川の流れが激しいため、普通の者は進むべからず。\n" +
+                    "水の力を修めし忍者のみ、進むべし。",
 
                 //川でシノに触った時のメッセージ
-                SHINO_SCROLL_TITLE: "Hi",
+                SHINO_SCROLL_TITLE: "こんにちは",
                 SHINO_SCROLL_MESSAGE:
-                    "I'm your senior, named Shino.\n" +
-                    "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
-                    "Touch the fire while pushing [＞] button at Master Pochi's house.",
+                    "あたいはシノ。あんたの先輩だよ。\n" +
+                    "この先に進むと城がある。でも、たどり着くのは難しいよ。\n" +
+                    "ポチ師匠の家から、右に飛んでみた？",
 
                 //鳥居の上でシノに触った時のメッセージ
-                SHINO_SCROLL2_TITLE: "How are you?",
+                SHINO_SCROLL2_TITLE: "調子はどうだい？",
                 SHINO_SCROLL2_MESSAGE:
-                    "If you keep right, you can get the Air Element Scroll.\n" +
-                    "After getting the scroll, please try to push the [↑jump↑] button twice.\n" +
-                    "You can jump in the air twice!",
+                    "もう少し右に行くと、風の書が手に入るよ。\n" +
+                    "風の書を読んだら、 [↑jump↑] ボタンを空中で押してごらん。\n" +
+                    "空中を自由に進めるよ！",
 
                 //水路の岩肌のイクノに触った時のメッセージ
-                SHINO_SCROLL3_TITLE: "Hello!",
+                SHINO_SCROLL3_TITLE: "水の流れが強いね",
                 SHINO_SCROLL3_MESSAGE:
-                    "After learning to jump in the air,\n" +
-                    "please go to the Shrine of Guardian Dogs to get the Water Element Scroll.\n" +
-                    "To go to the shrine, keep going right from Master Pochi's house.",
+                    "空中を歩けるようになったら、「狛犬神社」に行ってみると良いよ。\n" +
+                    "そこで水の書が手に入ると言われている。\n" +
+                    "ポチ師匠の家からひたすら右に進んでごらん。",
 
                 //城でシノに触った時のメッセージ
-                SHINO_SCROLL4_TITLE: "You did it!",
+                SHINO_SCROLL4_TITLE: "遂にやったわね！",
                 SHINO_SCROLL4_MESSAGE:
-                    "You gained all four element skills!\n" +
-                    "Now you are a Ninja Master!\n" +
-                    "Ninja Masters should go to meet the huge Guardian Dog of the shrine...",
+                    "全ての忍術をマスターしたね！\n" +
+                    "これであなたも忍者マスターね。\n" +
+                    "忍者マスターになったら、狛犬神社の巨大な狛犬に会いに行ってごらん…",
 
                 //大きな狛犬の前でシノに触った時のメッセージ
-                SHINO_SCROLL5_TITLE: "There is a regend...",
+                SHINO_SCROLL5_TITLE: "こんな噂を聞いたことがある…",
                 SHINO_SCROLL5_MESSAGE:
-                    "It is said that the big Gardian Dog can bring you to a secret world\n" +
-                    "after becoming a Ninja Master...",
+                    "忍者マスターになったら、\n" +
+                    "この巨大な狛犬が、別の世界に連れて行ってくれるとか…",
 
                 //神社入り口のメッセージ
-                SHRINE_ENTRANCE_TITLE: "Shrine of Guardian Dogs",
+                SHRINE_ENTRANCE_TITLE: "この先、「狛犬神社」",
                 SHRINE_ENTRANCE_MESSAGE:
-                    "If you touch the Ksitigarbha in the shrine,\n" +
-                    "The Guardian Dogs will be angry.",
+                    "お地蔵様に触れると、狛犬が起こり、火を噴くので注意",
 
                 //天界でコウスケに触った時のメッセージ
-                KOSUKE_SCROLL_TITLE: "Hello, I'm Kosuke!",
+                KOSUKE_SCROLL_TITLE: "こんにちは、僕はコウスケ！",
                 KOSUKE_SCROLL_MESSAGE:
-                    "I am the creater of this game!\n" +
-                    "You completed my game!\n" +
-                    "Thank you for playing!!!!",
+                    "このゲームを作りし者さ！\n" +
+                    "全クリおめでとう！\n" +
+                    "そして、僕のゲームで遊んでくれてありがとう！",
             };
         } else {
             this.consts = {
