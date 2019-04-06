@@ -223,10 +223,10 @@ export default class Page2 extends React.Component {
                     "[ ↑jump↑ ] ボタンを押してください。\n",
 
                 //ポチの家でポチに触った時のメッセージ
-                POCHI_SCROLL_TITLE: "異国の地よりよく参った！",
+                POCHI_SCROLL_TITLE: "異国の地より、よく参った！",
                 POCHI_SCROLL_MESSAGE:
                     "我が名はポチ！\n" +
-                    "忍者マスターになるためには、火、風、水、地の4つの巻物を集めねばならぬ。\n" +
+                    "忍者マスターになるには [火] [風] [水] [地] の4つの巻物を集めねばならぬ。\n" +
                     "火の書は既に拙者が持っている。そこの仏壇にある巻物に触れてみるがよい。",
 
                 //城でポチに触った時のメッセージ
@@ -285,17 +285,17 @@ export default class Page2 extends React.Component {
                     "空中を自由に進めるよ！",
 
                 //水路の岩肌のイクノに触った時のメッセージ
-                SHINO_SCROLL3_TITLE: "水の流れが強いね",
+                SHINO_SCROLL3_TITLE: "川の流れが強いね",
                 SHINO_SCROLL3_MESSAGE:
                     "空中を歩けるようになったら、「狛犬神社」に行ってみると良いよ。\n" +
-                    "そこで水の書が手に入ると言われている。\n" +
-                    "ポチ師匠の家からひたすら右に進んでごらん。",
+                    "そこで「水の書」が手に入ると言われている。\n" +
+                    "ポチ師匠の家から、ひたすら右に進んでごらん。",
 
                 //城でシノに触った時のメッセージ
                 SHINO_SCROLL4_TITLE: "遂にやったわね！",
                 SHINO_SCROLL4_MESSAGE:
                     "全ての忍術をマスターしたね！\n" +
-                    "これであなたも忍者マスターね。\n" +
+                    "これであなたも忍者マスターよ。\n" +
                     "忍者マスターになったら、狛犬神社の巨大な狛犬に会いに行ってごらん…",
 
                 //大きな狛犬の前でシノに触った時のメッセージ
@@ -341,15 +341,15 @@ export default class Page2 extends React.Component {
                 POCHI_SCROLL_TITLE: "Nice to meet you!",
                 POCHI_SCROLL_MESSAGE:
                     "I'm Pochi!\n" +
-                    "To become a Ninja Master, you should collect scrolls of the four elements!\n" +
-                    "I have one of them. Please grab the scroll at the alter, and read!",
+                    "To become a Ninja Master, you should collect the scrolls of the four elements!\n" +
+                    "I have one. Please grab the scroll at the alter, and read!",
 
                 //城でポチに触った時のメッセージ
                 POCHI_SCROLL2_TITLE: "Congratulation!",
                 POCHI_SCROLL2_MESSAGE:
                     "Well done!\n" +
-                    "That is your final scroll.\n" +
-                    "Please collect it!",
+                    "This is your final scroll.\n" +
+                    "Please collect!",
 
                 //火の書（ポチの家の仏壇）
                 FIRE_SCROLL_TITLE: "火の書",
@@ -382,13 +382,13 @@ export default class Page2 extends React.Component {
                 //河原の看板
                 KAWARA_SCROLL_TITLE: "Dangerous Waters!",
                 KAWARA_SCROLL_MESSAGE:
-                    "Normal person should not go this way\n" +
-                    "because water flow is too strong.",
+                    "Caution: Normal people can not go this way,\n" +
+                    "water flow is too strong.",
 
                 //川でシノに触った時のメッセージ
                 SHINO_SCROLL_TITLE: "Hi",
                 SHINO_SCROLL_MESSAGE:
-                    "I'm your senior, named Shino.\n" +
+                    "I'm your senior, Shino.\n" +
                     "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
                     "Touch the fire while pushing [＞] button at Master Pochi's house.",
 
@@ -399,7 +399,7 @@ export default class Page2 extends React.Component {
                     "After getting the scroll, please try to push the [↑jump↑] button twice.\n" +
                     "You can jump in the air twice!",
 
-                //水路の岩肌のイクノに触った時のメッセージ
+                //水路の岩肌のシノに触った時のメッセージ
                 SHINO_SCROLL3_TITLE: "Hello!",
                 SHINO_SCROLL3_MESSAGE:
                     "After learning to jump in the air,\n" +

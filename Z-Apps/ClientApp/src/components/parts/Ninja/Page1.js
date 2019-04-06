@@ -41,7 +41,7 @@ export default class Page1 extends React.Component {
                     <button
                         className={this.consts.BTN_START_CLASS}
                     >
-                        {"Japanese"}
+                        {"日本語"}
                     </button>
                 </span>
                 <br />
