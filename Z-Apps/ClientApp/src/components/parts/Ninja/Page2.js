@@ -233,7 +233,7 @@ export default class Page2 extends React.Component {
                 POCHI_SCROLL2_TITLE: "よくぞここまで成長した！",
                 POCHI_SCROLL2_MESSAGE:
                     "これがおぬしの最後の巻物、\n" +
-                    "地の書である！\n" +
+                    "「地の書」である！\n" +
                     "手にするがよい！",
 
                 //火の書（ポチの家の仏壇）
