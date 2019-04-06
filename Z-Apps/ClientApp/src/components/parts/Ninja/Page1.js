@@ -17,15 +17,28 @@ export default class Page1 extends React.Component {
     render() {
         return (
             <div id="page1">
-                <span onClick={() => { this.props.changePage(2) }}>
-                <img width="100%" src={logo} alt="Shuriken Master" />
-                <button
-                    className={this.consts.BTN_START_STYLE}
-                >
-                    {this.consts.BTN_START_LABEL}
+                <h1>Which language do you prefer?</h1>
+                <span onClick={() => { this.props.changePage(2, "English") }}>
+                    <button
+                        className={this.consts.BTN_START_STYLE}
+                    >
+                        {"English"}
                     </button>
-                    </span>
+                </span>
+                <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                    <button
+                        className={this.consts.BTN_START_STYLE}
+                    >
+                        {"Japanese"}
+                    </button>
+                </span>
+            <br />
+                <img width="100%" src={logo} alt="Shuriken Master" />
+
                 <br />
+                <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                    Japanese
+                    </span>
 
                 <center style={{color:"white"}}>
                     If you want to be a real Ninja,<br />

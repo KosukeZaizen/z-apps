@@ -12,6 +12,7 @@ class NinjaGame extends React.Component {
         this.consts = {
         };
         this.state = {
+            language: "English",
             curPage: 1,
             //stage: 14,//デバッグ用（通常時1）★
             stage: 1,
@@ -27,8 +28,11 @@ class NinjaGame extends React.Component {
         };
     }
 
-    changePage(num) {
-        this.setState({ curPage: num, });
+    changePage(num, lang) {
+        this.setState({
+            curPage: num,
+            language: lang,
+        });
     }
 
     changeStage(num, ninja) {
@@ -54,8 +58,9 @@ class NinjaGame extends React.Component {
             <center id="ninja-game" style={style}>
                 <Pages
                     state={this.state}
-                    changePage={(i) => { this.changePage(i) }}
+                    changePage={(i,lang) => { this.changePage(i,lang) }}
                     changeStage={(i, j) => { this.changeStage(i, j) }}
+                    changeLanguage={() => { this.changeLanguage()}}
                 />
             </center>
         )
@@ -66,7 +71,7 @@ function Pages(props) {
     if (props.state.curPage === 1) {
         return (
             <Page1
-                changePage={(i) => { props.changePage(i) }}
+                changePage={(i,lang) => { props.changePage(i,lang) }}
             />
         );
     } else if (props.state.curPage === 2) {
@@ -75,6 +80,7 @@ function Pages(props) {
                 changeStage={(i, j) => { props.changeStage(i, j) }}
                 ninja={props.state.ninja}
                 stage={props.state.stage}
+                language={props.state.language}
             />
         );
     }
