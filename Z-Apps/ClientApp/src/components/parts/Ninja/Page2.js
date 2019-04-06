@@ -307,7 +307,7 @@ export default class Page2 extends React.Component {
                 //神社入り口のメッセージ
                 SHRINE_ENTRANCE_TITLE: "この先、「狛犬神社」",
                 SHRINE_ENTRANCE_MESSAGE:
-                    "お地蔵様に触れると、狛犬が起こり、火を噴くので注意",
+                    "お地蔵様に触れると、狛犬が怒り、火を噴くので注意",
 
                 //天界でコウスケに触った時のメッセージ
                 KOSUKE_SCROLL_TITLE: "こんにちは、僕はコウスケ！",

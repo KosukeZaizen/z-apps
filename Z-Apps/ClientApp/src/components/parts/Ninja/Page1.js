@@ -46,8 +46,7 @@ export default class Page1 extends React.Component {
                 </span>
                 <br />
                 <center style={{color:"white"}}>
-                    If you want to be a real Ninja,<br />
-                    please check this:<br />
+                    If you want to be a real Ninja, please check this:<br />
                     <a
                         href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
                         target="_blank"

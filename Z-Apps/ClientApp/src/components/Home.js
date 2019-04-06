@@ -15,8 +15,16 @@ const Home = props => (
                 <p className="no-margin">I hope you enjoy!</p>
             </div>
 
+            <Link to="/ninja">
+                <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white"}}>
+                    <CardTitle>Lingual Ninja Game!</CardTitle>
+                    <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
+                    <Button color="secondary">Play!</Button>
+                </Card>
+            </Link>
+            <br />
             <Link to="/kanji-converter">
-                <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                <Card body inverse color="primary">
                     <CardTitle>Kanji Converter</CardTitle>
                     <CardText>A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!</CardText>
                     <Button color="secondary">Try!</Button>
@@ -24,7 +32,7 @@ const Home = props => (
             </Link>
             <br />
             <Link to="/romaji-converter">
-                <Card body inverse color="primary">
+                <Card body inverse color="success">
                     <CardTitle>Romaji Converter</CardTitle>
                     <CardText>A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!</CardText>
                     <Button>Try!</Button>
@@ -32,7 +40,7 @@ const Home = props => (
             </Link>
             <br />
             <Link to="/hiragana-quiz">
-                <Card body inverse color="success">
+                <Card body inverse color="danger">
                     <CardTitle>Hiragana Quiz</CardTitle>
                     <CardText>An app to remember Hiragana! I hope this will help you to study.</CardText>
                     <Button color="secondary">Try!</Button>
@@ -40,21 +48,14 @@ const Home = props => (
             </Link>
             <br />
             <Link to="/katakana-quiz">
-                <Card body inverse color="danger">
+                <Card body inverse color="warning">
                     <CardTitle>Katakana Quiz!</CardTitle>
                     <CardText>An app to remember Katakana! Please use after Hiragana Quiz!</CardText>
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
             <br />
-            <Link to="/ninja">
-            <Card body inverse color="warning">
-                <CardTitle>Lingual Ninja Game!</CardTitle>
-                <CardText>Action game! Be a Ninja ,and collect the scrolls in Japan!</CardText>
-                <Button color="secondary">Play!</Button>
-            </Card>
-            </Link>
-            <br />
+
 
             {/*}
             <Card body inverse color="info">
