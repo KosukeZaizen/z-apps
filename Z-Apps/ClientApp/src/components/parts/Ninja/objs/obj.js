@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 export default class Obj extends React.Component {
 
@@ -47,6 +47,11 @@ export default class Obj extends React.Component {
                     lineHeight: fontSize / 20,
                 };
 
+                let h1Style = {
+                    margin: size / 50,
+                    fontSize: fontSize * 3 / 2,
+                };
+
                 let btnWidth = size / 3;
                 let styleBtnClose = {
                     position: "absolute",
@@ -55,11 +60,6 @@ export default class Obj extends React.Component {
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: btnWidth,
-                };
-
-                let h1Style = {
-                    margin: size / 50,
-                    fontSize: fontSize * 3 / 2,
                 };
 
                 let arrlines = message.split("\n");
@@ -80,13 +80,13 @@ export default class Obj extends React.Component {
                                 <span>{listlines}</span>
                             </center>
                         </div>
-                        <button
+                        <CloseElement
                             className={"btn btn-dark btn-lg btn-block"}
                             style={styleBtnClose}
                             onClick={() => { this.onClickOkButtonInScroll() }}
-                        >
-                            {"Close"}
-                        </button>
+                            styleBtnClose={styleBtnClose}
+                            obj={this.props.obj}
+                        />
                         <SpeakerImage
                             img={speakerImg}
                             size={size}
@@ -117,8 +117,16 @@ export default class Obj extends React.Component {
 
                     } else if (this.props.obj.fireContinueCount <= 1) {
                         //カウント終了時
-                        this.props.obj.visible = false;
-                        this.props.obj.fireContinueCount = fireContinueTime;
+                        if (this.props.game.objs.haniwa
+                            && (this.props.game.objs.haniwa.posX - this.props.game.objs.jizo1.posX) ** 2 < 100
+                            && (this.props.game.objs.haniwa.posY - this.props.game.objs.jizo1.posY) ** 2 < 100
+                        ) {
+                            this.props.obj.visible = true;
+                            this.props.obj.fireContinueCount = fireContinueTime;
+                        } else {
+                            this.props.obj.visible = false;
+                            this.props.obj.fireContinueCount = fireContinueTime;
+                        }
 
                     } else {
                         //カウント中
@@ -253,6 +261,33 @@ function SpeakerImage(props) {
         );
     } else {
         return <div></div>;
+    }
+}
+
+function CloseElement(props) {
+    if (props.obj.finalMessage) {
+        //全クリ時のメッセージ
+        return (
+            <Link to="/">
+                <button
+                    className={"btn btn-dark btn-lg btn-block"}
+                    style={props.styleBtnClose}
+                >
+                    {"Exit Game"}
+                </button>
+            </Link>
+        );
+    } else {
+        //全クリ時のメッセージでない通常メッセージ
+        return (
+            <button
+                className={"btn btn-dark btn-lg btn-block"}
+                style={props.styleBtnClose}
+                onClick={() => { props.onClick() }}
+            >
+                {"Close"}
+            </button>
+        );
     }
 }
 

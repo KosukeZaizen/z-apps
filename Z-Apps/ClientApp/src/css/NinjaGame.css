@@ -38,18 +38,6 @@ html {
         left: 0px;
         margin: auto;
     }
-    /*
-    #ninja-game #rotatePhone {
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        margin: auto;
-        z-index: 999999999;
-        width: 40%;
-        background-color: white;
-        display: block;
-    }*/
 }
 
 #ninja-game .water {

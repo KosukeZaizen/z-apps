@@ -13,19 +13,18 @@ class NinjaGame extends React.Component {
         };
         this.state = {
             curPage: 1,
-            stage: 6,//デバッグ用（通常時1）★
-            //stage: 1,
+            //stage: 14,//デバッグ用（通常時1）★
+            stage: 1,
             ninja: {
                 size: 12,
                 speedX: 0,
                 speedY: 0,
                 posX: 145,
                 posY: 5,
-                readScroll: ["火の書", "風の書", "水の書","地の書"],//デバッグ用（通常時空配列[]）★
-                //readScroll: [],
+                //readScroll: ["火の書", "風の書", "水の書","地の書"],//デバッグ用（通常時空配列[]）★
+                readScroll: [],
             },
         };
-        //this.changeStage = this.changeStage.bind(this);
     }
 
     changePage(num) {

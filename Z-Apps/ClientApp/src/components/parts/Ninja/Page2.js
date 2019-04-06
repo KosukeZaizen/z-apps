@@ -37,6 +37,8 @@ import imgShino from './objs/shino.png';
 import imgJizo from './objs/jizo.png';
 //ハニワ
 import imgHaniwa from './objs/haniwa.png';
+//コウスケ
+import imgKosuke from './objs/kosuke.png';
 
 
 //背景画像//---------------------------
@@ -67,6 +69,8 @@ import castleRiver from './img/background/castleRiver.jpg';
 import castleWall from './img/background/castleWall.jpg';
 //stage13
 import castle from './img/background/castle.jpg';
+//stage14
+import heaven from './img/background/heaven.png';
 
 
 export default class Page2 extends React.Component {
@@ -270,7 +274,7 @@ export default class Page2 extends React.Component {
             SHINO_SCROLL_MESSAGE:
                 "I'm your senior, named Shino.\n" +
                 "If you go forward, there will be a castle. However, at this time it's too difficult.\n" +
-                "Touth the fire while pushing [＞] button at Master Pochi's house.",
+                "Touch the fire while pushing [＞] button at Master Pochi's house.",
 
             //鳥居の上でシノに触った時のメッセージ
             SHINO_SCROLL2_TITLE: "How are you?",
@@ -293,11 +297,24 @@ export default class Page2 extends React.Component {
                 "Now you are a Ninja Master!\n" +
                 "Ninja Masters should go to meet the huge Guardian Dog of the shrine...",
 
+            //大きな狛犬の前でシノに触った時のメッセージ
+            SHINO_SCROLL5_TITLE: "There is a regend...",
+            SHINO_SCROLL5_MESSAGE:
+                "It is said that the big Gardian Dog can bring you to a secret world\n" +
+                "after becoming a Ninja Master...",
+
             //神社入り口のメッセージ
             SHRINE_ENTRANCE_TITLE: "Shrine of Guardian Dogs",
             SHRINE_ENTRANCE_MESSAGE:
                 "If you touch the Ksitigarbha in the shrine,\n" +
                 "The Guardian Dogs will be angry.",
+
+            //天界でコウスケに触った時のメッセージ
+            KOSUKE_SCROLL_TITLE: "Hello, I'm Kosuke!",
+            KOSUKE_SCROLL_MESSAGE:
+                "I am the creater of this game!\n" +
+                "You completed my game!\n" +
+                "Thank you for playing!!!!",
         };
 
 
@@ -1414,6 +1431,29 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
+                    shino: {
+                        size: 10,
+                        posX: 77,
+                        posY: 62,
+                        zIndex: 23,
+                        img: imgShino,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHINO_SCROLL5_TITLE,
+                    },
+                    shinoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHINO_SCROLL5_TITLE,
+                        message: this.consts.SHINO_SCROLL5_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgShino,
+                    },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -1430,6 +1470,15 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         next: 7,
                         onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    topGate: {
+                        size: 150,
+                        posX: 5,
+                        posY: -160,
+                        zIndex: 30,
+                        next: 14,
+                        onTouch: onTouchGateTopOrBottom,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1754,6 +1803,75 @@ export default class Page2 extends React.Component {
                 }
                 //ステージの背景画像を設定
                 this.bgImg = castle;
+            } else if (this.props.stage === 14) {
+
+                // ------------------------------------------------------------
+                // ステージ14 (天)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    toriiPic: {
+                        size: 120,
+                        posX: 35,
+                        posY: 3,
+                        zIndex: 10,
+                        img: imgTorii,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiActual: {
+                        size: 120,
+                        posX: 35,
+                        posY: 9,
+                        zIndex: 10,
+                        onTouch: onTouchTree,
+                    },
+                    toriiFramePic: {
+                        size: 40,
+                        posX: 75,
+                        posY: 5,
+                        zIndex: 30,
+                        img: imgFrame,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiMessage: {
+                        size: 30,
+                        posX: 90,
+                        posY: 10,
+                        zIndex: 30,
+                        message: "天",
+                        fontSize: 10,
+                        onTouch: onTouchNothing,
+                    },
+                    kosuke: {
+                        size: 13,
+                        posX: 88,
+                        posY: 52,
+                        zIndex: 17,
+                        img: imgKosuke,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.KOSUKE_SCROLL_TITLE,
+                    },
+                    kosukeScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.KOSUKE_SCROLL_TITLE,
+                        message: this.consts.KOSUKE_SCROLL_MESSAGE,
+                        fontSize: 3,
+                        finalMessage: true,
+                    },
+
+                }
+                //ステージの背景画像を設定
+                this.bgImg = heaven;
             }
 
             this.prevStage = this.props.stage;
@@ -1837,6 +1955,7 @@ function RenderObjs(props) {
                 key={key}
                 obj={props.game.objs[key]}
                 UL={props.game.UL}
+                game={props.game}
             />
         );
     }
@@ -2021,8 +2140,9 @@ function onTouchGateTopOrBottom(ninja, from) {
 // 炎にタッチ
 //=======================================
 function onTouchFire(ninja) {
-
     if (this.fireContinueTime && this.visible !== true) {
+        console.log("this.fireContinueTime: " + this.fireContinueTime);
+        console.log("this.visible: " + this.visible);
         //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
         return;
     }
