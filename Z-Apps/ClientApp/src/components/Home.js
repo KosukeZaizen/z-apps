@@ -54,7 +54,6 @@ const Home = props => (
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
-            <br />
 
 
             {/*}

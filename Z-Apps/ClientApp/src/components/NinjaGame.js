@@ -21,11 +21,12 @@ class NinjaGame extends React.Component {
                 speedX: 0,
                 speedY: 0,
                 posX: 145,
-                posY: 5,
+                posY: -20,
                 //readScroll: ["火の書", "風の書", "水の書","地の書"],//デバッグ用（通常時空配列[]）★
                 readScroll: [],
             },
         };
+        this.readElementScroll = [];
     }
 
     changePage(num, lang) {
@@ -36,6 +37,7 @@ class NinjaGame extends React.Component {
     }
 
     changeStage(num, ninja) {
+        this.readElementScroll = [];
         this.setState({
             stage: num,
             ninja: ninja,
@@ -58,9 +60,10 @@ class NinjaGame extends React.Component {
             <center id="ninja-game" style={style}>
                 <Pages
                     state={this.state}
-                    changePage={(i,lang) => { this.changePage(i,lang) }}
+                    changePage={(i, lang) => { this.changePage(i, lang) }}
                     changeStage={(i, j) => { this.changeStage(i, j) }}
-                    changeLanguage={() => { this.changeLanguage()}}
+                    changeLanguage={() => { this.changeLanguage() }}
+                    readElementScroll={this.readElementScroll}
                 />
             </center>
         )
@@ -80,6 +83,7 @@ function Pages(props) {
                 changeStage={(i, j) => { props.changeStage(i, j) }}
                 ninja={props.state.ninja}
                 stage={props.state.stage}
+                readElementScroll={props.readElementScroll}
                 language={props.state.language}
             />
         );

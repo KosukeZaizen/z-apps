@@ -94,6 +94,8 @@ export default class Page2 extends React.Component {
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
+        this.readElementScroll = this.props.readElementScroll;
+
         this.ninja.game = this;
 
 
@@ -554,7 +556,7 @@ export default class Page2 extends React.Component {
                                 zIndex: 20,
                                 img: imgHaniwa,
                                 onTouch: onTouchNothing,
-                                haniwa:true,
+                                haniwa: true,
                             }
                         }
                     }
@@ -767,7 +769,7 @@ export default class Page2 extends React.Component {
                     openFirstScroll: {
                         size: 10,
                         posX: 145,
-                        posY: 5,
+                        posY: -20,
                         zIndex: 20,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.FIRST_SCROLL_TITLE,
@@ -1591,7 +1593,7 @@ export default class Page2 extends React.Component {
                     topGate: {
                         size: 150,
                         posX: 5,
-                        posY: -160,
+                        posY: -230,
                         zIndex: 30,
                         next: 14,
                         onTouch: onTouchGateTopOrBottom,
@@ -2117,11 +2119,10 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
 function onTouchScrollOpener(ninja) {
+    if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
+        //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
-    if (ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
-        //まだターゲットの巻物が読まれていない
-
-        let objs = ninja.game.objs;
+    let objs = ninja.game.objs;
         for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
@@ -2134,6 +2135,7 @@ function onTouchScrollOpener(ninja) {
     }
     //読み終えたリストの中に該当の巻物を追加
     ninja.readScroll.push(this.openTargetTitle);
+    ninja.game.props.readElementScroll.push(this.openTargetTitle);
 }
 
 //=======================================
@@ -2257,8 +2259,6 @@ function onTouchGateTopOrBottom(ninja, from) {
 //=======================================
 function onTouchFire(ninja) {
     if (this.fireContinueTime && this.visible !== true) {
-        console.log("this.fireContinueTime: " + this.fireContinueTime);
-        console.log("this.visible: " + this.visible);
         //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
         return;
     }

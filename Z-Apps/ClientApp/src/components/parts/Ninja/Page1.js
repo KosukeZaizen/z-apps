@@ -8,7 +8,6 @@ export default class Page1 extends React.Component {
         super(props);
         this.consts = {
             BTN_START_CLASS: "btn btn-dark btn-lg btn-block",
-            BTN_START_LABEL: "Game start!",
         };
         this.state = {
             topImage: true,
