@@ -56,9 +56,9 @@ const Home = props => (
             <br />
             <Link to="/color-code">
                 <Card body inverse color="info">
-                    <CardTitle>Comming Soon</CardTitle>
-                    <CardText>A new function is comming soon! It's still under construction!</CardText>
-                    <Button color="secondary">Try</Button>
+                    <CardTitle>Color Code Getter</CardTitle>
+                    <CardText>Get the Color Code of your favolite color!</CardText>
+                    <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
 

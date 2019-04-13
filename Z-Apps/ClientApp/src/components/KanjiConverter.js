@@ -32,7 +32,7 @@ class Parent extends React.Component {
             MSG_TYPE_KANJI: "Please input Kanji before pushing [Convert] button!",
 
             MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Kanji and push [Convert] button!",
-            MSG_COPY_DONE: "Copy was done!\r\nYou can paste it anywhere.",
+            MSG_COPY_DONE: "Copy completed!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
 
             COPY_BTN_LABEL: "Click here to copy Romaji!",

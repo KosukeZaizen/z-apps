@@ -9,6 +9,8 @@ class ColorPalette extends React.Component {
 
         this.consts = {
             COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
+            MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
+            MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
         }
 
         this.state = {
@@ -19,7 +21,9 @@ class ColorPalette extends React.Component {
 
         this.hueError = "";
         this.onChangeHue = this.onChangeHue.bind(this);
+        this.onClickHueBar = this.onClickHueBar.bind(this);
         this.onClickTable = this.onClickTable.bind(this);
+        this.onClickCopy = this.onClickCopy.bind(this);
     }
 
     onChangeHue(e) {
@@ -33,6 +37,12 @@ class ColorPalette extends React.Component {
             hue: h,
             saturation: s,
             lightness: l,
+        });
+    }
+
+    onClickHueBar(h) {
+        this.setState({
+            hue: h,
         });
     }
 
@@ -60,6 +70,16 @@ class ColorPalette extends React.Component {
         });
     }
 
+    onClickCopy() {
+        let strTarget = document.getElementById("color-code-to-copy").innerHTML;
+
+        if (execCopy(strTarget)) {
+            alert(this.consts.MSG_COPY_DONE);
+        }
+        else {
+            alert(this.consts.MSG_COPY_ERR);
+        }
+    }
 
     render() {
         //現在stateに設定されている色を文字列で取得
@@ -70,6 +90,7 @@ class ColorPalette extends React.Component {
         let styleTitle = {
             maxWidth: 600,
             margin: 20,
+            marginBottom: 30,
             color: currentColor,
         };
         let styleResultDisplay = {
@@ -124,15 +145,17 @@ class ColorPalette extends React.Component {
                                         <label style={{ margin: 4, }}>Color code: </label>
                                     </td>
                                     <td>
-                                        <label style={{ margin: 4, }}>{changeHslToColorCode(
-                                            this.state.hue, this.state.saturation, this.state.lightness
-                                        )}</label>
+                                        <label style={{ margin: 4, }}>
+                                            <span id="color-code-to-copy">
+                                                {changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness)}
+                                            </span>
+                                        </label>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <button
-                            //                        onClick={() => this.startGame(10)}
+                            onClick={this.onClickCopy}
                             className={this.consts.COPY_BUTTON_PRIMARY}
                             style={{ margin: 5 }}
                         >
@@ -146,7 +169,7 @@ class ColorPalette extends React.Component {
                         <table style={styleHueTable}>
                             <tbody>
                                 <tr>
-                                    {getHueBar(this.onClickTable)}
+                                    {getHueBar(this.onClickHueBar)}
                                 </tr>
                             </tbody>
                         </table>
@@ -337,6 +360,33 @@ function changeHslToRgb(hue, saturation, lightness) {
             Math.round(blue * 255).toString(16)
         ];
     }
+    return result;
+}
+
+//--------------------------------------------------
+// カラーコードのコピー実行
+//--------------------------------------------------
+function execCopy(string) {
+
+    let tmp = document.createElement("div");
+    let pre = document.createElement('pre');
+
+    pre.style.webkitUserSelect = 'auto';
+    pre.style.userSelect = 'auto';
+
+    tmp.appendChild(pre).textContent = string;
+
+    let s = tmp.style;
+    s.position = 'fixed';
+    s.right = '200%';
+
+    document.body.appendChild(tmp);
+    document.getSelection().selectAllChildren(tmp);
+
+    let result = document.execCommand("copy");
+
+    document.body.removeChild(tmp);
+
     return result;
 }
 
