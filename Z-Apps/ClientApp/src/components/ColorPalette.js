@@ -11,7 +11,7 @@ class ColorPalette extends React.Component {
         }
 
         this.state = {
-            hue: 210,
+            hue: 300,
             saturation: 90,
             lightness: 50,
         };
@@ -27,7 +27,7 @@ class ColorPalette extends React.Component {
         });
     }
 
-    onClickTable(h,s,l) {
+    onClickTable(h, s, l) {
         this.setState({
             hue: h,
             saturation: s,
@@ -130,7 +130,7 @@ class ColorPalette extends React.Component {
                         </tbody>
                     </table>
                     <br /><br />
-                    <label for="formControlRange">Click your favorite color!</label><br />
+                    <label>Click your favorite color!</label><br />
                     <div style={{ position: "relative", }}>
                         {/* 色相グラデーションバー */}
                         <table style={styleHueTable}>
@@ -154,11 +154,11 @@ class ColorPalette extends React.Component {
                     {/* 2次元テーブル */}
                     <div id="wrapper">
                         <table style={styleSlTable} className="content">
-                        <tbody>
+                            <tbody>
                                 {getSlTable(this.state.hue, this.onClickTable, this.state)}
-                        </tbody>
+                            </tbody>
                         </table>
-                        </div>
+                    </div>
                 </div>
             </center >
         )
@@ -175,16 +175,50 @@ function changeHslToStyle(hue, saturation, lightness) {
 //--------------------------------------------------
 // HSLから背景色付きのtdを返す
 //--------------------------------------------------
-function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable) {
-    onClickTable = onClickTable ? onClickTable : null;
-    return (
-        <td
-            key={key}
-            onClick={() => onClickTable(hue, saturation, lightness)}
-            style={{ background: changeHslToStyle(hue, saturation, lightness) }}
-        >
-        </td>
-    );
+function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, state) {
+
+    let booLightness = false;
+    let booSaturation = false;
+
+    if (state) {
+        booLightness = (lightness === state.lightness);
+        booSaturation = (saturation === state.saturation);
+    }
+
+    if (booLightness || booSaturation) {
+        if (booLightness && booSaturation) {
+            //選択されたセルは反転した色にする
+            return (
+                <td
+                    key={key}
+                    onClick={() => onClickTable(hue, saturation, lightness)}
+                    style={{ background: changeHslToStyle(hue + 180, 100, 60) }}
+                >
+                </td>
+            )
+
+        } else {
+            //選択された位置から十字に色付けする
+            return (
+                <td
+                    key={key}
+                    onClick={() => onClickTable(hue, saturation, lightness)}
+                    style={{ background: changeHslToStyle(hue + 180, 30, 30) }}
+                >
+                </td>
+            )
+        }
+    } else {
+        //選択されていない通常セル
+        return (
+            <td
+                key={key}
+                onClick={() => onClickTable(hue, saturation, lightness)}
+                style={{ background: changeHslToStyle(hue, saturation, lightness) }}
+            >
+            </td>
+        );
+    }
 }
 
 //--------------------------------------------------
@@ -205,21 +239,7 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
     let tdList = [];
 
     for (let lightness = 100; lightness >= 0; lightness--) {
-
-        let booLightness = (lightness === state.lightness);
-        let booSaturation = (saturation === state.saturation);
-
-        if (booLightness || booSaturation) {
-            if (booLightness && booSaturation) {
-                //選択されたセルは反転した色にする
-                tdList.push(getColoredTdFromHsl(hue + 180, 100, 60, lightness, onClickTable));
-            } else {
-                //選択された位置から十字に黒くする
-                tdList.push(getColoredTdFromHsl(hue + 180, 30, 30, lightness, onClickTable));
-            }
-        } else {
-            tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable));
-        }
+            tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
     }
     return <tr key={key}>{tdList}</tr>;
 }
@@ -239,7 +259,7 @@ function getSlTable(hue, onClickTable, state) {
 // HSL配列を受け取り、カラーコードを返す
 //--------------------------------------------------
 function changeHslToColorCode(h, s, l) {
-    let arrRGB = changeHslToRgb([h, s, l]);
+    let arrRGB = changeHslToRgb(h, s, l);
 
     return "#" + arrRGB.map(function (value) {
         return ("0" + value.toString(16)).slice(-2);
@@ -249,49 +269,65 @@ function changeHslToColorCode(h, s, l) {
 //--------------------------------------------------
 // HSL配列をRGB配列に変換
 //--------------------------------------------------
-function changeHslToRgb(hsl) {
-    let h = hsl[0];
-    let s = hsl[1];
-    let l = hsl[2];
+function changeHslToRgb(hue, saturation, lightness) {
+    var result = false;
 
-    let max = l + (s * (1 - Math.abs((2 * l) - 1)) / 2);
-    let min = l - (s * (1 - Math.abs((2 * l) - 1)) / 2);
+    if (((hue || hue === 0) && hue <= 360) && ((saturation || saturation === 0) && saturation <= 100) && ((lightness || lightness === 0) && lightness <= 100)) {
+        var red = 0,
+            green = 0,
+            blue = 0,
+            q = 0,
+            p = 0,
+            hueToRgb;
 
-    let rgb = [];
-    let i = parseInt(h / 60, 10);
+        hue = Number(hue) / 360;
+        saturation = Number(saturation) / 100;
+        lightness = Number(lightness) / 100;
 
-    switch (i) {
-        case 0:
-        case 6:
-            rgb = [max, min + (max - min) * (h / 60), min];
-            break;
+        if (saturation === 0) {
+            red = lightness;
+            green = lightness;
+            blue = lightness;
+        } else {
+            hueToRgb = function (p, q, t) {
+                if (t < 0) {
+                    t += 1;
+                }
 
-        case 1:
-            rgb = [min + (max - min) * (120 - h / 60), max, min];
-            break;
+                if (t > 1) {
+                    t -= 1;
+                }
 
-        case 2:
-            rgb = [min, max, min + (max - min) * (h - 120 / 60)];
-            break;
+                if (t < 1 / 6) {
+                    p += (q - p) * 6 * t;
+                } else if (t < 1 / 2) {
+                    p = q;
+                } else if (t < 2 / 3) {
+                    p += (q - p) * (2 / 3 - t) * 6;
+                }
 
-        case 3:
-            rgb = [min, min + (max - min) * (240 - h / 60), max];
-            break;
+                return p;
+            };
 
-        case 4:
-            rgb = [min + (max - min) * (h - 240 / 60), min, max];
-            break;
+            if (lightness < 0.5) {
+                q = lightness * (1 + saturation);
+            } else {
+                q = lightness + saturation - lightness * saturation;
+            }
+            p = 2 * lightness - q;
 
-        case 5:
-            rgb = [max, min, min + (max - min) * (360 - h / 60)];
-            break;
-        default:
-        // do nothing
+            red = hueToRgb(p, q, hue + 1 / 3);
+            green = hueToRgb(p, q, hue);
+            blue = hueToRgb(p, q, hue - 1 / 3);
+        }
+
+        result = [
+            Math.round(red * 255).toString(16),
+            Math.round(green * 255).toString(16),
+            Math.round(blue * 255).toString(16)
+        ];
     }
-
-    return rgb.map(function (value) {
-        return value * 255;
-    });
+    return result;
 }
 
 export default connect()(ColorPalette);
