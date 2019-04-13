@@ -7,7 +7,8 @@ class ColorPalette extends React.Component {
     constructor(props) {
         super(props);
 
-        this.const = {
+        this.consts = {
+            COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
         }
 
         this.state = {
@@ -90,7 +91,8 @@ class ColorPalette extends React.Component {
         };
         let styleHuePicker = {
             maxWidth: 400,
-            height: 60,
+            marginTop: 29,
+            height: 2,
             zIndex: 150,
             position: "absolute",
             top: 0,
@@ -104,39 +106,47 @@ class ColorPalette extends React.Component {
 
         return (
             <center id="color-palette">
-
                 <h1 style={styleTitle}>Color Code Getter</h1>
                 <div style={styleContents}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label style={{ margin: 4, }}>Current color: </label>
-                                </td>
-                                <td>
-                                    <div style={styleResultDisplay}></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label style={{ margin: 4, }}>Color code: </label>
-                                </td>
-                                <td>
-                                    <label style={{ margin: 4, }}>{changeHslToColorCode(
-                                        this.state.hue, this.state.saturation, this.state.lightness
-                                    )}</label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br /><br />
+                    <div style={{ padding: 10, marginBottom: 10, border: "5px double #333333", }}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label style={{ margin: 4, }}>Current color: </label>
+                                    </td>
+                                    <td>
+                                        <div style={styleResultDisplay}></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style={{ margin: 4, }}>Color code: </label>
+                                    </td>
+                                    <td>
+                                        <label style={{ margin: 4, }}>{changeHslToColorCode(
+                                            this.state.hue, this.state.saturation, this.state.lightness
+                                        )}</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button
+                            //                        onClick={() => this.startGame(10)}
+                            className={this.consts.COPY_BUTTON_PRIMARY}
+                            style={{ margin: 5 }}
+                        >
+                            Click here to copy the Color Code!
+                </button>
+                    </div>
+                    <br />
                     <label>Click your favorite color!</label><br />
                     <div style={{ position: "relative", }}>
                         {/* 色相グラデーションバー */}
                         <table style={styleHueTable}>
                             <tbody>
                                 <tr>
-                                    {getHueBar()}
+                                    {getHueBar(this.onClickTable)}
                                 </tr>
                             </tbody>
                         </table>
@@ -224,10 +234,10 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
 //--------------------------------------------------
 // 色相のグラデーションバーを作成
 //--------------------------------------------------
-function getHueBar() {
+function getHueBar(onClickTable) {
     let tdList = [];
     for (let hue = 0; hue <= 360; hue++) {
-        tdList.push(getColoredTdFromHsl(hue, 90, 60, hue));
+        tdList.push(getColoredTdFromHsl(hue, 90, 60, hue, onClickTable));
     }
     return tdList;
 }
@@ -239,7 +249,7 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
     let tdList = [];
 
     for (let lightness = 100; lightness >= 0; lightness--) {
-            tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
+        tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
     }
     return <tr key={key}>{tdList}</tr>;
 }
