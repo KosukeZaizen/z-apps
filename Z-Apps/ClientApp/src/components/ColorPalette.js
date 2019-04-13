@@ -96,7 +96,7 @@ class ColorPalette extends React.Component {
             zIndex: 150,
             position: "absolute",
             top: 0,
-        }
+        };
         let styleSlTable = {
             maxWidth: 300,
             height: 280,
