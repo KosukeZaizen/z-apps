@@ -1661,7 +1661,7 @@ export default class Page2 extends React.Component {
                     },
                     topGate: {
                         size: 300,
-                        posX: -70,
+                        posX: 50,
                         posY: -310,
                         zIndex: 30,
                         next: 10,

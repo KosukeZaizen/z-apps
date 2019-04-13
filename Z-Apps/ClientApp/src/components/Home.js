@@ -14,9 +14,8 @@ const Home = props => (
                     made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
                 <p className="no-margin">I hope you enjoy!</p>
             </div>
-
             <Link to="/ninja">
-                <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white"}}>
+                <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                     <CardTitle>Lingual Ninja Game!</CardTitle>
                     <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
                     <Button color="secondary">Play!</Button>
@@ -54,15 +53,14 @@ const Home = props => (
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
-
-
-            {/*}
-            <Card body inverse color="info">
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button color="secondary">Button</Button>
-            </Card>
-            */}
+            <br />
+            <Link to="/color-code">
+                <Card body inverse color="info">
+                    <CardTitle>Comming Soon</CardTitle>
+                    <CardText>A new function is comming soon! It's still under construction!</CardText>
+                    <Button color="secondary">Try</Button>
+                </Card>
+            </Link>
 
         </center>
     </div>

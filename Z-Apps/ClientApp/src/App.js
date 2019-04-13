@@ -9,6 +9,8 @@ import Developer from './components/Developer';
 import HiraganaQuiz from './components/HiraganaQuiz';
 import KatakanaQuiz from './components/KatakanaQuiz';
 import Ninja from './components/NinjaGame';
+import ColorPalette from './components/ColorPalette';
+
 
 export default () => (
     <Layout>
@@ -20,5 +22,6 @@ export default () => (
         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
         <Route path='/katakana-quiz' component={KatakanaQuiz} />
         <Route path='/ninja' component={Ninja} />
+        <Route path='/color-code' component={ColorPalette} />
     </Layout>
 );
