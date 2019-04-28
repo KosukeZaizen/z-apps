@@ -12,7 +12,6 @@ namespace Z_Apps.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts(String startDateIndex)
         {
-
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
             //文字コードを指定する
