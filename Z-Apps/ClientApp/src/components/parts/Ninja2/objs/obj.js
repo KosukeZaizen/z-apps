@@ -103,87 +103,28 @@ export default class Obj extends React.Component {
 
         } else if (img) {
             //imgという引数を受け取っている場合、画像要素を生成
+            let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
+            let img = this.props.obj.img;
+            let size = this.props.obj.size * UL;
+            let posX = this.props.obj.posX * UL;
+            let posY = this.props.obj.posY * UL;
+            let zIndex = this.props.obj.zIndex;
 
-            let fireContinueTime = this.props.obj.fireContinueTime;
-            if (fireContinueTime) {
-                //fireContinueTimeを持っている場合、条件に応じて出現する要素とみなす
-
-                if (this.props.obj.visible) {
-                    //地蔵に触れることでvisibleがtrueになった
-
-                    if (!this.props.obj.fireContinueCount) {
-                        //初回のためカウントが無ければ、初期値を代入
-                        this.props.obj.fireContinueCount = fireContinueTime;
-
-                    } else if (this.props.obj.fireContinueCount <= 1) {
-                        //カウント終了時
-                        if (this.props.game.objs.haniwa
-                            && (this.props.game.objs.haniwa.posX - this.props.game.objs.jizo1.posX) ** 2 < 100
-                            && (this.props.game.objs.haniwa.posY - this.props.game.objs.jizo1.posY) ** 2 < 100
-                        ) {
-                            this.props.obj.visible = true;
-                            this.props.obj.fireContinueCount = fireContinueTime;
-                        } else {
-                            this.props.obj.visible = false;
-                            this.props.obj.fireContinueCount = fireContinueTime;
-                        }
-
-                    } else {
-                        //カウント中
-                        this.props.obj.fireContinueCount -= 1;
-                    }
-
-                    let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
-                    let img = this.props.obj.img;
-                    let size = this.props.obj.size * UL;
-                    let posX = this.props.obj.posX * UL;
-                    let posY = this.props.obj.posY * UL;
-                    let zIndex = this.props.obj.zIndex;
-
-                    let style = {
-                        position: "absolute",
-                        left: posX,
-                        top: posY,
-                        transform: rotateLeft,
-                        zIndex: zIndex,
-                    };
-                    return (
-                        <img
-                            src={img}
-                            width={size}
-                            style={style}
-                            alt={"object"}
-                        />
-                    );
-                } else {
-                    //visibleがfalse
-                    return <div></div>;
-                }
-            } else {
-                //fireContinueTimeという要素を持っていない場合、通常の画像要素とみなす
-                let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
-                let img = this.props.obj.img;
-                let size = this.props.obj.size * UL;
-                let posX = this.props.obj.posX * UL;
-                let posY = this.props.obj.posY * UL;
-                let zIndex = this.props.obj.zIndex;
-
-                let style = {
-                    position: "absolute",
-                    left: posX,
-                    top: posY,
-                    transform: rotateLeft,
-                    zIndex: zIndex,
-                };
-                return (
-                    <img
-                        src={img}
-                        width={size}
-                        style={style}
-                        alt={"object"}
-                    />
-                );
-            }
+            let style = {
+                position: "absolute",
+                left: posX,
+                top: posY,
+                transform: rotateLeft,
+                zIndex: zIndex,
+            };
+            return (
+                <img
+                    src={img}
+                    width={size}
+                    style={style}
+                    alt={"object"}
+                />
+            );
         } else if (this.props.obj.divType) {
             //水や、画面の外を黒くするためのdiv要素
             //divTypeの中の文字列がそのままclass名になり、CSSが効く

@@ -13,14 +13,6 @@ import imgRockR from './objs/rockRiverse.png';
 import imgKanban1 from './objs/kanban1.png';
 //看板の矢印
 import imgArrow1 from './objs/arrow1.png';
-//鳥居
-import imgTorii from './objs/torii.png';
-//Welcomeのフレーム
-import imgFrame from './objs/frame.jpg';
-//火
-import imgfire1 from './objs/fire1.png';
-//火（上下反転）
-import imgfireR from './objs/fireReverse.png';
 //ポチ
 import imgPochi from './objs/pochi.png';
 //閉じている巻物
@@ -29,20 +21,29 @@ import imgScroll from './objs/scrollObj.png';
 import imgScrollOpen from './objs/scrollOpen.png';
 //シノ（先輩くのいち）
 import imgShino from './objs/shino.png';
-//ハニワ
-import imgHaniwa from './objs/haniwa.png';
-//コウスケ
-import imgKosuke from './objs/kosuke.png';
 
 //屋敷（屋根）
 import imgHouse1 from './objs/house.png';
+//悪忍者
+import imgBadNinja from './objs/ninja_bad.png';
+//鷲
+import imgWashi from './objs/washi.png';
 
+
+
+//FireBall（右向き）
+import imgFireBallR from './objs/fireBallR.png';
 
 
 //背景画像//---------------------------
 
 //stage1
 import stage1 from './img/background/castle1.jpg';
+//stage2
+import stage2 from './img/background/whiteWall.jpg';
+//stage3
+import stage3 from './img/background/whiteWall2.jpg';
+
 
 
 export default class Page2 extends React.Component {
@@ -177,6 +178,9 @@ export default class Page2 extends React.Component {
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
 
+                FIRE_SCROLL_TITLE: "火遁",
+
+
             };
 
         } else {
@@ -191,9 +195,14 @@ export default class Page2 extends React.Component {
                 POCHI_SCROLL_TITLE: "Steal into the enemy's castle!",
                 POCHI_SCROLL_MESSAGE:
                     "Can you see the enemy's castle!?\n" +
-                    "Your mission is to steal into the castle, and steal the scroll!\n" +
-                    "Good luck!",
+                    "Your mission is to steal into the castle, and steal the secret scroll!\n" +
+                    "Don't be caught by enemies! Good luck!",
 
+                FIRE_SCROLL_TITLE: "火遁",
+                FIRE_SCROLL_MESSAGE:
+                    "This is the scroll to learn 'Fire Ball'.\n" +
+                    "Push [<] button and [>] button at the same time.\n" +
+                    "You can defeat the enemies, using Fire Ball.",
             };
         }
 
@@ -238,18 +247,23 @@ export default class Page2 extends React.Component {
                 this.ninja.speedX = 0;
             } else {
                 if (this.lButton === true && this.rButton === true) {
-                    //右と左同時押しでハニワ生成
-                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.EARTH_SCROLL_TITLE) > 0) {
-                        //地の書を既に読んでいる場合
-                        this.objs.haniwa = {
+
+                    //右と左同時押しでファイヤーボール
+                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.FIRE_SCROLL_TITLE) >= 0) {
+                        //火遁の書を既に読んでいる場合
+
+                        this.objs["fireBall" + this.ninja.fireBallCount] = {
                             size: 12,
                             posX: this.ninja.posX,
                             posY: this.ninja.posY,
-                            zIndex: 20,
-                            img: imgHaniwa,
+                            zIndex: 999 - this.ninja.fireBallCount,
+                            img: imgFireBallR,
                             onTouch: onTouchNothing,
-                            haniwa: true,
+                            fireBall: true,
+                            boolLeft: boolLeft,
+                            eachTime: eachTimeFireBall,
                         }
+                        this.ninja.fireBallCount++;
                     }
                 } else {
                     if (this.lButton === true) {
@@ -267,13 +281,14 @@ export default class Page2 extends React.Component {
                     //通常ジャンプ
                     this.ninja.speedY = -11;
                 }
+                /*
                 if (this.ninja.readScroll.indexOf(this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
                     //風の書を読んでいる
                     if (this.ninja.posY > 15) {
                         //2段ジャンプ実行限界高度に達していない
                         this.ninja.speedY = -11;
                     }
-                }
+                }*/
                 this.jButton = false;
             }
 
@@ -328,6 +343,11 @@ export default class Page2 extends React.Component {
 
                 //ステージ遷移をしていたら、関数中止
                 if (stageChangedFlag && stageChangedFlag === "changed") { return; }
+
+                //各タイムステップごとの処理を持っていれば、実行する
+                if (this.objs[key].eachTime) {
+                    this.objs[key].eachTime(this.ninja, key);
+                }
             }
             /* ↑　物体速度・位置計算　↑ */
 
@@ -509,15 +529,17 @@ export default class Page2 extends React.Component {
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
 
+            //忍者のFireBallCountを0に戻す
+            this.ninja.fireBallCount = 0;
+
             if (this.props.stage === 1) {
 
                 // ------------------------------------------------------------
-                // ステージ1 (天)
+                // ステージ1 (出発地点　屋根の上)
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-                    ...this.objFloor,
 
 
                     house1Pic: {
@@ -574,9 +596,191 @@ export default class Page2 extends React.Component {
                         speakerImg: imgPochi,
                     },
 
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 2,
+                        onTouch: onTouchGateTop1,
+                        changeStage: this.props.changeStage,
+                    },
+
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage1;
+            } else if (this.props.stage === 2) {
+
+                // ------------------------------------------------------------
+                // ステージ2 (城周辺の白い壁)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    fireBallDummy: {
+                        //FireBallの画像初期表示速度向上のためのダミー
+                        size: 13,
+                        posX: -100,
+                        posY: 60,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 20,
+                        img: imgFireBallR,
+                        onTouch: onTouchNothing,
+                    },
+                    scrollFireBallIcon: {
+                        size: 10,
+                        posX: 105,
+                        posY: 46,
+                        boolLeft: true,
+                        zIndex: 22,
+                        img: imgScroll,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.FIRE_SCROLL_TITLE,
+                    },
+                    fireBallScrollOpened: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.FIRE_SCROLL_TITLE,
+                        message: this.consts.FIRE_SCROLL_MESSAGE,
+                        fontSize: 3,
+                    },
+                    rock1Pic: {
+                        size: 40,
+                        posX: 90,
+                        posY: 50,
+                        zIndex: 20,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 40,
+                        posX: 90,
+                        posY: 53,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    enemy1: {
+                        size: 13,
+                        posX: 40,
+                        posY: 60,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 20,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        jumpHeight: 28,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -100,
+                        zIndex: 30,
+                        next: 1,
+                        onTouch: onTouchGateTop2,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 3,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage2;
+            } else if (this.props.stage === 3) {
+
+                // ------------------------------------------------------------
+                // ステージ3 (鷲と白壁)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    washi1: {
+                        size: 13,
+                        posX: 0,
+                        posY: 0,
+                        speedX: 3,
+                        speedY: 1,
+                        zIndex: 20,
+                        img: imgWashi,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        jumpHeight: 28,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                    },
+                    washi2: {
+                        size: 13,
+                        posX: -40,
+                        posY: -60,
+                        speedX: 3,
+                        speedY: 1,
+                        zIndex: 20,
+                        img: imgWashi,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        jumpHeight: 28,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                    },
+                    washi3: {
+                        size: 13,
+                        posX: 0,
+                        posY: -100,
+                        speedX: 3,
+                        speedY: 1,
+                        zIndex: 20,
+                        img: imgWashi,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        jumpHeight: 28,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                    },
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 2,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -100,
+                        zIndex: 30,
+                        next: 1,
+                        onTouch: onTouchGateTop2,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage3;
             }
 
             this.prevStage = this.props.stage;
@@ -701,6 +905,28 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
     return false;
 }
 
+//当たり判定
+function checkTouch(obj1, obj2) {
+
+    if (obj1 && obj2) {
+        //オブジェクトが存在する場合
+
+        //かすっていたらtrue
+        if (obj1.posX + obj1.size > obj2.posX) {
+            if (obj1.posX < obj2.posX + obj2.size) {
+                if (obj1.posY + obj1.size > obj2.posY) {
+                    if (obj1.posY < obj2.posY + obj2.size) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
@@ -708,7 +934,7 @@ function onTouchScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
-    let objs = ninja.game.objs;
+        let objs = ninja.game.objs;
         for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
@@ -763,19 +989,6 @@ function onTouchTree(ninja, from) {
 }
 
 //=======================================
-// 右向きにに流れる川へのタッチ関数
-//=======================================
-function onTouchRiverToRight(ninja) {
-    if (ninja.readScroll.indexOf(ninja.game.consts.WATER_SCROLL_TITLE) < 0) {
-        //水の書を読んでいなければ、流される
-        ninja.posX += 10;
-        ninja.posY = this.posY - ninja.size;
-        ninja.speedX = 30;
-        ninja.speedY = 0;
-    }
-}
-
-//=======================================
 // 何も起こらないタッチ関数
 //=======================================
 function onTouchNothing() {
@@ -794,22 +1007,6 @@ function onTouchGateWall(ninja, from) {
     } else {
         //左から
         ninja.posX = 0;
-        ninja.speedX = 0;
-        ninja.speedY = 0;
-    }
-    this.changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
-// 別ステージへのゲートのタッチ関数（ステージ11から水路に戻る場合）
-//=======================================
-function onTouchGateWallStage11(ninja, from) {
-    if (from === "left") {
-        //左から
-        ninja.posX = 0;
-        ninja.posY = 60;
         ninja.speedX = 0;
         ninja.speedY = 0;
     }
@@ -841,29 +1038,130 @@ function onTouchGateTopOrBottom(ninja, from) {
 }
 
 //=======================================
-// 炎にタッチ
+// 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
-function onTouchFire(ninja) {
-    if (this.fireContinueTime && this.visible !== true) {
-        //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
-        return;
+function onTouchGateTop1(ninja, from) {
+
+    if (from === "upper") {
+        //上から
+        ninja.posX = 145;
+        ninja.posY = 0;
+        ninja.speedY = 0;
+        ninja.speedX = 0;
     }
-    if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
-        //火の書を読んでいればジャンプする
-        ninja.speedY = this.jumpHeight * (-1);
-    }
+    this.changeStage(this.next, ninja);
+
+    return "changed";
 }
 
 //=======================================
-// 地蔵にタッチ
+// 別ステージへのゲートのタッチ関数（stage2等から上へ飛ばされる）
 //=======================================
-function onTouchJizo(ninja) {
+function onTouchGateTop2(ninja, from) {
 
-    let objs = ninja.game.objs;
-    for (let key in objs) {
-        if (objs[key].fireContinueTime) {
-            //fireContinueTimeを持っている要素を表示する
-            objs[key].visible = true;
+    //下から
+    ninja.posX = 145;
+    ninja.posY = -100;
+    ninja.speedX = 0;
+    ninja.speedY = 0;
+
+    this.changeStage(this.next, ninja);
+
+    return "changed";
+}
+
+//=======================================
+// 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
+//=======================================
+function onTouchOutsideEnemy1(ninja, from) {
+
+    ninja.posX = 145;
+    ninja.posY = 0;
+    ninja.speedY = 0;
+    ninja.speedX = 0;
+    this.changeStage(this.next, ninja);
+
+    return "changed";
+}
+
+//=======================================
+// 炎にタッチ
+//=======================================
+function onTouchFire(ninja) {
+    //ジャンプする
+    ninja.speedY = this.jumpHeight * (-1);
+}
+
+
+//=======================================
+// 通常敵キャラ　タイムステップ毎
+//=======================================
+function eachTimeEnemy(ninja, key) {
+    if (this && this.enemy) {
+
+        //敵の行動可能域計算
+        if (this.xMax && this.posX > this.xMax) {
+            //x最大値を超えている場合
+            this.posX = this.xMax;
+        } else if (this.xMin && this.posX < this.xMin) {
+            //x最小値を超えている場合
+            this.posX = this.xMax;
+        }
+        if (this.yMax && this.posY > this.yMax) {
+            //y最大値を超えている場合
+            this.posY = this.yMax;
+        } else if (this.yMin && this.posY < this.yMin) {
+            //y最小値を超えている場合
+            this.posY = this.yMax;
+        }
+
+        //X軸について、忍者を追いかける
+        if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
+            this.posX += this.speedX;
+            this.boolLeft = false;
+        } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
+            this.posX += this.speedX * (-1);
+            this.boolLeft = true;
+        }
+        //Y軸について、忍者を追いかける
+        if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
+            this.posY += this.speedY;
+        } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
+            this.posY += this.speedY * (-1);
+        }
+
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
+            if (ninja.game.objs["fireBall" + i]) {
+                //まだ消えていないFireBallについて
+
+                if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
+                    //敵がFireBallに触れた場合
+                    delete ninja.game.objs[key];
+                }
+            }
+        }
+    }
+}
+
+
+//=======================================
+// ファイヤーボール　タイムステップ毎
+//=======================================
+function eachTimeFireBall(ninja, key) {
+    //fireBall
+    if (this && this.fireBall) {
+        if (this.posX + this.size < 0 || this.posX > 160) {
+            //fireBallが画面からはみ出した場合、消す
+            delete ninja.game.objs[key];
+        } else {
+            //fireBallが画面内にある場合
+            if (this.boolLeft) {
+                //左向き
+                this.posX -= 10;
+            } else {
+                //右向き
+                this.posX += 10;
+            }
         }
     }
 }
