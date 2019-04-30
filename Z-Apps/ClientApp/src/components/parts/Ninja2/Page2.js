@@ -21,13 +21,14 @@ import imgScroll from './objs/scrollObj.png';
 import imgScrollOpen from './objs/scrollOpen.png';
 //シノ（先輩くのいち）
 import imgShino from './objs/shino.png';
-
 //屋敷（屋根）
 import imgHouse1 from './objs/house.png';
 //悪忍者
 import imgBadNinja from './objs/ninja_bad.png';
 //鷲
 import imgWashi from './objs/washi.png';
+//木箱
+import imgBox1 from './objs/box.jpg';
 
 
 
@@ -43,6 +44,19 @@ import stage1 from './img/background/castle1.jpg';
 import stage2 from './img/background/whiteWall.jpg';
 //stage3
 import stage3 from './img/background/whiteWall2.jpg';
+//stage4
+import stage4 from './img/background/whiteWall3.jpg';
+//stage5
+import stage5 from './img/background/waterCastle.jpg';
+//stage6
+import stage6 from './img/background/inWater1.jpg';
+//stage7
+import stage7 from './img/background/inWater2.jpg';
+//stage8
+import stage8 from './img/background/inWater3.jpg';
+
+
+
 
 
 
@@ -196,13 +210,29 @@ export default class Page2 extends React.Component {
                 POCHI_SCROLL_MESSAGE:
                     "Can you see the enemy's castle!?\n" +
                     "Your mission is to steal into the castle, and steal the secret scroll!\n" +
-                    "Don't be caught by enemies! Good luck!",
+                    "Don't touch the enemies! Good luck!",
 
+                //水辺でポチに触った時のメッセージ
+                POCHI_SCROLL2_TITLE: "Go under the water!",
+                POCHI_SCROLL2_MESSAGE:
+                    "The best way to steal into the castle is going under the water!\n" +
+                    "In the water, you can swim by pushing [jump] button many times!\n" +
+                    "Don't touch the enemies! Good luck!",
+
+                //火遁の巻物
                 FIRE_SCROLL_TITLE: "火遁",
                 FIRE_SCROLL_MESSAGE:
                     "This is the scroll to learn 'Fire Ball'.\n" +
                     "Push [<] button and [>] button at the same time.\n" +
                     "You can defeat the enemies, using Fire Ball.",
+
+                //階段のシノに触った時のメッセージ
+                SHINO_SCROLL_TITLE: "Hello!",
+                SHINO_SCROLL_MESSAGE:
+                    "Now, you can use Fire Ball.\n" +
+                    "When you find a wooden box, you should use fire.\n" +
+                    "It will burn the box, and you can see the inside.",
+
             };
         }
 
@@ -239,9 +269,6 @@ export default class Page2 extends React.Component {
 
             /* ↓　物体速度・位置計算　↓ */
 
-            //忍者の画像の向き
-            let boolLeft = this.state.ninjaStat.left;
-
             //ボタン押下判定
             if (this.lButton === false && this.rButton === false) {
                 this.ninja.speedX = 0;
@@ -260,18 +287,18 @@ export default class Page2 extends React.Component {
                             img: imgFireBallR,
                             onTouch: onTouchNothing,
                             fireBall: true,
-                            boolLeft: boolLeft,
+                            boolLeft: this.ninja.boolLeft,
                             eachTime: eachTimeFireBall,
                         }
                         this.ninja.fireBallCount++;
                     }
                 } else {
                     if (this.lButton === true) {
-                        this.ninja.speedX = -6;
-                        boolLeft = true;//画像左向き
+                        this.ninja.speedX = this.ninja.inWater ? -3 : -6;
+                        this.ninja.boolLeft = true;//画像左向き
                     } else if (this.rButton === true) {
-                        this.ninja.speedX = 6;
-                        boolLeft = false;//画像右向き
+                        this.ninja.speedX = this.ninja.inWater ? 3 : 6;
+                        this.ninja.boolLeft = false;//画像右向き
                     }
                 }
             }
@@ -281,23 +308,30 @@ export default class Page2 extends React.Component {
                     //通常ジャンプ
                     this.ninja.speedY = -11;
                 }
-                /*
-                if (this.ninja.readScroll.indexOf(this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
-                    //風の書を読んでいる
-                    if (this.ninja.posY > 15) {
+                if (this.ninja.inWater) {
+                    //水中
+                    if (this.ninja.posY > -10) {
                         //2段ジャンプ実行限界高度に達していない
-                        this.ninja.speedY = -11;
+                        this.ninja.speedY = -7;
                     }
-                }*/
+                }
                 this.jButton = false;
             }
 
             //重力加速度
-            this.ninja.speedY += 2.1;
+            this.ninja.speedY += this.ninja.inWater ? 1.1 : 2.1;
 
             //落下速度限界
-            if (this.ninja.speedY > 9) {
-                this.ninja.speedY = 9;
+            if (this.ninja.inWater) {
+                //水中
+                if (this.ninja.speedY > 2) {
+                    this.ninja.speedY = 2;
+                }
+            } else {
+                //陸上
+                if (this.ninja.speedY > 9) {
+                    this.ninja.speedY = 9;
+                }
             }
 
             //位置計算
@@ -366,7 +400,7 @@ export default class Page2 extends React.Component {
                     ...this.backgroundSetting,
                 },
                 ninjaStat: {
-                    left: boolLeft,
+                    left: this.ninja.boolLeft,
                     ninjaX: this.ninja.posX * this.UL,
                     ninjaY: this.ninja.posY * this.UL,
                 }
@@ -532,6 +566,10 @@ export default class Page2 extends React.Component {
             //忍者のFireBallCountを0に戻す
             this.ninja.fireBallCount = 0;
 
+            //水中判定を一旦falseとする（水中の場合は、各ステージにて代入）
+            this.ninja.inWater = false;
+
+
             if (this.props.stage === 1) {
 
                 // ------------------------------------------------------------
@@ -540,7 +578,6 @@ export default class Page2 extends React.Component {
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-
 
                     house1Pic: {
                         size: 60,
@@ -612,7 +649,7 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 2) {
 
                 // ------------------------------------------------------------
-                // ステージ2 (城周辺の白い壁)
+                // ステージ2 (ファイヤーボールの書)
                 // ------------------------------------------------------------
                 this.objs = {
                     ...this.objOutOfScreen,
@@ -668,20 +705,28 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchBlock,
                     },
-                    enemy1: {
-                        size: 13,
-                        posX: 40,
-                        posY: 60,
-                        speedX: 0,
-                        speedY: 0,
-                        zIndex: 20,
-                        img: imgBadNinja,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 1,
-                        changeStage: this.props.changeStage,
-                        jumpHeight: 28,
-                        enemy: true,
-                        eachTime: eachTimeEnemy,
+                    shino: {
+                        size: 10,
+                        posX: 30,
+                        posY: 55,
+                        zIndex: 17,
+                        img: imgShino,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHINO_SCROLL_TITLE,
+                    },
+                    shinoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHINO_SCROLL_TITLE,
+                        message: this.consts.SHINO_SCROLL_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgShino,
                     },
                     topGate: {
                         size: 300,
@@ -723,11 +768,11 @@ export default class Page2 extends React.Component {
                         zIndex: 20,
                         img: imgWashi,
                         onTouch: onTouchOutsideEnemy1,
-                        next: 1,
+                        next: 2,
                         changeStage: this.props.changeStage,
-                        jumpHeight: 28,
                         enemy: true,
                         eachTime: eachTimeEnemy,
+                        life: 1,
                     },
                     washi2: {
                         size: 13,
@@ -738,11 +783,11 @@ export default class Page2 extends React.Component {
                         zIndex: 20,
                         img: imgWashi,
                         onTouch: onTouchOutsideEnemy1,
-                        next: 1,
+                        next: 2,
                         changeStage: this.props.changeStage,
-                        jumpHeight: 28,
                         enemy: true,
                         eachTime: eachTimeEnemy,
+                        life: 1,
                     },
                     washi3: {
                         size: 13,
@@ -753,11 +798,25 @@ export default class Page2 extends React.Component {
                         zIndex: 20,
                         img: imgWashi,
                         onTouch: onTouchOutsideEnemy1,
-                        next: 1,
+                        next: 2,
                         changeStage: this.props.changeStage,
-                        jumpHeight: 28,
                         enemy: true,
                         eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
+                    box1: {
+                        size: 20,
+                        posX: 105,
+                        posY: 55,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
                     },
 
                     rightGateWall: {
@@ -769,18 +828,455 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                    topGate: {
+                    leftGateWall: {
                         size: 300,
-                        posX: -70,
-                        posY: -100,
+                        posX: -300,
+                        posY: -200,
                         zIndex: 30,
-                        next: 1,
-                        onTouch: onTouchGateTop2,
+                        next: 4,
+                        onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage3;
+            } else if (this.props.stage === 4) {
+
+                // ------------------------------------------------------------
+                // ステージ4 (岩に隠れた忍者たち)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+
+                    rock1Pic: {
+                        size: 40,
+                        posX: 60,
+                        posY: 50,
+                        zIndex: 30,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 40,
+                        posX: 60,
+                        posY: 53,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+
+                    rock2Pic: {
+                        size: 20,
+                        posX: 120,
+                        posY: 60,
+                        zIndex: 30,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Actual: {
+                        size: 20,
+                        posX: 120,
+                        posY: 63,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+
+                    riverPic: {
+                        size: 50,
+                        posX: 80,
+                        posY: 69,
+                        divType: "water",
+                        zIndex: 29,
+                        onTouch: onTouchNothing,
+                    },
+
+                    enemy1: {
+                        size: 13,
+                        posX: 74,
+                        xMax: 74,
+                        posY: 60,
+                        speedX: 1,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 2,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    enemy2: {
+                        size: 13,
+                        posX: 74,
+                        xMax: 74,
+                        posY: 60,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 2,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    enemy3: {
+                        size: 13,
+                        posX: 74,
+                        xMax: 74,
+                        posY: 60,
+                        speedX: 2.5,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 2,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    enemy4: {
+                        size: 13,
+                        posX: 74,
+                        xMax: 74,
+                        posY: 60,
+                        speedX: 4,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 2,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    enemy5: {
+                        size: 13,
+                        posX: 74,
+                        xMax: 74,
+                        posY: 60,
+                        speedX: 4.5,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        onTouch: onTouchOutsideEnemy1,
+                        next: 2,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 3,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+
+                    floor1: {
+                        size: 200,
+                        posX: -120,
+                        posY: 79,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor2: {
+                        size: 200,
+                        posX: -120,
+                        posY: 77,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor3: {
+                        size: 200,
+                        posX: -120,
+                        posY: 76,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor4: {
+                        size: 200,
+                        posX: -120,
+                        posY: 75,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor1r: {
+                        size: 200,
+                        posX: 130,
+                        posY: 79,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor2r: {
+                        size: 200,
+                        posX: 130,
+                        posY: 77,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor3r: {
+                        size: 200,
+                        posX: 130,
+                        posY: 76,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    floor4r: {
+                        size: 200,
+                        posX: 130,
+                        posY: 75,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage4;
+            } else if (this.props.stage === 5) {
+
+                // ------------------------------------------------------------
+                // ステージ5 (水辺の城)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+
+                    rock1Pic: {
+                        size: 100,
+                        posX: 86,
+                        posY: 67,
+                        zIndex: 26,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock1Actual: {
+                        size: 100,
+                        posX: 95,
+                        posY: 71,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+                    rock2Pic: {
+                        size: 100,
+                        posX: 66,
+                        posY: 67,
+                        zIndex: 26,
+                        img: imgRockR,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Actual: {
+                        size: 100,
+                        posX: 75,
+                        posY: 71,
+                        zIndex: 30,
+                        onTouch: onTouchBlock,
+                    },
+
+                    pochi: {
+                        size: 10,
+                        posX: 89,
+                        posY: 57,
+                        zIndex: 20,
+                        img: imgPochi,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.POCHI_SCROLL2_TITLE,
+                    },
+                    pochiScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.POCHI_SCROLL2_TITLE,
+                        message: this.consts.POCHI_SCROLL2_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgPochi,
+                    },
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: 73,
+                        divType: "water",
+                        zIndex: 30,
+                        onTouch: onTouchNothing,
+                    },
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 4,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 6,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 10,
+                        nextY: 0,
+                        nextLeft: false,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage5;
+            } else if (this.props.stage === 6) {
+
+                this.ninja.inWater = true;
+
+                // ------------------------------------------------------------
+                // ステージ6 (水路１)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: -20,
+                        divType: "water",
+                        zIndex: 24,
+                        onTouch: onTouchNothing,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 7,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -100,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onTouchGateTop2,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage6;
+            } else if (this.props.stage === 7) {
+
+                this.ninja.inWater = true;
+
+                // ------------------------------------------------------------
+                // ステージ7 (水路2)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: -20,
+                        divType: "water",
+                        zIndex: 24,
+                        onTouch: onTouchNothing,
+                    },
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 8,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -100,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onTouchGateTop2,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 6,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage7;
+            } else if (this.props.stage === 8) {
+
+                this.ninja.inWater = true;
+
+                // ------------------------------------------------------------
+                // ステージ8 (水路3)
+                // ------------------------------------------------------------
+                this.objs = {
+                    ...this.objOutOfScreen,
+                    ...this.objWalls,
+                    ...this.objFloor,
+
+                    riverPic: {
+                        size: 200,
+                        posX: -20,
+                        posY: -20,
+                        divType: "water",
+                        zIndex: 24,
+                        onTouch: onTouchNothing,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -100,
+                        zIndex: 30,
+                        next: 5,
+                        onTouch: onTouchGateTop2,
+                        changeStage: this.props.changeStage,
+                    },
+                    leftGateWall: {
+                        size: 300,
+                        posX: -300,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 7,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
+                }
+                //ステージの背景画像を設定
+                this.bgImg = stage8;
             }
 
             this.prevStage = this.props.stage;
@@ -991,8 +1487,7 @@ function onTouchTree(ninja, from) {
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-function onTouchNothing() {
-}
+function onTouchNothing() {}
 
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
@@ -1085,12 +1580,28 @@ function onTouchOutsideEnemy1(ninja, from) {
 }
 
 //=======================================
+// 別ステージへのゲートのタッチ関数（汎用化したもの）
+//=======================================
+function onTouchStageChangeCommon(ninja, from) {
+
+    ninja.posX = this.nextX;
+    ninja.posY = this.nextY;
+    ninja.boolLeft = this.nextLeft;
+
+    this.changeStage(this.next, ninja);
+
+    return "changed";
+}
+
+//=======================================
 // 炎にタッチ
 //=======================================
 function onTouchFire(ninja) {
     //ジャンプする
     ninja.speedY = this.jumpHeight * (-1);
 }
+
+
 
 
 //=======================================
@@ -1103,16 +1614,20 @@ function eachTimeEnemy(ninja, key) {
         if (this.xMax && this.posX > this.xMax) {
             //x最大値を超えている場合
             this.posX = this.xMax;
+            return;
         } else if (this.xMin && this.posX < this.xMin) {
             //x最小値を超えている場合
             this.posX = this.xMax;
+            return;
         }
         if (this.yMax && this.posY > this.yMax) {
             //y最大値を超えている場合
             this.posY = this.yMax;
+            return;
         } else if (this.yMin && this.posY < this.yMin) {
             //y最小値を超えている場合
             this.posY = this.yMax;
+            return;
         }
 
         //X軸について、忍者を追いかける
@@ -1122,6 +1637,11 @@ function eachTimeEnemy(ninja, key) {
         } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
             this.posX += this.speedX * (-1);
             this.boolLeft = true;
+        } else {
+            if (this.speedX !== 0) {
+                this.posX += ninja.posX < this.posX ? -1 : 0
+                this.posX += ninja.posX > this.posX ? 1 : 0
+            }
         }
         //Y軸について、忍者を追いかける
         if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
