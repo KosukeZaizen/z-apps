@@ -29,6 +29,8 @@ import imgBadNinja from './objs/ninja_bad.png';
 import imgWashi from './objs/washi.png';
 //木箱
 import imgBox1 from './objs/box.jpg';
+//レンガ
+import imgBlock1 from './objs/block.jpg';
 
 
 
@@ -1083,7 +1085,7 @@ export default class Page2 extends React.Component {
                     },
                     rock2Actual: {
                         size: 100,
-                        posX: 75,
+                        posX: 70,
                         posY: 71,
                         zIndex: 30,
                         onTouch: onTouchBlock,
@@ -1091,7 +1093,7 @@ export default class Page2 extends React.Component {
 
                     pochi: {
                         size: 10,
-                        posX: 89,
+                        posX: 87,
                         posY: 57,
                         zIndex: 20,
                         img: imgPochi,
@@ -1149,6 +1151,7 @@ export default class Page2 extends React.Component {
 
                 this.ninja.inWater = true;
 
+
                 // ------------------------------------------------------------
                 // ステージ6 (水路１)
                 // ------------------------------------------------------------
@@ -1156,6 +1159,46 @@ export default class Page2 extends React.Component {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
+
+                    //レンガのブロック
+                    ...getBlocks(10, [
+                        [6, 5], [7, 5],
+                        [6, 6], [7, 6],
+                        [6, 7], [7, 7]
+                    ], onTouchBlock, imgBlock1, 23, false),
+
+                    //木のブロック
+                    ...getBlocks(10, [
+                        [6, 3], [7, 3],
+                        [6, 4], [7, 4],
+                    ], onTouchBlock, imgBox1, 24, true),
+
+
+
+                    rock1Pic: {
+                        size: 100,
+                        posX: 76,
+                        posY: -82,
+                        zIndex: 26,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Pic: {
+                        size: 100,
+                        posX: 36,
+                        posY: -82,
+                        zIndex: 26,
+                        img: imgRock,
+                        onTouch: onTouchNothing,
+                    },
+                    rock2Actual: {
+                        size: 100,
+                        posX: 40,
+                        posY: -90,
+                        zIndex: 26,
+                        img: imgRock,
+                        onTouch: onTouchBlock,
+                    },
 
                     riverPic: {
                         size: 200,
@@ -1177,10 +1220,13 @@ export default class Page2 extends React.Component {
                     topGate: {
                         size: 300,
                         posX: -70,
-                        posY: -100,
+                        posY: -310,
                         zIndex: 30,
                         next: 5,
-                        onTouch: onTouchGateTop2,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
                         changeStage: this.props.changeStage,
                     },
                 }
@@ -1422,6 +1468,46 @@ function checkTouch(obj1, obj2) {
     return false;
 }
 
+//ブロック生成関数
+function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, boolWooden) {
+
+    let objResult = {};
+
+    if (boolWooden) {
+        for (let index in arrPos) {
+            objResult["objWoodenBlock" + index] = {
+                size: size + 2,
+                posX: arrPos[index][0] * size,
+                posY: arrPos[index][1] * size,
+                zIndex: zIndex,
+                img: imgBlock,
+                onTouch: onTouch,
+                enemy: true,
+                eachTime: eachTimeEnemy,
+                life: 1,
+            };
+        }
+    } else {
+        for (let index in arrPos) {
+            objResult["objBlock" + index] = {
+                size: size + 2,
+                posX: arrPos[index][0] * size,
+                posY: arrPos[index][1] * size,
+                zIndex: zIndex,
+                img: imgBlock,
+                onTouch: onTouch,
+            };
+        }
+    }
+
+    return objResult;
+}
+
+//------------------------------------------------------------
+//
+//　　　　　オブジェクトタッチ時の関数
+//
+//------------------------------------------------------------
 
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
@@ -1604,6 +1690,12 @@ function onTouchFire(ninja) {
 
 
 
+//------------------------------------------------------------
+//
+//　　　　　タイムステップごとの関数
+//
+//------------------------------------------------------------
+
 //=======================================
 // 通常敵キャラ　タイムステップ毎
 //=======================================
@@ -1631,14 +1723,14 @@ function eachTimeEnemy(ninja, key) {
         }
 
         //X軸について、忍者を追いかける
-        if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
-            this.posX += this.speedX;
-            this.boolLeft = false;
-        } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-            this.posX += this.speedX * (-1);
-            this.boolLeft = true;
-        } else {
-            if (this.speedX !== 0) {
+        if (this.speedX !== 0) {
+            if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
+                this.posX += this.speedX;
+                this.boolLeft = false;
+            } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
+                this.posX += this.speedX * (-1);
+                this.boolLeft = true;
+            } else {
                 this.posX += ninja.posX < this.posX ? -1 : 0
                 this.posX += ninja.posX > this.posX ? 1 : 0
             }
@@ -1662,7 +1754,6 @@ function eachTimeEnemy(ninja, key) {
         }
     }
 }
-
 
 //=======================================
 // ファイヤーボール　タイムステップ毎
