@@ -31,6 +31,10 @@ import imgWashi from './objs/washi.png';
 import imgBox1 from './objs/box.jpg';
 //レンガ
 import imgBlock1 from './objs/block.jpg';
+//カニ
+import imgKani from './objs/kani.png';
+//フグ
+import imgFugu from './objs/fugu.png';
 
 
 
@@ -50,15 +54,8 @@ import stage3 from './img/background/whiteWall2.jpg';
 import stage4 from './img/background/whiteWall3.jpg';
 //stage5
 import stage5 from './img/background/waterCastle.jpg';
-//stage6
-import stage6 from './img/background/inWater1.jpg';
-//stage7
-import stage7 from './img/background/inWater2.jpg';
-//stage8
-import stage8 from './img/background/inWater3.jpg';
-
-
-
+//stage6～8
+import inWater from './img/background/rockWall.jpg';
 
 
 
@@ -1162,18 +1159,42 @@ export default class Page2 extends React.Component {
 
                     //レンガのブロック
                     ...getBlocks(10, [
-                        [6, 5], [7, 5],
-                        [6, 6], [7, 6],
-                        [6, 7], [7, 7]
-                    ], onTouchBlock, imgBlock1, 23, false),
+                        [6, 0], [7, 0], [8, 0], [9, 0], [10, 0],
+                        [6, 1], [7, 1], [8, 1], [9, 1], [10, 1],
+                        [6, 2], [7, 2], [8, 2], [9, 2], [10, 2],
+                        [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
+                        [10, 4], [11, 4], [12, 4], [13, 4], [14, 4], [15, 4], [16, 4],
+                        [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [10, 5], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5],
+                        [2, 6], [3, 6],[4, 6], [5, 6],[6, 6], [7, 6],
+                        [1, 7], [0, 7], [2, 7], [3, 7],[4, 7], [5, 7],[6, 7], [7, 7],
+                    ], onTouchBlock, imgBlock1, 23),
 
-                    //木のブロック
-                    ...getBlocks(10, [
-                        [6, 3], [7, 3],
-                        [6, 4], [7, 4],
-                    ], onTouchBlock, imgBox1, 24, true),
-
-
+                    box1: {
+                        size: 17,
+                        posX: 63,
+                        posY: 33,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    box2: {
+                        size: 17,
+                        posX: 83,
+                        posY: 58,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
 
                     rock1Pic: {
                         size: 100,
@@ -1231,7 +1252,7 @@ export default class Page2 extends React.Component {
                     },
                 }
                 //ステージの背景画像を設定
-                this.bgImg = stage6;
+                this.bgImg = inWater;
             } else if (this.props.stage === 7) {
 
                 this.ninja.inWater = true;
@@ -1243,6 +1264,54 @@ export default class Page2 extends React.Component {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
+
+                    //レンガのブロック
+                    ...getBlocks(10, [
+                        [15, -1], [16, -1],
+                        [15, 0], [16, 0],
+                        [14, 1], [15, 1], [16, 1],
+                        [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
+                        [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
+                        [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4],
+                        [-1, 5],[0, 5],[1, 5]
+                    ], onTouchBlock, imgBlock1, 23),
+
+                    kani1: {
+                        size: 13,
+                        posX: 80,
+                        posY: 65,
+                        speedX: 0.7,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgKani,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
+                        next: 5,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    fugu1: {
+                        size: 13,
+                        posX: 160,
+                        posY: 0,
+                        speedX: 0.5,
+                        speedY: 1,
+                        zIndex: 19,
+                        img: imgFugu,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
+                        next: 5,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
 
                     riverPic: {
                         size: 200,
@@ -1281,7 +1350,7 @@ export default class Page2 extends React.Component {
                     },
                 }
                 //ステージの背景画像を設定
-                this.bgImg = stage7;
+                this.bgImg = inWater;
             } else if (this.props.stage === 8) {
 
                 this.ninja.inWater = true;
@@ -1322,7 +1391,7 @@ export default class Page2 extends React.Component {
                     },
                 }
                 //ステージの背景画像を設定
-                this.bgImg = stage8;
+                this.bgImg = inWater;
             }
 
             this.prevStage = this.props.stage;
@@ -1469,37 +1538,20 @@ function checkTouch(obj1, obj2) {
 }
 
 //ブロック生成関数
-function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, boolWooden) {
+function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
 
     let objResult = {};
 
-    if (boolWooden) {
-        for (let index in arrPos) {
-            objResult["objWoodenBlock" + index] = {
-                size: size + 2,
-                posX: arrPos[index][0] * size,
-                posY: arrPos[index][1] * size,
-                zIndex: zIndex,
-                img: imgBlock,
-                onTouch: onTouch,
-                enemy: true,
-                eachTime: eachTimeEnemy,
-                life: 1,
-            };
-        }
-    } else {
-        for (let index in arrPos) {
-            objResult["objBlock" + index] = {
-                size: size + 2,
-                posX: arrPos[index][0] * size,
-                posY: arrPos[index][1] * size,
-                zIndex: zIndex,
-                img: imgBlock,
-                onTouch: onTouch,
-            };
-        }
+    for (let index in arrPos) {
+        objResult["objBlock" + index] = {
+            size: size + 3,
+            posX: arrPos[index][0] * size,
+            posY: arrPos[index][1] * size,
+            zIndex: zIndex,
+            img: imgBlock,
+            onTouch: onTouch,
+        };
     }
-
     return objResult;
 }
 
