@@ -43,6 +43,24 @@ import imgDoor from './objs/tobira.jpg';
 import imgWoodenBlock from './objs/woodenBox.jpg';
 //鍵
 import imgKey from './objs/kagi.png';
+//はしご
+import imgHashigo from './objs/hashigo_wood.png';
+//化け猫
+import imgCat from './objs/cat.png';
+//一つ目
+import imgOneEye from './objs/hitotsume.png';
+//青い火の玉
+import imgBlueFire from './objs/hinotama.png';
+//鬼
+import imgOni from './objs/oni.png';
+//仮面
+import imgMask from './objs/kamen.png';
+//ケルベロス
+import imgKerberos from './objs/kerberos.png';
+//ボス
+import imgBoss from './objs/badDog.png';
+//コウモリ
+import imgBat from './objs/bat.png';
 
 
 //背景画像//---------------------------
@@ -261,6 +279,13 @@ export default class Page2 extends React.Component {
                     "I think I saw the key in the water.\n" +
                     "Did you get the key in the water?",
 
+                //扉の部屋でシノに触った時のメッセージ
+                SHINO_SCROLL3_TITLE: "Doors are locked...",
+                SHINO_SCROLL3_MESSAGE:
+                    "Keys for these two doors must be in this castle!\n" +
+                    "The boss's room is just there.\n" +
+                    "We need two keys!",
+
                 //水中のカギに触った時のメッセージ
                 KEY_SCROLL_TITLE: "Key of the bath room",
                 KEY_SCROLL_MESSAGE:
@@ -269,7 +294,7 @@ export default class Page2 extends React.Component {
                     "Don't lose it!",
 
                 //鬼が守るカギに触った時のメッセージ
-                KEY2_SCROLL_TITLE: "Key of the boss room",
+                KEY2_SCROLL_TITLE: "Key of the boss's room",
                 KEY2_SCROLL_MESSAGE:
                     "This is the key of the boss's room.\n" +
                     "To enter the boss's room, you need to collect two keys!",
@@ -429,6 +454,9 @@ export default class Page2 extends React.Component {
                 if (this.objs[key].eachTime) {
                     this.objs[key].eachTime(this.ninja, key);
                 }
+
+                //ステージ遷移をしていたら、関数中止
+                if (stageChangedFlag && stageChangedFlag === "changed") { return; }
             }
             /* ↑　物体速度・位置計算　↑ */
 
@@ -1656,6 +1684,26 @@ export default class Page2 extends React.Component {
                           [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
 
+                    enemy1: {
+                        size: 13,
+                        posX: 104,
+                        xMax: 104,
+                        posY: 60,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
                     box1: {
                         size: 11,
                         posX: 85,
@@ -1800,11 +1848,6 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
 
-
-
-
-
-
                     leftGateWall: {
                         size: 300,
                         posX: -300,
@@ -1838,8 +1881,46 @@ export default class Page2 extends React.Component {
                     //ブロック
                     ...getBlocks(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
+                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
+
+                    enemy1: {
+                        size: 13,
+                        posX: 75,
+                        posY: 60,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBadNinja,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
+                    cat1: {
+                        size: 13,
+                        posX: 75,
+                        posY: 0,
+                        speedX: 1,
+                        speedY: 1.5,
+                        zIndex: 19,
+                        img: imgCat,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
 
                     rightGateWall: {
                         size: 300,
@@ -1874,9 +1955,28 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
                     //ブロック
                     ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
+                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [14, -1], [15, -1], [16, -1],
                         [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
+
+                    oni1: {
+                        size: 19,
+                        posX: 75,
+                        posY: 57,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgOni,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
 
                     rightGateWall: {
                         size: 300,
@@ -1896,6 +1996,18 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -310,
+                        zIndex: 30,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 50,
+                        nextY: 62,
+                        nextLeft: false,
+                        next: 14,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
@@ -1910,9 +2022,30 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
                     //ブロック
                     ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
+                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
+                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
+                        [13, 7], [14, 7], [15, 7], [16, 7], [17, 7]
                     ], onTouchBlock, imgWoodenBlock, 23),
+
+                    hitotsume1: {
+                        size: 12,
+                        posX: 110,
+                        posY: 7,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgOneEye,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeOneEye,
+                        life: 1,
+                    },
+
 
                     rightGateWall: {
                         size: 300,
@@ -1932,7 +2065,18 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -310,
+                        zIndex: 30,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 30,
+                        nextY: 62,
+                        nextLeft: false,
+                        next: 17,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
@@ -1944,8 +2088,68 @@ export default class Page2 extends React.Component {
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-                    ...this.objFloor,
 
+                    //ブロック
+                    ...getBlocks(10, [
+                        [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5], [13, -0.5], [14, -0.5],
+                        [-2, 0], [-1, 0], [0, 0],  [15, 0], [16, 0],
+                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
+                        [-2, 1], [-1, 1], [0, 1], [15, 1], [16, 1],
+                        [-2, 2], [-1, 2], [0, 2], [15, 2], [16, 2],
+                        [-2, 3], [-1, 3], [0, 3], [15, 3], [16, 3],
+                        [-2, 4], [-1, 4], [0, 4], [15, 4], [16, 4],
+                        [-2, 5], [-1, 5], [0, 5], [15, 5], [16, 5],
+                        [-2, 6], [-1, 6], [0, 6], [15, 6], [16, 6],
+                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
+
+                        [11.5, 2],
+                        [6, 3], [9, 3],
+                        [3, 5],
+                    ], onTouchBlock, imgWoodenBlock, 23),
+
+                    hitotsume1: {
+                        size: 12,
+                        posX: 116,
+                        posY: 8,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgOneEye,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeOneEye,
+                        life: 1,
+                    },
+
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -310,
+                        zIndex: 30,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 140,
+                        nextY: 62,
+                        nextLeft: true,
+                        next: 15,
+                        changeStage: this.props.changeStage,
+                    },
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 12,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage14;
@@ -1957,8 +2161,88 @@ export default class Page2 extends React.Component {
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-                    ...this.objFloor,
 
+                    box1: {
+                        size: 17,
+                        posX: 106,
+                        posY: 50,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
+                    key: {
+                        size: 10,
+                        posX: 107,
+                        posY: 57,
+                        zIndex: 20,
+                        img: imgKey,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.KEY3_SCROLL_TITLE,
+                        boolLeft: true,
+                    },
+                    keyScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.KEY3_SCROLL_TITLE,
+                        message: this.consts.KEY3_SCROLL_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgKey,
+                    },
+
+                    house1Pic: {
+                        size: 60,
+                        posX: 120,
+                        posY: 55,
+                        zIndex: 35,
+                        img: imgHouse1,
+                        onTouch: onTouchNothing,
+                    },
+                    house1Actual: {
+                        size: 60,
+                        posX: 120,
+                        posY: 67,
+                        onTouch: onTouchTree,
+                    },
+
+                    house2Pic: {
+                        size: 60,
+                        posX: 90,
+                        posY: 55,
+                        zIndex: 34,
+                        img: imgHouse1,
+                        onTouch: onTouchNothing,
+                    },
+                    houseActual: {
+                        size: 60,
+                        posX: 97,
+                        posY: 67,
+                        onTouch: onTouchTree,
+                    },
+
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 9,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 125,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage15;
@@ -1978,33 +2262,36 @@ export default class Page2 extends React.Component {
                         [2, 1], 
                         [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], 
 
-
                         [14, 2], [15, 2], [16, 2], [17, 2], 
                         [13, 3], [14, 3], [15, 3], [16, 3], [17, 3], 
                         [12, 4], [13, 4], [14, 4], [15, 4], [16, 4], [17, 4],  
                         [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5], 
                         [10, 6], [11, 6], [12, 6], [13, 6], [14, 6], [15, 6], [16, 6], [17, 6], 
-                        [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7], 
+                        [-2, 7],[-1, 7],[0, 7],[1, 7],[2, 7],[3, 7],[4, 7],[5, 7],[6, 7],[7, 7],[8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7], 
                     ], onTouchBlock, imgWoodenBlock, 23),
 
-                    box1: {
-                        size: 13,
-                        posX: 145,
-                        posY: 7,
-                        speedX: 0,
+                    oni1: {
+                        size: 58,
+                        posX: 180,
+                        posY: 20,
+                        speedX: 2,
                         speedY: 0,
-                        zIndex: 22,
-                        img: imgBox1,
+                        zIndex: 30,
+                        img: imgOni,
                         onTouch: onTouchBlock,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
+                        next: 5,
+                        changeStage: this.props.changeStage,
                         enemy: true,
-                        eachTime: eachTimeEnemy,
-                        life: 1,
+                        eachTime: eachTimeKimme,
                     },
 
                     key: {
                         size: 10,
                         posX: 147,
-                        posY: 9,
+                        posY: 10,
                         zIndex: 20,
                         img: imgKey,
                         onTouch: onTouchScrollOpener,
@@ -2047,8 +2334,167 @@ export default class Page2 extends React.Component {
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-                    ...this.objFloor,
 
+                    //ブロック
+                    ...getBlocks(10, [
+                        [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5],
+                        [1, 0.4], [2, 0.4], [3, 0.4], [4, 0.4], [5, 0.4], [6, 0.4], [7, 0.4],
+                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0], [10, 0],
+                        [-2, 1], [-1, 1], [0, 1], [15, 1], [16, 1], [10, 1],
+                        [-2, 2], [-1, 2], [0, 2], [15, 2], [16, 2], [10, 2],
+                        [-2, 3], [-1, 3], [0, 3], [15, 3], [16, 3], [10, 3],
+                        [-2, 4], [-1, 4], [0, 4], [15, 4], [16, 4],
+                        [-2, 5], [-1, 5], [0, 5], [15, 5], [16, 5],
+                        [-2, 6], [-1, 6], [0, 6], [15, 6], [16, 6],
+                        [-2, 7], [-1, 7], [0, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
+
+                        [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [5, 3.7], [6, 3.7], [7, 3.7], [8, 3.7], [9, 3.7], [10, 3.7],
+
+                        [4, 6], 
+
+                    ], onTouchBlock, imgWoodenBlock, 23),
+
+                    shino: {
+                        size: 10,
+                        posX: 15,
+                        posY: 24,
+                        zIndex: 17,
+                        img: imgShino,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.SHINO_SCROLL3_TITLE,
+                    },
+                    shinoScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.SHINO_SCROLL3_TITLE,
+                        message: this.consts.SHINO_SCROLL3_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgShino,
+                    },
+
+                    //はしご
+                    hashigoPic: {
+                        size: 20,
+                        posX: 122,
+                        posY: 4,
+                        zIndex: 20,
+                        img: imgHashigo,
+                        onTouch: onTouchNothing,
+                    },
+                    hashigo0: {
+                        size: 10,
+                        posX: 126,
+                        posY: 9,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        onTouch: onTouchTree,
+                    },
+                    hashigo1: {
+                        size: 10,
+                        posX: 126,
+                        posY: 27,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        onTouch: onTouchTree,
+                    },
+                    hashigo2: {
+                        size: 10,
+                        posX: 126,
+                        posY: 45,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        onTouch: onTouchTree,
+                    },
+
+                    box1: {
+                        size: 37,
+                        posX: 113,
+                        posY: -22,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+                    box2: {
+                        size: 37,
+                        posX: 113,
+                        posY: -4,
+                        speedX: 0,
+                        speedY: 0,
+                        zIndex: 22,
+                        img: imgBox1,
+                        onTouch: onTouchBlock,
+                        enemy: true,
+                        eachTime: eachTimeEnemy,
+                        life: 1,
+                    },
+
+                    door1: {
+                        size: 22,
+                        posX: 80,
+                        posY: 49,
+                        zIndex: 22,
+                        img: imgDoor,
+                        onTouch: onTouchLockedDoor,
+                        nextX: 60,
+                        nextY: 62,
+                        nextLeft: false,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        keyName: this.consts.KEY2_SCROLL_TITLE,
+                    },
+                    door2: {
+                        size: 22,
+                        posX: 60,
+                        posY: 16,
+                        zIndex: 22,
+                        img: imgDoor,
+                        onTouch: onTouchLockedDoor,
+                        nextX: 60,
+                        nextY: 62,
+                        nextLeft: false,
+                        next: 1,
+                        changeStage: this.props.changeStage,
+                        keyName: this.consts.KEY3_SCROLL_TITLE,
+                    },
+
+                    bottomGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: 80,
+                        zIndex: 30,
+                        next: 13,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 73,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                    },
+                    topGate: {
+                        size: 300,
+                        posX: -70,
+                        posY: -310,
+                        zIndex: 30,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 20,
+                        nextY: 62,
+                        nextLeft: false,
+                        next: 18,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage17;
@@ -2248,6 +2694,23 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
             posY: arrPos[index][1] * size,
             zIndex: zIndex,
             img: imgBlock,
+            onTouch: onTouch,
+        };
+    }
+    return objResult;
+}
+
+//ブロック生成関数（画像なし）
+function getBlocksNoPic(size, arrPos, onTouch, imgBlock, zIndex) {
+
+    let objResult = {};
+
+    for (let index in arrPos) {
+        objResult["objBlockNoPic" + index] = {
+            size: size,
+            posX: arrPos[index][0] * size,
+            posY: arrPos[index][1] * size,
+            zIndex: zIndex,
             onTouch: onTouch,
         };
     }
@@ -2548,6 +3011,55 @@ function eachTimeEnemy(ninja, key) {
         } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
             this.posY += this.speedY * (-1);
         }
+
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
+            if (ninja.game.objs["fireBall" + i]) {
+                //まだ消えていないFireBallについて
+
+                if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
+                    //敵がFireBallに触れた場合
+                    delete ninja.game.objs[key];
+                }
+            }
+        }
+    }
+}
+
+//=======================================
+// 一つ目小僧　タイムステップ毎
+//=======================================
+function eachTimeOneEye(ninja, key) {
+    if (this && this.enemy) {
+
+        //重複を防ぐために現在時刻をプロパティ名に
+        let day = new Date().getTime();
+
+        //5回に1回火の玉生成
+        var random1 = Math.floor(Math.random() * 6);
+        var random2 = Math.floor(Math.random() * 6);
+        var random3 = Math.floor(Math.random() * 6);
+        if (random1 === 0) {
+            ninja.game.objs["oneEye" + day] = {
+                size: 13,
+                posX: this.posX,
+                posY: this.posY,
+                speedX: random2/3,
+                speedY: random3/ 3,
+                zIndex: 5,
+                img: imgBlueFire,
+                next: 9,
+                onTouch: onTouchStageChangeCommon,
+                nextX: 125,
+                nextY: 0,
+                nextLeft: true,
+                changeStage: this.changeStage,
+                enemy: true,
+                eachTime: eachTimeEnemy,
+                life: 1,
+            };
+       }
+
+
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {

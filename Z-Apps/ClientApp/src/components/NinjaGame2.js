@@ -14,7 +14,7 @@ class NinjaGame extends React.Component {
         this.state = {
             language: "English",
             curPage: 1,
-            stage: 13,//デバッグ用（通常時1）★
+            stage: 14,//デバッグ用（通常時1）★
             //stage: 1,
             ninja: {
                 size: 12,
@@ -22,7 +22,7 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 60,
-                readScroll: ["火遁","Key of the bath room"],
+                readScroll: ["火遁", "Key of the bath room"],
                 //readScroll: [],
                 boolLeft: true,
             },
