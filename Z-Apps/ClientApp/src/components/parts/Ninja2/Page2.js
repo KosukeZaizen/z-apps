@@ -53,10 +53,6 @@ import imgOneEye from './objs/hitotsume.png';
 import imgBlueFire from './objs/hinotama.png';
 //鬼
 import imgOni from './objs/oni.png';
-//仮面
-import imgMask from './objs/kamen.png';
-//ケルベロス
-import imgKerberos from './objs/kerberos.png';
 //ボス
 import imgBoss from './objs/badDog.png';
 //コウモリ
@@ -2970,23 +2966,6 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
     return objResult;
 }
 
-//ブロック生成関数（画像なし）
-function getBlocksNoPic(size, arrPos, onTouch, imgBlock, zIndex) {
-
-    let objResult = {};
-
-    for (let index in arrPos) {
-        objResult["objBlockNoPic" + index] = {
-            size: size,
-            posX: arrPos[index][0] * size,
-            posY: arrPos[index][1] * size,
-            zIndex: zIndex,
-            onTouch: onTouch,
-        };
-    }
-    return objResult;
-}
-
 //穴が開いた床　生成関数
 function getHoleFloor(holeStart, holeEnd) {
 
@@ -3137,28 +3116,6 @@ function onTouchGateWall(ninja, from) {
 }
 
 //=======================================
-// 別ステージへのゲートのタッチ関数（上下）
-//=======================================
-function onTouchGateTopOrBottom(ninja, from) {
-
-    if (from === "upper") {
-        //上から
-        ninja.posY = 0;
-        ninja.speedX = 0;
-        ninja.speedY = 0;
-
-    } else if (from === "lower") {
-        //下から
-        ninja.posY += 70 - ninja.size;
-        ninja.speedX = 0;
-        ninja.speedY = -15;
-    }
-    this.changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
 function onTouchGateTop1(ninja, from) {
@@ -3218,17 +3175,6 @@ function onTouchStageChangeCommon(ninja, from) {
 
     return "changed";
 }
-
-//=======================================
-// 炎にタッチ
-//=======================================
-function onTouchFire(ninja) {
-    //ジャンプする
-    ninja.speedY = this.jumpHeight * (-1);
-}
-
-
-
 
 //------------------------------------------------------------
 //
