@@ -61,6 +61,13 @@ import imgKerberos from './objs/kerberos.png';
 import imgBoss from './objs/badDog.png';
 //コウモリ
 import imgBat from './objs/bat.png';
+//看板
+import imgKanban1 from './objs/kanban1.png';
+//看板の矢印
+import imgArrow1 from './objs/arrow1.png';
+//鳥居
+import imgTorii from './objs/torii.png';
+
 
 
 //背景画像//---------------------------
@@ -95,6 +102,8 @@ import stage17 from './img/background/wa3.jpg';
 import stage18 from './img/background/wa4.jpg';
 //stage19
 import stage19 from './img/background/boss.jpg';
+//stage19（クリア後）
+import stage19a from './img/background/afterBoss.jpg';
 //stage20
 import stage20 from './img/background/wa5.jpg';
 
@@ -231,19 +240,6 @@ export default class Page2 extends React.Component {
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
 
-                FIRE_SCROLL_TITLE: "火遁",
-
-
-            };
-
-        } else {
-            this.consts = {
-                timeStep: 100,
-
-                //操作ボタン
-                BUTTON: "btn btn-info btn-lg btn-block",
-
-
                 //屋根の上でポチに触った時のメッセージ
                 POCHI_SCROLL_TITLE: "Steal into the enemy's castle!",
                 POCHI_SCROLL_MESSAGE:
@@ -257,6 +253,20 @@ export default class Page2 extends React.Component {
                     "The best way to steal into the castle is going under the water!\n" +
                     "In the water, you can swim by pushing [jump] button many times!\n" +
                     "Don't touch the enemies! Good luck!",
+
+                //ボス部屋前でポチに触った時のメッセージ
+                POCHI_SCROLL3_TITLE: "Enemies' boss is there!",
+                POCHI_SCROLL3_MESSAGE:
+                    "The enemies' boss is in the next room!\n" +
+                    "Be careful. He is strong!\n" +
+                    "Don't touch the enemies! Good luck!",
+
+                //全クリ時にポチに触った時のメッセージ
+                POCHI_SCROLL4_TITLE: "You did it!",
+                POCHI_SCROLL4_MESSAGE:
+                    "You defeat the enemies!\n" +
+                    "You became such a strong Ninja!\n" +
+                    "That is the enemies' secret scroll. Take it!",
 
                 //火遁の巻物
                 FIRE_SCROLL_TITLE: "火遁",
@@ -305,6 +315,105 @@ export default class Page2 extends React.Component {
                     "This is the key of the boss's room.\n" +
                     "To enter the boss's room, you need to collect two keys!",
 
+                //最後の巻物に触った時のメッセージ
+                //天界でコウスケに触った時のメッセージ
+                KOSUKE_SCROLL_TITLE: "Congratulations!",
+                KOSUKE_SCROLL_MESSAGE:
+                    "I am the creater of this game!\n" +
+                    "You completed the game!\n" +
+                    "Thank you for playing!!!!",
+            };
+
+        } else {
+            this.consts = {
+                timeStep: 100,
+
+                //操作ボタン
+                BUTTON: "btn btn-info btn-lg btn-block",
+
+
+                //屋根の上でポチに触った時のメッセージ
+                POCHI_SCROLL_TITLE: "Steal into the enemy's castle!",
+                POCHI_SCROLL_MESSAGE:
+                    "Can you see the enemy's castle!?\n" +
+                    "Your mission is to steal into the castle, and steal the secret scroll!\n" +
+                    "Don't touch the enemies! Good luck!",
+
+                //水辺でポチに触った時のメッセージ
+                POCHI_SCROLL2_TITLE: "Go under the water!",
+                POCHI_SCROLL2_MESSAGE:
+                    "The best way to steal into the castle is going under the water!\n" +
+                    "In the water, you can swim by pushing [jump] button many times!\n" +
+                    "Don't touch the enemies! Good luck!",
+
+                //ボス部屋前でポチに触った時のメッセージ
+                POCHI_SCROLL3_TITLE: "Enemies' boss is there!",
+                POCHI_SCROLL3_MESSAGE:
+                    "The enemies' boss is in the next room!\n" +
+                    "Be careful. He is strong!\n" +
+                    "Don't touch the enemies! Good luck!",
+
+                //全クリ時にポチに触った時のメッセージ
+                POCHI_SCROLL4_TITLE: "You did it!",
+                POCHI_SCROLL4_MESSAGE:
+                    "You defeat the enemies!\n" +
+                    "You became such a strong Ninja!\n" +
+                    "That is the enemies' secret scroll. Take it!",
+
+                //火遁の巻物
+                FIRE_SCROLL_TITLE: "火遁",
+                FIRE_SCROLL_MESSAGE:
+                    "This is the scroll to learn 'Fire Ball'.\n" +
+                    "Push [<] button and [>] button at the same time.\n" +
+                    "You can defeat the enemies, using Fire Ball.",
+
+                //階段のシノに触った時のメッセージ
+                SHINO_SCROLL_TITLE: "Hello!",
+                SHINO_SCROLL_MESSAGE:
+                    "Now, you can use Fire Ball.\n" +
+                    "When you find a wooden box, you should use fire.\n" +
+                    "It will burn the box, and you can see the inside.",
+
+                //風呂場でシノに触った時のメッセージ
+                SHINO_SCROLL2_TITLE: "Do you have the key?",
+                SHINO_SCROLL2_MESSAGE:
+                    "The door is locked!\n" +
+                    "I think I saw the key in the water.\n" +
+                    "Did you get the key in the water?",
+
+                //扉の部屋でシノに触った時のメッセージ
+                SHINO_SCROLL3_TITLE: "Doors are locked...",
+                SHINO_SCROLL3_MESSAGE:
+                    "Keys for these two doors must be in this castle!\n" +
+                    "The boss's room is just there.\n" +
+                    "We need two keys!",
+
+                //水中のカギに触った時のメッセージ
+                KEY_SCROLL_TITLE: "Key of the bath room",
+                KEY_SCROLL_MESSAGE:
+                    "You got the key of the bath room!\n" +
+                    "You will use this to enter the castle.\n" +
+                    "Don't lose it!",
+
+                //鬼が守るカギに触った時のメッセージ
+                KEY2_SCROLL_TITLE: "Key of the boss's room",
+                KEY2_SCROLL_MESSAGE:
+                    "This is the key of the boss's room.\n" +
+                    "To enter the boss's room, you need to collect two keys!",
+
+                //屋根裏のカギに触った時のメッセージ
+                KEY3_SCROLL_TITLE: "Key to enter the boss's room!",
+                KEY3_SCROLL_MESSAGE:
+                    "This is the key of the boss's room.\n" +
+                    "To enter the boss's room, you need to collect two keys!",
+
+                //最後の巻物に触った時のメッセージ
+                //天界でコウスケに触った時のメッセージ
+                KOSUKE_SCROLL_TITLE: "Congratulations!",
+                KOSUKE_SCROLL_MESSAGE:
+                    "I am the creater of this game!\n" +
+                    "You completed the game!\n" +
+                    "Thank you for playing!!!!",
             };
         }
 
@@ -2508,6 +2617,58 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    pochi: {
+                        size: 10,
+                        posX: 73,
+                        posY: 62,
+                        zIndex: 20,
+                        img: imgPochi,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.POCHI_SCROLL3_TITLE,
+                    },
+                    pochiScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.POCHI_SCROLL3_TITLE,
+                        message: this.consts.POCHI_SCROLL3_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgPochi,
+                    },
+
+                    kanban1Pic: {
+                        size: 20,
+                        posX: 130,
+                        posY: 60,
+                        zIndex: 10,
+                        img: imgKanban1,
+                        onTouch: onTouchNothing,
+                    },
+                    kanban1ArrowPic: {
+                        size: 10,
+                        posX: 135,
+                        posY: 63,
+                        boolLeft: false,
+                        zIndex: 11,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    },
+
+
+                    rightGateWall: {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 19,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.props.changeStage,
+                    },
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage18;
@@ -2521,6 +2682,67 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
+                    boss: {
+                        size: 12,
+                        posX: 72,
+                        posY: 4,
+                        speedX: 2,
+                        speedY: 0,
+                        zIndex: 19,
+                        img: imgBoss,
+                        next: 18,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 10,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                        enemy: true,
+                        eachTime: eachTimeBoss,
+                        life: 1,
+                    },
+
+                    toriiPic: {
+                        size: 120,
+                        posX: 17,
+                        posY: 3,
+                        zIndex: 0,
+                        img: imgTorii,
+                        onTouch: onTouchNothing,
+                    },
+                    toriiActual: {
+                        size: 120,
+                        posX: 35,
+                        posY: 9,
+                        zIndex: 10,
+                        onTouch: onTouchTree,
+                    },
+
+                    //バグで床が抜けたとき用
+                    bottomGate1: {
+                        size: 300,
+                        posX: -70,
+                        posY: 90,
+                        zIndex: 30,
+                        next: 18,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 10,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                    },
+                    bottomGate2: {
+                        size: 1160,
+                        posX: -500,
+                        posY: 150,
+                        zIndex: 30,
+                        next: 18,
+                        onTouch: onTouchStageChangeCommon,
+                        nextX: 10,
+                        nextY: 0,
+                        nextLeft: true,
+                        changeStage: this.props.changeStage,
+                    },
+
                 }
                 //ステージの背景画像を設定
                 this.bgImg = stage19;
@@ -2533,6 +2755,54 @@ export default class Page2 extends React.Component {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
                     ...this.objFloor,
+
+                    kosuke: {
+                        size: 10,
+                        posX: 85,
+                        posY: 65,
+                        zIndex: 17,
+                        img: imgScroll,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.KOSUKE_SCROLL_TITLE,
+                    },
+                    kosukeScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.KOSUKE_SCROLL_TITLE,
+                        message: this.consts.KOSUKE_SCROLL_MESSAGE,
+                        fontSize: 3,
+                        finalMessage: true,
+                    },
+
+                    pochi: {
+                        size: 10,
+                        posX: 53,
+                        posY: 62,
+                        zIndex: 20,
+                        img: imgPochi,
+                        onTouch: onTouchScrollOpener,
+                        openTargetTitle: this.consts.POCHI_SCROLL4_TITLE,
+                    },
+                    pochiScroll: {
+                        size: 150,
+                        posX: 5,
+                        posY: 5,
+                        zIndex: 1000,
+                        img: imgScrollOpen,
+                        scroll: true,
+                        visible: false,
+                        onTouch: onTouchNothing,
+                        title: this.consts.POCHI_SCROLL4_TITLE,
+                        message: this.consts.POCHI_SCROLL4_MESSAGE,
+                        fontSize: 3,
+                        speakerImg: imgPochi,
+                    },
 
                 }
                 //ステージの背景画像を設定
@@ -3047,10 +3317,10 @@ function eachTimeOneEye(ninja, key) {
                 speedY: random3/ 3,
                 zIndex: 5,
                 img: imgBlueFire,
-                next: 9,
+                next: this.next,
                 onTouch: onTouchStageChangeCommon,
-                nextX: 125,
-                nextY: 0,
+                nextX: this.nextX,
+                nextY: this.nextY,
                 nextLeft: true,
                 changeStage: this.changeStage,
                 enemy: true,
@@ -3059,13 +3329,166 @@ function eachTimeOneEye(ninja, key) {
             };
        }
 
-
+        //Y軸について、忍者を追いかける
+        if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
+            this.posY += this.speedY;
+        } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
+            this.posY += this.speedY * (-1);
+        }
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
 
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
+                    //敵がFireBallに触れた場合
+                    delete ninja.game.objs[key];
+                }
+            }
+        }
+    }
+}
+
+//=======================================
+// ボス　タイムステップ毎
+//=======================================
+function eachTimeBoss(ninja, key) {
+    if (this && this.enemy) {
+
+        //重複を防ぐために現在時刻をプロパティ名に
+        let day = new Date().getTime();
+
+        //5回に1回コウモリ生成
+        let random1 = Math.floor(Math.random() * 6);
+        let random2 = Math.floor(Math.random() * 6);
+        let random3 = Math.floor(Math.random() * 6);
+
+        if (random1 * random2 === 9) {
+            ninja.game.objs["bat" + day] = {
+                size: 13,
+                posX: this.posX,
+                posY: this.posY,
+                speedX: random2 /3,
+                speedY: random3 /3,
+                zIndex: 5,
+                img: imgBat,
+                next: 18,
+                onTouch: onTouchStageChangeCommon,
+                nextX: 10,
+                nextY: 0,
+                nextLeft: false,
+                changeStage: this.changeStage,
+                enemy: true,
+                eachTime: eachTimeEnemy,
+                life: 1,
+            };
+        }
+
+        let random4 = Math.floor(Math.random() * 6);
+
+        //625回に2回　一つ目生成
+        if (random1 * random2 * random3 * random4 === 27) {
+            //全部３　右から
+            ninja.game.objs["hitotsumeR" + day] = {
+                size: 12,
+                posX: 147,
+                xMin: 147,
+                posY: -12,
+                speedX: 0,
+                speedY: 0.5,
+                zIndex: 5,
+                img: imgOneEye,
+                next: 18,
+                onTouch: onTouchStageChangeCommon,
+                nextX: 10,
+                nextY: 0,
+                nextLeft: false,
+                changeStage: this.changeStage,
+                enemy: true,
+                eachTime: eachTimeOneEye,
+                life: 1,
+            };
+        }
+        if (random1 * random2 * random3 * random4 === 625) {
+            //全部７　左から
+            ninja.game.objs["hitotsumeL" + day] = {
+                size: 12,
+                posX: 1,
+                xMax: 1,
+                posY: -12,
+                speedX: 0,
+                speedY: 0.5,
+                zIndex: 5,
+                img: imgOneEye,
+                next: 18,
+                onTouch: onTouchStageChangeCommon,
+                nextX: 10,
+                nextY: 0,
+                nextLeft: false,
+                changeStage: this.changeStage,
+                enemy: true,
+                eachTime: eachTimeOneEye,
+                life: 1,
+            };
+        }
+
+        let random5 = Math.floor(Math.random() * 6);
+
+        if (random4 * random5 === 9 || random4 * random5 === 25) {
+            //ボックス
+            ninja.game.objs["box" + day] = {
+                size: 5 * random1,
+                posX: (32 * random2) - (5 * random1),
+                posY: (11 * random3) - (5 * random1) + 40,
+                speedX: 0,
+                speedY: 0,
+                zIndex: 22,
+                img: imgBox1,
+                onTouch: onTouchBlock,
+                enemy: true,
+                eachTime: eachTimeEnemy,
+                life: 1,
+            };
+        }
+
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
+            if (ninja.game.objs["fireBall" + i]) {
+                //まだ消えていないFireBallについて
+
+                if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
+
+                    ninja.game.objs["rightGateWall"] = {
+                        size: 300,
+                        posX: 160,
+                        posY: -200,
+                        zIndex: 30,
+                        next: 20,
+                        onTouch: onTouchGateWall,
+                        changeStage: this.changeStage,
+                    };
+
+                    ninja.game.objs["kanban1Pic"] = {
+                        size: 20,
+                        posX: 130,
+                        posY: 60,
+                        zIndex: 24,
+                        img: imgKanban1,
+                        onTouch: onTouchNothing,
+                    };
+
+                    ninja.game.objs["kanban1ArrowPic"] = {
+                        size: 10,
+                        posX: 135,
+                        posY: 63,
+                        boolLeft: false,
+                        zIndex: 24,
+                        img: imgArrow1,
+                        onTouch: onTouchNothing,
+                    };
+
+                    //背景変更
+                    ninja.game.bgImg = stage19a;
+
                     //敵がFireBallに触れた場合
                     delete ninja.game.objs[key];
                 }
