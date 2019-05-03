@@ -536,18 +536,26 @@ export default class Page2 extends React.Component {
 
                 //忍者が上から
                 if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                    //ステージ遷移をしていたら、関数中止
+                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
                     stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
                 }
                 //忍者が右から
                 if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                    //ステージ遷移をしていたら、関数中止
+                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
                     stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
                 }
                 //忍者が下から
                 if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                    //ステージ遷移をしていたら、関数中止
+                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
                     stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
                 }
                 //忍者が左から
                 if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                    //ステージ遷移をしていたら、関数中止
+                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
                     stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
                 }
 
@@ -3347,7 +3355,7 @@ function eachTimeBoss(ninja, key) {
             };
         }
         if (random1 * random2 * random3 * random4 === 625) {
-            //全部７　全部5　⇒　左から
+            //全部5　⇒　左から
             ninja.game.objs["hitotsumeL" + day] = {
                 size: 12,
                 posX: 1,
