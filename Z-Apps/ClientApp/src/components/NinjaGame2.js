@@ -22,8 +22,7 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 60,
-                readScroll: ["火遁", "Key of the bath room"],
-                //readScroll: [],
+                readScroll: [],
                 boolLeft: true,
             },
         };

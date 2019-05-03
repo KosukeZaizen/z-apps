@@ -237,87 +237,86 @@ export default class Page2 extends React.Component {
                 BUTTON: "btn btn-info btn-lg btn-block",
 
                 //屋根の上でポチに触った時のメッセージ
-                POCHI_SCROLL_TITLE: "Steal into the enemy's castle!",
+                POCHI_SCROLL_TITLE: "あれが敵の城じゃ！",
                 POCHI_SCROLL_MESSAGE:
-                    "Can you see the enemy's castle!?\n" +
-                    "Your mission is to steal into the castle, and steal the secret scroll!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "今回のお主の任務は、敵の城に忍び込み、\n" +
+                    "敵の忍者の長を倒すことである。\n" +
+                    "敵の手下捕まるでないぞ！検討を祈る！",
 
                 //水辺でポチに触った時のメッセージ
-                POCHI_SCROLL2_TITLE: "Go under the water!",
+                POCHI_SCROLL2_TITLE: "水路を使うがよい",
                 POCHI_SCROLL2_MESSAGE:
-                    "The best way to steal into the castle is going under the water!\n" +
-                    "In the water, you can swim by pushing [jump] button many times!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "敵の城に忍び込むには、地下水路を使うのが良さそうじゃ。\n" +
+                    "水中では [jump]ボタン を何度も押すことで、浮上できるぞ。\n" +
+                    "さらに「火遁」は水中でも使える！検討を祈る！",
 
                 //ボス部屋前でポチに触った時のメッセージ
-                POCHI_SCROLL3_TITLE: "Enemies' boss is there!",
+                POCHI_SCROLL3_TITLE: "敵のボスはすぐそこじゃ！",
                 POCHI_SCROLL3_MESSAGE:
-                    "The enemies' boss is in the next room!\n" +
-                    "Be careful. He is strong!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "敵のボスに炎を当てればお主の勝ちじゃ！\n" +
+                    "[<]ボタン と [>]ボタン を押しっぱなしにして\n" +
+                    "火を吹いている間は、奴の手下どもの攻撃を受けないぞ！",
 
                 //全クリ時にポチに触った時のメッセージ
-                POCHI_SCROLL4_TITLE: "You did it!",
+                POCHI_SCROLL4_TITLE: "よくやった！",
                 POCHI_SCROLL4_MESSAGE:
-                    "You defeat the enemies!\n" +
-                    "You became such a strong Ninja!\n" +
-                    "That is the enemies' secret scroll. Take it!",
+                    "ついにやつを倒したな！\n" +
+                    "お主ももう、立派な忍者じゃ。\n" +
+                    "これが敵の秘伝の巻物である。",
 
                 //火遁の巻物
                 FIRE_SCROLL_TITLE: "火遁",
                 FIRE_SCROLL_MESSAGE:
-                    "This is the scroll to learn 'Fire Ball'.\n" +
-                    "Push [<] button and [>] button at the same time.\n" +
-                    "You can defeat the enemies, using Fire Ball.",
+                    "火遁の術を学ぶための巻物。\n" +
+                    "[<]ボタン と [>]ボタン を同時に押すことで、火の玉を飛ばせるぞ。\n" +
+                    "敵に当てることで、敵を倒すことができる！",
 
                 //階段のシノに触った時のメッセージ
-                SHINO_SCROLL_TITLE: "Hello!",
+                SHINO_SCROLL_TITLE: "調子はどう？",
                 SHINO_SCROLL_MESSAGE:
-                    "Now, you can use Fire Ball.\n" +
-                    "When you find a wooden box, you should use fire.\n" +
-                    "It will burn the box, and you can see the inside.",
+                    "貴方も火遁が使えるようになったのね。\n" +
+                    "木の箱を見付けたら、炎をぶつけてみると良いわ。\n" +
+                    "箱を壊して、中身を確認することができるわ。",
 
                 //風呂場でシノに触った時のメッセージ
-                SHINO_SCROLL2_TITLE: "Do you have the key?",
+                SHINO_SCROLL2_TITLE: "鍵が必要なようね。",
                 SHINO_SCROLL2_MESSAGE:
-                    "The door is locked!\n" +
-                    "I think I saw the key in the water.\n" +
-                    "Did you get the key in the water?",
+                    "城に入るための扉には鍵がかかっているわ。\n" +
+                    "確か水の中で鍵を見た気がするけど…\n" +
+                    "あなた、水路で鍵を拾ったりした？",
 
                 //扉の部屋でシノに触った時のメッセージ
-                SHINO_SCROLL3_TITLE: "Doors are locked...",
+                SHINO_SCROLL3_TITLE: "鍵がかかっているわね...",
                 SHINO_SCROLL3_MESSAGE:
-                    "Keys for these two doors must be in this castle!\n" +
-                    "The boss's room is just there.\n" +
-                    "We need two keys!",
+                    "２つの扉の鍵は、この城のどこかにあるはず…\n" +
+                    "扉を開けてあの箱を燃やせれば、はしごを登れそうね。\n" +
+                    "敵のボスの部屋はすぐそこよ！",
 
                 //水中のカギに触った時のメッセージ
-                KEY_SCROLL_TITLE: "Key of the bath room",
+                KEY_SCROLL_TITLE: "浴場の鍵",
                 KEY_SCROLL_MESSAGE:
-                    "You got the key of the bath room!\n" +
-                    "You will use this to enter the castle.\n" +
-                    "Don't lose it!",
+                    "城の風呂場の鍵を手に入れた！\n" +
+                    "城に侵入する際に使おう！\n" +
+                    "なくすでないぞ！",
 
                 //鬼が守るカギに触った時のメッセージ
-                KEY2_SCROLL_TITLE: "Key of the boss's room",
+                KEY2_SCROLL_TITLE: "ボスの部屋の鍵",
                 KEY2_SCROLL_MESSAGE:
-                    "This is the key of the boss's room.\n" +
-                    "To enter the boss's room, you need to collect two keys!",
+                    "敵のボスがいる部屋への扉を開ける鍵。\n" +
+                    "２つの鍵が必要。",
 
                 //屋根裏のカギに触った時のメッセージ
-                KEY3_SCROLL_TITLE: "Key to enter the boss's room!",
+                KEY3_SCROLL_TITLE: "ボス部屋の鍵",
                 KEY3_SCROLL_MESSAGE:
-                    "This is the key of the boss's room.\n" +
-                    "To enter the boss's room, you need to collect two keys!",
+                    "敵のボスの部屋への扉を通るための鍵。\n" +
+                    "２つの鍵を集めると、ボスの部屋に入れる。",
 
                 //最後の巻物に触った時のメッセージ
-                //天界でコウスケに触った時のメッセージ
-                KOSUKE_SCROLL_TITLE: "Congratulations!",
+                KOSUKE_SCROLL_TITLE: "おめでとう！",
                 KOSUKE_SCROLL_MESSAGE:
-                    "I am the creater of this game!\n" +
-                    "You completed the game!\n" +
-                    "Thank you for playing!!!!",
+                    "全クリおめでとう！\n" +
+                    "これで君も立派な忍者だ！\n" +
+                    "このゲームで遊んでくれて、ありがとう！",
             };
 
         } else {
@@ -329,79 +328,79 @@ export default class Page2 extends React.Component {
 
 
                 //屋根の上でポチに触った時のメッセージ
-                POCHI_SCROLL_TITLE: "Steal into the enemy's castle!",
+                POCHI_SCROLL_TITLE: "Sneak into the enemy's castle!",
                 POCHI_SCROLL_MESSAGE:
                     "Can you see the enemy's castle!?\n" +
-                    "Your mission is to steal into the castle, and steal the secret scroll!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "Your mission is to sneak into the castle, and steal the secret scroll!\n" +
+                    "Don't touch the enemy! Good luck!",
 
                 //水辺でポチに触った時のメッセージ
                 POCHI_SCROLL2_TITLE: "Go under the water!",
                 POCHI_SCROLL2_MESSAGE:
-                    "The best way to steal into the castle is going under the water!\n" +
+                    "The best way to sneak into the castle is by going under the water!\n" +
                     "In the water, you can swim by pushing [jump] button many times!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "Don't touch the enemy! Good luck!",
 
                 //ボス部屋前でポチに触った時のメッセージ
-                POCHI_SCROLL3_TITLE: "Enemies' boss is there!",
+                POCHI_SCROLL3_TITLE: "The boss is there!",
                 POCHI_SCROLL3_MESSAGE:
-                    "The enemies' boss is in the next room!\n" +
-                    "Be careful. He is strong!\n" +
-                    "Don't touch the enemies! Good luck!",
+                    "If your fire hits the Boss, you will win!\n" +
+                    "While using fire pushing [<] button and [>] button,\n" +
+                    "enemies cannot touch you! Good luck!",
 
                 //全クリ時にポチに触った時のメッセージ
                 POCHI_SCROLL4_TITLE: "You did it!",
                 POCHI_SCROLL4_MESSAGE:
-                    "You defeat the enemies!\n" +
-                    "You became such a strong Ninja!\n" +
-                    "That is the enemies' secret scroll. Take it!",
+                    "You defeated the enemy!\n" +
+                    "You have become such a strong Ninja!\n" +
+                    "That is the enemy's secret scroll. Take it!",
 
                 //火遁の巻物
                 FIRE_SCROLL_TITLE: "火遁",
                 FIRE_SCROLL_MESSAGE:
                     "This is the scroll to learn 'Fire Ball'.\n" +
                     "Push [<] button and [>] button at the same time.\n" +
-                    "You can defeat the enemies, using Fire Ball.",
+                    "You can defeat the enemy using Fire Ball.",
 
                 //階段のシノに触った時のメッセージ
                 SHINO_SCROLL_TITLE: "Hello!",
                 SHINO_SCROLL_MESSAGE:
                     "Now, you can use Fire Ball.\n" +
                     "When you find a wooden box, you should use fire.\n" +
-                    "It will burn the box, and you can see the inside.",
+                    "It will burn the box, and you can see what's inside.",
 
                 //風呂場でシノに触った時のメッセージ
                 SHINO_SCROLL2_TITLE: "Do you have the key?",
                 SHINO_SCROLL2_MESSAGE:
                     "The door is locked!\n" +
                     "I think I saw the key in the water.\n" +
-                    "Did you get the key in the water?",
+                    "Did you find the key?",
 
                 //扉の部屋でシノに触った時のメッセージ
-                SHINO_SCROLL3_TITLE: "Doors are locked...",
+                SHINO_SCROLL3_TITLE: "The doors are locked...",
                 SHINO_SCROLL3_MESSAGE:
-                    "Keys for these two doors must be in this castle!\n" +
-                    "The boss's room is just there.\n" +
-                    "We need two keys!",
+                    "The keys for these two doors must be in this castle!\n" +
+                    "The boss's room is just there. We need two keys!\n" +
+                    "You should burn the wooden boxes to climb the ladder.",
 
                 //水中のカギに触った時のメッセージ
-                KEY_SCROLL_TITLE: "Key of the bath room",
+                KEY_SCROLL_TITLE: "Key to the bath room",
                 KEY_SCROLL_MESSAGE:
                     "You got the key of the bath room!\n" +
                     "You will use this to enter the castle.\n" +
                     "Don't lose it!",
 
                 //鬼が守るカギに触った時のメッセージ
-                KEY2_SCROLL_TITLE: "Key of the boss's room",
+                KEY2_SCROLL_TITLE: "Key of the Boss's room",
                 KEY2_SCROLL_MESSAGE:
-                    "This is the key of the boss's room.\n" +
-                    "To enter the boss's room, you need to collect two keys!",
+                    "This is the key to the Boss's room.\n" +
+                    "To enter the Boss's room, you need to collect two keys!",
 
                 //屋根裏のカギに触った時のメッセージ
                 KEY3_SCROLL_TITLE: "Key to enter the boss's room!",
                 KEY3_SCROLL_MESSAGE:
-                    "This is the key of the boss's room.\n" +
-                    "To enter the boss's room, you need to collect two keys!",
+                    "This is the key to the Boss's room.\n" +
+                    "To enter the Boss's room, you need to collect two keys!",
 
                 //最後の巻物に触った時のメッセージ
                 //天界でコウスケに触った時のメッセージ
@@ -1028,7 +1027,7 @@ export default class Page2 extends React.Component {
                 this.objs = {
                     ...this.objOutOfScreen,
                     ...this.objWalls,
-                    ...getHoleFloor(80,130),
+                    ...getHoleFloor(80, 130),
 
                     rock1Pic: {
                         size: 40,
@@ -1262,16 +1261,8 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
-                    key: {
-                        size: 10,
-                        posX: 120,
-                        posY: 20,
-                        zIndex: 20,
-                        img: imgKey,
-                        onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.KEY_SCROLL_TITLE,
-                        boolLeft: true,
-                    },
+                    ...getKeys(this.ninja, 120, 20, 20, this.consts.KEY_SCROLL_TITLE),
+
                     keyScroll: {
                         size: 150,
                         posX: 5,
@@ -1295,8 +1286,8 @@ export default class Page2 extends React.Component {
                         [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
                         [10, 4], [11, 4], [12, 4], [13, 4], [14, 4], [15, 4], [16, 4],
                         [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [10, 5], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5],
-                        [2, 6], [3, 6],[4, 6], [5, 6],[6, 6], [7, 6],
-                        [1, 7], [0, 7], [2, 7], [3, 7],[4, 7], [5, 7],[6, 7], [7, 7],
+                        [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6],
+                        [1, 7], [0, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7],
                     ], onTouchBlock, imgBlock1, 23),
 
                     box1: {
@@ -1403,7 +1394,7 @@ export default class Page2 extends React.Component {
                         [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                         [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
                         [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [15, 4], [16, 4],
-                        [-1, 5],[0, 5],[1, 5]
+                        [-1, 5], [0, 5], [1, 5]
                     ], onTouchBlock, imgBlock1, 23),
 
                     kani1: {
@@ -1433,10 +1424,10 @@ export default class Page2 extends React.Component {
                         zIndex: 19,
                         img: imgFugu,
                         onTouch: onTouchStageChangeCommon,
-                        nextX: 120,
-                        nextY: 53,
-                        nextLeft: true,
-                        next: 4,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
+                        next: 5,
                         changeStage: this.props.changeStage,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1451,10 +1442,10 @@ export default class Page2 extends React.Component {
                         zIndex: 19,
                         img: imgFugu,
                         onTouch: onTouchStageChangeCommon,
-                        nextX: 120,
-                        nextY: 53,
-                        nextLeft: true,
-                        next: 4,
+                        nextX: 100,
+                        nextY: 63,
+                        nextLeft: false,
+                        next: 5,
                         changeStage: this.props.changeStage,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1786,7 +1777,7 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
                     //ブロック
                     ...getBlocks(10, [
-                          [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
+                        [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
 
                     enemy1: {
@@ -1993,7 +1984,7 @@ export default class Page2 extends React.Component {
                         size: 13,
                         posX: 75,
                         posY: 60,
-                        speedX: 2,
+                        speedX: 1,
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
@@ -2068,7 +2059,7 @@ export default class Page2 extends React.Component {
                         size: 19,
                         posX: 75,
                         posY: 57,
-                        speedX: 2,
+                        speedX: 1,
                         speedY: 0,
                         zIndex: 19,
                         img: imgOni,
@@ -2107,7 +2098,7 @@ export default class Page2 extends React.Component {
                         posY: -310,
                         zIndex: 30,
                         onTouch: onTouchStageChangeCommon,
-                        nextX: 50,
+                        nextX: 5,
                         nextY: 62,
                         nextLeft: false,
                         next: 14,
@@ -2197,15 +2188,15 @@ export default class Page2 extends React.Component {
                     //ブロック
                     ...getBlocks(10, [
                         [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5], [13, -0.5], [14, -0.5],
-                        [-2, 0], [-1, 0], [0, 0],  [15, 0], [16, 0],
+                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
                         [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
                         [-2, 1], [-1, 1], [0, 1], [15, 1], [16, 1],
                         [-2, 2], [-1, 2], [0, 2], [15, 2], [16, 2],
                         [-2, 3], [-1, 3], [0, 3], [15, 3], [16, 3],
                         [-2, 4], [-1, 4], [0, 4], [15, 4], [16, 4],
-                        [-2, 5], [-1, 5], [0, 5], [15, 5], [16, 5],
-                        [-2, 6], [-1, 6], [0, 6], [15, 6], [16, 6],
-                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
+                        [15, 5], [16, 5],
+                        [15, 6], [16, 6],
+                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
 
                         [11.5, 2],
                         [6, 3], [9, 3],
@@ -2243,10 +2234,10 @@ export default class Page2 extends React.Component {
                         next: 15,
                         changeStage: this.props.changeStage,
                     },
-                    bottomGate: {
+                    leftGate: {
                         size: 300,
-                        posX: -70,
-                        posY: 80,
+                        posX: -305,
+                        posY: -10,
                         zIndex: 30,
                         next: 12,
                         onTouch: onTouchStageChangeCommon,
@@ -2281,16 +2272,7 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
 
-                    key: {
-                        size: 10,
-                        posX: 107,
-                        posY: 57,
-                        zIndex: 20,
-                        img: imgKey,
-                        onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.KEY3_SCROLL_TITLE,
-                        boolLeft: true,
-                    },
+                    ...getKeys(this.ninja, 107, 57, 20, this.consts.KEY3_SCROLL_TITLE),
                     keyScroll: {
                         size: 150,
                         posX: 5,
@@ -2362,47 +2344,33 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
                     //ブロック
                     ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], 
-                        [2, 0], 
-                        [2, 1], 
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], 
+                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
+                        [2, 0],
+                        [2, 1],
+                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2],
 
-                        [14, 2], [15, 2], [16, 2], [17, 2], 
-                        [13, 3], [14, 3], [15, 3], [16, 3], [17, 3], 
-                        [12, 4], [13, 4], [14, 4], [15, 4], [16, 4], [17, 4],  
-                        [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5], 
-                        [10, 6], [11, 6], [12, 6], [13, 6], [14, 6], [15, 6], [16, 6], [17, 6], 
-                        [-2, 7],[-1, 7],[0, 7],[1, 7],[2, 7],[3, 7],[4, 7],[5, 7],[6, 7],[7, 7],[8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7], 
+                        [14, 2], [15, 2], [16, 2], [17, 2],
+                        [13, 3], [14, 3], [15, 3], [16, 3], [17, 3],
+                        [12, 4], [13, 4], [14, 4], [15, 4], [16, 4], [17, 4],
+                        [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5],
+                        [10, 6], [11, 6], [12, 6], [13, 6], [14, 6], [15, 6], [16, 6], [17, 6],
+                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7],
                     ], onTouchBlock, imgWoodenBlock, 23),
 
                     oni1: {
                         size: 58,
-                        posX: 180,
+                        posX: 70,
                         posY: 20,
-                        speedX: 2,
+                        speedX: 1.2,
                         speedY: 0,
                         zIndex: 30,
                         img: imgOni,
                         onTouch: onTouchBlock,
-                        nextX: 100,
-                        nextY: 63,
-                        nextLeft: false,
-                        next: 5,
-                        changeStage: this.props.changeStage,
                         enemy: true,
                         eachTime: eachTimeKimme,
                     },
 
-                    key: {
-                        size: 10,
-                        posX: 147,
-                        posY: 10,
-                        zIndex: 20,
-                        img: imgKey,
-                        onTouch: onTouchScrollOpener,
-                        openTargetTitle: this.consts.KEY2_SCROLL_TITLE,
-                        boolLeft: true,
-                    },
+                    ...getKeys(this.ninja, 147, 10, 20, this.consts.KEY2_SCROLL_TITLE),
                     keyScroll: {
                         size: 150,
                         posX: 5,
@@ -2455,7 +2423,7 @@ export default class Page2 extends React.Component {
 
                         [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [5, 3.7], [6, 3.7], [7, 3.7], [8, 3.7], [9, 3.7], [10, 3.7],
 
-                        [4, 6], 
+                        [4, 6],
 
                     ], onTouchBlock, imgWoodenBlock, 23),
 
@@ -2966,6 +2934,27 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
     return objResult;
 }
 
+//鍵　生成関数
+function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
+
+    let objResult = {};
+
+    if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
+        //まだ鍵を見付けていない場合のみ表示
+        objResult["key"] = {
+            size: 10,
+            posX: posX,
+            posY: posY,
+            zIndex: zIndex,
+            img: imgKey,
+            onTouch: onTouchScrollOpener,
+            openTargetTitle: openTargetTitle,
+            boolLeft: true,
+        };
+    }
+    return objResult;
+}
+
 //穴が開いた床　生成関数
 function getHoleFloor(holeStart, holeEnd) {
 
@@ -3092,7 +3081,7 @@ function onTouchLockedDoor(ninja, from) {
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-function onTouchNothing() {}
+function onTouchNothing() { }
 
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
@@ -3255,25 +3244,27 @@ function eachTimeOneEye(ninja, key) {
         var random2 = Math.floor(Math.random() * 6);
         var random3 = Math.floor(Math.random() * 6);
         if (random1 === 0) {
-            ninja.game.objs["oneEye" + day] = {
-                size: 13,
-                posX: this.posX,
-                posY: this.posY,
-                speedX: random2/3,
-                speedY: random3/ 3,
-                zIndex: 5,
-                img: imgBlueFire,
-                next: this.next,
-                onTouch: onTouchStageChangeCommon,
-                nextX: this.nextX,
-                nextY: this.nextY,
-                nextLeft: true,
-                changeStage: this.changeStage,
-                enemy: true,
-                eachTime: eachTimeEnemy,
-                life: 1,
-            };
-       }
+            if (random2 !== 0 && random3 !== 0) {
+                ninja.game.objs["oneEye" + day] = {
+                    size: 13,
+                    posX: this.posX,
+                    posY: this.posY,
+                    speedX: random2 / 5,
+                    speedY: random3 / 5,
+                    zIndex: 5,
+                    img: imgBlueFire,
+                    next: this.next,
+                    onTouch: onTouchStageChangeCommon,
+                    nextX: this.nextX,
+                    nextY: this.nextY,
+                    nextLeft: true,
+                    changeStage: this.changeStage,
+                    enemy: true,
+                    eachTime: eachTimeEnemy,
+                    life: 1,
+                };
+            }
+        }
 
         //Y軸について、忍者を追いかける
         if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
@@ -3314,8 +3305,8 @@ function eachTimeBoss(ninja, key) {
                 size: 13,
                 posX: this.posX,
                 posY: this.posY,
-                speedX: random2 /3,
-                speedY: random3 /3,
+                speedX: random3 / 3,
+                speedY: random2 / 3,
                 zIndex: 5,
                 img: imgBat,
                 next: 18,
@@ -3332,9 +3323,9 @@ function eachTimeBoss(ninja, key) {
 
         let random4 = Math.floor(Math.random() * 6);
 
-        //625回に2回　一つ目生成
+        //一つ目生成
         if (random1 * random2 * random3 * random4 === 27) {
-            //全部３　右から
+            //3が3つと1ひとつ　⇒　右から
             ninja.game.objs["hitotsumeR" + day] = {
                 size: 12,
                 posX: 147,
@@ -3356,7 +3347,7 @@ function eachTimeBoss(ninja, key) {
             };
         }
         if (random1 * random2 * random3 * random4 === 625) {
-            //全部７　左から
+            //全部７　全部5　⇒　左から
             ninja.game.objs["hitotsumeL" + day] = {
                 size: 12,
                 posX: 1,
@@ -3380,7 +3371,7 @@ function eachTimeBoss(ninja, key) {
 
         let random5 = Math.floor(Math.random() * 6);
 
-        if (random4 * random5 === 9 || random4 * random5 === 25) {
+        if (random4 * random5 === 4 || random4 * random5 === 9 || random4 * random5 === 25) {
             //ボックス
             ninja.game.objs["box" + day] = {
                 size: 5 * random1,
