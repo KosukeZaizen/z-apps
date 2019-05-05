@@ -65,7 +65,6 @@ import imgArrow1 from './objs/arrow1.png';
 import imgTorii from './objs/torii.png';
 
 
-
 //背景画像//---------------------------
 
 //stage1
@@ -337,7 +336,7 @@ export default class Page2 extends React.Component {
                 //水辺でポチに触った時のメッセージ
                 POCHI_SCROLL2_TITLE: "Go under the water!",
                 POCHI_SCROLL2_MESSAGE:
-                    "The best way to sneak into the castle is by going under the water!\n" +
+                    "Best way to sneak into the castle is by going under the water!\n" +
                     "In the water, you can swim by pushing [jump] button many times!\n" +
                     "Don't touch the enemy! Good luck!",
 
