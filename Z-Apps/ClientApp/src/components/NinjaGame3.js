@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Page1 } from './parts/Ninja2/Page1';
-import { Page2 } from './parts/Ninja2/Page2';
+import { Page1 } from './parts/Ninja3/Page1';
+import { Page2 } from './parts/Ninja3/Page2';
 import '../css/NinjaGame2.css';
 
 
