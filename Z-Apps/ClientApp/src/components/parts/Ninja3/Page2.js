@@ -111,6 +111,9 @@ export default class Page2 extends React.Component {
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;
 
+        //単位タイムステップ
+        this.timeStep = 0.5;
+
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
 
@@ -230,8 +233,6 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         if (this.props.language === "Japanese") {
             this.consts = {
-                timeStep: 100,
-
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
 
@@ -320,8 +321,6 @@ export default class Page2 extends React.Component {
 
         } else {
             this.consts = {
-                timeStep: 100,
-
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
 
@@ -494,7 +493,7 @@ export default class Page2 extends React.Component {
             }
 
             //重力加速度
-            this.ninja.speedY += this.ninja.inWater ? 1.1 : 2.1;
+            this.ninja.speedY += this.ninja.inWater ? 1.1 * this.timeStep : 2.1 * this.timeStep;
 
             //落下速度限界
             if (this.ninja.inWater) {
@@ -504,14 +503,14 @@ export default class Page2 extends React.Component {
                 }
             } else {
                 //陸上
-                if (this.ninja.speedY > 9) {
-                    this.ninja.speedY = 9;
+                if (this.ninja.speedY > 10.5) {
+                    this.ninja.speedY = 10.5;
                 }
             }
 
             //位置計算
-            this.ninja.posX += this.ninja.speedX;
-            this.ninja.posY += this.ninja.speedY;
+            this.ninja.posX += this.ninja.speedX * this.timeStep;
+            this.ninja.posY += this.ninja.speedY * this.timeStep;
 
 
             //オブジェクトとの接触判定
@@ -527,47 +526,23 @@ export default class Page2 extends React.Component {
                 //途中でステージ遷移したら、関数を中止するためのフラグ
                 let stageChangedFlag = "";
 
-                //オブジェクトの上下左右の端の位置
-                let objLeft = this.objs[key].posX;
-                let objRight = objLeft + this.objs[key].size;
-                let objTop = this.objs[key].posY;
-                let objFoot = objTop + this.objs[key].size;
+                //当たり判定と、相対位置の取得
+                let relativePos = checkRelativity(this.ninja, this.objs[key]);
 
-                //忍者が上から
-                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
-                }
-                //忍者が右から
-                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
-                }
-                //忍者が下から
-                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                    //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
-                }
-                //忍者が左から
-                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                    //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
+                //当たり判定結果確認
+                if (relativePos) {
+                    //当たり時の処理を実行
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, relativePos);
                 }
 
                 //ステージ遷移をしていたら、関数中止
-                if (stageChangedFlag && stageChangedFlag === "changed") { return; }
+                if (stageChangedFlag && stageChangedFlag === "changed") return;
 
-                //各タイムステップごとの処理を持っていれば、実行する
+                //敵などが各タイムステップごとの処理を持っていれば、実行する
+                //（ステージ遷移はしない）
                 if (this.objs[key].eachTime) {
                     this.objs[key].eachTime(this.ninja, key);
                 }
-
-                //ステージ遷移をしていたら、関数中止
-                if (stageChangedFlag && stageChangedFlag === "changed") { return; }
             }
             /* ↑　物体速度・位置計算　↑ */
 
@@ -591,7 +566,7 @@ export default class Page2 extends React.Component {
                     ninjaY: this.ninja.posY * this.UL,
                 }
             });
-        }, this.consts.timeStep);
+        }, this.timeStep*100);
     }
 
 
@@ -768,7 +743,7 @@ export default class Page2 extends React.Component {
                     house1Pic: {
                         size: 60,
                         posX: 120,
-                        posY: 55,
+                        posY: 35,
                         zIndex: 35,
                         img: imgHouse1,
                         onTouch: onTouchNothing,
@@ -776,7 +751,7 @@ export default class Page2 extends React.Component {
                     house1Actual: {
                         size: 60,
                         posX: 120,
-                        posY: 67,
+                        posY: 47,
                         onTouch: onTouchTree,
                     },
 
@@ -804,6 +779,7 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL_TITLE,
                     },
+                    /*
                     pochiScroll: {
                         size: 150,
                         posX: 5,
@@ -817,11 +793,11 @@ export default class Page2 extends React.Component {
                         message: this.consts.POCHI_SCROLL_MESSAGE,
                         fontSize: 3,
                         speakerImg: imgPochi,
-                    },
+                    },*/
 
                     bottomGate: {
                         size: 300,
-                        posX: -70,
+                        posX: -80,
                         posY: 80,
                         zIndex: 30,
                         next: 2,
@@ -1257,10 +1233,7 @@ export default class Page2 extends React.Component {
                 this.bgImg = stage5;
             } else if (this.props.stage === 6) {
 
-                this.ninja.inWater = true;
-
-
-                // ------------------------------------------------------------
+                 // ------------------------------------------------------------
                 // ステージ6 (水路１)
                 // ------------------------------------------------------------
                 this.objs = {
@@ -1286,7 +1259,7 @@ export default class Page2 extends React.Component {
                     },
 
                     //レンガのブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [6, 0], [7, 0], [8, 0], [9, 0], [10, 0],
                         [6, 1], [7, 1], [8, 1], [9, 1], [10, 1],
                         [6, 2], [7, 2], [8, 2], [9, 2], [10, 2],
@@ -1349,14 +1322,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                     },
 
-                    riverPic: {
-                        size: 200,
-                        posX: -20,
-                        posY: -20,
-                        divType: "water",
-                        zIndex: 24,
-                        onTouch: onTouchNothing,
-                    },
                     rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -1394,7 +1359,7 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
 
                     //レンガのブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [15, -1], [16, -1],
                         [15, 0], [16, 0],
                         [14, 1], [15, 1], [16, 1],
@@ -1570,7 +1535,7 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
 
                     //レンガのブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [-1, -2], [0, -2], [3, -2], [4, -2], [5, -2], [6, -2], [7, -2], [8, -2], [9, -2], [10, -2], [11, -2], [12, -2], [13, -2], [14, -2], [15, -2], [16, -2],
                         [-1, -1], [0, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                         [-1, 0], [0, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0],
@@ -1783,7 +1748,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
 
@@ -1982,7 +1947,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                         [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
@@ -2057,7 +2022,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [14, -1], [15, -1], [16, -1],
                         [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     ], onTouchBlock, imgWoodenBlock, 23),
@@ -2124,7 +2089,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                         [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                         [13, 7], [14, 7], [15, 7], [16, 7], [17, 7]
@@ -2183,7 +2148,7 @@ export default class Page2 extends React.Component {
                 }
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
-            } else if (this.props.stage === 14) {
+            } else if (this.props.stage === 1) {
 
                 // ------------------------------------------------------------
                 // ステージ14
@@ -2193,7 +2158,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
 
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5], [13, -0.5], [14, -0.5],
                         [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
                         [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
@@ -2209,7 +2174,7 @@ export default class Page2 extends React.Component {
                         [6, 3], [9, 3],
                         [3, 5],
                     ], onTouchBlock, imgWoodenBlock, 23),
-
+                    /*
                     hitotsume1: {
                         size: 12,
                         posX: 116,
@@ -2227,7 +2192,7 @@ export default class Page2 extends React.Component {
                         enemy: true,
                         eachTime: eachTimeOneEye,
                         life: 1,
-                    },
+                    },*/
 
                     topGate: {
                         size: 300,
@@ -2350,7 +2315,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
                         [2, 0],
                         [2, 1],
@@ -2416,7 +2381,7 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
 
                     //ブロック
-                    ...getBlocks(10, [
+                    ...getItems(10, [
                         [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5],
                         [1, 0.4], [2, 0.4], [3, 0.4], [4, 0.4], [5, 0.4], [6, 0.4], [7, 0.4],
                         [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0], [10, 0],
@@ -2919,17 +2884,51 @@ function checkTouch(obj1, obj2) {
             }
         }
     }
+    return false;
+}
 
+//相対位置判定
+function checkRelativity(obj1, obj2) {
+    //obj2から見たobj1の位置を返す関数
+    //石から見た忍者　等
+
+    if (checkTouch(obj1, obj2)) {
+        //かすっている
+
+        //中心座標計算
+        let obj1_center = [obj1.posX + (obj1.size / 2), obj1.posY + (obj1.size / 2)];
+        let obj2_center = [obj2.posX + (obj2.size / 2), obj2.posY + (obj2.size / 2)];
+
+        //2オブジェクトの中心間の差を計算
+        let dX = obj2_center[0] - obj1_center[0];
+        let dY = obj2_center[1] - obj1_center[1];
+
+        //0除算除外
+        if (dX === 0) {
+            //2つの物体のx座標が一致
+            return (dY > 0) ? "upper" : "lower";
+        }
+
+        //傾き
+        let a = dY / dX;
+
+        //傾きから相対位置判定
+        if (1 > a && a > -1) {
+            return (dX > 0) ? "left" : "right";
+        } else {
+            return (dY > 0) ? "upper" : "lower";
+        }
+    }
     return false;
 }
 
 //ブロック生成関数
-function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
+function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
 
     let objResult = {};
 
     for (let index in arrPos) {
-        objResult["objBlock" + index] = {
+        objResult["objItem" + index] = {
             size: size + 3,
             posX: arrPos[index][0] * size,
             posY: arrPos[index][1] * size,

@@ -9,8 +9,6 @@ class NinjaGame extends React.Component {
 
     constructor(props) {
         super(props);
-        this.consts = {
-        };
         this.state = {
             language: "English",
             curPage: 1,
@@ -22,7 +20,7 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 60,
-                readScroll: [],
+                readScroll: ["火遁"],
                 boolLeft: true,
             },
         };
