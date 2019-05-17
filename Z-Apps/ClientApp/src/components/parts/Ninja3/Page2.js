@@ -102,6 +102,11 @@ import stage19a from './img/background/afterBoss.jpg';
 //stage20
 import stage20 from './img/background/wa5.jpg';
 
+//単位タイムステップ
+const TIME_STEP = 0.5;
+
+//【Unit Length】このゲームの単位長さ
+let UL;
 
 export default class Page2 extends React.Component {
 
@@ -111,14 +116,11 @@ export default class Page2 extends React.Component {
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;
 
-        //単位タイムステップ
-        this.timeStep = 0.5;
-
         //画面の高さと幅を取得
         let pageSize = this.getWindowSize();
 
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
-        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+        UL = parseInt(pageSize.pageHeight, 10) / 90;
 
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
@@ -127,88 +129,6 @@ export default class Page2 extends React.Component {
 
         this.ninja.game = this;
 
-
-        //画面外を黒くする要素
-        this.objOutOfScreen = {
-            outOfScreenLeft: {
-                size: 300,
-                posX: -300,
-                posY: -200,
-                onTouch: onTouchNothing,
-                divType: "outOfScreen",
-            },
-            outOfScreenRight: {
-                size: 300,
-                posX: 160,
-                posY: -200,
-                onTouch: onTouchNothing,
-                divType: "outOfScreen",
-            },
-            outOfScreenTop: {
-                size: 260,
-                posX: -50,
-                posY: -260,
-                onTouch: onTouchNothing,
-                divType: "outOfScreen",
-            },
-            outOfScreenBottom: {
-                size: 260,
-                posX: -50,
-                posY: 90,
-                onTouch: onTouchNothing,
-                divType: "outOfScreen",
-            },
-        };
-
-        //全ステージ共通の壁（render内で設定）
-        this.objWalls = {
-            leftWall: {
-                size: 300,
-                posX: -310,
-                posY: -200,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            rightWall: {
-                size: 300,
-                posX: 170,
-                posY: -200,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-        };
-
-        //床（必要な場合、render内で設定）
-        this.objFloor = {
-            floor1: {
-                size: 200,
-                posX: -20,
-                posY: 79,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor2: {
-                size: 200,
-                posX: -20,
-                posY: 77,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor3: {
-                size: 200,
-                posX: -20,
-                posY: 76,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-            floor4: {
-                size: 200,
-                posX: -20,
-                posY: 75,
-                zIndex: 30,
-                onTouch: onTouchBlock,
-            },
-        };
 
         //背景の初期設定
         this.backgroundSetting = {
@@ -416,13 +336,13 @@ export default class Page2 extends React.Component {
         this.state = {
             screenStyle: {
                 width: pageSize.pageWidth,
-                height: pageSize.pageHeight - 15 * this.UL,
+                height: pageSize.pageHeight - 15 * UL,
                 ...this.backgroundSetting,
             },
             ninjaStat: {
                 left: true,
-                ninjaX: this.ninja.posX * this.UL,
-                ninjaY: this.ninja.posY * this.UL,
+                ninjaX: this.ninja.posX * UL,
+                ninjaY: this.ninja.posY * UL,
             }
         };
 
@@ -493,7 +413,7 @@ export default class Page2 extends React.Component {
             }
 
             //重力加速度
-            this.ninja.speedY += this.ninja.inWater ? 1.1 * this.timeStep : 2.1 * this.timeStep;
+            this.ninja.speedY += this.ninja.inWater ? 1.1 * TIME_STEP : 2.1 * TIME_STEP;
 
             //落下速度限界
             if (this.ninja.inWater) {
@@ -509,18 +429,11 @@ export default class Page2 extends React.Component {
             }
 
             //位置計算
-            this.ninja.posX += this.ninja.speedX * this.timeStep;
-            this.ninja.posY += this.ninja.speedY * this.timeStep;
+            this.ninja.posX += this.ninja.speedX * TIME_STEP;
+            this.ninja.posY += this.ninja.speedY * TIME_STEP;
 
 
             //オブジェクトとの接触判定
-
-            //忍者の上下左右の端の位置
-            let ninjaLeft = this.ninja.posX;
-            let ninjaRight = ninjaLeft + this.ninja.size;
-            let ninjaTop = this.ninja.posY;
-            let ninjaFoot = ninjaTop + this.ninja.size;
-
             for (let key in this.objs) {
 
                 //途中でステージ遷移したら、関数を中止するためのフラグ
@@ -551,22 +464,22 @@ export default class Page2 extends React.Component {
             let pageSize = this.getWindowSize();
 
             //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
-            this.UL = pageSize.pageHeight / 90;
+            UL = pageSize.pageHeight / 90;
 
             //物体の位置などを更新し、再描画
             this.setState({
                 screenStyle: {
                     width: pageSize.pageWidth,
-                    height: pageSize.pageHeight - 15 * this.UL,
+                    height: pageSize.pageHeight - 15 * UL,
                     ...this.backgroundSetting,
                 },
                 ninjaStat: {
                     left: this.ninja.boolLeft,
-                    ninjaX: this.ninja.posX * this.UL,
-                    ninjaY: this.ninja.posY * this.UL,
+                    ninjaX: this.ninja.posX * UL,
+                    ninjaY: this.ninja.posY * UL,
                 }
             });
-        }, this.timeStep*100);
+        }, TIME_STEP*100);
     }
 
 
@@ -701,23 +614,23 @@ export default class Page2 extends React.Component {
         //ボタンがあるテーブルのスタイル
         let controllerStyle = {
             position: "absolute",
-            top: 75 * this.UL,
+            top: 75 * UL,
             width: "100%",
             zIndex: "99999999",
             backgroundColor: "black",
         };
         //左右のボタンのスタイル
         let sideButtonStyle = {
-            width: 30 * this.UL,
-            height: 15 * this.UL,
-            fontSize: 4 * this.UL + "px",
+            width: 30 * UL,
+            height: 15 * UL,
+            fontSize: 4 * UL + "px",
             margin: "1px",
         };
         //ジャンプボタンのスタイル
         let jumpButtonStyle = {
-            width: 100 * this.UL,
-            height: 15 * this.UL,
-            fontSize: 4 * this.UL,
+            width: 100 * UL,
+            height: 15 * UL,
+            fontSize: 4 * UL,
             margin: "1px",
         };
 
@@ -737,22 +650,16 @@ export default class Page2 extends React.Component {
                 // ステージ1 (出発地点　屋根の上)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
 
-                    house1Pic: {
-                        size: 60,
-                        posX: 120,
-                        posY: 35,
-                        zIndex: 35,
-                        img: imgHouse1,
-                        onTouch: onTouchNothing,
-                    },
+                    ...getOnePic("house1Pic",60, 120, 35, imgHouse1, 35, onTouchNothing),
+
                     house1Actual: {
                         size: 60,
                         posX: 120,
                         posY: 47,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     house2Pic: {
@@ -767,7 +674,7 @@ export default class Page2 extends React.Component {
                         size: 60,
                         posX: 97,
                         posY: 67,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     pochi: {
@@ -779,7 +686,7 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL_TITLE,
                     },
-                    /*
+                    
                     pochiScroll: {
                         size: 150,
                         posX: 5,
@@ -793,7 +700,7 @@ export default class Page2 extends React.Component {
                         message: this.consts.POCHI_SCROLL_MESSAGE,
                         fontSize: 3,
                         speakerImg: imgPochi,
-                    },*/
+                    },
 
                     bottomGate: {
                         size: 300,
@@ -814,9 +721,9 @@ export default class Page2 extends React.Component {
                 // ステージ2 (ファイヤーボールの書)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     fireBallDummy: {
                         //FireBallの画像初期表示速度向上のためのダミー
@@ -890,15 +797,6 @@ export default class Page2 extends React.Component {
                         fontSize: 3,
                         speakerImg: imgShino,
                     },
-                    topGate: {
-                        size: 300,
-                        posX: -70,
-                        posY: -100,
-                        zIndex: 30,
-                        next: 1,
-                        onTouch: onTouchGateTop2,
-                        changeStage: this.props.changeStage,
-                    },
                     leftGateWall: {
                         size: 300,
                         posX: -300,
@@ -917,9 +815,9 @@ export default class Page2 extends React.Component {
                 // ステージ3 (鷲と白壁)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     washi1: {
                         size: 13,
@@ -1008,8 +906,8 @@ export default class Page2 extends React.Component {
                 // ステージ4 (岩に隠れた忍者たち)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
                     ...getHoleFloor(80, 130),
 
                     rock1Pic: {
@@ -1141,8 +1039,8 @@ export default class Page2 extends React.Component {
                 // ステージ5 (水辺の城)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
 
                     rock1Pic: {
                         size: 100,
@@ -1237,9 +1135,9 @@ export default class Page2 extends React.Component {
                 // ステージ6 (水路１)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     ...getKeys(this.ninja, 120, 20, 20, this.consts.KEY_SCROLL_TITLE),
 
@@ -1354,9 +1252,9 @@ export default class Page2 extends React.Component {
                 // ステージ7 (水路2)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     //レンガのブロック
                     ...getItems(10, [
@@ -1530,9 +1428,9 @@ export default class Page2 extends React.Component {
                 // ステージ8 (水路3)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     //レンガのブロック
                     ...getItems(10, [
@@ -1622,8 +1520,8 @@ export default class Page2 extends React.Component {
                 // ステージ9 (風呂場)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
                     ...getHoleFloor(0, 55),
 
                     shino: {
@@ -1744,9 +1642,9 @@ export default class Page2 extends React.Component {
                 // ステージ10 (脱衣所)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
                     //ブロック
                     ...getItems(10, [
                         [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
@@ -1943,9 +1841,10 @@ export default class Page2 extends React.Component {
                 // ステージ11 (2層　１)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
+
                     //ブロック
                     ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
@@ -2018,9 +1917,9 @@ export default class Page2 extends React.Component {
                 // ステージ12 (2層　２)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
                     //ブロック
                     ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [14, -1], [15, -1], [16, -1],
@@ -2085,9 +1984,9 @@ export default class Page2 extends React.Component {
                 // ステージ13 (2層　３)
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
                     //ブロック
                     ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
@@ -2154,8 +2053,8 @@ export default class Page2 extends React.Component {
                 // ステージ14
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
 
                     //ブロック
                     ...getItems(10, [
@@ -2227,8 +2126,8 @@ export default class Page2 extends React.Component {
                 // ステージ15
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
 
                     box1: {
                         size: 17,
@@ -2272,7 +2171,7 @@ export default class Page2 extends React.Component {
                         size: 60,
                         posX: 120,
                         posY: 67,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     house2Pic: {
@@ -2287,7 +2186,7 @@ export default class Page2 extends React.Component {
                         size: 60,
                         posX: 97,
                         posY: 67,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     bottomGate: {
@@ -2311,9 +2210,9 @@ export default class Page2 extends React.Component {
                 // ステージ16
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
                     //ブロック
                     ...getItems(10, [
                         [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
@@ -2377,8 +2276,8 @@ export default class Page2 extends React.Component {
                 // ステージ17
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
 
                     //ブロック
                     ...getItems(10, [
@@ -2439,7 +2338,7 @@ export default class Page2 extends React.Component {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
                     hashigo1: {
                         size: 10,
@@ -2448,7 +2347,7 @@ export default class Page2 extends React.Component {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
                     hashigo2: {
                         size: 10,
@@ -2457,7 +2356,7 @@ export default class Page2 extends React.Component {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     box1: {
@@ -2549,9 +2448,9 @@ export default class Page2 extends React.Component {
                 // ステージ18
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     pochi: {
                         size: 10,
@@ -2614,9 +2513,9 @@ export default class Page2 extends React.Component {
                 // ステージ19
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     boss: {
                         size: 12,
@@ -2650,7 +2549,7 @@ export default class Page2 extends React.Component {
                         posX: 35,
                         posY: 9,
                         zIndex: 10,
-                        onTouch: onTouchTree,
+                        onTouch: onTouchBlock,
                     },
 
                     //バグで床が抜けたとき用
@@ -2688,9 +2587,9 @@ export default class Page2 extends React.Component {
                 // ステージ20
                 // ------------------------------------------------------------
                 this.objs = {
-                    ...this.objOutOfScreen,
-                    ...this.objWalls,
-                    ...this.objFloor,
+                    ...getObjOutOfScreen(),
+                    ...getObjWalls(),
+                    ...getObjFloor(),
 
                     kosuke: {
                         size: 10,
@@ -2758,7 +2657,7 @@ export default class Page2 extends React.Component {
                 >
                     <NinjaChar
                         imgAlt="Running Ninja"
-                        width={this.ninja.size * this.UL}
+                        width={this.ninja.size * UL}
                         x={this.state.ninjaStat.ninjaX}
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
@@ -2824,47 +2723,12 @@ function RenderObjs(props) {
             <Obj
                 key={key}
                 obj={props.game.objs[key]}
-                UL={props.game.UL}
+                UL={UL}
                 game={props.game}
             />
         );
     }
     return <span>{objList}</span>;
-}
-
-function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
-    //コメントは忍者が右から来た想定
-    if (objRight > ninjaLeft) {
-        //忍者が右から
-        if (objRight < ninjaRight) {
-            //忍者の右端がオブジェクトの右端を左向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
-                //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
-                    //オブジェクトの下をくぐっていない
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, ninjaSize) {
-    //コメントは忍者が左から来た想定
-    if (objLeft < ninjaRight) {
-        //忍者が左から
-        if (objLeft > ninjaLeft) {
-            //忍者の左端がオブジェクトの左端を右向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
-                //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
-                    //オブジェクトの下をくぐっていない
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
 }
 
 //当たり判定
@@ -2961,6 +2825,24 @@ function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
     return objResult;
 }
 
+//画像（触っても何も起きない）　生成関数
+function getOnePic(name, size, posX, posY, img, zIndex, onTouch) {
+
+    let objResult = {};
+
+    objResult[name] = {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: img,
+        onTouch: onTouch,
+    }
+    return objResult;
+}
+
+
+
 //穴が開いた床　生成関数
 function getHoleFloor(holeStart, holeEnd) {
 
@@ -2985,6 +2867,98 @@ function getHoleFloor(holeStart, holeEnd) {
     }
     return objResult;
 }
+
+//画面外を黒くする要素
+function getObjOutOfScreen() {
+
+    return {
+        outOfScreenLeft: {
+            size: 300,
+            posX: -300,
+            posY: -200,
+            onTouch: onTouchNothing,
+            divType: "outOfScreen",
+        },
+        outOfScreenRight: {
+            size: 300,
+            posX: 160,
+            posY: -200,
+            onTouch: onTouchNothing,
+            divType: "outOfScreen",
+        },
+        outOfScreenTop: {
+            size: 260,
+            posX: -50,
+            posY: -260,
+            onTouch: onTouchNothing,
+            divType: "outOfScreen",
+        },
+        outOfScreenBottom: {
+            size: 260,
+            posX: -50,
+            posY: 90,
+            onTouch: onTouchNothing,
+            divType: "outOfScreen",
+        },
+    };
+}
+
+//全ステージ共通の壁（render内で設定）
+function getObjWalls() {
+
+    return {
+        leftWall: {
+            size: 300,
+            posX: -310,
+            posY: -200,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+        rightWall: {
+            size: 300,
+            posX: 170,
+            posY: -200,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+    };
+}
+
+//全ステージ共通の壁（render内で設定）
+function getObjFloor() {
+
+    return {
+        floor1: {
+            size: 200,
+            posX: -20,
+            posY: 79,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+        floor2: {
+            size: 200,
+            posX: -20,
+            posY: 77,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+        floor3: {
+            size: 200,
+            posX: -20,
+            posY: 76,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+        floor4: {
+            size: 200,
+            posX: -20,
+            posY: 75,
+            zIndex: 30,
+            onTouch: onTouchBlock,
+        },
+    };
+}
+
 
 //------------------------------------------------------------
 //
@@ -3038,18 +3012,6 @@ function onTouchBlock(ninja, from) {
         //左から
         ninja.posX = this.posX - ninja.size;
         ninja.speedX = 0;
-    }
-}
-
-//=======================================
-// 上から乗れる木などのタッチ関数
-//=======================================
-function onTouchTree(ninja, from) {
-    if (from === "upper") {
-        //上から
-        ninja.posY = this.posY - ninja.size;
-        ninja.speedY = 0;
-
     }
 }
 
@@ -3128,22 +3090,6 @@ function onTouchGateTop1(ninja, from) {
 }
 
 //=======================================
-// 別ステージへのゲートのタッチ関数（stage2等から上へ飛ばされる）
-//=======================================
-function onTouchGateTop2(ninja, from) {
-
-    //下から
-    ninja.posX = 145;
-    ninja.posY = -100;
-    ninja.speedX = 0;
-    ninja.speedY = 0;
-
-    this.changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
 function onTouchOutsideEnemy1(ninja, from) {
@@ -3206,21 +3152,21 @@ function eachTimeEnemy(ninja, key) {
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
             if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
-                this.posX += this.speedX;
+                this.posX += this.speedX * TIME_STEP;
                 this.boolLeft = false;
             } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-                this.posX += this.speedX * (-1);
+                this.posX += this.speedX * (-1) * TIME_STEP;
                 this.boolLeft = true;
             } else {
-                this.posX += ninja.posX < this.posX ? -1 : 0
-                this.posX += ninja.posX > this.posX ? 1 : 0
+                this.posX += ninja.posX < this.posX ? -1 * TIME_STEP : 0
+                this.posX += ninja.posX > this.posX ? 1 * TIME_STEP : 0
             }
         }
         //Y軸について、忍者を追いかける
         if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
-            this.posY += this.speedY;
+            this.posY += this.speedY * TIME_STEP;
         } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
-            this.posY += this.speedY * (-1);
+            this.posY += this.speedY * (-1) * TIME_STEP;
         }
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
@@ -3274,9 +3220,9 @@ function eachTimeOneEye(ninja, key) {
 
         //Y軸について、忍者を追いかける
         if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
-            this.posY += this.speedY;
+            this.posY += this.speedY * TIME_STEP;
         } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
-            this.posY += this.speedY * (-1);
+            this.posY += this.speedY * (-1) * TIME_STEP;
         }
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
@@ -3453,10 +3399,10 @@ function eachTimeFireBall(ninja, key) {
             //fireBallが画面内にある場合
             if (this.boolLeft) {
                 //左向き
-                this.posX -= 10;
+                this.posX -= 10 * TIME_STEP;
             } else {
                 //右向き
-                this.posX += 10;
+                this.posX += 10 * TIME_STEP;
             }
         }
     }
@@ -3471,14 +3417,15 @@ function eachTimeKimme(ninja, key) {
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
             if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
-                this.posX += this.speedX;
+                this.posX += this.speedX * TIME_STEP;
                 this.boolLeft = false;
             } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-                this.posX += this.speedX * (-1);
+                this.posX += this.speedX * (-1) * TIME_STEP;
                 this.boolLeft = true;
             } else {
-                this.posX += ninja.posX < this.posX ? -1 : 0
-                this.posX += ninja.posX > this.posX ? 1 : 0
+                //ほぼ重なる際は、敵が忍者を通り過ぎないように1ずつ進める
+                this.posX += ninja.posX < this.posX ? -1 * TIME_STEP : 0
+                this.posX += ninja.posX > this.posX ? 1 * TIME_STEP : 0
             }
         }
 
@@ -3497,7 +3444,7 @@ function eachTimeKimme(ninja, key) {
 
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
                     //敵がFireBallに触れた場合
-                    this.posX += 0.5;
+                    this.posX += 0.5 * TIME_STEP;
                 }
             }
         }
