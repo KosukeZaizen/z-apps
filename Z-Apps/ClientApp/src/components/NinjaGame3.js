@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja3/Page1';
 import { Page2 } from './parts/Ninja3/Page2';
-import '../css/NinjaGame2.css';
+import '../css/NinjaGame3.css';
 
 
 class NinjaGame extends React.Component {
@@ -20,11 +20,14 @@ class NinjaGame extends React.Component {
                 speedY: 0,
                 posX: 145,
                 posY: 60,
-                readScroll: ["火遁"],
+                readScroll: [],
                 boolLeft: true,
             },
         };
         this.readElementScroll = [];
+
+        this.changePage = this.changePage.bind(this);
+        this.changeStage = this.changeStage.bind(this);
     }
 
     changePage(num, lang) {
@@ -35,6 +38,7 @@ class NinjaGame extends React.Component {
     }
 
     changeStage(num, ninja) {
+
         this.readElementScroll = [];
         this.setState({
             stage: num,
