@@ -1,12 +1,14 @@
-import { getObjOutOfScreen, getObjWalls, getObjFloor } from './AllStages';
-
-import { imgFireBallR, imgScroll, imgScrollOpen, imgRock, imgShino } from './ImportImgs';
-import { onTouchNothing, onTouchBlock, onTouchGateWall, onTouchScrollOpener } from './OnTouch';
-import { getMessage } from './Messages';
-import { changeStage } from './CommonFnc'
-
-
-//stage2
+//ステージの部品作成用関数群の読み込み
+import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerator';
+//各オブジェクト用画像の読み込み
+import { imgFireBallR, imgScroll, imgScrollOpen, imgRock, imgShino } from '../ImportImgs';
+//タッチ関数の読み込み
+import { onTouchNothing, onTouchBlock, onTouchGateWall, onTouchScrollOpener } from '../OnTouch';
+//メッセージモジュールの読み込み
+import { getMessage } from '../Messages';
+//共通関数の読み込み
+import { changeStage } from '../CommonFnc'
+//背景画像
 import bgImg from './img/background/whiteWall.jpg';
 
 

@@ -1,11 +1,16 @@
-import { getObjOutOfScreen, getObjWalls, getObjFloor } from './AllStages';
-import { imgWashi, imgBox1 } from './ImportImgs';
-import { onTouchOutsideEnemy1, onTouchBlock, onTouchGateWall } from './OnTouch';
-import { eachTimeEnemy } from './EachTime';
-import { changeStage } from './CommonFnc'
-
-//stage3
+//ステージの部品作成用関数群の読み込み
+import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerator';
+//各オブジェクト用画像の読み込み
+import { imgWashi, imgBox1 } from '../ImportImgs';
+//タッチ関数の読み込み
+import { onTouchOutsideEnemy1, onTouchBlock, onTouchGateWall } from '../OnTouch';
+//メッセージモジュールの読み込み
+import { eachTimeEnemy } from '../EachTime';
+//共通関数の読み込み
+import { changeStage } from '../CommonFnc'
+//背景画像
 import bgImg from './img/background/whiteWall2.jpg';
+
 
 // ------------------------------------------------------------
 // ステージ3 (鷲と白壁)

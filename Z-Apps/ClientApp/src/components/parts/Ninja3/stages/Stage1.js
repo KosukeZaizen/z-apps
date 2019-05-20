@@ -1,15 +1,20 @@
-import { getObjOutOfScreen, getObjWalls, getOnePic } from './AllStages';
-import { imgPochi, imgScrollOpen, imgHouse1 } from './ImportImgs';
-import { onTouchNothing, onTouchBlock, onTouchScrollOpener, onTouchGateTop1 } from './OnTouch';
-import { getMessage } from './Messages';
-import { changeStage } from './CommonFnc'
+//ステージの部品作成用関数群の読み込み
+import { getObjOutOfScreen, getObjWalls, getOnePic } from './StagePartsGenerator';
+//各オブジェクト用画像の読み込み
+import { imgPochi, imgScrollOpen, imgHouse1 } from '../ImportImgs';
+//タッチ関数の読み込み
+import { onTouchNothing, onTouchBlock, onTouchScrollOpener, onTouchGateTop1 } from '../OnTouch';
+//メッセージモジュールの読み込み
+import { getMessage } from '../Messages';
+//共通関数の読み込み
+import { changeStage } from '../CommonFnc'
+//背景画像
+import bgImg from './img/background/castle1.jpg';
 
 
 // ------------------------------------------------------------
 // ステージ1 (出発地点　屋根の上)
 // ------------------------------------------------------------
-
-import bgImg from './img/background/castle1.jpg';
 
 const Stage1 = {}
 Stage1.bgImg = bgImg;

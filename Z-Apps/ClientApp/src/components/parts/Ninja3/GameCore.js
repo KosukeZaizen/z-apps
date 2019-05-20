@@ -1,3 +1,10 @@
+//------------------------------------------------------------
+//
+//　　　　ゲームの基本的な操作や描画に関わる関数
+//
+//------------------------------------------------------------
+
+
 //---------------↓　resize　↓---------------
 export function getWindowSize() {
     let pageWidth, pageHeight;
@@ -52,8 +59,6 @@ export function getWindowSize() {
     return { pageWidth: pageWidth, pageHeight: pageHeight };
 }
     //---------------↑　resize　↑---------------
-
-
 
 
 export function setKeyboardEvent(objGame) {

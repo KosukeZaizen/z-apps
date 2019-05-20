@@ -1,19 +1,21 @@
 import React from 'react';
-import { NinjaChar } from './objs/ninja/ninja';
-import { Obj } from './objs/obj';
-import { getWindowSize, setKeyboardEvent, onClickButton, onMouseUp } from './GameCore';
-import { setLang} from './Messages';
-import { Stage1 } from './Stage1';
-import { Stage2 } from './Stage2';
-import { Stage3 } from './Stage3';
 
-import { imgFireBallR } from './ImportImgs';
-import { onTouchNothing } from './OnTouch';
-import { eachTimeFireBall } from './EachTime';
-import { TIME_STEP } from './Consts'
-import { setChangeStage,checkRelativity } from './CommonFnc'
+import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主人公）
+import { Obj } from './objs/obj';//オブジェクト描画
+import { getWindowSize, setKeyboardEvent, onClickButton, onMouseUp } from './GameCore';//ゲームのコア関数
+import { setLang } from './Messages';//メッセージ
+import { imgFireBallR } from './ImportImgs';//各オブジェクトの画像
+import { onTouchNothing } from './OnTouch';//タッチ関数
+import { eachTimeFireBall } from './EachTime';//タイムステップごとの処理
+import { TIME_STEP } from './Consts'//定数
+import { setChangeStage,checkRelativity } from './CommonFnc'//共通関数
+import { getMessage } from './Messages';//メッセージ
 
-import { getMessage } from './Messages';
+
+//各ステージ情報
+import { Stage1 } from './stages/Stage1';
+import { Stage2 } from './stages/Stage2';
+import { Stage3 } from './stages/Stage3';
 
 
 //【Unit Length】このゲームの単位長さ
@@ -24,11 +26,13 @@ export default class Page2 extends React.Component {
     constructor(props) {
         super(props);
 
+        //GameCoreからimportした関数の設定
         this.getWindowSize = getWindowSize;
         this.setKeyboardEvent = setKeyboardEvent;
         this.onClickButton = onClickButton;
         this.onMouseUp = onMouseUp;
 
+        //引数で受け取った関数と言語設定を、各import元ファイルから使えるように設定
         setChangeStage(props.changeStage);
         setLang(props.language);
 
@@ -44,8 +48,11 @@ export default class Page2 extends React.Component {
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
+        //既読の巻物
         this.readElementScroll = this.props.readElementScroll;
 
+        //忍者オブジェクトに、ゲーム情報への参照を持たせる
+        //（各関数からゲーム情報を参照・更新できるようにするため）
         this.ninja.game = this;
 
 
@@ -66,22 +73,6 @@ export default class Page2 extends React.Component {
             /* 背景画像が読み込まれる前に表示される背景のカラー */
             backgroundColor: "black",
         };
-
-        // ------------------------------------------------------------
-        // 定数設定
-        // ------------------------------------------------------------
-        //if (this.props.language === "Japanese") {
-        //    this.consts = {
-        //        //操作ボタン
-        //        ...jpMessages,
-        //    };
-        //} else {
-        //    this.consts = {
-        //        //操作ボタン
-        //        ...enMessages,
-        //    };
-        //}
-        
 
         // ------------------------------------------------------------
         // ステート初期設定

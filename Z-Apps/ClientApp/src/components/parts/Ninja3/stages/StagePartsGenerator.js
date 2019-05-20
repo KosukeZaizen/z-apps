@@ -1,5 +1,12 @@
-import { imgKey } from './ImportImgs';
-import { onTouchNothing, onTouchBlock, onTouchScrollOpener } from './OnTouch';
+import { imgKey } from '../ImportImgs';
+import { onTouchNothing, onTouchBlock, onTouchScrollOpener } from '../OnTouch';
+
+
+//------------------------------------------------------------
+//
+//　ステージに配置されるオブジェクトを生成するための関数群
+//
+//------------------------------------------------------------
 
 
 //ブロック生成関数
