@@ -4,7 +4,7 @@ import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerat
 import { imgWashi, imgBox1 } from '../ImportImgs';
 //タッチ関数の読み込み
 import { onTouchOutsideEnemy1, onTouchBlock, onTouchGateWall } from '../OnTouch';
-//メッセージモジュールの読み込み
+//オブジェクトのタイムステップごとのメソッドの読み込み
 import { eachTimeEnemy } from '../EachTime';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
