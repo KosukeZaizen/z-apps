@@ -4,7 +4,7 @@ import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主�
 import { Obj } from './objs/obj';//オブジェクト描画
 import { getWindowSize, setKeyboardEvent, onClickButton, onMouseUp } from './GameCore';//ゲームのコア関数
 import { setLang } from './Messages';//メッセージ
-import { imgFireBallR } from './ImportImgs';//各オブジェクトの画像
+import Imgs from './ImportImgs';//各オブジェクトの画像
 import { onTouchNothing } from './OnTouch';//タッチ関数
 import { eachTimeFireBall } from './EachTime';//タイムステップごとの処理
 import { TIME_STEP } from './Consts'//定数
@@ -122,7 +122,7 @@ export default class Page2 extends React.Component {
                             posX: this.ninja.posX,
                             posY: this.ninja.posY,
                             zIndex: 999 - this.ninja.fireBallCount,
-                            img: imgFireBallR,
+                            img: Imgs.imgFireBallR,
                             onTouch: onTouchNothing,
                             fireBall: true,
                             boolLeft: this.ninja.boolLeft,

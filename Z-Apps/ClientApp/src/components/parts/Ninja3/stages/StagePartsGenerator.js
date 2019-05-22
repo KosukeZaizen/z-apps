@@ -1,4 +1,4 @@
-import { imgKey } from '../ImportImgs';
+import Imgs from '../ImportImgs';
 import { onTouchNothing, onTouchBlock, onTouchScrollOpener } from '../OnTouch';
 
 
@@ -39,7 +39,7 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
             posX: posX,
             posY: posY,
             zIndex: zIndex,
-            img: imgKey,
+            img: Imgs.imgKey,
             onTouch: onTouchScrollOpener,
             openTargetTitle: openTargetTitle,
             boolLeft: true,

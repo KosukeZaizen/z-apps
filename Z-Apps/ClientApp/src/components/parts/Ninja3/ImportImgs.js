@@ -65,7 +65,7 @@ import imgArrow1 from './objs/arrow1.png';
 import imgTorii from './objs/torii.png';
 
 
-export {
+export default {
     imgRock,
     imgRockR,
     imgPochi,

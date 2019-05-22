@@ -1,7 +1,7 @@
 //ステージの部品作成用関数群の読み込み
 import { getObjOutOfScreen, getObjWalls, getOnePic } from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
-import { imgPochi, imgScrollOpen, imgHouse1 } from '../ImportImgs';
+import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import { onTouchNothing, onTouchBlock, onTouchScrollOpener, onTouchGateTop1 } from '../OnTouch';
 //メッセージモジュールの読み込み
@@ -9,7 +9,7 @@ import { getMessage } from '../Messages';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
-import bgImg from './img/background/castle1.jpg';
+import bgImg from '../img/background/castle1.jpg';
 
 
 // ------------------------------------------------------------
@@ -24,7 +24,7 @@ Stage1.getObjs = function () {
         ...getObjOutOfScreen(),
         ...getObjWalls(),
 
-        ...getOnePic("house1Pic", 60, 120, 35, imgHouse1, 35, onTouchNothing),
+        ...getOnePic("house1Pic", 60, 120, 35, Imgs.imgHouse1, 35, onTouchNothing),
 
         house1Actual: {
             size: 60,
@@ -38,7 +38,7 @@ Stage1.getObjs = function () {
             posX: 90,
             posY: 55,
             zIndex: 34,
-            img: imgHouse1,
+            img: Imgs.imgHouse1,
             onTouch: onTouchNothing,
         },
         houseActual: {
@@ -53,7 +53,7 @@ Stage1.getObjs = function () {
             posX: 115,
             posY: 53,
             zIndex: 20,
-            img: imgPochi,
+            img: Imgs.imgPochi,
             onTouch: onTouchScrollOpener,
             openTargetTitle: getMessage("POCHI_SCROLL_TITLE"),
         },
@@ -63,14 +63,14 @@ Stage1.getObjs = function () {
             posX: 5,
             posY: 5,
             zIndex: 1000,
-            img: imgScrollOpen,
+            img: Imgs.imgScrollOpen,
             scroll: true,
             visible: false,
             onTouch: onTouchNothing,
             title: getMessage("POCHI_SCROLL_TITLE"),
             message: getMessage("POCHI_SCROLL_MESSAGE"),
             fontSize: 3,
-            speakerImg: imgPochi,
+            speakerImg: Imgs.imgPochi,
         },
 
         bottomGate: {

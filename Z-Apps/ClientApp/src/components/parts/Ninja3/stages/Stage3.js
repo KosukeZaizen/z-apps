@@ -1,7 +1,7 @@
 //ステージの部品作成用関数群の読み込み
 import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
-import { imgWashi, imgBox1 } from '../ImportImgs';
+import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import { onTouchOutsideEnemy1, onTouchBlock, onTouchGateWall } from '../OnTouch';
 //オブジェクトのタイムステップごとのメソッドの読み込み
@@ -9,7 +9,7 @@ import { eachTimeEnemy } from '../EachTime';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
-import bgImg from './img/background/whiteWall2.jpg';
+import bgImg from '../img/background/whiteWall2.jpg';
 
 
 // ------------------------------------------------------------
@@ -32,7 +32,7 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: imgWashi,
+            img: Imgs.imgWashi,
             onTouch: onTouchOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
@@ -47,7 +47,7 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: imgWashi,
+            img: Imgs.imgWashi,
             onTouch: onTouchOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
@@ -62,7 +62,7 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: imgWashi,
+            img: Imgs.imgWashi,
             onTouch: onTouchOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
@@ -78,7 +78,7 @@ Stage3.getObjs = function () {
             speedX: 0,
             speedY: 0,
             zIndex: 19,
-            img: imgBox1,
+            img: Imgs.imgBox1,
             onTouch: onTouchBlock,
             enemy: true,
             eachTime: eachTimeEnemy,
