@@ -257,7 +257,7 @@ export default class Page2 extends React.Component {
             //忍者のFireBallCountを0に戻す
             this.ninja.fireBallCount = 0;
 
-            //水中判定を一旦falseとする（水中の場合は、各ステージにて代入）
+            //水中判定を一旦falseとする（水中の場合は、各ステージにてtrueを代入）
             this.ninja.inWater = false;
 
 
@@ -282,11 +282,6 @@ export default class Page2 extends React.Component {
                 //ステージの背景画像を設定
                 this.bgImg = Stage3.bgImg;
             }
-
-            //画面遷移時には全ての巻物を非表示に
-            //for (let key in this.objs) {
-            //    if (this.objs[key].scroll) this.objs[key].visible = false; 
-            //}
 
             this.prevStage = this.props.stage;
         }
