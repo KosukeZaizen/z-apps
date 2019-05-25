@@ -1,5 +1,5 @@
 import Imgs from '../ImportImgs';
-import { onTouchNothing, onTouchBlock, onTouchScrollOpener } from '../OnTouch';
+import * as OnTouch from '../OnTouch';
 
 
 //------------------------------------------------------------
@@ -40,7 +40,7 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
             posY: posY,
             zIndex: zIndex,
             img: Imgs.imgKey,
-            onTouch: onTouchScrollOpener,
+            onTouch: OnTouch.toScrollOpener,
             openTargetTitle: openTargetTitle,
             boolLeft: true,
         };
@@ -72,28 +72,28 @@ export function getObjOutOfScreen() {
             size: 300,
             posX: -300,
             posY: -200,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             divType: "outOfScreen",
         },
         outOfScreenRight: {
             size: 300,
             posX: 160,
             posY: -200,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             divType: "outOfScreen",
         },
         outOfScreenTop: {
             size: 260,
             posX: -50,
             posY: -260,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             divType: "outOfScreen",
         },
         outOfScreenBottom: {
             size: 260,
             posX: -50,
             posY: 90,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             divType: "outOfScreen",
         },
     };
@@ -108,14 +108,14 @@ export function getObjWalls() {
             posX: -310,
             posY: -200,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
         rightWall: {
             size: 300,
             posX: 170,
             posY: -200,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
     };
 }
@@ -129,28 +129,28 @@ export function getObjFloor() {
             posX: -20,
             posY: 79,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
         floor2: {
             size: 200,
             posX: -20,
             posY: 77,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
         floor3: {
             size: 200,
             posX: -20,
             posY: 76,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
         floor4: {
             size: 200,
             posX: -20,
             posY: 75,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
     };
 }

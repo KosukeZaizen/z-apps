@@ -1,9 +1,9 @@
 //ステージの部品作成用関数群の読み込み
-import { getObjOutOfScreen, getObjWalls, getOnePic } from './StagePartsGenerator';
+import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
-import { onTouchNothing, onTouchBlock, onTouchScrollOpener, onTouchGateTop1 } from '../OnTouch';
+import * as OnTouch from '../OnTouch';
 //メッセージモジュールの読み込み
 import { getMessage } from '../Messages';
 //共通関数の読み込み
@@ -21,31 +21,23 @@ Stage1.bgImg = bgImg;
 
 Stage1.getObjs = function () {
     let objs = {
-        ...getObjOutOfScreen(),
-        ...getObjWalls(),
+        ...StageParts.getObjOutOfScreen(),
+        ...StageParts.getObjWalls(),
 
-        ...getOnePic("house1Pic", 60, 120, 35, Imgs.imgHouse1, 35, onTouchNothing),
-
+        ...StageParts.getOnePic("house1Pic", 60, 120, 55, Imgs.House1, 35, OnTouch.toNothing),
         house1Actual: {
             size: 60,
             posX: 120,
-            posY: 47,
-            onTouch: onTouchBlock,
+            posY: 67,
+            onTouch: OnTouch.toBlock,
         },
 
-        house2Pic: {
-            size: 60,
-            posX: 90,
-            posY: 55,
-            zIndex: 34,
-            img: Imgs.imgHouse1,
-            onTouch: onTouchNothing,
-        },
+        ...StageParts.getOnePic("house2Pic", 60, 90, 55, Imgs.House1, 35, OnTouch.toNothing),
         houseActual: {
             size: 60,
             posX: 97,
             posY: 67,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
 
         pochi: {
@@ -53,8 +45,8 @@ Stage1.getObjs = function () {
             posX: 115,
             posY: 53,
             zIndex: 20,
-            img: Imgs.imgPochi,
-            onTouch: onTouchScrollOpener,
+            img: Imgs.Pochi,
+            onTouch: OnTouch.toScrollOpener,
             openTargetTitle: getMessage("POCHI_SCROLL_TITLE"),
         },
 
@@ -63,14 +55,14 @@ Stage1.getObjs = function () {
             posX: 5,
             posY: 5,
             zIndex: 1000,
-            img: Imgs.imgScrollOpen,
+            img: Imgs.ScrollOpen,
             scroll: true,
             visible: false,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             title: getMessage("POCHI_SCROLL_TITLE"),
             message: getMessage("POCHI_SCROLL_MESSAGE"),
             fontSize: 3,
-            speakerImg: Imgs.imgPochi,
+            speakerImg: Imgs.Pochi,
         },
 
         bottomGate: {
@@ -79,7 +71,7 @@ Stage1.getObjs = function () {
             posY: 80,
             zIndex: 30,
             next: 2,
-            onTouch: onTouchGateTop1,
+            onTouch: OnTouch.toGateTop1,
             changeStage: changeStage,
         },
     };

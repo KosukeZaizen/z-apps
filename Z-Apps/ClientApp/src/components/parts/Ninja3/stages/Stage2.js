@@ -1,9 +1,9 @@
 //ステージの部品作成用関数群の読み込み
-import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerator';
+import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
-import { onTouchNothing, onTouchBlock, onTouchGateWall, onTouchScrollOpener } from '../OnTouch';
+import * as OnTouch from '../OnTouch';
 //メッセージモジュールの読み込み
 import { getMessage } from '../Messages';
 //共通関数の読み込み
@@ -21,9 +21,9 @@ Stage2.bgImg = bgImg;
 
 Stage2.getObjs = function () {
     let objs = {
-        ...getObjOutOfScreen(),
-        ...getObjWalls(),
-        ...getObjFloor(),
+        ...StageParts.getObjOutOfScreen(),
+        ...StageParts.getObjWalls(),
+        ...StageParts.getObjFloor(),
 
         fireBallDummy: {
             //FireBallの画像初期表示速度向上のためのダミー
@@ -33,8 +33,8 @@ Stage2.getObjs = function () {
             speedX: 0,
             speedY: 0,
             zIndex: 20,
-            img: Imgs.imgFireBallR,
-            onTouch: onTouchNothing,
+            img: Imgs.FireBallR,
+            onTouch: OnTouch.toNothing,
         },
         scrollFireBallIcon: {
             size: 10,
@@ -42,8 +42,8 @@ Stage2.getObjs = function () {
             posY: 46,
             boolLeft: true,
             zIndex: 22,
-            img: Imgs.imgScroll,
-            onTouch: onTouchScrollOpener,
+            img: Imgs.Scroll,
+            onTouch: OnTouch.toScrollOpener,
             openTargetTitle: getMessage("FIRE_SCROLL_TITLE"),
         },
         fireBallScrollOpened: {
@@ -51,10 +51,10 @@ Stage2.getObjs = function () {
             posX: 5,
             posY: 5,
             zIndex: 1000,
-            img: Imgs.imgScrollOpen,
+            img: Imgs.ScrollOpen,
             scroll: true,
             visible: false,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             title: getMessage("FIRE_SCROLL_TITLE"),
             message: getMessage("FIRE_SCROLL_MESSAGE"),
             fontSize: 3,
@@ -64,23 +64,23 @@ Stage2.getObjs = function () {
             posX: 90,
             posY: 50,
             zIndex: 20,
-            img: Imgs.imgRock,
-            onTouch: onTouchNothing,
+            img: Imgs.Rock,
+            onTouch: OnTouch.toNothing,
         },
         rock1Actual: {
             size: 40,
             posX: 90,
             posY: 53,
             zIndex: 30,
-            onTouch: onTouchBlock,
+            onTouch: OnTouch.toBlock,
         },
         shino: {
             size: 10,
             posX: 30,
             posY: 61,
             zIndex: 17,
-            img: Imgs.imgShino,
-            onTouch: onTouchScrollOpener,
+            img: Imgs.Shino,
+            onTouch: OnTouch.toScrollOpener,
             openTargetTitle: getMessage("SHINO_SCROLL_TITLE"),
         },
         shinoScroll: {
@@ -88,14 +88,14 @@ Stage2.getObjs = function () {
             posX: 5,
             posY: 5,
             zIndex: 1000,
-            img: Imgs.imgScrollOpen,
+            img: Imgs.ScrollOpen,
             scroll: true,
             visible: false,
-            onTouch: onTouchNothing,
+            onTouch: OnTouch.toNothing,
             title: getMessage("SHINO_SCROLL_TITLE"),
             message: getMessage("SHINO_SCROLL_MESSAGE"),
             fontSize: 3,
-            speakerImg: Imgs.imgShino,
+            speakerImg: Imgs.Shino,
         },
         leftGateWall: {
             size: 300,
@@ -103,7 +103,7 @@ Stage2.getObjs = function () {
             posY: -200,
             zIndex: 30,
             next: 3,
-            onTouch: onTouchGateWall,
+            onTouch: OnTouch.toGateWall,
             changeStage: changeStage,
         },
     };

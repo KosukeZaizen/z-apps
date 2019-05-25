@@ -2,15 +2,16 @@ import React from 'react';
 
 import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主人公）
 import { Obj } from './objs/obj';//オブジェクト描画
-import { getWindowSize, setKeyboardEvent, onClickButton, onMouseUp } from './GameCore';//ゲームのコア関数
 import { setLang } from './Messages';//メッセージ
-import Imgs from './ImportImgs';//各オブジェクトの画像
-import { onTouchNothing } from './OnTouch';//タッチ関数
-import { eachTimeFireBall } from './EachTime';//タイムステップごとの処理
 import { TIME_STEP } from './Consts'//定数
-import { setChangeStage,checkRelativity } from './CommonFnc'//共通関数
 import { getMessage } from './Messages';//メッセージ
 
+import Imgs from './ImportImgs';//各オブジェクトの画像
+
+import * as GameCore from './GameCore';//ゲームのコア関数
+import * as OnTouch from './OnTouch';//タッチ関数
+import * as EachTime from './EachTime';//タイムステップごとの処理
+import * as CommonFnc from './CommonFnc'//共通関数
 
 //各ステージ情報
 import { Stage1 } from './stages/Stage1';
@@ -27,13 +28,13 @@ export default class Page2 extends React.Component {
         super(props);
 
         //GameCoreからimportした関数の設定
-        this.getWindowSize = getWindowSize;
-        this.setKeyboardEvent = setKeyboardEvent;
-        this.onClickButton = onClickButton;
-        this.onMouseUp = onMouseUp;
+        this.getWindowSize = GameCore.getWindowSize;
+        this.setKeyboardEvent = GameCore.setKeyboardEvent;
+        this.onClickButton = GameCore.onClickButton;
+        this.onMouseUp = GameCore.onMouseUp;
 
         //引数で受け取った関数と言語設定を、各import元ファイルから使えるように設定
-        setChangeStage(props.changeStage);
+        CommonFnc.setChangeStage(props.changeStage);
         setLang(props.language);
 
         //前のステージ（ステージ変更判定に利用）
@@ -122,11 +123,11 @@ export default class Page2 extends React.Component {
                             posX: this.ninja.posX,
                             posY: this.ninja.posY,
                             zIndex: 999 - this.ninja.fireBallCount,
-                            img: Imgs.imgFireBallR,
-                            onTouch: onTouchNothing,
+                            img: Imgs.FireBallR,
+                            onTouch: OnTouch.toNothing,
                             fireBall: true,
                             boolLeft: this.ninja.boolLeft,
-                            eachTime: eachTimeFireBall,
+                            eachTime: EachTime.FireBall,
                         }
                         this.ninja.fireBallCount++;
                     }
@@ -184,7 +185,7 @@ export default class Page2 extends React.Component {
                 let stageChangedFlag = "";
 
                 //当たり判定と、相対位置の取得
-                let relativePos = checkRelativity(this.ninja, this.objs[key]);
+                let relativePos = CommonFnc.checkRelativity(this.ninja, this.objs[key]);
 
                 //当たり判定結果確認
                 if (relativePos) {

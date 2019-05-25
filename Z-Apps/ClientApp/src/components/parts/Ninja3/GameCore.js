@@ -6,7 +6,7 @@
 
 
 //---------------↓　resize　↓---------------
-export function getWindowSize() {
+export const getWindowSize = function () {
     let pageWidth, pageHeight;
     let screenWidth = parseInt(window.innerWidth, 10);
     let screenHeight = parseInt(window.innerHeight, 10);
@@ -58,10 +58,10 @@ export function getWindowSize() {
 
     return { pageWidth: pageWidth, pageHeight: pageHeight };
 }
-    //---------------↑　resize　↑---------------
+//---------------↑　resize　↑---------------
 
 
-export function setKeyboardEvent(objGame) {
+export const setKeyboardEvent = function (objGame) {
     // ------------------------------------------------------------
     // キーボードを押したときに実行されるイベント
     // ------------------------------------------------------------
@@ -110,7 +110,7 @@ export function setKeyboardEvent(objGame) {
 
 
 //ボタン押下時処理
-export function onClickButton(btnType) {
+export const onClickButton = function (btnType) {
     if (btnType === "left") {
         //←ボタン押下判定
         this.lButton = true;
@@ -123,7 +123,7 @@ export function onClickButton(btnType) {
     }
 }
 //ボタン押下終了時処理
-export function onMouseUp(btnType) {
+export const onMouseUp = function (btnType) {
     if (btnType === "left") {
         //←ボタン押下判定
         this.lButton = false;

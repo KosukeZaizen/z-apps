@@ -1,11 +1,11 @@
 //ステージの部品作成用関数群の読み込み
-import { getObjOutOfScreen, getObjWalls, getObjFloor } from './StagePartsGenerator';
+import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
-import { onTouchOutsideEnemy1, onTouchBlock, onTouchGateWall } from '../OnTouch';
+import * as OnTouch from '../OnTouch';
 //オブジェクトのタイムステップごとのメソッドの読み込み
-import { eachTimeEnemy } from '../EachTime';
+import * as EachTime from '../EachTime';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
@@ -21,9 +21,9 @@ Stage3.bgImg = bgImg;
 
 Stage3.getObjs = function () {
     let objs = {
-        ...getObjOutOfScreen(),
-        ...getObjWalls(),
-        ...getObjFloor(),
+        ...StageParts.getObjOutOfScreen(),
+        ...StageParts.getObjWalls(),
+        ...StageParts.getObjFloor(),
 
         washi1: {
             size: 13,
@@ -32,12 +32,12 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: Imgs.imgWashi,
-            onTouch: onTouchOutsideEnemy1,
+            img: Imgs.Washi,
+            onTouch: OnTouch.toOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
             enemy: true,
-            eachTime: eachTimeEnemy,
+            eachTime: EachTime.Enemy,
             life: 1,
         },
         washi2: {
@@ -47,12 +47,12 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: Imgs.imgWashi,
-            onTouch: onTouchOutsideEnemy1,
+            img: Imgs.Washi,
+            onTouch: OnTouch.toOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
             enemy: true,
-            eachTime: eachTimeEnemy,
+            eachTime: EachTime.Enemy,
             life: 1,
         },
         washi3: {
@@ -62,12 +62,12 @@ Stage3.getObjs = function () {
             speedX: 3,
             speedY: 1,
             zIndex: 20,
-            img: Imgs.imgWashi,
-            onTouch: onTouchOutsideEnemy1,
+            img: Imgs.Washi,
+            onTouch: OnTouch.toOutsideEnemy1,
             next: 2,
             changeStage: changeStage,
             enemy: true,
-            eachTime: eachTimeEnemy,
+            eachTime: EachTime.Enemy,
             life: 1,
         },
 
@@ -78,10 +78,10 @@ Stage3.getObjs = function () {
             speedX: 0,
             speedY: 0,
             zIndex: 19,
-            img: Imgs.imgBox1,
-            onTouch: onTouchBlock,
+            img: Imgs.Box1,
+            onTouch: OnTouch.toBlock,
             enemy: true,
-            eachTime: eachTimeEnemy,
+            eachTime: EachTime.Enemy,
             life: 1,
         },
 
@@ -91,7 +91,7 @@ Stage3.getObjs = function () {
             posY: -200,
             zIndex: 30,
             next: 2,
-            onTouch: onTouchGateWall,
+            onTouch: OnTouch.toGateWall,
             changeStage: changeStage,
         },
         leftGateWall: {
@@ -100,7 +100,7 @@ Stage3.getObjs = function () {
             posY: -200,
             zIndex: 30,
             next: 1,
-            onTouch: onTouchGateWall,
+            onTouch: OnTouch.toGateWall,
             changeStage: changeStage,
         },
     };

@@ -9,7 +9,7 @@ import { changeStage } from './CommonFnc'
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
-export function onTouchScrollOpener(ninja) {
+export function toScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
@@ -32,7 +32,7 @@ export function onTouchScrollOpener(ninja) {
 //=======================================
 // 貫通不可能ブロック用のタッチ関数
 //=======================================
-export function onTouchBlock(ninja, from) {
+export function toBlock(ninja, from) {
     if (from === "upper") {
         //上から
         ninja.posY = this.posY - ninja.size;
@@ -58,7 +58,7 @@ export function onTouchBlock(ninja, from) {
 //=======================================
 // 風呂場の鍵がかかったドアのタッチ関数
 //=======================================
-export function onTouchLockedDoor(ninja, from) {
+export function toLockedDoor(ninja, from) {
     if (ninja.readScroll.indexOf(this.keyName) < 0) {
         //鍵を持っていなければブロック
         if (from === "upper") {
@@ -89,12 +89,12 @@ export function onTouchLockedDoor(ninja, from) {
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-export function onTouchNothing() { }
+export function toNothing() { }
 
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
 //=======================================
-export function onTouchGateWall(ninja, from) {
+export function toGateWall(ninja, from) {
     if (from === "right") {
         //右から
         ninja.posX += 160 - ninja.size;
@@ -115,7 +115,7 @@ export function onTouchGateWall(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
-export function onTouchGateTop1(ninja, from) {
+export function toGateTop1(ninja, from) {
 
     if (from === "upper") {
         //上から
@@ -132,7 +132,7 @@ export function onTouchGateTop1(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
-export function onTouchOutsideEnemy1(ninja, from) {
+export function toOutsideEnemy1(ninja, from) {
 
     ninja.posX = 145;
     ninja.posY = 0;
@@ -146,7 +146,7 @@ export function onTouchOutsideEnemy1(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
-export function onTouchStageChangeCommon(ninja, from) {
+export function toStageChangeCommon(ninja, from) {
 
     ninja.posX = this.nextX;
     ninja.posY = this.nextY;
