@@ -61,6 +61,20 @@ export const getWindowSize = function () {
 //---------------↑　resize　↑---------------
 
 
+export const checkTerminalPC = function () {
+    // ------------------------------------------------------------
+    // (PC) or (スマホ/タブレット) 判定
+    // ------------------------------------------------------------
+    if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
+        // スマホ・タブレット（iOS・Android）の場合
+        return false;
+    } else {
+        // PCの場合
+        return true;
+    }
+}
+
+
 export const setKeyboardEvent = function (objGame) {
     // ------------------------------------------------------------
     // キーボードを押したときに実行されるイベント

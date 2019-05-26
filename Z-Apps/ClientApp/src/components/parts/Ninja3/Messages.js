@@ -7,6 +7,9 @@
 
 let jpMessages = {
 
+    //PCの場合、キーボードを使う旨のメッセージ
+    PC_KEYBOARD: "PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。",
+
     //屋根の上でポチに触った時のメッセージ
     POCHI_SCROLL_TITLE: "あれが敵の城じゃ！",
     POCHI_SCROLL_MESSAGE:
@@ -31,6 +34,9 @@ let jpMessages = {
 
 
 let enMessages = {
+
+    //PCの場合、キーボードを使う旨のメッセージ
+    PC_KEYBOARD: "Please use [←], [↑], and [→] keys to play!",
 
     //屋根の上でポチに触った時のメッセージ
     POCHI_SCROLL_TITLE: "Sneak into the enemy's castle!",
