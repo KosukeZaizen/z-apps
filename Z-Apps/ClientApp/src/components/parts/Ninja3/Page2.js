@@ -289,7 +289,7 @@ export default class Page2 extends React.Component {
             //localStorageに自動セーブ
             const { game, ...rest } = this.ninja;
             const saveData = {ninja: rest, stage: this.props.stage}
-            localStorage.setItem('saveData', JSON.stringify(saveData));
+            localStorage.setItem('saveData3', JSON.stringify(saveData));
         }
 
         this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;

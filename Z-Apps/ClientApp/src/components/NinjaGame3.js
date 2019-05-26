@@ -14,7 +14,7 @@ class NinjaGame extends React.Component {
         let stage;
 
         //セーブデータ読み込み
-        const saveData = localStorage.getItem('saveData');
+        const saveData = localStorage.getItem('saveData3');
         if (saveData) {
             //セーブデータがあればそれを設定
             const objSaveData = JSON.parse(saveData);
