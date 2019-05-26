@@ -295,7 +295,7 @@ export default class Page2 extends React.Component {
                         onClickButton={GameCore.onClickButton.bind(this)}
                         onMouseUp={GameCore.onMouseUp.bind(this)}
                         terminalPC={this.terminalPC}
-            />
+                    />
                 </b>
             </div>
         );

@@ -108,6 +108,9 @@ export default class Page2 extends React.Component {
     constructor(props) {
         super(props);
 
+        //(PC) or (スマホ/タブレット) 判定
+        this.terminalPC = this.checkTerminalPC();
+
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;
 
@@ -594,6 +597,18 @@ export default class Page2 extends React.Component {
         }, this.consts.timeStep);
     }
 
+    checkTerminalPC() {
+        // ------------------------------------------------------------
+        // (PC) or (スマホ/タブレット) 判定
+        // ------------------------------------------------------------
+        if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
+            // スマホ・タブレット（iOS・Android）の場合
+            return false;
+        } else {
+            // PCの場合
+            return true;
+        }
+    }
 
     //---------------↓　resize　↓---------------
     getWindowSize() {
@@ -2806,51 +2821,13 @@ export default class Page2 extends React.Component {
                     <RenderObjs game={this} />
                 </div>
                 <b>
-                    <table id="controller" style={controllerStyle}>
-                        <tbody>
-                            <tr>
-                                <td align="right">
-                                    <button
-                                        style={sideButtonStyle}
-                                        className={this.consts.BUTTON}
-                                        onMouseDown={() => { this.onClickButton("left") }}
-                                        onTouchStart={() => { this.onClickButton("left") }}
-                                        onMouseUp={() => { this.onMouseUp("left") }}
-                                        onMouseOut={() => { this.onMouseUp("left") }}
-                                        onTouchEnd={() => { this.onMouseUp("left") }}
-                                    >
-                                        {"＜"}
-                                    </button>
-                                </td>
-                                <td align="center">
-                                    <button
-                                        style={jumpButtonStyle}
-                                        className={this.consts.BUTTON}
-                                        onMouseDown={() => { this.onClickButton("jump") }}
-                                        onTouchStart={() => { this.onClickButton("jump") }}
-                                        onMouseUp={() => { this.onMouseUp("jump") }}
-                                        onMouseOut={() => { this.onMouseUp("jump") }}
-                                        onTouchEnd={() => { this.onMouseUp("jump") }}
-                                    >
-                                        {"↑　jump　↑"}
-                                    </button>
-                                </td>
-                                <td align="left">
-                                    <button
-                                        style={sideButtonStyle}
-                                        className={this.consts.BUTTON}
-                                        onMouseDown={() => { this.onClickButton("right") }}
-                                        onTouchStart={() => { this.onClickButton("right") }}
-                                        onMouseUp={() => { this.onMouseUp("right") }}
-                                        onMouseOut={() => { this.onMouseUp("right") }}
-                                        onTouchEnd={() => { this.onMouseUp("right") }}
-                                    >
-                                        {"＞"}
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <RenderScreenBottom
+                        onClickButton={this.onClickButton.bind(this)}
+                        onMouseUp={this.onMouseUp.bind(this)}
+                        terminalPC={this.terminalPC}
+                        UL={this.UL}
+                        lang={this.props.language}
+                    />
                 </b>
             </div>
         );
@@ -2870,6 +2847,132 @@ function RenderObjs(props) {
         );
     }
     return <span>{objList}</span>;
+}
+
+function RenderScreenBottom(props) {
+    //画面下部のボタンなどの表示の出し分け
+
+    const UL = props.UL;
+
+    if (props.terminalPC) {
+
+        let styleDivPcMessage = {
+            position: "absolute",
+            top: 75 * UL,
+            width: 160 * UL,
+            height: 15 * UL,
+            zIndex: "99999999",
+            backgroundColor: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+        };
+        let styleTextPcMessage = {
+            fontSize: "xx-large",
+            color: "white",
+        };
+        if (props.lang === "Japanese") {
+            return (
+                <div style={styleDivPcMessage}>
+                    <span style={styleTextPcMessage}>
+                        PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。
+                    </span>
+                </div>
+            );
+        } else {
+            return (
+                <div style={styleDivPcMessage}>
+                    <span style={styleTextPcMessage}>
+                        Please use [←], [↑], and [→] keys to play!
+                    </span>
+                </div>
+            );
+        }
+    } else {
+        //スマホ・タブレットの場合、画面下部にボタンを表示
+        return (
+            <RenderButtons
+                onClickButton={props.onClickButton}
+                onMouseUp={props.onMouseUp}
+                UL={props.UL}
+            />
+        );
+    }
+}
+
+function RenderButtons(props) {
+    const UL = props.UL;
+
+    //ボタンがあるテーブルのスタイル
+    let controllerStyle = {
+        position: "absolute",
+        top: 75 * UL,
+        width: "100%",
+        zIndex: "99999999",
+        backgroundColor: "black",
+    };
+    //左右のボタンのスタイル
+    let sideButtonStyle = {
+        width: 30 * UL,
+        height: 15 * UL,
+        fontSize: 4 * UL + "px",
+        margin: "1px",
+    };
+    //ジャンプボタンのスタイル
+    let jumpButtonStyle = {
+        width: 100 * UL,
+        height: 15 * UL,
+        fontSize: 4 * UL,
+        margin: "1px",
+    };
+
+    return (
+        <table id="controller" style={controllerStyle}>
+            <tbody>
+                <tr>
+                    <td align="right">
+                        <button
+                            style={sideButtonStyle}
+                            className={"btn btn-info btn-lg btn-block"}
+                            onMouseDown={() => { props.onClickButton("left") }}
+                            onTouchStart={() => { props.onClickButton("left") }}
+                            onMouseUp={() => { props.onMouseUp("left") }}
+                            onMouseOut={() => { props.onMouseUp("left") }}
+                            onTouchEnd={() => { props.onMouseUp("left") }}
+                        >
+                            {"＜"}
+                        </button>
+                    </td>
+                    <td align="center">
+                        <button
+                            style={jumpButtonStyle}
+                            className={"btn btn-info btn-lg btn-block"}
+                            onMouseDown={() => { props.onClickButton("jump") }}
+                            onTouchStart={() => { props.onClickButton("jump") }}
+                            onMouseUp={() => { props.onMouseUp("jump") }}
+                            onMouseOut={() => { props.onMouseUp("jump") }}
+                            onTouchEnd={() => { props.onMouseUp("jump") }}
+                        >
+                            {"↑　jump　↑"}
+                        </button>
+                    </td>
+                    <td align="left">
+                        <button
+                            style={sideButtonStyle}
+                            className={"btn btn-info btn-lg btn-block"}
+                            onMouseDown={() => { props.onClickButton("right") }}
+                            onTouchStart={() => { props.onClickButton("right") }}
+                            onMouseUp={() => { props.onMouseUp("right") }}
+                            onMouseOut={() => { props.onMouseUp("right") }}
+                            onTouchEnd={() => { props.onMouseUp("right") }}
+                        >
+                            {"＞"}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    );
 }
 
 function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
