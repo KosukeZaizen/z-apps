@@ -13,26 +13,24 @@ class NinjaGame extends React.Component {
         let ninja;
         let stage;
 
+        const initialNinja = {
+            size: 12,
+            speedX: 0,
+            speedY: 0,
+            posX: 145,
+            posY: 60,
+            readScroll: [],
+            boolLeft: true,
+        };
+
         //セーブデータ読み込み
         const saveData = localStorage.getItem('saveData3');
-        if (saveData) {
-            //セーブデータがあればそれを設定
-            const objSaveData = JSON.parse(saveData);
-            ninja = objSaveData.ninja;
-            stage = objSaveData.stage;
-        } else {
-            //セーブデータがなければ、初期値を設定
-            ninja = {
-                size: 12,
-                speedX: 0,
-                speedY: 0,
-                posX: 145,
-                posY: 60,
-                readScroll: [],
-                boolLeft: true,
-            };
-            stage = 1;
-        }
+ 
+        //セーブデータがあればそれを設定
+        const objSaveData = JSON.parse(saveData);
+        ninja = objSaveData.ninja || initialNinja;
+        stage = objSaveData.stage || 1;
+
         this.state = {
             language: "English",
             curPage: 1,

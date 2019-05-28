@@ -18,8 +18,15 @@ class NinjaGame extends React.Component {
         if (saveData) {
             //セーブデータがあればそれを設定
             const objSaveData = JSON.parse(saveData);
-            ninja = objSaveData.ninja;
-            stage = objSaveData.stage;
+            ninja = objSaveData.ninja || {
+                size: 12,
+                speedX: 0,
+                speedY: 0,
+                posX: 145,
+                posY: -20,
+                readScroll: [],
+            };
+            stage = objSaveData.stage || 1;
         } else {
             //セーブデータがなければ、初期値を設定
             ninja = {

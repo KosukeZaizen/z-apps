@@ -207,6 +207,14 @@ function SpeakerImage(props) {
 
 function CloseElement(props) {
     if (props.obj.finalMessage) {
+
+        //localStorageに自動セーブ（次回起動時データ）
+        const saveData = {
+            ninja: null,
+            stage: 1,
+        }
+        localStorage.setItem('saveData2', JSON.stringify(saveData));
+
         //全クリ時のメッセージ
         return (
             <Link to="/ninja">
