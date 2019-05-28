@@ -9,8 +9,8 @@ import Developer from './components/Developer';
 import HiraganaQuiz from './components/HiraganaQuiz';
 import KatakanaQuiz from './components/KatakanaQuiz';
 import NinjaTop from './components/NinjaGameTop?v=1';
-import Ninja1 from './components/NinjaGame?v=1';
-import Ninja2 from './components/NinjaGame2?v=1';
+import Ninja1 from './components/NinjaGame';
+import Ninja2 from './components/NinjaGame2';
 import Ninja3 from './components/NinjaGame3';
 import ColorPalette from './components/ColorPalette';
 
