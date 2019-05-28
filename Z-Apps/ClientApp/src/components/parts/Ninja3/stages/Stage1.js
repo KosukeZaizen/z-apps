@@ -5,7 +5,7 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //メッセージモジュールの読み込み
-import { getMessage } from '../Messages';
+import { messages } from '../Messages';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
@@ -47,7 +47,7 @@ Stage1.getObjs = function () {
             zIndex: 20,
             img: Imgs.Pochi,
             onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: getMessage("POCHI_SCROLL_TITLE"),
+            openTargetTitle: messages.POCHI_SCROLL_TITLE,
         },
 
         pochiScroll: {
@@ -59,8 +59,8 @@ Stage1.getObjs = function () {
             scroll: true,
             visible: false,
             onTouch: OnTouch.toNothing,
-            title: getMessage("POCHI_SCROLL_TITLE"),
-            message: getMessage("POCHI_SCROLL_MESSAGE"),
+            title: messages.POCHI_SCROLL_TITLE,
+            message: messages.POCHI_SCROLL_MESSAGE,
             fontSize: 3,
             speakerImg: Imgs.Pochi,
         },

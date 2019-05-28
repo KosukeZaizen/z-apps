@@ -4,7 +4,7 @@ import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主�
 import { Obj } from './objs/obj';//オブジェクト描画
 import { setLang } from './Messages';//メッセージ
 import { TIME_STEP } from './Consts'//定数
-import { getMessage } from './Messages';//メッセージ
+import { messages } from './Messages';//メッセージ
 
 import Imgs from './ImportImgs';//各オブジェクトの画像
 
@@ -118,7 +118,7 @@ export default class Page2 extends React.Component {
                 if (this.lButton === true && this.rButton === true) {
 
                     //右と左同時押しでファイヤーボール
-                    if (this.ninja.readScroll.indexOf(getMessage("FIRE_SCROLL_TITLE")) >= 0) {
+                    if (this.ninja.readScroll.indexOf(messages.FIRE_SCROLL_TITLE) >= 0) {
                         //火遁の書を既に読んでいる場合
 
                         this.objs["fireBall" + this.ninja.fireBallCount] = {
@@ -340,7 +340,7 @@ function RenderScreenBottom(props) {
         return (
             <div style={styleDivPcMessage}>
                 <span style={styleTextPcMessage}>
-                    {getMessage("PC_KEYBOARD")}
+                    {messages.PC_KEYBOARD}
                 </span>
             </div>
         );

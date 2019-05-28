@@ -5,7 +5,7 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //メッセージモジュールの読み込み
-import { getMessage } from '../Messages';
+import { messages } from '../Messages';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
@@ -44,7 +44,7 @@ Stage2.getObjs = function () {
             zIndex: 22,
             img: Imgs.Scroll,
             onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: getMessage("FIRE_SCROLL_TITLE"),
+            openTargetTitle: messages.FIRE_SCROLL_TITLE,
         },
         fireBallScrollOpened: {
             size: 150,
@@ -55,8 +55,8 @@ Stage2.getObjs = function () {
             scroll: true,
             visible: false,
             onTouch: OnTouch.toNothing,
-            title: getMessage("FIRE_SCROLL_TITLE"),
-            message: getMessage("FIRE_SCROLL_MESSAGE"),
+            title: messages.FIRE_SCROLL_TITLE,
+            message: messages.FIRE_SCROLL_MESSAGE,
             fontSize: 3,
         },
         rock1Pic: {
@@ -81,7 +81,7 @@ Stage2.getObjs = function () {
             zIndex: 17,
             img: Imgs.Shino,
             onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: getMessage("SHINO_SCROLL_TITLE"),
+            openTargetTitle: messages.SHINO_SCROLL_TITLE,
         },
         shinoScroll: {
             size: 150,
@@ -92,8 +92,8 @@ Stage2.getObjs = function () {
             scroll: true,
             visible: false,
             onTouch: OnTouch.toNothing,
-            title: getMessage("SHINO_SCROLL_TITLE"),
-            message: getMessage("SHINO_SCROLL_MESSAGE"),
+            title: messages.SHINO_SCROLL_TITLE,
+            message: messages.SHINO_SCROLL_MESSAGE,
             fontSize: 3,
             speakerImg: Imgs.Shino,
         },
