@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as Consts from '../Consts'
 
 export default class Obj extends React.Component {
 
@@ -213,7 +214,7 @@ function CloseElement(props) {
             ninja: null,
             stage: 1,
         }
-        localStorage.setItem('saveData3', JSON.stringify(saveData));
+        localStorage.setItem(Consts.SAVE_NAME, JSON.stringify(saveData));
 
         //全クリ時のメッセージ
         return (

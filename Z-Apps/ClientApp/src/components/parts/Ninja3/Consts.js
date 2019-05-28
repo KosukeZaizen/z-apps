@@ -6,3 +6,6 @@
 
 //単位タイムステップ
 export const TIME_STEP = 0.5;
+
+//セーブ時　データ名
+export const SAVE_NAME = "saveData3";

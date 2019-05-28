@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja3/Page1';
 import { Page2 } from './parts/Ninja3/Page2';
+import * as Consts from './parts/Ninja3/Consts'
 import '../css/NinjaGame3.css';
-
 
 class NinjaGame extends React.Component {
 
@@ -24,7 +24,7 @@ class NinjaGame extends React.Component {
         };
 
         //セーブデータ読み込み
-        const saveData = localStorage.getItem('saveData3');
+        const saveData = localStorage.getItem(Consts.SAVE_NAME);
  
         //セーブデータがあればそれを設定
         const objSaveData = JSON.parse(saveData);
