@@ -33,7 +33,7 @@ Stage1.getObjs = function () {
         },
 
         ...StageParts.getOnePic("house2Pic", 60, 90, 55, Imgs.House1, 35, OnTouch.toNothing),
-        houseActual: {
+        house2Actual: {
             size: 60,
             posX: 97,
             posY: 67,
