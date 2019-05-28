@@ -321,7 +321,7 @@ function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
 
     if (props.terminalPC) {
-
+        //PCの場合、キーボード操作を促すメッセージ表示
         let styleDivPcMessage = {
             position: "absolute",
             top: 75 * UL,
