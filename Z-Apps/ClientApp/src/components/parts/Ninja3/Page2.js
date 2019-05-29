@@ -52,7 +52,7 @@ export default class Page2 extends React.Component {
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
-        //既読の巻物
+        //既読の巻物(ステージ遷移の度にリセット)
         this.readElementScroll = this.props.readElementScroll;
 
         //忍者オブジェクトに、ゲーム情報への参照を持たせる
