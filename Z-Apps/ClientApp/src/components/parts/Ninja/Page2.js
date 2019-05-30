@@ -745,28 +745,6 @@ export default class Page2 extends React.Component {
     }
 
     render() {
-        //ボタンがあるテーブルのスタイル
-        let controllerStyle = {
-            position: "absolute",
-            top: 75 * this.UL,
-            width: "100%",
-            zIndex: "99999999",
-            backgroundColor: "black",
-        };
-        //左右のボタンのスタイル
-        let sideButtonStyle = {
-            width: 30 * this.UL,
-            height: 15 * this.UL,
-            fontSize: 4 * this.UL + "px",
-            margin: "1px",
-        };
-        //ジャンプボタンのスタイル
-        let jumpButtonStyle = {
-            width: 100 * this.UL,
-            height: 15 * this.UL,
-            fontSize: 4 * this.UL,
-            margin: "1px",
-        };
 
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
