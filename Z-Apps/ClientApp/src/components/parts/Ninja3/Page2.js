@@ -49,7 +49,7 @@ export default class Page2 extends React.Component {
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
         UL = parseInt(pageSize.pageHeight, 10) / 90;
 
-        //前のステージから受け取った忍者の初期値を設定
+        //呼び出し元から受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
 
         //既読の巻物(ステージ遷移の度にリセット)
