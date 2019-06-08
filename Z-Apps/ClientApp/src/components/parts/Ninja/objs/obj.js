@@ -275,7 +275,7 @@ function CloseElement(props) {
 
         //全クリ時のメッセージ
         return (
-            <Link to="/ninja">
+            <Link to="/ninja2">
                 <button
                     className={"btn btn-dark btn-lg btn-block"}
                     style={props.styleBtnClose}
