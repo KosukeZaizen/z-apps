@@ -219,6 +219,9 @@ export default class Page2 extends React.Component {
             this.ninja.inWater = false;
 
 
+            //------------------------------------------------------------
+            // 各ステージの設定読み込み
+            //------------------------------------------------------------
             if (this.props.stage === 1) {
 
                 //ステージのオブジェクトを設定
@@ -240,16 +243,19 @@ export default class Page2 extends React.Component {
                 //ステージの背景画像を設定
                 this.bgImg = Stage3.bgImg;
             }
+            //------------------------------------------------------------
 
+            //ステージ変更を検知するために、現在のステージを記憶
             this.prevStage = this.props.stage;  
 
             //localStorageに自動セーブ
             const { game, ...rest } = this.ninja;
             const saveData = {ninja: rest, stage: this.props.stage}
             localStorage.setItem('saveData3', JSON.stringify(saveData));
-        }
 
-        this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+            //背景画像の変更
+            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+        }
 
         return (
             <div id="Page2" style={this.pageStyle}>

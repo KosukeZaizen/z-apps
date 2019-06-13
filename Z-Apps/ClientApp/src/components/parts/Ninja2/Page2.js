@@ -2779,9 +2779,10 @@ export default class Page2 extends React.Component {
             const { game, ...rest } = this.ninja;
             const saveData = { ninja: rest, stage: this.props.stage }
             localStorage.setItem('saveData2', JSON.stringify(saveData));
-        }
 
-        this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+            //背景画像の変更
+            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+        }
 
         return (
             <div id="Page2" style={this.pageStyle}>
