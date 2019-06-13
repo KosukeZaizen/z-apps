@@ -1,5 +1,6 @@
 import Imgs from '../ImportImgs';
-import * as OnTouch from '../OnTouch';
+import * as OnTouch from './OnTouch';//タッチ関数
+import * as EachTime from './EachTime';//タイムステップごとの処理
 
 
 //------------------------------------------------------------
@@ -62,6 +63,23 @@ export function getOnePic(name, size, posX, posY, img, zIndex, onTouch) {
         onTouch: onTouch,
     }
     return objResult;
+}
+
+
+//ファイヤーボール　生成関数
+export function getFireBall(size, posX, posY, boolLeft, fireBallCount) {
+
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: 999 - fireBallCount,
+        img: Imgs.FireBallR,
+        onTouch: OnTouch.toNothing,
+        fireBall: true,
+        boolLeft: boolLeft,
+        eachTime: EachTime.FireBall,
+    };
 }
 
 //画面外を黒くする要素

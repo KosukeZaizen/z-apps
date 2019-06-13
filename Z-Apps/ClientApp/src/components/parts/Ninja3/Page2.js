@@ -6,11 +6,7 @@ import { setLang } from './Messages';//メッセージ
 import { TIME_STEP } from './Consts'//定数
 import { messages } from './Messages';//メッセージ
 
-import Imgs from './ImportImgs';//各オブジェクトの画像
-
 import * as GameCore from './GameCore';//ゲームのコア関数
-import * as OnTouch from './OnTouch';//タッチ関数
-import * as EachTime from './EachTime';//タイムステップごとの処理
 import * as CommonFnc from './CommonFnc'//共通関数
 
 //各ステージ情報
@@ -121,17 +117,10 @@ export default class Page2 extends React.Component {
                     if (this.ninja.readScroll.indexOf(messages.FIRE_SCROLL_TITLE) >= 0) {
                         //火遁の書を既に読んでいる場合
 
-                        this.objs["fireBall" + this.ninja.fireBallCount] = {
-                            size: 12,
-                            posX: this.ninja.posX,
-                            posY: this.ninja.posY,
-                            zIndex: 999 - this.ninja.fireBallCount,
-                            img: Imgs.FireBallR,
-                            onTouch: OnTouch.toNothing,
-                            fireBall: true,
-                            boolLeft: this.ninja.boolLeft,
-                            eachTime: EachTime.FireBall,
-                        }
+                        //ファイヤーボール生成
+                        this.objs["fireBall" + this.ninja.fireBallCount] =
+                            getFireBall(12, this.ninja.posX, this.ninja.posY, this.ninja.boolLeft, this.ninja.fireBallCount);
+
                         this.ninja.fireBallCount++;
                     }
                 } else {
