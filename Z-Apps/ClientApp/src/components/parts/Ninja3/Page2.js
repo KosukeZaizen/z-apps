@@ -14,6 +14,8 @@ import { Stage1 } from './stages/Stage1';
 import { Stage2 } from './stages/Stage2';
 import { Stage3 } from './stages/Stage3';
 
+//ステージの部品作成用関数群の読み込み
+import * as StageParts from './StagePartsGenerator';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -119,7 +121,7 @@ export default class Page2 extends React.Component {
 
                         //ファイヤーボール生成
                         this.objs["fireBall" + this.ninja.fireBallCount] =
-                            getFireBall(12, this.ninja.posX, this.ninja.posY, this.ninja.boolLeft, this.ninja.fireBallCount);
+                            StageParts.getFireBall(12, this.ninja.posX, this.ninja.posY, this.ninja.boolLeft, this.ninja.fireBallCount);
 
                         this.ninja.fireBallCount++;
                     }
