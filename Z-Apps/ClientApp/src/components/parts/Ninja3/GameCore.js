@@ -146,3 +146,24 @@ export const onMouseUp = function (btnType) {
         this.rButton = false;
     }
 }
+
+//背景の設定
+export function getBgImg(bgImg) {
+
+    return {
+        /* 背景画像 */
+        backgroundImage: `url(${bgImg})`,
+
+        /* 画像を常に天地左右の中央に配置 */
+        backgroundPosition: "center center",
+
+        /* 画像をタイル状に繰り返し表示しない */
+        backgroundRepeat: "no-repeat",
+
+        /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+        backgroundSize: "cover",
+
+        /* 背景画像が読み込まれる前に表示される背景のカラー */
+        backgroundColor: "black",
+    };
+}

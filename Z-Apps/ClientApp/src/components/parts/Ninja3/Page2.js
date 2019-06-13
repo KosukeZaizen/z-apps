@@ -57,24 +57,9 @@ export default class Page2 extends React.Component {
         //（各関数からゲーム情報を参照・更新できるようにするため）
         this.ninja.game = this;
 
-
         //背景の初期設定
-        this.backgroundSetting = {
-            /* 背景画像 */
-            backgroundImage: `url(${Stage1.bgImg})`,
+        this.backgroundSetting = GameCore.getBgImg(Stage1.bgImg);
 
-            /* 画像を常に天地左右の中央に配置 */
-            backgroundPosition: "center center",
-
-            /* 画像をタイル状に繰り返し表示しない */
-            backgroundRepeat: "no-repeat",
-
-            /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
-            backgroundSize: "cover",
-
-            /* 背景画像が読み込まれる前に表示される背景のカラー */
-            backgroundColor: "black",
-        };
 
         // ------------------------------------------------------------
         // ステート初期設定
