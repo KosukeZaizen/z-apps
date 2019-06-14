@@ -343,7 +343,7 @@ function RenderButtons(props) {
     let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
-        width: "100%",
+        width: 160 * UL,
         zIndex: "99999999",
         backgroundColor: "black",
     };
