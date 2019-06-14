@@ -499,9 +499,12 @@ export default class Page2 extends React.Component {
                     //ページの余白設定
                     position: "absolute",
                     top: (screenHeight - pageHeight) / 2,
-                }
+                };
             } else {
                 this.pageStyle = {
+                    //ページの余白設定
+                    position: "absolute",
+                    left: (screenWidth - pageWidth) / 2
                 };
             }
         } else {
@@ -519,14 +522,14 @@ export default class Page2 extends React.Component {
                     position: "absolute",
                     left: (screenWidth + pageHeight) / 2,
                     top: screenHeight / 20,
-                }
+                };
             } else {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
                     left: screenWidth * 95 / 100,
                     top: (screenHeight - pageWidth) / 2,
-                }
+                };
             }
         }
 
@@ -2099,7 +2102,7 @@ function RenderButtons(props) {
     let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
-        width: "100%",
+        width: 160 * UL,
         zIndex: "99999999",
         backgroundColor: "black",
     };
