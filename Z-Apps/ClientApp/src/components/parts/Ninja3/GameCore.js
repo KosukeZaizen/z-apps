@@ -5,7 +5,6 @@
 //------------------------------------------------------------
 
 
-//---------------↓　resize　↓---------------
 export const getWindowSize = function () {
     let pageWidth, pageHeight;
     let screenWidth = parseInt(window.innerWidth, 10);
@@ -58,7 +57,6 @@ export const getWindowSize = function () {
 
     return { pageWidth: pageWidth, pageHeight: pageHeight };
 }
-//---------------↑　resize　↑---------------
 
 
 export const checkTerminalPC = function () {
