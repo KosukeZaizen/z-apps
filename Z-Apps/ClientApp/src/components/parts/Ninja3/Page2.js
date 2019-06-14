@@ -274,6 +274,7 @@ export default class Page2 extends React.Component {
                 </div>
                 <b>
                     <RenderScreenBottom
+                        screenWidth={this.pageStyle.width}
                         onClickButton={GameCore.onClickButton.bind(this)}
                         onMouseUp={GameCore.onMouseUp.bind(this)}
                         terminalPC={this.terminalPC}
@@ -330,6 +331,7 @@ function RenderScreenBottom(props) {
         //スマホ・タブレットの場合、画面下部にボタンを表示
         return (
             <RenderButtons
+                screenWidth={props.screenWidth}
                 onClickButton={props.onClickButton}
                 onMouseUp={props.onMouseUp}
             />
@@ -343,7 +345,7 @@ function RenderButtons(props) {
     let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
-        width: "100%",
+        width: props.screenWidth,
         zIndex: "99999999",
         backgroundColor: "black",
     };
