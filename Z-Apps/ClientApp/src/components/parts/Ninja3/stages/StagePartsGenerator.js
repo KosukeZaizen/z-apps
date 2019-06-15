@@ -1,6 +1,6 @@
 import Imgs from '../ImportImgs';
-import * as OnTouch from './OnTouch';//タッチ関数
-import * as EachTime from './EachTime';//タイムステップごとの処理
+import * as OnTouch from '../OnTouch';//タッチ関数
+import * as EachTime from '../EachTime';//タイムステップごとの処理
 
 
 //------------------------------------------------------------

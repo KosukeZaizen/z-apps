@@ -15,7 +15,7 @@ import { Stage2 } from './stages/Stage2';
 import { Stage3 } from './stages/Stage3';
 
 //ステージの部品作成用関数群の読み込み
-import * as StageParts from './StagePartsGenerator';
+import * as StageParts from './stages/StagePartsGenerator';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
