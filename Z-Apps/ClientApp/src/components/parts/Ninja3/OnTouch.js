@@ -25,13 +25,13 @@ export function toScrollOpener(ninja) {
         }
     }
     
-    if (this.ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
+    if (ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
         //該当のメッセージをまだ読んでいない場合
         //読み終えたリストの中に該当の巻物を追加
         ninja.readScroll.push(this.openTargetTitle);
     }
 
-    if (this.ninja.readElementScroll.indexOf(this.openTargetTitle) < 0) {
+    if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //該当のメッセージをまだ読んでいない場合
         //読み終えたリスト(ステージ遷移の度にリセット)の中に該当の巻物を追加
         ninja.game.props.readElementScroll.push(this.openTargetTitle);
