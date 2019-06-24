@@ -28,8 +28,13 @@ class NinjaGame extends React.Component {
 
         //セーブデータがあればそれを設定
         const objSaveData = JSON.parse(saveData);
-        ninja = objSaveData.ninja || initialNinja;
-        stage = objSaveData.stage || 1;
+        if (objSaveData) {
+            ninja = objSaveData.ninja || initialNinja;
+            stage = objSaveData.stage || 1;
+        } else {
+            ninja = initialNinja;
+            stage = 1;
+        }
 
         this.state = {
             language: "English",
