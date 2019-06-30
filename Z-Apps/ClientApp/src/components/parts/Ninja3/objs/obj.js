@@ -73,7 +73,7 @@ export default class Obj extends React.Component {
                         <img
                             src={img}
                             style={styleImg}
-                            alt={"object"}
+                            alt={"ninja game object"}
                         />
                         <div style={styleTexts}>
                             <center>
