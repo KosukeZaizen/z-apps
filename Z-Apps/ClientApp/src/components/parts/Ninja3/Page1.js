@@ -19,6 +19,9 @@ export default class Page1 extends React.Component {
     }
 
     render() {
+        const bottomMargin = {
+            marginBottom: 10,
+        };
         return (
             <div id="page1">
                 <span onClick={() => { this.hideTopImage() }}>
@@ -26,18 +29,18 @@ export default class Page1 extends React.Component {
                 </span>
                 <br />
                 <br />
-                <h1 style={{ color: "white", }}>Which language do you prefer?</h1>
-                <br />
+                <h2 style={{ color: "white", marginBottom: 10,}} >Which language do you prefer?</h2>
                 <span onClick={() => { this.props.changePage(2, "English") }}>
                     <button
+                        style={bottomMargin}
                         className={this.consts.BTN_START_CLASS}
                     >
                         {"English"}
                     </button>
                 </span>
-                <br />
                 <span onClick={() => { this.props.changePage(2, "Japanese") }}>
                     <button
+                        style={bottomMargin}
                         className={this.consts.BTN_START_CLASS}
                     >
                         {"日本語"}
@@ -63,7 +66,7 @@ export default class Page1 extends React.Component {
 
 function TopImage(props) {
     if (props.topImage) {
-        return <img width="100%" src={logo} alt="Shuriken Master" />;
+        return <img width="100%" src={logo} alt="Japanese Ninja Game" />;
     } else {
         return <span></span>;
     }

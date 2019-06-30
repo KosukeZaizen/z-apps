@@ -26,7 +26,7 @@ export default class Page1 extends React.Component {
                 </span>
                 <br />
                 <br />
-                <h1 style={{ color: "white", }}>Which language do you prefer?</h1>
+                <h2 style={{ color: "white", }}>Which language do you prefer?</h2>
                 <br />
                 <span onClick={() => { this.props.changePage(2, "English") }}>
                     <button
@@ -63,7 +63,7 @@ export default class Page1 extends React.Component {
 
 function TopImage(props) {
     if (props.topImage) {
-        return <img width="100%" src={logo} alt="Shuriken Master" />;
+        return <img width="100%" src={logo} alt="Japanese Ninja Game" />;
     } else {
         return <span></span>;
     }
