@@ -87,6 +87,7 @@ export default class Obj extends React.Component {
                             onClick={() => { this.onClickOkButtonInScroll() }}
                             styleBtnClose={styleBtnClose}
                             obj={this.props.obj}
+                            game={this.props.game}
                         />
                         <SpeakerImage
                             img={speakerImg}
@@ -229,6 +230,11 @@ function CloseElement(props) {
         );
     } else {
         //全クリ時のメッセージでない通常メッセージ
+        if (props.game.closeScroll) {
+            //ジャンプボタンが押されていたら、巻物を閉じる
+            props.onClick();
+            props.game.closeScroll = false;
+        }
         return (
             <button
                 className={"btn btn-dark btn-lg btn-block"}

@@ -580,6 +580,9 @@ export default class Page2 extends React.Component {
                     }
                 }
 
+                //前タイムステップでジャンプをした時のため、元に戻す
+                this.closeScroll = false;
+
                 if (this.jButton === true) {
                     if (this.ninja.speedY === 0) {
                         //通常ジャンプ
@@ -593,6 +596,9 @@ export default class Page2 extends React.Component {
                         }
                     }
                     this.jButton = false;
+
+                    //ジャンプボタン押下時に巻物を閉じる
+                    this.closeScroll = true;
                 }
 
                 //重力加速度
