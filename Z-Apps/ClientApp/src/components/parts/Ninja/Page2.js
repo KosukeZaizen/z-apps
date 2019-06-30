@@ -318,8 +318,8 @@ export default class Page2 extends React.Component {
                 KOSUKE_SCROLL_TITLE: "こんにちは、僕はコウスケ！",
                 KOSUKE_SCROLL_MESSAGE:
                     "このゲームを作りし者さ！\n" +
-                    "全クリおめでとう！\n" +
-                    "そして、僕のゲームで遊んでくれてありがとう！",
+                    "僕のゲームで遊んでくれてありがとう！\n" +
+                    "次のチャプターでは、炎を使って敵と戦おう！",
             };
         } else {
             this.consts = {
@@ -433,9 +433,9 @@ export default class Page2 extends React.Component {
                 //天界でコウスケに触った時のメッセージ
                 KOSUKE_SCROLL_TITLE: "Hello, I'm Kosuke!",
                 KOSUKE_SCROLL_MESSAGE:
-                    "I am the creater of this game!\n" +
-                    "You completed my game!\n" +
-                    "Thank you for playing!!!!",
+                    "I am the creator of this game!\n" +
+                    "Thank you for playing my game!\n" +
+                    "In the next chapter, you should defeat the enemies using fire!",
             };
         }
 

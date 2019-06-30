@@ -3402,8 +3402,9 @@ function eachTimeBoss(ninja, key) {
         let random1 = Math.floor(Math.random() * 6);
         let random2 = Math.floor(Math.random() * 6);
         let random3 = Math.floor(Math.random() * 6);
+        let randomHalf = Math.floor(Math.random() * 3);
 
-        if (random1 * random2 === 9) {
+        if (random1 * random2 === 9 && randomHalf === 2) {
             ninja.game.objs["bat" + day] = {
                 size: 13,
                 posX: this.posX,
@@ -3427,7 +3428,7 @@ function eachTimeBoss(ninja, key) {
         let random4 = Math.floor(Math.random() * 6);
 
         //一つ目生成
-        if (random1 * random2 * random3 * random4 === 27) {
+        if (random1 * random2 * random3 * random4 === 27 && randomHalf === 2) {
             //3が3つと1ひとつ　⇒　右から
             ninja.game.objs["hitotsumeR" + day] = {
                 size: 12,
@@ -3449,7 +3450,7 @@ function eachTimeBoss(ninja, key) {
                 life: 1,
             };
         }
-        if (random1 * random2 * random3 * random4 === 625) {
+        if (random1 * random2 * random3 * random4 === 625 && randomHalf === 2) {
             //全部5　⇒　左から
             ninja.game.objs["hitotsumeL" + day] = {
                 size: 12,
