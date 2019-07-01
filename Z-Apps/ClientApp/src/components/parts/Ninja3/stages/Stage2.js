@@ -16,7 +16,7 @@ import bgImg from '../img/background/whiteWall.jpg';
 // ステージ2 (ファイヤーボールの書)
 // ------------------------------------------------------------
 
-const Stage2 = {}
+const Stage2 = {};
 Stage2.bgImg = bgImg;
 
 Stage2.getObjs = function () {

@@ -157,6 +157,7 @@ export default class Obj extends React.Component {
             let zIndex = this.props.obj.zIndex;
             let fontSize = this.props.obj.fontSize * UL || 4 * UL;
             let message = this.props.obj.message;
+            let fontColor = this.props.obj.fontColor;
 
             let style = {
                 position: "absolute",
@@ -164,6 +165,7 @@ export default class Obj extends React.Component {
                 top: posY,
                 zIndex: zIndex,
                 fontSize: fontSize,
+                color: fontColor,
             };
             return (
                 <div

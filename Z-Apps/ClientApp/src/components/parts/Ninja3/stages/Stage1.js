@@ -4,6 +4,8 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
+//オブジェクトのタイムステップごとのメソッドの読み込み
+import * as EachTime from '../EachTime';
 //メッセージモジュールの読み込み
 import { messages } from '../Messages';
 //共通関数の読み込み
@@ -16,7 +18,7 @@ import bgImg from '../img/background/castle1.jpg';
 // ステージ1 (出発地点　屋根の上)
 // ------------------------------------------------------------
 
-const Stage1 = {}
+const Stage1 = {};
 Stage1.bgImg = bgImg;
 
 Stage1.getObjs = function () {
@@ -74,6 +76,22 @@ Stage1.getObjs = function () {
             onTouch: OnTouch.toGateTop1,
             changeStage: changeStage,
         },
+
+
+
+
+        snow: {
+            size: 30,
+            posX: 87,
+            posY: 10,
+            zIndex: 30,
+            message: ".",
+            fontSize: 4,
+            onTouch: OnTouch.toNothing,
+            eachTime: EachTime.Snow,
+            fontColor: "white",
+        },
+
     };
     return objs;
 }

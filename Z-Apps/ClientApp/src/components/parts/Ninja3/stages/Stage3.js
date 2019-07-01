@@ -16,7 +16,7 @@ import bgImg from '../img/background/whiteWall2.jpg';
 // ステージ3 (鷲と白壁)
 // ------------------------------------------------------------
 
-const Stage3 = {}
+const Stage3 = {};
 Stage3.bgImg = bgImg;
 
 Stage3.getObjs = function () {
