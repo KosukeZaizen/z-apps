@@ -12,6 +12,7 @@ import NinjaTop from './components/NinjaGameTop';
 import Ninja1 from './components/NinjaGame';
 import Ninja2 from './components/NinjaGame2';
 import Ninja3 from './components/NinjaGame3';
+import GameOver from './components/GameOver';
 import ColorPalette from './components/ColorPalette';
 
 
@@ -28,6 +29,7 @@ export default () => (
         <Route path='/ninja1' component={Ninja1} />
         <Route path='/ninja2' component={Ninja2} />
         <Route path='/ninja3' component={Ninja3} />
+        <Route path='/game-over' component={GameOver} />
         <Route path='/color-code' component={ColorPalette} />
     </Layout>
 );

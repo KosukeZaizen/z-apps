@@ -25,7 +25,7 @@ class NinjaGame extends React.Component {
 
         //セーブデータ読み込み
         const saveData = localStorage.getItem(Consts.SAVE_NAME);
- 
+
         //セーブデータがあればそれを設定
         const objSaveData = JSON.parse(saveData);
         if (objSaveData) {
@@ -36,8 +36,23 @@ class NinjaGame extends React.Component {
             stage = 1;
         }
 
+
+        //urlパラメータ取得
+        const getParams = () => {
+            let arg = {};
+            let pair = window.location.search.substring(1).split('&');
+            for (let i = 0; pair[i]; i++) {
+                let kv = pair[i].split('=');
+                arg[kv[0]] = kv[1];
+            }
+            return arg;
+        };
+
+        const params = getParams();
+        const lang = (!!params) ? params.l : "";
+
         this.state = {
-            language: "English",
+            language: lang,
             curPage: 1,
             stage: stage,//デバッグ用（通常時1）★
             //stage: 1,
@@ -92,13 +107,8 @@ class NinjaGame extends React.Component {
 };
 
 function Pages(props) {
-    if (props.state.curPage === 1) {
-        return (
-            <Page1
-                changePage={(i,lang) => { props.changePage(i,lang) }}
-            />
-        );
-    } else if (props.state.curPage === 2) {
+
+    if (props.state.curPage === 2 || !!props.state.language) {
         return (
             <Page2
                 changeStage={(i, j) => { props.changeStage(i, j) }}
@@ -106,6 +116,12 @@ function Pages(props) {
                 stage={props.state.stage}
                 readElementScroll={props.readElementScroll}
                 language={props.state.language}
+            />
+        );
+    } else if (props.state.curPage === 1) {
+        return (
+            <Page1
+                changePage={(i, lang) => { props.changePage(i, lang) }}
             />
         );
     }

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import logo1 from './parts/Ninja/img/logo.png';
 import logo2 from './parts/Ninja2/img/logo.png';
 
-
 const NinjaGameTop = props => (
     <div className="ninjaGameTop" style={{ fontSize: "large" }}>
 

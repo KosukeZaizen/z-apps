@@ -165,3 +165,13 @@ export function toStageChangeCommon(ninja, from) {
 
     return "changed";
 }
+
+//=======================================
+// 敵に触ってゲームオーバー
+//=======================================
+export function toEnemy(ninja, from) {
+    if (!!ninja && !!ninja.game) {
+        window.location.href = "/game-over?g=ninja3&l=" +
+            ninja.game.lang;
+    }
+}

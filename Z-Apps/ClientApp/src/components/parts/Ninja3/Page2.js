@@ -36,7 +36,8 @@ export default class Page2 extends React.Component {
 
         //引数で受け取った関数と言語設定を、各import元ファイルから使えるように設定
         CommonFnc.setChangeStage(props.changeStage);
-        setLang(props.language);
+        this.lang = props.language;//敵へのタッチ関数から呼び出すため
+        setLang(props.language);//メッセージだし分けのため
 
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;
