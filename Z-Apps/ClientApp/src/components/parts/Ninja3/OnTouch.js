@@ -1,4 +1,5 @@
 import { changeStage } from './CommonFnc'
+import * as consts from './Consts'//定数
 
 //------------------------------------------------------------
 //
@@ -171,7 +172,6 @@ export function toStageChangeCommon(ninja, from) {
 //=======================================
 export function toEnemy(ninja, from) {
     if (!!ninja && !!ninja.game) {
-        window.location.href = "/game-over?g=ninja3&l=" +
-            ninja.game.lang;
+        window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
     }
 }
