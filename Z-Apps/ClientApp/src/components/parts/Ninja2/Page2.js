@@ -45,8 +45,6 @@ import imgWoodenBlock from './objs/woodenBox.jpg';
 import imgKey from './objs/kagi.png';
 //はしご
 import imgHashigo from './objs/hashigo_wood.png';
-//化け猫
-import imgCat from './objs/cat.png';
 //一つ目
 import imgOneEye from './objs/hitotsume.png';
 //青い火の玉
@@ -948,10 +946,10 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
 
                     washi1: {
-                        size: 13,
+                        size: 11,
                         posX: 0,
                         posY: 0,
-                        speedX: 3,
+                        speedX: 2,
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
@@ -963,10 +961,10 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
                     washi2: {
-                        size: 13,
+                        size: 11,
                         posX: -40,
                         posY: -60,
-                        speedX: 3,
+                        speedX: 2,
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
@@ -978,10 +976,10 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
                     washi3: {
-                        size: 13,
+                        size: 11,
                         posX: 0,
                         posY: -100,
-                        speedX: 3,
+                        speedX: 2,
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
@@ -1407,12 +1405,12 @@ export default class Page2 extends React.Component {
                     ], onTouchBlock, imgBlock1, 23),
 
                     kani1: {
-                        size: 13,
+                        size: 17,
                         posX: 80,
                         posY: 65,
                         speedX: 0.7,
                         speedY: 0,
-                        zIndex: 19,
+                        zIndex: 20,
                         img: imgKani,
                         onTouch: onTouchStageChangeCommon,
                         nextX: 100,
@@ -1425,11 +1423,11 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
                     fugu1: {
-                        size: 13,
+                        size: 20,
                         posX: 160,
                         posY: 0,
                         speedX: 0.5,
-                        speedY: 1,
+                        speedY: 0.5,
                         zIndex: 24,
                         img: imgFugu,
                         onTouch: onTouchStageChangeCommon,
@@ -1443,11 +1441,11 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
                     fugu2: {
-                        size: 13,
+                        size: 20,
                         posX: 70,
                         posY: 50,
                         speedX: 0.5,
-                        speedY: 1,
+                        speedY: 0.5,
                         zIndex: 24,
                         img: imgFugu,
                         onTouch: onTouchStageChangeCommon,
@@ -1461,7 +1459,7 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
                     kaisou1: {
-                        size: 12,
+                        size: 9,
                         posX: 90,
                         posY: 61,
                         zIndex: 19,
@@ -1469,7 +1467,7 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchNothing,
                     },
                     kaisou2: {
-                        size: 12,
+                        size: 9,
                         posX: 112,
                         posY: 61,
                         zIndex: 19,
@@ -1477,7 +1475,7 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchNothing,
                     },
                     kaisou3: {
-                        size: 12,
+                        size: 9,
                         posX: 22,
                         posY: 16,
                         zIndex: 19,
@@ -1601,7 +1599,7 @@ export default class Page2 extends React.Component {
                         eachTime: eachTimeKimme,
                     },
                     kani1: {
-                        size: 13,
+                        size: 17,
                         posX: 80,
                         xMin: 10,
                         xMax: 95,
@@ -1993,7 +1991,7 @@ export default class Page2 extends React.Component {
                         size: 13,
                         posX: 75,
                         posY: 60,
-                        speedX: 1,
+                        speedX: 0.7,
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
@@ -2008,14 +2006,14 @@ export default class Page2 extends React.Component {
                         life: 1,
                     },
 
-                    cat1: {
+                    bat1: {
                         size: 13,
                         posX: 75,
                         posY: 0,
-                        speedX: 1,
-                        speedY: 1.5,
-                        zIndex: 19,
-                        img: imgCat,
+                        speedX: 0.7,
+                        speedY: 1,
+                        zIndex: 31,
+                        img: imgBat,
                         next: 9,
                         onTouch: onTouchStageChangeCommon,
                         nextX: 125,
@@ -2068,7 +2066,7 @@ export default class Page2 extends React.Component {
                         size: 19,
                         posX: 75,
                         posY: 57,
-                        speedX: 1,
+                        speedX: 0.7,
                         speedY: 0,
                         zIndex: 19,
                         img: imgOni,
