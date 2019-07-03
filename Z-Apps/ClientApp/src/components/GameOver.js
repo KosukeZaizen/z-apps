@@ -22,21 +22,31 @@ class GameOver extends React.Component {
             marginBottom: 20,
         };
 
+        //urlパラメータ取得
         const params = this.getParams();
 
         const game = params.g || "";
         const lang = params.l || "";
 
-        //urlパラメータ取得
         const gameUrl = "/" + game + "?l=" + lang;
+
+        let title;
+        let msgButton;
+        if (lang === "Japanese") {
+            title = "ゲームオーバー";
+            msgButton = "続きから再開";
+        } else {
+            title = "Oops! You touched the enemy!";
+            msgButton = "Continue the game";
+        }
 
         return (
             <center>
                 <Link to={gameUrl}>
-                    <h2 style={bottomMargin} >Oops! You touched the enemy!</h2>
+                    <h2 style={bottomMargin} >{title}</h2>
                     <div className="contents">
                         <button className={this.consts.BTN_START_CLASS} >
-                            {"Continue the game"}
+                            {msgButton}
                         </button>
                     </div>
                 </Link>
