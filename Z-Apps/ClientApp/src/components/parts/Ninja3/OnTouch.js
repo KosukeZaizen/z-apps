@@ -69,31 +69,8 @@ export function toBlock(ninja, from) {
 // 風呂場の鍵がかかったドアのタッチ関数
 //=======================================
 export function toLockedDoor(ninja, from) {
-    if (ninja.readScroll.indexOf(this.keyName) < 0) {
-        //鍵を持っていなければブロック
-        if (from === "upper") {
-            //上から
-            ninja.posY = this.posY - ninja.size;
-            ninja.speedY = 0;
-
-        } else if (from === "right") {
-            //右から
-            ninja.posX = this.posX + this.size;
-            ninja.speedX = 0;
-
-        } else if (from === "lower") {
-            //下から
-            ninja.posY = this.posY + this.size;
-            ninja.speedY = 0;
-
-        } else if (from === "left") {
-            //左から
-            ninja.posX = this.posX - ninja.size;
-            ninja.speedX = 0;
-        }
-    } else {
-        //鍵を持っていれば何もしない
-    }
+    //鍵を持っていなければブロック
+    if (ninja.readScroll.indexOf(this.keyName) < 0) toBlock(ninja, from);
 }
 
 //=======================================
@@ -142,7 +119,7 @@ export function toGateTop1(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
-export function toOutsideEnemy1(ninja, from) {
+export function toOutsideEnemy1(ninja) {
 
     ninja.posX = 145;
     ninja.posY = 0;
@@ -156,7 +133,7 @@ export function toOutsideEnemy1(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
-export function toStageChangeCommon(ninja, from) {
+export function toStageChangeCommon(ninja) {
 
     ninja.posX = this.nextX;
     ninja.posY = this.nextY;
@@ -170,8 +147,11 @@ export function toStageChangeCommon(ninja, from) {
 //=======================================
 // 敵に触ってゲームオーバー
 //=======================================
-export function toEnemy(ninja, from) {
+export function toEnemy(ninja) {
     if (!!ninja && !!ninja.game) {
+        //ゲームを停止
+        clearInterval(ninja.game.timerId);
+        //ゲームオーバー画面へリダイレクト
         window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
     }
 }

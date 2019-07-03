@@ -89,7 +89,7 @@ export default class Page2 extends React.Component {
         this.setKeyboardEvent(this);
 
         //タイムステップ毎に処理を呼び出す
-        setInterval(() => {
+        this.timerId = setInterval(() => {
             //タイムステップごとの計算
 
 
