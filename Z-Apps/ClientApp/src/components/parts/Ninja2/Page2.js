@@ -109,6 +109,9 @@ export default class Page2 extends React.Component {
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = this.checkTerminalPC();
 
+        //ゲームオーバー画面に送信するための言語情報
+        this.lang = props.language;
+
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;
 
@@ -439,7 +442,7 @@ export default class Page2 extends React.Component {
         this.setKeyboardEvent(this);
 
         //タイムステップ毎に処理を呼び出す
-        setInterval(() => {
+        this.timerId = setInterval(() => {
             //タイムステップごとの計算
 
 
@@ -953,9 +956,7 @@ export default class Page2 extends React.Component {
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -968,9 +969,7 @@ export default class Page2 extends React.Component {
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -983,9 +982,7 @@ export default class Page2 extends React.Component {
                         speedY: 1,
                         zIndex: 20,
                         img: imgWashi,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1086,9 +1083,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1102,9 +1097,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1118,9 +1111,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
-                        onTouch: onTouchOutsideEnemy1,
-                        next: 2,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1412,12 +1403,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 20,
                         img: imgKani,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 100,
-                        nextY: 63,
-                        nextLeft: false,
-                        next: 5,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1430,12 +1416,7 @@ export default class Page2 extends React.Component {
                         speedY: 0.5,
                         zIndex: 24,
                         img: imgFugu,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 100,
-                        nextY: 63,
-                        nextLeft: false,
-                        next: 5,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1448,12 +1429,7 @@ export default class Page2 extends React.Component {
                         speedY: 0.5,
                         zIndex: 24,
                         img: imgFugu,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 100,
-                        nextY: 63,
-                        nextLeft: false,
-                        next: 5,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1608,12 +1584,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgKani,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 100,
-                        nextY: 63,
-                        nextLeft: false,
-                        next: 5,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1796,12 +1767,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -1995,12 +1961,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBadNinja,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -2014,12 +1975,7 @@ export default class Page2 extends React.Component {
                         speedY: 1,
                         zIndex: 31,
                         img: imgBat,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -2070,12 +2026,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgOni,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
                         life: 1,
@@ -2138,12 +2089,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgOneEye,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
                         life: 1,
@@ -2218,12 +2164,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgOneEye,
-                        next: 9,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 125,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
                         life: 1,
@@ -2661,12 +2602,7 @@ export default class Page2 extends React.Component {
                         speedY: 0,
                         zIndex: 19,
                         img: imgBoss,
-                        next: 18,
-                        onTouch: onTouchStageChangeCommon,
-                        nextX: 10,
-                        nextY: 0,
-                        nextLeft: true,
-                        changeStage: this.props.changeStage,
+                        onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeBoss,
                         life: 1,
@@ -3239,20 +3175,6 @@ function onTouchGateTop2(ninja, from) {
 }
 
 //=======================================
-// 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
-//=======================================
-function onTouchOutsideEnemy1(ninja, from) {
-
-    ninja.posX = 145;
-    ninja.posY = 0;
-    ninja.speedY = 0;
-    ninja.speedX = 0;
-    this.changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
 function onTouchStageChangeCommon(ninja, from) {
@@ -3265,6 +3187,19 @@ function onTouchStageChangeCommon(ninja, from) {
 
     return "changed";
 }
+
+//=======================================
+// 敵に触ってゲームオーバー
+//=======================================
+function onTouchEnemy(ninja) {
+    if (!!ninja && !!ninja.game) {
+        //ゲームを停止
+        clearInterval(ninja.game.timerId);
+        //ゲームオーバー画面へリダイレクト
+        window.location.href = "/game-over?g=ninja2&l=" + ninja.game.lang;
+    }
+}
+
 
 //------------------------------------------------------------
 //
@@ -3354,12 +3289,7 @@ function eachTimeOneEye(ninja, key) {
                     speedY: random3 / 5,
                     zIndex: 5,
                     img: imgBlueFire,
-                    next: this.next,
-                    onTouch: onTouchStageChangeCommon,
-                    nextX: this.nextX,
-                    nextY: this.nextY,
-                    nextLeft: true,
-                    changeStage: this.changeStage,
+                    onTouch: onTouchEnemy,
                     enemy: true,
                     eachTime: eachTimeEnemy,
                     life: 1,
@@ -3411,12 +3341,7 @@ function eachTimeBoss(ninja, key) {
                 speedY: random2 / 3,
                 zIndex: 5,
                 img: imgBat,
-                next: 18,
-                onTouch: onTouchStageChangeCommon,
-                nextX: 10,
-                nextY: 0,
-                nextLeft: false,
-                changeStage: this.changeStage,
+                onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeEnemy,
                 life: 1,
@@ -3437,12 +3362,7 @@ function eachTimeBoss(ninja, key) {
                 speedY: 0.5,
                 zIndex: 5,
                 img: imgOneEye,
-                next: 18,
-                onTouch: onTouchStageChangeCommon,
-                nextX: 10,
-                nextY: 0,
-                nextLeft: false,
-                changeStage: this.changeStage,
+                onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
                 life: 1,
@@ -3459,12 +3379,7 @@ function eachTimeBoss(ninja, key) {
                 speedY: 0.5,
                 zIndex: 5,
                 img: imgOneEye,
-                next: 18,
-                onTouch: onTouchStageChangeCommon,
-                nextX: 10,
-                nextY: 0,
-                nextLeft: false,
-                changeStage: this.changeStage,
+                onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
                 life: 1,
