@@ -33,7 +33,7 @@ class GameOver extends React.Component {
         let title;
         let msgButton;
         if (lang === "Japanese") {
-            title = "ゲームオーバー";
+            title = "Oops!　ゲームオーバー!";
             msgButton = "続きから再開";
         } else {
             title = "Oops! You touched the enemy!";
@@ -42,17 +42,14 @@ class GameOver extends React.Component {
 
         return (
             <center>
+                <h2 style={bottomMargin} >{title}</h2>
                 <Link to={gameUrl}>
-                    <h2 style={bottomMargin} >{title}</h2>
-                    <div className="contents">
-                        <button className={this.consts.BTN_START_CLASS} >
-                            {msgButton}
-                        </button>
-                    </div>
+                    <button className={this.consts.BTN_START_CLASS} >
+                        {msgButton}
+                    </button>
                 </Link>
             </center>
         );
     }
 }
-
 export default connect()(GameOver);
