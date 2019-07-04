@@ -36,7 +36,7 @@ class GameOver extends React.Component {
             title = "Oops!　ゲームオーバー!";
             msgButton = "続きから再開";
         } else {
-            title = "Oops! You touched the enemy!";
+            title = "Oops! Game over!";
             msgButton = "Continue the game";
         }
 
