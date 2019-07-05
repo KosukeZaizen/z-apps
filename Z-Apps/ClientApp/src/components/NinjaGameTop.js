@@ -7,6 +7,7 @@ import logo2 from './parts/Ninja2/img/logo.png';
 const NinjaGameTop = props => (
     <div className="ninjaGameTop" style={{ fontSize: "large" }}>
         <center><h1>Lingual Ninja Games</h1></center>
+        <br />
         <Link to="/ninja1">
             Chapter1: Scrolls Of The Four Elements<br />
             <img width="100%" src={logo1} alt="Ninja Game 1" />
