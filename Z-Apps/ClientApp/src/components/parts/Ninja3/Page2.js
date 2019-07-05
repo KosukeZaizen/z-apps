@@ -213,7 +213,6 @@ export default class Page2 extends React.Component {
         }, TIME_STEP*100);
     }
 
-
     render() {
 
         if (this.prevStage !== this.props.stage) {
