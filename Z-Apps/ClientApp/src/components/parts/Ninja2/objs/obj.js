@@ -216,6 +216,9 @@ function CloseElement(props) {
         }
         localStorage.setItem('saveData2', JSON.stringify(saveData));
 
+        //タイムステップごとのループの終了
+        clearInterval(props.game.timerId);
+
         //全クリ時のメッセージ
         return (
             <Link to="/ninja">

@@ -542,7 +542,7 @@ export default class Page2 extends React.Component {
         //初回描画時のみ処理の登録を行う
         if (this.initFlag) {
             //タイムステップ毎に処理を呼び出す
-            setInterval(() => {
+            this.timerId = setInterval(() => {
                 //タイムステップごとの計算
 
 
