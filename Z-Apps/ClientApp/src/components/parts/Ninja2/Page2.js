@@ -959,7 +959,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     washi2: {
                         size: 11,
@@ -972,7 +971,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     washi3: {
                         size: 11,
@@ -985,7 +983,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     box1: {
@@ -999,7 +996,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     rightGateWall: {
@@ -1086,7 +1082,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     enemy2: {
                         size: 13,
@@ -1100,7 +1095,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     enemy3: {
                         size: 13,
@@ -1114,7 +1108,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     rightGateWall: {
@@ -1299,7 +1292,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box2: {
                         size: 17,
@@ -1312,7 +1304,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     rock1Pic: {
@@ -1406,7 +1397,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     fugu1: {
                         size: 20,
@@ -1419,7 +1409,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     fugu2: {
                         size: 20,
@@ -1432,7 +1421,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     kaisou1: {
                         size: 9,
@@ -1587,7 +1575,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     riverPic: {
@@ -1770,7 +1757,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     box1: {
@@ -1784,7 +1770,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box2: {
                         size: 11,
@@ -1797,7 +1782,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box3: {
                         size: 11,
@@ -1810,7 +1794,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box4: {
                         size: 11,
@@ -1823,7 +1806,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box5: {
                         size: 11,
@@ -1836,7 +1818,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box6: {
                         size: 11,
@@ -1849,7 +1830,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box7: {
                         size: 11,
@@ -1862,7 +1842,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box8: {
                         size: 11,
@@ -1875,7 +1854,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box9: {
                         size: 11,
@@ -1888,7 +1866,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box10: {
                         size: 31,
@@ -1901,7 +1878,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box11: {
                         size: 51,
@@ -1914,7 +1890,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     leftGateWall: {
@@ -1964,7 +1939,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     bat1: {
@@ -1978,7 +1952,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     rightGateWall: {
@@ -2029,7 +2002,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     rightGateWall: {
@@ -2092,7 +2064,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
-                        life: 1,
                     },
 
 
@@ -2167,7 +2138,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
-                        life: 1,
                     },
 
                     topGate: {
@@ -2217,7 +2187,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     ...getKeys(this.ninja, 107, 57, 20, this.consts.KEY3_SCROLL_TITLE),
@@ -2447,7 +2416,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
                     box2: {
                         size: 37,
@@ -2460,7 +2428,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
-                        life: 1,
                     },
 
                     door1: {
@@ -2606,7 +2573,6 @@ export default class Page2 extends React.Component {
                         changeStage: this.props.changeStage,
                         enemy: true,
                         eachTime: eachTimeBoss,
-                        life: 1,
                     },
 
                     toriiPic: {
@@ -2713,10 +2679,9 @@ export default class Page2 extends React.Component {
             const { game, ...rest } = this.ninja;
             const saveData = { ninja: rest, stage: this.props.stage }
             localStorage.setItem('saveData2', JSON.stringify(saveData));
-
-            //背景画像の変更
-            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
+        //背景画像の変更
+        this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
 
         return (
             <div id="Page2" style={this.pageStyle}>
@@ -3283,7 +3248,6 @@ function eachTimeOneEye(ninja, key) {
                     onTouch: onTouchEnemy,
                     enemy: true,
                     eachTime: eachTimeEnemy,
-                    life: 1,
                 };
             }
         }
@@ -3335,7 +3299,6 @@ function eachTimeBoss(ninja, key) {
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeEnemy,
-                life: 1,
             };
         }
 
@@ -3356,7 +3319,6 @@ function eachTimeBoss(ninja, key) {
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
-                life: 1,
             };
         }
         if (random1 * random2 * random3 * random4 === 625 && randomHalf === 2) {
@@ -3373,7 +3335,6 @@ function eachTimeBoss(ninja, key) {
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
-                life: 1,
             };
         }
 
@@ -3392,7 +3353,6 @@ function eachTimeBoss(ninja, key) {
                 onTouch: onTouchBlock,
                 enemy: true,
                 eachTime: eachTimeEnemy,
-                life: 1,
             };
         }
 
