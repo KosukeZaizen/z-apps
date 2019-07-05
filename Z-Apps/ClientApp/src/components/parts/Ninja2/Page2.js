@@ -2603,6 +2603,7 @@ export default class Page2 extends React.Component {
                         zIndex: 19,
                         img: imgBoss,
                         onTouch: onTouchEnemy,
+                        changeStage: this.props.changeStage,
                         enemy: true,
                         eachTime: eachTimeBoss,
                         life: 1,
