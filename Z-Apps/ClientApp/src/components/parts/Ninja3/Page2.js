@@ -129,6 +129,9 @@ export default class Page2 extends React.Component {
                 if (this.ninja.speedY === 0) {
                     //通常ジャンプ
                     this.ninja.speedY = -11;
+
+                    //ジャンプ時に巻物を閉じる
+                    this.closeScroll = true;
                 }
                 if (this.ninja.inWater) {
                     //水中
@@ -138,9 +141,6 @@ export default class Page2 extends React.Component {
                     }
                 }
                 this.jButton = false;
-
-                //ジャンプボタン押下時に巻物を閉じる
-                this.closeScroll = true;
             }
 
             //重力加速度
