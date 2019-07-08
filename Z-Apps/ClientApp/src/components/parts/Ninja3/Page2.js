@@ -180,7 +180,7 @@ export default class Page2 extends React.Component {
                 }
 
                 //ステージ遷移をしていたら、関数中止
-                if (stageChangedFlag && stageChangedFlag === "changed") return;
+                if (stageChangedFlag === "changed") return;
 
                 //敵などが各タイムステップごとの処理を持っていれば、実行する
                 //（ステージ遷移はしない）
