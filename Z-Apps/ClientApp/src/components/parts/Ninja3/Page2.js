@@ -158,7 +158,12 @@ export default class Page2 extends React.Component {
                     this.ninja.speedY = 10.5;
                 }
             }
-            
+
+            //位置計算
+            this.ninja.posX += this.ninja.speedX * TIME_STEP;
+            this.ninja.posY += this.ninja.speedY * TIME_STEP;
+
+
             //オブジェクトとの接触判定
             for (let key in this.objs) {
 
@@ -183,11 +188,6 @@ export default class Page2 extends React.Component {
                     this.objs[key].eachTime(this.ninja, key);
                 }
             }
-
-            //忍者位置計算
-            this.ninja.posX += this.ninja.speedX * TIME_STEP;
-            this.ninja.posY += this.ninja.speedY * TIME_STEP;
-
             /* ↑　物体速度・位置計算　↑ */
 
 
