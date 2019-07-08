@@ -211,6 +211,7 @@ function SpeakerImage(props) {
 
 function CloseElement(props) {
     if (props.obj.finalMessage) {
+        //全クリ時のメッセージ
 
         //localStorageに自動セーブ（次回起動時データ）
         const saveData = {
@@ -222,7 +223,6 @@ function CloseElement(props) {
         //タイムステップ毎のループの終了
         clearInterval(props.game.timerId);
 
-        //全クリ時のメッセージ
         return (
             <Link to="/ninja">
                 <button
@@ -251,5 +251,4 @@ function CloseElement(props) {
         );
     }
 }
-
 export { Obj };

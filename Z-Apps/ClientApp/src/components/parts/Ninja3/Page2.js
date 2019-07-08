@@ -213,6 +213,11 @@ export default class Page2 extends React.Component {
         }, TIME_STEP*100);
     }
 
+    componentWillUnmount() {
+        //タイムステップ毎のループの終了
+        clearInterval(this.timerId);
+    }
+
     render() {
 
         if (this.prevStage !== this.props.stage) {
