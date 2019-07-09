@@ -77,21 +77,7 @@ Stage1.getObjs = function () {
             changeStage: changeStage,
         },
 
-
-
-
-        snow: {
-            size: 30,
-            posX: 87,
-            posY: 10,
-            zIndex: 30,
-            message: ".",
-            fontSize: 4,
-            onTouch: OnTouch.toNothing,
-            eachTime: EachTime.Snow,
-            fontColor: "white",
-        },
-
+        ...StageParts.getSnows(0.15, 30),
     };
     return objs;
 }

@@ -93,4 +93,13 @@ export function FireBall(ninja, key) {
 //=======================================
 export function Snow(ninja, key) {
     ninja.game.objs[key].posY += 1;
+
+    if (ninja.game.objs[key].posX > 160) ninja.game.objs[key].posX = 0;
+    if (ninja.game.objs[key].posX < 0) ninja.game.objs[key].posX = 160;
+
+    if (ninja.game.objs[key].posY > 75) {
+        ninja.game.objs[key].posY = 0;
+        ninja.game.objs[key].posX = Math.floor(Math.random() * 161);
+    }
+    if (ninja.game.objs[key].posY < 0) ninja.game.objs[key].posY = 75;
 }

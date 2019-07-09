@@ -2,17 +2,14 @@ import Imgs from '../ImportImgs';
 import * as OnTouch from '../OnTouch';//タッチ関数
 import * as EachTime from '../EachTime';//タイムステップごとの処理
 
-
 //------------------------------------------------------------
 //
 //　ステージに配置されるオブジェクトを生成するための関数群
 //
 //------------------------------------------------------------
 
-
 //ブロック生成関数
 export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
-
     let objResult = {};
 
     for (let index in arrPos) {
@@ -28,9 +25,30 @@ export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
     return objResult;
 }
 
+//雪 生成関数
+export function getSnows(strength, zIndex) {
+    let objResult = {};
+
+    for (let i = 0; i <= 160 * strength; i++) {
+        for (let j = 0; j <= 75 * strength; j++) {
+            objResult["snowX" + i + "Y" + j] = {
+                size: 30,
+                posX: Math.floor(Math.random() * 161),
+                posY: Math.floor(Math.random() * 76),
+                zIndex: zIndex,
+                message: ".",
+                fontSize: 4,
+                onTouch: OnTouch.toNothing,
+                eachTime: EachTime.Snow,
+                fontColor: "white",
+            };
+        }
+    }
+    return objResult;
+}
+
 //鍵　生成関数
 export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-
     let objResult = {};
 
     if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
@@ -51,7 +69,6 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
 
 //画像（触っても何も起きない）　生成関数
 export function getOnePic(name, size, posX, posY, img, zIndex, onTouch) {
-
     let objResult = {};
 
     objResult[name] = {
