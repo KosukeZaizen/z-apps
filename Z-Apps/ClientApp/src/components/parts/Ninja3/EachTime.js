@@ -92,8 +92,12 @@ export function FireBall(ninja, key) {
 // 雪　タイムステップ毎
 //=======================================
 export function Snow(ninja, key) {
-    ninja.game.objs[key].posY += 1;
 
+    //雪の位置更新
+    ninja.game.objs[key].posY += 1;
+    ninja.game.objs[key].posX += ninja.game.wind;
+
+    //雪が画面をはみ出したら、逆側へ再出現
     if (ninja.game.objs[key].posX > 160) ninja.game.objs[key].posX = 0;
     if (ninja.game.objs[key].posX < 0) ninja.game.objs[key].posX = 160;
 

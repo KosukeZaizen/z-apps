@@ -26,7 +26,7 @@ export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
 }
 
 //雪 生成関数
-export function getSnows(strength, zIndex) {
+export function getSnows(strength, zIndex, wind) {
     let objResult = {};
 
     for (let i = 0; i <= 160 * strength; i++) {

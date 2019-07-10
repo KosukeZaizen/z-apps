@@ -20,6 +20,8 @@ import bgImg from '../img/background/castle1.jpg';
 
 const Stage1 = {};
 Stage1.bgImg = bgImg;
+Stage1.windRange = [0, 3];//風速の最大・最小
+Stage1.windRand = 0.3;//風速の変化の速さ
 
 Stage1.getObjs = function () {
     let objs = {

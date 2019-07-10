@@ -218,6 +218,29 @@ export default class Page2 extends React.Component {
         clearInterval(this.timerId);
     }
 
+    setStage(newStage) {
+        //ステージのオブジェクトを設定
+        this.objs = newStage.getObjs();
+        //ステージの背景画像を設定
+        this.bgImg = newStage.bgImg;
+        //風 設定
+        this.windRange = newStage.windRange || [0, 0];
+        this.wind = (this.windRange[0] + this.windRange[1]) / 2;
+        this.windRand = newStage.windRand || 0;
+    }
+
+    updateWind() {
+        const rand = (Math.random() - 0.5) * this.windRand;
+
+        if (this.wind < this.windRange[0]) {
+            this.wind += Math.abs(rand);
+        } else if (this.wind > this.windRange[1]) {
+            this.wind -= Math.abs(rand);
+        } else {
+            this.wind += rand;
+        }
+    }
+
     render() {
 
         if (this.prevStage !== this.props.stage) {
@@ -235,24 +258,15 @@ export default class Page2 extends React.Component {
             //------------------------------------------------------------
             if (this.props.stage === 1) {
 
-                //ステージのオブジェクトを設定
-                this.objs = Stage1.getObjs();
-                //ステージの背景画像を設定
-                this.bgImg = Stage1.bgImg;
+                this.setStage(Stage1);
 
             } else if (this.props.stage === 2) {
 
-                //ステージのオブジェクトを設定
-                this.objs = Stage2.getObjs();
-                //ステージの背景画像を設定
-                this.bgImg = Stage2.bgImg;
+                this.setStage(Stage2);
 
             } else if (this.props.stage === 3) {
 
-                //ステージのオブジェクトを設定
-                this.objs = Stage3.getObjs();
-                //ステージの背景画像を設定
-                this.bgImg = Stage3.bgImg;
+                this.setStage(Stage3);
             }
             //------------------------------------------------------------
 
@@ -267,6 +281,9 @@ export default class Page2 extends React.Component {
             //背景画像の変更
             this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
+
+        //風の更新
+        this.updateWind();
 
         return (
             <div id="Page2" style={this.pageStyle}>
