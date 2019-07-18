@@ -92,6 +92,8 @@ export default class Page2 extends React.Component {
         this.timerId = setInterval(() => {
             //タイムステップごとの計算
 
+            //空中では風の影響を受ける
+            if (this.ninja.speedY !== 0) this.ninja.posX += this.wind;
 
             /* ↓　物体速度・位置計算　↓ */
 
@@ -162,7 +164,6 @@ export default class Page2 extends React.Component {
             //位置計算
             this.ninja.posX += this.ninja.speedX * TIME_STEP;
             this.ninja.posY += this.ninja.speedY * TIME_STEP;
-
 
             //オブジェクトとの接触判定
             for (let key in this.objs) {

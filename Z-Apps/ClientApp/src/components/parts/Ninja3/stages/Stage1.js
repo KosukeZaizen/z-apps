@@ -11,7 +11,7 @@ import { messages } from '../Messages';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
-import bgImg from '../img/background/castle1.jpg';
+import bgImg from '../img/background/furuie.jpg';
 
 
 // ------------------------------------------------------------
