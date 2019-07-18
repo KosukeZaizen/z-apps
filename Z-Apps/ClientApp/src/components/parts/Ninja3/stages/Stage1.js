@@ -4,8 +4,6 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//オブジェクトのタイムステップごとのメソッドの読み込み
-import * as EachTime from '../EachTime';
 //メッセージモジュールの読み込み
 import { messages } from '../Messages';
 //共通関数の読み込み
@@ -28,6 +26,29 @@ Stage1.getObjs = function () {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
 
+        openFirstScroll: {
+            size: 10,
+            posX: 145,
+            posY: -20,
+            zIndex: 20,
+            onTouch: OnTouch.toScrollOpener,
+            openTargetTitle: messages.POCHI_SCROLL_TITLE,
+        },
+        firstScroll: {
+            size: 150,
+            posX: 5,
+            posY: 5,
+            zIndex: 1000,
+            img: Imgs.ScrollOpen,
+            scroll: true,
+            visible: false,
+            onTouch: OnTouch.toNothing,
+            title: messages.POCHI_SCROLL_TITLE,
+            message: messages.POCHI_SCROLL_MESSAGE,
+            fontSize: 3,
+            speakerImg: Imgs.Pochi,
+        },
+
         ...StageParts.getOnePic("house1Pic", 60, 120, 55, Imgs.House1, 35, OnTouch.toNothing),
         house1Actual: {
             size: 60,
@@ -42,31 +63,6 @@ Stage1.getObjs = function () {
             posX: 97,
             posY: 67,
             onTouch: OnTouch.toBlock,
-        },
-
-        pochi: {
-            size: 10,
-            posX: 115,
-            posY: 53,
-            zIndex: 20,
-            img: Imgs.Pochi,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: messages.POCHI_SCROLL_TITLE,
-        },
-
-        pochiScroll: {
-            size: 150,
-            posX: 5,
-            posY: 5,
-            zIndex: 1000,
-            img: Imgs.ScrollOpen,
-            scroll: true,
-            visible: false,
-            onTouch: OnTouch.toNothing,
-            title: messages.POCHI_SCROLL_TITLE,
-            message: messages.POCHI_SCROLL_MESSAGE,
-            fontSize: 3,
-            speakerImg: Imgs.Pochi,
         },
 
         bottomGate: {

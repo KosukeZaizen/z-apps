@@ -100,7 +100,10 @@ Stage3.getObjs = function () {
             posY: -200,
             zIndex: 30,
             next: 1,
-            onTouch: OnTouch.toGateWall,
+            nextX: 145,
+            nextY: -20,
+            nextLeft: true,
+            onTouch: OnTouch.toStageChangeCommon,
             changeStage: changeStage,
         },
     };
