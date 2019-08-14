@@ -33,7 +33,7 @@ export default () => (
             <Route path='/ninja3' component={Ninja3} />
             <Route path='/game-over' component={GameOver} />
             <Route path='/color-code' component={ColorPalette} />
-            <Route render={redirect404} />
+            {/*<Route render={redirect404} />*/}
         </Switch>
     </Layout>
 );
