@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
-import NotFound from './components/404';
+import { Route, Switch, browserHistory } from 'react-router';
 import Layout from './components/parts/Layout';
 import Home from './components/Home';
 import RomajiConverter from './components/RomajiConverter';
@@ -33,7 +32,7 @@ export default () => (
             <Route path='/ninja3' component={Ninja3} />
             <Route path='/game-over' component={GameOver} />
             <Route path='/color-code' component={ColorPalette} />
-            <Route component={NotFound} />
+            <Route render={() => { window.location.href = '/page/PageNotFound'; return null; }} />
         </Switch>
     </Layout>
 );
