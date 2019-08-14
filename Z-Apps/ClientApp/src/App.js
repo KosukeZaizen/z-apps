@@ -32,7 +32,7 @@ export default () => (
             <Route path='/ninja3' component={Ninja3} />
             <Route path='/game-over' component={GameOver} />
             <Route path='/color-code' component={ColorPalette} />
-            {/*<Route render={() => { window.location.href = '/page/PageNotFound'; return null; }} /> */}
+            <Route render={() => { window.location.href = '/page/PageNotFound'; return null; }} />
         </Switch>
     </Layout>
 );
