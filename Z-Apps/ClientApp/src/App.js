@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
+import NotFound from './components/404';
 import Layout from './components/parts/Layout';
 import Home from './components/Home';
 import RomajiConverter from './components/RomajiConverter';
@@ -18,18 +19,21 @@ import ColorPalette from './components/ColorPalette';
 
 export default () => (
     <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/terms' component={Terms} />
-        <Route path='/developer' component={Developer} />
-        <Route path='/kanji-converter' component={KanjiConverter} />
-        <Route path='/romaji-converter' component={RomajiConverter} />
-        <Route path='/hiragana-quiz' component={HiraganaQuiz} />
-        <Route path='/katakana-quiz' component={KatakanaQuiz} />
-        <Route path='/ninja' component={NinjaTop} />
-        <Route path='/ninja1' component={Ninja1} />
-        <Route path='/ninja2' component={Ninja2} />
-        <Route path='/ninja3' component={Ninja3} />
-        <Route path='/game-over' component={GameOver} />
-        <Route path='/color-code' component={ColorPalette} />
+        <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/terms' component={Terms} />
+            <Route path='/developer' component={Developer} />
+            <Route path='/kanji-converter' component={KanjiConverter} />
+            <Route path='/romaji-converter' component={RomajiConverter} />
+            <Route path='/hiragana-quiz' component={HiraganaQuiz} />
+            <Route path='/katakana-quiz' component={KatakanaQuiz} />
+            <Route path='/ninja' component={NinjaTop} />
+            <Route path='/ninja1' component={Ninja1} />
+            <Route path='/ninja2' component={Ninja2} />
+            <Route path='/ninja3' component={Ninja3} />
+            <Route path='/game-over' component={GameOver} />
+            <Route path='/color-code' component={ColorPalette} />
+            <Route component={NotFound} />
+        </Switch>
     </Layout>
 );
