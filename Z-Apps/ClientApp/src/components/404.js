@@ -4,9 +4,9 @@ import img404 from '../img/404.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { getParams } from './common/functions';
-import { Redirect } from 'react-router';
 
-export const NotFound = props => {
+
+const NotFound = props => {
     const params = getParams();
 
     return (
@@ -29,4 +29,4 @@ export const NotFound = props => {
     )
 };
 
-export const NotFoundRedirect = ({ location }) => <Redirect to={`/not-found?p=${location.pathname}`} />
+export default NotFound;
