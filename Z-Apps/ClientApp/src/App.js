@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, browserHistory } from 'react-router';
 import Layout from './components/parts/Layout';
 import Home from './components/Home';
 import RomajiConverter from './components/RomajiConverter';
@@ -15,7 +15,10 @@ import Ninja3 from './components/NinjaGame3';
 import GameOver from './components/GameOver';
 import ColorPalette from './components/ColorPalette';
 
-const redirect404 = () => {window.location.href = '/page/PageNotFound'};
+
+function redirect404() {
+    browserhistory.push('/page/PageNotFound');
+}
 
 export default () => (
     <Layout>
