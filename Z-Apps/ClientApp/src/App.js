@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import NotFound from './components/404';
+import { NotFound, NotFoundRedirect } from './components/404';
 import Layout from './components/parts/Layout';
 import Home from './components/Home';
 import RomajiConverter from './components/RomajiConverter';
@@ -15,7 +15,6 @@ import Ninja2 from './components/NinjaGame2';
 import Ninja3 from './components/NinjaGame3';
 import GameOver from './components/GameOver';
 import ColorPalette from './components/ColorPalette';
-
 
 export default () => (
     <Layout>
@@ -33,7 +32,8 @@ export default () => (
             <Route path='/ninja3' component={Ninja3} />
             <Route path='/game-over' component={GameOver} />
             <Route path='/color-code' component={ColorPalette} />
-            <Route component={NotFound} />
+            <Route path='/not-found' component={NotFound} />
+            <Route component={NotFoundRedirect} />
         </Switch>
     </Layout>
 );
