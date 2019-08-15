@@ -20,7 +20,7 @@ const NotFound = lazy(() => import('./components/404'));
 
 export default () => (
     <Layout>
-        <Suspense fallback={<LoadingAnimation num={8} />}>
+        <Suspense fallback={<LoadingAnimation num={6} />}>
             <Switch>
                 <Route exact path='/' component={Home} />
                 <Route path='/terms' component={Terms} />
