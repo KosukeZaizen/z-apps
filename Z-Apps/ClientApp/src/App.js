@@ -16,10 +16,6 @@ import GameOver from './components/GameOver';
 import ColorPalette from './components/ColorPalette';
 
 
-function redirect404() {
-    browserhistory.push('/page/PageNotFound');
-}
-
 export default () => (
     <Layout>
         <Switch>
@@ -36,7 +32,7 @@ export default () => (
             <Route path='/ninja3' component={Ninja3} />
             <Route path='/game-over' component={GameOver} />
             <Route path='/color-code' component={ColorPalette} />
-            <Route render={redirect404} />
+            <Route render={() => { window.location.href = '/page/PageNotFound'; return null; }} />
         </Switch>
     </Layout>
 );
