@@ -16,9 +16,7 @@ import GameOver from './components/GameOver';
 import ColorPalette from './components/ColorPalette';
 
 //const redirect404 = () => { window.location.href = '/page/PageNotFound'; return "loading..."};
-const redirect404 = () => {
-    document.location.replace('/page/Test/test'); location.reload(true); return "loading..."
-};
+const redirect404 = () => { document.location.replace('/page/Test/test'); return "loading..." };
 //const redirect404 = () => { alert("ada"); return "loading..." };
 
 export default () => (
