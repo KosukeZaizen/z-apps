@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-//import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 
 const Home = lazy(() => import('./components/Home'));
@@ -57,6 +57,6 @@ function LoadingAnimation(props) {
     for (let i = 0; i < props.num; i++) {
         arr.push(<br />);
     }
-    //arr.push(<CircularProgress size="20%" />);
+    arr.push(<CircularProgress size="20%" />);
     return <center>{arr}</center>;
 }
