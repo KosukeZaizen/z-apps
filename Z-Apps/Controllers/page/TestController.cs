@@ -13,5 +13,10 @@ namespace Z_Apps.Controllers
         {
             return "hello!!";
         }
+
+        public string test2()
+        {
+            return "hello2222";
+        }
     }
 }
