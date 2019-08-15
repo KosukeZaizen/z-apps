@@ -17,6 +17,7 @@ export const NotFound = props => {
                 <img
                     src={img404}
                     width="50%"
+                    alt="404 error"
                 />
                 <h2>No match for <code>{params && params.p}</code></h2>
                 <p>Please check if the url is correct!</p>
