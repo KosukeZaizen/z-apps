@@ -20,7 +20,7 @@ const NotFound = lazy(() => import('./components/404'));
 
 export default () => (
     <Layout>
-        <Suspense fallback={getLoadingAnimation(8)}>
+        <Suspense fallback={<LoadingAnimation num={8} />}>
             <Switch>
                 <Route exact path='/' component={Home} />
                 <Route path='/terms' component={Terms} />
@@ -45,13 +45,16 @@ export default () => (
 
 function NotFoundRedirect({ location }) {
     return (
-        <Redirect to={`/not-found?p=${location.pathname}`} />
+        <div>
+            <LoadingAnimation num={8} />
+            <Redirect to={`/not-found?p=${location.pathname}`} />
+        </div>
     );
 }
 
-function getLoadingAnimation(num) {
+function LoadingAnimation(props) {
     let arr = [];
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < props.num; i++) {
         arr.push(<br />);
     }
     arr.push(<CircularProgress size="20%" />);
