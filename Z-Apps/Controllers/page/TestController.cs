@@ -9,9 +9,9 @@ namespace Z_Apps.Controllers
     [Route("page/[controller]/[action]")]
     public class TestController : Controller
     {
-        public string test()
+        public IActionResult test()
         {
-            return "hello!!";
+            return View();
         }
     }
 }
