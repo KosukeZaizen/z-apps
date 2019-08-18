@@ -26,9 +26,15 @@ namespace Z_Apps.Controllers
 
         public string GetPageData(int id, int page)
         {
-            IEnumerable<Sentence> pageData = service.GetPageData(id, page);
-
-            return pageData.First().Kanji;
+            if (id > 0 && page > 0)
+            {
+                IEnumerable<Sentence> pageData = service.GetPageData(id, page);
+                return pageData.First().Kanji;
+            }
+            else
+            {
+                return "no data";
+            }
         }
     }
 }
