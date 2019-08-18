@@ -15,7 +15,7 @@ namespace Z_Apps.Models.Stories
 
         public IEnumerable<Sentence> GetPageData(int storyId, int pageNumber)
         {
-            var sentences = sm.GetSentences();
+            var sentences = sm.GetSentences(storyId, pageNumber);
             return sentences;
         }
     }
