@@ -46,7 +46,7 @@ export default () => (
 function NotFoundRedirect({ location }) {
     return (
         <div>
-            <LoadingAnimation num={8} />
+            <LoadingAnimation num={1} />
             <Redirect to={`/not-found?p=${location.pathname}`} />
         </div>
     );
