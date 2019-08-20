@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja2/Page1';
 import { Page2 } from './parts/Ninja2/Page2';
+import { getParams } from './common/functions';
 import '../css/NinjaGame2.css';
 
 
@@ -37,16 +38,6 @@ class NinjaGame extends React.Component {
         }
 
         //urlパラメータ取得
-        const getParams = () => {
-            let arg = {};
-            let pair = window.location.search.substring(1).split('&');
-            for (let i = 0; pair[i]; i++) {
-                let kv = pair[i].split('=');
-                arg[kv[0]] = kv[1];
-            }
-            return arg;
-        };
-
         const params = getParams();
         const lang = (!!params) ? params.l : "";
 
