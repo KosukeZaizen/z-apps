@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Z_Apps.Util;
 
 namespace Z_Apps.Controllers
 {
@@ -28,15 +29,13 @@ namespace Z_Apps.Controllers
             System.Net.WebClient wc = new System.Net.WebClient();
             //ヘッダにContent-Typeを加える
             wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            wc.Headers.Add("User-Agent", "Yahoo AppID: dj00aiZpPXU5cmtFM3VpclBvMCZzPWNvbnN1bWVyc2VjcmV0Jng9NDM-");
+            wc.Headers.Add("User-Agent", PrivateConsts.YAHOO_API_ID);
             //データを送信し、また受信する
             byte[] resData = wc.UploadData(url, postDataBytes);
             wc.Dispose();
 
             //受信したデータを表示する
             string resText = enc.GetString(resData);
-            //Console.WriteLine(resText);
-
 
             string[] arrFurigana1 = resText.Split("<Word>");
 
@@ -56,8 +55,6 @@ namespace Z_Apps.Controllers
                     }
                 }
             }
-
-
 
             return Enumerable.Range(1, 1).Select(index => new WeatherForecast
             {

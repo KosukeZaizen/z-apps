@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Z_Apps.Util;
 
 namespace Z_Apps.Models
 {
@@ -12,23 +13,7 @@ namespace Z_Apps.Models
 
         public DBConnection()
         {
-            //sqlConnection = new SqlConnection(GetConnectionString());
-            sqlConnection = new SqlConnection(
-                "Server=tcp:z-apps-db-server.database.windows.net,1433;Initial Catalog=Z-Apps-DB;Persist Security Info=False;User ID=kosuke;Password=Ryusihou14;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-                );
-        }
-
-        private string GetConnectionString()
-        {
-            // 接続文字列の取得
-            var builder = new SqlConnectionStringBuilder()
-            {
-                DataSource = "z-apps-db-server.database.windows.net",
-                IntegratedSecurity = false,
-                UserID = "kosuke",
-                Password = "Ryusihou14"
-            };
-            return builder.ToString();
+            sqlConnection = new SqlConnection(PrivateConsts.CONNECTION_STRING);
         }
 
         public List<Dictionary<string, Object>> ExecuteSelect(string sql)
@@ -49,8 +34,9 @@ namespace Z_Apps.Models
 
                     while (sdr.Read() == true)
                     {
-                        var sentence = new Dictionary<string,Object>();
-                        for (int i = 0; i < sdr.FieldCount; i++) {
+                        var sentence = new Dictionary<string, Object>();
+                        for (int i = 0; i < sdr.FieldCount; i++)
+                        {
                             sentence.Add(sdr.GetName(i), sdr.GetValue(i));
                         }
                         sentences.Add(sentence);
