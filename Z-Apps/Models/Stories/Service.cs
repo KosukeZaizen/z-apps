@@ -8,7 +8,7 @@ namespace Z_Apps.Models.Stories
     public class Service
     {
         private SentenceManager sm;
-        public Service(DBConnection con)
+        public Service(DBCon con)
         {
             sm = new SentenceManager(con);
         }

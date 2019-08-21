@@ -15,7 +15,7 @@ namespace Z_Apps.Controllers
         private Service service;
         public StoriesController()
         {
-            service = new Service(new DBConnection());
+            service = new Service(new DBCon());
         }
 
         // GET: Story

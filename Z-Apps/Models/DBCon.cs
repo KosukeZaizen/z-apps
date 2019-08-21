@@ -7,11 +7,11 @@ using Z_Apps.Util;
 
 namespace Z_Apps.Models
 {
-    public class DBConnection
+    public class DBCon
     {
         private SqlConnection sqlConnection;
 
-        public DBConnection()
+        public DBCon()
         {
             sqlConnection = new SqlConnection(PrivateConsts.CONNECTION_STRING);
         }
