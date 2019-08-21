@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { getParams } from './common/functions';
 
-
 const NotFound = props => {
     const params = getParams();
 
@@ -28,5 +27,4 @@ const NotFound = props => {
         </div>
     )
 };
-
 export default NotFound;
