@@ -8,8 +8,8 @@ namespace Z_Apps.Models.Stories.Sentences
 {
     public class SentenceManager
     {
-        private DBConnection Con;
-        public SentenceManager(DBConnection con)
+        private DBCon Con;
+        public SentenceManager(DBCon con)
         {
             Con = con;
         }
