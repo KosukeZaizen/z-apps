@@ -7,10 +7,10 @@ using Z_Apps.Util;
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class ConvertKanjiController : Controller
     {
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts(String startDateIndex)
+        public IEnumerable<ConvertedString> Convert(String kanjis)
         {
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
@@ -21,7 +21,7 @@ namespace Z_Apps.Controllers
             //POST送信する文字列を作成
             string postData =
                 "sentence=" +
-                System.Web.HttpUtility.UrlEncode(startDateIndex, enc);
+                System.Web.HttpUtility.UrlEncode(kanjis, enc);
             //バイト型配列に変換
             byte[] postDataBytes = enc.GetBytes(postData);
 
@@ -55,13 +55,13 @@ namespace Z_Apps.Controllers
                 }
             }
 
-            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 1).Select(index => new ConvertedString
             {
                 DateFormatted = result,
             });
         }
 
-        public class WeatherForecast
+        public class ConvertedString
         {
             public string DateFormatted { get; set; }
         }

@@ -11,7 +11,7 @@ export const actionCreators = {
 
     dispatch({ type: requestWeatherForecastsType, startDateIndex });
 
-    const url = `api/SampleData/WeatherForecasts?startDateIndex=${startDateIndex}`;
+    const url = `api/ConvertKanji/Convert?kanjis=${startDateIndex}`;
     const response = await fetch(url);
     const forecasts = await response.json();
 
