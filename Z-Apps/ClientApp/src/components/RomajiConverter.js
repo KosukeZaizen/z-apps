@@ -1,15 +1,10 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import '../css/RomajiConverter.css';
 
 let objConst = {};
 
-// 親：<Parent />の定義
-class Parent extends React.Component {
+class RomajiConverter extends React.Component {
 
-    // State（※状態は親が管理）
-    // この値はブラウザを閉じたり、リロードするまでは保持される
     constructor(props) {
         super(props);
 
@@ -253,6 +248,4 @@ function execCopy(string) {
     return result;
 }
 
-export default connect(
-    state => state.counter
-)(Parent);
+export default RomajiConverter;

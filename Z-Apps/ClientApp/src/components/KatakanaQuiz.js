@@ -1,6 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 
@@ -32,6 +30,4 @@ class KatakanaQuiz extends React.Component {
     }
 }
 
-export default connect(
-    state => state.counter,
-)(KatakanaQuiz);
+export default KatakanaQuiz;
