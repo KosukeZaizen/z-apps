@@ -57,13 +57,13 @@ namespace Z_Apps.Controllers
 
             return Enumerable.Range(1, 1).Select(index => new ConvertedString
             {
-                DateFormatted = result,
+                ConvertedWord = result,
             });
         }
 
         public class ConvertedString
         {
-            public string DateFormatted { get; set; }
+            public string ConvertedWord { get; set; }
         }
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/KanjiConverterAction';
+import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
 
 
@@ -117,7 +117,7 @@ class Parent extends React.Component {
         if (this.state.inputKanji === objConst.MSG_PROMPT || this.state.inputKanji === "") {
             alert(objConst.MSG_TYPE_KANJI);
         } else {
-            this.props.requestWeatherForecasts(this.state.inputKanji);
+            this.props.requestKanjiConvert(this.state.inputKanji);
         }
     }
 
@@ -140,11 +140,13 @@ class Parent extends React.Component {
     //ローマ字変換アプリの表示
     render() {
 
-        this.props.forecasts.map(forecast =>
-            this.result = forecast.dateFormatted
+        console.log(this.props);
+
+        this.props.convertedWords.map(w =>
+            this.result = w.convertedWord
         )
 
-        this.setStateTextVal(this.result);
+        this.result && this.setStateTextVal(this.result);
 
         return (
             <center className="kanji-converter">
@@ -313,6 +315,6 @@ function execCopy(string) {
 }
 
 export default connect(
-    state => state.weatherForecasts,
+    state => state.kanjiConverter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(Parent);
