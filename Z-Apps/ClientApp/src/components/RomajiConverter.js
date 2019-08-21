@@ -1,7 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/Counter';
 import '../css/RomajiConverter.css';
 
 let objConst = {};
@@ -255,6 +254,5 @@ function execCopy(string) {
 }
 
 export default connect(
-    state => state.counter,
-    dispatch => bindActionCreators(actionCreators, dispatch)
+    state => state.counter
 )(Parent);
