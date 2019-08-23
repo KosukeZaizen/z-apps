@@ -100,5 +100,4 @@ class NinjaFacebook extends React.Component {
         );
     }
 }
-
-export default connect()(Developer);
+export default Developer;

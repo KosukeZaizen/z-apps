@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
 
 class ColorPalette extends React.Component {
 
@@ -390,4 +388,4 @@ function execCopy(string) {
     return result;
 }
 
-export default connect()(ColorPalette);
+export default ColorPalette;

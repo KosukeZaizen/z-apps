@@ -4,15 +4,10 @@ import { connect } from 'react-redux';
 import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
 
-
-
 let objConst = {};
 
-// 親：<Parent />の定義
-class Parent extends React.Component {
+class KanjiConverter extends React.Component {
 
-    // State（※状態は親が管理）
-    // この値はブラウザを閉じたり、リロードするまでは保持される
     constructor(props) {
         super(props);
 
@@ -139,9 +134,6 @@ class Parent extends React.Component {
 
     //ローマ字変換アプリの表示
     render() {
-
-        console.log(this.props);
-
         this.props.convertedWords.map(w =>
             this.result = w.convertedWord
         )
@@ -317,4 +309,4 @@ function execCopy(string) {
 export default connect(
     state => state.kanjiConverter,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(Parent);
+)(KanjiConverter);

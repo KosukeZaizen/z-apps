@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja2/Page1';
 import { Page2 } from './parts/Ninja2/Page2';
 import { getParams } from './common/functions';
 import '../css/NinjaGame2.css';
-
 
 class NinjaGame extends React.Component {
 
@@ -112,4 +110,4 @@ function Pages(props) {
         );
     }
 }
-export default connect()(NinjaGame);
+export default NinjaGame;

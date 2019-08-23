@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/Terms.css';
 
@@ -26,5 +25,4 @@ const Terms = props => (
         </center>
     </div>
 );
-
-export default connect()(Terms);
+export default Terms;

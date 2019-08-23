@@ -1,9 +1,11 @@
 import React from 'react';
-import '../css/RomajiConverter.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actionCreators } from '../store/Stories';
 
 let objConst = {};
 
-class RomajiConverter extends React.Component {
+class KanjiConverter extends React.Component {
 
     constructor(props) {
         super(props);
@@ -20,37 +22,49 @@ class RomajiConverter extends React.Component {
             objLongSound: { "oo": "o", "ou": "o", "uu": "u" },
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
 
-            MSG_PROMPT: "Please type or paste the sentences of [Hiragana] or [Katakana] here.",
-            MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
+            MSG_PROMPT: "Please type or paste sentences, including Kanji here!\n(Max 250 characters)\nThen push the [Convert] button below.",
+            MSG_TYPE_KANJI: "Please input Kanji before pushing [Convert] button!",
+
+            MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Kanji and push [Convert] button!",
             MSG_COPY_DONE: "Copy completed!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
 
-            BTN_LABEL: "Click here to copy Romaji!",
+            COPY_BTN_LABEL: "Click here to copy Romaji!",
+            CONVERT_BTN_LABEL: "⇓　　Convert!　　⇓",
 
+            CONVERT_BUTTON: "btn btn-dark btn-lg btn-block",
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
 
             ioArea: []
         };
 
+        this.result = "";
+        this.textVal = "";
+
         this.state = {
-            textVal: "",
-            prompt: objConst.MSG_PROMPT,
+            inputKanji: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
+
         this.setStateTextVal = this.setStateTextVal.bind(this);
         this.initText = this.initText.bind(this);
+        this.onChangeKanji = this.onChangeKanji.bind(this);
+        this.onClickConvert = this.onClickConvert.bind(this);
     }
 
 
     initText() {
-        if (this.state.prompt === objConst.MSG_PROMPT) {
+        if (this.state.inputKanji === objConst.MSG_PROMPT) {
             this.setState({
-                prompt: "",
+                inputKanji: "",
                 inputColor: "blackChar",
             });
         }
     }
 
+    onChangeKanji(kanjiVal) {
+        this.setState({ inputKanji: kanjiVal.target.value });
+    }
 
     // State(textVal)を変更
     setStateTextVal(textVal) {
@@ -73,10 +87,7 @@ class RomajiConverter extends React.Component {
 
         textVal_r = convertChars(textVal_r, objConst.objLongSound);
 
-        this.setState({
-            textVal: textVal_r,
-            prompt: textVal,
-        });
+        this.textVal = textVal_r;
     }
 
     convertSmallTsu(text) {
@@ -94,6 +105,14 @@ class RomajiConverter extends React.Component {
     onScrollInput() {
         getIoElement();
         objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
+    }
+
+    onClickConvert() {
+        if (this.state.inputKanji === objConst.MSG_PROMPT || this.state.inputKanji === "") {
+            alert(objConst.MSG_TYPE_KANJI);
+        } else {
+            this.props.requestKanjiConvert(this.state.inputKanji);
+        }
     }
 
     onClickCopy() {
@@ -114,17 +133,53 @@ class RomajiConverter extends React.Component {
 
     //ローマ字変換アプリの表示
     render() {
+        this.props.convertedWords.map(w =>
+            this.result = w.kanji
+        )
+
+        this.result && this.setStateTextVal(this.result);
+
         return (
-            <center className="romaji-converter">
+            <center className="kanji-converter">
                 <h1>
-                    <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
+                    <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please also check the result.</span>
-                <table>
+                <span className="redChar">※ Please also check the result.</span><br />
+
+                <table className="kanji-table">
                     <tbody>
                         <tr>
                             <th>
-                                <center>Hiragana<br />or<br />Katakana</center>
+                                <center>Kanji</center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className="row">
+                                <textarea
+                                    id="inputKanji"
+                                    onChange={(e) => { this.onChangeKanji(e) }}
+                                    className={this.state.inputColor}
+                                    value={this.state.inputKanji}
+                                    onFocus={(e) => { this.initText(e) }}
+                                    maxlength="250"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button
+                    id="btnConvert"
+                    onClick={(e) => { this.onClickConvert(e) }}
+                    className={objConst.CONVERT_BUTTON}
+                >
+                    {objConst.CONVERT_BTN_LABEL}
+                </button>
+                {this.props.isLoading ? <span>Loading...</span> : []}
+                <table className="result-table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <center>Hiragana</center>
                             </th>
                             <th>
                                 <center>Romaji</center>
@@ -133,44 +188,48 @@ class RomajiConverter extends React.Component {
                         <tr>
                             <td className="row">
                                 <ChildInput
-                                    inputColor={this.state.inputColor}
-                                    prompt={this.state.prompt}
-                                    onChange={(e) => { this.setStateTextVal(e) }}
-                                    onFocus={(e) => { this.initText(e) }}
                                     onScroll={this.onScrollInput}
+                                    result={this.result}
                                 />
                             </td>
                             <td className="tdOutput">
                                 <Child
-                                    textVal={this.state.textVal}
+                                    textVal={this.textVal}
                                 />
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.BTN_LABEL}</button>
+                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
                 <br />
                 <p className="no-margin">
-                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                    If you want to know about Kanji,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                     please check this:
                     </p>
-                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
+                <a href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html" target="_blank" rel="noopener noreferrer"><b>What is Kanji? >></b></a>
                 <br />
-            </center>
+                <br />
+                {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
+                <div className="yahoo-div">
+                    <span className="yahoo-text">Supported by Yahoo! デベロッパーネットワーク　ルビ振りAPI<br />
+                        <a href="https://developer.yahoo.co.jp/about">
+                            <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
+                                title="Webサービス by Yahoo! JAPAN"
+                                alt="Web Services by Yahoo! JAPAN"
+                                width="125" height="17" border="0"
+                                className="yahoo"
+                            />
+                        </a>
+                    </span>
+                </div>
+                {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
+            </center >
         );
     }
 };
 
-
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
-    _onChange(e) {
-        this.props.onChange(e.target.value);
-    }
-
-    _onFocus(e) {
-        this.props.onFocus(e.target.value);
-    }
 
     _onScroll() {
         this.props.onScroll();
@@ -183,10 +242,8 @@ class ChildInput extends React.Component {
                 <textarea
                     id="inputArea"
                     className={this.props.inputColor}
-                    onChange={(e) => { this._onChange(e) }}
-                    onFocus={(e) => { this._onFocus(e) }}
                     onScroll={() => { this._onScroll() }}
-                    value={this.props.prompt}
+                    value={this.props.result}
                 />
             </center>
         );
@@ -247,4 +304,8 @@ function execCopy(string) {
 
     return result;
 }
-export default RomajiConverter;
+
+export default connect(
+    state => state.kanjiConverter,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+)(KanjiConverter);

@@ -2,7 +2,6 @@ import React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 
-
 class HiraganaQuiz extends React.Component {
 
     constructor(props) {
@@ -33,5 +32,4 @@ class HiraganaQuiz extends React.Component {
         );
     }
 }
-
 export default HiraganaQuiz;

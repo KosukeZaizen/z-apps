@@ -10,6 +10,8 @@ using Z_Apps.Models.Stories.Sentences;
 
 namespace Z_Apps.Controllers
 {
+
+    [Route("api/[controller]")]
     public class StoriesController : Controller
     {
         private Service service;
@@ -18,22 +20,17 @@ namespace Z_Apps.Controllers
             service = new Service(new DBCon());
         }
 
-        // GET: Story
-        public string Index()
-        {
-            return "heeeelllo";
-        }
-
-        public string GetPageData(int id, int page)
+        [HttpGet("[action]")]
+        public IEnumerable<Sentence> GetPageData(int id, int page)
         {
             if (id > 0 && page > 0)
             {
                 IEnumerable<Sentence> pageData = service.GetPageData(id, page);
-                return pageData.First().Kanji;
+                return pageData;
             }
             else
             {
-                return "no data";
+                return null;
             }
         }
     }

@@ -10,6 +10,7 @@ const RomajiConverter = lazy(() => import('./components/RomajiConverter'));
 const KanjiConverter = lazy(() => import('./components/KanjiConverter'));
 const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
+const Stories = lazy(() => import('./components/Stories'));
 const NinjaTop = lazy(() => import('./components/NinjaGameTop'));
 const Ninja1 = lazy(() => import('./components/NinjaGame'));
 const Ninja2 = lazy(() => import('./components/NinjaGame2'));
@@ -29,6 +30,7 @@ export default () => (
                 <Route path='/romaji-converter' component={RomajiConverter} />
                 <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                 <Route path='/katakana-quiz' component={KatakanaQuiz} />
+                <Route path='/stories' component={Stories} />
                 <Route path='/ninja' component={NinjaTop} />
                 <Route path='/ninja1' component={Ninja1} />
                 <Route path='/ninja2' component={Ninja2} />

@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja/Page1';
 import { Page2 } from './parts/Ninja/Page2';
 import '../css/NinjaGame.css';
-
 
 class NinjaGame extends React.Component {
 
@@ -109,5 +107,4 @@ function Pages(props) {
         );
     }
 }
-
-export default connect()(NinjaGame);
+export default NinjaGame;

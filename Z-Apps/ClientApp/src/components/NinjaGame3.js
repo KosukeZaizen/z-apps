@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Page1 } from './parts/Ninja3/Page1';
 import { Page2 } from './parts/Ninja3/Page2';
 import * as Consts from './parts/Ninja3/Consts'
@@ -117,5 +116,4 @@ function Pages(props) {
         );
     }
 }
-
-export default connect()(NinjaGame);
+export default NinjaGame;

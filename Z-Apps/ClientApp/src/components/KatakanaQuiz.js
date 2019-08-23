@@ -2,7 +2,6 @@ import React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 
-
 class KatakanaQuiz extends React.Component {
 
     constructor(props) {
@@ -29,5 +28,4 @@ class KatakanaQuiz extends React.Component {
         );
     }
 }
-
 export default KatakanaQuiz;

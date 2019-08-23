@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getParams } from './common/functions';
 
@@ -43,4 +42,4 @@ class GameOver extends React.Component {
         );
     }
 }
-export default connect()(GameOver);
+export default GameOver;

@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
-
 
 const Home = props => (
     <div className="home">
@@ -65,5 +63,4 @@ const Home = props => (
         </center>
     </div>
 );
-
-export default connect()(Home);
+export default Home;
