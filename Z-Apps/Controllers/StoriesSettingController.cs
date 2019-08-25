@@ -11,10 +11,10 @@ using Z_Apps.Models.Stories.Sentences;
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
-    public class StoriesController : Controller
+    public class StoriesSettingController : Controller
     {
         private Service service;
-        public StoriesController()
+        public StoriesSettingController()
         {
             service = new Service(new DBCon());
         }

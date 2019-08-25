@@ -2,10 +2,14 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as KanjiConverter from './KanjiConverter';
+import * as Stories from './Stories';
+import * as StoriesSetting from './StoriesSetting';
 
 export default function configureStore(history, initialState) {
     const reducers = {
-        kanjiConverter: KanjiConverter.reducer
+        kanjiConverter: KanjiConverter.reducer,
+        stories: Stories.reducer,
+        storiesSetting: StoriesSetting.reducer
     };
 
     const middleware = [

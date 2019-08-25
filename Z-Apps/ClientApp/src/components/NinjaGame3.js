@@ -97,7 +97,6 @@ class NinjaGame extends React.Component {
 };
 
 function Pages(props) {
-
     if (props.state.curPage === 2 || !!props.state.language) {
         return (
             <Page2

@@ -1,11 +1,11 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/Stories';
+import { actionCreators } from '../store/StoriesSetting';
 
 let objConst = {};
 
-class Stories extends React.Component {
+class StoriesSetting extends React.Component {
 
     constructor(props) {
         super(props);
@@ -41,7 +41,7 @@ class Stories extends React.Component {
     }
 
     render() {
-        this.props.convertedWords.map(w =>
+        this.props.pageContents.map(w =>
             this.result = w.kanji
         )
 
@@ -93,6 +93,6 @@ class ChildInput extends React.Component {
 };
 
 export default connect(
-    state => state.stories,
+    state => state.storiesSetting,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(Stories);
+)(StoriesSetting);
