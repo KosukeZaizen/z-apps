@@ -50,13 +50,17 @@ class StoriesSetting extends React.Component {
                 <h1>
                     <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
                 </h1>
-                <ul>
-                    {
-                        this.props.pageContents.map(s =>
+                <br />
+                {
+                    this.props.pageContents.map(s =>
+                        <ul>
                             <li>{s.kanji}</li>
-                        )
-                    }
-                </ul>
+                            <li>{s.hiragana}</li>
+                            <li>{s.romaji}</li>
+                            <li>{s.english}</li>
+                        </ul>
+                    )
+                }
                 <textarea
                     id="inputKanji"
                     onChange={(e) => { this.onChangeKanji(e) }}
