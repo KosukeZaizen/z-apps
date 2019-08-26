@@ -41,15 +41,22 @@ class StoriesSetting extends React.Component {
     }
 
     render() {
-        this.props.pageContents.map(w =>
-            this.result = w.kanji
+        this.props.pageContents.map(s =>
+            this.result = s.kanji
         )
 
         return (
-            <center className="kanji-converter">
+            <center>
                 <h1>
                     <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
                 </h1>
+                <ul>
+                    {
+                        this.props.pageContents.map(s =>
+                            <li>{s.kanji}</li>
+                        )
+                    }
+                </ul>
                 <textarea
                     id="inputKanji"
                     onChange={(e) => { this.onChangeKanji(e) }}
