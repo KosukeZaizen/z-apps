@@ -1,6 +1,6 @@
 const requestStoriesType = 'REQUEST_STORIES';
 const receiveStoriesType = 'RECEIVE_STORIES';
-const initialState = { convertedWords: [], isLoading: false };
+const initialState = { pageContents: [], isLoading: false };
 
 export const actionCreators = {
     requestKanjiConvert: kanjis => async (dispatch, getState) => {
@@ -11,9 +11,9 @@ export const actionCreators = {
         dispatch({ type: requestStoriesType, kanjis });
         const url = `api/Stories/GetPageData?id=1&page=1`;
         const response = await fetch(url);
-        const convertedWords = await response.json();
+        const pageContents = await response.json();
 
-        dispatch({ type: receiveStoriesType, kanjis, convertedWords });
+        dispatch({ type: receiveStoriesType, kanjis, pageContents });
     }
 };
 
@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
         return {
             ...state,
             kanjis: action.kanjis,
-            convertedWords: action.convertedWords,
+            pageContents: action.pageContents,
             isLoading: false
         };
     }

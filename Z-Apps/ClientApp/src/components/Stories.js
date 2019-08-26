@@ -41,15 +41,22 @@ class Stories extends React.Component {
     }
 
     render() {
-        this.props.convertedWords.map(w =>
-            this.result = w.kanji
-        )
-
         return (
             <center className="kanji-converter">
                 <h1>
                     <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
                 </h1>
+                <br />
+                {
+                    this.props.pageContents.map(s =>
+                        <ul>
+                            <li>{s.kanji}</li>
+                            <li>{s.hiragana}</li>
+                            <li>{s.romaji}</li>
+                            <li>{s.english}</li>
+                        </ul>
+                    )
+                }
                 <textarea
                     id="inputKanji"
                     onChange={(e) => { this.onChangeKanji(e) }}
