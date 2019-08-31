@@ -36,10 +36,9 @@ class NinjaGame extends React.Component {
             stage = 1;
         }
 
-
         //urlパラメータ取得
         const params = getParams();
-        const lang = (!!params) ? params.l : "";
+        const lang = (params) ? params.l : "";
 
         this.state = {
             language: lang,
@@ -62,7 +61,6 @@ class NinjaGame extends React.Component {
     }
 
     changeStage(num, ninja) {
-
         this.readElementScroll = [];
         this.setState({
             stage: num,
@@ -97,7 +95,7 @@ class NinjaGame extends React.Component {
 };
 
 function Pages(props) {
-    if (props.state.curPage === 2 || !!props.state.language) {
+    if (props.state.curPage === 2 || props.state.language) {
         return (
             <Page2
                 changeStage={(i, j) => { props.changeStage(i, j) }}
