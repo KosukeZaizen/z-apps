@@ -18,7 +18,7 @@ class NinjaGame extends React.Component {
             speedX: 0,
             speedY: 0,
             posX: 145,
-            posY: 60,
+            posY: -20,
             readScroll: [],
             boolLeft: true,
         };

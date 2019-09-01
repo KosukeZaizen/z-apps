@@ -4,8 +4,6 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//メッセージモジュールの読み込み
-import { messages } from '../Messages';
 //共通関数の読み込み
 import { changeStage } from '../CommonFnc'
 //背景画像
@@ -27,38 +25,9 @@ Stage1.getObjs = function () {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        openFirstScroll: {
-            size: 10,
-            posX: 145,
-            posY: -20,
-            zIndex: 20,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: messages.POCHI_SCROLL_TITLE,
-        },
-        firstScroll: {
-            size: 150,
-            posX: 5,
-            posY: 5,
-            zIndex: 1000,
-            img: Imgs.ScrollOpen,
-            scroll: true,
-            visible: false,
-            onTouch: OnTouch.toNothing,
-            title: messages.POCHI_SCROLL_TITLE,
-            message: messages.POCHI_SCROLL_MESSAGE,
-            fontSize: 3,
-            speakerImg: Imgs.Pochi,
-        },
+        ...StageParts.getSoroll("POCHI", 10, 145, -20, null,Imgs.Pochi, 20),
 
-        snowman: {
-            size: 12,
-            posX: 60,
-            posY: 62,
-            zIndex: 20,
-            img: Imgs.Snowman,
-            onTouch: OnTouch.toBlock,
-        },
-
+        snowman: StageParts.getOnePic(12, 60, 62, Imgs.Snowman, 20, OnTouch.toBlock),
         kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
         kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 

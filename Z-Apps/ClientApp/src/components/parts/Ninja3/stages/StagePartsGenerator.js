@@ -1,6 +1,7 @@
 import Imgs from '../ImportImgs';
 import * as OnTouch from '../OnTouch';//タッチ関数
 import * as EachTime from '../EachTime';//タイムステップごとの処理
+import { messages } from '../Messages';//メッセージモジュール
 
 //------------------------------------------------------------
 //
@@ -22,6 +23,49 @@ export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
             onTouch: onTouch,
         };
     }
+    return objResult;
+}
+
+//画像　生成関数
+export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: img,
+        onTouch: onTouch,
+        boolLeft: boolLeft,
+    };
+}
+
+export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft) {
+    let objResult = {};
+
+    objResult[`${name}_ScrollOpener`] = {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: img,
+        boolLeft: boolLeft,
+        onTouch: OnTouch.toScrollOpener,
+        openTargetTitle: messages[`${name}_SCROLL_TITLE`],
+    };
+    objResult[`${name}_ScrollMessage`] = {
+        size: 150,
+        posX: 5,
+        posY: 5,
+        zIndex: 1000,
+        img: Imgs.ScrollOpen,
+        scroll: true,
+        visible: false,
+        onTouch: OnTouch.toNothing,
+        title: messages[`${name}_SCROLL_TITLE`],
+        message: messages[`${name}_SCROLL_MESSAGE`],
+        fontSize: 3,
+        speakerImg: speakerImg,
+    };
     return objResult;
 }
 
@@ -67,23 +111,8 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
     return objResult;
 }
 
-//画像（触っても何も起きない）　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
-    return {
-        size: size,
-        posX: posX,
-        posY: posY,
-        zIndex: zIndex,
-        img: img,
-        onTouch: onTouch,
-        boolLeft: boolLeft,
-    }
-}
-
-
 //ファイヤーボール　生成関数
 export function getFireBall(size, posX, posY, boolLeft, fireBallCount) {
-
     return {
         size: size,
         posX: posX,
