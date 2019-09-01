@@ -50,6 +50,15 @@ Stage1.getObjs = function () {
             speakerImg: Imgs.Pochi,
         },
 
+        snowman: {
+            size: 12,
+            posX: 60,
+            posY: 62,
+            zIndex: 20,
+            img: Imgs.Snowman,
+            onTouch: OnTouch.toBlock,
+        },
+
         kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
         kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 

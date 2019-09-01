@@ -65,6 +65,10 @@ import Arrow1 from './objs/arrow1.png';
 import Torii from './objs/torii.png';
 
 
+//雪だるま
+import Snowman from './objs/snowman.png';
+
+
 export default {
     Rock,
     RockR,
@@ -94,5 +98,7 @@ export default {
     Bat,
     Kanban1,
     Arrow1,
-    Torii
+    Torii,
+
+    Snowman
 }
