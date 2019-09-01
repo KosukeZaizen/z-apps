@@ -17,7 +17,7 @@ Stage1.bgImg = bgImg;
 Stage1.windRange = [0, 0];//風速の最大・最小
 Stage1.windRand = 0;//風速の変化の速さ
 
-Stage1.getObjs = ninja => {
+Stage1.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
