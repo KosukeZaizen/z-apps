@@ -18,13 +18,14 @@ import bgImg from '../img/background/furuie.jpg';
 
 const Stage1 = {};
 Stage1.bgImg = bgImg;
-Stage1.windRange = [0, 3];//風速の最大・最小
-Stage1.windRand = 0.3;//風速の変化の速さ
+Stage1.windRange = [0, 0];//風速の最大・最小
+Stage1.windRand = 0;//風速の変化の速さ
 
 Stage1.getObjs = function () {
     let objs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
+        ...StageParts.getObjFloor(),
 
         openFirstScroll: {
             size: 10,
@@ -49,21 +50,8 @@ Stage1.getObjs = function () {
             speakerImg: Imgs.Pochi,
         },
 
-        ...StageParts.getOnePic("house1Pic", 60, 120, 55, Imgs.House1, 35, OnTouch.toNothing),
-        house1Actual: {
-            size: 60,
-            posX: 120,
-            posY: 67,
-            onTouch: OnTouch.toBlock,
-        },
-
-        ...StageParts.getOnePic("house2Pic", 60, 90, 55, Imgs.House1, 35, OnTouch.toNothing),
-        house2Actual: {
-            size: 60,
-            posX: 97,
-            posY: 67,
-            onTouch: OnTouch.toBlock,
-        },
+        kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
+        kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 
         bottomGate: {
             size: 300,
@@ -75,7 +63,7 @@ Stage1.getObjs = function () {
             changeStage: changeStage,
         },
 
-        ...StageParts.getSnows(0.15, 30),
+        ...StageParts.getSnows(0.1, 30),
     };
     return objs;
 }

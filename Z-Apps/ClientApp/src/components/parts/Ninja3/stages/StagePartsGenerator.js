@@ -26,7 +26,7 @@ export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
 }
 
 //雪 生成関数
-export function getSnows(strength, zIndex, wind) {
+export function getSnows(strength, zIndex) {
     let objResult = {};
 
     for (let i = 0; i <= 160 * strength; i++) {
@@ -68,18 +68,16 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
 }
 
 //画像（触っても何も起きない）　生成関数
-export function getOnePic(name, size, posX, posY, img, zIndex, onTouch) {
-    let objResult = {};
-
-    objResult[name] = {
+export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
+    return {
         size: size,
         posX: posX,
         posY: posY,
         zIndex: zIndex,
         img: img,
         onTouch: onTouch,
+        boolLeft: boolLeft,
     }
-    return objResult;
 }
 
 

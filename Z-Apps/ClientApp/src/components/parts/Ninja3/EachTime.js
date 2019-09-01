@@ -102,8 +102,8 @@ export function Snow(ninja, key) {
     if (ninja.game.objs[key].posX < 0) ninja.game.objs[key].posX = 160;
 
     if (ninja.game.objs[key].posY > 75) {
-        ninja.game.objs[key].posY = 0;
+        ninja.game.objs[key].posY = -10;
         ninja.game.objs[key].posX = Math.floor(Math.random() * 161);
     }
-    if (ninja.game.objs[key].posY < 0) ninja.game.objs[key].posY = 75;
+    if (ninja.game.objs[key].posY < -10) ninja.game.objs[key].posY = 75;
 }
