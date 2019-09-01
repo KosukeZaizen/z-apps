@@ -2,6 +2,7 @@ import Imgs from '../ImportImgs';
 import * as OnTouch from '../OnTouch';//タッチ関数
 import * as EachTime from '../EachTime';//タイムステップごとの処理
 import { messages } from '../Messages';//メッセージモジュール
+import { changeStage } from '../CommonFnc'//共通関数
 
 //------------------------------------------------------------
 //
@@ -39,6 +40,7 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
     };
 }
 
+//メッセージ表示　巻物
 export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft) {
     let objResult = {};
 
@@ -67,6 +69,23 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
         speakerImg: speakerImg,
     };
     return objResult;
+}
+
+//ステージ変更用ゲート（左）
+//引数にnextX, nextYを渡さなければ、自動的に位置が計算される
+export function getLeftGate(next, nextX, nextY) {
+    return {
+        size: 300,
+        posX: -300,
+        posY: -200,
+        zIndex: 30,
+        next: next,
+        nextX: nextX,
+        nextY: nextY,
+        nextLeft: true,
+        onTouch: OnTouch.toStageChangeCommon,
+        changeStage: changeStage,
+    };
 }
 
 //雪 生成関数

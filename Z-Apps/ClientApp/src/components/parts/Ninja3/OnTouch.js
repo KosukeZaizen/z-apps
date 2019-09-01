@@ -25,7 +25,7 @@ export function toScrollOpener(ninja) {
             }
         }
     }
-    
+
     if (ninja.readScroll.indexOf(this.openTargetTitle) < 0) {
         //該当のメッセージをまだ読んでいない場合
         //読み終えたリストの中に該当の巻物を追加
@@ -133,10 +133,27 @@ export function toOutsideEnemy1(ninja) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
-export function toStageChangeCommon(ninja) {
+export function toStageChangeCommon(ninja, from) {
 
-    ninja.posX = this.nextX;
-    ninja.posY = this.nextY;
+    if (this.nextX && this.nextY) {
+        ninja.posX = this.nextX;
+        ninja.posY = this.nextY;
+    } else {
+        //遷移後の位置を明示的に渡されていない場合は、自動的に算出
+        if (from === "right") {
+            //右から
+            ninja.posX += 160 - ninja.size;
+        } else if (from === "left") {
+            //左から
+            ninja.posX = 0;
+        } else if (from === "upper") {
+            //上から
+            ninja.posY = 0;
+        } else if (from === "lower") {
+            //下から
+            ninja.posY = 75 - ninja.size;
+        }
+    }
     ninja.boolLeft = this.nextLeft;
 
     changeStage(this.next, ninja);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import '../css/Developer.css';
 import image from '../img/KosukeZaizen.JPG';
 

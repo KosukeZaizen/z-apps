@@ -221,7 +221,7 @@ export default class Page2 extends React.Component {
 
     setStage(newStage) {
         //ステージのオブジェクトを設定
-        this.objs = newStage.getObjs();
+        this.objs = newStage.getObjs(this.ninja);
         //ステージの背景画像を設定
         this.bgImg = newStage.bgImg;
         //風 設定

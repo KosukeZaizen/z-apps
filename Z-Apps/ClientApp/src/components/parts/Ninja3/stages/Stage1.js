@@ -4,8 +4,6 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//共通関数の読み込み
-import { changeStage } from '../CommonFnc'
 //背景画像
 import bgImg from '../img/background/furuie.jpg';
 
@@ -19,8 +17,8 @@ Stage1.bgImg = bgImg;
 Stage1.windRange = [0, 0];//風速の最大・最小
 Stage1.windRand = 0;//風速の変化の速さ
 
-Stage1.getObjs = function () {
-    let objs = {
+Stage1.getObjs = ninja => {
+    return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
@@ -31,19 +29,9 @@ Stage1.getObjs = function () {
         kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
         kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 
-        bottomGate: {
-            size: 300,
-            posX: -80,
-            posY: 80,
-            zIndex: 30,
-            next: 2,
-            onTouch: OnTouch.toGateTop1,
-            changeStage: changeStage,
-        },
+        leftGate: StageParts.getLeftGate(2),
 
         ...StageParts.getSnows(0.1, 30),
     };
-    return objs;
 }
-
 export { Stage1 };

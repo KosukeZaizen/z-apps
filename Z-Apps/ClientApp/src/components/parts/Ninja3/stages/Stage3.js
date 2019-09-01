@@ -19,7 +19,7 @@ import bgImg from '../img/background/whiteWall2.jpg';
 const Stage3 = {};
 Stage3.bgImg = bgImg;
 
-Stage3.getObjs = function () {
+Stage3.getObjs = ninja => {
     let objs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),

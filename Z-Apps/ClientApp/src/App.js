@@ -59,8 +59,8 @@ function NotFoundRedirect({ location }) {
 function LoadingAnimation(props) {
     let arr = [];
     for (let i = 0; i < props.num; i++) {
-        arr.push(<br />);
+        arr.push(<span key={i}><br /></span>);
     }
-    arr.push(<CircularProgress size="20%" />);
+    arr.push(<CircularProgress key="circle" size="20%" />);
     return <center>{arr}</center>;
 }
