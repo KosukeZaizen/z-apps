@@ -32,7 +32,7 @@ export default class Page1 extends React.Component {
                 <br />
                 <h2 style={{ color: "white", marginBottom: 10, }} >Which language do you prefer?</h2>
                 {
-                    screenHeight > 350 ?
+                    screenHeight > 360 ?
                         <span>
                             <span onClick={() => { this.props.changePage(2, "English") }}>
                                 <button
