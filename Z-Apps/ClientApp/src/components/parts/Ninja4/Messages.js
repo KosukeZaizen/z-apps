@@ -39,7 +39,7 @@ export function setLang(lang) {
 
         POCHI_SCROLL_TITLE: "Come to my house!",
         POCHI_SCROLL_MESSAGE:
-            "There is one thing I need to give you!\n" +
+            "There is one thing I need to show you!\n" +
             "Come to my house!\n",
 
         POCHI2_SCROLL_TITLE: "Happy birthday!",
