@@ -16,6 +16,7 @@ const NinjaTop = lazy(() => import('./components/NinjaGameTop'));
 const Ninja1 = lazy(() => import('./components/NinjaGame'));
 const Ninja2 = lazy(() => import('./components/NinjaGame2'));
 const Ninja3 = lazy(() => import('./components/NinjaGame3'));
+const Ninja4 = lazy(() => import('./components/NinjaGame4'));
 const GameOver = lazy(() => import('./components/GameOver'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const NotFound = lazy(() => import('./components/404'));
@@ -37,6 +38,7 @@ export default () => (
                 <Route path='/ninja1' component={Ninja1} />
                 <Route path='/ninja2' component={Ninja2} />
                 <Route path='/ninja3' component={Ninja3} />
+                <Route path='/hb' component={Ninja4} />
                 <Route path='/game-over' component={GameOver} />
                 <Route path='/color-code' component={ColorPalette} />
                 <Route path='/not-found' component={NotFound} />
