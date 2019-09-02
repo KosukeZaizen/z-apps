@@ -54,28 +54,30 @@ export default class Page1 extends React.Component {
                         :
                         <span>
                             <table style={{ width: "100%" }}>
-                                <tr>
-                                    <td align="center">
-                                        <span onClick={() => { this.props.changePage(2, "English") }}>
-                                            <button
-                                                style={{ ...bottomMargin, width: "80%" }}
-                                                className={this.consts.BTN_START_CLASS}
-                                            >
-                                                {"English"}
-                                            </button>
-                                        </span>
-                                    </td>
-                                    <td align="center">
-                                        <span onClick={() => { this.props.changePage(2, "Japanese") }}>
-                                            <button
-                                                style={{ ...bottomMargin, width: "80%" }}
-                                                className={this.consts.BTN_START_CLASS}
-                                            >
-                                                {"日本語"}
-                                            </button>
-                                        </span>
-                                    </td>
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td align="center">
+                                            <span onClick={() => { this.props.changePage(2, "English") }}>
+                                                <button
+                                                    style={{ ...bottomMargin, width: "80%" }}
+                                                    className={this.consts.BTN_START_CLASS}
+                                                >
+                                                    {"English"}
+                                                </button>
+                                            </span>
+                                        </td>
+                                        <td align="center">
+                                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                                                <button
+                                                    style={{ ...bottomMargin, width: "80%" }}
+                                                    className={this.consts.BTN_START_CLASS}
+                                                >
+                                                    {"日本語"}
+                                                </button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </span>
                 }

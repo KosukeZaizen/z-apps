@@ -5,12 +5,8 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/furuie.jpg';
+import bgImg from '../../Ninja/img/background/furuie5.jpg';
 
-
-// ------------------------------------------------------------
-// ステージ1 (出発地点　屋根の上)
-// ------------------------------------------------------------
 
 const Stage1 = {};
 Stage1.bgImg = bgImg;

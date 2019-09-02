@@ -6,17 +6,17 @@ import { Obj } from './objs/obj';
 //オブジェクト素材画像----------------
 
 //岩
-import imgRock from './objs/rock.png';
+import imgRock from './../Ninja/objs/rock.png';
 //岩（上下反転）
-import imgRockR from './objs/rockRiverse.png';
+import imgRockR from './../Ninja/objs/rockRiverse.png';
 //ポチ
-import imgPochi from './objs/pochi.png';
+import imgPochi from './../Ninja/objs/pochi.png';
 //閉じている巻物
-import imgScroll from './objs/scrollObj.png';
+import imgScroll from './../Ninja/objs/scrollObj.png';
 //開いている巻物
-import imgScrollOpen from './objs/scrollOpen.png';
+import imgScrollOpen from './../Ninja/objs/scrollOpen.png';
 //シノ（先輩くのいち）
-import imgShino from './objs/shino.png';
+import imgShino from './../Ninja/objs/shino.png';
 //屋敷（屋根）
 import imgHouse1 from './objs/house.png';
 //悪忍者
@@ -56,11 +56,11 @@ import imgBoss from './objs/badDog.png';
 //コウモリ
 import imgBat from './objs/bat.png';
 //看板
-import imgKanban1 from './objs/kanban1.png';
+import imgKanban1 from './../Ninja/objs/kanban1.png';
 //看板の矢印
-import imgArrow1 from './objs/arrow1.png';
+import imgArrow1 from './../Ninja/objs/arrow1.png';
 //鳥居
-import imgTorii from './objs/torii.png';
+import imgTorii from './../Ninja/objs/torii.png';
 
 
 //背景画像//---------------------------

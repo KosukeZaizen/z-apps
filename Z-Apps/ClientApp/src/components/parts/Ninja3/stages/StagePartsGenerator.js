@@ -88,6 +88,23 @@ export function getLeftGate(next, nextX, nextY) {
     };
 }
 
+//ステージ変更用ゲート（右）
+//引数にnextX, nextYを渡さなければ、自動的に位置が計算される
+export function getRightGate(next, nextX, nextY) {
+    return {
+        size: 300,
+        posX: 160,
+        posY: -200,
+        zIndex: 30,
+        next: next,
+        nextX: nextX,
+        nextY: nextY,
+        nextLeft: false,
+        onTouch: OnTouch.toStageChangeCommon,
+        changeStage: changeStage,
+    };
+}
+
 //雪 生成関数
 export function getSnows(strength, zIndex) {
     let objResult = {};

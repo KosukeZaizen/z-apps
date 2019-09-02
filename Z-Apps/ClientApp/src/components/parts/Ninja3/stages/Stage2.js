@@ -4,98 +4,106 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//メッセージモジュールの読み込み
-import { messages } from '../Messages';
-//共通関数の読み込み
-import { changeStage } from '../CommonFnc'
 //背景画像
-import bgImg from '../img/background/whiteWall.jpg';
+import bgImg from '../../Ninja/img/background/town1.jpg';
 
-
-// ------------------------------------------------------------
-// ステージ2 (ファイヤーボールの書)
-// ------------------------------------------------------------
 
 const Stage2 = {};
 Stage2.bgImg = bgImg;
+Stage2.windRange = [0, 0];//風速の最大・最小
+Stage2.windRand = 0;//風速の変化の速さ
 
 Stage2.getObjs = () => {
-    let objs = {
+    return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        fireBallDummy: {
-            //FireBallの画像初期表示速度向上のためのダミー
-            size: 13,
-            posX: -100,
-            posY: 60,
-            speedX: 0,
-            speedY: 0,
-            zIndex: 20,
-            img: Imgs.FireBallR,
-            onTouch: OnTouch.toNothing,
-        },
-        scrollFireBallIcon: {
-            size: 10,
-            posX: 105,
-            posY: 46,
-            boolLeft: true,
-            zIndex: 22,
-            img: Imgs.Scroll,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: messages.FIRE_SCROLL_TITLE,
-        },
-        fireBallScrollOpened: {
-            size: 150,
-            posX: 5,
-            posY: 5,
-            zIndex: 1000,
-            img: Imgs.ScrollOpen,
-            scroll: true,
-            visible: false,
-            onTouch: OnTouch.toNothing,
-            title: messages.FIRE_SCROLL_TITLE,
-            message: messages.FIRE_SCROLL_MESSAGE,
-            fontSize: 3,
-        },
-        rock1Pic: {
-            size: 40,
-            posX: 90,
-            posY: 50,
-            zIndex: 20,
-            img: Imgs.Rock,
-            onTouch: OnTouch.toNothing,
-        },
-        rock1Actual: {
-            size: 40,
-            posX: 90,
-            posY: 53,
+        snowman: StageParts.getOnePic(12, 60, 62, Imgs.Snowman, 20, OnTouch.toBlock),
+        kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
+        kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
+
+        /*
+        rock1: {
+            size: 17,
+            posX: 50,
+            posY: 63,
             zIndex: 30,
-            onTouch: OnTouch.toBlock,
+            img: imgRock,
+            onTouch: onTouchBlock,
         },
-        shino: {
-            size: 10,
-            posX: 30,
-            posY: 61,
-            zIndex: 17,
-            img: Imgs.Shino,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: messages.SHINO_SCROLL_TITLE,
+        tree1Pic: {
+            size: 60,
+            posX: 120,
+            posY: 20,
+            zIndex: 15,
+            img: imgTree1,
+            onTouch: onTouchNothing,
         },
-        shinoScroll: {
-            size: 150,
-            posX: 5,
+        tree1Actual: {
+            size: 60,
+            posX: 120,
+            posY: 30,
+            onTouch: onTouchTree,
+        },
+        toriiPic: {
+            size: 120,
+            posX: 35,
+            posY: 3,
+            zIndex: 10,
+            img: imgTorii,
+            onTouch: onTouchNothing,
+        },
+        toriiActual: {
+            size: 120,
+            posX: 35,
+            posY: 9,
+            zIndex: 10,
+            onTouch: onTouchTree,
+        },
+        toriiFramePic: {
+            size: 40,
+            posX: 75,
             posY: 5,
-            zIndex: 1000,
-            img: Imgs.ScrollOpen,
-            scroll: true,
-            visible: false,
-            onTouch: OnTouch.toNothing,
-            title: messages.SHINO_SCROLL_TITLE,
-            message: messages.SHINO_SCROLL_MESSAGE,
-            fontSize: 3,
-            speakerImg: Imgs.Shino,
+            zIndex: 30,
+            img: imgFrame,
+            onTouch: onTouchNothing,
+        },
+        toriiMessage1: {
+            size: 30,
+            posX: 87,
+            posY: 10,
+            zIndex: 30,
+            message: "Welcome",
+            fontSize: 4,
+            onTouch: onTouchNothing,
+        },
+        toriiMessage2: {
+            size: 30,
+            posX: 93,
+            posY: 15,
+            zIndex: 30,
+            message: "to",
+            fontSize: 4,
+            onTouch: onTouchNothing,
+        },
+        toriiMessage3: {
+            size: 30,
+            posX: 89,
+            posY: 20,
+            zIndex: 30,
+            message: "Japan!",
+            fontSize: 4,
+            onTouch: onTouchNothing,
+        },
+        rightGateWall: {
+            size: 300,
+            posX: 160,
+            posY: -200,
+            zIndex: 30,
+            next: 1,
+            onTouch: onTouchGateWall,
+            changeStage: this.props.changeStage,
         },
         leftGateWall: {
             size: 300,
@@ -103,10 +111,15 @@ Stage2.getObjs = () => {
             posY: -200,
             zIndex: 30,
             next: 3,
-            onTouch: OnTouch.toGateWall,
-            changeStage: changeStage,
+            onTouch: onTouchGateWall,
+            changeStage: this.props.changeStage,
         },
+        */
+
+        rightGate: StageParts.getRightGate(1),
+        leftGate: StageParts.getLeftGate(3),
+
+        ...StageParts.getSnows(0.1, 30),
     };
-    return objs;
 }
 export { Stage2 };

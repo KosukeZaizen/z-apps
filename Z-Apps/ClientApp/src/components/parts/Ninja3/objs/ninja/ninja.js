@@ -1,5 +1,5 @@
 import React from 'react';
-import runningNinja from './ninja_hashiru.png';
+import runningNinja from './../../../Ninja/objs/ninja/ninja_hashiru.png';
 
 
 function NinjaChar(props) {
