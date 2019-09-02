@@ -1,9 +1,8 @@
 //------------------------------------------------------------
-//
 //　全てのオブジェクトの画像をimportし、exportするモジュール
-//
 //------------------------------------------------------------
 
+//＜過去要素引継ぎ＞
 
 //岩
 import Rock from './../Ninja/objs/rock.png';
@@ -21,7 +20,13 @@ import Kanban1 from './../Ninja/objs/kanban1.png';
 import Arrow1 from './../Ninja/objs/arrow1.png';
 //鳥居
 import Torii from './../Ninja/objs/torii.png';
+//額縁
+import Frame from './../Ninja/objs/frame.jpg';
+//木
+import Tree from './../Ninja/objs/tree1.png';
 
+//------------------------------------------------------------
+//＜新要素＞
 
 //雪だるま
 import Snowman from './objs/snowman.png';
@@ -36,5 +41,8 @@ export default {
     Kanban1,
     Arrow1,
     Torii,
+    Frame,
+    Tree,
+
     Snowman
 }
