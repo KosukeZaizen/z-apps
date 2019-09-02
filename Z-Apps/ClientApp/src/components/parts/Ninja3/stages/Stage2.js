@@ -21,9 +21,6 @@ Stage2.getObjs = () => {
 
         rock1: StageParts.getOnePic(17, 50, 63, Imgs.Rock, 30, OnTouch.toBlock),
 
-        tree1Pic: StageParts.getOnePic(60, 120, 20, Imgs.Tree, 15, OnTouch.toNothing),
-        tree1Actual: StageParts.getOnePic(60, 120, 30, null, null, OnTouch.toTree),
-
         toriiPic: StageParts.getOnePic(120, 35, 3, Imgs.Torii, 10, OnTouch.toNothing),
         toriiActual: StageParts.getOnePic(120, 35, 9, null, null, OnTouch.toTree),
 
