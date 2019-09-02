@@ -22,6 +22,7 @@ export default class Page1 extends React.Component {
         const bottomMargin = {
             marginBottom: 10,
         };
+        const screenHeight = parseInt(window.innerHeight, 10);
         return (
             <div id="page1">
                 <span onClick={() => { this.hideTopImage() }}>
@@ -29,25 +30,57 @@ export default class Page1 extends React.Component {
                 </span>
                 <br />
                 <br />
-                <h2 style={{ color: "white", marginBottom: 10,}} >Which language do you prefer?</h2>
-                <span onClick={() => { this.props.changePage(2, "English") }}>
-                    <button
-                        style={bottomMargin}
-                        className={this.consts.BTN_START_CLASS}
-                    >
-                        {"English"}
-                    </button>
-                </span>
-                <span onClick={() => { this.props.changePage(2, "Japanese") }}>
-                    <button
-                        style={bottomMargin}
-                        className={this.consts.BTN_START_CLASS}
-                    >
-                        {"日本語"}
-                    </button>
-                </span>
+                <h2 style={{ color: "white", marginBottom: 10, }} >Which language do you prefer?</h2>
+                {
+                    screenHeight > 360 ?
+                        <span>
+                            <span onClick={() => { this.props.changePage(2, "English") }}>
+                                <button
+                                    style={bottomMargin}
+                                    className={this.consts.BTN_START_CLASS}
+                                >
+                                    {"English"}
+                                </button>
+                            </span>
+                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                                <button
+                                    style={bottomMargin}
+                                    className={this.consts.BTN_START_CLASS}
+                                >
+                                    {"日本語"}
+                                </button>
+                            </span>
+                        </span>
+                        :
+                        <span>
+                            <table style={{ width: "100%" }}>
+                                <tr>
+                                    <td align="center">
+                                        <span onClick={() => { this.props.changePage(2, "English") }}>
+                                            <button
+                                                style={{ ...bottomMargin, width: "80%" }}
+                                                className={this.consts.BTN_START_CLASS}
+                                            >
+                                                {"English"}
+                                            </button>
+                                        </span>
+                                    </td>
+                                    <td align="center">
+                                        <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                                            <button
+                                                style={{ ...bottomMargin, width: "80%" }}
+                                                className={this.consts.BTN_START_CLASS}
+                                            >
+                                                {"日本語"}
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </span>
+                }
                 <br />
-                <center style={{color:"white"}}>
+                <center style={{ color: "white" }}>
                     If you want to be a real Ninja, please check this:<br />
                     <a
                         href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
