@@ -40,6 +40,19 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
     };
 }
 
+//文字列要素　生成関数
+export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        message: message,
+        fontSize: fontSize,
+        onTouch: onTouch,
+    };
+}
+
 //メッセージ表示　巻物
 export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft) {
     let objResult = {};

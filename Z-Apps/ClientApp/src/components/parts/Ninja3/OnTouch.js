@@ -65,12 +65,11 @@ export function toBlock(ninja, from) {
 //=======================================
 // 上からのみ乗れる木などのタッチ関数
 //=======================================
-export function toTree(ninja, from) {
-    if (from === "upper") {
-        //上から
+export function toTree(ninja) {
+    //上から
+    if (this.posY > ninja.posY && this.posY < ninja.posY + ninja.size) {
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
-
     }
 }
 
