@@ -24,6 +24,8 @@ import Torii from './../Ninja/objs/torii.png';
 import Frame from './../Ninja/objs/frame.jpg';
 //木
 import Tree from './../Ninja/objs/tree1.png';
+//仏壇
+import Butsudan from './../Ninja/objs/butsudan.png';
 
 //------------------------------------------------------------
 //＜新要素＞
@@ -43,6 +45,7 @@ export default {
     Torii,
     Frame,
     Tree,
+    Butsudan,
 
     Snowman
 }

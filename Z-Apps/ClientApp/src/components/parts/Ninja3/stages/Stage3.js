@@ -4,109 +4,28 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//オブジェクトのタイムステップごとのメソッドの読み込み
-import * as EachTime from '../EachTime';
-//共通関数の読み込み
-import { changeStage } from '../CommonFnc'
 //背景画像
-import bgImg from '../img/background/whiteWall2.jpg';
+import bgImg from '../../Ninja/img/background/ryokan1.jpg';
 
-
-// ------------------------------------------------------------
-// ステージ3 (鷲と白壁)
-// ------------------------------------------------------------
 
 const Stage3 = {};
 Stage3.bgImg = bgImg;
+Stage3.windRange = [0, 0];//風速の最大・最小
+Stage3.windRand = 0;//風速の変化の速さ
 
 Stage3.getObjs = () => {
-    let objs = {
+    return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        washi1: {
-            size: 13,
-            posX: 0,
-            posY: 0,
-            speedX: 3,
-            speedY: 1,
-            zIndex: 20,
-            img: Imgs.Washi,
-            onTouch: OnTouch.toEnemy,
-            next: 2,
-            changeStage: changeStage,
-            enemy: true,
-            eachTime: EachTime.Enemy,
-            life: 1,
-        },
-        washi2: {
-            size: 13,
-            posX: -40,
-            posY: -60,
-            speedX: 3,
-            speedY: 1,
-            zIndex: 20,
-            img: Imgs.Washi,
-            onTouch: OnTouch.toEnemy,
-            next: 2,
-            changeStage: changeStage,
-            enemy: true,
-            eachTime: EachTime.Enemy,
-            life: 1,
-        },
-        washi3: {
-            size: 13,
-            posX: 0,
-            posY: -100,
-            speedX: 3,
-            speedY: 1,
-            zIndex: 20,
-            img: Imgs.Washi,
-            onTouch: OnTouch.toEnemy,
-            next: 2,
-            changeStage: changeStage,
-            enemy: true,
-            eachTime: EachTime.Enemy,
-            life: 1,
-        },
+        ...StageParts.getSoroll("POCHI2", 10, 50, 62, Imgs.Pochi, Imgs.Pochi, 20),
 
-        box1: {
-            size: 20,
-            posX: 105,
-            posY: 55,
-            speedX: 0,
-            speedY: 0,
-            zIndex: 19,
-            img: Imgs.Box1,
-            onTouch: OnTouch.toBlock,
-            enemy: true,
-            eachTime: EachTime.Enemy,
-            life: 1,
-        },
+        butsudan: StageParts.getOnePic(40, 5, 32, Imgs.Butsudan, 20, OnTouch.toTree),
 
-        rightGateWall: {
-            size: 300,
-            posX: 160,
-            posY: -200,
-            zIndex: 30,
-            next: 2,
-            onTouch: OnTouch.toGateWall,
-            changeStage: changeStage,
-        },
-        leftGateWall: {
-            size: 300,
-            posX: -300,
-            posY: -200,
-            zIndex: 30,
-            next: 1,
-            nextX: 145,
-            nextY: -20,
-            nextLeft: true,
-            onTouch: OnTouch.toStageChangeCommon,
-            changeStage: changeStage,
-        },
+        ...StageParts.getSoroll("TOBIISHI", 10, 19, 42, Imgs.Scroll, null, 22),
+
+        rightGate: StageParts.getRightGate(2),
     };
-    return objs;
 }
 export { Stage3 };

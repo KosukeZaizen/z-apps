@@ -19,9 +19,6 @@ Stage2.getObjs = () => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
-        kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
-
         rock1: StageParts.getOnePic(17, 50, 63, Imgs.Rock, 30, OnTouch.toBlock),
 
         tree1Pic: StageParts.getOnePic(60, 120, 20, Imgs.Tree, 15, OnTouch.toNothing),
