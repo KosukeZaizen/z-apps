@@ -6,6 +6,8 @@
 
 //岩
 import Rock from './../Ninja/objs/rock.png';
+//逆向きの炎
+import FireR from './../Ninja/objs/fireReverse.png';
 //ポチ
 import Pochi from './../Ninja/objs/pochi.png';
 //閉じている巻物
@@ -27,6 +29,7 @@ import Tree from './../Ninja/objs/tree1.png';
 //仏壇
 import Butsudan from './../Ninja/objs/butsudan.png';
 
+
 //------------------------------------------------------------
 //＜新要素＞
 
@@ -36,6 +39,7 @@ import Snowman from './objs/snowman.png';
 
 export default {
     Rock,
+    FireR,
     Pochi,
     Scroll,
     ScrollOpen,

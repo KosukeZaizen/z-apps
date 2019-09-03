@@ -41,21 +41,28 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
 }
 
 //飛ぶ岩　生成関数
-export function getFlyingRock(size, posX, posY, img, zIndex, onTouch, boolLeft) {
-    return {
-        Rock: {
-            size: size,
-            posX: posX,
-            posY: posY,
-            zIndex: zIndex,
-            img: img,
-            onTouch: onTouch,
-            boolLeft: boolLeft,
-        },
-        Fire: {
-
-        }
+export function getFlyingRock(id, size, posX, posY, zIndex) {
+    let objResult = {};
+    objResult[`Rock${id}`] = {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: Imgs.Rock,
+        onTouch: OnTouch.toFlyingRock,
+        eachTime: EachTime.FlyingRock,
+        fireName: `Fire${id}`,
     };
+    objResult[`Fire${id}`] = {
+        size: size,
+        posX: posX,
+        posY: posY + (size * 3 / 4),
+        zIndex: zIndex - 1,
+        img: Imgs.FireR,
+        onTouch: OnTouch.toNothing,
+        eachTime: EachTime.FlyingRock,
+    };
+    return objResult;
 }
 
 //文字列要素　生成関数

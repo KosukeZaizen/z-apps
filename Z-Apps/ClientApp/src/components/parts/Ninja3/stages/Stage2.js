@@ -19,10 +19,10 @@ Stage2.getObjs = () => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        rock1: StageParts.getOnePic(17, 50, 63, Imgs.Rock, 30, OnTouch.toBlock),
+        ...StageParts.getFlyingRock(1, 17, 20, 63, 30),
 
         toriiPic: StageParts.getOnePic(120, 35, 3, Imgs.Torii, 10, OnTouch.toNothing),
-        toriiActual: StageParts.getOnePic(120, 35, 9, null, null, OnTouch.toTree),
+        toriiActual: StageParts.getOnePic(100, 45, 9, null, null, OnTouch.toTree),
 
         toriiFramePic: StageParts.getOnePic(40, 75, 5, Imgs.Frame, 30, OnTouch.toNothing),
         toriiMessage1: StageParts.getMessage(30, 87, 10, "Welcome", 4, 30, OnTouch.toNothing),

@@ -1,11 +1,17 @@
 import { changeStage } from './CommonFnc'
 import * as consts from './Consts'//定数
+import { messages } from './Messages';//メッセージモジュール
 
 //------------------------------------------------------------
 //
 //　　　　　オブジェクトタッチ時の関数
 //
 //------------------------------------------------------------
+
+//=======================================
+// 何も起こらないタッチ関数
+//=======================================
+export function toNothing() { }
 
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
@@ -74,68 +80,35 @@ export function toTree(ninja) {
 }
 
 //=======================================
-// 風呂場の鍵がかかったドアのタッチ関数
+// 飛び石のタッチ関数
 //=======================================
-export function toLockedDoor(ninja, from) {
-    //鍵を持っていなければブロック
-    if (ninja.readScroll.indexOf(this.keyName) < 0) toBlock(ninja, from);
-}
-
-//=======================================
-// 何も起こらないタッチ関数
-//=======================================
-export function toNothing() { }
-
-//=======================================
-// 別ステージへのゲートのタッチ関数（左右）
-//=======================================
-export function toGateWall(ninja, from) {
-    if (from === "right") {
-        //右から
-        ninja.posX += 160 - ninja.size;
-        ninja.speedX = 0;
-        ninja.speedY = 0;
-
-    } else {
-        //左から
-        ninja.posX = 0;
-        ninja.speedX = 0;
-        ninja.speedY = 0;
-    }
-    changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
-// 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
-//=======================================
-export function toGateTop1(ninja, from) {
-
+export function toFlyingRock(ninja, from) {
     if (from === "upper") {
         //上から
-        ninja.posX = 145;
-        ninja.posY = 0;
+        ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
+
+        if (ninja.readScroll.indexOf(messages.TOBIISHI_SCROLL_TITLE) > 0) {
+            //飛び石の書を読んでいる
+            if (!this.Flying) {
+                //飛行開始
+                this.isFlying = true;
+                ninja.game.objs[this.fireName].isFlying = true;
+            }
+        }
+    } else if (from === "right") {
+        //右から
+        ninja.posX = this.posX + this.size;
+        ninja.speedX = 0;
+    } else if (from === "lower") {
+        //下から
+        ninja.posY = this.posY + this.size;
+        ninja.speedY = 0;
+    } else if (from === "left") {
+        //左から
+        ninja.posX = this.posX - ninja.size;
         ninja.speedX = 0;
     }
-    changeStage(this.next, ninja);
-
-    return "changed";
-}
-
-//=======================================
-// 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
-//=======================================
-export function toOutsideEnemy1(ninja) {
-
-    ninja.posX = 145;
-    ninja.posY = 0;
-    ninja.speedY = 0;
-    ninja.speedX = 0;
-    changeStage(this.next, ninja);
-
-    return "changed";
 }
 
 //=======================================

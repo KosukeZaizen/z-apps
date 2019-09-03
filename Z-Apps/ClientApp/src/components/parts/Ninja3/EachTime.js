@@ -67,6 +67,20 @@ export function Enemy(ninja, key) {
 }
 
 //=======================================
+// 飛び石　タイムステップ毎
+//=======================================
+export function FlyingRock(ninja, key) {
+    if (this.isFlying) {
+        if (this.posY < -500) {
+            //画面から大きくはみ出した場合、消す
+            delete ninja.game.objs[key];
+        } else {
+                this.posY -= 3 * TIME_STEP;
+        }
+    }
+}
+
+//=======================================
 // ファイヤーボール　タイムステップ毎
 //=======================================
 export function FireBall(ninja, key) {
@@ -91,19 +105,19 @@ export function FireBall(ninja, key) {
 //=======================================
 // 雪　タイムステップ毎
 //=======================================
-export function Snow(ninja, key) {
+export function Snow(ninja) {
 
     //雪の位置更新
-    ninja.game.objs[key].posY += 1;
-    ninja.game.objs[key].posX += ninja.game.wind;
+    this.posY += 1;
+    this.posX += ninja.game.wind;
 
     //雪が画面をはみ出したら、逆側へ再出現
-    if (ninja.game.objs[key].posX > 160) ninja.game.objs[key].posX = 0;
-    if (ninja.game.objs[key].posX < 0) ninja.game.objs[key].posX = 160;
+    if (this.posX > 160) this.posX = 0;
+    if (this.posX < 0) this.posX = 160;
 
-    if (ninja.game.objs[key].posY > 75) {
-        ninja.game.objs[key].posY = -10;
-        ninja.game.objs[key].posX = Math.floor(Math.random() * 161);
+    if (this.posY > 75) {
+        this.posY = -10;
+        this.posX = Math.floor(Math.random() * 161);
     }
-    if (ninja.game.objs[key].posY < -10) ninja.game.objs[key].posY = 75;
+    if (this.posY < -10) this.posY = 75;
 }
