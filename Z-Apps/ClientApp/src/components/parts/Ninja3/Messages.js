@@ -23,7 +23,7 @@ export function setLang(lang) {
         POCHI2_SCROLL_MESSAGE:
             "この時期にこの地に雪が降るとは珍しい…\n" +
             "遥か北にある氷の里に、何かあったのかもしれん。\n" +
-            "そこの仏壇の巻物を呼んで、様子を見てきてくれんか。",
+            "そこの仏壇の巻物を読んで、様子を見てきてくれんか。",
 
         //飛び石の術
         TOBIISHI_SCROLL_TITLE: "飛び石の書",

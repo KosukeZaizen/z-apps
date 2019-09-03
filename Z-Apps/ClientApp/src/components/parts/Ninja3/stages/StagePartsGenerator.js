@@ -40,6 +40,24 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
     };
 }
 
+//飛ぶ岩　生成関数
+export function getFlyingRock(size, posX, posY, img, zIndex, onTouch, boolLeft) {
+    return {
+        Rock: {
+            size: size,
+            posX: posX,
+            posY: posY,
+            zIndex: zIndex,
+            img: img,
+            onTouch: onTouch,
+            boolLeft: boolLeft,
+        },
+        Fire: {
+
+        }
+    };
+}
+
 //文字列要素　生成関数
 export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
     return {
