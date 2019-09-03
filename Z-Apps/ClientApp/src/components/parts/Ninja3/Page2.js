@@ -13,6 +13,7 @@ import * as CommonFnc from './CommonFnc'//共通関数
 import { Stage1 } from './stages/Stage1';
 import { Stage2 } from './stages/Stage2';
 import { Stage3 } from './stages/Stage3';
+import { Stage4 } from './stages/Stage4';
 
 //ステージの部品作成用関数群の読み込み
 import * as StageParts from './stages/StagePartsGenerator';
@@ -268,6 +269,11 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 3) {
 
                 this.setStage(Stage3);
+
+            } else if (this.props.stage === 4) {
+
+                this.setStage(Stage4);
+
             }
             //------------------------------------------------------------
 

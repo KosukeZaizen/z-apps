@@ -143,6 +143,26 @@ export function getRightGate(next, nextX, nextY) {
     };
 }
 
+//ステージ変更用ゲート（上）
+//引数にnextX, nextYを渡さなければ、自動的に位置が計算される
+export function getTopGate(next, height, nextX, nextY) {
+
+    const posY = height - 1000 || -1012;
+
+    return {
+        size: 1000,
+        posX: -420,
+        posY: posY,
+        zIndex: 30,
+        next: next,
+        nextX: nextX,
+        nextY: nextY,
+        nextLeft: false,
+        onTouch: OnTouch.toStageChangeCommon,
+        changeStage: changeStage,
+    };
+}
+
 //雪 生成関数
 export function getSnows(strength, zIndex) {
     let objResult = {};
