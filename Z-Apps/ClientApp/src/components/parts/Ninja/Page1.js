@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './img/logo.png';
 
-
 export default class Page1 extends React.Component {
 
     constructor(props) {
@@ -19,6 +18,10 @@ export default class Page1 extends React.Component {
     }
 
     render() {
+        const bottomMargin = {
+            marginBottom: 10,
+        };
+        const screenHeight = parseInt(window.innerHeight, 10);
         return (
             <div id="page1">
                 <span onClick={() => { this.hideTopImage() }}>
@@ -27,22 +30,55 @@ export default class Page1 extends React.Component {
                 <br />
                 <br />
                 <h2 style={{ color: "white", }}>Which language do you prefer?</h2>
-                <br />
-                <span onClick={() => { this.props.changePage(2, "English") }}>
-                    <button
-                        className={this.consts.BTN_START_CLASS}
-                    >
-                        {"English"}
-                    </button>
-                </span>
-                <br />
-                <span onClick={() => { this.props.changePage(2, "Japanese") }}>
-                    <button
-                        className={this.consts.BTN_START_CLASS}
-                    >
-                        {"日本語"}
-                    </button>
-                </span>
+                {
+                    screenHeight > 360 ?
+                        <span>
+                            <span onClick={() => { this.props.changePage(2, "English") }}>
+                                <button
+                                    style={bottomMargin}
+                                    className={this.consts.BTN_START_CLASS}
+                                >
+                                    {"English"}
+                                </button>
+                            </span>
+                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                                <button
+                                    className={this.consts.BTN_START_CLASS}
+                                >
+                                    {"日本語"}
+                                </button>
+                            </span>
+                        </span>
+                        :
+                        <span>
+                            <table style={{ width: "100%" }}>
+                                <tbody>
+                                    <tr>
+                                        <td align="center">
+                                            <span onClick={() => { this.props.changePage(2, "English") }}>
+                                                <button
+                                                    style={{ width: "80%" }}
+                                                    className={this.consts.BTN_START_CLASS}
+                                                >
+                                                    {"English"}
+                                                </button>
+                                            </span>
+                                        </td>
+                                        <td align="center">
+                                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
+                                                <button
+                                                    style={{ width: "80%" }}
+                                                    className={this.consts.BTN_START_CLASS}
+                                                >
+                                                    {"日本語"}
+                                                </button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </span>
+                }
                 <br />
                 <center style={{color:"white"}}>
                     If you want to be a real Ninja, please check this:<br />
