@@ -27,8 +27,6 @@ export default class Page1 extends React.Component {
                 <span onClick={() => { this.hideTopImage() }}>
                     <TopImage topImage={this.state.topImage} />
                 </span>
-                <br />
-                <br />
                 <h2 style={{ color: "white", }}>Which language do you prefer?</h2>
                 {
                     screenHeight > 360 ?
@@ -99,7 +97,7 @@ export default class Page1 extends React.Component {
 
 function TopImage(props) {
     if (props.topImage) {
-        return <img width="100%" src={logo} alt="Japanese Ninja Game" />;
+        return <h1><img width="100%" src={logo} alt="Lingual Ninja Game" /></h1>;
     } else {
         return <span></span>;
     }

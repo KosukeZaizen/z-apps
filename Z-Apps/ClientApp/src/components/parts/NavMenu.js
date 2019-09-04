@@ -17,19 +17,16 @@ class NavigationItems extends React.Component {
         let linkList = [];
         for (let key in objLinks) {
             linkList.push(
-                    <NavLink key={key} tag={Link} className="text-light dropdown" to={objLinks[key]}>{key}</NavLink>
+                <NavLink key={key} tag={Link} className="text-light dropdown" to={objLinks[key]}>{key}</NavLink>
             );
         }
-
         return (
             <ul className="navbar-nav flex-grow">
                 {linkList}
             </ul>
         );
-
     }
 }
-
 
 export default class NavMenu extends React.Component {
     constructor(props) {
