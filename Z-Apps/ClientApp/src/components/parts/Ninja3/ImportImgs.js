@@ -6,6 +6,8 @@
 
 //岩
 import Rock from './../Ninja/objs/rock.png';
+//逆向きの岩
+import RockR from './../Ninja/objs/rockRiverse.png';
 //逆向きの炎
 import FireR from './../Ninja/objs/fireReverse.png';
 //ポチ
@@ -39,6 +41,7 @@ import Snowman from './objs/snowman.png';
 
 export default {
     Rock,
+    RockR,
     FireR,
     Pochi,
     Scroll,

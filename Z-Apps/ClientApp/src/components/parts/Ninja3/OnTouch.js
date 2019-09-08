@@ -114,6 +114,31 @@ export function toFlyingRock(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
+export function toSnowman(ninja, from) {
+    if (from === "right") {
+        //右から
+        ninja.posX = this.posX - ninja.size - 1;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+    } else if (from === "left") {
+        //左から
+        ninja.posX = this.posX + this.size + 1;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+    } else {
+        //上か下から
+        ninja.posX = this.posX + this.size + 1;
+        ninja.posY = this.posY;
+        ninja.speedX = 0;
+        ninja.speedY = 0;
+    }
+    changeStage(this.next, ninja);
+    return "changed";
+}
+
+//=======================================
+// 別ステージへのゲートのタッチ関数（汎用化したもの）
+//=======================================
 export function toStageChangeCommon(ninja, from) {
 
     if (this.nextX && this.nextY) {

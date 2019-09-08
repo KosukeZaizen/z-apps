@@ -7,11 +7,8 @@ import * as OnTouch from '../OnTouch';
 //背景画像
 import bgImg from '../../Ninja/img/background/town1.jpg';
 
-
 const Stage2 = {};
 Stage2.bgImg = bgImg;
-Stage2.windRange = [0, 0];//風速の最大・最小
-Stage2.windRand = 0;//風速の変化の速さ
 
 Stage2.getObjs = () => {
     return {
@@ -31,7 +28,7 @@ Stage2.getObjs = () => {
 
         rightGate: StageParts.getRightGate(1),
         leftGate: StageParts.getLeftGate(3),
-        topGate: StageParts.getTopGate(4, -100),
+        topGate: StageParts.getTopGate(400, -100),
 
         ...StageParts.getSnows(0.1, 30),
     };

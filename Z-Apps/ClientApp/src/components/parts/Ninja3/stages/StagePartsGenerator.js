@@ -109,6 +109,21 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
     return objResult;
 }
 
+
+//ステージ変更用　スノーマン
+export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        img: Imgs.Snowman,
+        zIndex: 20,
+        next: next,
+        onTouch: OnTouch.toSnowman,
+        changeStage: changeStage,
+    };
+}
+
 //ステージ変更用ゲート（左）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
 export function getLeftGate(next, nextX, nextY) {
@@ -163,6 +178,20 @@ export function getTopGate(next, height, nextX, nextY) {
     };
 }
 
+//触ったら死亡する、不動オブジェクト
+export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: img,
+        onTouch: OnTouch.toEnemy,
+        enemy: true,
+        boolLeft: boolLeft,
+    };
+}
+
 //雪 生成関数
 export function getSnows(strength, zIndex) {
     let objResult = {};
@@ -205,19 +234,18 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
     return objResult;
 }
 
-//ファイヤーボール　生成関数
-export function getFireBall(size, posX, posY, boolLeft, fireBallCount) {
+//崖の岩
+export function getCliffRocks() {
     return {
-        size: size,
-        posX: posX,
-        posY: posY,
-        zIndex: 999 - fireBallCount,
-        img: Imgs.FireBallR,
-        onTouch: OnTouch.toNothing,
-        fireBall: true,
-        boolLeft: boolLeft,
-        eachTime: EachTime.FireBall,
-    };
+        rock1Pic: getOnePic(60, 135, 30, Imgs.RockR, 20, OnTouch.toNothing),
+        rock1Actual: getOnePic(60, 135, 33, null, null, OnTouch.toBlock),
+
+        rock2Pic: getOnePic(50, 20, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock2Actual: getOnePic(50, 20, 68, null, null, OnTouch.toBlock),
+
+        rock3Pic: getOnePic(50, -25, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock3Actual: getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
+    }
 }
 
 //画面外を黒くする要素

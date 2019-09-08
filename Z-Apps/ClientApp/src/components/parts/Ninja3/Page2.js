@@ -14,6 +14,9 @@ import { Stage1 } from './stages/Stage1';
 import { Stage2 } from './stages/Stage2';
 import { Stage3 } from './stages/Stage3';
 import { Stage4 } from './stages/Stage4';
+import { Stage400 } from './stages/Stage400';
+import { Stage5 } from './stages/Stage5';
+import { Stage500 } from './stages/Stage500';
 
 //ステージの部品作成用関数群の読み込み
 import * as StageParts from './stages/StagePartsGenerator';
@@ -102,26 +105,12 @@ export default class Page2 extends React.Component {
             if (this.lButton === false && this.rButton === false) {
                 this.ninja.speedX = 0;
             } else {
-                if (this.lButton === true && this.rButton === true) {
-
-                    //右と左同時押しでファイヤーボール
-                    if (this.ninja.readScroll.indexOf(messages.FIRE_SCROLL_TITLE) >= 0) {
-                        //火遁の書を既に読んでいる場合
-
-                        //ファイヤーボール生成
-                        this.objs["fireBall" + this.ninja.fireBallCount] =
-                            StageParts.getFireBall(12, this.ninja.posX, this.ninja.posY, this.ninja.boolLeft, this.ninja.fireBallCount);
-
-                        this.ninja.fireBallCount++;
-                    }
-                } else {
-                    if (this.lButton === true) {
-                        this.ninja.speedX = this.ninja.inWater ? -3 : -6;
-                        this.ninja.boolLeft = true;//画像左向き
-                    } else if (this.rButton === true) {
-                        this.ninja.speedX = this.ninja.inWater ? 3 : 6;
-                        this.ninja.boolLeft = false;//画像右向き
-                    }
+                if (this.lButton === true) {
+                    this.ninja.speedX = this.ninja.inWater ? -3 : -6;
+                    this.ninja.boolLeft = true;//画像左向き
+                } else if (this.rButton === true) {
+                    this.ninja.speedX = this.ninja.inWater ? 3 : 6;
+                    this.ninja.boolLeft = false;//画像右向き
                 }
             }
 
@@ -226,21 +215,7 @@ export default class Page2 extends React.Component {
         //ステージの背景画像を設定
         this.bgImg = newStage.bgImg;
         //風 設定
-        this.windRange = newStage.windRange || [0, 0];
-        this.wind = (this.windRange[0] + this.windRange[1]) / 2;
-        this.windRand = newStage.windRand || 0;
-    }
-
-    updateWind() {
-        const rand = (Math.random() - 0.5) * this.windRand;
-
-        if (this.wind < this.windRange[0]) {
-            this.wind += Math.abs(rand);
-        } else if (this.wind > this.windRange[1]) {
-            this.wind -= Math.abs(rand);
-        } else {
-            this.wind += rand;
-        }
+        this.wind = newStage.windSpeed || 0;
     }
 
     render() {
@@ -274,6 +249,18 @@ export default class Page2 extends React.Component {
 
                 this.setStage(Stage4);
 
+            } else if (this.props.stage === 400) {
+
+                this.setStage(Stage400);
+
+            } else if (this.props.stage === 5) {
+
+                this.setStage(Stage5);
+
+            } else if (this.props.stage === 500) {
+
+                this.setStage(Stage500);
+
             }
             //------------------------------------------------------------
 
@@ -288,9 +275,6 @@ export default class Page2 extends React.Component {
             //背景画像の変更
             this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
-
-        //風の更新
-        this.updateWind();
 
         return (
             <div id="Page2" style={this.pageStyle}>

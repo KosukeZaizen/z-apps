@@ -10,8 +10,6 @@ import bgImg from '../../Ninja/img/background/ryokan1.jpg';
 
 const Stage3 = {};
 Stage3.bgImg = bgImg;
-Stage3.windRange = [0, 0];//風速の最大・最小
-Stage3.windRand = 0;//風速の変化の速さ
 
 Stage3.getObjs = () => {
     return {

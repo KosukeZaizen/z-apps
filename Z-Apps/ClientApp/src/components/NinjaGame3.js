@@ -3,7 +3,7 @@ import { Page1 } from './parts/Ninja3/Page1';
 import { Page2 } from './parts/Ninja3/Page2';
 import * as Consts from './parts/Ninja3/Consts'
 import { getParams } from './common/functions';
-import '../css/NinjaGame3.css';
+import '../css/NinjaGame2.css';//CSSは2のもの
 
 class NinjaGame extends React.Component {
 
@@ -43,8 +43,8 @@ class NinjaGame extends React.Component {
         this.state = {
             language: lang,
             curPage: 1,
-            stage: stage,//デバッグ用（通常時1）★
-            //stage: 1,
+            //stage: stage,
+            stage: 400,//デバッグ用★
             ninja: ninja,
         };
         this.readElementScroll = [];
