@@ -17,9 +17,9 @@ import { Stage4 } from './stages/Stage4';
 import { Stage400 } from './stages/Stage400';
 import { Stage5 } from './stages/Stage5';
 import { Stage500 } from './stages/Stage500';
-
-//ステージの部品作成用関数群の読み込み
-import * as StageParts from './stages/StagePartsGenerator';
+import { Stage600 } from './stages/Stage600';
+import { Stage700 } from './stages/Stage700';
+import { Stage800 } from './stages/Stage800';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -260,6 +260,18 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 500) {
 
                 this.setStage(Stage500);
+
+            } else if (this.props.stage === 600) {
+
+                this.setStage(Stage600);
+
+            } else if (this.props.stage === 700) {
+
+                this.setStage(Stage700);
+
+            } else if (this.props.stage === 800) {
+
+                this.setStage(Stage800);
 
             }
             //------------------------------------------------------------

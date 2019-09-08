@@ -21,7 +21,7 @@ Stage4.getObjs = () => {
         ...StageParts.getSoroll("SIGN", 20, 12, 60, Imgs.Kanban1, null, 10),
         kanban1ArrowPic: StageParts.getOnePic(10, 16, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 
-        rightGate: StageParts.getRightGate(5),
+        rightGate: StageParts.getRightGate(6),
         leftGate: StageParts.getLeftGate(5, 145, 20),
     };
 }

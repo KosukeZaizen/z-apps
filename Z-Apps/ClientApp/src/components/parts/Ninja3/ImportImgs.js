@@ -37,6 +37,8 @@ import Butsudan from './../Ninja/objs/butsudan.png';
 
 //雪だるま
 import Snowman from './objs/snowman.png';
+//小僧
+import Monk from './objs/monk.png';
 
 
 export default {
@@ -54,5 +56,6 @@ export default {
     Tree,
     Butsudan,
 
-    Snowman
+    Snowman,
+    Monk
 }

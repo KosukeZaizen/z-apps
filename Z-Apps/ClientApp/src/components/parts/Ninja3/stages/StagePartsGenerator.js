@@ -197,11 +197,11 @@ export function getSnows(strength, zIndex) {
     let objResult = {};
 
     for (let i = 0; i <= 160 * strength; i++) {
-        for (let j = 0; j <= 75 * strength; j++) {
+        for (let j = -10; j <= 75 * strength; j++) {
             objResult["snowX" + i + "Y" + j] = {
                 size: 30,
                 posX: Math.floor(Math.random() * 161),
-                posY: Math.floor(Math.random() * 76),
+                posY: Math.floor(Math.random() * 86) - 10,
                 zIndex: zIndex,
                 message: ".",
                 fontSize: 4,

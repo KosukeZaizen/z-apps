@@ -141,7 +141,7 @@ export function toSnowman(ninja, from) {
 //=======================================
 export function toStageChangeCommon(ninja, from) {
 
-    if (this.nextX && this.nextY) {
+    if (this.nextX != null && this.nextY != null) {
         ninja.posX = this.nextX;
         ninja.posY = this.nextY;
     } else {
