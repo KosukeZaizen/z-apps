@@ -123,7 +123,7 @@ export default class Obj extends React.Component {
                     src={img}
                     width={size}
                     style={style}
-                    alt={"object"}
+                    alt={"ninja game object"}
                 />
             );
         } else if (this.props.obj.divType) {
@@ -197,7 +197,7 @@ function SpeakerImage(props) {
             <img
                 src={img}
                 width={size}
-                alt={"object"}
+                alt={"ninja game object"}
                 style={style}
             />
         );

@@ -160,9 +160,9 @@ export function getRightGate(next, nextX, nextY) {
 
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getTopGate(next, height, nextX, nextY) {
+export function getTopGate(next, heightOfTheGate, nextX, nextY) {
 
-    const posY = height - 1000 || -1012;
+    const posY = heightOfTheGate - 1000 || -1012;
 
     return {
         size: 1000,
