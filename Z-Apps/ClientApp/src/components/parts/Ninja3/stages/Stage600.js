@@ -20,6 +20,12 @@ Stage.getObjs = () => {
         ...StageParts.getSoroll("MONK", 24, 120, 54, Imgs.Monk, null, 20),
 
         ...StageParts.getIceBlocks(10, [
+            [15, -7],
+            [15, -6],
+            [15, -5],
+            [15, -4],
+            [15, -3],
+            [15, -2],
             [15, -1],
             [15, 0],
             [15, 1],
@@ -29,7 +35,7 @@ Stage.getObjs = () => {
             [3, 5], [4, 5], [5, 5],
         ], OnTouch.toBlock, Imgs.Ice, 30, 0.7),
 
-        ...StageParts.getFlyingRock(1, 34, 78, 46, 30, -35),
+        ...StageParts.getFlyingRock(1, 34, 78, 46, 30, -50),
 
         leftGate: StageParts.getLeftGate(400),
         rightGate: StageParts.getRightGate(700, 1, 63),

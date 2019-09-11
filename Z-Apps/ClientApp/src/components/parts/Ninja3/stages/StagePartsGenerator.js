@@ -46,7 +46,7 @@ export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
 }
 
 //画像　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
+export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft,opacity) {
     return {
         size: size,
         posX: posX,
@@ -55,6 +55,7 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
         img: img,
         onTouch: onTouch,
         boolLeft: boolLeft,
+        opacity: opacity,
     };
 }
 
@@ -81,6 +82,35 @@ export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight) {
         onTouch: OnTouch.toNothing,
         eachTime: EachTime.FlyingRock,
         maxHeight: maxHeight,
+    };
+    return objResult;
+}
+
+//飛ぶ岩（右向き）　生成関数
+export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
+    let objResult = {};
+    objResult[`Rock${id}`] = {
+        size: size,
+        posX: posX,
+        posY: posY,
+        zIndex: zIndex,
+        img: Imgs.RockRight,
+        onTouch: OnTouch.toFlyingRock,
+        eachTime: EachTime.FlyingRock,
+        fireName: `Fire${id}`,
+        maxRight: maxRight,
+        direction: "right",
+    };
+    objResult[`Fire${id}`] = {
+        size: size,
+        posX: posX - (size * 3 / 4),
+        posY: posY,
+        zIndex: zIndex - 1,
+        img: Imgs.FireRight,
+        onTouch: OnTouch.toNothing,
+        eachTime: EachTime.FlyingRock,
+        maxRight: maxRight,
+        direction: "right",
     };
     return objResult;
 }

@@ -31,6 +31,15 @@ import Tree from './../Ninja/objs/tree1.png';
 //仏壇
 import Butsudan from './../Ninja/objs/butsudan.png';
 
+//鬼
+import Oni from './../Ninja2/objs/oni.png';
+//おばけ1
+import Obake1 from './../Ninja2/objs/cat.png';
+//おばけ2
+import Obake2 from './../Ninja2/objs/bat.png';
+//炎（右）
+import FireRight from './../Ninja2/objs/fireBallR.png';
+
 //------------------------------------------------------------
 //＜新要素＞
 
@@ -40,6 +49,8 @@ import Snowman from './objs/snowman.png';
 import Monk from './objs/monk.png';
 //氷
 import Ice from './objs/ice.jpg';
+//岩（右）
+import RockRight from './objs/rockRight.png';
 
 export default {
     Rock,
@@ -56,7 +67,13 @@ export default {
     Tree,
     Butsudan,
 
+    Oni,
+    Obake1,
+    Obake2,
+    FireRight,
+
     Snowman,
     Monk,
-    Ice
+    Ice,
+    RockRight,
 }
