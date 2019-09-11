@@ -111,6 +111,7 @@ export default class Obj extends React.Component {
             let posX = this.props.obj.posX * UL;
             let posY = this.props.obj.posY * UL;
             let zIndex = this.props.obj.zIndex;
+            let opacity = this.props.obj.opacity;
 
             let style = {
                 position: "absolute",
@@ -118,6 +119,7 @@ export default class Obj extends React.Component {
                 top: posY,
                 transform: rotateLeft,
                 zIndex: zIndex,
+                opacity: opacity,
             };
             return (
                 <img

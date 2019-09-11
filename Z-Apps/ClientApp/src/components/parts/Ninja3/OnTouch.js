@@ -88,7 +88,7 @@ export function toFlyingRock(ninja, from) {
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
 
-        if (ninja.readScroll.indexOf(messages.TOBIISHI_SCROLL_TITLE) > 0) {
+        if (ninja.readScroll.indexOf(messages.TOBIISHI_SCROLL_TITLE) >= 0) {
             //飛び石の書を読んでいる
             if (!this.Flying) {
                 //飛行開始

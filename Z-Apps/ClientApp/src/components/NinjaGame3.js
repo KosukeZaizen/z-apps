@@ -19,7 +19,8 @@ class NinjaGame extends React.Component {
             speedY: 0,
             posX: 145,
             posY: -20,
-            readScroll: [],
+            //readScroll: [],
+            readScroll: ["飛び石の書"],//デバッグ用
             boolLeft: true,
         };
 

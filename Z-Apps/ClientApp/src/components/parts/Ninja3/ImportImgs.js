@@ -31,7 +31,6 @@ import Tree from './../Ninja/objs/tree1.png';
 //仏壇
 import Butsudan from './../Ninja/objs/butsudan.png';
 
-
 //------------------------------------------------------------
 //＜新要素＞
 
@@ -39,7 +38,8 @@ import Butsudan from './../Ninja/objs/butsudan.png';
 import Snowman from './objs/snowman.png';
 //小僧
 import Monk from './objs/monk.png';
-
+//氷
+import Ice from './objs/ice.jpg';
 
 export default {
     Rock,
@@ -57,5 +57,6 @@ export default {
     Butsudan,
 
     Snowman,
-    Monk
+    Monk,
+    Ice
 }

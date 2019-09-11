@@ -16,12 +16,30 @@ export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
 
     for (let index in arrPos) {
         objResult["objItem" + index] = {
-            size: size + 3,
+            size: size,
             posX: arrPos[index][0] * size,
             posY: arrPos[index][1] * size,
             zIndex: zIndex,
             img: imgBlock,
             onTouch: onTouch,
+        };
+    }
+    return objResult;
+}
+
+//氷ブロック生成関数
+export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+    let objResult = {};
+
+    for (let index in arrPos) {
+        objResult["objItem" + index] = {
+            size: size,
+            posX: arrPos[index][0] * size,
+            posY: arrPos[index][1] * size,
+            zIndex: zIndex,
+            img: imgBlock,
+            onTouch: onTouch,
+            opacity: opacity,
         };
     }
     return objResult;
@@ -41,7 +59,7 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft) {
 }
 
 //飛ぶ岩　生成関数
-export function getFlyingRock(id, size, posX, posY, zIndex) {
+export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight) {
     let objResult = {};
     objResult[`Rock${id}`] = {
         size: size,
@@ -52,6 +70,7 @@ export function getFlyingRock(id, size, posX, posY, zIndex) {
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
         fireName: `Fire${id}`,
+        maxHeight: maxHeight,
     };
     objResult[`Fire${id}`] = {
         size: size,
@@ -61,6 +80,7 @@ export function getFlyingRock(id, size, posX, posY, zIndex) {
         img: Imgs.FireR,
         onTouch: OnTouch.toNothing,
         eachTime: EachTime.FlyingRock,
+        maxHeight: maxHeight,
     };
     return objResult;
 }

@@ -70,8 +70,9 @@ export function Enemy(ninja, key) {
 // 飛び石　タイムステップ毎
 //=======================================
 export function FlyingRock(ninja, key) {
+    const maxHeight = this.maxHeight || 500;
     if (this.isFlying) {
-        if (this.posY < -500) {
+        if (this.posY < maxHeight) {
             //画面から大きくはみ出した場合、消す
             delete ninja.game.objs[key];
         } else {
