@@ -3,10 +3,10 @@ import * as StageParts from './StagePartsGenerator';
 //背景画像
 import bgImg from '../img/background/cliff.jpg';
 
-const Stage5 = {};
-Stage5.bgImg = bgImg;
+const Stage = {};
+Stage.bgImg = bgImg;
 
-Stage5.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -19,4 +19,4 @@ Stage5.getObjs = () => {
         bottomFall: StageParts.getDangerousObj(3, -70, 100),
     };
 }
-export { Stage5 };
+export default Stage;

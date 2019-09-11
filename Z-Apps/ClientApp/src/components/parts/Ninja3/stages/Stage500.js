@@ -3,11 +3,11 @@ import * as StageParts from './StagePartsGenerator';
 //背景画像
 import bgImg from '../img/background/cliff.jpg';
 
-const Stage500 = {};
-Stage500.bgImg = bgImg;
-Stage500.windSpeed = 2.5;//風速の最大・最小
+const Stage = {};
+Stage.bgImg = bgImg;
+Stage.windSpeed = 2.5;//風速の最大・最小
 
-Stage500.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -22,4 +22,4 @@ Stage500.getObjs = () => {
         ...StageParts.getSnows(0.15, 30),
     };
 }
-export { Stage500 };
+export default Stage;

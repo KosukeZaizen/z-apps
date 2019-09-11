@@ -7,11 +7,11 @@ import * as OnTouch from '../OnTouch';
 //背景画像
 import bgImg from '../img/background/snow1.jpg';
 
-const Stage400 = {};
-Stage400.bgImg = bgImg;
-Stage400.windSpeed = 2;//風速の最大・最小
+const Stage = {};
+Stage.bgImg = bgImg;
+Stage.windSpeed = 0;//風速の最大・最小
 
-Stage400.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -28,4 +28,4 @@ Stage400.getObjs = () => {
         ...StageParts.getSnows(0.1, 30),
     };
 }
-export { Stage400 };
+export default Stage;

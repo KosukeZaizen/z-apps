@@ -7,10 +7,10 @@ import * as OnTouch from '../OnTouch';
 //背景画像
 import bgImg from '../img/background/snow1.jpg';
 
-const Stage4 = {};
-Stage4.bgImg = bgImg;
+const Stage = {};
+Stage.bgImg = bgImg;
 
-Stage4.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -25,4 +25,4 @@ Stage4.getObjs = () => {
         leftGate: StageParts.getLeftGate(5, 145, 20),
     };
 }
-export { Stage4 };
+export default Stage;

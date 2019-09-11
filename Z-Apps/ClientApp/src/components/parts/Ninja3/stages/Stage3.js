@@ -8,10 +8,10 @@ import * as OnTouch from '../OnTouch';
 import bgImg from '../../Ninja/img/background/ryokan1.jpg';
 
 
-const Stage3 = {};
-Stage3.bgImg = bgImg;
+const Stage = {};
+Stage.bgImg = bgImg;
 
-Stage3.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -26,4 +26,4 @@ Stage3.getObjs = () => {
         rightGate: StageParts.getRightGate(2),
     };
 }
-export { Stage3 };
+export default Stage;

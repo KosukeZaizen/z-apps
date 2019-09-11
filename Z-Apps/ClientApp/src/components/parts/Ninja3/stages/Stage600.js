@@ -5,11 +5,11 @@ import Imgs from '../ImportImgs';
 //背景画像
 import bgImg from '../img/background/snow2.jpg';
 
-const Stage600 = {};
-Stage600.bgImg = bgImg;
-Stage600.windSpeed = -1;//風速の最大・最小
+const Stage = {};
+Stage.bgImg = bgImg;
+Stage.windSpeed = -1;//風速の最大・最小
 
-Stage600.getObjs = () => {
+Stage.getObjs = () => {
     return {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
@@ -23,4 +23,4 @@ Stage600.getObjs = () => {
         ...StageParts.getSnows(0.15, 30),
     };
 }
-export { Stage600 };
+export default Stage;
