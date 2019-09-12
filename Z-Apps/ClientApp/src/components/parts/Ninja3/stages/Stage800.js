@@ -15,6 +15,16 @@ Stage.getObjs = () => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
+        ...StageParts.getFlyingRockRight(1, 17, -18, 20, 50),
+
+        ...StageParts.getFrozenObj("obake1", 10, 60, 50, Imgs.Obake1),
+        ...StageParts.getFrozenObj("obake2", 10, 50, 25, Imgs.Obake2),
+        ...StageParts.getFrozenObj("obake3", 10, 25, 40, Imgs.Obake2),
+        ...StageParts.getFrozenObj("obake4", 10, 132, 37, Imgs.Obake2),
+        ...StageParts.getFrozenObj("obake5", 10, 115, 55, Imgs.Obake1),
+        ...StageParts.getFrozenObj("obake6", 10, 5, 22, Imgs.Obake1),
+        ...StageParts.getFrozenObj("obake7", 10, 110, 16, Imgs.Obake2),
+
         leftGate: StageParts.getLeftGate(700),
         rightGate: StageParts.getRightGate(900, 1, 63),
 
