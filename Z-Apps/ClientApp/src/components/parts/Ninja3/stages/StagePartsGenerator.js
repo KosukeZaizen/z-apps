@@ -168,7 +168,6 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
     return objResult;
 }
 
-
 //ステージ変更用　スノーマン
 export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
     return {
@@ -220,9 +219,7 @@ export function getRightGate(next, nextX, nextY) {
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
 export function getTopGate(next, heightOfTheGate, nextX, nextY) {
-
     const posY = heightOfTheGate - 1000 || -1012;
-
     return {
         size: 1000,
         posX: -420,
@@ -309,7 +306,6 @@ export function getCliffRocks() {
 
 //画面外を黒くする要素
 export function getObjOutOfScreen() {
-
     return {
         outOfScreenLeft: {
             size: 300,
@@ -344,7 +340,6 @@ export function getObjOutOfScreen() {
 
 //全ステージ共通の壁（render内で設定）
 export function getObjWalls() {
-
     return {
         leftWall: {
             size: 300,
@@ -365,7 +360,6 @@ export function getObjWalls() {
 
 //全ステージ共通の壁（render内で設定）
 export function getObjFloor() {
-
     return {
         floor1: {
             size: 200,
