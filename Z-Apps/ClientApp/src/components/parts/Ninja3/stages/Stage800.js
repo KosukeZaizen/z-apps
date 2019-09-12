@@ -15,7 +15,7 @@ Stage.getObjs = () => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockRight(1, 17, -18, 20, 50),
+        ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
 
         ...StageParts.getFrozenObj("obake1", 10, 60, 50, Imgs.Obake1),
         ...StageParts.getFrozenObj("obake2", 10, 50, 25, Imgs.Obake2),

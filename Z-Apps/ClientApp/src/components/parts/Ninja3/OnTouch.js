@@ -100,7 +100,9 @@ export function toFlyingRock(ninja, from) {
                     //右向き
                     this.isFlying = true;
                     ninja.game.objs[this.fireName].isFlying = true;
-                    ninja.posX += 3 * consts.TIME_STEP;
+                    if (Math.abs(this.posX - ninja.posX) < 3) {
+                        ninja.posX += 3 * consts.TIME_STEP;
+                    }
                 }
             }
         }
