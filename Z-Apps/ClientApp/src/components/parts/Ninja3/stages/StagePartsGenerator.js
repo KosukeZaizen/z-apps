@@ -115,6 +115,15 @@ export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
     return objResult;
 }
 
+//凍ったオブジェクト　生成関数
+export function getFrozenObj(name, size, posX, posY, img, boolLeft) {
+    let objResult = {};
+    objResult[name] = getOnePic(size, posX, posY, img, 10, OnTouch.toNothing, boolLeft);
+    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, Imgs.Ice, 9, OnTouch.toBlock, false, 0.8);
+    objResult[`${name}Ice2`] = getOnePic(size, posX, posY, Imgs.Ice, 40, OnTouch.toBlock, false, 0.5);
+    return objResult;
+}
+
 //文字列要素　生成関数
 export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
     return {
