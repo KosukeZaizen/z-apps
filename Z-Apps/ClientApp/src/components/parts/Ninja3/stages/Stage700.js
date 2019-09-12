@@ -39,7 +39,7 @@ Stage.getObjs = () => {
         ], OnTouch.toBlock, Imgs.Ice, 90),
 
         leftGate: StageParts.getLeftGate(600),
-        rightGate: StageParts.getRightGate(800, 1, 63),
+        rightGate: StageParts.getRightGate(800, -8),
 
         ...StageParts.getSnows(0.15, 30),
     };

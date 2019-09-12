@@ -149,9 +149,9 @@ export function toSnowman(ninja, from) {
 //=======================================
 export function toStageChangeCommon(ninja, from) {
 
-    if (this.nextX != null && this.nextY != null) {
+    // X
+    if (this.nextX != null) {
         ninja.posX = this.nextX;
-        ninja.posY = this.nextY;
     } else {
         //遷移後の位置を明示的に渡されていない場合は、自動的に算出
         if (from === "right") {
@@ -160,7 +160,15 @@ export function toStageChangeCommon(ninja, from) {
         } else if (from === "left") {
             //左から
             ninja.posX = 0;
-        } else if (from === "upper") {
+        }
+    }
+
+    // Y
+    if (this.nextY != null) {
+        ninja.posY = this.nextY;
+    } else {
+        //遷移後の位置を明示的に渡されていない場合は、自動的に算出
+        if (from === "upper") {
             //上から
             ninja.posY = 0;
         } else if (from === "lower") {
