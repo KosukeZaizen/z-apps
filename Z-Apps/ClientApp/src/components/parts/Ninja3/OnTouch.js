@@ -92,8 +92,16 @@ export function toFlyingRock(ninja, from) {
             //飛び石の書を読んでいる
             if (!this.Flying) {
                 //飛行開始
-                this.isFlying = true;
-                ninja.game.objs[this.fireName].isFlying = true;
+                if (!this.direction) {
+                    //上向き
+                    this.isFlying = true;
+                    ninja.game.objs[this.fireName].isFlying = true;
+                } else if (this.direction == "right") {
+                    //右向き
+                    this.isFlying = true;
+                    ninja.game.objs[this.fireName].isFlying = true;
+                    ninja.posX += 3 * consts.TIME_STEP;
+                }
             }
         }
     } else if (from === "right") {
