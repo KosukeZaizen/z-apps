@@ -116,10 +116,11 @@ export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
 }
 
 //凍ったオブジェクト　生成関数
-export function getFrozenObj(name, size, posX, posY, img, boolLeft) {
+export function getFrozenObj(name, size, posX, posY, img, zIndex, boolLeft) {
     let objResult = {};
-    objResult[name] = getOnePic(size, posX, posY, img, 10, OnTouch.toNothing, boolLeft);
-    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, Imgs.Ice, 9, OnTouch.toBlock, false, 0.8);
+    zIndex = zIndex || 10;
+    objResult[name] = getOnePic(size, posX, posY, img, zIndex, OnTouch.toNothing, boolLeft);
+    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, Imgs.Ice, 5, OnTouch.toBlock, false, 0.8);
     objResult[`${name}Ice2`] = getOnePic(size, posX, posY, Imgs.Ice, 40, OnTouch.toBlock, false, 0.5);
     return objResult;
 }
