@@ -5,26 +5,22 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/snow1.jpg';
+import bgImg from '../img/background/tengumura4.jpg';
 
 const Stage = {};
 
 Stage.getObjs = (ninja) => {
+
     Stage.bgImg = bgImg;
-    Stage.windSpeed = 0;//風速の最大・最小
+    Stage.windSpeed = (ninja.snow) ? 1 : 0;//風速
 
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("SHINO", 10, 110, 62, Imgs.Shino, Imgs.Shino, 20),
-
-        ...StageParts.getSoroll("SIGN", 20, 12, 60, Imgs.Kanban1, null, 10),
-        kanban1ArrowPic: StageParts.getOnePic(10, 16, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
-
-        rightGate: StageParts.getRightGate(6),
-        leftGate: StageParts.getLeftGate(5, 145, 20),
+        rightGate: StageParts.getRightGate(14),
+        leftGate: StageParts.getLeftGate(12),
     };
 
     if (ninja.snow) {

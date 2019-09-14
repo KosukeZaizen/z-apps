@@ -14,13 +14,17 @@ import Stage1 from './stages/Stage01';
 import Stage2 from './stages/Stage02';
 import Stage3 from './stages/Stage03';
 import Stage4 from './stages/Stage04';
-import Stage400 from './stages/Stage04s';
 import Stage5 from './stages/Stage05';
-import Stage500 from './stages/Stage05s';
-import Stage600 from './stages/Stage06s';
-import Stage700 from './stages/Stage07s';
-import Stage800 from './stages/Stage08s';
-import Stage900 from './stages/Stage09s';
+import Stage6 from './stages/Stage06';
+import Stage7 from './stages/Stage07';
+import Stage8 from './stages/Stage08';
+import Stage9 from './stages/Stage09';
+import Stage10 from './stages/Stage10';
+import Stage11 from './stages/Stage11';
+import Stage12 from './stages/Stage12';
+import Stage13 from './stages/Stage13';
+import Stage14 from './stages/Stage14';
+import Stage15 from './stages/Stage15';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -250,35 +254,69 @@ export default class Page2 extends React.Component {
 
                 this.setStage(Stage4);
 
-            } else if (this.props.stage === 400) {
-
-                this.setStage(Stage400);
-
             } else if (this.props.stage === 5) {
 
                 this.setStage(Stage5);
 
-            } else if (this.props.stage === 500) {
+            } else if (this.props.stage === 6) {
 
-                this.setStage(Stage500);
+                this.setStage(Stage6);
 
-            } else if (this.props.stage === 600) {
+            } else if (this.props.stage === 7) {
 
-                this.setStage(Stage600);
+                this.setStage(Stage7);
 
-            } else if (this.props.stage === 700) {
+            } else if (this.props.stage === 8) {
 
-                this.setStage(Stage700);
+                this.setStage(Stage8);
 
-            } else if (this.props.stage === 800) {
+            } else if (this.props.stage === 9) {
 
-                this.setStage(Stage800);
+                this.setStage(Stage9);
 
-            } else if (this.props.stage === 900) {
+            } else if (this.props.stage === 10) {
 
-                this.setStage(Stage900);
+                this.setStage(Stage10);
+
+            } else if (this.props.stage === 11) {
+
+                this.setStage(Stage11);
+
+            } else if (this.props.stage === 12) {
+
+                this.setStage(Stage12);
+
+            } else if (this.props.stage === 13) {
+
+                this.setStage(Stage13);
+
+            } else if (this.props.stage === 14) {
+
+                this.setStage(Stage14);
+
+            } else if (this.props.stage === 15) {
+
+                this.setStage(Stage15);
 
             }
+                /*
+            else if (this.props.stage === 13) {
+
+                this.setStage(Stage13);
+
+            } else if (this.props.stage === 14) {
+
+                this.setStage(Stage14);
+
+            } else if (this.props.stage === 15) {
+
+                this.setStage(Stage15);
+
+            } else if (this.props.stage === 16) {
+
+                this.setStage(Stage16);
+
+            }*/
             //------------------------------------------------------------
 
             //ステージ変更を検知するために、現在のステージを記憶

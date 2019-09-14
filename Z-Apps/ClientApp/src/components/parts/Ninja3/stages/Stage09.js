@@ -8,11 +8,14 @@ import * as OnTouch from '../OnTouch';
 import bgImg from '../img/background/snow5.jpg';
 
 const Stage = {};
-Stage.bgImg = bgImg;
-Stage.windSpeed = -2;//風速の最大・最小
 
-Stage.getObjs = () => {
-    return {
+//仙人の家（外）
+Stage.getObjs = (ninja) => {
+
+    Stage.bgImg = bgImg;
+    Stage.windSpeed = (ninja.snow) ? -2 : 0;//風速
+
+    let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
@@ -24,11 +27,16 @@ Stage.getObjs = () => {
         toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
         toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
 
-        crystal: StageParts.getOnePic(10, 74, 14, Imgs.Crystal, 20, OnTouch.toBlock),
-        
-        leftGate: StageParts.getLeftGate(800, null, null, -9),
-
-        ...StageParts.getSnows(0.15, 30),
+        rightGate: StageParts.getRightGate(10),
+        leftGate: StageParts.getLeftGate(8, null, null, -9),
     };
+
+    if (ninja.snow) {
+        returnObjs = {
+            ...returnObjs,
+            ...StageParts.getSnows(0.15, 30),
+        }
+    }
+    return returnObjs;
 }
 export default Stage;

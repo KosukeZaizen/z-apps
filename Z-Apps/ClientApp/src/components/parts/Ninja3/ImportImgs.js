@@ -53,8 +53,8 @@ import Ice from './objs/ice.jpg';
 import RockRight from './objs/rockRight.png';
 //扉
 import DarkDoor from './objs/darkDoor.jpg';
-//雪の結晶
-import Crystal from './objs/crystal.png';
+//死神
+import Shinigami from './objs/shinigami.png';
 
 export default {
     Rock,
@@ -81,5 +81,5 @@ export default {
     Monk,
     Ice,
     RockRight,
-    Crystal,
+    Shinigami,
 }

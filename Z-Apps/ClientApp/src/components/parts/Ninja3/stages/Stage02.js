@@ -28,7 +28,7 @@ Stage.getObjs = () => {
 
         rightGate: StageParts.getRightGate(1),
         leftGate: StageParts.getLeftGate(3),
-        topGate: StageParts.getTopGate(400, -100, 0, -20),
+        topGate: StageParts.getTopGate(4, -100, 0, -20),
 
         ...StageParts.getSnows(0.1, 30),
     };

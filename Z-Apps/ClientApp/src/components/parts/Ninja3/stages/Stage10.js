@@ -5,30 +5,30 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/snow5.jpg';
+import bgImg from '../img/background/tengumura1.jpg';
 
 const Stage = {};
-Stage.bgImg = bgImg;
-Stage.windSpeed = -3.2;//風速の最大・最小
 
-Stage.getObjs = () => {
-    return {
+Stage.getObjs = (ninja) => {
+
+    Stage.bgImg = bgImg;
+    Stage.windSpeed = (ninja.snow) ? 1 : 0;//風速
+
+    let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
-
-        door: StageParts.getOnePic(15, 72, 60, Imgs.DarkDoor, 10, OnTouch.toNothing),
-
-        toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
-        toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
-
-        crystal: StageParts.getOnePic(10, 74, 14, Imgs.Crystal, 20, OnTouch.toBlock),
-        
-        leftGate: StageParts.getLeftGate(800, null, null, -9),
-
-        ...StageParts.getSnows(0.15, 30),
+        rightGate: StageParts.getRightGate(11),
+        leftGate: StageParts.getLeftGate(9),
     };
+
+    if (ninja.snow) {
+        returnObjs = {
+            ...returnObjs,
+            ...StageParts.getSnows(0.15, 30),
+        }
+    }
+    return returnObjs;
 }
 export default Stage;

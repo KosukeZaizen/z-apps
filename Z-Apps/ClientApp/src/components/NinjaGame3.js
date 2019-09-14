@@ -22,6 +22,7 @@ class NinjaGame extends React.Component {
             //readScroll: [],
             readScroll: ["飛び石の書"],//デバッグ用
             boolLeft: true,
+            snow: true,
         };
 
         //セーブデータ読み込み
@@ -45,7 +46,7 @@ class NinjaGame extends React.Component {
             language: lang,
             curPage: 1,
             //stage: stage,
-            stage: 900,//デバッグ用★
+            stage: 4,//デバッグ用★
             ninja: ninja,
         };
         this.readElementScroll = [];

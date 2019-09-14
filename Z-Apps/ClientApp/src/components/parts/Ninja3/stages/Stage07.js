@@ -8,11 +8,13 @@ import * as OnTouch from '../OnTouch';
 import bgImg from '../img/background/snow3.jpg';
 
 const Stage = {};
-Stage.bgImg = bgImg;
-Stage.windSpeed = -3.5;//風速の最大・最小
 
-Stage.getObjs = () => {
-    return {
+Stage.getObjs = (ninja) => {
+
+    Stage.bgImg = bgImg;
+    Stage.windSpeed = (ninja.snow) ? -3.5 : 0;//風速
+
+    let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
@@ -28,20 +30,26 @@ Stage.getObjs = () => {
         ...StageParts.getFrozenObj("obake4", 10, 136, 32, Imgs.Obake2),
 
         ...StageParts.getIceBlocks(10, [
-            [0, -3], 
-            [0, -2], 
-            [0, -1], 
-            [0, 0], 
-            [0, 1], 
+            [0, -3],
+            [0, -2],
+            [0, -1],
+            [0, 0],
+            [0, 1],
             [0, 2],
-            [0, 3], 
-            [0, 4], 
+            [0, 3],
+            [0, 4],
         ], OnTouch.toBlock, Imgs.Ice, 90),
 
-        leftGate: StageParts.getLeftGate(600),
-        rightGate: StageParts.getRightGate(800, -8),
-
-        ...StageParts.getSnows(0.15, 30),
+        leftGate: StageParts.getLeftGate(6),
+        rightGate: StageParts.getRightGate(8, -8),
     };
+
+    if (ninja.snow) {
+        returnObjs = {
+            ...returnObjs,
+            ...StageParts.getSnows(0.15, 30),
+        }
+    }
+    return returnObjs;
 }
 export default Stage;
