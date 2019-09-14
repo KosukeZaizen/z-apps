@@ -96,11 +96,12 @@ export function toFlyingRock(ninja, from) {
                     //上向き
                     this.isFlying = true;
                     ninja.game.objs[this.fireName].isFlying = true;
-                } else if (this.direction == "right") {
+                } else if (this.direction === "right") {
                     //右向き
                     this.isFlying = true;
                     ninja.game.objs[this.fireName].isFlying = true;
                     if (Math.abs(this.posX - ninja.posX) < 3) {
+                        ninja.boolLeft = false;
                         ninja.posX += 3 * consts.TIME_STEP;
                     }
                 }

@@ -53,6 +53,8 @@ import Ice from './objs/ice.jpg';
 import RockRight from './objs/rockRight.png';
 //扉
 import DarkDoor from './objs/darkDoor.jpg';
+//雪の結晶
+import Crystal from './objs/crystal.png';
 
 export default {
     Rock,
@@ -79,4 +81,5 @@ export default {
     Monk,
     Ice,
     RockRight,
+    Crystal,
 }

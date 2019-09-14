@@ -10,17 +10,17 @@ import * as GameCore from './GameCore';//ゲームのコア関数
 import * as CommonFnc from './CommonFnc'//共通関数
 
 //各ステージ情報
-import Stage1 from './stages/Stage1';
-import Stage2 from './stages/Stage2';
-import Stage3 from './stages/Stage3';
-import Stage4 from './stages/Stage4';
-import Stage400 from './stages/Stage400';
-import Stage5 from './stages/Stage5';
-import Stage500 from './stages/Stage500';
-import Stage600 from './stages/Stage600';
-import Stage700 from './stages/Stage700';
-import Stage800 from './stages/Stage800';
-import Stage900 from './stages/Stage900';
+import Stage1 from './stages/Stage01';
+import Stage2 from './stages/Stage02';
+import Stage3 from './stages/Stage03';
+import Stage4 from './stages/Stage04';
+import Stage400 from './stages/Stage04s';
+import Stage5 from './stages/Stage05';
+import Stage500 from './stages/Stage05s';
+import Stage600 from './stages/Stage06s';
+import Stage700 from './stages/Stage07s';
+import Stage800 from './stages/Stage08s';
+import Stage900 from './stages/Stage09s';
 
 //【Unit Length】このゲームの単位長さ
 let UL;

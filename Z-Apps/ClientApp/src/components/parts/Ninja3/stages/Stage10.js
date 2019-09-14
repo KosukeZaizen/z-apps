@@ -9,7 +9,7 @@ import bgImg from '../img/background/snow5.jpg';
 
 const Stage = {};
 Stage.bgImg = bgImg;
-Stage.windSpeed = -2.5;//風速の最大・最小
+Stage.windSpeed = -3.2;//風速の最大・最小
 
 Stage.getObjs = () => {
     return {
@@ -19,11 +19,14 @@ Stage.getObjs = () => {
 
         ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
 
-        //door: StageParts.getOnePic(28, 66, 50, null, 10, OnTouch.toNothing),
         door: StageParts.getOnePic(15, 72, 60, Imgs.DarkDoor, 10, OnTouch.toNothing),
 
+        toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
+        toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
+
+        crystal: StageParts.getOnePic(10, 74, 14, Imgs.Crystal, 20, OnTouch.toBlock),
+        
         leftGate: StageParts.getLeftGate(800, null, null, -9),
-        rightGate: StageParts.getRightGate(1000),
 
         ...StageParts.getSnows(0.15, 30),
     };
