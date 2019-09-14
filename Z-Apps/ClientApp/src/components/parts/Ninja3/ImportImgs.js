@@ -30,6 +30,8 @@ import Frame from './../Ninja/objs/frame.jpg';
 import Tree from './../Ninja/objs/tree1.png';
 //仏壇
 import Butsudan from './../Ninja/objs/butsudan.png';
+//地蔵
+import Jizo from './../Ninja/objs/jizo.png';
 
 //鬼
 import Oni from './../Ninja2/objs/oni.png';
@@ -39,6 +41,8 @@ import Obake1 from './../Ninja2/objs/cat.png';
 import Obake2 from './../Ninja2/objs/bat.png';
 //炎（右）
 import FireRight from './../Ninja2/objs/fireBallR.png';
+//木ブロック
+import Block from './../Ninja2/objs/woodenBox.jpg';
 
 //------------------------------------------------------------
 //＜新要素＞
@@ -55,6 +59,8 @@ import RockRight from './objs/rockRight.png';
 import DarkDoor from './objs/darkDoor.jpg';
 //死神
 import Shinigami from './objs/shinigami.png';
+//墓
+import Grave from './objs/grave.png';
 
 export default {
     Rock,
@@ -70,16 +76,19 @@ export default {
     Frame,
     Tree,
     Butsudan,
+    Jizo,
 
     Oni,
     Obake1,
     Obake2,
     FireRight,
     DarkDoor,
+    Block,
 
     Snowman,
     Monk,
     Ice,
     RockRight,
     Shinigami,
+    Grave,
 }

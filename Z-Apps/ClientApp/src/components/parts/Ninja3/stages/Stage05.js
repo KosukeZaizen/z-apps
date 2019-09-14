@@ -2,6 +2,10 @@
 import * as StageParts from './StagePartsGenerator';
 //背景画像
 import bgImg from '../img/background/cliff.jpg';
+//各オブジェクト用画像の読み込み
+import Imgs from '../ImportImgs';
+//タッチ関数の読み込み
+import * as OnTouch from '../OnTouch';
 
 const Stage = {};
 
@@ -15,7 +19,14 @@ Stage.getObjs = (ninja) => {
 
         snowman: StageParts.getStageChangeSnowman(12, 30, 55, 5),
 
-        ...StageParts.getCliffRocks(),
+        rock1Pic: StageParts.getOnePic(60, 135, 30, Imgs.RockR, 20, OnTouch.toNothing),
+        rock1Actual: StageParts.getOnePic(60, 135, 33, null, null, OnTouch.toBlock),
+
+        rock2Pic: StageParts.getOnePic(50, 20, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock2Actual: StageParts.getOnePic(50, 20, 68, null, null, OnTouch.toBlock),
+
+        rock3Pic: StageParts.getOnePic(50, -25, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock3Actual: StageParts.getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
 
         rightGate: StageParts.getRightGate(4, 1, 63),
         bottomFall: StageParts.getDangerousObj(3, -70, 100),

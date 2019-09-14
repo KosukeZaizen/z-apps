@@ -27,6 +27,12 @@ Stage.getObjs = (ninja) => {
         toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
         toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
 
+        jizo1: StageParts.getOnePic(12, 50, 64, Imgs.Jizo, 20, OnTouch.toBlock),
+        jizo2: StageParts.getOnePic(12, 96, 64, Imgs.Jizo, 20, OnTouch.toBlock),
+
+        ...StageParts.getFlyingRock(2, 17, 15, 63, 30),
+        topGate: StageParts.getTopGate(15, -100, 32, 10),
+
         rightGate: StageParts.getRightGate(10),
         leftGate: StageParts.getLeftGate(8, null, null, -9),
     };

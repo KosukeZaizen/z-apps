@@ -59,15 +59,47 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft,opaci
     };
 }
 
-//飛ぶ岩　生成関数
-export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight) {
+//矢印看板
+export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
+    //看板に触れた時にメッセージを出したくない場合は、scrollNameにnullを渡す
     let objResult = {};
+    if (boolLeft) {
+        //左向き矢印
+        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex-1, OnTouch.toNothing);
+        if (scrollName) {
+            objResult = {
+                ...objResult,
+                ...getSoroll(scrollName, 10, posX+4, posY+3, Imgs.Arrow1, null, zIndex, true)
+            };
+        } else {
+            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 4, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, true);
+        }
+    } else {
+        //右向き矢印
+        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex - 1, OnTouch.toNothing);
+        if (scrollName) {
+            objResult = {
+                ...objResult,
+                ...getSoroll(scrollName, 10, posX + 5, posY + 3, Imgs.Arrow1, null, zIndex, false)
+            };
+        } else {
+            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 5, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, false);
+        }
+    }
+    return objResult;
+}
+
+//飛ぶ岩　生成関数
+export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight, img) {
+    let objResult = {};
+    img = img || Imgs.Rock;
+
     objResult[`Rock${id}`] = {
         size: size,
         posX: posX,
         posY: posY,
         zIndex: zIndex,
-        img: Imgs.Rock,
+        img: img,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
         fireName: `Fire${id}`,
@@ -289,20 +321,6 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
         };
     }
     return objResult;
-}
-
-//崖の岩
-export function getCliffRocks() {
-    return {
-        rock1Pic: getOnePic(60, 135, 30, Imgs.RockR, 20, OnTouch.toNothing),
-        rock1Actual: getOnePic(60, 135, 33, null, null, OnTouch.toBlock),
-
-        rock2Pic: getOnePic(50, 20, 65, Imgs.RockR, 20, OnTouch.toNothing),
-        rock2Actual: getOnePic(50, 20, 68, null, null, OnTouch.toBlock),
-
-        rock3Pic: getOnePic(50, -25, 65, Imgs.RockR, 20, OnTouch.toNothing),
-        rock3Actual: getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
-    }
 }
 
 //画面外を黒くする要素

@@ -71,7 +71,7 @@ export function Enemy(ninja, key) {
 //=======================================
 export function FlyingRock(ninja, key) {
     if (!this.direction) {
-        const maxHeight = this.maxHeight || 500;
+        const maxHeight = this.maxHeight || -500;
         if (this.isFlying) {
             if (this.posY < maxHeight) {
                 //画面から大きくはみ出した場合、消す

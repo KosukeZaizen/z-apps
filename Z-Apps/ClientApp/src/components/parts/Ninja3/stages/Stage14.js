@@ -9,6 +9,7 @@ import bgImg from '../img/background/tengumura5.jpg';
 
 const Stage = {};
 
+//墓場への階段
 Stage.getObjs = (ninja) => {
 
     Stage.bgImg = bgImg;
@@ -18,6 +19,8 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
+
+        ...StageParts.getArrowBoard(null, 25, 60, 10),
 
         rightGate: StageParts.getRightGate(15),
         leftGate: StageParts.getLeftGate(13),

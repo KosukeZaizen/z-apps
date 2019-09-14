@@ -21,9 +21,9 @@ export function setLang(lang) {
         //家でのポチ
         POCHI2_SCROLL_TITLE: "この地に雪が降るとは珍しい…",
         POCHI2_SCROLL_MESSAGE:
-            "北の山奥にある「天狗村」に、天気を操る仙人が住んでおる。\n" +
-            "彼らはわしの古い友人なのじゃが…　何かあったのかもしれぬ…\n" +
-            "そこの仏壇の巻物を読んで、様子を見てきてくれんか。",
+            "北の山奥にある「キノコ村」に、天気を操る仙人が住んでおる。\n" +
+            "彼らに何かあったのかもしれぬ…\n" +
+            "そこの仏壇の巻物を読んで、キノコ村の様子を見てきてくれんか。",
 
         //飛び石の術
         TOBIISHI_SCROLL_TITLE: "飛び石の書",
@@ -33,7 +33,7 @@ export function setLang(lang) {
             "目的の地にたどり着くことができるであろう。",
 
         //シノ
-        SHINO_SCROLL_TITLE: "天狗村はすぐそこよ",
+        SHINO_SCROLL_TITLE: "キノコ村はすぐそこよ",
         SHINO_SCROLL_MESSAGE:
             "しばらく右に進むと、仙人に会えるはずよ。\n" +
             "天狗みたいな格好をしているから、すぐにわかるはず…\n" +
@@ -45,8 +45,14 @@ export function setLang(lang) {
             "この先、崖があるため進むべからず。\n" +
             "特に風が強い日は落下者多数。",
 
+        //崖の看板
+        SIGN2_SCROLL_TITLE: "ようこそ、キノコ村へ",
+        SIGN2_SCROLL_MESSAGE:
+            "この先、キノコ村。\n" +
+            "村の奥には、英雄墓地があります。",
+
         //修行僧
-        MONK_SCROLL_TITLE: "私は天狗村の修行僧です",
+        MONK_SCROLL_TITLE: "私はキノコ村の修行僧です",
         MONK_SCROLL_MESSAGE:
             "先日、魔物の大群が急に村を襲いました…\n" +
             "その時、仙人が天候を操り、魔物達を氷漬けにしてくれたのです。\n" +

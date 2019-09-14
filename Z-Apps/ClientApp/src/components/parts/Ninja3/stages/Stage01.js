@@ -20,8 +20,8 @@ Stage.getObjs = () => {
         ...StageParts.getSoroll("POCHI", 10, 145, -20, null,Imgs.Pochi, 20),
 
         snowman: StageParts.getOnePic(12, 60, 62, Imgs.Snowman, 20, OnTouch.toBlock),
-        kanban1Pic: StageParts.getOnePic(20, 7, 60, Imgs.Kanban1, 10, OnTouch.toNothing),
-        kanban1ArrowPic: StageParts.getOnePic(10, 11, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
+
+        ...StageParts.getArrowBoard(null, 7, 60, 10, true),
 
         leftGate: StageParts.getLeftGate(2),
 

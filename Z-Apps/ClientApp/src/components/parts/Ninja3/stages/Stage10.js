@@ -9,6 +9,7 @@ import bgImg from '../img/background/tengumura1.jpg';
 
 const Stage = {};
 
+//夜の階段（仙人の家の近く）
 Stage.getObjs = (ninja) => {
 
     Stage.bgImg = bgImg;
@@ -18,6 +19,8 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
+
+        ...StageParts.getArrowBoard("SIGN2", 115, 60, 10),
 
         rightGate: StageParts.getRightGate(11),
         leftGate: StageParts.getLeftGate(9),
