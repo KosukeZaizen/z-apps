@@ -25,8 +25,8 @@ Stage.getObjs = () => {
         ...StageParts.getFrozenObj("obake6", 10, 82, 64, Imgs.Obake2),
         ...StageParts.getFrozenObj("obake7", 10, 110, 26, Imgs.Obake2),
 
-        ...StageParts.getFrozenObj("oni1", 28, 104, 48, Imgs.Oni, 9),
-        ...StageParts.getFrozenObj("oni2", 22, 120, 54, Imgs.Oni),
+        ...StageParts.getFrozenObj("oni1", 26, 98, 50, Imgs.Oni, 9),
+        ...StageParts.getFrozenObj("oni2", 22, 125, 54, Imgs.Oni),
         ...StageParts.getFrozenObj("oni3", 12, 60, 64, Imgs.Oni),
         ...StageParts.getFrozenObj("oni5", 12, 10, 64, Imgs.Oni),
         ...StageParts.getFrozenObj("oni6", 24, 73, 52, Imgs.Oni, 9),

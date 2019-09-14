@@ -20,6 +20,7 @@ import Stage500 from './stages/Stage500';
 import Stage600 from './stages/Stage600';
 import Stage700 from './stages/Stage700';
 import Stage800 from './stages/Stage800';
+import Stage900 from './stages/Stage900';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -272,6 +273,10 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 800) {
 
                 this.setStage(Stage800);
+
+            } else if (this.props.stage === 900) {
+
+                this.setStage(Stage900);
 
             }
             //------------------------------------------------------------

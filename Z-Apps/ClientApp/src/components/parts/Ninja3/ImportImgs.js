@@ -51,6 +51,8 @@ import Monk from './objs/monk.png';
 import Ice from './objs/ice.jpg';
 //岩（右）
 import RockRight from './objs/rockRight.png';
+//扉
+import DarkDoor from './objs/darkDoor.jpg';
 
 export default {
     Rock,
@@ -71,6 +73,7 @@ export default {
     Obake1,
     Obake2,
     FireRight,
+    DarkDoor,
 
     Snowman,
     Monk,
