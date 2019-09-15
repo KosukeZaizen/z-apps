@@ -18,11 +18,21 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockLeft(1, 17, 160, 22, 50),
+        ...StageParts.getFlyingRockRight("toRight", 17, 77, 20, 50),
+
+        ...StageParts.getFlyingRockLeft(1, 17, 160, 22, 50, 55),
         ...StageParts.getFlyingRockLeft(2, 17, 160, 56, 50),
 
+        downArrow: StageParts.getOnePic(15, 9, 52, Imgs.DownArrow, 10, OnTouch.toNothing),
+
         ...StageParts.getIceBlocks(10, [
+            [5, 2],[6, 2], [7, 2],
+            [5, 3],[6, 3], [7, 3],
             [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [3, 3.7], [4, 3.7], [5, 3.7], [6, 3.7], [7, 3.7],
+            [-2, 4], [-1, 4], [0, 4],
+            [-2, 5], [-1, 5], [0, 5],
+            [-2, 6], [-1, 6], [0, 6], [3, 6], [4, 6],
+            [-2, 7], [-1, 7], [0, 7], [3, 7], [4, 7],
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
     };
     return returnObjs;

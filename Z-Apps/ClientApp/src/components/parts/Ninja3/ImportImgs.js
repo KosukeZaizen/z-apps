@@ -75,6 +75,8 @@ import Sennin from './objs/sennin.png';
 import Sapphire from './objs/sapphire.png';
 //雪の結晶
 import IceStone from './objs/iceStone.png';
+//下向きの看板
+import DownArrow from './objs/downArrow.png';
 
 export default {
     Rock,
@@ -112,4 +114,5 @@ export default {
     Sennin,
     Sapphire,
     IceStone,
+    DownArrow,
 }
