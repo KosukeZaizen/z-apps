@@ -18,7 +18,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockLeft(1, 17, 96, 22, 50),
+        ...StageParts.getFlyingRockLeft(1, 17, 96, 21, 50),
         ...StageParts.getFlyingRockLeft(2, 17, 56, 56, 50),
 
         ...StageParts.getIceBlocks(10, [
@@ -30,8 +30,16 @@ Stage.getObjs = (ninja) => {
             [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 
-        leftGate: StageParts.getLeftGate(18, 157),
+        leftGate: StageParts.getLeftGate(18, 157, null, -9),
     };
+
+    if (ninja.posX < 80) {
+        //左から来た時
+        returnObjs = {
+            ...returnObjs,
+            ...StageParts.getFlyingRockRight("toRight", 17, -17, 21, 30, 110),
+        };
+    }
     return returnObjs;
 }
 export default Stage;

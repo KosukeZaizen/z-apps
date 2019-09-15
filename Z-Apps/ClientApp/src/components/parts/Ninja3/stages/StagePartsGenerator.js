@@ -282,10 +282,10 @@ export function getLeftGate(next, nextX, nextY, posX) {
 
 //ステージ変更用ゲート（右）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getRightGate(next, nextX, nextY) {
+export function getRightGate(next, nextX, nextY, posX) {
     return {
         size: 300,
-        posX: 160,
+        posX: 160 + (posX || 0),
         posY: -200,
         zIndex: 30,
         next: next,
