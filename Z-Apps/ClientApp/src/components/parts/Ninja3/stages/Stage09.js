@@ -34,7 +34,7 @@ Stage.getObjs = (ninja) => {
         topGate: StageParts.getTopGate(15, -100, 32, 10),
 
         
-        door: StageParts.getDoor(15, 72, 60, Imgs.DarkDoor, 10, 16, 155, 63, true),
+        door: StageParts.getDoor(15, 72, 60, Imgs.DarkDoor, 10, 16, 135, 63, true),
 
         rightGate: StageParts.getRightGate(10),
         leftGate: StageParts.getLeftGate(8, null, null, -9),

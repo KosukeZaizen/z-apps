@@ -18,7 +18,6 @@ Stage.getObjs = (ninja) => {
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
-        ...StageParts.getObjFloor(),
 
         ...StageParts.getFlyingRock(2, 30, 100, 48, 30, null, Imgs.Grave),
 

@@ -53,6 +53,13 @@ export function setLang(lang) {
             "魔物を倒す方法を探さないと…\n" +
             "きっとまたすぐに魔物たちは動き出すわ…",
 
+        //仙人
+        SENNIN_SCROLL_TITLE: "わしがキノコ村の仙人じゃ",
+        SENNIN_SCROLL_MESSAGE:
+            "今はわしの念力で雪を降らせ、魔物たちを一時的に凍らせておる。\n" +
+            "しかし、わしの力もそろそろ限界じゃ…　じきにこの雪も止むじゃろう…\n" +
+            "その時に、何か奴らと戦う方法があれば良いのじゃが…",
+
         //崖の看板
         SIGN_SCROLL_TITLE: "この先、崖",
         SIGN_SCROLL_MESSAGE:
@@ -68,7 +75,7 @@ export function setLang(lang) {
         //英雄墓地　看板
         SIGN3_SCROLL_TITLE: "伝説の英雄　ここに眠る",
         SIGN3_SCROLL_MESSAGE:
-            "かつて、桃姫という姫が魔王に誘拐された。\n" +
+            "かつて、桃姫という姫が、亀の魔王にさらわれた。\n" +
             "その際、京都から来た一人の忍びが敵の大群を打ち負かし、\n" +
             "魔王から姫を救ったと言われている。\n",
 
