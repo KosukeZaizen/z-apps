@@ -19,7 +19,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjFloor(),
 
         ...StageParts.getSoroll("SENNIN", 14, 50, 60, Imgs.Sennin, Imgs.Sennin, 20),
-        sapphire: StageParts.getOnePic(25, 69, 5, Imgs.Sapphire, 10, OnTouch.toNothing),
+        sapphire: StageParts.getOnePic(25, 69, 3, Imgs.Sapphire, 10, OnTouch.toNothing),
 
         rightGate: StageParts.getRightGate(9, 100, 63),
     };

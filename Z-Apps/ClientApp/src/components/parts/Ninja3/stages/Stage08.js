@@ -17,8 +17,6 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
-
         ...StageParts.getFrozenObj("obake1", 10, 55, 43, Imgs.Obake1),
         ...StageParts.getFrozenObj("obake2", 10, 40, 35, Imgs.Obake2),
         ...StageParts.getFrozenObj("obake3", 10, 25, 34, Imgs.Obake1),
@@ -39,9 +37,17 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
+        //雪の時
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSnows(0.15, 30),
+        };
+        if (ninja.posX < 80) {
+            //左から来た時
+            returnObjs = {
+                ...returnObjs,
+                ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
+            };
         }
     }
     return returnObjs;

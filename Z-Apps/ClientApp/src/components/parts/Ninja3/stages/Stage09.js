@@ -13,16 +13,14 @@ const Stage = {};
 Stage.getObjs = (ninja) => {
 
     Stage.bgImg = bgImg;
-    Stage.windSpeed = (ninja.snow) ? -2 : 0;//風速
+    Stage.windSpeed = (ninja.snow) ? 0 : 0;//風速
 
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
-
-        //door: StageParts.getOnePic(15, 72, 60, Imgs.DarkDoor, 10, OnTouch.toNothing),
+        ice: StageParts.getOnePic(16, 71, 12, Imgs.IceStone, 15, OnTouch.toNothing),
 
         toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
         toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
@@ -41,9 +39,17 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
+        //雪の時
         returnObjs = {
             ...returnObjs,
-            ...StageParts.getSnows(0.15, 30),
+            ...StageParts.getSnows(0.15, 30, true),
+        };
+        if (ninja.posX < 80) {
+            //左から来た時
+            returnObjs = {
+                ...returnObjs,
+                ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
+            };
         }
     }
     return returnObjs;

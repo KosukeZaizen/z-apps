@@ -71,6 +71,8 @@ import Girl2 from './objs/girl2.png';
 import Sennin from './objs/sennin.png';
 //サファイア
 import Sapphire from './objs/sapphire.png';
+//雪の結晶
+import IceStone from './objs/iceStone.png';
 
 export default {
     Rock,
@@ -106,4 +108,5 @@ export default {
     Girl2,
     Sennin,
     Sapphire,
+    IceStone,
 }
