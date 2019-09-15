@@ -9,6 +9,7 @@ import bgImg from '../img/background/snow2.jpg';
 
 const Stage = {};
 
+//修行僧がいる雪道
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = (ninja.snow) ? -1 : 0;//風速
@@ -18,7 +19,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("MONK", 24, 120, 54, Imgs.Monk, null, 20),
+        ...StageParts.getSoroll("MONK", 17, 122, 58, Imgs.Monk, Imgs.Monk, 20),
 
         ...StageParts.getIceBlocks(10, [
             [15, -7],

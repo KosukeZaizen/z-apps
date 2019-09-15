@@ -20,7 +20,9 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRock(1, 30, 100, 48, 30, null, Imgs.Grave),
+        ...StageParts.getFlyingRock(2, 30, 100, 48, 30, null, Imgs.Grave),
+
+        ...StageParts.getSoroll("SIGN3", 15, 70, 60, Imgs.Kanban1, null, 20),
 
         ...StageParts.getIceBlocks(10, [
             [-2, 7.3], [-1, 7.3], [0, 7.3], [1, 7.3], [2, 7.3], [3, 7.3], [4, 7.3], [5, 7.3], [6, 7.3], [7, 7.3], [8, 7.3], [9, 7.3],

@@ -90,11 +90,11 @@ export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
 }
 
 //飛ぶ岩　生成関数
-export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight, img) {
+export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
     let objResult = {};
     img = img || Imgs.Rock;
 
-    objResult[`Rock${id}`] = {
+    objResult[`Rock${name}`] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -102,10 +102,10 @@ export function getFlyingRock(id, size, posX, posY, zIndex, maxHeight, img) {
         img: img,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: `Fire${id}`,
+        fireName: `Fire${name}`,
         maxHeight: maxHeight,
     };
-    objResult[`Fire${id}`] = {
+    objResult[`Fire${name}`] = {
         size: size,
         posX: posX,
         posY: posY + (size * 3 / 4),

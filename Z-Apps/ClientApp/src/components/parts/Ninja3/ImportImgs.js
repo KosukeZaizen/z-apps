@@ -61,6 +61,12 @@ import DarkDoor from './objs/darkDoor.jpg';
 import Shinigami from './objs/shinigami.png';
 //墓
 import Grave from './objs/grave.png';
+//老婆
+import OldWoman from './objs/oldWoman.png';
+//少女１
+import Girl1 from './objs/girl1.png';
+//少女２
+import Girl2 from './objs/girl2.png';
 
 export default {
     Rock,
@@ -91,4 +97,7 @@ export default {
     RockRight,
     Shinigami,
     Grave,
+    OldWoman,
+    Girl1,
+    Girl2,
 }

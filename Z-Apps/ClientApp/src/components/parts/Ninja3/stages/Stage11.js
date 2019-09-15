@@ -20,6 +20,8 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
+        ...StageParts.getSoroll("SHINO3", 10, 47, 62, Imgs.Shino, Imgs.Shino, 20),
+
         rightGate: StageParts.getRightGate(12),
         leftGate: StageParts.getLeftGate(10),
     };
