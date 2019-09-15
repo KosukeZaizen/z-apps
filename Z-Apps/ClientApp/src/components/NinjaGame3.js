@@ -46,7 +46,7 @@ class NinjaGame extends React.Component {
             language: lang,
             curPage: 1,
             //stage: stage,
-            stage: 9,//デバッグ用★
+            stage: 17,//デバッグ用★
             ninja: ninja,
         };
         this.readElementScroll = [];

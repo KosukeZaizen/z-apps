@@ -43,6 +43,8 @@ import Obake2 from './../Ninja2/objs/bat.png';
 import FireRight from './../Ninja2/objs/fireBallR.png';
 //木ブロック
 import Block from './../Ninja2/objs/woodenBox.jpg';
+//ブロック
+import StoneBlock from './../Ninja2/objs/block.jpg';
 
 //------------------------------------------------------------
 //＜新要素＞
@@ -96,6 +98,7 @@ export default {
     FireRight,
     DarkDoor,
     Block,
+    StoneBlock,
 
     Snowman,
     Monk,

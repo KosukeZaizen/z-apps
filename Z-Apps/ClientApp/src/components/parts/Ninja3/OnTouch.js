@@ -104,6 +104,14 @@ export function toFlyingRock(ninja, from) {
                         ninja.boolLeft = false;
                         ninja.posX += 3 * consts.TIME_STEP;
                     }
+                } else if (this.direction === "left") {
+                    //右向き
+                    this.isFlying = true;
+                    ninja.game.objs[this.fireName].isFlying = true;
+                    if (Math.abs((this.posX+this.size) - (ninja.posX+ninja.size)) < 3) {
+                        ninja.boolLeft = true;
+                        ninja.posX -= 3 * consts.TIME_STEP;
+                    }
                 }
             }
         }

@@ -90,6 +90,16 @@ export function FlyingRock(ninja, key) {
                 this.posX += 3 * TIME_STEP;
             }
         }
+    } else if (this.direction === "left") {
+        const maxLeft = this.maxLeft || -500;
+        if (this.isFlying) {
+            if (this.posX < maxLeft) {
+                //画面から大きくはみ出した場合、消す
+                delete ninja.game.objs[key];
+            } else {
+                this.posX -= 3 * TIME_STEP;
+            }
+        }
     }
 }
 
