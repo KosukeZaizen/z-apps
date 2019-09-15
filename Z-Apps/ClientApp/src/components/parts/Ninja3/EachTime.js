@@ -134,3 +134,19 @@ export function Snow(ninja) {
     }
     if (this.posY < -10) this.posY = 75;
 }
+
+//=======================================
+// 【逆向き】雪　タイムステップ毎
+//=======================================
+export function SnowR(ninja) {
+
+    //雪の位置更新
+    this.posY += -2;
+
+    //雪が画面をはみ出したら、逆側へ再出現
+    if (this.posY > 75) {
+        this.posY = -10;
+        this.posX = Math.floor(Math.random() * 161);
+    }
+    if (this.posY < -10) this.posY = 75;
+}

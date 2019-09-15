@@ -67,6 +67,10 @@ import OldWoman from './objs/oldWoman.png';
 import Girl1 from './objs/girl1.png';
 //少女２
 import Girl2 from './objs/girl2.png';
+//仙人
+import Sennin from './objs/sennin.png';
+//サファイア
+import Sapphire from './objs/sapphire.png';
 
 export default {
     Rock,
@@ -100,4 +104,6 @@ export default {
     OldWoman,
     Girl1,
     Girl2,
+    Sennin,
+    Sapphire,
 }

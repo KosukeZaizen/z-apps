@@ -22,7 +22,7 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
 
-        door: StageParts.getOnePic(15, 72, 60, Imgs.DarkDoor, 10, OnTouch.toNothing),
+        //door: StageParts.getOnePic(15, 72, 60, Imgs.DarkDoor, 10, OnTouch.toNothing),
 
         toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
         toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
@@ -32,6 +32,9 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getFlyingRock(2, 17, 15, 63, 30),
         topGate: StageParts.getTopGate(15, -100, 32, 10),
+
+        
+        door: StageParts.getDoor(15, 72, 60, Imgs.DarkDoor, 10, 16, 155, 63, true),
 
         rightGate: StageParts.getRightGate(10),
         leftGate: StageParts.getLeftGate(8, null, null, -9),

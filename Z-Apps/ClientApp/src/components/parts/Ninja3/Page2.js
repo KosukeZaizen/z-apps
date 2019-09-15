@@ -25,6 +25,7 @@ import Stage12 from './stages/Stage12';
 import Stage13 from './stages/Stage13';
 import Stage14 from './stages/Stage14';
 import Stage15 from './stages/Stage15';
+import Stage16 from './stages/Stage16';
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -297,6 +298,10 @@ export default class Page2 extends React.Component {
             } else if (this.props.stage === 15) {
 
                 this.setStage(Stage15);
+
+            } else if (this.props.stage === 16) {
+
+                this.setStage(Stage16);
 
             }
                 /*

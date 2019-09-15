@@ -201,6 +201,23 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
     return objResult;
 }
 
+//ステージ変更用ドア
+export function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextLeft) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        img: img,
+        zIndex: zIndex,
+        next: next,
+        nextX: nextX,
+        nextY: nextY,
+        nextLeft: nextLeft,
+        onTouch: OnTouch.toStageChangeCommon,
+        changeStage: changeStage,
+    };
+}
+
 //ステージ変更用　スノーマン
 export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
     return {
@@ -282,8 +299,9 @@ export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
 }
 
 //雪 生成関数
-export function getSnows(strength, zIndex) {
+export function getSnows(strength, zIndex, reverse) {
     let objResult = {};
+    const eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
 
     for (let i = 0; i <= 160 * strength; i++) {
         for (let j = -10; j <= 75 * strength; j++) {
@@ -295,7 +313,7 @@ export function getSnows(strength, zIndex) {
                 message: ".",
                 fontSize: 4,
                 onTouch: OnTouch.toNothing,
-                eachTime: EachTime.Snow,
+                eachTime: eachTimeFunc,
                 fontColor: "white",
             };
         }
