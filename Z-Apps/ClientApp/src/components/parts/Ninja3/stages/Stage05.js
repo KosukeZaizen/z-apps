@@ -29,7 +29,7 @@ Stage.getObjs = (ninja) => {
         rock3Actual: StageParts.getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
 
         rightGate: StageParts.getRightGate(4, 1, 63),
-        bottomFall: StageParts.getDangerousObj(3, -70, 100),
+        bottomFall: StageParts.getDangerousObj(1000, -70, 100),
     };
 
     if (ninja.snow) {
