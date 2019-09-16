@@ -27,7 +27,7 @@ Stage.getObjs = (ninja) => {
             [8.4, 5.3], [9.4, 5.3],
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 
-        bottomGate: StageParts.getBottomGate(19, 200)
+        bottomGate: StageParts.getBottomGate(19, 200, 52),
     };
     return returnObjs;
 }

@@ -16,10 +16,10 @@ Stage.getObjs = (ninja) => {
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
-        ...StageParts.getObjFloor(),
+        bottomFall: StageParts.getDangerousObj(1000, -70, 100),
 
         ...StageParts.getFlyingRockLeft(1, 17, 96, 21, 50),
-        ...StageParts.getFlyingRockLeft(2, 17, 56, 56, 50),
+        ...StageParts.getFlyingRockLeft(2, 17, 56, 52, 50),
 
         ...StageParts.getIceBlocks(10, [
             [11, 2], [12, 2],

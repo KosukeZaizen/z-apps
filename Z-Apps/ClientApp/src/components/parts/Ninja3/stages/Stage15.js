@@ -31,6 +31,7 @@ Stage.getObjs = (ninja) => {
 
         leftGate: StageParts.getLeftGate(14),
         topGate: StageParts.getTopGate(9, -100, 62, 10),
+        bottomGate: StageParts.getBottomGate(17, 100),
     };
 
     if (ninja.snow) {
