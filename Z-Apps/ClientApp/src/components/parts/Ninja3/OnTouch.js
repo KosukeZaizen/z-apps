@@ -214,3 +214,10 @@ export function toAoKinoko(ninja) {
         ninja.size = 6;
     }
 }
+
+//=======================================
+// 赤キノコ　タッチ関数
+//=======================================
+export function toAkaKinoko(ninja) {
+    ninja.size = 12;
+}

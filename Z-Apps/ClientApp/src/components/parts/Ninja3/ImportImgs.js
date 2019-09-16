@@ -79,6 +79,10 @@ import IceStone from './objs/iceStone.png';
 import DownArrow from './objs/downArrow.png';
 //青キノコ
 import AoKinoko from './objs/aoKinoko.png';
+//赤キノコ
+import AkaKinoko from './objs/akaKinoko.png';
+//ひげ
+import Hige from './objs/hige.gif';
 
 export default {
     Rock,
@@ -118,4 +122,6 @@ export default {
     IceStone,
     DownArrow,
     AoKinoko,
+    AkaKinoko,
+    Hige,
 }

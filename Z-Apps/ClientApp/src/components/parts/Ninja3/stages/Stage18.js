@@ -33,6 +33,7 @@ Stage.getObjs = (ninja) => {
 
         rightGate: StageParts.getRightGate(17, -8, null, 9),
         leftGate: StageParts.getLeftGate(19),
+        gateToLastRoom: StageParts.getDoor(22, 9, 80, null, 10, 21, 145, -10, true),
     };
 
     if (ninja.posX > 80) {

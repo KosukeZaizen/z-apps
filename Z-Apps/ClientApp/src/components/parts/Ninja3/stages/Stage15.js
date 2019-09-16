@@ -30,8 +30,8 @@ Stage.getObjs = (ninja) => {
         ], OnTouch.toBlock, Imgs.Block, 50),
 
         leftGate: StageParts.getLeftGate(14),
-        topGate: StageParts.getTopGate(9, -100, 62, 10),
-        bottomGate: StageParts.getBottomGate(17, 100),
+        topGate: StageParts.getTopGate(9, -100, 120, 10),
+        bottomGate: StageParts.getBottomGate(17, 100, null, null, true),
     };
 
     if (ninja.snow) {

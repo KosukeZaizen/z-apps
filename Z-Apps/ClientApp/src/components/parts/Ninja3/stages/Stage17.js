@@ -18,8 +18,10 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         bottomFall: StageParts.getDangerousObj(1000, -70, 100),
 
-        ...StageParts.getFlyingRockLeft(1, 17, 96, 21, 50),
-        ...StageParts.getFlyingRockLeft(2, 17, 56, 52, 50),
+        ...StageParts.getFlyingRockLeft("toLeft1", 17, 96, 21, 50),
+        ...StageParts.getFlyingRockLeft("toLeft2", 17, 56, 52, 50),
+
+        ...StageParts.getFlyingRock("toUp", 17, 135, 16, 30),
 
         ...StageParts.getIceBlocks(10, [
             [11, 2], [12, 2],
@@ -31,6 +33,7 @@ Stage.getObjs = (ninja) => {
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 
         leftGate: StageParts.getLeftGate(18, 157, null, -9),
+        topGate: StageParts.getTopGate(15, -50, 125, 63),
     };
 
     if (ninja.posX < 80) {

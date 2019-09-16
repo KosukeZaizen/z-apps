@@ -9,7 +9,7 @@ import bgImg from '../img/background/grave3.jpg';
 
 const Stage = {};
 
-//英雄の墓２
+//英雄の墓３
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
 

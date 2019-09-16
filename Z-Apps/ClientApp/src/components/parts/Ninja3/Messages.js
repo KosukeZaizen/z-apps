@@ -39,6 +39,13 @@ export function setLang(lang) {
             "青いキノコに触れることで体が小さくなる。\n" +
             "赤いキノコに触れると、元の大きさに戻る。",
 
+        //踏みつけの術
+        HUMITSUKE_SCROLL_TITLE: "踏みつけの書",
+        HUMITSUKE_SCROLL_MESSAGE:
+            "伝説の英雄が用いた秘技、\n" +
+            "「踏みつけの術」が使えるようになる巻物。\n" +
+            "飛び上がって敵を踏みつけることにより、一撃で息の根を止める。",
+
         //シノ
         SHINO_SCROLL_TITLE: "キノコ村はもうすぐよ",
         SHINO_SCROLL_MESSAGE:
