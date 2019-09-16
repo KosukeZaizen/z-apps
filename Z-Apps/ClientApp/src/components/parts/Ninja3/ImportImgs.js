@@ -77,6 +77,8 @@ import Sapphire from './objs/sapphire.png';
 import IceStone from './objs/iceStone.png';
 //下向きの看板
 import DownArrow from './objs/downArrow.png';
+//青キノコ
+import AoKinoko from './objs/aoKinoko.png';
 
 export default {
     Rock,
@@ -115,4 +117,5 @@ export default {
     Sapphire,
     IceStone,
     DownArrow,
+    AoKinoko,
 }

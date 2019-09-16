@@ -205,3 +205,12 @@ export function toEnemy(ninja) {
         window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
     }
 }
+
+//=======================================
+// 青キノコ　タッチ関数
+//=======================================
+export function toAoKinoko(ninja) {
+    if (ninja.readScroll.indexOf(messages.HANKA_SCROLL_TITLE) >= 0) {
+        ninja.size = 6;
+    }
+}

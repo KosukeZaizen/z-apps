@@ -32,6 +32,13 @@ export function setLang(lang) {
             "岩を見つけたら、上に乗ってみるがよい。\n" +
             "目的の地にたどり着くことができるであろう。",
 
+        //半化の術
+        HANKA_SCROLL_TITLE: "半化の書",
+        HANKA_SCROLL_MESSAGE:
+            "秘技、半化の術が使えるようになる巻物。\n" +
+            "青いキノコに触れることで体が小さくなる。\n" +
+            "赤いキノコに触れると、元の大きさに戻る。",
+
         //シノ
         SHINO_SCROLL_TITLE: "キノコ村はもうすぐよ",
         SHINO_SCROLL_MESSAGE:

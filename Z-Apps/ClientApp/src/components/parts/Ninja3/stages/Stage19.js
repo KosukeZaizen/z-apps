@@ -18,12 +18,23 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getFlyingRockRight("toRight", 17, 77, 21, 50),
+        ...StageParts.getFlyingRockRight("toRight", 17, 67, 31, 50),
+        ...StageParts.getFlyingRock("toUp", 17, 32, 47, 30),
+
+        aoKinoko: StageParts.getOnePic(10, 0, 32, Imgs.AoKinoko, 10, OnTouch.toAoKinoko),
+
+        obake1: StageParts.getEnemy(13, 75, 80, Imgs.Obake1, 100, 0.5, 0.5),
 
         ...StageParts.getIceBlocks(10, [
-            [5, 2],[6, 2], [7, 2],
-            [5, 3],[6, 3], [7, 3],
-            [13, 3.7], [14, 3.7], [15, 3.7], [16, 3.7],
+            [5, 3], [6, 3],
+            [5, 4], [6, 4],
+
+            [13, 3], [14, 3], [15, 3], [16, 3],
+            [13, 4], [14, 4], [15, 4], [16, 4],
+            [15, 5], [16, 5],
+            [15, 6], [16, 6],
+            [15, 7], [16, 7],
+
             [-2, 4], [-1, 4], [0, 4],
             [-2, 5], [-1, 5], [0, 5],
             [-2, 6], [-1, 6], [0, 6], [3, 6], [4, 6],
@@ -31,6 +42,7 @@ Stage.getObjs = (ninja) => {
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 
         rightGate: StageParts.getRightGate(18),
+        topGate: StageParts.getTopGate(20, -50, null, 75),
     };
     return returnObjs;
 }

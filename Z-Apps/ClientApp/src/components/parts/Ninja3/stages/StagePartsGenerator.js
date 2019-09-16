@@ -249,6 +249,22 @@ export function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextL
     };
 }
 
+//敵
+export function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
+    return {
+        size: size,
+        posX: posX,
+        posY: posY,
+        speedX: speedX,
+        speedY: speedY,
+        zIndex: zIndex,
+        img: img,
+        onTouch: OnTouch.toEnemy,
+        enemy: true,
+        eachTime: EachTime.Enemy,
+    };
+}
+
 //ステージ変更用　スノーマン
 export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
     return {
@@ -310,6 +326,24 @@ export function getTopGate(next, heightOfTheGate, nextX, nextY) {
         nextX: nextX,
         nextY: nextY,
         nextLeft: false,
+        onTouch: OnTouch.toStageChangeCommon,
+        changeStage: changeStage,
+    };
+}
+
+//ステージ変更用ゲート（下）
+//引数にnextX, nextYを渡さなければ、自動的に位置が計算される
+export function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
+    const posY = heightOfTheGate || 87;
+    return {
+        size: 1000,
+        posX: -420,
+        posY: posY,
+        zIndex: 30,
+        next: next,
+        nextX: nextX,
+        nextY: nextY,
+        nextLeft: nextLeft,
         onTouch: OnTouch.toStageChangeCommon,
         changeStage: changeStage,
     };

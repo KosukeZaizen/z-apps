@@ -24,7 +24,7 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getIceBlocks(10, [
             [5, 2],[6, 2], [7, 2],
-            [5, 3],[6, 3], [7, 3],
+            [-2, 3], [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3],[5, 3], [6, 3], [7, 3],
             [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [3, 3.7], [4, 3.7], [5, 3.7], [6, 3.7], [7, 3.7],
             [-2, 4], [-1, 4], [0, 4],
             [-2, 5], [-1, 5], [0, 5],
@@ -33,6 +33,7 @@ Stage.getObjs = (ninja) => {
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 
         rightGate: StageParts.getRightGate(17, -8, null, 9),
+        leftGate: StageParts.getLeftGate(19),
     };
 
     if (ninja.posX > 80) {
