@@ -8,8 +8,9 @@ import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import ReactGA from 'react-ga';
+import { GOOGLE_ANALYTICS } from './components/common/privateConsts';
 
-ReactGA.initialize('UA-122613642-6');
+ReactGA.initialize(GOOGLE_ANALYTICS);
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
