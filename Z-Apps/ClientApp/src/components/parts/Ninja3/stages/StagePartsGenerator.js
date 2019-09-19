@@ -315,7 +315,7 @@ export function getRightGate(next, nextX, nextY, posX) {
 
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getTopGate(next, heightOfTheGate, nextX, nextY) {
+export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
     const posY = heightOfTheGate - 1000 || -1012;
     return {
         size: 1000,
@@ -325,7 +325,7 @@ export function getTopGate(next, heightOfTheGate, nextX, nextY) {
         next: next,
         nextX: nextX,
         nextY: nextY,
-        nextLeft: false,
+        nextLeft: nextLeft,
         onTouch: OnTouch.toStageChangeCommon,
         changeStage: changeStage,
     };

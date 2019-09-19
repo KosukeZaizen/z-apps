@@ -221,3 +221,10 @@ export function toAoKinoko(ninja) {
 export function toAkaKinoko(ninja) {
     ninja.size = 12;
 }
+
+//=======================================
+// 雪をやませる
+//=======================================
+export function toStopSnow(ninja) {
+    ninja.snow = false;
+}

@@ -19,11 +19,13 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjFloor(),
 
         ...StageParts.getSoroll("HUMITSUKE", 10, 67, 59, Imgs.Scroll, Imgs.Hige, 22),
+        stopSnow: StageParts.getOnePic(10, 67, 59, null, 0, OnTouch.toStopSnow),
+
         akaKinoko: StageParts.getOnePic(20, 61, 62, Imgs.AkaKinoko, 10, OnTouch.toAkaKinoko),
 
         ...StageParts.getFlyingRock("toUp", 17, 8, 62, 30),
 
-        topGate: StageParts.getTopGate(15, -50, 125, 63),
+        topGate: StageParts.getTopGate(15, -50, 57, 63, true),
         leftGate: StageParts.getLeftGate(15, 125, 63, -9),
     };
     return returnObjs;
