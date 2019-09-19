@@ -33,14 +33,14 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
-        //雪が降っている
+        //雪が降っているとき
         returnObjs = {
             ...returnObjs,
             ...StageParts.getFlyingRock(2, 30, 100, 48, 30, null, Imgs.Grave),
             ...StageParts.getSnows(0.1, 30),
         }
     } else {
-        //雪がやんだ
+        //雪がやんだとき
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSoroll("SENNIN2", 14, 30, 58, Imgs.Sennin, Imgs.Sennin, 20),

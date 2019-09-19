@@ -20,15 +20,16 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("SHINO3", 10, 47, 62, Imgs.Shino, Imgs.Shino, 20),
-
         rightGate: StageParts.getRightGate(12),
         leftGate: StageParts.getLeftGate(10),
     };
 
     if (ninja.snow) {
+        //雪が降っているとき
         returnObjs = {
             ...returnObjs,
+            ...StageParts.getSoroll("SHINO3", 10, 47, 62, Imgs.Shino, Imgs.Shino, 20),
+
             ...StageParts.getSnows(0.1, 30),
         }
     }

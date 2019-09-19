@@ -20,9 +20,6 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("GIRL1", 18, 95, 51, Imgs.Girl1, Imgs.Girl1, 20),
-        ...StageParts.getSoroll("GIRL2", 15, 115, 56, Imgs.Girl2, Imgs.Girl2, 20),
-
         rockPic: StageParts.getOnePic(50, -17, 59, Imgs.RockR, 60, OnTouch.toNothing),
         rockActual: StageParts.getOnePic(50, -17, 62, null, null, OnTouch.toBlock),
 
@@ -38,8 +35,12 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
+        //雪が降っているとき
         returnObjs = {
             ...returnObjs,
+            ...StageParts.getSoroll("GIRL1", 18, 95, 51, Imgs.Girl1, Imgs.Girl1, 20),
+            ...StageParts.getSoroll("GIRL2", 15, 115, 56, Imgs.Girl2, Imgs.Girl2, 20),
+
             ...StageParts.getSnows(0.1, 30),
         }
     }
