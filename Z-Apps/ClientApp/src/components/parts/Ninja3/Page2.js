@@ -329,24 +329,6 @@ export default class Page2 extends React.Component {
                 this.setStage(Stage21);
 
             }
-                /*
-            else if (this.props.stage === 13) {
-
-                this.setStage(Stage13);
-
-            } else if (this.props.stage === 14) {
-
-                this.setStage(Stage14);
-
-            } else if (this.props.stage === 15) {
-
-                this.setStage(Stage15);
-
-            } else if (this.props.stage === 16) {
-
-                this.setStage(Stage16);
-
-            }*/
             //------------------------------------------------------------
 
             //ステージ変更を検知するために、現在のステージを記憶
