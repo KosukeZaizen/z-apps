@@ -27,10 +27,6 @@ Stage.getObjs = (ninja) => {
 
         jizo1: StageParts.getOnePic(12, 50, 64, Imgs.Jizo, 20, OnTouch.toBlock),
         jizo2: StageParts.getOnePic(12, 96, 64, Imgs.Jizo, 20, OnTouch.toBlock),
-
-        ...StageParts.getFlyingRock(2, 17, 15, 63, 30),
-        topGate: StageParts.getTopGate(15, -100, 32, 10),
-
         
         door: StageParts.getDoor(15, 72, 60, Imgs.DarkDoor, 10, 16, 135, 63, true),
 
@@ -43,6 +39,10 @@ Stage.getObjs = (ninja) => {
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSnows(0.15, 30, true),
+
+            //英雄の墓への飛び石
+            ...StageParts.getFlyingRock(2, 17, 15, 63, 30),
+            topGate: StageParts.getTopGate(15, -100, 32, 10),
         };
         if (ninja.posX < 80) {
             //左から来た時
@@ -51,6 +51,8 @@ Stage.getObjs = (ninja) => {
                 ...StageParts.getFlyingRockRight(1, 17, -17, 20, 50),
             };
         }
+    } else {
+        //雪がやんだ後
     }
     return returnObjs;
 }

@@ -19,8 +19,6 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
 
-        ...StageParts.getFlyingRock(2, 30, 100, 48, 30, null, Imgs.Grave),
-
         ...StageParts.getSoroll("SIGN3", 15, 70, 60, Imgs.Kanban1, null, 20),
 
         ...StageParts.getIceBlocks(10, [
@@ -35,11 +33,20 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
+        //雪が降っている
         returnObjs = {
             ...returnObjs,
+            ...StageParts.getFlyingRock(2, 30, 100, 48, 30, null, Imgs.Grave),
             ...StageParts.getSnows(0.1, 30),
         }
+    } else {
+        //雪がやんだ
+        returnObjs = {
+            ...returnObjs,
+            ...StageParts.getSoroll("SENNIN2", 14, 30, 58, Imgs.Sennin, Imgs.Sennin, 20),
+        }
     }
+
     return returnObjs;
 }
 export default Stage;
