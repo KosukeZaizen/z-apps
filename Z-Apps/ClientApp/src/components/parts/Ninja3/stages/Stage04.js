@@ -18,18 +18,20 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("SHINO", 10, 110, 62, Imgs.Shino, Imgs.Shino, 20),
-
         ...StageParts.getSoroll("SIGN", 20, 12, 60, Imgs.Kanban1, null, 10),
         kanban1ArrowPic: StageParts.getOnePic(10, 16, 63, Imgs.Arrow1, 10, OnTouch.toNothing, true),
 
         rightGate: StageParts.getRightGate(6),
-        leftGate: StageParts.getLeftGate(5, 145, 20),
+        leftGate: StageParts.getLeftGate(5, 145, 32 - ninja.size),
     };
 
     if (ninja.snow) {
+        //雪の時
         returnObjs = {
             ...returnObjs,
+
+            ...StageParts.getSoroll("SHINO", 10, 110, 62, Imgs.Shino, Imgs.Shino, 20),
+
             ...StageParts.getSnows(0.1, 30),
         }
     }

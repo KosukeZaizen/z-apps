@@ -43,7 +43,7 @@ class NinjaGame extends React.Component {
         const lang = (params) ? params.l : "";
 
         //デバッグ用★
-        stage = 16;
+        stage = 7;
         ninja.snow = false;
         ninja.size = 6;
 

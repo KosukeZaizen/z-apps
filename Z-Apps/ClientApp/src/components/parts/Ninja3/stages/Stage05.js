@@ -28,7 +28,7 @@ Stage.getObjs = (ninja) => {
         rock3Pic: StageParts.getOnePic(50, -25, 65, Imgs.RockR, 20, OnTouch.toNothing),
         rock3Actual: StageParts.getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
 
-        rightGate: StageParts.getRightGate(4, 1, 63),
+        rightGate: StageParts.getRightGate(4, 1, 75 - ninja.size),
         bottomFall: StageParts.getDangerousObj(1000, -70, 100),
     };
 
