@@ -20,7 +20,14 @@ Stage.getObjs = (ninja) => {
 
         sapphire: StageParts.getOnePic(25, 69, 3, Imgs.Sapphire, 10, OnTouch.toNothing),
 
-        rightGate: StageParts.getRightGate(9, 100, 63),
+        ...StageParts.getSoroll("YUKIFURASHI", 10, 3, 65, Imgs.Scroll, Imgs.Snowman, 22),
+
+        ...StageParts.getIceBlocks(10, [
+            [-2, 5], [-1, 5], [0, 5], [1, 5], [2, 5],
+            [2, 6],
+        ], OnTouch.toBlock, Imgs.Ice, 90),
+
+        rightGate: StageParts.getRightGate(9, 100, 75 - ninja.size),
     };
 
     if (ninja.snow) {

@@ -46,6 +46,13 @@ export function setLang(lang) {
             "「踏みつけの術」が使えるようになる巻物。\n" +
             "飛び上がって敵を踏みつけることにより、一撃で息の根を止める。",
 
+        //雪降らしの術
+        YUKIFURASHI_SCROLL_TITLE: "雪降らしの術",
+        YUKIFURASHI_SCROLL_MESSAGE:
+            "仙人の念力が込められた雪だるまに触れることによって、\n" +
+            "雪を降らせることができる。\n" +
+            "雪だるまに触れてみるがよい。",
+
         //シノ
         SHINO_SCROLL_TITLE: "キノコ村はもうすぐよ",
         SHINO_SCROLL_MESSAGE:

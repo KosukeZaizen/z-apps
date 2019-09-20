@@ -9,7 +9,7 @@ import bgImg from '../img/background/tengumura4.jpg';
 
 const Stage = {};
 
-//天狗村　流れ出る温泉
+//キノコ村　流れ出る温泉
 Stage.getObjs = (ninja) => {
 
     Stage.bgImg = bgImg;

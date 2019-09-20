@@ -42,8 +42,10 @@ class NinjaGame extends React.Component {
         const params = getParams();
         const lang = (params) ? params.l : "";
 
-        stage = 12;//デバッグ用★
+        //デバッグ用★
+        stage = 16;
         ninja.snow = false;
+        ninja.size = 6;
 
         this.state = {
             language: lang,

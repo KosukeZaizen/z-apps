@@ -273,7 +273,6 @@ export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
         posY: posY,
         img: Imgs.Snowman,
         zIndex: 20,
-        next: next,
         onTouch: OnTouch.toSnowman,
         changeStage: changeStage,
     };

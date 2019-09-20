@@ -17,7 +17,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
 
-        snowman: StageParts.getStageChangeSnowman(12, 30, 55, 5),
+        snowman: StageParts.getStageChangeSnowman(12, 30, 55),
 
         rock1Pic: StageParts.getOnePic(60, 135, 30, Imgs.RockR, 20, OnTouch.toNothing),
         rock1Actual: StageParts.getOnePic(60, 135, 33, null, null, OnTouch.toBlock),
