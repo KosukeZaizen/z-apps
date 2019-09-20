@@ -9,7 +9,7 @@ import bgImg from '../img/background/tengumura2.jpg';
 
 const Stage = {};
 
-//天狗村　街中１
+//キノコ村　街中１
 Stage.getObjs = (ninja) => {
 
     Stage.bgImg = bgImg;

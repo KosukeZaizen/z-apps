@@ -20,7 +20,7 @@ class NinjaGame extends React.Component {
             posX: 145,
             posY: -20,
             //readScroll: [],
-            readScroll: ["飛び石の書"],//デバッグ用
+            readScroll: ["飛び石の書", "半化の書", "踏みつけの書"],//デバッグ用
             boolLeft: true,
             snow: true,
         };
@@ -42,11 +42,13 @@ class NinjaGame extends React.Component {
         const params = getParams();
         const lang = (params) ? params.l : "";
 
+        stage = 12;//デバッグ用★
+        ninja.snow = false;
+
         this.state = {
             language: lang,
             curPage: 1,
-            //stage: stage,
-            stage: 21,//デバッグ用★
+            stage: stage,
             ninja: ninja,
         };
         this.readElementScroll = [];

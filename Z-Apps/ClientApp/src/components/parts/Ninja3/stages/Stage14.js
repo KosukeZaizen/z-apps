@@ -27,9 +27,16 @@ Stage.getObjs = (ninja) => {
     };
 
     if (ninja.snow) {
+        //雪が降っている
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSnows(0.1, 30),
+        }
+    } else {
+        //雪がやんだ
+        returnObjs = {
+            ...returnObjs,
+            obake1: StageParts.getEnemy(13, 65, 50, Imgs.Obake2, 100, 0.5, 0.5),
         }
     }
     return returnObjs;

@@ -44,7 +44,13 @@ Stage.getObjs = (ninja) => {
             ...StageParts.getSoroll("OLD", 16, 120, 49, Imgs.OldWoman, Imgs.OldWoman, 20),
 
             ...StageParts.getSnows(0.1, 30),
-        }
+        };
+    } else {
+        returnObjs = {
+            ...returnObjs,
+            oni1: StageParts.getEnemy(17, 65, 56, Imgs.Oni, 40, 0.5, 0),
+            oni2: StageParts.getEnemy(20, 45, 53, Imgs.Oni, 40, 0.4, 0),
+        };
     }
     return returnObjs;
 }

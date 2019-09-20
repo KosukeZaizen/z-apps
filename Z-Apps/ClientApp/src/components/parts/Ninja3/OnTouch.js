@@ -195,10 +195,33 @@ export function toStageChangeCommon(ninja, from) {
 }
 
 //=======================================
-// 敵に触ってゲームオーバー
+// 倒せない敵に触ってゲームオーバー
 //=======================================
 export function toEnemy(ninja) {
     if (!!ninja && !!ninja.game) {
+        //ゲームを停止
+        clearInterval(ninja.game.timerId);
+        //ゲームオーバー画面へリダイレクト
+        window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
+    }
+}
+
+//=======================================
+// 倒せる敵に触ってゲームオーバー
+//=======================================
+export function toMortalEnemy(ninja, from) {
+
+    if (ninja.readScroll.indexOf(messages.TOBIISHI_SCROLL_TITLE) >= 0) {
+        //踏みつけの書を読んでいる
+        if (from === "upper") {
+            //上から
+            this.isDead = true;
+            ninja.speedY = -10;
+            return;
+        }
+    }
+
+    if (ninja && ninja.game) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト

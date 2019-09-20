@@ -259,7 +259,7 @@ export function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
         speedY: speedY,
         zIndex: zIndex,
         img: img,
-        onTouch: OnTouch.toEnemy,
+        onTouch: OnTouch.toMortalEnemy,
         enemy: true,
         eachTime: EachTime.Enemy,
     };

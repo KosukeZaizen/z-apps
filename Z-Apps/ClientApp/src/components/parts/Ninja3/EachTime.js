@@ -53,15 +53,9 @@ export function Enemy(ninja, key) {
             this.posY += this.speedY * (-1) * TIME_STEP;
         }
 
-        for (let i = 0; i <= ninja.fireBallCount; i++) {
-            if (ninja.game.objs["fireBall" + i]) {
-                //まだ消えていないFireBallについて
-
-                if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
-                    //敵がFireBallに触れた場合
-                    delete ninja.game.objs[key];
-                }
-            }
+        if (this.isDead) {
+            //既に踏みつけられていた場合
+            delete ninja.game.objs[key];
         }
     }
 }
