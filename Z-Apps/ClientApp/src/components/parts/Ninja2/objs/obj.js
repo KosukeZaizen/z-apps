@@ -221,12 +221,12 @@ function CloseElement(props) {
 
         //全クリ時のメッセージ
         return (
-            <Link to="/ninja">
+            <Link to="/ninja3">
                 <button
                     className={"btn btn-dark btn-lg btn-block"}
                     style={props.styleBtnClose}
                 >
-                    {"Exit Game"}
+                    {"Next Chapter"}
                 </button>
             </Link>
         );

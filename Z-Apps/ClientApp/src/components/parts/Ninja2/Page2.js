@@ -409,9 +409,9 @@ export default class Page2 extends React.Component {
                 //天界でコウスケに触った時のメッセージ
                 KOSUKE_SCROLL_TITLE: "Congratulations!",
                 KOSUKE_SCROLL_MESSAGE:
-                    "I am the creater of this game!\n" +
                     "You completed the game!\n" +
-                    "Thank you for playing!!!!",
+                    "In the next chapter,\n" +
+                    "save the village in the snow!",
             };
         }
 
