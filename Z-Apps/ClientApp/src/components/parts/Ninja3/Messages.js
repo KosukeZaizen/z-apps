@@ -116,9 +116,9 @@ export function setLang(lang) {
         //英雄墓地　看板
         SIGN3_SCROLL_TITLE: "伝説の英雄　ここに眠る",
         SIGN3_SCROLL_MESSAGE:
-            "かつて、姫が魔王にさらわれた。\n" +
+            "かつて、姫が魔物にさらわれた。\n" +
             "その際、京都から来た一人の忍者が敵の大群を打ち負かし、\n" +
-            "魔王から姫を救ったと言われている。\n",
+            "姫を救ったと言われている。\n",
 
         //修行僧
         MONK_SCROLL_TITLE: "私はキノコ村の修行僧です",
@@ -133,12 +133,6 @@ export function setLang(lang) {
             "ここから左に進むと、村のはずれに仙人様が住んでいるわ。\n" +
             "この雪も、悪い魔物を凍らせるために、仙人様が降らせているのよ。\n" +
             "でも仙人様も、ずっと雪を降らせておけるわけじゃないのよね…",
-
-        //少女２
-        GIRL2_SCROLL_TITLE: "怖いなぁ…",
-        GIRL2_SCROLL_MESSAGE:
-            "この雪がやんだら、魔物が襲ってくるんでしょ？\n" +
-            "怖いなぁ…\n",
 
         //老婆
         OLD_SCROLL_TITLE: "英雄墓地はすぐそこさ",
@@ -184,7 +178,7 @@ export function setLang(lang) {
         //踏みつけの術
         HUMITSUKE_SCROLL_TITLE: "The Art of Jump Crush",
         HUMITSUKE_SCROLL_MESSAGE:
-            "Now, you can use the secret skill of the Legendary hero.\n" +
+            "Now, you can use the secret skill of the legendary hero.\n" +
             "If you jump on the enemy, they will die.",
 
         //氷溶かしの術
@@ -219,7 +213,7 @@ export function setLang(lang) {
         SHINO4_SCROLL_MESSAGE:
             "Beyond the cliff, there is the main boss.\n" +
             "If you can defeat him, we will win!\n" +
-            "Let's save the Mushroom village!!",
+            "Let's save the Mushroom Village!!",
 
         //仙人
         SENNIN_SCROLL_TITLE: "I am the hermit",
@@ -229,7 +223,7 @@ export function setLang(lang) {
             "We need a plan to fight them when the snow stops...",
 
         //仙人2
-        SENNIN2_SCROLL_TITLE: "Now, you can fight against the monsters",
+        SENNIN2_SCROLL_TITLE: "Now, you can fight the monsters",
         SENNIN2_SCROLL_MESSAGE:
             "You gained the secret skill to kill them.\n" +
             "My powoer is drained... I can't make it snow anymore...\n" +
@@ -252,7 +246,7 @@ export function setLang(lang) {
         //キノコ村入り口　看板
         SIGN2_SCROLL_TITLE: "Welcome to the Mushroom Village",
         SIGN2_SCROLL_MESSAGE:
-            "Mushroom Village\n" +
+            "Here is the Mushroom Village.\n" +
             "Deep in the village, lies a hero's grave.",
 
         //英雄墓地　看板
@@ -271,15 +265,9 @@ export function setLang(lang) {
         //少女１
         GIRL1_SCROLL_TITLE: "Did you meet the hermit?",
         GIRL1_SCROLL_MESSAGE:
-            "If you go right, you can meet the hermit.\n" +
+            "If you go left, you can meet the hermit.\n" +
             "He is making it snow!\n" +
             "But he can't make it last forever...",
-
-        //少女２
-        GIRL2_SCROLL_TITLE: "I am scared...",
-        GIRL2_SCROLL_MESSAGE:
-            "I heard when the snow stops, monsters will come.\n" +
-            "It's scary...\n",
 
         //老婆
         OLD_SCROLL_TITLE: "The hero's grave is just over there",

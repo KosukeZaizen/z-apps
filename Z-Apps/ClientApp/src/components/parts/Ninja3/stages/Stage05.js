@@ -11,7 +11,7 @@ const Stage = {};
 
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
-    Stage.windSpeed = (ninja.snow) ? 2.5 : 1;//風速
+    Stage.windSpeed = (ninja.snow) ? 2.5 : 0;//風速
 
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
@@ -20,11 +20,11 @@ Stage.getObjs = (ninja) => {
         rock1Pic: StageParts.getOnePic(60, 135, 30, Imgs.RockR, 20, OnTouch.toNothing),
         rock1Actual: StageParts.getOnePic(60, 135, 33, null, null, OnTouch.toBlock),
 
-        rock2Pic: StageParts.getOnePic(50, 20, 65, Imgs.RockR, 20, OnTouch.toNothing),
-        rock2Actual: StageParts.getOnePic(50, 20, 68, null, null, OnTouch.toBlock),
+        rock2Pic: StageParts.getOnePic(50, -20, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock2Actual: StageParts.getOnePic(50, -20, 68, null, null, OnTouch.toBlock),
 
-        rock3Pic: StageParts.getOnePic(50, -25, 65, Imgs.RockR, 20, OnTouch.toNothing),
-        rock3Actual: StageParts.getOnePic(50, -25, 68, null, null, OnTouch.toBlock),
+        rock3Pic: StageParts.getOnePic(50, -65, 65, Imgs.RockR, 20, OnTouch.toNothing),
+        rock3Actual: StageParts.getOnePic(50, -65, 68, null, null, OnTouch.toBlock),
 
         bottomFall: StageParts.getDangerousObj(1000, -70, 100),
     };
@@ -38,8 +38,6 @@ Stage.getObjs = (ninja) => {
     } else {
         returnObjs = {
             ...returnObjs,
-            ...StageParts.getSnows(0.05, 30),
-
             boss: StageParts.getBoss(),
             leftGate: StageParts.getLeftGate(22),
         };

@@ -119,7 +119,7 @@ export function Boss(ninja, key) {
                 posX: this.posX,
                 posY: this.posY,
                 speedX: random3 / 5,
-                speedY: random2 / 8,
+                speedY: random2 / 10,
                 zIndex: 5,
                 img: Imgs.Shinigami,
                 onTouch: OnTouch.toMortalEnemy,

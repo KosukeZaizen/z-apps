@@ -286,7 +286,7 @@ export function getOneEye(size, posX, posY, zIndex) {
 export function getBoss() {
     return {
         size: 14,
-        posX: 28,
+        posX: 8,
         posY: 53,
         zIndex: 25,
         img: Imgs.Boss,
