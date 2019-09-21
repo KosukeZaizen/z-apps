@@ -153,26 +153,140 @@ export function setLang(lang) {
         //PCの場合、キーボードを使う旨のメッセージ
         PC_KEYBOARD: "Please use [←], [↑], and [→] keys to play!",
 
-        //屋根の上でポチに触った時のメッセージ
-        POCHI_SCROLL_TITLE: "Sneak into the enemy's castle!",
+        //初期のポチのメッセージ
+        POCHI_SCROLL_TITLE: "Come to my house",
         POCHI_SCROLL_MESSAGE:
-            "Can you see the enemy's castle!?\n" +
-            "Your mission is to sneak into the castle, and steal the secret scroll!\n" +
-            "Don't touch the enemy! Good luck!",
+            "What a strange occurence..snow in this area?\n" +
+            "There's something I want you to research.\n" +
+            "Push [＜] button, and come to my house.",
 
-        //火遁の巻物
-        FIRE_SCROLL_TITLE: "火遁",
-        FIRE_SCROLL_MESSAGE:
-            "This is the scroll to learn 'Fire Ball'.\n" +
-            "Push [<] button and [>] button at the same time.\n" +
-            "You can defeat the enemy using Fire Ball.",
+        //家でのポチ
+        POCHI2_SCROLL_TITLE: "How strange..snow in this season?",
+        POCHI2_SCROLL_MESSAGE:
+            "Located in the mountain is the Mushroom Villege.\n" +
+            "Maybe, something is happening there...\n" +
+            "Please read the scroll at the alter, and go to the villege!",
 
-        //階段のシノに触った時のメッセージ
-        SHINO_SCROLL_TITLE: "Hello!",
+        //飛び石の術
+        TOBIISHI_SCROLL_TITLE: "The Art of Flying Stone",
+        TOBIISHI_SCROLL_MESSAGE:
+            "Now, you can use the secret skill, Flying Stone.\n" +
+            "When you see a stone, please hitch a ride on it.\n" +
+            "You will arrive at your destination!",
+
+        //半化の術
+        HANKA_SCROLL_TITLE: "The Art of Small Mushroom",
+        HANKA_SCROLL_MESSAGE:
+            "Now, you can use the secret skill, Small Mushroom.\n" +
+            "If you touch a blue mushroom, your body will become small!\n" +
+            "If you touch a red mushroom, you will be normal size.",
+
+        //踏みつけの術
+        HUMITSUKE_SCROLL_TITLE: "The Art of Jump Crush",
+        HUMITSUKE_SCROLL_MESSAGE:
+            "Now, you can use the secret skill of the Legendary hero.\n" +
+            "If you jump on the enemy, they will die.",
+
+        //氷溶かしの術
+        MELT_SCROLL_TITLE: "The Art of Melting Ice",
+        MELT_SCROLL_MESSAGE:
+            "Now, you can melt the ice by touching it.\n" +
+            "Please touch the ice.",
+
+        //シノ
+        SHINO_SCROLL_TITLE: "The Mushroom villege is near!",
         SHINO_SCROLL_MESSAGE:
-            "Now, you can use Fire Ball.\n" +
-            "When you find a wooden box, you should use fire.\n" +
-            "It will burn the box, and you can see what's inside.",
+            "If you continue right, you can meet the hermit.\n" +
+            "You can recognize him because his face is red, and his nose is long.\n" +
+            "Is he controlling the weather, and making it snow..??",
+
+        //シノ2
+        SHINO2_SCROLL_TITLE: "Are these the fronzen monsters?",
+        SHINO2_SCROLL_MESSAGE:
+            "The hermit is making it snow to freeze the monsters...\n" +
+            "However, the monsters can't die from being frozen...\n" +
+            "If the ice melts, they will terrorize again.",
+
+        //シノ3
+        SHINO3_SCROLL_TITLE: "Oh, here is the Mushroom Villege",
+        SHINO3_SCROLL_MESSAGE:
+            "While the hermit is making it snow,\n" +
+            "we need to find the way to defeat the monsters...\n" +
+            "Maybe, they will unfreeze soon...",
+
+        //シノ4
+        SHINO4_SCROLL_TITLE: "The boss is just there",
+        SHINO4_SCROLL_MESSAGE:
+            "Beyond the cliff, there is the main boss.\n" +
+            "If you can defeat him, we will win!\n" +
+            "Let's save the Mushroom villege!!",
+
+        //仙人
+        SENNIN_SCROLL_TITLE: "I am the hermit",
+        SENNIN_SCROLL_MESSAGE:
+            "Now, I am making it snow to freeze the monsters.\n" +
+            "However, my power is now weak. I can't continue much longer.\n" +
+            "We need a plan to fight them when the snow stops...",
+
+        //仙人2
+        SENNIN2_SCROLL_TITLE: "Now, you can fight against the monsters",
+        SENNIN2_SCROLL_MESSAGE:
+            "You gained the secret skill to kill them.\n" +
+            "My powoer is drained... I can't make it snow anymore...\n" +
+            "Please crush them by jumping on them..!!",
+
+        //仙人3
+        SENNIN3_SCROLL_TITLE: "Thank you!",
+        SENNIN3_SCROLL_MESSAGE:
+            "You saved the villege!!\n" +
+            "I want to say thank you!\n" +
+            "You will be the village's hero now!!!",
+
+        //崖の看板
+        SIGN_SCROLL_TITLE: "Caution!",
+        SIGN_SCROLL_MESSAGE:
+            "There is a cliff.\n" +
+            "You should not go this way.\n" +
+            "When the wind is strong, you can fall.",
+
+        //キノコ村入り口　看板
+        SIGN2_SCROLL_TITLE: "Welcome to the Mushroom Village",
+        SIGN2_SCROLL_MESSAGE:
+            "Mushroom Village\n" +
+            "Deep in the village, lies a hero's grave.",
+
+        //英雄墓地　看板
+        SIGN3_SCROLL_TITLE: "The legendary hero is sleeping here",
+        SIGN3_SCROLL_MESSAGE:
+            "When a princess was kidnapped, the hero saved her.\n" +
+            "Alone, he defeat many enemies.",
+
+        //修行僧
+        MONK_SCROLL_TITLE: "I am a monk from the village",
+        MONK_SCROLL_MESSAGE:
+            "A few days ago, many monsters attacked our village.\n" +
+            "During that time, the hermit made it snow to freeze the monsters.\n" +
+            "If you keep going, you will see the frozen monsters.",
+
+        //少女１
+        GIRL1_SCROLL_TITLE: "仙人様には会った？",
+        GIRL1_SCROLL_MESSAGE:
+            "ここから左に進むと、村のはずれに仙人様が住んでいるわ。\n" +
+            "この雪も、悪い魔物を凍らせるために、仙人様が降らせているのよ。\n" +
+            "でも仙人様も、ずっと雪を降らせておけるわけじゃないのよね…",
+
+        //少女２
+        GIRL2_SCROLL_TITLE: "怖いなぁ…",
+        GIRL2_SCROLL_MESSAGE:
+            "この雪がやんだら、魔物が襲ってくるんでしょ？\n" +
+            "怖いなぁ…\n",
+
+        //老婆
+        OLD_SCROLL_TITLE: "英雄墓地はすぐそこさ",
+        OLD_SCROLL_MESSAGE:
+            "ここから右に進むと、かつて姫を救った英雄の墓があるよ。\n" +
+            "その英雄は、どんな敵でも、一撃で踏みつけて倒すことができたそうな…\n" +
+            "その秘術は、英雄の亡骸と一緒に墓に封印されているという話もあるが…",
     };
 
     if (lang === "Japanese") {
