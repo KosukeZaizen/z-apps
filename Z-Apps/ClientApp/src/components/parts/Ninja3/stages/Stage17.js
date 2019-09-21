@@ -16,7 +16,6 @@ Stage.getObjs = (ninja) => {
     let returnObjs = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
-        bottomFall: StageParts.getDangerousObj(1000, -70, 100),
 
         ...StageParts.getFlyingRockLeft("toLeft1", 17, 96, 21, 50),
         ...StageParts.getFlyingRockLeft("toLeft2", 17, 56, 52, 50),
@@ -41,6 +40,12 @@ Stage.getObjs = (ninja) => {
         returnObjs = {
             ...returnObjs,
             ...StageParts.getFlyingRockRight("toRight", 17, -17, 21, 30, 110),
+            bottomGate: StageParts.getBottomGate(17, 90, 115, -12, true),
+        };
+    } else {
+        returnObjs = {
+            ...returnObjs,
+            bottomFall: StageParts.getDangerousObj(1000, -70, 100),
         };
     }
     return returnObjs;

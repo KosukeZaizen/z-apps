@@ -244,7 +244,7 @@ export function toEnemy(ninja) {
 //=======================================
 export function toMortalEnemy(ninja, from) {
 
-    if (ninja.readScroll.indexOf(messages.TOBIISHI_SCROLL_TITLE) >= 0) {
+    if (ninja.readScroll.indexOf(messages.HUMITSUKE_SCROLL_TITLE) >= 0) {
         //踏みつけの書を読んでいる
         if (from === "upper") {
             //上から
