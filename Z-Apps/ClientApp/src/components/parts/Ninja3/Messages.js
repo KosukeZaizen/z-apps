@@ -157,8 +157,8 @@ export function setLang(lang) {
         //家でのポチ
         POCHI2_SCROLL_TITLE: "How strange..snow in this season?",
         POCHI2_SCROLL_MESSAGE:
-            "Located in the mountain is the Mushroom Village.\n" +
-            "Maybe, something is happening there...\n" +
+            "There is a hermit who can control the weather\n" +
+            "in the Mushroom Village. Maybe, something is happening there...\n" +
             "Please read the scroll at the altar, and go to the village!",
 
         //飛び石の術
