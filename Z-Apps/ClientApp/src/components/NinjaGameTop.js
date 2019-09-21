@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo1 from './parts/Ninja/img/logo.png';
 import logo2 from './parts/Ninja2/img/logo.png';
+import logo3 from './parts/Ninja3/img/logo.png';
 
 const NinjaGameTop = props => (
     <div className="ninjaGameTop" style={{ fontSize: "large" }}>
@@ -16,6 +17,12 @@ const NinjaGameTop = props => (
         <Link to="/ninja2">
             Chapter2: Castle Of The Maze<br />
             <img width="100%" src={logo2} alt="Ninja Game 2" />
+        </Link>
+        <br />
+        <br />
+        <Link to="/ninja3">
+            Chapter3: Frozen Nightmare<br />
+            <img width="100%" src={logo3} alt="Ninja Game 3" />
         </Link>
     </div>
 );

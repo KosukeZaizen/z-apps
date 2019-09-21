@@ -116,7 +116,7 @@ export function setLang(lang) {
         //英雄墓地　看板
         SIGN3_SCROLL_TITLE: "伝説の英雄　ここに眠る",
         SIGN3_SCROLL_MESSAGE:
-            "かつて、桃姫という姫が、亀の魔王にさらわれた。\n" +
+            "かつて、姫が魔王にさらわれた。\n" +
             "その際、京都から来た一人の忍者が敵の大群を打ち負かし、\n" +
             "魔王から姫を救ったと言われている。\n",
 
@@ -269,24 +269,24 @@ export function setLang(lang) {
             "If you keep going, you will see the frozen monsters.",
 
         //少女１
-        GIRL1_SCROLL_TITLE: "仙人様には会った？",
+        GIRL1_SCROLL_TITLE: "Did you meet the hermit?",
         GIRL1_SCROLL_MESSAGE:
-            "ここから左に進むと、村のはずれに仙人様が住んでいるわ。\n" +
-            "この雪も、悪い魔物を凍らせるために、仙人様が降らせているのよ。\n" +
-            "でも仙人様も、ずっと雪を降らせておけるわけじゃないのよね…",
+            "If you go right, you can meet the hermit.\n" +
+            "He is making it snow!\n" +
+            "But he can't make it last forever...",
 
         //少女２
-        GIRL2_SCROLL_TITLE: "怖いなぁ…",
+        GIRL2_SCROLL_TITLE: "I am scared...",
         GIRL2_SCROLL_MESSAGE:
-            "この雪がやんだら、魔物が襲ってくるんでしょ？\n" +
-            "怖いなぁ…\n",
+            "I heard when the snow stops, monsters will come.\n" +
+            "It's scary...\n",
 
         //老婆
-        OLD_SCROLL_TITLE: "英雄墓地はすぐそこさ",
+        OLD_SCROLL_TITLE: "The hero's grave is just over there",
         OLD_SCROLL_MESSAGE:
-            "ここから右に進むと、かつて姫を救った英雄の墓があるよ。\n" +
-            "その英雄は、どんな敵でも、一撃で踏みつけて倒すことができたそうな…\n" +
-            "その秘術は、英雄の亡骸と一緒に墓に封印されているという話もあるが…",
+            "If you keep going right, you will see the hero's grave.\n" +
+            "The hero could kill any monster just by jumping on them...\n" +
+            "They say the skill is sealed in his grave...",
     };
 
     if (lang === "Japanese") {
