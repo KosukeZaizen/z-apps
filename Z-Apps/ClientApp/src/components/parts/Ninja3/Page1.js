@@ -7,7 +7,7 @@ export default class Page1 extends React.Component {
     constructor(props) {
         super(props);
         this.consts = {
-            BTN_START_CLASS: "btn btn-dark btn-lg btn-block",
+            BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
         };
         this.state = {
             topImage: true,
@@ -28,7 +28,7 @@ export default class Page1 extends React.Component {
                 <span onClick={() => { this.hideTopImage() }}>
                     <TopImage topImage={this.state.topImage} />
                 </span>
-                <h2 style={{ color: "white", marginBottom: 10, }} >Which language do you prefer?</h2>
+                <h2 style={{ color: "black", marginBottom: 10, }} >Which language do you prefer?</h2>
                 {
                     screenHeight > 360 ?
                         <span>
@@ -79,7 +79,7 @@ export default class Page1 extends React.Component {
                         </span>
                 }
                 <br />
-                <center style={{ color: "white" }}>
+                <center style={{ color: "black" }}>
                     If you want to be a real Ninja, please check this:<br />
                     <a
                         href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
