@@ -38,9 +38,15 @@ class NinjaGame extends React.Component {
             stage = 1;
         }
 
-        //urlパラメータ取得
-        const params = getParams();
-        const lang = (params) ? params.l : "";
+        let lang;
+        if (ninja && ninja.lang) {
+            //セーブデータからlangが読み込めた場合
+            lang = ninja.lang;
+        } else {
+            //urlパラメータ取得
+            const params = getParams();
+            lang = (params) ? params.l : "";
+        }
 
         //デバッグ用★
         /*

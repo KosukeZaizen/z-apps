@@ -4,8 +4,6 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
-//タイムステップごとの処理
-import * as EachTime from '../EachTime';
 //背景画像
 import bgImg from '../img/background/grave4.jpg';
 

@@ -2,8 +2,6 @@
 import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
-//タッチ関数の読み込み
-import * as OnTouch from '../OnTouch';
 //背景画像
 import bgImg from '../img/background/tengumura1.jpg';
 
@@ -20,7 +18,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getArrowBoard("SIGN2", 115, 60, 10),
+        ...StageParts.getSoroll("SIGN2", 20, 115, 60, Imgs.Kanban1, null, 10),
 
         rightGate: StageParts.getRightGate(11),
         leftGate: StageParts.getLeftGate(9),
