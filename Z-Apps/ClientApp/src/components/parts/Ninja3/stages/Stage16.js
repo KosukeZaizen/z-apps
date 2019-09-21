@@ -4,6 +4,8 @@ import * as StageParts from './StagePartsGenerator';
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
+//タイムステップごとの処理
+import * as EachTime from '../EachTime';
 //背景画像
 import bgImg from '../img/background/washitsu.jpg';
 
@@ -20,20 +22,36 @@ Stage.getObjs = (ninja) => {
 
         sapphire: StageParts.getOnePic(25, 69, 3, Imgs.Sapphire, 10, OnTouch.toNothing),
 
-        ...StageParts.getSoroll("YUKIFURASHI", 10, 3, 65, Imgs.Scroll, Imgs.Snowman, 22),
+        ...StageParts.getSoroll("MELT", 10, 3, 65, Imgs.Scroll, Imgs.IceStone, 22),
 
         ...StageParts.getIceBlocks(10, [
+            [-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0],
+            [-2, 1], [-1, 1], [0, 1], [1, 1], [2, 1],
+            [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2],
+            [-2, 3], [-1, 3], [0, 3], [1, 3], [2, 3],
+            [-2, 4], [-1, 4], [0, 4], [1, 4], [2, 4],
             [-2, 5], [-1, 5], [0, 5], [1, 5], [2, 5],
             [2, 6],
-        ], OnTouch.toBlock, Imgs.Ice, 90),
+        ], OnTouch.toIceBlock, Imgs.Ice, 90),
 
-        rightGate: StageParts.getRightGate(9, 100, 75 - ninja.size),
+        rightGate: StageParts.getRightGate(9, 106, 75 - ninja.size),
     };
 
     if (ninja.snow) {
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSoroll("SENNIN", 14, 50, 60, Imgs.Sennin, Imgs.Sennin, 20),
+
+            iceBlockSnow: {
+                size: 10,
+                posX: 20,
+                posY: 70,
+                zIndex: 90,
+                img: Imgs.Ice,
+                onTouch: OnTouch.toIceBlock,
+                eachTime: EachTime.IceBlock,
+            },
+
             ...StageParts.getSnows(0.1, 30, true),
         }
     }

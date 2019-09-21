@@ -28,7 +28,7 @@ Stage.getObjs = (ninja) => {
 
         rock0: StageParts.getOnePic(40, 140, 48, Imgs.Rock, 10, OnTouch.toNothing, true),
 
-        ...StageParts.getIceBlocks(12, [
+        ...StageParts.getBlocks(12, [
             [-2, 6], [-1, 6], [0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6], [12, 6], [13, 6], [14, 6],
         ], OnTouch.toBlock, Imgs.Block, 50),
 

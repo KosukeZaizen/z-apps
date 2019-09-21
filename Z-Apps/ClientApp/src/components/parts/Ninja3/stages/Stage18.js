@@ -21,7 +21,7 @@ Stage.getObjs = (ninja) => {
 
         downArrow: StageParts.getOnePic(15, 9, 52, Imgs.DownArrow, 10, OnTouch.toNothing),
 
-        ...StageParts.getIceBlocks(10, [
+        ...StageParts.getBlocks(10, [
             [5, 2],[6, 2], [7, 2],
             [-2, 3], [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3],[5, 3], [6, 3], [7, 3],
             [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [3, 3.7], [4, 3.7], [5, 3.7], [6, 3.7], [7, 3.7],

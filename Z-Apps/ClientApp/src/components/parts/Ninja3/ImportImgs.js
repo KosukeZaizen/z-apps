@@ -39,6 +39,12 @@ import Oni from './../Ninja2/objs/oni.png';
 import Obake1 from './../Ninja2/objs/cat.png';
 //おばけ2
 import Obake2 from './../Ninja2/objs/bat.png';
+//一つ目
+import Hitotsume from './../Ninja2/objs/hitotsume.png';
+//火の玉
+import Hinotama from './../Ninja2/objs/hinotama.png';
+//ボス
+import Boss from './../Ninja2/objs/badDog.png';
 //炎（右）
 import FireRight from './../Ninja2/objs/fireBallR.png';
 //木ブロック
@@ -103,6 +109,9 @@ export default {
     Oni,
     Obake1,
     Obake2,
+    Hitotsume,
+    Hinotama,
+    Boss,
     FireRight,
     DarkDoor,
     Block,

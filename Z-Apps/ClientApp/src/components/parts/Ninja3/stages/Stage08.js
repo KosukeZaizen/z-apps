@@ -51,7 +51,17 @@ Stage.getObjs = (ninja) => {
             };
         }
     } else {
+        //雪がやんだとき
         Stage.bgImg = bgImg2;
+
+        returnObjs = {
+            ...returnObjs,
+            oni1: StageParts.getEnemy(15, 65, 61, Imgs.Oni, 100, 0.4, 0),
+            oni2: StageParts.getEnemy(20, 55, 56, Imgs.Oni, 100, 0.35, 0),
+            oni3: StageParts.getEnemy(13, 45, 63, Imgs.Oni, 100, 0.5, 0),
+
+            obake2: StageParts.getEnemy(30, 65, -20, Imgs.Obake2, 100, 0.4, 0.4),
+        };
     }
     return returnObjs;
 }

@@ -20,7 +20,7 @@ Stage.getObjs = (ninja) => {
         ...StageParts.getObjFloor(),
 
         leftGate: StageParts.getLeftGate(4),
-        rightGate: StageParts.getRightGate(7, 1, 63),
+        rightGate: StageParts.getRightGate(7, 1, 75 - ninja.size),
     };
 
     if (ninja.snow) {
@@ -55,6 +55,16 @@ Stage.getObjs = (ninja) => {
     } else {
         //雪がやんだとき
         Stage.bgImg = bgImg2;
+
+        returnObjs = {
+            ...returnObjs,
+            oni1: StageParts.getEnemy(67, 20, 11, Imgs.Oni, 100, 0.2, 0),
+            obake1: StageParts.getEnemy(16, 35, 65, Imgs.Obake1, 101, 0.4, 0.4),
+            obake2: StageParts.getEnemy(13, 20, 15, Imgs.Obake2, 102, 0.4, 0.4),
+            obake3: StageParts.getEnemy(10, 22, 35, Imgs.Obake2, 102, 0.3, 0.3),
+
+            ...StageParts.getFlyingRock(1, 20, 120, 60, 30, -50),
+        };
     }
     return returnObjs;
 }

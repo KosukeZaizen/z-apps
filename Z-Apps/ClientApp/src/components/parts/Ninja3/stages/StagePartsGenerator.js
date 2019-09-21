@@ -11,28 +11,11 @@ import { changeStage } from '../CommonFnc'//共通関数
 //------------------------------------------------------------
 
 //ブロック生成関数
-export function getItems(size, arrPos, onTouch, imgBlock, zIndex) {
+export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
     let objResult = {};
 
     for (let index in arrPos) {
-        objResult["objItem" + index] = {
-            size: size,
-            posX: arrPos[index][0] * size,
-            posY: arrPos[index][1] * size,
-            zIndex: zIndex,
-            img: imgBlock,
-            onTouch: onTouch,
-        };
-    }
-    return objResult;
-}
-
-//氷ブロック生成関数
-export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
-    let objResult = {};
-
-    for (let index in arrPos) {
-        objResult["objItem" + index] = {
+        objResult["block" + index] = {
             size: size,
             posX: arrPos[index][0] * size,
             posY: arrPos[index][1] * size,
@@ -45,8 +28,27 @@ export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
     return objResult;
 }
 
+//氷ブロック生成関数
+export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+    let objResult = {};
+
+    for (let index in arrPos) {
+        objResult["iceBlock" + index] = {
+            size: size,
+            posX: arrPos[index][0] * size,
+            posY: arrPos[index][1] * size,
+            zIndex: zIndex,
+            img: imgBlock,
+            onTouch: onTouch,
+            opacity: opacity,
+            eachTime: EachTime.IceBlock,
+        };
+    }
+    return objResult;
+}
+
 //画像　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft,opacity) {
+export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft, opacity) {
     return {
         size: size,
         posX: posX,
@@ -202,7 +204,7 @@ export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch)
 }
 
 //メッセージ表示　巻物
-export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft) {
+export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, isFinal) {
     let objResult = {};
 
     objResult[`${name}_ScrollOpener`] = {
@@ -228,6 +230,7 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
         message: messages[`${name}_SCROLL_MESSAGE`],
         fontSize: 3,
         speakerImg: speakerImg,
+        finalMessage: isFinal,
     };
     return objResult;
 }
@@ -265,16 +268,31 @@ export function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
     };
 }
 
-//ステージ変更用　スノーマン
-export function getStageChangeSnowman(size, posX, posY, next, nextPosLeft) {
+//一つ目
+export function getOneEye(size, posX, posY, zIndex) {
     return {
         size: size,
         posX: posX,
         posY: posY,
-        img: Imgs.Snowman,
-        zIndex: 20,
-        onTouch: OnTouch.toSnowman,
-        changeStage: changeStage,
+        zIndex: zIndex,
+        img: Imgs.Hitotsume,
+        onTouch: OnTouch.toEnemy,
+        enemy: true,
+        eachTime: EachTime.OneEye,
+    };
+}
+
+//ボス
+export function getBoss() {
+    return {
+        size: 14,
+        posX: 28,
+        posY: 53,
+        zIndex: 25,
+        img: Imgs.Boss,
+        onTouch: OnTouch.toMortalEnemy,
+        enemy: true,
+        eachTime: EachTime.Boss,
     };
 }
 

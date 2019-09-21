@@ -25,7 +25,7 @@ Stage.getObjs = (ninja) => {
 
         obake1: StageParts.getEnemy(13, 75, 80, Imgs.Obake1, 100, 0.5, 0.5),
 
-        ...StageParts.getIceBlocks(10, [
+        ...StageParts.getBlocks(10, [
             [5, 3], [6, 3],
             [5, 4], [6, 4],
 

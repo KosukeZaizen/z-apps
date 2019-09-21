@@ -32,6 +32,12 @@ Stage.getObjs = (ninja) => {
 
             ...StageParts.getSnows(0.1, 30),
         }
+    } else {
+        //雪がやんだとき
+        returnObjs = {
+            ...returnObjs,
+            shinigami: StageParts.getEnemy(16, 65, 45, Imgs.Shinigami, 100, 0.4, 0.4),
+        };
     }
     return returnObjs;
 }

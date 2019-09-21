@@ -1,5 +1,7 @@
 import { TIME_STEP } from './Consts'
-import { checkTouch } from './CommonFnc'
+import Imgs from './ImportImgs';
+import * as OnTouch from './OnTouch';//タッチ関数
+
 
 //------------------------------------------------------------
 //
@@ -61,6 +63,88 @@ export function Enemy(ninja, key) {
 }
 
 //=======================================
+// 一つ目小僧　タイムステップ毎
+//=======================================
+export function OneEye(ninja, key) {
+    if (this && this.enemy) {
+
+        //重複を防ぐために現在時刻をプロパティ名に
+        let day = new Date().getTime();
+
+        //5回に1回火の玉生成
+        var random1 = Math.floor(Math.random() * 6);
+        var random2 = Math.floor(Math.random() * 6);
+        var random3 = Math.floor(Math.random() * 6);
+        if (random1 === 0) {
+            if (random2 !== 0 && random3 !== 0) {
+                ninja.game.objs["oneEye" + day] = {
+                    size: 13,
+                    posX: this.posX,
+                    posY: this.posY,
+                    speedX: random2 / 10,
+                    speedY: random3 / 10,
+                    zIndex: 5,
+                    img: Imgs.Hinotama,
+                    onTouch: OnTouch.toEnemy,
+                    enemy: true,
+                    eachTime: Enemy,
+                };
+            }
+        }
+
+        if (this.isDead) {
+            //既に踏みつけられていた場合
+            delete ninja.game.objs[key];
+        }
+    }
+}
+
+//=======================================
+// ボス　タイムステップ毎
+//=======================================
+export function Boss(ninja, key) {
+    if (this && this.enemy) {
+
+        //重複を防ぐために現在時刻をプロパティ名に
+        let day = new Date().getTime();
+
+        //5回に1回コウモリ生成
+        let random1 = Math.floor(Math.random() * 14);
+        let random2 = Math.floor(Math.random() * 8);
+        let random3 = Math.floor(Math.random() * 8) || 1;
+
+        if (random1 * random2 === 9) {
+            ninja.game.objs["shinigami" + day] = {
+                size: 13,
+                posX: this.posX,
+                posY: this.posY,
+                speedX: random3 / 5,
+                speedY: random2 / 8,
+                zIndex: 5,
+                img: Imgs.Shinigami,
+                onTouch: OnTouch.toMortalEnemy,
+                enemy: true,
+                eachTime: Enemy,
+            };
+        }
+
+        if (this.isDead) {
+            delete ninja.game.objs[key];
+        }
+    }
+}
+
+//=======================================
+// 氷ブロック　タイムステップ毎
+//=======================================
+export function IceBlock(ninja, key) {
+    if (this.melt) {
+        //溶けて消える
+        delete ninja.game.objs[key];
+    }
+}
+
+//=======================================
 // 飛び石　タイムステップ毎
 //=======================================
 export function FlyingRock(ninja, key) {
@@ -92,28 +176,6 @@ export function FlyingRock(ninja, key) {
                 delete ninja.game.objs[key];
             } else {
                 this.posX -= 3 * TIME_STEP;
-            }
-        }
-    }
-}
-
-//=======================================
-// ファイヤーボール　タイムステップ毎
-//=======================================
-export function FireBall(ninja, key) {
-    //fireBall
-    if (this && this.fireBall) {
-        if (this.posX + this.size < 0 || this.posX > 160) {
-            //fireBallが画面からはみ出した場合、消す
-            delete ninja.game.objs[key];
-        } else {
-            //fireBallが画面内にある場合
-            if (this.boolLeft) {
-                //左向き
-                this.posX -= 10 * TIME_STEP;
-            } else {
-                //右向き
-                this.posX += 10 * TIME_STEP;
             }
         }
     }

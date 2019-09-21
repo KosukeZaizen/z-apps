@@ -31,9 +31,17 @@ Stage.getObjs = (ninja) => {
             ...returnObjs,
 
             ...StageParts.getSoroll("SHINO", 10, 110, 62, Imgs.Shino, Imgs.Shino, 20),
+            ...StageParts.getFrozenObj("kinoko", 10, 61, 67, Imgs.AkaKinoko),
 
             ...StageParts.getSnows(0.1, 30),
         }
+    } else {
+        //雪がやんだとき
+        returnObjs = {
+            ...returnObjs,
+            akaKinoko: StageParts.getOnePic(10, 61, 67, Imgs.AkaKinoko, 10, OnTouch.toAkaKinoko),
+            ...StageParts.getSoroll("SHINO4", 10, 110, 62, Imgs.Shino, Imgs.Shino, 20),
+        };
     }
     return returnObjs;
 }

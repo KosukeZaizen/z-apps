@@ -69,6 +69,36 @@ export function toBlock(ninja, from) {
 }
 
 //=======================================
+// 氷ブロック用のタッチ関数
+//=======================================
+export function toIceBlock(ninja, from) {
+    if (ninja.readScroll.indexOf(messages.MELT_SCROLL_TITLE) >= 0) {
+        //氷溶かしの書を読んでいる
+        this.melt = true;
+        return;
+    }
+
+    //氷溶かしの書を読んでいなければただのブロック
+    if (from === "upper") {
+        //上から
+        ninja.posY = this.posY - ninja.size;
+        ninja.speedY = 0;
+    } else if (from === "right") {
+        //右から
+        ninja.posX = this.posX + this.size;
+        ninja.speedX = 0;
+    } else if (from === "lower") {
+        //下から
+        ninja.posY = this.posY + this.size;
+        ninja.speedY = 0;
+    } else if (from === "left") {
+        //左から
+        ninja.posX = this.posX - ninja.size;
+        ninja.speedX = 0;
+    }
+}
+
+//=======================================
 // 上からのみ乗れる木などのタッチ関数
 //=======================================
 export function toTree(ninja) {

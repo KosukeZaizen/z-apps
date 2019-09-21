@@ -26,32 +26,31 @@ export function setLang(lang) {
             "そこの仏壇の巻物を読んで、キノコ村の様子を見てきてくれんか。",
 
         //飛び石の術
-        TOBIISHI_SCROLL_TITLE: "飛び石の書",
+        TOBIISHI_SCROLL_TITLE: "飛び石の術",
         TOBIISHI_SCROLL_MESSAGE:
             "秘技、飛び石の術が使えるようになる巻物。\n" +
             "岩を見つけたら、上に乗ってみるがよい。\n" +
             "目的の地にたどり着くことができるであろう。",
 
         //半化の術
-        HANKA_SCROLL_TITLE: "半化の書",
+        HANKA_SCROLL_TITLE: "半化の術",
         HANKA_SCROLL_MESSAGE:
             "秘技、半化の術が使えるようになる巻物。\n" +
             "青いキノコに触れることで体が小さくなる。\n" +
             "赤いキノコに触れると、元の大きさに戻る。",
 
         //踏みつけの術
-        HUMITSUKE_SCROLL_TITLE: "踏みつけの書",
+        HUMITSUKE_SCROLL_TITLE: "踏みつけの術",
         HUMITSUKE_SCROLL_MESSAGE:
             "伝説の英雄が用いた秘技、\n" +
             "「踏みつけの術」が使えるようになる巻物。\n" +
             "飛び上がって敵を踏みつけることにより、一撃で息の根を止める。",
 
-        //雪降らしの術
-        YUKIFURASHI_SCROLL_TITLE: "雪降らしの術",
-        YUKIFURASHI_SCROLL_MESSAGE:
-            "仙人の念力が込められた雪だるまに触れることによって、\n" +
-            "雪を降らせることができる。\n" +
-            "雪だるまに触れてみるがよい。",
+        //氷溶かしの術
+        MELT_SCROLL_TITLE: "氷溶かしの術",
+        MELT_SCROLL_MESSAGE:
+            "氷に触れることで、その氷を解かすことができる術。\n" +
+            "氷のブロックに触れてみるがよい。",
 
         //シノ
         SHINO_SCROLL_TITLE: "キノコ村はもうすぐよ",
@@ -74,6 +73,13 @@ export function setLang(lang) {
             "あの魔物たちを倒す方法を探さないと…\n" +
             "きっとまたすぐに魔物たちは動き出すわ…",
 
+        //シノ4
+        SHINO4_SCROLL_TITLE: "敵の親玉はすぐそこよ",
+        SHINO4_SCROLL_MESSAGE:
+            "崖の向こう側に、敵の親玉がいるわ。\n" +
+            "あいつさえ倒せば、魔物たちは逃げていくはずよ。\n" +
+            "さぁ、キノコ村を救うわよ！",
+
         //仙人
         SENNIN_SCROLL_TITLE: "わしがキノコ村の仙人じゃ",
         SENNIN_SCROLL_MESSAGE:
@@ -87,6 +93,13 @@ export function setLang(lang) {
             "伝説の英雄の秘技を身に着けたのじゃな。\n" +
             "わしの力はもう限界じゃ…もうしばらく雪を降らせることはできない…\n" +
             "伝説の秘技で敵を踏みつけて、あの魔物たちを退治してくれ！",
+
+        //仙人3
+        SENNIN3_SCROLL_TITLE: "ありがとう！",
+        SENNIN3_SCROLL_MESSAGE:
+            "お主のおかげでキノコ村は救われた。\n" +
+            "村を代表して礼を言わせてくれ！\n" +
+            "お主は村を救った英雄として、語り継がれるじゃろう！",
 
         //崖の看板
         SIGN_SCROLL_TITLE: "この先、崖",

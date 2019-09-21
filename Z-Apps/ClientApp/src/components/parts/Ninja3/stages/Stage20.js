@@ -23,7 +23,7 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getSoroll("HANKA", 10, 88, 43, Imgs.Scroll, Imgs.AoKinoko, 22),
 
-        ...StageParts.getIceBlocks(10, [
+        ...StageParts.getBlocks(10, [
             [8.4, 5.3], [9.4, 5.3],
         ], OnTouch.toBlock, Imgs.StoneBlock, 50),
 

@@ -19,8 +19,8 @@ class NinjaGame extends React.Component {
             speedY: 0,
             posX: 145,
             posY: -20,
-            //readScroll: [],
-            readScroll: ["飛び石の書", "半化の書", "踏みつけの書"],//デバッグ用
+            readScroll: [],
+            //readScroll: ["飛び石の術", "半化の術", "踏みつけの術"],//デバッグ用★
             boolLeft: true,
             snow: true,
         };
@@ -30,7 +30,7 @@ class NinjaGame extends React.Component {
 
         //セーブデータがあればそれを設定
         const objSaveData = JSON.parse(saveData);
-        if (objSaveData && false) {
+        if (objSaveData) {
             ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
         } else {
@@ -43,9 +43,10 @@ class NinjaGame extends React.Component {
         const lang = (params) ? params.l : "";
 
         //デバッグ用★
-        stage = 7;
+        /*
+        stage = 4;
         ninja.snow = false;
-        ninja.size = 6;
+        */
 
         this.state = {
             language: lang,

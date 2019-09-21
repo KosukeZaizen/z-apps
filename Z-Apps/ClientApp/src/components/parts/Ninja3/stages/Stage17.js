@@ -23,7 +23,7 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getFlyingRock("toUp", 17, 135, 16, 30),
 
-        ...StageParts.getIceBlocks(10, [
+        ...StageParts.getBlocks(10, [
             [11, 2], [12, 2],
             [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
             [11, 4], [12, 4], [13, 4], [14, 4], [15, 4], [16, 4],

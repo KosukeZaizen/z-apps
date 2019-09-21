@@ -41,8 +41,8 @@ Stage.getObjs = (ninja) => {
             ...StageParts.getSnows(0.15, 30, true),
 
             //英雄の墓への飛び石
-            ...StageParts.getFlyingRock(2, 17, 15, 63, 30),
-            topGate: StageParts.getTopGate(15, -100, 32, 10),
+            //...StageParts.getFlyingRock(2, 17, 15, 63, 30),
+            //topGate: StageParts.getTopGate(15, -100, 32, 10),
         };
         if (ninja.posX < 80) {
             //左から来た時
@@ -52,7 +52,11 @@ Stage.getObjs = (ninja) => {
             };
         }
     } else {
-        //雪がやんだ後
+        //雪がやんだとき
+        returnObjs = {
+            ...returnObjs,
+            obake2: StageParts.getEnemy(16, 65, 45, Imgs.Obake2, 100, 0.4, 0.4),
+        };
     }
     return returnObjs;
 }
