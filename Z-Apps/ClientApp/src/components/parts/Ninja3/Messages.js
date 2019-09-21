@@ -156,16 +156,16 @@ export function setLang(lang) {
         //初期のポチのメッセージ
         POCHI_SCROLL_TITLE: "Come to my house",
         POCHI_SCROLL_MESSAGE:
-            "What a strange occurence..snow in this area?\n" +
+            "What a strange occurrence...snow in this area?\n" +
             "There's something I want you to research.\n" +
             "Push [＜] button, and come to my house.",
 
         //家でのポチ
         POCHI2_SCROLL_TITLE: "How strange..snow in this season?",
         POCHI2_SCROLL_MESSAGE:
-            "Located in the mountain is the Mushroom Villege.\n" +
+            "Located in the mountain is the Mushroom Village.\n" +
             "Maybe, something is happening there...\n" +
-            "Please read the scroll at the alter, and go to the villege!",
+            "Please read the scroll at the altar, and go to the village!",
 
         //飛び石の術
         TOBIISHI_SCROLL_TITLE: "The Art of Flying Stone",
@@ -194,21 +194,21 @@ export function setLang(lang) {
             "Please touch the ice.",
 
         //シノ
-        SHINO_SCROLL_TITLE: "The Mushroom villege is near!",
+        SHINO_SCROLL_TITLE: "The Mushroom village is near!",
         SHINO_SCROLL_MESSAGE:
             "If you continue right, you can meet the hermit.\n" +
             "You can recognize him because his face is red, and his nose is long.\n" +
             "Is he controlling the weather, and making it snow..??",
 
         //シノ2
-        SHINO2_SCROLL_TITLE: "Are these the fronzen monsters?",
+        SHINO2_SCROLL_TITLE: "Are these the frozen monsters?",
         SHINO2_SCROLL_MESSAGE:
             "The hermit is making it snow to freeze the monsters...\n" +
             "However, the monsters can't die from being frozen...\n" +
             "If the ice melts, they will terrorize again.",
 
         //シノ3
-        SHINO3_SCROLL_TITLE: "Oh, here is the Mushroom Villege",
+        SHINO3_SCROLL_TITLE: "Oh, here is the Mushroom Village",
         SHINO3_SCROLL_MESSAGE:
             "While the hermit is making it snow,\n" +
             "we need to find the way to defeat the monsters...\n" +
@@ -219,7 +219,7 @@ export function setLang(lang) {
         SHINO4_SCROLL_MESSAGE:
             "Beyond the cliff, there is the main boss.\n" +
             "If you can defeat him, we will win!\n" +
-            "Let's save the Mushroom villege!!",
+            "Let's save the Mushroom village!!",
 
         //仙人
         SENNIN_SCROLL_TITLE: "I am the hermit",
@@ -238,7 +238,7 @@ export function setLang(lang) {
         //仙人3
         SENNIN3_SCROLL_TITLE: "Thank you!",
         SENNIN3_SCROLL_MESSAGE:
-            "You saved the villege!!\n" +
+            "You saved the village!!\n" +
             "I want to say thank you!\n" +
             "You will be the village's hero now!!!",
 
@@ -259,7 +259,7 @@ export function setLang(lang) {
         SIGN3_SCROLL_TITLE: "The legendary hero is sleeping here",
         SIGN3_SCROLL_MESSAGE:
             "When a princess was kidnapped, the hero saved her.\n" +
-            "Alone, he defeat many enemies.",
+            "Alone, he defeated many enemies.",
 
         //修行僧
         MONK_SCROLL_TITLE: "I am a monk from the village",

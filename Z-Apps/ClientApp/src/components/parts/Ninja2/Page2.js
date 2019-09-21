@@ -411,7 +411,7 @@ export default class Page2 extends React.Component {
                 KOSUKE_SCROLL_MESSAGE:
                     "You completed the game!\n" +
                     "In the next chapter,\n" +
-                    "save the village in the snow!",
+                    "save the village in the snowy mountain!",
             };
         }
 

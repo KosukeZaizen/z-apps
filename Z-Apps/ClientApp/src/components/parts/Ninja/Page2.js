@@ -347,7 +347,7 @@ export default class Page2 extends React.Component {
                 POCHI_SCROLL_MESSAGE:
                     "I'm Pochi!\n" +
                     "To become a Ninja Master, you should collect the scrolls of the four elements!\n" +
-                    "I have one. Please grab the scroll at the alter, and read!",
+                    "I have one. Please grab the scroll at the altar, and read!",
 
                 //城でポチに触った時のメッセージ
                 POCHI_SCROLL2_TITLE: "Congratulation!",
