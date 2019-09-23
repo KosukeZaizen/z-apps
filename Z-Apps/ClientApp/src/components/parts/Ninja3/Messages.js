@@ -188,7 +188,7 @@ export function setLang(lang) {
             "Please touch the ice.",
 
         //シノ
-        SHINO_SCROLL_TITLE: "The Mushroom village is near!",
+        SHINO_SCROLL_TITLE: "The Mushroom Village is near!",
         SHINO_SCROLL_MESSAGE:
             "If you continue right, you can meet the hermit.\n" +
             "You can recognize him because his face is red, and his nose is long.\n" +
