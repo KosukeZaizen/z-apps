@@ -120,6 +120,11 @@ export function setLang(lang) {
             "その際、京都から来た一人の忍者が敵の大群を打ち負かし、\n" +
             "姫を救ったと言われている。\n",
 
+        //仙人の家の前　看板
+        SIGN4_SCROLL_TITLE: "仙人の家",
+        SIGN4_SCROLL_MESSAGE:
+            "左に進むと、天候を操る仙人の家",
+
         //修行僧
         MONK_SCROLL_TITLE: "私はキノコ村の修行僧です",
         MONK_SCROLL_MESSAGE:
@@ -254,6 +259,11 @@ export function setLang(lang) {
         SIGN3_SCROLL_MESSAGE:
             "When a princess was kidnapped, the hero saved her.\n" +
             "Alone, he defeated many enemies.",
+
+        //仙人の家の前　看板
+        SIGN4_SCROLL_TITLE: "The hermit's house",
+        SIGN4_SCROLL_MESSAGE:
+            "If you go left, there is the hermit's house.",
 
         //修行僧
         MONK_SCROLL_TITLE: "I am a monk from the village",

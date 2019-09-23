@@ -20,6 +20,8 @@ Stage.getObjs = (ninja) => {
 
         ...StageParts.getSoroll("SIGN2", 20, 115, 60, Imgs.Kanban1, null, 10),
 
+        ...StageParts.getArrowBoard("SIGN4", 12, 60, 10, true),
+
         rightGate: StageParts.getRightGate(11),
         leftGate: StageParts.getLeftGate(9),
     };
