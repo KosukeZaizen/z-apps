@@ -97,7 +97,7 @@ export default class Page1 extends React.Component {
 
 function TopImage(props) {
     if (props.topImage) {
-        return <h1><img width="100%" src={logo} alt="Lingual Ninja Game" /></h1>;
+        return <h1><img width="100%" src={logo} alt="Lingual Ninja Games - Scrolls of The Four Elements" /></h1>;
     } else {
         return <span></span>;
     }

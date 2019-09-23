@@ -78,7 +78,7 @@ class NinjaGame extends React.Component {
         return (
             <center id="ninja-game" style={style}>
                 <Head
-                    title="Lingual Ninja Games"
+                    title="Lingual Ninja Games - Scrolls of The Four Elements"
                 />
                 <Pages
                     state={this.state}
