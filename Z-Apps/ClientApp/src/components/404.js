@@ -4,12 +4,17 @@ import img404 from '../img/404.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { getParams } from './common/functions';
+import Head from './parts/Helmet';
 
 const NotFound = props => {
     const params = getParams();
 
     return (
         <div>
+            <Head
+                title="404"
+                noindex={true}
+            />
             <center>
                 <h1>Page not found!</h1>
                 <hr />

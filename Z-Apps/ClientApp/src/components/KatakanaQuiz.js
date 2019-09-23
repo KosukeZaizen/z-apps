@@ -1,6 +1,7 @@
 import React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
+import Head from './parts/Helmet';
 
 class KatakanaQuiz extends React.Component {
 
@@ -20,6 +21,9 @@ class KatakanaQuiz extends React.Component {
     render() {
         return (
             <center className="kana-quiz" >
+                <Head
+                    title="Katakana Quiz"
+                />
                 <QuizCore
                     consts={this.consts}
                     changePage={this.changePage}

@@ -4,6 +4,7 @@ import { Page2 } from './parts/Ninja3/Page2';
 import * as Consts from './parts/Ninja3/Consts'
 import { getParams } from './common/functions';
 import '../css/NinjaGame2.css';//CSSは2のもの
+import Head from './parts/Helmet';
 
 class NinjaGame extends React.Component {
 
@@ -95,6 +96,9 @@ class NinjaGame extends React.Component {
 
         return (
             <center id="ninja-game" style={style}>
+                <Head
+                    title="Lingual Ninja Games"
+                />
                 <Pages
                     state={this.state}
                     changePage={(i, lang) => { this.changePage(i, lang) }}

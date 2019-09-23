@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Terms.css';
+import Head from './parts/Helmet';
 
 const Terms = props => (
     <div className="terms">
+        <Head
+            title="Terms of Use"
+        />
         <center>
             <h1>Z-Apps<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Terms of Use</h1>
 

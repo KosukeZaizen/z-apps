@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/Stories';
+import Head from './parts/Helmet';
 
 let objConst = {};
 
@@ -43,6 +44,9 @@ class Stories extends React.Component {
     render() {
         return (
             <center className="kanji-converter">
+                <Head
+                    title="Lingual Ninja Stories"
+                />
                 <h1>
                     <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
                 </h1>

@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import Head from './parts/Helmet';
 
 const Home = props => (
     <div className="home">
+        <Head
+            title="Z-Apps"
+        />
         <center>
             <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>
             <div className="initial-message">

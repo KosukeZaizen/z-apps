@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/RomajiConverter.css';
+import Head from './parts/Helmet';
 
 let objConst = {};
 
@@ -116,6 +117,9 @@ class RomajiConverter extends React.Component {
     render() {
         return (
             <center className="romaji-converter">
+                <Head
+                    title="Romaji Converter"
+                />
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>

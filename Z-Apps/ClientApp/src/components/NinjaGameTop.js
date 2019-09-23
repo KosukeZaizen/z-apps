@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import logo1 from './parts/Ninja/img/logo.png';
 import logo2 from './parts/Ninja2/img/logo.png';
 import logo3 from './parts/Ninja3/img/logo.png';
+import Head from './parts/Helmet';
 
 const NinjaGameTop = props => (
     <div className="ninjaGameTop" style={{ fontSize: "large" }}>
+        <Head
+            title="Lingual Ninja Games"
+        />
         <center><h1>Lingual Ninja Games</h1></center>
         <br />
         <Link to="/ninja1">

@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from './parts/Helmet';
 
 class ColorPalette extends React.Component {
 
@@ -125,6 +126,9 @@ class ColorPalette extends React.Component {
 
         return (
             <center id="color-palette">
+                <Head
+                    title="Color Code Getter"
+                />
                 <h1 style={styleTitle}>Color Code Getter</h1>
                 <div style={styleContents}>
                     <div style={{ padding: 10, marginBottom: 10, border: "5px double #333333", }}>

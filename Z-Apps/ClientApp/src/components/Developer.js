@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Developer.css';
 import image from '../img/KosukeZaizen.JPG';
+import Head from './parts/Helmet';
 
 function SayHello() {
     return (
@@ -17,6 +18,9 @@ function SayHello() {
 
 const Developer = props => (
     <div className="developer">
+        <Head
+            title="Kosuke Zaizen"
+        />
         <center>
             <h1>Kosuke Zaizen</h1>
 

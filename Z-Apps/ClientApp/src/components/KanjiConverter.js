@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
+import Head from './parts/Helmet';
 
 let objConst = {};
 
@@ -142,6 +143,9 @@ class KanjiConverter extends React.Component {
 
         return (
             <center className="kanji-converter">
+                <Head
+                    title="Kanji Converter"
+                />
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
