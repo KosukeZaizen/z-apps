@@ -145,6 +145,7 @@ class KanjiConverter extends React.Component {
             <center className="kanji-converter">
                 <Head
                     title="Kanji Converter"
+                    desc="A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"
                 />
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>

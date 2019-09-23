@@ -12,6 +12,12 @@ const PageHeader = props => {
                         null
                 }
                 {
+                    props.desc ?
+                        <meta name="description" content={props.desc} />
+                        :
+                        null
+                }
+                {
                     props.noindex ?
                         <meta name="robots" content="noindex" />
                         :

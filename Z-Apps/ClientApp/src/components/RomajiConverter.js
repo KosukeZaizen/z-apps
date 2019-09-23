@@ -119,6 +119,7 @@ class RomajiConverter extends React.Component {
             <center className="romaji-converter">
                 <Head
                     title="Romaji Converter"
+                    desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"
                 />
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>

@@ -20,6 +20,7 @@ const Developer = props => (
     <div className="developer">
         <Head
             title="Kosuke Zaizen"
+            desc="I am a Japanese software engineer. Z-Apps is a website for Japanese learners. I hope Z-Apps can help!"
         />
         <center>
             <h1>Kosuke Zaizen</h1>

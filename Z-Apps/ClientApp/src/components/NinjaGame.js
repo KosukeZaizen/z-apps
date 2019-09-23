@@ -79,6 +79,7 @@ class NinjaGame extends React.Component {
             <center id="ninja-game" style={style}>
                 <Head
                     title="Lingual Ninja Games - Scrolls of The Four Elements"
+                    desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
                 />
                 <Pages
                     state={this.state}

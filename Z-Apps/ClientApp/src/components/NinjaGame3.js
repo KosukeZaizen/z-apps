@@ -98,6 +98,7 @@ class NinjaGame extends React.Component {
             <center id="ninja-game" style={style}>
                 <Head
                     title="Lingual Ninja Games - Frozen Nightmare"
+                    desc="Japanese action game! Be a ninja, and save the village from the monsters!"
                 />
                 <Pages
                     state={this.state}

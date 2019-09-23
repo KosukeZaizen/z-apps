@@ -7,10 +7,10 @@ const Terms = props => (
     <div className="terms">
         <Head
             title="Terms of Use"
+            desc="Z-Apps - The ownership of website and Responsibility"
         />
         <center>
             <h1>Z-Apps<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Terms of Use</h1>
-
             <div className="contents">
                 <hr />
                 <h2>The ownership of website</h2>

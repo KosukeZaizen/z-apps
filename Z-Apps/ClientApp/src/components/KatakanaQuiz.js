@@ -23,6 +23,7 @@ class KatakanaQuiz extends React.Component {
             <center className="kana-quiz" >
                 <Head
                     title="Katakana Quiz"
+                    desc="An app to remember Katakana! I hope this will help you to study!"
                 />
                 <QuizCore
                     consts={this.consts}

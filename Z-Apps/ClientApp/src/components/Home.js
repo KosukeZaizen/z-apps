@@ -8,6 +8,7 @@ const Home = props => (
     <div className="home">
         <Head
             title="Z-Apps"
+            desc="Applications to learn Japanese, made by Kosuke Zaizen. I hope you enjoy!"
         />
         <center>
             <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>

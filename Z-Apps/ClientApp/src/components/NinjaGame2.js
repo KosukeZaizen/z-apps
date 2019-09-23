@@ -81,6 +81,7 @@ class NinjaGame extends React.Component {
             <center id="ninja-game" style={style}>
                 <Head
                     title="Lingual Ninja Games - Castle Of The Maze"
+                    desc="Japanese action game! Be a ninja, and defeat the enemy in the castle!"
                 />
                 <Pages
                     state={this.state}

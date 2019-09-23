@@ -9,6 +9,7 @@ const NinjaGameTop = props => (
     <div className="ninjaGameTop" style={{ fontSize: "large" }}>
         <Head
             title="Lingual Ninja Games"
+            desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
         />
         <center><h1>Lingual Ninja Games</h1></center>
         <br />
