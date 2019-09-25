@@ -19,7 +19,7 @@ namespace Z_Apps.Controllers
             service = new Service(new DBCon());
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{id?}/{page?}")]
         public IEnumerable<Sentence> GetPageData(int id, int page)
         {
             if (id > 0 && page > 0)

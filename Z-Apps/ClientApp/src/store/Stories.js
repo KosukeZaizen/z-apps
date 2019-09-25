@@ -9,7 +9,7 @@ export const actionCreators = {
             return;
         }
         dispatch({ type: requestStoriesType, kanjis });
-        const url = `api/Stories/GetPageData?id=1&page=1`;
+        const url = `api/Stories/GetPageData/1/1`;
         const response = await fetch(url);
         const pageContents = await response.json();
 
