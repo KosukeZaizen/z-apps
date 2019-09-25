@@ -3,17 +3,19 @@ const receiveStoriesType = 'RECEIVE_STORIES';
 const initialState = { pageContents: [], isLoading: false };
 
 export const actionCreators = {
-    requestKanjiConvert: kanjis => async (dispatch, getState) => {
+    requestKanjiConvert: () => async (dispatch, getState) => {
+        /*
         if (kanjis === getState().kanjiConverter.kanjis) {
             // Don't issue a duplicate request (we already have or are loading the requested data)
             return;
         }
-        dispatch({ type: requestStoriesType, kanjis });
+        */
+        dispatch({ type: requestStoriesType });
         const url = `api/Stories/GetPageData/1/1`;
         const response = await fetch(url);
         const pageContents = await response.json();
 
-        dispatch({ type: receiveStoriesType, kanjis, pageContents });
+        dispatch({ type: receiveStoriesType, pageContents });
     }
 };
 
