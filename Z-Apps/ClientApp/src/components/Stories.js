@@ -23,7 +23,8 @@ class Stories extends React.Component {
     }
 
     render() {
-        const title = this.props.pageContents.storyName;
+        const storyName = this.props.pageContents.storyName || "";
+        const title = storyName.split("-").join(" ");
         return (
             <div>
                 <Head
