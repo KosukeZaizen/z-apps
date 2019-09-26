@@ -10,7 +10,7 @@ class Stories extends React.Component {
     constructor(props) {
         super(props);
 
-        const { params } = props.match
+        const { params } = props.match;
         const storyName = params.storyName.toString();
 
         this.state = {
