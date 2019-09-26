@@ -23,24 +23,37 @@ class Stories extends React.Component {
     }
 
     render() {
+        const title = this.props.pageContents.storyName;
         return (
-            <center>
+            <div>
                 <Head
-                    title="Lingual Ninja Stories"
+                    title={title}
+                    desc={this.props.pageContents.description}
                 />
-                <h1 style={{
-                    margin: "30px",
-                    lineHeight: "30px",
-                }}>
-                    <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
-                </h1>
+                <center>
+                    <h1 style={{
+                        margin: "30px",
+                        lineHeight: "30px",
+                    }}>
+                        <b>{title}</b>
+                    </h1>
+                    <br />
+                    {
+                        this.props.pageContents.description && this.props.pageContents.description.split("\\n").map(d =>
+                            <span>
+                                {d}<br />
+                            </span>
+                        )
+                    }
+                </center >
+                <br />
                 <br />
                 {this.props.isLoading ?
                     <span>
                         <CircularProgress key="circle" size="20%" />
                     </span>
                     :
-                    this.props.pageContents.map(s =>
+                    this.props.pageContents.sentences && this.props.pageContents.sentences.map(s =>
                         <ul key={s.lineNumber}>
                             <li>{s.kanji}</li>
                             <li>{s.hiragana}</li>
@@ -49,7 +62,7 @@ class Stories extends React.Component {
                         </ul>
                     )
                 }
-            </center >
+            </div>
         );
     }
 };

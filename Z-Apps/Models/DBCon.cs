@@ -10,16 +10,9 @@ namespace Z_Apps.Models
 {
     public class DBCon
     {
-        private SqlConnection sqlConnection;
-
-        public DBCon()
-        {
-            sqlConnection = new SqlConnection(PrivateConsts.CONNECTION_STRING);
-        }
-
         public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams)
         {
-            using (var connection = sqlConnection)
+            using (var connection = new SqlConnection(PrivateConsts.CONNECTION_STRING))
             using (var command = new SqlCommand(sql, connection))
             {
                 try
@@ -71,11 +64,5 @@ namespace Z_Apps.Models
                 }
             }
         }
-
-        public SqlCommand getSqlCommand(string sql)
-        {
-            return new SqlCommand(sql, sqlConnection);
-        }
-        
     }
 }
