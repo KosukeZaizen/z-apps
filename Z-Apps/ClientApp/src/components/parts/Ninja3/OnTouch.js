@@ -161,34 +161,6 @@ export function toFlyingRock(ninja, from) {
 }
 
 //=======================================
-// 雪だるま（天候変化）
-//=======================================
-export function toSnowman(ninja, from) {
-    if (ninja.readScroll.indexOf(messages.YUKIFURASHI_SCROLL_TITLE) >= 0) {
-        ninja.snow = ninja.snow ? false : true;
-        if (from === "right") {
-            //右から
-            ninja.posX = this.posX - ninja.size - 1;
-            ninja.speedX = 0;
-            ninja.speedY = 0;
-        } else if (from === "left") {
-            //左から
-            ninja.posX = this.posX + this.size + 1;
-            ninja.speedX = 0;
-            ninja.speedY = 0;
-        } else {
-            //上か下から
-            ninja.posX = this.posX + this.size + 1;
-            ninja.posY = this.posY;
-            ninja.speedX = 0;
-            ninja.speedY = 0;
-        }
-        changeStage(ninja.game.props.stage, ninja);
-        return "changed";
-    }
-}
-
-//=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
 export function toStageChangeCommon(ninja, from) {

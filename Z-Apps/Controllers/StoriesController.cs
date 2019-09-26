@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Models.Stories;
-using Z_Apps.Models.Stories.Sentences;
+using Z_Apps.Models.Stories.Stories;
 
 namespace Z_Apps.Controllers
 {
@@ -19,13 +19,13 @@ namespace Z_Apps.Controllers
             service = new Service(new DBCon());
         }
 
-        [HttpGet("[action]/{id?}/{page?}")]
-        public IEnumerable<Sentence> GetPageData(int id, int page)
+        [HttpGet("[action]/{storyName?}")]
+        public Story GetPageData(string storyName, int page = 1)
         {
-            if (id > 0 && page > 0)
+            if (!string.IsNullOrEmpty(storyName) && page > 0)
             {
-                var pageData = service.GetPageData(id, page);
-                return pageData;
+                var story = service.GetPageData(storyName, page);
+                return story;
             }
             else
             {

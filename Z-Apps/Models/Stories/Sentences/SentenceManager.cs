@@ -24,7 +24,7 @@ namespace Z_Apps.Models.Stories.Sentences
             sql += " order by LineNumber;";
 
             //List<Dictionary<string, Object>>型で取得
-            var sentences = Con.ExecuteSelect(sql);
+            var sentences = Con.ExecuteSelect(sql, null);
 
             //List<Sentence>型に変換してreturn
             var resultSentences = new List<Sentence>();

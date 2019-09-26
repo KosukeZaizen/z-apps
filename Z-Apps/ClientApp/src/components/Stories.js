@@ -10,21 +10,28 @@ class Stories extends React.Component {
     constructor(props) {
         super(props);
 
+        const { params } = props.match
+        const storyName = params.storyName.toString();
+
         this.state = {
+            storyName: storyName,
         };
     }
 
     componentWillMount() {
-        this.props.requestKanjiConvert();
+        this.props.requestKanjiConvert(this.state.storyName);
     }
 
     render() {
         return (
-            <center className="kanji-converter">
+            <center>
                 <Head
                     title="Lingual Ninja Stories"
                 />
-                <h1>
+                <h1 style={{
+                    margin: "30px",
+                    lineHeight: "30px",
+                }}>
                     <b>Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Stories</b>
                 </h1>
                 <br />

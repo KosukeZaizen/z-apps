@@ -18,7 +18,7 @@ namespace Z_Apps.Controllers
         {
             service = new Service(new DBCon());
         }
-
+        /*
         [HttpGet("[action]")]
         public IEnumerable<Sentence> GetPageData(int id, int page)
         {
@@ -32,5 +32,6 @@ namespace Z_Apps.Controllers
                 return null;
             }
         }
+        */
     }
 }

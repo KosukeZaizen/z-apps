@@ -41,7 +41,7 @@ export default class App extends React.Component {
                         <Route path='/romaji-converter' component={RomajiConverter} />
                         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
-                        <Route path='/stories' component={Stories} />
+                        <Route path='/stories/:storyName' component={Stories} />
                         <Route path='/stories-setting' component={StoriesSetting} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />
