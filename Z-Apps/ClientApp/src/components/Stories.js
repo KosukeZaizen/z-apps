@@ -19,7 +19,7 @@ class Stories extends React.Component {
     }
 
     componentWillMount() {
-        this.props.requestKanjiConvert(this.state.storyName);
+        this.props.loadStory(this.state.storyName);
     }
 
     render() {
@@ -49,9 +49,9 @@ class Stories extends React.Component {
                 <br />
                 <br />
                 {this.props.isLoading ?
-                    <span>
+                    <center>
                         <CircularProgress key="circle" size="20%" />
-                    </span>
+                    </center>
                     :
                     this.props.pageContents.sentences && this.props.pageContents.sentences.map(s =>
                         <ul key={s.lineNumber}>

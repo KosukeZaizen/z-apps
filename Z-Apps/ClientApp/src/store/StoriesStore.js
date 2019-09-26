@@ -3,7 +3,7 @@ const receiveStoriesType = 'RECEIVE_STORIES';
 const initialState = { pageContents: [], isLoading: false };
 
 export const actionCreators = {
-    requestKanjiConvert: (storyName) => async (dispatch, getState) => {
+    loadStory: (storyName) => async (dispatch, getState) => {
         try {
             dispatch({ type: requestStoriesType });
 
