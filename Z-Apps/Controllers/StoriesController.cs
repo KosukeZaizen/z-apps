@@ -8,6 +8,7 @@ using Z_Apps.Models;
 using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
+using Z_Apps.Models.Stories.Words;
 
 namespace Z_Apps.Controllers
 {
@@ -41,6 +42,20 @@ namespace Z_Apps.Controllers
             {
                 var sentences = service.GetSentences(storyId);
                 return sentences;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [HttpGet("[action]/{storyId?}")]
+        public IEnumerable<Word> GetWords(int storyId)
+        {
+            if (storyId > 0)
+            {
+                var wordList = service.GetWords(storyId);
+                return wordList;
             }
             else
             {

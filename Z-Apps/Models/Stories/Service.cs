@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Stories;
+using Z_Apps.Models.Stories.Sentences;
+using Z_Apps.Models.Stories.Words;
 
 namespace Z_Apps.Models.Stories
 {
@@ -27,6 +28,13 @@ namespace Z_Apps.Models.Stories
             var sem = new SentenceManager(con);
             var sentences = sem.GetSentences(storyId);
             return sentences;
+        }
+
+        public IEnumerable<Word> GetWords(int storyId)
+        {
+            var wm = new WordManager(con);
+            var words = wm.GetWords(storyId);
+            return words;
         }
     }
 }

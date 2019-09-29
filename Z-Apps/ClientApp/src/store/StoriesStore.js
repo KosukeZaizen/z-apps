@@ -1,14 +1,11 @@
-const requestPageType = 'REQUEST_PAGE';
 const receivePageType = 'RECEIVE_PAGE';
-const requestSentencesType = 'REQUEST_SENTENCES';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
-const initialState = { storyDesc: [], sentences: [] };
+const receiveWordsType = 'RECEIVE_WORDS';
+const initialState = { storyDesc: [], sentences: [], words: [] };
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
-            dispatch({ type: requestPageType });
-
             const url = `api/Stories/GetPageData/${storyName}`;
             const response = await fetch(url);
             const storyDesc = await response.json();
@@ -22,8 +19,6 @@ export const actionCreators = {
     },
     loadSentences: (storyId) => async (dispatch, getState) => {
         try {
-            dispatch({ type: requestSentencesType });
-
             const url = `api/Stories/GetSentences/${storyId}`;
             const response = await fetch(url);
             const sentences = await response.json();
@@ -35,16 +30,24 @@ export const actionCreators = {
             return;
         }
     },
+    loadWords: (storyId) => async (dispatch, getState) => {
+        try {
+            const url = `api/Stories/GetWords/${storyId}`;
+            const response = await fetch(url);
+            const words = await response.json();
+
+            dispatch({ type: receiveWordsType, words });
+
+        } catch (e) {
+            console.log(e);
+            window.location.href = `/not-found?p=${window.location.pathname}`;
+            return;
+        }
+    },
 };
 
 export const reducer = (state, action) => {
     state = state || initialState;
-
-    if (action.type === requestPageType) {
-        return {
-            ...state,
-        };
-    }
 
     if (action.type === receivePageType) {
         return {
@@ -53,16 +56,17 @@ export const reducer = (state, action) => {
         };
     }
 
-    if (action.type === requestSentencesType) {
-        return {
-            ...state,
-        };
-    }
-
     if (action.type === receiveSentencesType) {
         return {
             ...state,
             sentences: action.sentences,
+        };
+    }
+
+    if (action.type === receiveWordsType) {
+        return {
+            ...state,
+            words: action.words,
         };
     }
 

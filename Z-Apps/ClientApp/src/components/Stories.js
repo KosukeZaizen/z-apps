@@ -57,6 +57,8 @@ class Stories extends React.Component {
                                 storyId={this.props.storyDesc.storyId}
                                 sentences={this.props.sentences}
                                 loadSentences={this.props.loadSentences.bind(this)}
+                                words={this.props.words}
+                                loadWords={this.props.loadWords.bind(this)}
                             />
                             :
                             <center>
@@ -77,6 +79,14 @@ class Sentences extends React.Component {
         this.state = {
         };
         this.props.loadSentences(this.props.storyId);
+    }
+
+    componentDidUpdate() {
+        if (this.props.sentences && this.props.sentences.length > 0) {
+            if (!this.props.words || this.props.words.length <= 0) {
+                this.props.loadWords(this.props.storyId);
+            }
+        }
     }
 
     render() {
@@ -111,6 +121,32 @@ class Sentences extends React.Component {
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div style={{ margin: 5, backgroundColor: "#f8f7f8" }}>
+                                    <center>
+                                        <table border="1" style={{ borderCollapse: "collapse" }}>
+                                            <tbody>
+                                                {
+                                                    this.props.words && this.props.words.filter(w =>
+                                                        w.lineNumber === s.lineNumber
+                                                    ).map(w =>
+                                                        <tr key={w.wordNumber}>
+                                                            <td style={{ textAlign: "center" }}>
+                                                                {w.kanji}<br />
+                                                                {
+                                                                    w.hiragana ?
+                                                                        `(${w.hiragana})`
+                                                                        :
+                                                                        null
+                                                                }
+                                                            </td>
+                                                            <td style={{paddingLeft:3}}>{w.english}</td>
+                                                        </tr>
+                                                    )
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </center>
+                                </div>
                                 <br />
                             </span>
                         )
