@@ -11,6 +11,5 @@ namespace Z_Apps.Models.Stories.Stories
         public int StoryId { get; set; }
         public string StoryName { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Sentence> Sentences { get; set; }
     }
 }

@@ -1,42 +1,68 @@
-const requestStoriesType = 'REQUEST_STORIES';
-const receiveStoriesType = 'RECEIVE_STORIES';
-const initialState = { pageContents: [], isLoading: false };
+const requestPageType = 'REQUEST_PAGE';
+const receivePageType = 'RECEIVE_PAGE';
+const requestSentencesType = 'REQUEST_SENTENCES';
+const receiveSentencesType = 'RECEIVE_SENTENCES';
+const initialState = { storyDesc: [], sentences: [] };
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
-            dispatch({ type: requestStoriesType });
+            dispatch({ type: requestPageType });
 
             const url = `api/Stories/GetPageData/${storyName}`;
             const response = await fetch(url);
-            const pageContents = await response.json();
+            const storyDesc = await response.json();
 
-            dispatch({ type: receiveStoriesType, pageContents });
+            dispatch({ type: receivePageType, storyDesc });
 
         } catch (e) {
             window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
-    }
+    },
+    loadSentences: (storyId) => async (dispatch, getState) => {
+        try {
+            dispatch({ type: requestSentencesType });
+
+            const url = `api/Stories/GetSentences/${storyId}`;
+            const response = await fetch(url);
+            const sentences = await response.json();
+
+            dispatch({ type: receiveSentencesType, sentences });
+
+        } catch (e) {
+            window.location.href = `/not-found?p=${window.location.pathname}`;
+            return;
+        }
+    },
 };
 
 export const reducer = (state, action) => {
     state = state || initialState;
 
-    if (action.type === requestStoriesType) {
+    if (action.type === requestPageType) {
         return {
             ...state,
-            kanjis: action.kanjis,
-            isLoading: true
         };
     }
 
-    if (action.type === receiveStoriesType) {
+    if (action.type === receivePageType) {
         return {
             ...state,
-            kanjis: action.kanjis,
-            pageContents: action.pageContents,
-            isLoading: false
+            storyDesc: action.storyDesc,
+        };
+    }
+
+    if (action.type === requestSentencesType) {
+        return {
+            ...state,
+        };
+    }
+
+    if (action.type === receiveSentencesType) {
+        return {
+            ...state,
+            sentences: action.sentences,
         };
     }
 

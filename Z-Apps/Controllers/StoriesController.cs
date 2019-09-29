@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
+using Z_Apps.Models.Stories.Sentences;
 
 namespace Z_Apps.Controllers
 {
@@ -26,6 +27,20 @@ namespace Z_Apps.Controllers
             {
                 var story = service.GetPageData(storyName, page);
                 return story;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [HttpGet("[action]/{storyId?}")]
+        public IEnumerable<Sentence> GetSentences(int storyId, int page = 1)
+        {
+            if (storyId > 0 && page > 0)
+            {
+                var sentences = service.GetSentences(storyId, page);
+                return sentences;
             }
             else
             {

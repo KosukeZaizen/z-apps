@@ -8,23 +8,25 @@ namespace Z_Apps.Models.Stories
 {
     public class Service
     {
-        private SentenceManager sem;
-        private StoryManager stm;
+        
+        private DBCon con;
         public Service(DBCon con)
         {
-            sem = new SentenceManager(con);
-            stm = new StoryManager(con);
+            this.con = con;
         }
 
         public Story GetPageData(string storyName, int pageNumber)
         {
+            var stm = new StoryManager(con);
             var story = stm.GetStory(storyName);
-
-            if (story != null)
-            {
-                story.Sentences = sem.GetSentences(story.StoryId, pageNumber);
-            }
             return story;
+        }
+
+        public IEnumerable<Sentence> GetSentences(int storyId, int pageNumber)
+        {
+            var sem = new SentenceManager(con);
+            var sentences = sem.GetSentences(storyId, pageNumber);
+            return sentences;
         }
     }
 }
