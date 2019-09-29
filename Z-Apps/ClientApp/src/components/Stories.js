@@ -77,6 +77,7 @@ class Sentences extends React.Component {
         super(props);
 
         this.state = {
+            showWordList: false
         };
         this.props.loadSentences(this.props.storyId);
     }
@@ -121,33 +122,13 @@ class Sentences extends React.Component {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div style={{ margin: 5, backgroundColor: "#f8f7f8" }}>
-                                    <center>
-                                        <table border="1" style={{ borderCollapse: "collapse" }}>
-                                            <tbody>
-                                                {
-                                                    this.props.words && this.props.words.filter(w =>
-                                                        w.lineNumber === s.lineNumber
-                                                    ).map(w =>
-                                                        <tr key={w.wordNumber}>
-                                                            <td style={{ textAlign: "center" }}>
-                                                                {w.kanji}<br />
-                                                                {
-                                                                    w.hiragana ?
-                                                                        `(${w.hiragana})`
-                                                                        :
-                                                                        null
-                                                                }
-                                                            </td>
-                                                            <td style={{paddingLeft:3}}>{w.english}</td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </center>
-                                </div>
-                                <br />
+                                <WordList
+                                    words={this.props.words}
+                                    s={s}
+                                    loadSentences={this.props.loadSentences}
+                                    storyId={this.props.storyId}
+                            />
+                                <hr />
                             </span>
                         )
                 }
@@ -155,6 +136,87 @@ class Sentences extends React.Component {
         );
     }
 };
+
+class WordList extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showWordList: false
+        };
+        this.props.loadSentences(this.props.storyId);
+    }
+
+    showWordList = () => {
+        this.setState({ showWordList: true });
+    }
+
+    hideWordList = () => {
+        this.setState({ showWordList: false });
+    }
+
+    render() {
+        return (
+            <span>
+                {
+                    this.props.words && this.props.words.filter(w =>
+                        w.lineNumber === this.props.s.lineNumber
+                    ).length > 0 ?
+                        this.state.showWordList ?
+                            <button
+                                style={{ margin: 10, height: 28, paddingTop: 0 }}
+                                className="btn btn-success btn-xs"
+                                onClick={this.hideWordList}
+                            >
+                                ▲　Hide word list
+                                                </button>
+                            :
+                            <button
+                                style={{ marginTop: 10, height: 28, paddingTop: 0 }}
+                                className="btn btn-success btn-xs"
+                                onClick={this.showWordList}
+                            >
+                                ▼　Show word list
+                                                </button>
+                        :
+                        null
+                }
+                <div style={{ backgroundColor: "#f8f7f8" }}>
+                    {
+                        this.state.showWordList ?
+                            <center>
+                                <table border="1" style={{ borderCollapse: "collapse" }}>
+                                    <tbody>
+                                        {
+                                            this.props.words && this.props.words.filter(w =>
+                                                w.lineNumber === this.props.s.lineNumber
+                                            ).map(w =>
+                                                <tr key={w.wordNumber}>
+                                                    <td style={{ textAlign: "center", minWidth: 100 }}>
+                                                        {w.kanji}<br />
+                                                        {
+                                                            w.hiragana ?
+                                                                `(${w.hiragana})`
+                                                                :
+                                                                null
+                                                        }
+                                                    </td>
+                                                    <td style={{ paddingLeft: 3 }}>{w.english}</td>
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                            </center>
+                            :
+                            null
+                    }
+                </div>
+            </span>
+        )
+    }
+}
 
 export default connect(
     state => state.stories,
