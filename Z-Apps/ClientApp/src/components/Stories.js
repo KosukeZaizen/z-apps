@@ -20,7 +20,7 @@ class Stories extends React.Component {
     }
 
     render() {
-        const storyName = this.props.pageContents.storyName || "";
+        const storyName = this.props.pageContents.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
         return (
             <center>
@@ -36,15 +36,20 @@ class Stories extends React.Component {
                         <b>{title}</b>
                     </h1>
                     <br />
-                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                        {
-                            this.props.pageContents.description && this.props.pageContents.description.split("\\n").map((d, i) =>
-                                <span key={i}>
-                                    {d}<br />
-                                </span>
-                            )
-                        }
-                    </div>
+                    {
+                        this.props.pageContents.description ?
+                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                {
+                                    this.props.pageContents.description.split("\\n").map((d, i) =>
+                                        <span key={i}>
+                                            {d}<br />
+                                        </span>
+                                    )
+                                }
+                            </div>
+                            :
+                            null
+                    }
                     <br />
                     <div style={{ textAlign: "left" }}>
                         {this.props.isLoading ?
@@ -54,7 +59,7 @@ class Stories extends React.Component {
                             :
                             this.props.pageContents.sentences && this.props.pageContents.sentences.map(s =>
                                 <span key={s.lineNumber}>
-                                    <table style={{width: "100%"}}>
+                                    <table style={{ width: "100%" }}>
                                         <tbody>
                                             <tr style={{ backgroundColor: "#f0f8ff" }}>
                                                 <td><b>Ｋ:　</b></td>
