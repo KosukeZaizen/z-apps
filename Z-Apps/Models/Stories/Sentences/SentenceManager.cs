@@ -14,13 +14,12 @@ namespace Z_Apps.Models.Stories.Sentences
             Con = con;
         }
 
-        public IEnumerable<Sentence> GetSentences(int storyId, int pageNumber)
+        public IEnumerable<Sentence> GetSentences(int storyId)
         {
             //SQL文作成
             string sql = "";
             sql += "select * from tblSentence";
             sql += " where StoryId =" + storyId;
-            sql += " and PageNumber =" + pageNumber;
             sql += " order by LineNumber;";
 
             //List<Dictionary<string, Object>>型で取得
@@ -32,7 +31,6 @@ namespace Z_Apps.Models.Stories.Sentences
             {
                 var sentence = new Sentence();
                 sentence.SentenceId = (int)dicSentence["StoryId"];
-                sentence.PageNumber = (int)dicSentence["PageNumber"];
                 sentence.LineNumber = (int)dicSentence["LineNumber"];
                 sentence.Kanji = (string)dicSentence["Kanji"];
                 sentence.Hiragana = (string)dicSentence["Hiragana"];

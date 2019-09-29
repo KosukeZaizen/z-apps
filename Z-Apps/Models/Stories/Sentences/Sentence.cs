@@ -9,7 +9,6 @@ namespace Z_Apps.Models.Stories.Sentences
     {
         public int SentenceId { get; set; }
         public int StoryId { get; set; }
-        public int PageNumber { get; set; }
         public int LineNumber { get; set; }
         public string Kanji { get; set; }
         public string Hiragana { get; set; }

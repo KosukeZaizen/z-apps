@@ -15,17 +15,17 @@ namespace Z_Apps.Models.Stories
             this.con = con;
         }
 
-        public Story GetPageData(string storyName, int pageNumber)
+        public Story GetPageData(string storyName)
         {
             var stm = new StoryManager(con);
             var story = stm.GetStory(storyName);
             return story;
         }
 
-        public IEnumerable<Sentence> GetSentences(int storyId, int pageNumber)
+        public IEnumerable<Sentence> GetSentences(int storyId)
         {
             var sem = new SentenceManager(con);
-            var sentences = sem.GetSentences(storyId, pageNumber);
+            var sentences = sem.GetSentences(storyId);
             return sentences;
         }
     }

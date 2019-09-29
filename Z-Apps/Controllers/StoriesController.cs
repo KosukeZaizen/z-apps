@@ -21,11 +21,11 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyName?}")]
-        public Story GetPageData(string storyName, int page = 1)
+        public Story GetPageData(string storyName)
         {
-            if (!string.IsNullOrEmpty(storyName) && page > 0)
+            if (!string.IsNullOrEmpty(storyName))
             {
-                var story = service.GetPageData(storyName, page);
+                var story = service.GetPageData(storyName);
                 return story;
             }
             else
@@ -35,11 +35,11 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<Sentence> GetSentences(int storyId, int page = 1)
+        public IEnumerable<Sentence> GetSentences(int storyId)
         {
-            if (storyId > 0 && page > 0)
+            if (storyId > 0)
             {
-                var sentences = service.GetSentences(storyId, page);
+                var sentences = service.GetSentences(storyId);
                 return sentences;
             }
             else
