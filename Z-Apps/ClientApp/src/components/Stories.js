@@ -16,9 +16,6 @@ class Stories extends React.Component {
         this.state = {
             storyName: storyName,
         };
-    }
-
-    componentWillMount() {
         this.props.loadStory(this.state.storyName);
     }
 
@@ -57,7 +54,7 @@ class Stories extends React.Component {
                             :
                             this.props.pageContents.sentences && this.props.pageContents.sentences.map(s =>
                                 <span key={s.lineNumber}>
-                                    <table>
+                                    <table style={{width: "100%"}}>
                                         <tbody>
                                             <tr style={{ backgroundColor: "#f0f8ff" }}>
                                                 <td><b>Ｋ:　</b></td>
