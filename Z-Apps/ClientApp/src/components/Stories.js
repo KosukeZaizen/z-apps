@@ -45,7 +45,7 @@ class Stories extends React.Component {
                                 alt={this.state.storyName}
                                 title={this.state.storyName}
                             />
-                                :
+                            :
                             null
                     }
                     <br /><br />
@@ -178,12 +178,12 @@ class WordList extends React.Component {
                     ).length > 0 ?
                         this.state.showWordList ?
                             <button
-                                style={{ marginTop: 10, marginBottom: 1, height: 28, paddingTop: 0, color: "white" }}
+                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "white" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.hideWordList}
                             >
                                 ▲　Hide word list
-                                                </button>
+                            </button>
                             :
                             <button
                                 style={{ marginTop: 10, height: 28, paddingTop: 0 }}
@@ -191,7 +191,7 @@ class WordList extends React.Component {
                                 onClick={this.showWordList}
                             >
                                 ▼　Show word list
-                                                </button>
+                            </button>
                         :
                         null
                 }
