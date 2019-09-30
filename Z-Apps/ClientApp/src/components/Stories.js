@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from '../store/StoriesStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class Stories extends React.Component {
 
@@ -36,6 +37,17 @@ class Stories extends React.Component {
                         <b>{title}</b>
                     </h1>
                     <br />
+                    {
+                        this.props.storyDesc && this.props.storyDesc.storyName ?
+                            <img
+                                src={Imgs[this.props.storyDesc.storyName]}
+                                width="90%"
+                                alt={this.props.storyDesc.storyName}
+                            />
+                                :
+                            null
+                    }
+                    <br /><br />
                     {
                         this.props.storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
