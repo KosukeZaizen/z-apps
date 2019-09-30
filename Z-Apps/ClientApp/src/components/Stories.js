@@ -38,12 +38,12 @@ class Stories extends React.Component {
                     </h1>
                     <br />
                     {
-                        this.props.storyDesc && this.props.storyDesc.storyName ?
+                        this.state.storyName ?
                             <img
-                                src={Imgs[this.props.storyDesc.storyName]}
+                                src={Imgs[this.state.storyName]}
                                 width="90%"
-                                alt={this.props.storyDesc.storyName}
-                                title={this.props.storyDesc.storyName}
+                                alt={this.state.storyName}
+                                title={this.state.storyName}
                             />
                                 :
                             null
