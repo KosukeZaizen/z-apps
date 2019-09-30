@@ -43,6 +43,7 @@ class Stories extends React.Component {
                                 src={Imgs[this.props.storyDesc.storyName]}
                                 width="90%"
                                 alt={this.props.storyDesc.storyName}
+                                title={this.props.storyDesc.storyName}
                             />
                                 :
                             null
