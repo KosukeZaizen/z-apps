@@ -127,7 +127,7 @@ class Sentences extends React.Component {
                                     s={s}
                                     loadSentences={this.props.loadSentences}
                                     storyId={this.props.storyId}
-                            />
+                                />
                                 <hr />
                             </span>
                         )
@@ -165,8 +165,8 @@ class WordList extends React.Component {
                     ).length > 0 ?
                         this.state.showWordList ?
                             <button
-                                style={{ margin: 10, height: 28, paddingTop: 0 }}
-                                className="btn btn-success btn-xs"
+                                style={{ marginTop: 10, marginBottom: 1, height: 28, paddingTop: 0, color: "white" }}
+                                className="btn btn-dark btn-xs"
                                 onClick={this.hideWordList}
                             >
                                 ▲　Hide word list
