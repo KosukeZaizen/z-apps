@@ -260,8 +260,9 @@ class FooterMenu extends React.Component {
     render() {
         const { screenWidth } = this.state;
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
-        const buttonWidth = tableWidth / 4 - 1;
+        const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
+        const tdStyle = { width: `${buttonWidth}px` };
         return (
             <div style={{
                 position: "fixed",
@@ -269,20 +270,37 @@ class FooterMenu extends React.Component {
                 left: 0,
                 zIndex: 999999999,
                 width: `${screenWidth}px`,
-                backgroundColor: "#fcd9a1",
+                height: "50px",
+                backgroundColor: "white",
             }}>
                 <table style={{
                     position: "fixed",
-                    bottom: 0,
+                    bottom: 3,
                     left: `${tableLeft}px`,
                     width: tableWidth,
                 }}>
                     <tbody>
                         <tr>
-                            <td><button style={{ fontSize: "x-small", backgroundColor: "#f0f8ff", width: `${buttonWidth}px` }}><b style={{ fontSize:"x-large"}}>K</b> anji</button></td>
-                            <td><button style={{ fontSize: "x-small", backgroundColor: "#ffffe0", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>H</b> iragana</button></td>
-                            <td><button style={{ fontSize: "x-small", backgroundColor: "#fff0f2", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>R</b> omaji</button></td>
-                            <td><button style={{ fontSize: "x-small", backgroundColor: "#f0fff2", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>E</b> nglish</button></td>
+                            <td style={tdStyle}>
+                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#f0f8ff", }}>
+                                    <b style={{ fontSize: "x-large" }}>K</b> anji
+                                </button>
+                            </td>
+                            <td style={tdStyle}>
+                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#ffffe0", }}>
+                                    <b style={{ fontSize: "x-large" }}>H</b> iragana
+                                </button>
+                            </td>
+                            <td style={tdStyle}>
+                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#fff0f2", }}>
+                                    <b style={{ fontSize: "x-large" }}>R</b> omaji
+                                </button>
+                            </td>
+                            <td style={tdStyle}>
+                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#f0fff2", }}>
+                                    <b style={{ fontSize: "x-large" }}>E</b> nglish
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
