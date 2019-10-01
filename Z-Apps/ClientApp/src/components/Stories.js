@@ -78,6 +78,7 @@ class Stories extends React.Component {
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
+                    <FooterMenu />
                 </div>
             </center>
         );
@@ -227,6 +228,65 @@ class WordList extends React.Component {
                     }
                 </div>
             </span>
+        )
+    }
+}
+
+class FooterMenu extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            screenWidth : parseInt(window.innerWidth, 10),
+        };
+
+        let timer = 0;
+        window.onresize = () => {
+            if (timer > 0) {
+                clearTimeout(timer);
+            }
+
+            timer = setTimeout(() => {
+                this.changeScreenSize();
+            }, 100);
+        };
+    }
+
+    changeScreenSize = () => {
+        this.setState({ screenWidth: parseInt(window.innerWidth, 10)});
+    }
+
+    render() {
+        const { screenWidth } = this.state;
+        const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
+        const buttonWidth = tableWidth / 4 - 1;
+        const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
+        return (
+            <div style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                zIndex: 999999999,
+                width: `${screenWidth}px`,
+                backgroundColor: "#fcd9a1",
+            }}>
+                <table style={{
+                    position: "fixed",
+                    bottom: 0,
+                    left: `${tableLeft}px`,
+                    width: tableWidth,
+                }}>
+                    <tbody>
+                        <tr>
+                            <td><button style={{ fontSize: "x-small", backgroundColor: "#f0f8ff", width: `${buttonWidth}px` }}><b style={{ fontSize:"x-large"}}>K</b> anji</button></td>
+                            <td><button style={{ fontSize: "x-small", backgroundColor: "#ffffe0", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>H</b> iragana</button></td>
+                            <td><button style={{ fontSize: "x-small", backgroundColor: "#fff0f2", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>R</b> omaji</button></td>
+                            <td><button style={{ fontSize: "x-small", backgroundColor: "#f0fff2", width: `${buttonWidth}px` }}><b style={{ fontSize: "x-large" }}>E</b> nglish</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
