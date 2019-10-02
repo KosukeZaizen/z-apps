@@ -18,8 +18,33 @@ class Stories extends React.Component {
 
         this.state = {
             storyName: storyName,
+            kanji: false,
+            hiragana: true,
+            romaji: false,
+            english: true,
         };
         this.props.loadStory(this.state.storyName);
+    }
+
+    onClickLangBtn = (btnType) => {
+        switch (btnType) {
+
+            case "kanji":
+                this.setState({ kanji: !this.state.kanji, });
+                break;
+
+            case "hiragana":
+                this.setState({ hiragana: !this.state.hiragana, });
+                break;
+
+            case "romaji":
+                this.setState({ romaji: !this.state.romaji, });
+                break;
+
+            case "english":
+                this.setState({ english: !this.state.english, });
+                break;
+        }
     }
 
     render() {
@@ -77,6 +102,7 @@ class Stories extends React.Component {
                             :
                             null
                     }
+                    <br />
                     {
                         this.props.storyDesc.storyId ?
                             <Sentences
@@ -85,13 +111,17 @@ class Stories extends React.Component {
                                 loadSentences={this.props.loadSentences.bind(this)}
                                 words={this.props.words}
                                 loadWords={this.props.loadWords.bind(this)}
+                                langState={this.state}
                             />
                             :
                             <center>
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
-                    <FooterMenu />
+                    <FooterMenu
+                        onClickLangBtn={this.onClickLangBtn}
+                        langState={this.state}
+                    />
                 </div>
             </center>
         );
@@ -119,6 +149,8 @@ class Sentences extends React.Component {
 
     render() {
         const isLoading = !this.props.sentences || this.props.sentences.length <= 0;
+        const { langState } = this.props;
+
         return (
             <div style={{ textAlign: "left" }}>
                 {
@@ -131,22 +163,42 @@ class Sentences extends React.Component {
                             <span key={s.lineNumber}>
                                 <table style={{ width: "100%" }}>
                                     <tbody>
-                                        <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                            <td><b>Ｋ:　</b></td>
-                                            <td>{s.kanji}</td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "#ffffe0" }}>
-                                            <td><b>Ｈ:　</b></td>
-                                            <td>{s.hiragana}</td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "#fff0f2" }}>
-                                            <td><b>Ｒ:　</b></td>
-                                            <td>{s.romaji}</td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "#f0fff2" }}>
-                                            <td><b>Ｅ:　</b></td>
-                                            <td>{s.english}</td>
-                                        </tr>
+                                        {
+                                            langState.kanji ?
+                                            <tr style={{ backgroundColor: "#f0f8ff" }}>
+                                                <td><b>Ｋ:　</b></td>
+                                                <td>{s.kanji}</td>
+                                                </tr>
+                                                :
+                                                null
+                                        }
+                                        {
+                                            langState.hiragana ?
+                                            <tr style={{ backgroundColor: "#ffffe0" }}>
+                                                <td><b>Ｈ:　</b></td>
+                                                <td>{s.hiragana}</td>
+                                                </tr>
+                                                :
+                                                null
+                                        }
+                                        {
+                                            langState.romaji ?
+                                            <tr style={{ backgroundColor: "#fff0f2" }}>
+                                                <td><b>Ｒ:　</b></td>
+                                                <td>{s.romaji}</td>
+                                                </tr>
+                                                :
+                                                null
+                                        }
+                                        {
+                                            langState.english ?
+                                            <tr style={{ backgroundColor: "#f0fff2" }}>
+                                                <td><b>Ｅ:　</b></td>
+                                                <td>{s.english}</td>
+                                                </tr>
+                                                :
+                                                null
+                                        }
                                     </tbody>
                                 </table>
                                 <WordList
@@ -200,7 +252,7 @@ class WordList extends React.Component {
                             </button>
                             :
                             <button
-                                style={{ marginTop: 10, height: 28, paddingTop: 0 }}
+                                style={{ marginTop: 10, height: 28, paddingTop: 0, color: "white" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.showWordList}
                             >
@@ -252,10 +304,6 @@ class FooterMenu extends React.Component {
 
         this.state = {
             screenWidth: parseInt(window.innerWidth, 10),
-            kanji: false,
-            hiragana: true,
-            romaji: false,
-            english: true,
             showLangMenu: true,
         };
 
@@ -281,29 +329,9 @@ class FooterMenu extends React.Component {
         this.setState({ showLangMenu: !this.state.showLangMenu })
     }
 
-    onClickBtn = (btnType) => {
-        switch (btnType) {
-
-            case "kanji":
-                this.setState({ kanji: !this.state.kanji, });
-                break;
-
-            case "hiragana":
-                this.setState({ hiragana: !this.state.hiragana, });
-                break;
-
-            case "romaji":
-                this.setState({ romaji: !this.state.romaji, });
-                break;
-
-            case "english":
-                this.setState({ english: !this.state.english, });
-                break;
-        }
-    }
-
     render() {
         const { screenWidth, kanji, hiragana, romaji, english, showLangMenu } = this.state;
+        const { langState } = this.props
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
@@ -333,11 +361,11 @@ class FooterMenu extends React.Component {
                             <td colspan="4" style={{ padding: 3 }}>
                                 {
                                     showLangMenu ?
-                                    <center>
-                                        ▼ Please select the languages▼
+                                        <center>
+                                            ▼ Select the languages to read▼
                                     </center>
-                                    :
-                                    <center>
+                                        :
+                                        <center>
                                             ▲Show language menu▲
                                     </center>
                                 }
@@ -345,43 +373,43 @@ class FooterMenu extends React.Component {
                         </tr>
                         {
                             showLangMenu ?
-                            <tr>
-                                <td style={tdStyle}>
-                                    <button
-                                        className="btn btn-primary"
-                                        style={{ width: "100%", fontSize: "x-small", opacity: kanji ? 0.3 : 1 }}
-                                        onClick={() => this.onClickBtn("kanji")}
-                                    >
-                                        <b style={{ fontSize: "x-large" }}>K</b> anji
+                                <tr>
+                                    <td style={tdStyle}>
+                                        <button
+                                            className="btn btn-primary"
+                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.kanji ? 0.3 : 1 }}
+                                            onClick={() => this.props.onClickLangBtn("kanji")}
+                                        >
+                                            <b style={{ fontSize: "x-large" }}>K</b> anji
                                 </button>
-                                </td>
-                                <td style={tdStyle}>
-                                    <button
-                                        className="btn btn-warning"
-                                        style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: hiragana ? 0.3 : 1 }}
-                                        onClick={() => this.onClickBtn("hiragana")}
-                                    >
-                                        <b style={{ fontSize: "x-large" }}>H</b> iragana
+                                    </td>
+                                    <td style={tdStyle}>
+                                        <button
+                                            className="btn btn-warning"
+                                            style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: !langState.hiragana ? 0.3 : 1 }}
+                                            onClick={() => this.props.onClickLangBtn("hiragana")}
+                                        >
+                                            <b style={{ fontSize: "x-large" }}>H</b> iragana
                                 </button>
-                                </td>
-                                <td style={tdStyle}>
-                                    <button
-                                        className="btn btn-danger"
-                                        style={{ width: "100%", fontSize: "x-small", opacity: romaji ? 0.3 : 1 }}
-                                        onClick={() => this.onClickBtn("romaji")}
-                                    >
-                                        <b style={{ fontSize: "x-large" }}>R</b> omaji
+                                    </td>
+                                    <td style={tdStyle}>
+                                        <button
+                                            className="btn btn-danger"
+                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.romaji ? 0.3 : 1 }}
+                                            onClick={() => this.props.onClickLangBtn("romaji")}
+                                        >
+                                            <b style={{ fontSize: "x-large" }}>R</b> omaji
                                 </button>
-                                </td>
-                                <td style={tdStyle}>
-                                    <button
-                                        className="btn btn-success"
-                                        style={{ width: "100%", fontSize: "x-small", opacity: english ? 0.3 : 1 }}
-                                        onClick={() => this.onClickBtn("english")}
-                                    >
-                                        <b style={{ fontSize: "x-large" }}>E</b> nglish
+                                    </td>
+                                    <td style={tdStyle}>
+                                        <button
+                                            className="btn btn-success"
+                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.english ? 0.3 : 1 }}
+                                            onClick={() => this.props.onClickLangBtn("english")}
+                                        >
+                                            <b style={{ fontSize: "x-large" }}>E</b> nglish
                                 </button>
-                                </td>
+                                    </td>
                                 </tr>
                                 :
                                 null
