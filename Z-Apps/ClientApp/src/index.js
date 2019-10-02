@@ -35,4 +35,4 @@ ReactDOM.render(
   </Provider>,
   rootElement);
 
-registerServiceWorker();
+//registerServiceWorker();

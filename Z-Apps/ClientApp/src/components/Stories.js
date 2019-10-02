@@ -19,7 +19,7 @@ class Stories extends React.Component {
         this.state = {
             storyName: storyName,
             kanji: true,
-            hiragana: false,
+            hiragana: true,
             romaji: false,
             english: true,
         };
