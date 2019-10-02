@@ -165,7 +165,7 @@ class Sentences extends React.Component {
                                     <tbody>
                                         {
                                             langState.kanji ?
-                                            <tr style={{ backgroundColor: "#f0f8ff" }}>
+                                                <tr style={{ backgroundColor: "#ffffe0" }}>
                                                 <td><b>Ｋ:　</b></td>
                                                 <td>{s.kanji}</td>
                                                 </tr>
@@ -174,7 +174,7 @@ class Sentences extends React.Component {
                                         }
                                         {
                                             langState.hiragana ?
-                                            <tr style={{ backgroundColor: "#ffffe0" }}>
+                                                <tr style={{ backgroundColor: "#f0fff2" }}>
                                                 <td><b>Ｈ:　</b></td>
                                                 <td>{s.hiragana}</td>
                                                 </tr>
@@ -192,7 +192,7 @@ class Sentences extends React.Component {
                                         }
                                         {
                                             langState.english ?
-                                            <tr style={{ backgroundColor: "#f0fff2" }}>
+                                                <tr style={{ backgroundColor: "#f0f8ff" }}>
                                                 <td><b>Ｅ:　</b></td>
                                                 <td>{s.english}</td>
                                                 </tr>
@@ -376,8 +376,8 @@ class FooterMenu extends React.Component {
                                 <tr>
                                     <td style={tdStyle}>
                                         <button
-                                            className="btn btn-primary"
-                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.kanji ? 0.3 : 1 }}
+                                            className="btn btn-warning"
+                                            style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: !langState.kanji ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("kanji")}
                                         >
                                             <b style={{ fontSize: "x-large" }}>K</b> anji
@@ -385,8 +385,8 @@ class FooterMenu extends React.Component {
                                     </td>
                                     <td style={tdStyle}>
                                         <button
-                                            className="btn btn-warning"
-                                            style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: !langState.hiragana ? 0.3 : 1 }}
+                                            className="btn btn-success"
+                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.hiragana ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("hiragana")}
                                         >
                                             <b style={{ fontSize: "x-large" }}>H</b> iragana
@@ -403,7 +403,7 @@ class FooterMenu extends React.Component {
                                     </td>
                                     <td style={tdStyle}>
                                         <button
-                                            className="btn btn-success"
+                                            className="btn btn-primary"
                                             style={{ width: "100%", fontSize: "x-small", opacity: !langState.english ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("english")}
                                         >
