@@ -16,6 +16,13 @@ namespace Z_Apps.Models.Stories
             this.con = con;
         }
 
+        public IEnumerable<Story> GetAllStories()
+        {
+            var stm = new StoryManager(con);
+            var stories = stm.GetAllStories();
+            return stories;
+        }
+
         public Story GetPageData(string storyName)
         {
             var stm = new StoryManager(con);

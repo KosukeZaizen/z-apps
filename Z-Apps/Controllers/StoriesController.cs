@@ -21,6 +21,13 @@ namespace Z_Apps.Controllers
             service = new Service(new DBCon());
         }
 
+        [HttpGet("[action]")]
+        public IEnumerable<Story> GetAllStories()
+        {
+                var stories = service.GetAllStories();
+                return stories;
+        }
+
         [HttpGet("[action]/{storyName?}")]
         public Story GetPageData(string storyName)
         {

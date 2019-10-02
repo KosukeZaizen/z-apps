@@ -1,4 +1,4 @@
-const receivePageType = 'RECEIVE_PAGE';
+const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
 const initialState = { storyDesc: [], sentences: [], words: [] };
@@ -10,7 +10,7 @@ export const actionCreators = {
             const response = await fetch(url);
             const storyDesc = await response.json();
 
-            dispatch({ type: receivePageType, storyDesc });
+            dispatch({ type: receiveStoryType, storyDesc });
 
         } catch (e) {
             window.location.href = `/not-found?p=${window.location.pathname}`;
@@ -49,7 +49,7 @@ export const actionCreators = {
 export const reducer = (state, action) => {
     state = state || initialState;
 
-    if (action.type === receivePageType) {
+    if (action.type === receiveStoryType) {
         return {
             ...state,
             storyDesc: action.storyDesc,

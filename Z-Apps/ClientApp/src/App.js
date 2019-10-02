@@ -12,6 +12,7 @@ const KanjiConverter = lazy(() => import('./components/KanjiConverter'));
 const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
 const Stories = lazy(() => import('./components/Stories'));
+const StoriesTop = lazy(() => import('./components/StoriesTop'));
 const StoriesSetting = lazy(() => import('./components/StoriesSetting'));
 const NinjaTop = lazy(() => import('./components/NinjaGameTop'));
 const Ninja1 = lazy(() => import('./components/NinjaGame'));
@@ -41,8 +42,9 @@ export default class App extends React.Component {
                         <Route path='/romaji-converter' component={RomajiConverter} />
                         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
-                        <Route path='/stories/:storyName' component={Stories} />
-                        <Route path='/stories-setting' component={StoriesSetting} />
+                        <Route exact path='/folktales' component={StoriesTop} />
+                        <Route path='/folktales/:storyName' component={Stories} />
+                        <Route path='/folktales-setting' component={StoriesSetting} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />
                         <Route path='/ninja2' component={Ninja2} />
