@@ -363,11 +363,11 @@ class FooterMenu extends React.Component {
                                 {
                                     showLangMenu ?
                                         <center>
-                                            ▼ Select the languages to read▼
+                                            ▼ Select the languages to read ▼
                                     </center>
                                         :
                                         <center>
-                                            ▲Show language menu▲
+                                            ▲ Show language menu ▲
                                     </center>
                                 }
                             </td>
