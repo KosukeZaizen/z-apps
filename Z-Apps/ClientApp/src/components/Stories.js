@@ -76,7 +76,19 @@ class Stories extends React.Component {
                             :
                             null
                     }
-                    <br /><br />
+                    <br />
+                    {
+                        this.screenHeight < 600 ?
+                            <div style={{
+                                color: "red",
+                            }}>
+                                <br />
+                                <b>↓ Please scroll down ↓</b>
+                            </div>
+                            :
+                            null
+                    }
+                    <br />
                     {
                         this.props.storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
@@ -86,17 +98,6 @@ class Stories extends React.Component {
                                             {d}<br />
                                         </span>
                                     )
-                                }
-                                {
-                                    this.screenHeight < 600 ?
-                                        <div style={{
-                                            color: "red",
-                                            marginTop: "10px",
-                                        }}>
-                                            <b>↓ Scroll down ↓</b>
-                                        </div>
-                                        :
-                                        null
                                 }
                             </div>
                             :
