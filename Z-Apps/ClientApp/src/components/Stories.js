@@ -238,7 +238,8 @@ class FooterMenu extends React.Component {
         super(props);
 
         this.state = {
-            screenWidth : parseInt(window.innerWidth, 10),
+            screenWidth: parseInt(window.innerWidth, 10),
+            screenHeight: parseInt(window.innerHeight, 10),
         };
 
         let timer = 0;
@@ -254,11 +255,14 @@ class FooterMenu extends React.Component {
     }
 
     changeScreenSize = () => {
-        this.setState({ screenWidth: parseInt(window.innerWidth, 10)});
+        this.setState({
+            screenWidth: parseInt(window.innerWidth, 10),
+            screenHeight: parseInt(window.innerHeight, 10),
+        });
     }
 
     render() {
-        const { screenWidth } = this.state;
+        const { screenWidth, screenHeight } = this.state;
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
@@ -266,15 +270,16 @@ class FooterMenu extends React.Component {
         return (
             <div style={{
                 position: "fixed",
-                bottom: 0,
+                top: screenHeight - 50,
                 left: 0,
                 zIndex: 999999999,
                 width: `${screenWidth}px`,
                 height: "50px",
-                backgroundColor: "white",
+                backgroundColor: "#e2e4e2",
             }}>
                 <table style={{
                     position: "fixed",
+                    top: screenHeight - 48,
                     bottom: 3,
                     left: `${tableLeft}px`,
                     width: tableWidth,
