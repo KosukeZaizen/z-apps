@@ -188,7 +188,7 @@ class WordList extends React.Component {
                             :
                             <button
                                 style={{ marginTop: 10, height: 28, paddingTop: 0 }}
-                                className="btn btn-success btn-xs"
+                                className="btn btn-dark btn-xs"
                                 onClick={this.showWordList}
                             >
                                 ▼　Show word list
@@ -239,7 +239,10 @@ class FooterMenu extends React.Component {
 
         this.state = {
             screenWidth: parseInt(window.innerWidth, 10),
-            screenHeight: parseInt(window.innerHeight, 10),
+            kanji: true,
+            hiragana: true,
+            romaji: true,
+            english: true,
         };
 
         let timer = 0;
@@ -257,29 +260,50 @@ class FooterMenu extends React.Component {
     changeScreenSize = () => {
         this.setState({
             screenWidth: parseInt(window.innerWidth, 10),
-            screenHeight: parseInt(window.innerHeight, 10),
         });
     }
 
+    onClickBtn = (btnType) => {
+        switch (btnType) {
+
+            case "kanji":
+                this.setState({ kanji: !this.state.kanji,});
+                break;
+
+            case "hiragana":
+                this.setState({ hiragana: !this.state.hiragana, });
+                break;
+
+            case "romaji":
+                this.setState({ romaji: !this.state.romaji, });
+                break;
+
+            case "english":
+                this.setState({ english: !this.state.english, });
+                break;
+        }
+    }
+
     render() {
-        const { screenWidth, screenHeight } = this.state;
+        const { screenWidth, kanji, hiragana, romaji, english } = this.state;
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
         const tdStyle = { width: `${buttonWidth}px` };
+
         return (
             <div style={{
                 position: "fixed",
-                top: screenHeight - 50,
+                bottom: 0,
                 left: 0,
                 zIndex: 999999999,
                 width: `${screenWidth}px`,
                 height: "50px",
-                backgroundColor: "#e2e4e2",
+                backgroundColor: "white",
             }}>
                 <table style={{
                     position: "fixed",
-                    top: screenHeight - 48,
+                    bottom: 0,
                     bottom: 3,
                     left: `${tableLeft}px`,
                     width: tableWidth,
@@ -287,22 +311,38 @@ class FooterMenu extends React.Component {
                     <tbody>
                         <tr>
                             <td style={tdStyle}>
-                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#f0f8ff", }}>
+                                <button
+                                    className="btn btn-primary"
+                                    style={{ width: "100%", fontSize: "x-small", opacity: kanji ? 0.3 : 1 }}
+                                    onClick={() => this.onClickBtn("kanji")}
+                                >
                                     <b style={{ fontSize: "x-large" }}>K</b> anji
                                 </button>
                             </td>
                             <td style={tdStyle}>
-                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#ffffe0", }}>
+                                <button
+                                    className="btn btn-warning"
+                                    style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: hiragana ? 0.3 : 1 }}
+                                    onClick={() => this.onClickBtn("hiragana")}
+                                >
                                     <b style={{ fontSize: "x-large" }}>H</b> iragana
                                 </button>
                             </td>
                             <td style={tdStyle}>
-                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#fff0f2", }}>
+                                <button
+                                    className="btn btn-danger"
+                                    style={{ width: "100%", fontSize: "x-small", opacity: romaji ? 0.3 : 1 }}
+                                    onClick={() => this.onClickBtn("romaji")}
+                                >
                                     <b style={{ fontSize: "x-large" }}>R</b> omaji
                                 </button>
                             </td>
                             <td style={tdStyle}>
-                                <button style={{ width: "100%", fontSize: "x-small", backgroundColor: "#f0fff2", }}>
+                                <button
+                                    className="btn btn-success"
+                                    style={{ width: "100%", fontSize: "x-small", opacity: english ? 0.3 : 1 }}
+                                    onClick={() => this.onClickBtn("english")}
+                                >
                                     <b style={{ fontSize: "x-large" }}>E</b> nglish
                                 </button>
                             </td>
