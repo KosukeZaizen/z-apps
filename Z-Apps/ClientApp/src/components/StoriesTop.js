@@ -1,23 +1,25 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/StoriesStore';
+import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
 
-class Stories extends React.Component {
+class StoriesTop extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
         };
-        this.props.loadStories();
+        this.props.loadAllStories();
     }
 
     render() {
-        const { stories } = this.props;
+        console.log("render");
+        const allStories = this.props.allStories;
+        console.log("s", allStories);
         return (
             <center>
                 <div style={{ maxWidth: 700 }}>
@@ -29,37 +31,39 @@ class Stories extends React.Component {
                         margin: "30px",
                         lineHeight: "30px",
                     }}>
-                        <b>"Japanese Folktales"</b>
+                        <b>Japanese Folktales</b>
                     </h1>
                     <br />
                     {
-                        stories && stories.map(s =>
-                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <img
-                                                    src={Imgs[s.storyName]}
-                                                    width="90%"
-                                                    alt={s.storyName}
-                                                    title={s.storyName}
-                                                />
-                                            </td>
-                                            <td>
-                                                {
-                                                    s.storyDesc.description.split("\\n").map((d, i) =>
-                                                        <span key={i} style={{color:"black"}}>
-                                                            {d}<br />
-                                                        </span>
-                                                    )
-                                                }
-                                                <p>Read {s.storyName && s.storyName.split("-").join(" ")} >></p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        allStories && allStories.map(s =>
+                            <a href={`/folktales/${s.storyName.split(" ").join("-")}`}>
+                                <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">
+                                                    <img
+                                                        src={Imgs[s.storyName]}
+                                                        width="90%"
+                                                        alt={s.storyName}
+                                                        title={s.storyName}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    {
+                                                        s.description.split("\\n").map((d, i) =>
+                                                            <span key={i} style={{ color: "black" }}>
+                                                                {d}<br />
+                                                            </span>
+                                                        )
+                                                    }
+                                                    <p>Read {s.storyName} >></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </a>
                         )
                     }
                 </div>
@@ -69,6 +73,6 @@ class Stories extends React.Component {
 };
 
 export default connect(
-    state => state.stories,
+    state => state.storiesTop,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(Stories);
+)(StoriesTop);

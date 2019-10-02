@@ -44,6 +44,8 @@ class Stories extends React.Component {
             case "english":
                 this.setState({ english: !this.state.english, });
                 break;
+
+            default:
         }
     }
 
@@ -350,7 +352,6 @@ class FooterMenu extends React.Component {
             }}>
                 <table style={{
                     position: "fixed",
-                    bottom: 0,
                     bottom: 3,
                     left: `${tableLeft}px`,
                     width: tableWidth,

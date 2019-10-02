@@ -21,7 +21,7 @@ namespace Z_Apps.Controllers
             service = new Service(new DBCon());
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("[action]/")]
         public IEnumerable<Story> GetAllStories()
         {
                 var stories = service.GetAllStories();
