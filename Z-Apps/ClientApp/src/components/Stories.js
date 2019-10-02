@@ -14,6 +14,8 @@ class Stories extends React.Component {
         const { params } = props.match;
         const storyName = params.storyName.toString();
 
+        this.screenHeight = parseInt(window.innerHeight, 10);
+
         this.state = {
             storyName: storyName,
         };
@@ -23,6 +25,7 @@ class Stories extends React.Component {
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
+
         return (
             <center>
                 <div style={{ maxWidth: 700 }}>
@@ -59,11 +62,21 @@ class Stories extends React.Component {
                                         </span>
                                     )
                                 }
+                                {
+                                    this.screenHeight < 600 ?
+                                        <div style={{
+                                            color: "red",
+                                            marginTop: "10px",
+                                        }}>
+                                            <b>↓ Scroll down ↓</b>
+                                        </div>
+                                        :
+                                        null
+                                }
                             </div>
                             :
                             null
                     }
-                    <br />
                     {
                         this.props.storyDesc.storyId ?
                             <Sentences
@@ -239,10 +252,11 @@ class FooterMenu extends React.Component {
 
         this.state = {
             screenWidth: parseInt(window.innerWidth, 10),
-            kanji: true,
+            kanji: false,
             hiragana: true,
-            romaji: true,
+            romaji: false,
             english: true,
+            showLangMenu: true,
         };
 
         let timer = 0;
@@ -263,11 +277,15 @@ class FooterMenu extends React.Component {
         });
     }
 
+    showLangMenu = () => {
+        this.setState({ showLangMenu: !this.state.showLangMenu })
+    }
+
     onClickBtn = (btnType) => {
         switch (btnType) {
 
             case "kanji":
-                this.setState({ kanji: !this.state.kanji,});
+                this.setState({ kanji: !this.state.kanji, });
                 break;
 
             case "hiragana":
@@ -285,7 +303,7 @@ class FooterMenu extends React.Component {
     }
 
     render() {
-        const { screenWidth, kanji, hiragana, romaji, english } = this.state;
+        const { screenWidth, kanji, hiragana, romaji, english, showLangMenu } = this.state;
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
@@ -307,46 +325,67 @@ class FooterMenu extends React.Component {
                     bottom: 3,
                     left: `${tableLeft}px`,
                     width: tableWidth,
+                    backgroundColor: "#e7e9e7",
+                    border: "1px solid gray",
                 }}>
                     <tbody>
-                        <tr>
-                            <td style={tdStyle}>
-                                <button
-                                    className="btn btn-primary"
-                                    style={{ width: "100%", fontSize: "x-small", opacity: kanji ? 0.3 : 1 }}
-                                    onClick={() => this.onClickBtn("kanji")}
-                                >
-                                    <b style={{ fontSize: "x-large" }}>K</b> anji
-                                </button>
-                            </td>
-                            <td style={tdStyle}>
-                                <button
-                                    className="btn btn-warning"
-                                    style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: hiragana ? 0.3 : 1 }}
-                                    onClick={() => this.onClickBtn("hiragana")}
-                                >
-                                    <b style={{ fontSize: "x-large" }}>H</b> iragana
-                                </button>
-                            </td>
-                            <td style={tdStyle}>
-                                <button
-                                    className="btn btn-danger"
-                                    style={{ width: "100%", fontSize: "x-small", opacity: romaji ? 0.3 : 1 }}
-                                    onClick={() => this.onClickBtn("romaji")}
-                                >
-                                    <b style={{ fontSize: "x-large" }}>R</b> omaji
-                                </button>
-                            </td>
-                            <td style={tdStyle}>
-                                <button
-                                    className="btn btn-success"
-                                    style={{ width: "100%", fontSize: "x-small", opacity: english ? 0.3 : 1 }}
-                                    onClick={() => this.onClickBtn("english")}
-                                >
-                                    <b style={{ fontSize: "x-large" }}>E</b> nglish
-                                </button>
+                        <tr width="100%" onClick={this.showLangMenu}>
+                            <td colspan="4" style={{ padding: 3 }}>
+                                {
+                                    showLangMenu ?
+                                    <center>
+                                        ▼ Please select the languages▼
+                                    </center>
+                                    :
+                                    <center>
+                                            ▲Show language menu▲
+                                    </center>
+                                }
                             </td>
                         </tr>
+                        {
+                            showLangMenu ?
+                            <tr>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-primary"
+                                        style={{ width: "100%", fontSize: "x-small", opacity: kanji ? 0.3 : 1 }}
+                                        onClick={() => this.onClickBtn("kanji")}
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>K</b> anji
+                                </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-warning"
+                                        style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: hiragana ? 0.3 : 1 }}
+                                        onClick={() => this.onClickBtn("hiragana")}
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>H</b> iragana
+                                </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-danger"
+                                        style={{ width: "100%", fontSize: "x-small", opacity: romaji ? 0.3 : 1 }}
+                                        onClick={() => this.onClickBtn("romaji")}
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>R</b> omaji
+                                </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-success"
+                                        style={{ width: "100%", fontSize: "x-small", opacity: english ? 0.3 : 1 }}
+                                        onClick={() => this.onClickBtn("english")}
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>E</b> nglish
+                                </button>
+                                </td>
+                                </tr>
+                                :
+                                null
+                        }
                     </tbody>
                 </table>
             </div>
