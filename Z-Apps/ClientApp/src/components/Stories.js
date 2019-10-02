@@ -377,37 +377,37 @@ class FooterMenu extends React.Component {
                                     <td style={tdStyle}>
                                         <button
                                             className="btn btn-warning"
-                                            style={{ width: "100%", fontSize: "x-small", color: "white", backgroundColor: "#d9c402", opacity: !langState.kanji ? 0.3 : 1 }}
+                                            style={{ width: "100%", fontSize: "small", color: "white", backgroundColor: "#d9c402", opacity: !langState.kanji ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("kanji")}
                                         >
-                                            <b style={{ fontSize: "x-large" }}>K</b> anji
+                                            <b style={{ fontSize: "x-large" }}>K</b>anji
                                 </button>
                                     </td>
                                     <td style={tdStyle}>
                                         <button
                                             className="btn btn-success"
-                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.hiragana ? 0.3 : 1 }}
+                                            style={{ width: "100%", fontSize: "small", opacity: !langState.hiragana ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("hiragana")}
                                         >
-                                            <b style={{ fontSize: "x-large" }}>H</b> iragana
+                                            <b style={{ fontSize: "x-large" }}>H</b>iragana
                                 </button>
                                     </td>
                                     <td style={tdStyle}>
                                         <button
                                             className="btn btn-danger"
-                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.romaji ? 0.3 : 1 }}
+                                            style={{ width: "100%", fontSize: "small", opacity: !langState.romaji ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("romaji")}
                                         >
-                                            <b style={{ fontSize: "x-large" }}>R</b> omaji
+                                            <b style={{ fontSize: "x-large" }}>R</b>omaji
                                 </button>
                                     </td>
                                     <td style={tdStyle}>
                                         <button
                                             className="btn btn-primary"
-                                            style={{ width: "100%", fontSize: "x-small", opacity: !langState.english ? 0.3 : 1 }}
+                                            style={{ width: "100%", fontSize: "small", opacity: !langState.english ? 0.3 : 1 }}
                                             onClick={() => this.props.onClickLangBtn("english")}
                                         >
-                                            <b style={{ fontSize: "x-large" }}>E</b> nglish
+                                            <b style={{ fontSize: "x-large" }}>E</b>nglish
                                 </button>
                                     </td>
                                 </tr>
