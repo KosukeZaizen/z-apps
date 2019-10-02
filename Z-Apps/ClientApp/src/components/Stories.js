@@ -331,7 +331,7 @@ class FooterMenu extends React.Component {
     }
 
     render() {
-        const { screenWidth, kanji, hiragana, romaji, english, showLangMenu } = this.state;
+        const { screenWidth, showLangMenu } = this.state;
         const { langState } = this.props
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
