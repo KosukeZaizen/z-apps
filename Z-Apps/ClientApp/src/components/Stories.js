@@ -13,46 +13,89 @@ class Stories extends React.Component {
 
         const { params } = props.match;
         const storyName = params.storyName.toString();
+        this.state = {
+            storyName: storyName,
+        };
 
         this.screenHeight = parseInt(window.innerHeight, 10);
 
-        this.state = {
-            storyName: storyName,
-            kanji: true,
-            hiragana: true,
-            romaji: false,
-            english: true,
-        };
+        const saveData = localStorage.getItem("folktales-languages");
+        const objSaveData = JSON.parse(saveData);
+        if (objSaveData) {
+            this.state = {
+                ...this.state,
+                kanji: objSaveData.kanji == null ? true : objSaveData.kanji,
+                hiragana: objSaveData.hiragana == null ? true : objSaveData.hiragana,
+                romaji: objSaveData.romaji == null ? false : objSaveData.romaji,
+                english: objSaveData.english == null ? true : objSaveData.english,
+            };
+        } else {
+            this.state = {
+                ...this.state,
+                kanji: true,
+                hiragana: true,
+                romaji: false,
+                english: true,
+            };
+        }
+
         this.props.loadStory(this.state.storyName);
     }
 
     onClickLangBtn = (btnType) => {
+
+        let saveData;
         switch (btnType) {
 
             case "kanji":
+                saveData = {
+                    kanji: !this.state.kanji,
+                    hiragana: this.state.hiragana,
+                    romaji: this.state.romaji,
+                    english: this.state.english,
+                };
                 this.setState({ kanji: !this.state.kanji, });
                 break;
 
             case "hiragana":
+                saveData = {
+                    kanji: this.state.kanji,
+                    hiragana: !this.state.hiragana,
+                    romaji: this.state.romaji,
+                    english: this.state.english,
+                };
                 this.setState({ hiragana: !this.state.hiragana, });
                 break;
 
             case "romaji":
+                saveData = {
+                    kanji: this.state.kanji,
+                    hiragana: this.state.hiragana,
+                    romaji: !this.state.romaji,
+                    english: this.state.english,
+                };
                 this.setState({ romaji: !this.state.romaji, });
                 break;
 
             case "english":
+                saveData = {
+                    kanji: this.state.kanji,
+                    hiragana: this.state.hiragana,
+                    romaji: this.state.romaji,
+                    english: !this.state.english,
+                };
                 this.setState({ english: !this.state.english, });
                 break;
 
             default:
         }
+
+        localStorage.setItem("folktales-languages", JSON.stringify(saveData));
     }
 
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
-
         return (
             <center>
                 <div style={{ maxWidth: 700 }}>
@@ -60,15 +103,15 @@ class Stories extends React.Component {
                         title={title}
                         desc={this.props.storyDesc.description}
                     />
-                    <div className="breadcrumbs" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
-                        <a href="/" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemprop="title">
+                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
+                        <a href="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="title">
                                 Home
                             </span>
                         </a>
                         ＞
-                        <a href="/folktales" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemprop="title">
+                        <a href="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="title">
                                 Japanese Folktales
                             </span>
                         </a>
@@ -97,7 +140,7 @@ class Stories extends React.Component {
                     }
                     <br />
                     {
-                        this.screenHeight < 600 ?
+                        this.screenHeight < 750 ?
                             <div style={{
                                 color: "red",
                             }}>
@@ -377,7 +420,7 @@ class FooterMenu extends React.Component {
                 }}>
                     <tbody>
                         <tr width="100%" onClick={this.showLangMenu}>
-                            <td colspan="4" style={{ padding: 3 }}>
+                            <td colSpan="4" style={{ padding: 3 }}>
                                 {
                                     showLangMenu ?
                                         <center>

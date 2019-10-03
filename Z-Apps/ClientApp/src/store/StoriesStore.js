@@ -39,7 +39,6 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words });
 
         } catch (e) {
-            console.log(e);
             window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }

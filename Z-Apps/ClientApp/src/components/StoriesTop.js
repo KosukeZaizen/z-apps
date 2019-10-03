@@ -43,11 +43,11 @@ class StoriesTop extends React.Component {
                 <div style={{ maxWidth: 700 }}>
                     <Head
                         title="Japanese Folktales"
-                        desc="Free application to learn Japanese language from the folktales. You can read Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                        desc="Free application to learn Japanese language from the folktales. You can read Japanese traditional folktales in English, Hiragana, Kanji, and Romaji!"
                     />
-                    <div className="breadcrumbs" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
-                        <a href="/" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
-                            <span itemprop="title">
+                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
+                        <a href="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
+                            <span itemProp="title">
                                 Home
                             </span>
                         </a>
@@ -98,7 +98,7 @@ class StoriesTop extends React.Component {
                                                                     </span>
                                                                 )
                                                             }
-                                                            <p style={{margin:"20px"}}>Read {s.storyName} >></p>
+                                                            <center><p style={{ margin: "20px" }}>Read {s.storyName.split("-").join(" ")} >></p></center>
                                                         </td>
                                                     </tr>
                                                 </tbody>
