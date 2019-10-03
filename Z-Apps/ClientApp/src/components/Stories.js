@@ -73,9 +73,9 @@ class Stories extends React.Component {
                             </span>
                         </a>
                         ＞
-                            <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             {title}
-                            </span>
+                        </span>
                     </div>
                     <h1 style={{
                         margin: "30px",
