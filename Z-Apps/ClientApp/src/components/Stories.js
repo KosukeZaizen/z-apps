@@ -345,7 +345,7 @@ class WordList extends React.Component {
                                                                 null
                                                         }
                                                     </td>
-                                                    <td style={{ paddingLeft: 3 }}>{w.english}</td>
+                                                    <td style={{ paddingLeft: 3, paddingRight: 3 }}>{w.english}</td>
                                                 </tr>
                                             )
                                         }
