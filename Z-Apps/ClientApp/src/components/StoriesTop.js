@@ -45,9 +45,20 @@ class StoriesTop extends React.Component {
                         title="Japanese Folktales"
                         desc="Free application to learn Japanese language from the folktales. You can read Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                     />
+                    <div className="breadcrumbs" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
+                        <a href="/" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
+                            <span itemprop="title">
+                                Home
+                            </span>
+                        </a>
+                        ＞
+                            <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            Japanese Folktales
+                            </span>
+                    </div>
                     <h1 style={{
                         margin: "30px",
-                        lineHeight: "30px",
+                        lineHeight: "40px",
                     }}>
                         <b>Japanese Folktales</b>
                     </h1>
@@ -57,9 +68,18 @@ class StoriesTop extends React.Component {
                             <a key={s.storyId} href={`/folktales/${s.storyName}`}>
                                 <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                                     {
-                                        screenWidth > 380 ?
+                                        screenWidth > 500 ?
                                             <table>
                                                 <tbody>
+                                                    <tr>
+                                                        <td colSpan={2}>
+                                                            <center>
+                                                                <h2 style={{ color: "black", marginBottom: "20px" }}>
+                                                                    <b>{s.storyName}</b>
+                                                                </h2>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
                                                         <td width="50%">
                                                             <img
@@ -67,6 +87,7 @@ class StoriesTop extends React.Component {
                                                                 width="90%"
                                                                 alt={s.storyName}
                                                                 title={s.storyName}
+                                                                style={{marginLeft:"10px",marginBottom:"10px"}}
                                                             />
                                                         </td>
                                                         <td>
@@ -77,45 +98,35 @@ class StoriesTop extends React.Component {
                                                                     </span>
                                                                 )
                                                             }
-                                                            <p>Read {s.storyName} >></p>
+                                                            <p style={{margin:"20px"}}>Read {s.storyName} >></p>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             :
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="2" style={{textAlign:"center"}}>
-                                                            <b>
-                                                                <h2 style={{ color: "black", marginBottom:"10px" }}>{s.storyName}</h2>
-                                                            </b>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="50%">
-                                                            <img
-                                                                src={Imgs[s.storyName]}
-                                                                width="90%"
-                                                                alt={s.storyName}
-                                                                title={s.storyName}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                s.description.split("\\n").map((d, i) =>
-                                                                    <span key={i} style={{ color: "black" }}>
-                                                                        {d}<br />
-                                                                    </span>
-                                                                )
-                                                            }
-                                                            <p>Read {s.storyName.split("-").join(" ")} >></p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            }
-                                    </div>
+                                            <div>
+                                                <b>
+                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>{s.storyName}</h2>
+                                                </b>
+                                                <img
+                                                    src={Imgs[s.storyName]}
+                                                    width="90%"
+                                                    alt={s.storyName}
+                                                    title={s.storyName}
+                                                />
+                                                <div style={{ textAlign: "left", margin: "10px" }}>
+                                                    {
+                                                        s.description.split("\\n").map((d, i) =>
+                                                            <span key={i} style={{ color: "black" }}>
+                                                                {d}<br />
+                                                            </span>
+                                                        )
+                                                    }
+                                                </div>
+                                                <p>Read {s.storyName.split("-").join(" ")} >></p>
+                                            </div>
+                                    }
+                                </div>
                             </a>
                         )
                     }

@@ -60,6 +60,23 @@ class Stories extends React.Component {
                         title={title}
                         desc={this.props.storyDesc.description}
                     />
+                    <div className="breadcrumbs" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
+                        <a href="/" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemprop="title">
+                                Home
+                            </span>
+                        </a>
+                        ＞
+                        <a href="/folktales" itemprop="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemprop="title">
+                                Japanese Folktales
+                            </span>
+                        </a>
+                        ＞
+                            <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            {title}
+                            </span>
+                    </div>
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
