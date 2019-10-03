@@ -43,7 +43,7 @@ export default class App extends React.Component {
                         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
                         <Route exact path='/folktales' component={StoriesTop} />
-                        <Route path='/folktales/:storyName' component={Stories} />
+                        <Route exact path='/folktales/:storyName' component={Stories} />
                         <Route path='/folktales-setting' component={StoriesSetting} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />

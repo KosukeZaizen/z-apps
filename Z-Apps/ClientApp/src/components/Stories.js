@@ -103,23 +103,40 @@ class Stories extends React.Component {
                         title={title}
                         desc={this.props.storyDesc.description}
                     />
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
-                        <a href="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
-                                Home
-                            </span>
-                        </a>
-                        ＞
-                        <a href="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
-                                Japanese Folktales
-                            </span>
-                        </a>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            {title}
-                        </span>
-                    </div>
+                    {
+                        this.props.words && this.props.words.length > 0 ?
+                            <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
+                                <a href="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    <span itemProp="title">
+                                        Home
+                                    </span>
+                                </a>
+                                ＞
+                                <a href="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    <span itemProp="title">
+                                        Japanese Folktales
+                                    </span>
+                                </a>
+                                ＞
+                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    {title}
+                                </span>
+                            </div>
+                            :
+                            <div style={{ textAlign: "left" }}>
+                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    Home
+                                </span>
+                                ＞
+                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    Japanese Folktales
+                                </span>
+                                ＞
+                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                    {title}
+                                </span>
+                            </div>
+                    }
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
