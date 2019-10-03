@@ -12,14 +12,32 @@ class StoriesTop extends React.Component {
         super(props);
 
         this.state = {
+            screenWidth: parseInt(window.innerWidth, 10),
         };
+
         this.props.loadAllStories();
+
+        let timer = 0;
+        window.onresize = () => {
+            if (timer > 0) {
+                clearTimeout(timer);
+            }
+
+            timer = setTimeout(() => {
+                this.changeScreenSize();
+            }, 100);
+        };
+    }
+
+    changeScreenSize = () => {
+        this.setState({
+            screenWidth: parseInt(window.innerWidth, 10),
+        });
     }
 
     render() {
-        console.log("render");
         const allStories = this.props.allStories;
-        console.log("s", allStories);
+        const { screenWidth } = this.state;
         return (
             <center>
                 <div style={{ maxWidth: 700 }}>
@@ -36,33 +54,68 @@ class StoriesTop extends React.Component {
                     <br />
                     {
                         allStories && allStories.map(s =>
-                            <a href={`/folktales/${s.storyName.split(" ").join("-")}`}>
-                                <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td width="50%">
-                                                    <img
-                                                        src={Imgs[s.storyName]}
-                                                        width="90%"
-                                                        alt={s.storyName}
-                                                        title={s.storyName}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    {
-                                                        s.description.split("\\n").map((d, i) =>
-                                                            <span key={i} style={{ color: "black" }}>
-                                                                {d}<br />
-                                                            </span>
-                                                        )
-                                                    }
-                                                    <p>Read {s.storyName} >></p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <a key={s.storyId} href={`/folktales/${s.storyName}`}>
+                                <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                    {
+                                        screenWidth > 380 ?
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%">
+                                                            <img
+                                                                src={Imgs[s.storyName]}
+                                                                width="90%"
+                                                                alt={s.storyName}
+                                                                title={s.storyName}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                s.description.split("\\n").map((d, i) =>
+                                                                    <span key={i} style={{ color: "black" }}>
+                                                                        {d}<br />
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <p>Read {s.storyName} >></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            :
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2" style={{textAlign:"center"}}>
+                                                            <b>
+                                                                <h2 style={{ color: "black", marginBottom:"10px" }}>{s.storyName}</h2>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="50%">
+                                                            <img
+                                                                src={Imgs[s.storyName]}
+                                                                width="90%"
+                                                                alt={s.storyName}
+                                                                title={s.storyName}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                s.description.split("\\n").map((d, i) =>
+                                                                    <span key={i} style={{ color: "black" }}>
+                                                                        {d}<br />
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <p>Read {s.storyName.split("-").join(" ")} >></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            }
+                                    </div>
                             </a>
                         )
                     }
