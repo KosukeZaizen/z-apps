@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -103,40 +104,23 @@ class Stories extends React.Component {
                         title={title}
                         desc={this.props.storyDesc.description}
                     />
-                    {
-                        this.props.words && this.props.words.length > 0 ?
-                            <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
-                                <a href="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    <span itemProp="title">
-                                        Home
+                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
+                        <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="title">
+                                Home
                                     </span>
-                                </a>
-                                ＞
-                                <a href="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    <span itemProp="title">
-                                        Japanese Folktales
+                        </Link>
+                        ＞
+                                <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="title">
+                                Japanese Folktales
                                     </span>
-                                </a>
-                                ＞
+                        </Link>
+                        ＞
                                 <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    {title}
-                                </span>
-                            </div>
-                            :
-                            <div style={{ textAlign: "left" }}>
-                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    Home
-                                </span>
-                                ＞
-                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    Japanese Folktales
-                                </span>
-                                ＞
-                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                    {title}
-                                </span>
-                            </div>
-                    }
+                            {title}
+                        </span>
+                    </div>
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
@@ -246,8 +230,8 @@ class Sentences extends React.Component {
                                         {
                                             langState.kanji ?
                                                 <tr style={{ backgroundColor: "#ffffe0" }}>
-                                                <td><b>Ｋ:　</b></td>
-                                                <td>{s.kanji}</td>
+                                                    <td><b>Ｋ:　</b></td>
+                                                    <td>{s.kanji}</td>
                                                 </tr>
                                                 :
                                                 null
@@ -255,17 +239,17 @@ class Sentences extends React.Component {
                                         {
                                             langState.hiragana ?
                                                 <tr style={{ backgroundColor: "#f0fff2" }}>
-                                                <td><b>Ｈ:　</b></td>
-                                                <td>{s.hiragana}</td>
+                                                    <td><b>Ｈ:　</b></td>
+                                                    <td>{s.hiragana}</td>
                                                 </tr>
                                                 :
                                                 null
                                         }
                                         {
                                             langState.romaji ?
-                                            <tr style={{ backgroundColor: "#fff0f2" }}>
-                                                <td><b>Ｒ:　</b></td>
-                                                <td>{s.romaji}</td>
+                                                <tr style={{ backgroundColor: "#fff0f2" }}>
+                                                    <td><b>Ｒ:　</b></td>
+                                                    <td>{s.romaji}</td>
                                                 </tr>
                                                 :
                                                 null
@@ -273,8 +257,8 @@ class Sentences extends React.Component {
                                         {
                                             langState.english ?
                                                 <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                                <td><b>Ｅ:　</b></td>
-                                                <td>{s.english}</td>
+                                                    <td><b>Ｅ:　</b></td>
+                                                    <td>{s.english}</td>
                                                 </tr>
                                                 :
                                                 null
