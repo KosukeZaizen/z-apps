@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesTop extends React.Component {
@@ -44,7 +43,7 @@ class StoriesTop extends React.Component {
                 <div style={{ maxWidth: 700 }}>
                     <Head
                         title="Japanese Folktales"
-                        desc="Free application to learn Japanese language from the folktales. You can read Japanese traditional folktales in English, Hiragana, Kanji, and Romaji!"
+                        desc="Free application to learn Japanese from the folktales. You can read Japanese traditional folktales in English, Hiragana, Kanji, and Romaji!"
                     />
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
