@@ -65,12 +65,12 @@ class StoriesTop extends React.Component {
                     </h1>
                     <br />
                     {
-                        allStories && allStories.length <= 0 ?
+                        allStories && allStories.length > 0 ?
+                            null
+                            :
                             <center>
                                 <CircularProgress key="circle" size="20%" />
                             </center>
-                            :
-                            null
                     }
                     {
                         allStories && allStories.map(s =>
