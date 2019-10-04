@@ -52,9 +52,9 @@ class StoriesTop extends React.Component {
                             </span>
                         </Link>
                         ＞
-                            <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             Japanese Folktales
-                            </span>
+                        </span>
                     </div>
                     <h1 style={{
                         margin: "30px",
