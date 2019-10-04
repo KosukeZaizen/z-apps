@@ -8,7 +8,8 @@ class NavigationItems extends React.Component {
 
     render() {
         let objLinks = {
-            "Game": "/ninja",
+            "Games": "/ninja",
+            "Japanese Folktales": "/folktales",
             "Kanji Converter": "/kanji-converter",
             "Romaji Converter": "/romaji-converter",
             "Hiragana / Katakana Quiz": "/hiragana-quiz",

@@ -25,8 +25,16 @@ const Home = props => (
                 </Card>
             </Link>
             <br />
-            <Link to="/kanji-converter">
+            <Link to="/folktales">
                 <Card body inverse color="primary">
+                    <CardTitle>Japanese Folktales!</CardTitle>
+                    <CardText>An App to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
+                    <Button color="secondary">Try!</Button>
+                </Card>
+            </Link>
+            <br />
+            <Link to="/kanji-converter">
+                <Card body inverse color="success">
                     <CardTitle>Kanji Converter</CardTitle>
                     <CardText>A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!</CardText>
                     <Button color="secondary">Try!</Button>
@@ -34,7 +42,7 @@ const Home = props => (
             </Link>
             <br />
             <Link to="/romaji-converter">
-                <Card body inverse color="success">
+                <Card body inverse color="danger">
                     <CardTitle>Romaji Converter</CardTitle>
                     <CardText>A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!</CardText>
                     <Button>Try!</Button>
@@ -42,17 +50,9 @@ const Home = props => (
             </Link>
             <br />
             <Link to="/hiragana-quiz">
-                <Card body inverse color="danger">
-                    <CardTitle>Hiragana Quiz</CardTitle>
-                    <CardText>An app to remember Hiragana! I hope this will help you to study.</CardText>
-                    <Button color="secondary">Try!</Button>
-                </Card>
-            </Link>
-            <br />
-            <Link to="/katakana-quiz">
                 <Card body inverse color="warning">
-                    <CardTitle>Katakana Quiz!</CardTitle>
-                    <CardText>An app to remember Katakana! Please use after Hiragana Quiz!</CardText>
+                    <CardTitle>Hiragana / Katakana Quiz</CardTitle>
+                    <CardText>An app to remember Hiragana and Katakana! I hope this will help you to study.</CardText>
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
