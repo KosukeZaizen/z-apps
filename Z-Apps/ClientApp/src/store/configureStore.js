@@ -4,14 +4,12 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as KanjiConverter from './KanjiConverter';
 import * as Stories from './StoriesStore';
 import * as StoriesTop from './StoriesTopStore';
-import * as StoriesSetting from './StoriesSetting';
 
 export default function configureStore(history, initialState) {
     const reducers = {
         kanjiConverter: KanjiConverter.reducer,
         stories: Stories.reducer,
         storiesTop: StoriesTop.reducer,
-        storiesSetting: StoriesSetting.reducer
     };
 
     const middleware = [

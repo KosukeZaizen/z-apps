@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesTop extends React.Component {
@@ -63,6 +64,14 @@ class StoriesTop extends React.Component {
                         <b>Japanese Folktales</b>
                     </h1>
                     <br />
+                    {
+                        allStories && allStories.length <= 0 ?
+                            <center>
+                                <CircularProgress key="circle" size="20%" />
+                            </center>
+                            :
+                            null
+                    }
                     {
                         allStories && allStories.map(s =>
                             <a key={s.storyId} href={`/folktales/${s.storyName}`}>

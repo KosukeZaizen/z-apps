@@ -13,7 +13,6 @@ const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
 const Stories = lazy(() => import('./components/Stories'));
 const StoriesTop = lazy(() => import('./components/StoriesTop'));
-const StoriesSetting = lazy(() => import('./components/StoriesSetting'));
 const NinjaTop = lazy(() => import('./components/NinjaGameTop'));
 const Ninja1 = lazy(() => import('./components/NinjaGame'));
 const Ninja2 = lazy(() => import('./components/NinjaGame2'));
@@ -44,7 +43,6 @@ export default class App extends React.Component {
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
                         <Route exact path='/folktales' component={StoriesTop} />
                         <Route exact path='/folktales/:storyName' component={Stories} />
-                        <Route path='/folktales-setting' component={StoriesSetting} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />
                         <Route path='/ninja2' component={Ninja2} />
