@@ -99,11 +99,11 @@ class Stories extends React.Component {
         const title = storyName.split("-").join(" ");
         return (
             <center>
+                <Head
+                    title={title}
+                    desc={this.props.storyDesc.description && this.props.storyDesc.description.split("\\n").join(" ")}
+                />
                 <div style={{ maxWidth: 700 }}>
-                    <Head
-                        title={title}
-                        desc={this.props.storyDesc.description}
-                    />
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
@@ -196,10 +196,6 @@ class Sentences extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            showWordList: false
-        };
         this.props.loadSentences(this.props.storyId);
     }
 
@@ -288,7 +284,6 @@ class WordList extends React.Component {
         this.state = {
             showWordList: false
         };
-        this.props.loadSentences(this.props.storyId);
     }
 
     showWordList = () => {

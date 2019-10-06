@@ -41,11 +41,11 @@ class StoriesTop extends React.Component {
         const { screenWidth } = this.state;
         return (
             <center>
+                <Head
+                    title="Japanese Folktales"
+                    desc="Free application to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                />
                 <div style={{ maxWidth: 700 }}>
-                    <Head
-                        title="Japanese Folktales"
-                        desc="Free application to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
-                    />
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
                             <span itemProp="title">

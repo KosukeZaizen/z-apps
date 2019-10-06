@@ -99,25 +99,25 @@ class Stories extends React.Component {
         const title = storyName.split("-").join(" ");
         return (
             <center>
-                <div style={{ maxWidth: 700 }}>
-                    <Head
-                        title={title}
-                        desc={this.props.storyDesc.description}
-                    />
+                <Head
+                    title={title}
+                    noindex={true}
+                />
+                <div style={{ maxWidth: 1000 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Home
-                                    </span>
+                            </span>
                         </Link>
                         ＞
-                                <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Japanese Folktales
-                                    </span>
+                            </span>
                         </Link>
                         ＞
-                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             {title}
                         </span>
                     </div>
@@ -191,10 +191,6 @@ class Sentences extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            showWordList: true,
-        };
         this.props.loadSentences(this.props.storyId);
     }
 
@@ -222,20 +218,20 @@ class Sentences extends React.Component {
                                 <table style={{ width: "100%" }}>
                                     <tbody>
                                         <tr style={{ backgroundColor: "#fff0f2" }}>
-                                            <td><b>Ｋ:　</b></td>
-                                            <td><input type="text" value={s.kanji} style={{ width: "100%" }} /></td>
+                                            <td width="20px"><b>Ｋ:　</b></td>
+                                            <td><input type="text" defaultValue={s.kanji} style={{ width: "100%" }} /></td>
                                         </tr>
                                         <tr style={{ backgroundColor: "#ffffe0" }}>
-                                            <td><b>Ｈ:　</b></td>
-                                            <td><input type="text" value={s.hiragana} style={{ width: "100%" }} /></td>
+                                            <td width="20px"><b>Ｈ:　</b></td>
+                                            <td><input type="text" defaultValue={s.hiragana} style={{ width: "100%" }} /></td>
                                         </tr>
                                         <tr style={{ backgroundColor: "#f0fff2" }}>
-                                            <td><b>Ｒ:　</b></td>
-                                            <td><input type="text" value={s.romaji} style={{ width: "100%" }} /></td>
+                                            <td width="20px"><b>Ｒ:　</b></td>
+                                            <td><input type="text" defaultValue={s.romaji} style={{ width: "100%" }} /></td>
                                         </tr>
                                         <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                            <td><b>Ｅ:　</b></td>
-                                            <td><input type="text" value={s.english} style={{ width: "100%" }} /></td>
+                                            <td width="20px"><b>Ｅ:　</b></td>
+                                            <td><input type="text" defaultValue={s.english} style={{ width: "100%" }} /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -260,9 +256,8 @@ class WordList extends React.Component {
         super(props);
 
         this.state = {
-            showWordList: false
+            showWordList: true
         };
-        this.props.loadSentences(this.props.storyId);
     }
 
     showWordList = () => {
