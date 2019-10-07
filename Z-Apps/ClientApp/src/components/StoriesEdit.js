@@ -31,6 +31,12 @@ class Stories extends React.Component {
         this.props.loadStory(this.state.storyName);
     }
 
+    unescapeHTML(html) {
+        const escapeEl = document.createElement("textarea");
+        escapeEl.innerHTML = html;
+        return escapeEl.textContent;
+    }
+
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
@@ -95,9 +101,11 @@ class Stories extends React.Component {
                     {
                         this.props.storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                                <textarea style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}>
-                                    {this.props.storyDesc.description}
-                                </textarea>
+                                <textarea
+                                    rows="5"
+                                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                    defaultValue={this.unescapeHTML(this.props.storyDesc.description.split("\\n").join("&#13;&#10;"))}
+                                />
                             </div>
                             :
                             null
