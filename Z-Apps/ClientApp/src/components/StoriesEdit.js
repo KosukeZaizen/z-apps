@@ -95,13 +95,9 @@ class Stories extends React.Component {
                     {
                         this.props.storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                                {
-                                    this.props.storyDesc.description.split("\\n").map((d, i) =>
-                                        <span key={i}>
-                                            {d}<br />
-                                        </span>
-                                    )
-                                }
+                                <textarea style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}>
+                                    {this.props.storyDesc.description}
+                                </textarea>
                             </div>
                             :
                             null
