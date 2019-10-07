@@ -40,8 +40,10 @@ class Stories extends React.Component {
                     title={title}
                     noindex={true}
                 />
+                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:"-1" }}>
+                </div>
                 <div style={{ maxWidth: 1000 }}>
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
+                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left", color: "white" }}>
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Home
@@ -61,6 +63,7 @@ class Stories extends React.Component {
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
+                        color: "#eb6905",
                     }}>
                         <b>{title}</b>
                     </h1>
@@ -69,7 +72,7 @@ class Stories extends React.Component {
                         this.state.storyName ?
                             <img
                                 src={Imgs[this.state.storyName]}
-                                width="90%"
+                                width="100px"
                                 alt={this.state.storyName}
                                 title={this.state.storyName}
                             />
@@ -91,7 +94,7 @@ class Stories extends React.Component {
                     <br />
                     {
                         this.props.storyDesc.description ?
-                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
                                 {
                                     this.props.storyDesc.description.split("\\n").map((d, i) =>
                                         <span key={i}>
@@ -154,21 +157,37 @@ class Sentences extends React.Component {
                             <span key={s.lineNumber}>
                                 <table style={{ width: "100%" }}>
                                     <tbody>
-                                        <tr style={{ backgroundColor: "#fff0f2" }}>
+                                        <tr style={{ backgroundColor: "black", color:"#757575" }}>
                                             <td width="20px"><b>Ｋ:　</b></td>
-                                            <td><input type="text" defaultValue={s.kanji} style={{ width: "100%" }} /></td>
+                                            <td><input
+                                                type="text"
+                                                defaultValue={s.kanji}
+                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                            /></td>
                                         </tr>
-                                        <tr style={{ backgroundColor: "#ffffe0" }}>
+                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                             <td width="20px"><b>Ｈ:　</b></td>
-                                            <td><input type="text" defaultValue={s.hiragana} style={{ width: "100%" }} /></td>
+                                            <td><input
+                                                type="text"
+                                                defaultValue={s.hiragana}
+                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46"  }}
+                                            /></td>
                                         </tr>
-                                        <tr style={{ backgroundColor: "#f0fff2" }}>
+                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                             <td width="20px"><b>Ｒ:　</b></td>
-                                            <td><input type="text" defaultValue={s.romaji} style={{ width: "100%" }} /></td>
+                                            <td><input
+                                                type="text"
+                                                defaultValue={s.romaji}
+                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                            /></td>
                                         </tr>
-                                        <tr style={{ backgroundColor: "#f0f8ff" }}>
+                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                             <td width="20px"><b>Ｅ:　</b></td>
-                                            <td><input type="text" defaultValue={s.english} style={{ width: "100%" }} /></td>
+                                            <td><input
+                                                type="text"
+                                                defaultValue={s.english}
+                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                            /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -214,7 +233,7 @@ class WordList extends React.Component {
                     ).length > 0 ?
                         this.state.showWordList ?
                             <button
-                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "white" }}
+                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.hideWordList}
                             >
@@ -222,7 +241,7 @@ class WordList extends React.Component {
                             </button>
                             :
                             <button
-                                style={{ marginTop: 10, height: 28, paddingTop: 0, color: "white" }}
+                                style={{ marginTop: 10, height: 28, paddingTop: 0, color: "black" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.showWordList}
                             >
@@ -231,27 +250,26 @@ class WordList extends React.Component {
                         :
                         null
                 }
-                <div style={{ backgroundColor: "#f8f7f8" }}>
+                <div style={{ backgroundColor: "#1b181b" }}>
                     {
                         this.state.showWordList ?
                             <center>
-                                <table border="1" style={{ borderCollapse: "collapse" }}>
+                                <table border="1" style={{ width:"100%", borderCollapse: "collapse" }}>
                                     <tbody>
                                         {
                                             this.props.words && this.props.words.filter(w =>
                                                 w.lineNumber === this.props.s.lineNumber
                                             ).map(w =>
                                                 <tr key={w.wordNumber}>
-                                                    <td style={{ textAlign: "center", minWidth: 100 }}>
-                                                        {w.kanji}<br />
-                                                        {
-                                                            w.hiragana ?
-                                                                `(${w.hiragana})`
-                                                                :
-                                                                null
-                                                        }
+                                                    <td width="20%">
+                                                        <textarea defaultValue={w.kanji} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }} />
                                                     </td>
-                                                    <td style={{ paddingLeft: 3, paddingRight: 3 }}>{w.english}</td>
+                                                    <td width="23%">
+                                                        <textarea defaultValue={w.hiragana} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }} />
+                                                    </td>
+                                                    <td>
+                                                        <textarea defaultValue={w.english} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }} />
+                                                    </td>
                                                 </tr>
                                             )
                                         }
