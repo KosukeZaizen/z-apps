@@ -31,12 +31,6 @@ class Stories extends React.Component {
         this.props.loadStory(this.state.storyName);
     }
 
-    unescapeHTML(html) {
-        const escapeEl = document.createElement("textarea");
-        escapeEl.innerHTML = html;
-        return escapeEl.textContent;
-    }
-
     componentDidUpdate() {
         if (this.props.storyDesc.storyId) {
             if (!this.props.sentences || this.props.sentences.length <= 0) {
@@ -44,6 +38,10 @@ class Stories extends React.Component {
                 this.props.loadWords(this.props.storyDesc.storyId);
             }
         }
+    }
+
+    setValuesToRegister = () => {
+
     }
 
     render() {
@@ -110,13 +108,7 @@ class Stories extends React.Component {
                     <br />
                     {
                         this.props.storyDesc.description ?
-                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                                <textarea
-                                    rows="5"
-                                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                    defaultValue={this.unescapeHTML(this.props.storyDesc.description.split("\\n").join("&#13;&#10;"))}
-                                />
-                            </div>
+                            <Description desc={this.props.storyDesc.description} />
                             :
                             null
                     }
@@ -140,6 +132,40 @@ class Stories extends React.Component {
         );
     }
 };
+
+class Description extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            desc: this.unescapeHTML(this.props.desc.split("\\n").join("&#13;&#10;")),
+        };
+    }
+
+    unescapeHTML(html) {
+        const escapeEl = document.createElement("textarea");
+        escapeEl.innerHTML = html;
+        return escapeEl.textContent;
+    }
+
+    handleChangeDesc = (event) => {
+        this.setState({ desc: event.target.value });
+    }
+
+    render() {
+        return (
+            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
+                <textarea
+                    rows="5"
+                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                    value={this.state.desc}
+                    onChange={this.handleChangeDesc}
+                />
+            </div>
+        )
+    }
+}
 
 class Sentences extends React.Component {
 
