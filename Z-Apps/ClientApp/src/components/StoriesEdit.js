@@ -37,6 +37,14 @@ class Stories extends React.Component {
         return escapeEl.textContent;
     }
 
+    componentDidUpdate() {
+        if (this.props.storyDesc.storyId) {
+            if (!this.props.sentences || this.props.sentences.length <= 0) {
+                this.props.loadSentences(this.props.storyDesc.storyId);
+            }
+        }
+    }
+
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
@@ -112,7 +120,7 @@ class Stories extends React.Component {
                     }
                     <br />
                     {
-                        this.props.storyDesc.storyId ?
+                        this.props.sentences && this.props.sentences.length > 0 ?
                             <Sentences
                                 storyId={this.props.storyDesc.storyId}
                                 sentences={this.props.sentences}
@@ -135,75 +143,75 @@ class Sentences extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.loadSentences(this.props.storyId);
+
+        this.props.loadWords(this.props.storyId);
+
+        this.state = {
+            sentences: this.props.sentences,
+        };
     }
 
-    componentDidUpdate() {
-        if (this.props.sentences && this.props.sentences.length > 0) {
-            if (!this.props.words || this.props.words.length <= 0) {
-                this.props.loadWords(this.props.storyId);
-            }
-        }
+    handleChangeSentence = (event, i, lang) => {
+        const s = this.state.sentences.concat();
+        s[i][lang] = event.target.value;
+        this.setState({ sentences: s });
     }
 
     render() {
-        const isLoading = !this.props.sentences || this.props.sentences.length <= 0;
-
         return (
             <div style={{ textAlign: "left" }}>
                 {
-                    isLoading ?
-                        <center>
-                            <CircularProgress key="circle" size="20%" />
-                        </center>
-                        :
-                        this.props.sentences && this.props.sentences.map(s =>
-                            <span key={s.lineNumber}>
-                                <table style={{ width: "100%" }}>
-                                    <tbody>
-                                        <tr style={{ backgroundColor: "black", color:"#757575" }}>
-                                            <td width="20px"><b>Ｋ:　</b></td>
-                                            <td><input
-                                                type="text"
-                                                defaultValue={s.kanji}
-                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                            /></td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                            <td width="20px"><b>Ｈ:　</b></td>
-                                            <td><input
-                                                type="text"
-                                                defaultValue={s.hiragana}
-                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46"  }}
-                                            /></td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                            <td width="20px"><b>Ｒ:　</b></td>
-                                            <td><input
-                                                type="text"
-                                                defaultValue={s.romaji}
-                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                            /></td>
-                                        </tr>
-                                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                            <td width="20px"><b>Ｅ:　</b></td>
-                                            <td><input
-                                                type="text"
-                                                defaultValue={s.english}
-                                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                            /></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <WordList
-                                    words={this.props.words}
-                                    s={s}
-                                    loadSentences={this.props.loadSentences}
-                                    storyId={this.props.storyId}
-                                />
-                                <hr />
-                            </span>
-                        )
+                    this.state.sentences && this.state.sentences.map((s,i) =>
+                        <span key={s.lineNumber}>
+                            <table style={{ width: "100%" }}>
+                                <tbody>
+                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
+                                        <td width="20px"><b>Ｋ:　</b></td>
+                                        <td><input
+                                            type="text"
+                                            value={s.kanji}
+                                            onChange={(e) => this.handleChangeSentence(e, i,"kanji")}
+                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                        /></td>
+                                    </tr>
+                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
+                                        <td width="20px"><b>Ｈ:　</b></td>
+                                        <td><input
+                                            type="text"
+                                            value={s.hiragana}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "hiragana")}
+                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                        /></td>
+                                    </tr>
+                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
+                                        <td width="20px"><b>Ｒ:　</b></td>
+                                        <td><input
+                                            type="text"
+                                            value={s.romaji}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "romaji")}
+                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                        /></td>
+                                    </tr>
+                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
+                                        <td width="20px"><b>Ｅ:　</b></td>
+                                        <td><input
+                                            type="text"
+                                            value={s.english}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "english")}
+                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                        /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <WordList
+                                words={this.props.words}
+                                s={s}
+                                loadSentences={this.props.loadSentences}
+                                storyId={this.props.storyId}
+                            />
+                            <hr />
+                        </span>
+                    )
                 }
             </div>
         );
