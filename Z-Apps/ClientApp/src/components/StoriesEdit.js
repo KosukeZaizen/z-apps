@@ -169,6 +169,29 @@ class Sentences extends React.Component {
         this.setState({ words: w });
     }
 
+    addLine = (previousLineNumber) => {
+        const s = this.state.sentences.concat();
+        for (let key in s) {
+            if (s[key].lineNumber >= previousLineNumber) {
+                s[key].lineNumber++;
+            }
+        }
+        const sToAdd = {
+            storyId: s[0],
+            lineNumber: previousLineNumber + 1,
+            kanji: "",
+            hiragana: "",
+            romaji: "",
+            english: "",
+        }
+        s.splice(previousLineNumber, 0, sToAdd);
+        this.setState({ sentences: s });
+
+
+        const w = this.state.words.concat();
+        this.setState({ words: w });
+    }
+
     render() {
         return (
             <div style={{ textAlign: "left" }}>
@@ -227,6 +250,13 @@ class Sentences extends React.Component {
                                     :
                                     null
                             }
+                            <button
+                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
+                                className="btn btn-dark btn-xs"
+                                onClick={() => this.addLine(s.lineNumber)}
+                            ><b>＋</b>
+                            </button>
+
                             <hr />
                         </span>
                     )
