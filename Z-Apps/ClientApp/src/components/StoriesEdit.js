@@ -250,6 +250,20 @@ class Sentences extends React.Component {
         this.setState({ words: w });
     }
 
+    removeWord = (lineNumber, wordNumber) => {
+        const w = this.state.words.concat();
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber) {
+                if (w[key].wordNumber > wordNumber) {
+                    w[key].wordNumber--;
+                } else if (w[key].wordNumber === wordNumber) {
+                    w.splice(key, 1);
+                }
+            }
+        }
+        this.setState({ words: w });
+    }
+
     render() {
         return (
             <div style={{ textAlign: "left" }}>
@@ -305,6 +319,7 @@ class Sentences extends React.Component {
                                         storyId={this.props.storyId}
                                         handleChangeWord={this.handleChangeWord}
                                         addWord={this.addWord}
+                                        removeWord={this.removeWord}
                                     />
                                     :
                                     null
@@ -380,6 +395,14 @@ class WordList extends React.Component {
                                                             onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "english")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
+                                                    </td>
+                                                    <td width="10px">
+                                                        <button
+                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
+                                                            className="btn btn-dark btn-xs"
+                                                            onClick={() => this.props.removeWord(w.lineNumber, w.wordNumber)}
+                                                        ><b>－</b>
+                                                        </button>
                                                     </td>
                                                     <td width="10px">
                                                         <button
