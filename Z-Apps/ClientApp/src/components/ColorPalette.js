@@ -129,7 +129,7 @@ class ColorPalette extends React.Component {
                 <Head
                     title="Color Code Getter"
                     desc="Get your favorite Color Code automatically!"
-            />
+                />
                 <h1 style={styleTitle}>Color Code Getter</h1>
                 <div style={styleContents}>
                     <div style={{ padding: 10, marginBottom: 10, border: "5px double #333333", }}>

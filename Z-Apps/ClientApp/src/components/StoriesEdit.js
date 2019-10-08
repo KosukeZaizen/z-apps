@@ -7,7 +7,7 @@ import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
 
-class Stories extends React.Component {
+class StoriesEdit extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,10 +38,6 @@ class Stories extends React.Component {
                 this.props.loadWords(this.props.storyDesc.storyId);
             }
         }
-    }
-
-    setValuesToRegister = () => {
-
     }
 
     render() {
@@ -160,7 +156,7 @@ class Description extends React.Component {
                     rows="5"
                     style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                     value={this.state.desc}
-                    onChange={this.handleChangeDesc}
+                    onChange={{/*this.handleChangeDesc*/ }}
                 />
             </div>
         )
@@ -175,6 +171,7 @@ class Sentences extends React.Component {
         this.state = {
             sentences: this.props.sentences,
             words: this.props.words,
+            loadingState: "initial",
         };
     }
 
@@ -264,6 +261,11 @@ class Sentences extends React.Component {
         this.setState({ words: w });
     }
 
+    translate = () => {
+        this.setState({ loadingState: "loading" });
+
+    }
+
     render() {
         return (
             <div style={{ textAlign: "left" }}>
@@ -280,6 +282,19 @@ class Sentences extends React.Component {
                                             onChange={(e) => this.handleChangeSentence(e, i,"kanji")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <button
+                                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                                                className="btn btn-dark btn-xs"
+                                                onClick={() => this.translate(s.lineNumber)}
+                                            >
+                                                <b>↓　Translate Sentence　↓</b>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                         <td width="20px"><b>Ｈ:　</b></td>
@@ -328,8 +343,10 @@ class Sentences extends React.Component {
                                 style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={() => this.addLine(s.lineNumber)}
-                            ><b>Add Line</b>
+                            >
+                                <b>Add Line</b>
                             </button>
+
                             <br /><br />
                             <hr />
                         </span>
@@ -428,6 +445,6 @@ class WordList extends React.Component {
 }
 
 export default connect(
-    state => state.stories,
+    state => state.storiesEdit,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(Stories);
+)(StoriesEdit);

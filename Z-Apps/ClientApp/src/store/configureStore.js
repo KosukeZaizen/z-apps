@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as KanjiConverter from './KanjiConverter';
 import * as Stories from './StoriesStore';
+import * as StoriesEdit from './StoriesEditStore';
 import * as StoriesTop from './StoriesTopStore';
 
 export default function configureStore(history, initialState) {
     const reducers = {
         kanjiConverter: KanjiConverter.reducer,
         stories: Stories.reducer,
+        storiesEdit: StoriesEdit.reducer,
         storiesTop: StoriesTop.reducer,
     };
 
