@@ -269,7 +269,7 @@ class Sentences extends React.Component {
                                 onClick={() => this.addLine(s.lineNumber)}
                             ><b>Add Line</b>
                             </button>
-
+                            <br /><br />
                             <hr />
                         </span>
                     )
@@ -300,29 +300,7 @@ class WordList extends React.Component {
     render() {
         return (
             <span>
-                {
-                    this.props.words && this.props.words.filter(w =>
-                        w.lineNumber === this.props.s.lineNumber
-                    ).length > 0 ?
-                        this.state.showWordList ?
-                            <button
-                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.hideWordList}
-                            >
-                                ▲　Hide word list
-                            </button>
-                            :
-                            <button
-                                style={{ marginTop: 10, height: 28, paddingTop: 0, color: "black" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.showWordList}
-                            >
-                                ▼　Show word list
-                            </button>
-                        :
-                        null
-                }
+                <br />
                 <div style={{ backgroundColor: "#1b181b" }}>
                     {
                         this.state.showWordList ?
