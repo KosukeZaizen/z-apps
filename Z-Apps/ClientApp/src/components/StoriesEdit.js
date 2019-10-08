@@ -205,6 +205,25 @@ class Sentences extends React.Component {
         this.setState({ words: w });
     }
 
+    addWord = (lineNumber, wordNumber) => {
+        const w = this.state.words.concat();
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber && w[key].wordNumber > wordNumber) {
+                w[key].wordNumber++;
+            }
+        }
+        const wToAdd = {
+            storyId: w[0],
+            lineNumber: lineNumber,
+            wordNumber: wordNumber + 1,
+            kanji: "",
+            hiragana: "",
+            english: "",
+        }
+        w.push(wToAdd);
+        this.setState({ words: w });
+    }
+
     render() {
         return (
             <div style={{ textAlign: "left" }}>
@@ -259,6 +278,7 @@ class Sentences extends React.Component {
                                         loadSentences={this.props.loadSentences}
                                         storyId={this.props.storyId}
                                         handleChangeWord={this.handleChangeWord}
+                                        addWord={this.addWord}
                                     />
                                     :
                                     null
@@ -310,7 +330,9 @@ class WordList extends React.Component {
                                         {
                                             this.props.words && this.props.words.filter((w) =>
                                                 w.lineNumber === this.props.s.lineNumber
-                                            ).map((w,i) =>
+                                            ).sort((a, b) =>
+                                                a.wordNumber - b.wordNumber
+                                            ).map((w, i) =>
                                                 <tr key={w.wordNumber}>
                                                     <td width="20%">
                                                         <textarea
@@ -332,6 +354,14 @@ class WordList extends React.Component {
                                                             onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "english")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
+                                                    </td>
+                                                    <td width="10px">
+                                                        <button
+                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
+                                                            className="btn btn-dark btn-xs"
+                                                            onClick={() => this.props.addWord(w.lineNumber, w.wordNumber)}
+                                                        ><b>＋</b>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             )
