@@ -144,11 +144,11 @@ class Sentences extends React.Component {
     constructor(props) {
         super(props);
 
-        this.props.loadWords(this.props.storyId);
-
         this.state = {
             sentences: this.props.sentences,
         };
+
+        this.props.loadWords(this.props.storyId);
     }
 
     handleChangeSentence = (event, i, lang) => {
