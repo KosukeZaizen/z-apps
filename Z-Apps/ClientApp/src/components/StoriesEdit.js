@@ -41,6 +41,7 @@ class Stories extends React.Component {
         if (this.props.storyDesc.storyId) {
             if (!this.props.sentences || this.props.sentences.length <= 0) {
                 this.props.loadSentences(this.props.storyDesc.storyId);
+                this.props.loadWords(this.props.storyDesc.storyId);
             }
         }
     }
@@ -48,6 +49,7 @@ class Stories extends React.Component {
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("-").join(" ");
+        const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
             <center>
                 <Head
@@ -120,7 +122,7 @@ class Stories extends React.Component {
                     }
                     <br />
                     {
-                        this.props.sentences && this.props.sentences.length > 0 ?
+                        showSentences ?
                             <Sentences
                                 storyId={this.props.storyDesc.storyId}
                                 sentences={this.props.sentences}
@@ -146,15 +148,25 @@ class Sentences extends React.Component {
 
         this.state = {
             sentences: this.props.sentences,
+            words: this.props.words,
         };
-
-        this.props.loadWords(this.props.storyId);
     }
 
-    handleChange = (event, i, lang) => {
+    handleChangeSentence = (event, i, lang) => {
         const s = this.state.sentences.concat();
         s[i][lang] = event.target.value;
         this.setState({ sentences: s });
+    }
+
+    handleChangeWord = (event, lineNumber, wordNumber, lang) => {
+        const w = this.state.words.concat();
+
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
+                w[key][lang] = event.target.value;
+            }
+        }
+        this.setState({ words: w });
     }
 
     render() {
@@ -170,7 +182,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.kanji}
-                                            onChange={(e) => this.handleChange(e, i,"kanji")}
+                                            onChange={(e) => this.handleChangeSentence(e, i,"kanji")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -179,7 +191,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.hiragana}
-                                            onChange={(e) => this.handleChange(e, i, "hiragana")}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "hiragana")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -188,7 +200,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.romaji}
-                                            onChange={(e) => this.handleChange(e, i, "romaji")}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "romaji")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -197,19 +209,20 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.english}
-                                            onChange={(e) => this.handleChange(e, i, "english")}
+                                            onChange={(e) => this.handleChangeSentence(e, i, "english")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
                                 </tbody>
                             </table>
                             {
-                                this.props.words && this.props.words.length > 0 ?
+                                this.state.words && this.state.words.length > 0 ?
                                 <WordList
-                                    words={this.props.words}
-                                    s={s}
-                                    loadSentences={this.props.loadSentences}
-                                    storyId={this.props.storyId}
+                                        words={this.state.words}
+                                        s={s}
+                                        loadSentences={this.props.loadSentences}
+                                        storyId={this.props.storyId}
+                                        handleChangeWord={this.handleChangeWord}
                                     />
                                     :
                                     null
@@ -230,19 +243,7 @@ class WordList extends React.Component {
 
         this.state = {
             showWordList: true,
-            words: this.props.words,
         };
-    }
-
-    handleChange = (event, i, lineNumber, wordNumber, lang) => {
-        const w = this.state.words.concat();
-
-        for (let key in w) {
-            if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
-                w[key][lang] = event.target.value;
-            }
-        }
-        this.setState({ words: w });
     }
 
     showWordList = () => {
@@ -293,21 +294,21 @@ class WordList extends React.Component {
                                                     <td width="20%">
                                                         <textarea
                                                             value={w.kanji}
-                                                            onChange={(e) => this.handleChange(e, this.wordsOrder, this.props.s.lineNumber, w.wordNumber, "kanji")}
+                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "kanji")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
                                                     </td>
                                                     <td width="23%">
                                                         <textarea
                                                             value={w.hiragana}
-                                                            onChange={(e) => this.handleChange(e, this.wordsOrder, this.props.s.lineNumber, w.wordNumber, "hiragana")}
+                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "hiragana")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
                                                     </td>
                                                     <td>
                                                         <textarea
                                                             value={w.english}
-                                                            onChange={(e) => this.handleChange(e, this.wordsOrder, this.props.s.lineNumber, w.wordNumber, "english")}
+                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "english")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
                                                     </td>
