@@ -120,6 +120,8 @@ class StoriesEdit extends React.Component {
                                 handleChangeSentence={this.props.handleChangeSentence}
                                 addLine={this.props.addLine}
                                 handleChangeWord={this.props.handleChangeWord}
+                                addWord={this.props.addWord}
+                                removeWord={this.props.removeWord}
                             />
                             :
                             <center>
@@ -172,47 +174,7 @@ class Sentences extends React.Component {
         super(props);
 
         this.state = {
-            words: this.props.words,
-            loadingState: "initial",
         };
-    }
-
-    addWord = (lineNumber, wordNumber) => {
-        const w = this.state.words.concat();
-        for (let key in w) {
-            if (w[key].lineNumber === lineNumber && w[key].wordNumber > wordNumber) {
-                w[key].wordNumber++;
-            }
-        }
-        const wToAdd = {
-            storyId: w[0],
-            lineNumber: lineNumber,
-            wordNumber: wordNumber + 1,
-            kanji: "",
-            hiragana: "",
-            english: "",
-        }
-        w.push(wToAdd);
-        this.setState({ words: w });
-    }
-
-    removeWord = (lineNumber, wordNumber) => {
-        const w = this.state.words.concat();
-        for (let key in w) {
-            if (w[key].lineNumber === lineNumber) {
-                if (w[key].wordNumber > wordNumber) {
-                    w[key].wordNumber--;
-                } else if (w[key].wordNumber === wordNumber) {
-                    w.splice(key, 1);
-                }
-            }
-        }
-        this.setState({ words: w });
-    }
-
-    translate = () => {
-        this.setState({ loadingState: "loading" });
-
     }
 
     render() {
@@ -281,8 +243,8 @@ class Sentences extends React.Component {
                                         s={s}
                                         storyId={this.props.storyId}
                                         handleChangeWord={this.props.handleChangeWord}
-                                        addWord={this.addWord}
-                                        removeWord={this.removeWord}
+                                        addWord={this.props.addWord}
+                                        removeWord={this.props.removeWord}
                                     />
                                     :
                                     null

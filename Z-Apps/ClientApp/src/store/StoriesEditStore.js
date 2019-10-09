@@ -116,6 +116,44 @@ export const actionCreators = {
         w.splice(previousLineNumber, 0, wToAdd);
         dispatch({ type: receiveWordsType, words: w });
     },
+
+    addWord: (lineNumber, wordNumber) => (dispatch, getState) => {
+        const state = getState().storiesEdit;
+        const w = state.words.concat();
+
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber && w[key].wordNumber > wordNumber) {
+                w[key].wordNumber++;
+            }
+        }
+        const wToAdd = {
+            storyId: w[0],
+            lineNumber: lineNumber,
+            wordNumber: wordNumber + 1,
+            kanji: "",
+            hiragana: "",
+            english: "",
+        }
+        w.push(wToAdd);
+        dispatch({ type: receiveWordsType, words: w });
+    },
+
+
+    removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
+        const state = getState().storiesEdit;
+        const w = state.words.concat();
+
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber) {
+                if (w[key].wordNumber > wordNumber) {
+                    w[key].wordNumber--;
+                } else if (w[key].wordNumber === wordNumber) {
+                    w.splice(key, 1);
+                }
+            }
+        }
+        dispatch({ type: receiveWordsType, words: w });
+    }
 };
 
 export const reducer = (state, action) => {
