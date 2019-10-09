@@ -1,3 +1,5 @@
+import * as commonFnc from '../components/common/functions';
+
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
@@ -62,28 +64,12 @@ export const actionCreators = {
     translate: (sentence) => async (dispatch, getState) => {
         try {
             const state = getState().storiesEdit;
-
-            console.log("送信s", sentence);
-
-
-            const url = `api/StoriesEdit/Translate`;
-            const method = "POST";
-            const body = JSON.stringify(sentence);
-            console.log("body", body);
-            const headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            };
-
-            const response = await fetch(url, { method, headers, body });
-            const resultSentence = await response.json();
-            console.log("受信s", resultSentence);
-
+            const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
 
             const s = state.sentences.concat();
             for (let key in s) {
                 if (s[key].lineNumber === sentence.lineNumber) {
-                    s[key] = resultSentence;
+                    s[key] = result && result.sentence;
                 }
             }
             dispatch({ type: receiveSentencesType, sentences: s });
