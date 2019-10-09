@@ -64,9 +64,9 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public Sentence Translate([FromBody] Sentence sentence)
+        public async Task<Sentence> Translate([FromBody] Sentence sentence)
         {
-            var result = service.Translate(sentence);
+            var result = await service.Translate(sentence);
             return result;
         }
     }

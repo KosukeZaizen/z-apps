@@ -5,6 +5,8 @@ using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
 using Z_Apps.Util;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Z_Apps.Models.Stories
 {
@@ -45,18 +47,19 @@ namespace Z_Apps.Models.Stories
             return words;
         }
 
-        public Sentence Translate(Sentence sentence)
+        public async Task<Sentence> Translate(Sentence sentence)
         {
             sentence.Hiragana = MakeHigragana(sentence.Kanji);
             sentence.Romaji = MakeRomaji(sentence.Hiragana);
-
+            sentence.English = await MakeEnglish(sentence.Kanji);
+            
             sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
             sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
 
             return sentence;
         }
 
-        private string MakeHigragana(String kanjis)
+        private string MakeHigragana(string kanjis)
         {
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
@@ -104,7 +107,7 @@ namespace Z_Apps.Models.Stories
             return result;
         }
 
-        private string MakeRomaji(String hiragana)
+        private string MakeRomaji(string hiragana)
         {
             string result = hiragana;
             var dicH1 = new Dictionary<string, string>(){{"あ", "a"},{ "い", "i"},{ "う", "u"},{ "え", "e"},{ "お", "o"},{ "か", "ka"},{ "き", "ki"},{ "く", "ku"},{ "け", "ke"},{ "こ", "ko"},{ "さ", "sa"},{ "し", "shi"},{ "す", "su"},{ "せ", "se"},{ "そ", "so"},{ "た", "ta"},{ "ち", "chi"},{ "つ", "tsu"},{ "て", "te"},{ "と", "to"},{ "な", "na"},{ "に", "ni"},{ "ぬ", "nu"},{ "ね", "ne"},{ "の", "no"},{ "は", "ha"},{ "ひ", "hi"},{ "ふ", "fu"},{ "へ", "he"},{ "ほ", "ho"},{ "ま", "ma"},{ "み", "mi"},{ "む", "mu"},{ "め", "me"},{ "も", "mo"},{ "や", "ya"},{ "ゆ", "yu"},{ "よ", "yo"},{ "ら", "ra"},{ "り", "ri"},{ "る", "ru"},{ "れ", "re"},{ "ろ", "ro"},{ "わ", "wa"},{ "ゐ ", "i"},{ "ゑ", "e"},{ "を", "wo"},{ "が", "ga"},{ "ぎ", "gi"},{ "ぐ", "gu"},{ "げ", "ge"},{ "ご", "go"},{ "ざ", "za"},{ "じ", "ji"},{ "ず", "zu"},{ "ぜ", "ze"},{ "ぞ", "zo"},{ "だ", "da"},{ "ぢ", "ji"},{ "づ", "zu"},{ "で", "de"},{ "ど", "do"},{ "ば", "ba"},{ "び", "bi"},{ "ぶ", "bu"},{ "べ", "be"},{ "ぼ", "bo"},{ "ぱ", "pa"},{ "ぴ", "pi"},{ "ぷ", "pu"},{ "ぺ", "pe"},{ "ぽ", "po"},{ "ゔ", "bu"},{ "ー", "" },{"ん", "n"}};
@@ -119,11 +122,10 @@ namespace Z_Apps.Models.Stories
             {
                 result = result.Replace(kvp.Key, kvp.Value + " ");
             }
-
             return result;
         }
 
-        private string ConvertSpecialChar(String hiragana)
+        private string ConvertSpecialChar(string hiragana)
         {
             string result = hiragana;
             var dic = new Dictionary<string, string>() { { "  ", " " }, { " 、", "、" }, { " 。", "。" }, { " ！", "！" }, { " 」", "」" }, { "「 ", "「" } };
@@ -132,8 +134,19 @@ namespace Z_Apps.Models.Stories
             {
                 result = result.Replace(kvp.Key, kvp.Value);
             }
-
             return result;
+        }
+
+        private async Task<string> MakeEnglish(string kanji)
+        {
+            string url = @"https://script.google.com/macros/s/AKfycbzIEz24LNM-m92y6elzl8DCoG-uZi-HhDZ5ARQKPtMyll9w6V4/exec?text=" 
+                + kanji + @"&source=ja&target=en";
+
+            using (var client = new HttpClient())
+            {
+                var result = await client.GetStringAsync(url);
+                return result;
+            }
         }
     }
 }
