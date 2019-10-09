@@ -1,7 +1,6 @@
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
-const changeSentenceType = 'CHANGE_SENTENCE';
 const initialState = { storyDesc: [], sentences: [], words: [] };
 
 export const actionCreators = {
@@ -18,6 +17,7 @@ export const actionCreators = {
             return;
         }
     },
+
     loadSentences: (storyId) => async (dispatch, getState) => {
         try {
             const url = `api/Stories/GetSentences/${storyId}`;
@@ -31,6 +31,7 @@ export const actionCreators = {
             return;
         }
     },
+
     loadWords: (storyId) => async (dispatch, getState) => {
         try {
             const url = `api/Stories/GetWords/${storyId}`;
@@ -44,6 +45,7 @@ export const actionCreators = {
             return;
         }
     },
+
     translate: (storyId) => async (dispatch, getState) => {
         try {
             const url = `api/Stories/GetWords/${storyId}`;
@@ -57,13 +59,63 @@ export const actionCreators = {
             return;
         }
     },
+
     handleChangeSentence: (event, i, lang) => (dispatch, getState) => {
         const s = getState().storiesEdit.sentences.concat();
         s[i][lang] = event.target.value;
 
-        dispatch({ type: changeSentenceType, sentences: s });
+        dispatch({ type: receiveSentencesType, sentences: s });
     },
 
+    handleChangeWord: (event, lineNumber, wordNumber, lang) => (dispatch, getState) => {
+        const state = getState().storiesEdit;
+        const w = state.words.concat();
+
+        for (let key in w) {
+            if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
+                w[key][lang] = event.target.value;
+            }
+        }
+        dispatch({ type: receiveWordsType, words: w });
+    },
+
+    addLine: (previousLineNumber) => (dispatch, getState) => {
+        const state = getState().storiesEdit;
+
+        const s = state.sentences.concat();
+        for (let key in s) {
+            if (s[key].lineNumber > previousLineNumber) {
+                s[key].lineNumber++;
+            }
+        }
+        const sToAdd = {
+            storyId: s[0].storyId,
+            lineNumber: previousLineNumber + 1,
+            kanji: "",
+            hiragana: "",
+            romaji: "",
+            english: "",
+        }
+        s.splice(previousLineNumber, 0, sToAdd);
+        dispatch({ type: receiveSentencesType, sentences: s });
+
+        const w = state.words.concat();
+        for (let key in w) {
+            if (w[key].lineNumber > previousLineNumber) {
+                w[key].lineNumber++;
+            }
+        }
+        const wToAdd = {
+            storyId: s[0].storyId,
+            lineNumber: previousLineNumber + 1,
+            wordNumber: 1,
+            kanji: "",
+            hiragana: "",
+            english: "",
+        }
+        w.splice(previousLineNumber, 0, wToAdd);
+        dispatch({ type: receiveWordsType, words: w });
+    },
 };
 
 export const reducer = (state, action) => {
@@ -90,12 +142,5 @@ export const reducer = (state, action) => {
         };
     }
 
-    if (action.type === changeSentenceType) {
-        return {
-            ...state,
-            sentences: action.sentences,
-        };
-    }
-    
     return state;
 };

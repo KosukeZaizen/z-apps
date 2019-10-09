@@ -114,10 +114,12 @@ class StoriesEdit extends React.Component {
                             <Sentences
                                 storyId={this.props.storyDesc.storyId}
                                 sentences={this.props.sentences}
-                                loadSentences={this.props.loadSentences.bind(this)}
+                                loadSentences={this.props.loadSentences}
                                 words={this.props.words}
-                                loadWords={this.props.loadWords.bind(this)}
-                                handleChangeSentence={this.props.handleChangeSentence.bind(this)}
+                                loadWords={this.props.loadWords}
+                                handleChangeSentence={this.props.handleChangeSentence}
+                                addLine={this.props.addLine}
+                                handleChangeWord={this.props.handleChangeWord}
                             />
                             :
                             <center>
@@ -170,57 +172,9 @@ class Sentences extends React.Component {
         super(props);
 
         this.state = {
-            sentences: this.props.sentences,
             words: this.props.words,
             loadingState: "initial",
         };
-    }
-
-    handleChangeWord = (event, lineNumber, wordNumber, lang) => {
-        const w = this.state.words.concat();
-
-        for (let key in w) {
-            if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
-                w[key][lang] = event.target.value;
-            }
-        }
-        this.setState({ words: w });
-    }
-
-    addLine = (previousLineNumber) => {
-        const s = this.state.sentences.concat();
-        for (let key in s) {
-            if (s[key].lineNumber > previousLineNumber) {
-                s[key].lineNumber++;
-            }
-        }
-        const sToAdd = {
-            storyId: s[0],
-            lineNumber: previousLineNumber + 1,
-            kanji: "",
-            hiragana: "",
-            romaji: "",
-            english: "",
-        }
-        s.splice(previousLineNumber, 0, sToAdd);
-        this.setState({ sentences: s });
-
-        const w = this.state.words.concat();
-        for (let key in w) {
-            if (w[key].lineNumber > previousLineNumber) {
-                w[key].lineNumber++;
-            }
-        }
-        const wToAdd = {
-            storyId: s[0],
-            lineNumber: previousLineNumber + 1,
-            wordNumber: 1,
-            kanji: "",
-            hiragana: "",
-            english: "",
-        }
-        w.splice(previousLineNumber, 0, wToAdd);
-        this.setState({ words: w });
     }
 
     addWord = (lineNumber, wordNumber) => {
@@ -265,7 +219,7 @@ class Sentences extends React.Component {
         return (
             <div style={{ textAlign: "left" }}>
                 {
-                    this.state.sentences && this.state.sentences.map((s,i) =>
+                    this.props.sentences && this.props.sentences.map((s,i) =>
                         <span key={s.lineNumber}>
                             <table style={{ width: "100%" }}>
                                 <tbody>
@@ -321,13 +275,12 @@ class Sentences extends React.Component {
                                 </tbody>
                             </table>
                             {
-                                this.state.words && this.state.words.length > 0 ?
+                                this.props.words && this.props.words.length > 0 ?
                                 <WordList
-                                        words={this.state.words}
+                                        words={this.props.words}
                                         s={s}
-                                        loadSentences={this.props.loadSentences}
                                         storyId={this.props.storyId}
-                                        handleChangeWord={this.handleChangeWord}
+                                        handleChangeWord={this.props.handleChangeWord}
                                         addWord={this.addWord}
                                         removeWord={this.removeWord}
                                     />
@@ -337,7 +290,7 @@ class Sentences extends React.Component {
                             <button
                                 style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
                                 className="btn btn-dark btn-xs"
-                                onClick={() => this.addLine(s.lineNumber)}
+                                onClick={() => this.props.addLine(s.lineNumber)}
                             >
                                 <b>Add Line</b>
                             </button>

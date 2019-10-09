@@ -26,6 +26,5 @@ export const reducer = (state, action) => {
             allStories: action.allStories,
         };
     }
-
     return state;
 };
