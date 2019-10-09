@@ -1,6 +1,7 @@
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
+const changeSentenceType = 'CHANGE_SENTENCE';
 const initialState = { storyDesc: [], sentences: [], words: [] };
 
 export const actionCreators = {
@@ -56,6 +57,13 @@ export const actionCreators = {
             return;
         }
     },
+    handleChangeSentence: (event, i, lang) => (dispatch, getState) => {
+        const s = getState().storiesEdit.sentences.concat();
+        s[i][lang] = event.target.value;
+
+        dispatch({ type: changeSentenceType, sentences: s });
+    },
+
 };
 
 export const reducer = (state, action) => {
@@ -82,5 +90,12 @@ export const reducer = (state, action) => {
         };
     }
 
+    if (action.type === changeSentenceType) {
+        return {
+            ...state,
+            sentences: action.sentences,
+        };
+    }
+    
     return state;
 };

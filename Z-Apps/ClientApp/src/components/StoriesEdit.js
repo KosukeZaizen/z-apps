@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actionCreators } from '../store/StoriesStore';
+import { actionCreators } from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
@@ -117,6 +117,7 @@ class StoriesEdit extends React.Component {
                                 loadSentences={this.props.loadSentences.bind(this)}
                                 words={this.props.words}
                                 loadWords={this.props.loadWords.bind(this)}
+                                handleChangeSentence={this.props.handleChangeSentence.bind(this)}
                             />
                             :
                             <center>
@@ -156,7 +157,7 @@ class Description extends React.Component {
                     rows="5"
                     style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                     value={this.state.desc}
-                    onChange={{/*this.handleChangeDesc*/ }}
+                    onChange={()=>{/*this.handleChangeDesc*/ }}
                 />
             </div>
         )
@@ -173,12 +174,6 @@ class Sentences extends React.Component {
             words: this.props.words,
             loadingState: "initial",
         };
-    }
-
-    handleChangeSentence = (event, i, lang) => {
-        const s = this.state.sentences.concat();
-        s[i][lang] = event.target.value;
-        this.setState({ sentences: s });
     }
 
     handleChangeWord = (event, lineNumber, wordNumber, lang) => {
@@ -279,7 +274,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.kanji}
-                                            onChange={(e) => this.handleChangeSentence(e, i,"kanji")}
+                                            onChange={(e) => this.props.handleChangeSentence(e, i,"kanji")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -301,7 +296,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.hiragana}
-                                            onChange={(e) => this.handleChangeSentence(e, i, "hiragana")}
+                                            onChange={(e) => this.props.handleChangeSentence(e, i, "hiragana")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -310,7 +305,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.romaji}
-                                            onChange={(e) => this.handleChangeSentence(e, i, "romaji")}
+                                            onChange={(e) => this.props.handleChangeSentence(e, i, "romaji")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -319,7 +314,7 @@ class Sentences extends React.Component {
                                         <td><input
                                             type="text"
                                             value={s.english}
-                                            onChange={(e) => this.handleChangeSentence(e, i, "english")}
+                                            onChange={(e) => this.props.handleChangeSentence(e, i, "english")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
