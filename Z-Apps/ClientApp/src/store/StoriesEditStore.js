@@ -1,7 +1,7 @@
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
-const initialState = { storyDesc: [], sentences: [], words: [] };
+const initialState = { storyDesc: {}, sentences: [], words: [] };
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
@@ -10,6 +10,13 @@ export const actionCreators = {
             const response = await fetch(url);
             const storyDesc = await response.json();
 
+            const unescapeHTML = (html) => {
+                const escapeEl = document.createElement("textarea");
+                escapeEl.innerHTML = html;
+                return escapeEl.textContent;
+            }
+
+            storyDesc.description = unescapeHTML(storyDesc.description.split("\\n").join("&#13;&#10;"));
             dispatch({ type: receiveStoryType, storyDesc });
 
         } catch (e) {
@@ -44,6 +51,12 @@ export const actionCreators = {
             window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
+    },
+
+    handleChangeDesc: (event) => (dispatch, getState) => {
+        const sd = Object.assign({}, getState().storiesEdit.storyDesc);
+        sd.description = event.target.value;
+        dispatch({ type: receiveStoryType, storyDesc: sd });
     },
 
     translate: (storyId) => async (dispatch, getState) => {

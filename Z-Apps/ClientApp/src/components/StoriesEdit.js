@@ -41,7 +41,7 @@ class StoriesEdit extends React.Component {
     }
 
     render() {
-        const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
+        const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("-").join(" ");
         const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
@@ -104,7 +104,10 @@ class StoriesEdit extends React.Component {
                     <br />
                     {
                         this.props.storyDesc.description ?
-                            <Description desc={this.props.storyDesc.description} />
+                            <Description
+                                desc={this.props.storyDesc.description}
+                                handleChangeDesc={this.props.handleChangeDesc}
+                            />
                             :
                             null
                     }
@@ -122,6 +125,7 @@ class StoriesEdit extends React.Component {
                                 handleChangeWord={this.props.handleChangeWord}
                                 addWord={this.props.addWord}
                                 removeWord={this.props.removeWord}
+                                translate={this.props.translate}
                             />
                             :
                             <center>
@@ -140,18 +144,7 @@ class Description extends React.Component {
         super(props);
 
         this.state = {
-            desc: this.unescapeHTML(this.props.desc.split("\\n").join("&#13;&#10;")),
         };
-    }
-
-    unescapeHTML(html) {
-        const escapeEl = document.createElement("textarea");
-        escapeEl.innerHTML = html;
-        return escapeEl.textContent;
-    }
-
-    handleChangeDesc = (event) => {
-        this.setState({ desc: event.target.value });
     }
 
     render() {
@@ -160,8 +153,8 @@ class Description extends React.Component {
                 <textarea
                     rows="5"
                     style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                    value={this.state.desc}
-                    onChange={()=>{/*this.handleChangeDesc*/ }}
+                    value={this.props.desc}
+                    onChange={this.props.handleChangeDesc}
                 />
             </div>
         )
@@ -201,7 +194,7 @@ class Sentences extends React.Component {
                                             <button
                                                 style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                                                 className="btn btn-dark btn-xs"
-                                                onClick={() => this.translate(s.lineNumber)}
+                                                onClick={() => this.props.translate(s.lineNumber)}
                                             >
                                                 <b>↓　Translate Sentence　↓</b>
                                             </button>
