@@ -9,6 +9,7 @@ using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
+using static Z_Apps.Models.Stories.Service;
 
 namespace Z_Apps.Controllers
 {
@@ -66,15 +67,8 @@ namespace Z_Apps.Controllers
         [HttpPost("[action]")]
         public async Task<TranslationResult> Translate([FromBody] Sentence sentence)
         {
-            var s = await service.Translate(sentence);
-
-
-            return new TranslationResult(){ sentence = s, words = null};
-        }
-        public class TranslationResult
-        {
-            public Sentence sentence;
-            public IEnumerable<Word> words;
+            var result = await service.Translate(sentence);
+            return result;
         }
     }
 }

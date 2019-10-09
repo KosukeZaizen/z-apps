@@ -47,7 +47,7 @@ namespace Z_Apps.Models.Stories
             return words;
         }
 
-        public async Task<Sentence> Translate(Sentence sentence)
+        public async Task<TranslationResult> Translate(Sentence sentence)
         {
             var dicHiraganaKatakana = MakeHigraganaAndKanji(sentence.Kanji);
             sentence.Hiragana = dicHiraganaKatakana["hiragana"];
@@ -57,20 +57,41 @@ namespace Z_Apps.Models.Stories
             sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
             sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
 
-            return sentence;
+            var words = await GetTranslatedWordList(dicHiraganaKatakana, sentence);
+
+            return new TranslationResult() { sentence = sentence, words = words };
         }
 
-        public async Task<IEnumerable<Word>> GetTranslatedWordList(Sentence sentence)
+        public class TranslationResult
+        {
+            public Sentence sentence;
+            public IEnumerable<Word> words;
+        }
+
+        public async Task<IEnumerable<Word>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKatakana, Sentence sentence)
         {
             var lstWords = new List<Word>();
 
-            //sentence.Hiragana = MakeHigraganaAndKanji(sentence.Kanji);
-            sentence.Romaji = MakeRomaji(sentence.Hiragana);
-            sentence.English = await MakeEnglish(sentence.Kanji);
+            var arrHiragana = dicHiraganaKatakana["hiragana"]
+                .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
+                .Split(" ");
 
-            sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
-            sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
+            var arrKanji = dicHiraganaKatakana["kanji"]
+                .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
+                .Split(" ");
 
+            for (int i = 0; i < arrKanji.Length; i++)
+            {
+                var w = new Word();
+                w.StoryId = sentence.StoryId;
+                w.LineNumber = sentence.LineNumber;
+                w.WordNumber = i + 1;
+                w.Kanji = arrKanji[i];
+                w.Hiragana = arrHiragana[i];
+                w.English = await MakeEnglish(arrKanji[i]);
+
+                lstWords.Add(w);
+            }
             return lstWords;
         }
 

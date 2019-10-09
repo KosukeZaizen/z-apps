@@ -74,6 +74,8 @@ export const actionCreators = {
             }
             dispatch({ type: receiveSentencesType, sentences: s });
 
+            console.log(result && result.words);
+
         } catch (e) {
             console.log(e);
             //window.location.href = `/not-found?p=${window.location.pathname}`;
