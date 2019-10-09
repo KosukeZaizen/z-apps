@@ -6,7 +6,7 @@ const initialState = { storyDesc: {}, sentences: [], words: [] };
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
-            const url = `api/Stories/GetPageData/${storyName}`;
+            const url = `api/StoriesEdit/GetPageData/${storyName}`;
             const response = await fetch(url);
             const storyDesc = await response.json();
 
@@ -27,7 +27,7 @@ export const actionCreators = {
 
     loadSentences: (storyId) => async (dispatch, getState) => {
         try {
-            const url = `api/Stories/GetSentences/${storyId}`;
+            const url = `api/StoriesEdit/GetSentences/${storyId}`;
             const response = await fetch(url);
             const sentences = await response.json();
 
@@ -41,7 +41,7 @@ export const actionCreators = {
 
     loadWords: (storyId) => async (dispatch, getState) => {
         try {
-            const url = `api/Stories/GetWords/${storyId}`;
+            const url = `api/StoriesEdit/GetWords/${storyId}`;
             const response = await fetch(url);
             const words = await response.json();
 
@@ -59,15 +59,37 @@ export const actionCreators = {
         dispatch({ type: receiveStoryType, storyDesc: sd });
     },
 
-    translate: (storyId) => async (dispatch, getState) => {
+    translate: (sentence) => async (dispatch, getState) => {
         try {
-            const url = `api/Stories/GetWords/${storyId}`;
-            const response = await fetch(url);
-            const words = await response.json();
+            const state = getState().storiesEdit;
 
-            dispatch({ type: receiveWordsType, words });
+            console.log("送信s", sentence);
+
+
+            const url = `api/StoriesEdit/Translate`;
+            const method = "POST";
+            const body = JSON.stringify(sentence);
+            console.log("body", body);
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            };
+
+            const response = await fetch(url, { method, headers, body });
+            const resultSentence = await response.json();
+            console.log("受信s", resultSentence);
+
+
+            const s = state.sentences.concat();
+            for (let key in s) {
+                if (s[key].lineNumber === sentence.lineNumber) {
+                    s[key] = resultSentence;
+                }
+            }
+            dispatch({ type: receiveSentencesType, sentences: s });
 
         } catch (e) {
+            console.log(e);
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
@@ -151,21 +173,51 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
+    removeLine: (lineNumber, wordNumber) => (dispatch, getState) => {
+        if (window.confirm('Are you sure that you want to remove this line?')) {
 
-    removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
-        const state = getState().storiesEdit;
-        const w = state.words.concat();
+            const state = getState().storiesEdit;
 
-        for (let key in w) {
-            if (w[key].lineNumber === lineNumber) {
-                if (w[key].wordNumber > wordNumber) {
-                    w[key].wordNumber--;
-                } else if (w[key].wordNumber === wordNumber) {
-                    w.splice(key, 1);
+            const s = state.sentences.concat();
+            for (let key in s) {
+                if (s[key].lineNumber > lineNumber) {
+                    s[key].lineNumber--;
+                } else if (s[key].lineNumber === lineNumber) {
+                    s.splice(key, 1);
                 }
             }
+            dispatch({ type: receiveSentencesType, sentences: s });
+
+            const w = state.words.concat();
+            for (let key in w) {
+                if (w[key].lineNumber === lineNumber) {
+                    if (w[key].wordNumber > wordNumber) {
+                        w[key].wordNumber--;
+                    } else if (w[key].wordNumber === wordNumber) {
+                        w.splice(key, 1);
+                    }
+                }
+            }
+            dispatch({ type: receiveWordsType, words: w });
         }
-        dispatch({ type: receiveWordsType, words: w });
+    },
+
+    removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
+        if (window.confirm('Are you sure that you want to remove this word?')) {
+            const state = getState().storiesEdit;
+            const w = state.words.concat();
+
+            for (let key in w) {
+                if (w[key].lineNumber === lineNumber) {
+                    if (w[key].wordNumber > wordNumber) {
+                        w[key].wordNumber--;
+                    } else if (w[key].wordNumber === wordNumber) {
+                        w.splice(key, 1);
+                    }
+                }
+            }
+            dispatch({ type: receiveWordsType, words: w });
+        }
     }
 };
 

@@ -125,6 +125,7 @@ class StoriesEdit extends React.Component {
                                 handleChangeWord={this.props.handleChangeWord}
                                 addWord={this.props.addWord}
                                 removeWord={this.props.removeWord}
+                                removeLine={this.props.removeLine}
                                 translate={this.props.translate}
                             />
                             :
@@ -190,14 +191,23 @@ class Sentences extends React.Component {
                                     <tr>
                                         <td>
                                         </td>
-                                        <td>
+                                        <td style={{textAligh: "left"}}>
                                             <button
                                                 style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                                                 className="btn btn-dark btn-xs"
-                                                onClick={() => this.props.translate(s.lineNumber)}
+                                                onClick={() => this.props.translate(s)}
                                             >
                                                 <b>↓　Translate Sentence　↓</b>
                                             </button>
+                                            <div style={{ textAligh: "right", float:"right" }}>
+                                                <button
+                                                    style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                                                    className="btn btn-dark btn-xs"
+                                                    onClick={() => this.props.removeLine(s.lineNumber)}
+                                                >
+                                                    <b>Remove Sentence</b>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>

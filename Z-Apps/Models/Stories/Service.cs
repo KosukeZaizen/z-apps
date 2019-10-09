@@ -43,5 +43,11 @@ namespace Z_Apps.Models.Stories
             var words = wm.GetWords(storyId);
             return words;
         }
+
+        public Sentence Translate(Sentence sentence)
+        {
+            sentence.Kanji = "今日は";
+            return sentence;
+        }
     }
 }
