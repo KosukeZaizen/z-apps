@@ -10,7 +10,7 @@ namespace Z_Apps.Controllers
     public class ConvertKanjiController : Controller
     {
         [HttpGet("[action]")]
-        public IEnumerable<ConvertedString> Convert(String kanjis)
+        public IEnumerable<ConvertedString> Convert(string kanjis)
         {
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
