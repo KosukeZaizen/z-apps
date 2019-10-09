@@ -49,7 +49,8 @@ namespace Z_Apps.Models.Stories
 
         public async Task<Sentence> Translate(Sentence sentence)
         {
-            sentence.Hiragana = MakeHigragana(sentence.Kanji);
+            var dicHiraganaKatakana = MakeHigraganaAndKanji(sentence.Kanji);
+            sentence.Hiragana = dicHiraganaKatakana["hiragana"];
             sentence.Romaji = MakeRomaji(sentence.Hiragana);
             sentence.English = await MakeEnglish(sentence.Kanji);
             
@@ -59,8 +60,24 @@ namespace Z_Apps.Models.Stories
             return sentence;
         }
 
-        private string MakeHigragana(string kanjis)
+        public async Task<IEnumerable<Word>> GetTranslatedWordList(Sentence sentence)
         {
+            var lstWords = new List<Word>();
+
+            //sentence.Hiragana = MakeHigraganaAndKanji(sentence.Kanji);
+            sentence.Romaji = MakeRomaji(sentence.Hiragana);
+            sentence.English = await MakeEnglish(sentence.Kanji);
+
+            sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
+            sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
+
+            return lstWords;
+        }
+
+        private Dictionary<string, string> MakeHigraganaAndKanji(string kanjis)
+        {
+            var dicResult = new Dictionary<string, string>() { {"kanji","" },{"hiragana","" } };
+
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
             //文字コードを指定する
@@ -87,7 +104,6 @@ namespace Z_Apps.Models.Stories
 
             string[] arrFurigana1 = resText.Split("<Word>");
 
-            string result = "";
             foreach (string str in arrFurigana1)
             {
                 if (str.Contains("</Word>"))
@@ -95,16 +111,17 @@ namespace Z_Apps.Models.Stories
                     string strSurfaceAndFurigana = str.Split("<SubWordList>")[0].Split("</Word>")[0];
                     if (strSurfaceAndFurigana.Contains("<Furigana>"))
                     {
-                        result += strSurfaceAndFurigana.Split("<Furigana>")[1].Split("</Furigana>")[0] + " ";
+                        dicResult["hiragana"] += strSurfaceAndFurigana.Split("<Furigana>")[1].Split("</Furigana>")[0] + " ";
                     }
                     else
                     {
-                        result += strSurfaceAndFurigana.Split("<Surface>")[1].Split("</Surface>")[0] + " ";
+                        dicResult["hiragana"] += strSurfaceAndFurigana.Split("<Surface>")[1].Split("</Surface>")[0] + " ";
                     }
+                    dicResult["kanji"] += strSurfaceAndFurigana.Split("<Surface>")[1].Split("</Surface>")[0] + " ";
                 }
             }
 
-            return result;
+            return dicResult;
         }
 
         private string MakeRomaji(string hiragana)
