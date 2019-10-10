@@ -84,8 +84,7 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words: trimmedW });
 
         } catch (e) {
-            console.log(e);
-            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
@@ -213,7 +212,7 @@ export const actionCreators = {
             }
             dispatch({ type: receiveWordsType, words: w });
         }
-    }
+    },
 };
 
 export const reducer = (state, action) => {
