@@ -66,6 +66,7 @@ export const actionCreators = {
             const state = getState().storiesEdit;
             const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
 
+
             const s = state.sentences.concat();
             for (let key in s) {
                 if (s[key].lineNumber === sentence.lineNumber) {
@@ -74,7 +75,13 @@ export const actionCreators = {
             }
             dispatch({ type: receiveSentencesType, sentences: s });
 
-            console.log(result && result.words);
+
+            const w = state.words.concat();
+            const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
+            result && result.words && result.words.map(resultWord => {
+                trimmedW.push(resultWord);
+            })
+            dispatch({ type: receiveWordsType, words: trimmedW });
 
         } catch (e) {
             console.log(e);

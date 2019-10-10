@@ -42,5 +42,34 @@ namespace Z_Apps.Models.Stories.Words
             }
             return resultWords;
         }
+
+        public string GetWordMeaning(string kanji)
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "SELECT English, count(*) as cnt";
+            sql += "  FROM [dbo].[tblDictionary]";
+            sql += "  where Kanji like @kanji";
+            sql += "  group by English";
+            sql += "  having count(*) = (";
+            sql += "	select max(cnt)";
+            sql += "		from";
+            sql += "			(";
+            sql += "				select count(*) as cnt";
+            sql += "				from tblDictionary";
+            sql += "				where Kanji like @kanji";
+            sql += "				group by English";
+            sql += "			)";
+            sql += "	v)";
+
+            //List<Dictionary<string, Object>>型で取得
+            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } } });
+
+            foreach (var dicWord in words)
+            {
+                return (string)dicWord["English"];
+            }
+            return "";
+        }
     }
 }

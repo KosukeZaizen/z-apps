@@ -72,6 +72,7 @@ namespace Z_Apps.Models.Stories
 
         public async Task<IEnumerable<Word>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKatakana, Sentence sentence)
         {
+            var wm = new WordManager(con);
             var lstWords = new List<Word>();
 
             var arrHiragana = dicHiraganaKatakana["hiragana"]
@@ -95,8 +96,17 @@ namespace Z_Apps.Models.Stories
                     w.WordNumber = j;
                     w.Kanji = arrKanji[i];
                     w.Hiragana = arrHiragana[i];
-                    w.English = await MakeEnglish(arrKanji[i]);
 
+
+                    var eng = wm.GetWordMeaning(w.Kanji);
+                    if (eng != "")
+                    {
+                        w.English = eng;
+                    }
+                    else
+                    {
+                        w.English = await MakeEnglish(arrKanji[i]);
+                    }
                     lstWords.Add(w);
                 }
             }
