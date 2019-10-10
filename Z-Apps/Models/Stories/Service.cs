@@ -56,11 +56,10 @@ namespace Z_Apps.Models.Stories
             
             sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
             sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
-
             sentence.Romaji = ConvertTsu(sentence.Romaji);
 
-            //var words = await GetTranslatedWordList(dicHiraganaKatakana, sentence);
-            IEnumerable<Word> words = null;
+
+            var words = await GetTranslatedWordList(dicHiraganaKatakana, sentence);
 
             return new TranslationResult() { sentence = sentence, words = words };
         }
@@ -83,17 +82,23 @@ namespace Z_Apps.Models.Stories
                 .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
                 .Split(" ");
 
+
+            int j = 0;
             for (int i = 0; i < arrKanji.Length; i++)
             {
-                var w = new Word();
-                w.StoryId = sentence.StoryId;
-                w.LineNumber = sentence.LineNumber;
-                w.WordNumber = i + 1;
-                w.Kanji = arrKanji[i];
-                w.Hiragana = arrHiragana[i];
-                w.English = await MakeEnglish(arrKanji[i]);
+                if (arrKanji[i].Length > 0) {
+                    j++;
 
-                lstWords.Add(w);
+                    var w = new Word();
+                    w.StoryId = sentence.StoryId;
+                    w.LineNumber = sentence.LineNumber;
+                    w.WordNumber = j;
+                    w.Kanji = arrKanji[i];
+                    w.Hiragana = arrHiragana[i];
+                    w.English = await MakeEnglish(arrKanji[i]);
+
+                    lstWords.Add(w);
+                }
             }
             return lstWords;
         }
