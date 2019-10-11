@@ -95,5 +95,12 @@ namespace Z_Apps.Controllers
             public StoryEdit storyDesc;
             public string token;
         }
+
+        [HttpPost("[action]")]
+        public bool Register([FromBody] DataToBeSaved data)
+        {
+            var result = service.Register(data);
+            return result;
+        }
     }
 }

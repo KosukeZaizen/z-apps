@@ -36,7 +36,7 @@ namespace Z_Apps.Models.StoriesEdit
 
         public IEnumerable<SentenceEdit> GetSentences(int storyId)
         {
-            var sem = new SentenceManager(con);
+            var sem = new SentenceEditManager(con);
             var sentences = sem.GetSentences(storyId);
             return sentences;
         }
@@ -260,12 +260,31 @@ namespace Z_Apps.Models.StoriesEdit
         public bool Save(DataToBeSaved data)
         {
             var stm = new StoryEditManager(con);
-            var sem = new SentenceManager(con);
+            var sem = new SentenceEditManager(con);
             var wm = new WordEditManager(con);
 
-            if(stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+            if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
             {
-                if(sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                {
+                    if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool Register(DataToBeSaved data)
+        {
+            var stm = new StoryEditManager(con);
+            var sem = new SentenceEditManager(con);
+            var wm = new WordEditManager(con);
+
+            if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+            {
+                if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                 {
                     if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
                     {

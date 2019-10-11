@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Z_Apps.Models.StoriesEdit.SentencesEdit
 {
-    public class SentenceManager
+    public class SentenceEditManager
     {
         private DBCon Con;
-        public SentenceManager(DBCon con)
+        public SentenceEditManager(DBCon con)
         {
             Con = con;
         }
