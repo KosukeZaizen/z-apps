@@ -43,7 +43,7 @@ class StoriesEdit extends React.Component {
 
     render() {
         const storyName = this.props.storyDesc.storyName || "";
-        const title = storyName.split("-").join(" ");
+        const title = storyName.split("_").join(" ");
         const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
             <center>

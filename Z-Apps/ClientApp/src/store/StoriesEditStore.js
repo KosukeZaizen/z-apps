@@ -232,31 +232,30 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    removeLine: (lineNumber, wordNumber) => (dispatch, getState) => {
+    removeLine: (lineNumber) => (dispatch, getState) => {
         if (window.confirm('Are you sure that you want to remove this line?')) {
 
             const state = getState().storiesEdit;
 
-            const s = state.sentences.concat();
-            for (let key in s) {
-                if (s[key].lineNumber > lineNumber) {
-                    s[key].lineNumber--;
-                } else if (s[key].lineNumber === lineNumber) {
-                    s.splice(key, 1);
-                }
-            }
+            const s = state.sentences.concat()
+                .filter(sentence => !(sentence.lineNumber === lineNumber))
+                .map(sentence => {
+                    if (sentence.lineNumber > lineNumber) {
+                        sentence.lineNumber--;
+                    }
+                    return sentence;
+                });
             dispatch({ type: receiveSentencesType, sentences: s });
 
-            const w = state.words.concat();
-            for (let key in w) {
-                if (w[key].lineNumber === lineNumber) {
-                    if (w[key].wordNumber > wordNumber) {
-                        w[key].wordNumber--;
-                    } else if (w[key].wordNumber === wordNumber) {
-                        w.splice(key, 1);
+
+            const w = state.words.concat()
+                .filter(word => word.lineNumber !== lineNumber)
+                .map(word => {
+                    if (word.lineNumber > lineNumber) {
+                        word.lineNumber--;
                     }
-                }
-            }
+                    return word;
+                });
             dispatch({ type: receiveWordsType, words: w });
         }
     },
@@ -264,19 +263,16 @@ export const actionCreators = {
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
             if (window.confirm('Are you sure that you want to remove this word?')) {
                 const state = getState().storiesEdit;
-                const w = state.words.concat();
-
-                for (let key in w) {
-                    if (w[key].lineNumber === lineNumber) {
-                        if (w[key].wordNumber > wordNumber) {
-                            w[key].wordNumber--;
-                        } else if (w[key].wordNumber === wordNumber) {
-                            w.splice(key, 1);
-                    }
-                }
-            }
+                const w = state.words.concat()
+                    .filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber))
+                    .map(word => {
+                        if (word.lineNumber === lineNumber && word.wordNumber > wordNumber) {
+                            word.wordNumber--;
+                        }
+                        return word;
+                    });
             dispatch({ type: receiveWordsType, words: w });
-        }
+            }
     },
 
     save: () => async (dispatch, getState) => {

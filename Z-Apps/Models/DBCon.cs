@@ -92,7 +92,7 @@ namespace Z_Apps.Models
 
                     // SQLの実行
                     int result = command.ExecuteNonQuery();
-                    return result > 0;
+                    return result >= 0;
                 }
                 catch (Exception exception)
                 {

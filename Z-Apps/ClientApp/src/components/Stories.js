@@ -96,7 +96,7 @@ class Stories extends React.Component {
 
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
-        const title = storyName.split("-").join(" ");
+        const title = storyName.split("_").join(" ");
         return (
             <center>
                 <Head
