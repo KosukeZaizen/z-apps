@@ -9,7 +9,11 @@ using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
-using static Z_Apps.Models.Stories.EditService;
+using static Z_Apps.Models.StoriesEdit.EditService;
+using Z_Apps.Models.StoriesEdit;
+using Z_Apps.Models.StoriesEdit.SentencesEdit;
+using Z_Apps.Models.StoriesEdit.StoriesEdit;
+using Z_Apps.Models.StoriesEdit.WordsEdit;
 
 namespace Z_Apps.Controllers
 {
@@ -23,7 +27,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyName?}")]
-        public Story GetPageData(string storyName)
+        public StoryEdit GetPageData(string storyName)
         {
             if (!string.IsNullOrEmpty(storyName))
             {
@@ -37,7 +41,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<Sentence> GetSentences(int storyId)
+        public IEnumerable<SentenceEdit> GetSentences(int storyId)
         {
             if (storyId > 0)
             {
@@ -51,7 +55,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<Word> GetWords(int storyId)
+        public IEnumerable<WordEdit> GetWords(int storyId)
         {
             if (storyId > 0)
             {
@@ -65,14 +69,14 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<TranslationResult> Translate([FromBody] Sentence sentence)
+        public async Task<TranslationResult> Translate([FromBody] SentenceEdit sentence)
         {
             var result = await service.Translate(sentence);
             return result;
         }
 
         [HttpPost("[action]")]
-        public async Task<Word> TranslateWord([FromBody] Word word)
+        public async Task<WordEdit> TranslateWord([FromBody] WordEdit word)
         {
             var result = await service.TranslateWord(word);
             return result;

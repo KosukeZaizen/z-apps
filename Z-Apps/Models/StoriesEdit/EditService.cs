@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Z_Apps.Models.Stories.Stories;
-using Z_Apps.Models.Stories.Sentences;
-using Z_Apps.Models.Stories.Words;
+using Z_Apps.Models.StoriesEdit.StoriesEdit;
+using Z_Apps.Models.StoriesEdit.SentencesEdit;
+using Z_Apps.Models.StoriesEdit.WordsEdit;
 using Z_Apps.Util;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Z_Apps.Models.Stories
+namespace Z_Apps.Models.StoriesEdit
 {
     public class EditService
     {
@@ -19,35 +19,35 @@ namespace Z_Apps.Models.Stories
             this.con = con;
         }
 
-        public IEnumerable<Story> GetAllStories()
+        public IEnumerable<StoryEdit> GetAllStories()
         {
-            var stm = new StoryManager(con);
+            var stm = new StoryEditManager(con);
             var stories = stm.GetAllStories();
             return stories;
         }
 
-        public Story GetPageData(string storyName)
+        public StoryEdit GetPageData(string storyName)
         {
-            var stm = new StoryManager(con);
+            var stm = new StoryEditManager(con);
             var story = stm.GetStory(storyName);
             return story;
         }
 
-        public IEnumerable<Sentence> GetSentences(int storyId)
+        public IEnumerable<SentenceEdit> GetSentences(int storyId)
         {
             var sem = new SentenceManager(con);
             var sentences = sem.GetSentences(storyId);
             return sentences;
         }
 
-        public IEnumerable<Word> GetWords(int storyId)
+        public IEnumerable<WordEdit> GetWords(int storyId)
         {
-            var wm = new WordManager(con);
+            var wm = new WordEditManager(con);
             var words = wm.GetWords(storyId);
             return words;
         }
 
-        public async Task<TranslationResult> Translate(Sentence sentence)
+        public async Task<TranslationResult> Translate(SentenceEdit sentence)
         {
             var dicHiraganaKanji = MakeHigraganaAndKanji(sentence.Kanji);
             sentence.Hiragana = dicHiraganaKanji["hiragana"];
@@ -65,14 +65,14 @@ namespace Z_Apps.Models.Stories
 
         public class TranslationResult
         {
-            public Sentence sentence;
-            public IEnumerable<Word> words;
+            public SentenceEdit sentence;
+            public IEnumerable<WordEdit> words;
         }
 
-        public async Task<IEnumerable<Word>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKanji, Sentence sentence)
+        public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKanji, SentenceEdit sentence)
         {
-            var wm = new WordManager(con);
-            var lstWords = new List<Word>();
+            var wm = new WordEditManager(con);
+            var lstWords = new List<WordEdit>();
 
             var arrHiragana = dicHiraganaKanji["hiragana"]
                 .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
@@ -89,7 +89,7 @@ namespace Z_Apps.Models.Stories
                 if (arrKanji[i].Length > 0) {
                     j++;
 
-                    var w = new Word();
+                    var w = new WordEdit();
                     w.StoryId = sentence.StoryId;
                     w.LineNumber = sentence.LineNumber;
                     w.WordNumber = j;
@@ -235,14 +235,14 @@ namespace Z_Apps.Models.Stories
             }
         }
 
-        public async Task<Word> TranslateWord(Word word)
+        public async Task<WordEdit> TranslateWord(WordEdit word)
         {
             var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
             word.Kanji = word.Kanji;
             dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ","");
             word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
 
-            var wm = new WordManager(con);
+            var wm = new WordEditManager(con);
             var eng = wm.GetWordMeaning(word.Kanji);
             if (eng != "")
             {
