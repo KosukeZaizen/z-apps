@@ -71,5 +71,45 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
             }
             return "";
         }
+
+        public bool DeleteInsertWords(int storyId, IEnumerable<WordEdit> words)
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "delete from tblDictionaryEdit";
+            sql += " where StoryId = @storyId";
+
+
+            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+
+            if (!result)
+            {
+                return false;
+            }
+
+
+            foreach (WordEdit word in words)
+            {
+                //SQL文作成
+                sql = "";
+                sql += "insert into tblDictionaryEdit(StoryId, LineNumber, WordNumber, Kanji, Hiragana, English) ";
+                sql += " values (@storyId, @lineNumber, @wordNumber, @kanji, @hiragana, @english) ";
+
+                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, word.StoryId } },
+                    { "@lineNumber", new object[2] { SqlDbType.Int, word.LineNumber } },
+                    { "@wordNumber", new object[2] { SqlDbType.Int, word.WordNumber } },
+                    { "@kanji", new object[2] { SqlDbType.NVarChar, word.Kanji } },
+                    { "@hiragana", new object[2] { SqlDbType.NVarChar, word.Hiragana } },
+                    { "@english", new object[2] { SqlDbType.NVarChar, word.English } }
+                });
+
+                if (!result)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

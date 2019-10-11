@@ -20,7 +20,7 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
             //SQL文作成
             string sql = "";
             sql += "select * from tblSentenceEdit";
-            sql += " where StoryId =@storyId";
+            sql += " where StoryId = @storyId";
             sql += " order by LineNumber;";
 
             //List<Dictionary<string, Object>>型で取得
@@ -41,6 +41,45 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
                 resultSentences.Add(sentence);
             }
             return resultSentences;
+        }
+
+        public bool DeleteInsertSentences(int storyId, IEnumerable<SentenceEdit> sentences)
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "delete from tblSentenceEdit";
+            sql += " where StoryId = @storyId";
+
+            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+
+            if(!result)
+            {
+                return false;
+            }
+
+
+            foreach (SentenceEdit sentence in sentences)
+            {
+                //SQL文作成
+                sql = "";
+                sql += "insert into tblSentenceEdit(StoryId, LineNumber, Kanji, Hiragana, Romaji, English) ";
+                sql += " values (@storyId, @lineNumber, @kanji, @hiragana, @romaji, @english) ";
+
+                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, sentence.StoryId } },
+                    { "@lineNumber", new object[2] { SqlDbType.Int, sentence.LineNumber } },
+                    { "@kanji", new object[2] { SqlDbType.NVarChar, sentence.Kanji } },
+                    { "@hiragana", new object[2] { SqlDbType.NVarChar, sentence.Hiragana } },
+                    { "@romaji", new object[2] { SqlDbType.NVarChar, sentence.Romaji } },
+                    { "@english", new object[2] { SqlDbType.NVarChar, sentence.English } }
+                });
+
+                if (!result)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

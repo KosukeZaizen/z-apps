@@ -263,9 +263,17 @@ namespace Z_Apps.Models.StoriesEdit
             var sem = new SentenceManager(con);
             var wm = new WordEditManager(con);
 
-            bool result = stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description);
-
-            return result;
+            if(stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+            {
+                if(sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                {
+                    if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
