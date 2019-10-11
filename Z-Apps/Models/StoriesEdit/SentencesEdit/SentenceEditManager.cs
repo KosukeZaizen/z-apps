@@ -19,7 +19,7 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "select * from tblSentence";
+            sql += "select * from tblSentenceEdit";
             sql += " where StoryId =@storyId";
             sql += " order by LineNumber;";
 

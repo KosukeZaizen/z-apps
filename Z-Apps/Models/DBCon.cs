@@ -64,5 +64,47 @@ namespace Z_Apps.Models
                 }
             }
         }
+
+        public bool ExecuteUpdate(string sql, Dictionary<string, object[]> dicParams)
+        {
+            using (var connection = new SqlConnection(PrivateConsts.CONNECTION_STRING))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                try
+                {
+                    // パラーメータの置換
+                    if (dicParams != null)
+                    {
+                        foreach (KeyValuePair<string, object[]> kvp in dicParams)
+                        {
+                            var param = command.CreateParameter();
+                            param.ParameterName = kvp.Key;
+                            param.SqlDbType = (SqlDbType)kvp.Value[0];
+                            param.Direction = ParameterDirection.Input;
+                            param.Value = kvp.Value[1];
+
+                            command.Parameters.Add(param);
+                        }
+                    }
+
+                    // データベースの接続開始
+                    connection.Open();
+
+                    // SQLの実行
+                    int result = command.ExecuteNonQuery();
+                    return result > 0;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                    throw;
+                }
+                finally
+                {
+                    // データベースの接続終了
+                    connection.Close();
+                }
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "select * from tblStoryMst";
+            sql += "select * from tblStoryMstEdit";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, null);
@@ -42,7 +42,7 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "select * from tblStoryMst";
+            sql += "select * from tblStoryMstEdit";
             sql += " where StoryName Like @storyName";
 
             //List<Dictionary<string, Object>>型で取得
@@ -59,6 +59,24 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
                 return story;
             }
             return null;
+        }
+
+        public bool UpdateDesc(int storyId, string desc)
+        {
+            string replacedDesc = desc.Replace("\n", "\\n");
+
+            //SQL文作成
+            string sql = "";
+            sql += "update tblStoryMstEdit";
+            sql += " set Description = @desc where StoryId Like @storyId";
+
+            //List<Dictionary<string, Object>>型で取得
+            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                { "@storyId", new object[2] { SqlDbType.Int, storyId }}
+            });
+
+            return result;
         }
     }
 }

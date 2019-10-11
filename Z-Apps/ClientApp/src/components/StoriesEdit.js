@@ -135,6 +135,19 @@ class StoriesEdit extends React.Component {
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
+                    <input
+                        type="text"
+                        value={this.props.token}
+                        onChange={this.props.handleChangeToken}
+                    />
+                    <br />
+                    <button
+                        style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                        className="btn btn-dark btn-xs"
+                        onClick={() => this.props.save()}
+                    >
+                        <b>Save</b>
+                    </button>
                 </div>
             </center>
         );

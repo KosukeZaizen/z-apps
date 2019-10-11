@@ -7,6 +7,7 @@ using Z_Apps.Models.StoriesEdit.WordsEdit;
 using Z_Apps.Util;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static Z_Apps.Controllers.StoriesEditController;
 
 namespace Z_Apps.Models.StoriesEdit
 {
@@ -254,6 +255,17 @@ namespace Z_Apps.Models.StoriesEdit
             }
 
             return word;
+        }
+
+        public bool Save(DataToBeSaved data)
+        {
+            var stm = new StoryEditManager(con);
+            var sem = new SentenceManager(con);
+            var wm = new WordEditManager(con);
+
+            bool result = stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description);
+
+            return result;
         }
     }
 }

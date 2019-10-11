@@ -3,10 +3,11 @@ import * as commonFnc from '../components/common/functions';
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
+const changeTokenType = 'CHANGTE_TOKEN';
 const beginTranslationType = 'BEGIN_TRANSLATION';
 const finishTranslationType = 'FINISH_TRANSLATION';
 
-const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, };
+const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, token:"", };
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
@@ -64,6 +65,11 @@ export const actionCreators = {
         dispatch({ type: receiveStoryType, storyDesc: sd });
     },
 
+    handleChangeToken: (event) => (dispatch, getState) => {
+        const token = event.target.value;
+        dispatch({ type: changeTokenType, token });
+    },
+
     translate: (sentence) => async (dispatch, getState) => {
         try {
             dispatch({ type: beginTranslationType });
@@ -106,8 +112,7 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words: trimmedW });
 
         } catch (e) {
-            console.log(e);
-            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
@@ -220,20 +225,38 @@ export const actionCreators = {
     },
 
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
-        if (window.confirm('Are you sure that you want to remove this word?')) {
-            const state = getState().storiesEdit;
-            const w = state.words.concat();
+            if (window.confirm('Are you sure that you want to remove this word?')) {
+                const state = getState().storiesEdit;
+                const w = state.words.concat();
 
-            for (let key in w) {
-                if (w[key].lineNumber === lineNumber) {
-                    if (w[key].wordNumber > wordNumber) {
-                        w[key].wordNumber--;
-                    } else if (w[key].wordNumber === wordNumber) {
-                        w.splice(key, 1);
+                for (let key in w) {
+                    if (w[key].lineNumber === lineNumber) {
+                        if (w[key].wordNumber > wordNumber) {
+                            w[key].wordNumber--;
+                        } else if (w[key].wordNumber === wordNumber) {
+                            w.splice(key, 1);
                     }
                 }
             }
             dispatch({ type: receiveWordsType, words: w });
+        }
+    },
+
+    save: () => async (dispatch, getState) => {
+        try {
+            if (window.confirm('Are you sure that you want to save?')) {
+                const { storyDesc, sentences, words, token } = getState().storiesEdit;
+                const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+
+                if (result) {
+                    alert("Success to save!");
+                } else {
+                    alert("Failed to save...");
+                }
+            }
+        } catch (e) {
+            console.log(e);
+            alert("Error!");
         }
     },
 };
@@ -273,6 +296,13 @@ export const reducer = (state, action) => {
         return {
             ...state,
             isTranslating: false,
+        };
+    }
+
+    if (action.type === changeTokenType) {
+        return {
+            ...state,
+            token: action.token,
         };
     }
     return state;

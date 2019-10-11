@@ -81,5 +81,19 @@ namespace Z_Apps.Controllers
             var result = await service.TranslateWord(word);
             return result;
         }
+
+        [HttpPost("[action]")]
+        public bool Save([FromBody] DataToBeSaved data)
+        {
+            var result = service.Save(data);
+            return result;
+        }
+        public class DataToBeSaved
+        {
+            public IEnumerable<WordEdit> words;
+            public IEnumerable<SentenceEdit> sentences;
+            public StoryEdit storyDesc;
+            public string token;
+        }
     }
 }

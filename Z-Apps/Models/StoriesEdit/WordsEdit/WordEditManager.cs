@@ -19,7 +19,7 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "select * from tblDictionary";
+            sql += "select * from tblDictionaryEdit";
             sql += " where StoryId =@storyId";
             sql += " order by WordNumber;";
 
@@ -47,8 +47,8 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "SELECT English, count(*) as cnt";
-            sql += "  FROM [dbo].[tblDictionary]";
+            sql += "select English, count(*) as cnt";
+            sql += "  from tblDictionaryEdit";
             sql += "  where Kanji like @kanji";
             sql += "  group by English";
             sql += "  having count(*) = (";
@@ -56,7 +56,7 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
             sql += "		from";
             sql += "			(";
             sql += "				select count(*) as cnt";
-            sql += "				from tblDictionary";
+            sql += "				from tblDictionaryEdit";
             sql += "				where Kanji like @kanji";
             sql += "				group by English";
             sql += "			)";
