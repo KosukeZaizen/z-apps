@@ -127,6 +127,7 @@ class StoriesEdit extends React.Component {
                                 removeWord={this.props.removeWord}
                                 removeLine={this.props.removeLine}
                                 translate={this.props.translate}
+                                translateWord={this.props.translateWord}
                             />
                             :
                             <center>
@@ -248,6 +249,7 @@ class Sentences extends React.Component {
                                         handleChangeWord={this.props.handleChangeWord}
                                         addWord={this.props.addWord}
                                         removeWord={this.props.removeWord}
+                                        translateWord={this.props.translateWord}
                                     />
                                     :
                                     null
@@ -311,6 +313,14 @@ class WordList extends React.Component {
                                                             onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "kanji")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
+                                                    </td>
+                                                    <td width="10px">
+                                                        <button
+                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
+                                                            className="btn btn-dark btn-xs"
+                                                            onClick={() => this.props.translateWord(w)}
+                                                        ><b>⇒</b>
+                                                        </button>
                                                     </td>
                                                     <td width="23%">
                                                         <textarea

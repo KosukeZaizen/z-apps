@@ -89,6 +89,23 @@ export const actionCreators = {
         }
     },
 
+    translateWord: (pWord) => async (dispatch, getState) => {
+        try {
+            const state = getState().storiesEdit;
+            const result = await commonFnc.sendPost(pWord, "api/StoriesEdit/TranslateWord");
+
+            const w = state.words.concat();
+            const trimmedW = w.filter(a => !(a.lineNumber === pWord.lineNumber && a.wordNumber === pWord.wordNumber));
+            trimmedW.push(result);
+            dispatch({ type: receiveWordsType, words: trimmedW });
+
+        } catch (e) {
+            console.log(e);
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            return;
+        }
+    },
+
     handleChangeSentence: (event, i, lang) => (dispatch, getState) => {
         const s = getState().storiesEdit.sentences.concat();
         s[i][lang] = event.target.value;

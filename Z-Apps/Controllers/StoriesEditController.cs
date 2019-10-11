@@ -70,5 +70,12 @@ namespace Z_Apps.Controllers
             var result = await service.Translate(sentence);
             return result;
         }
+
+        [HttpPost("[action]")]
+        public async Task<Word> TranslateWord([FromBody] Word word)
+        {
+            var result = await service.TranslateWord(word);
+            return result;
+        }
     }
 }

@@ -49,8 +49,8 @@ namespace Z_Apps.Models.Stories
 
         public async Task<TranslationResult> Translate(Sentence sentence)
         {
-            var dicHiraganaKatakana = MakeHigraganaAndKanji(sentence.Kanji);
-            sentence.Hiragana = dicHiraganaKatakana["hiragana"];
+            var dicHiraganaKanji = MakeHigraganaAndKanji(sentence.Kanji);
+            sentence.Hiragana = dicHiraganaKanji["hiragana"];
             sentence.Romaji = MakeRomaji(sentence.Hiragana);
             sentence.English = await MakeEnglish(sentence.Kanji);
             
@@ -59,7 +59,7 @@ namespace Z_Apps.Models.Stories
             sentence.Romaji = ConvertTsu(sentence.Romaji);
 
 
-            var words = await GetTranslatedWordList(dicHiraganaKatakana, sentence);
+            var words = await GetTranslatedWordList(dicHiraganaKanji, sentence);
 
             return new TranslationResult() { sentence = sentence, words = words };
         }
@@ -70,16 +70,16 @@ namespace Z_Apps.Models.Stories
             public IEnumerable<Word> words;
         }
 
-        public async Task<IEnumerable<Word>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKatakana, Sentence sentence)
+        public async Task<IEnumerable<Word>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKanji, Sentence sentence)
         {
             var wm = new WordManager(con);
             var lstWords = new List<Word>();
 
-            var arrHiragana = dicHiraganaKatakana["hiragana"]
+            var arrHiragana = dicHiraganaKanji["hiragana"]
                 .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
                 .Split(" ");
 
-            var arrKanji = dicHiraganaKatakana["kanji"]
+            var arrKanji = dicHiraganaKanji["kanji"]
                 .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
                 .Split(" ");
 
@@ -227,6 +227,27 @@ namespace Z_Apps.Models.Stories
                 var result = await client.GetStringAsync(url);
                 return result;
             }
+        }
+
+        public async Task<Word> TranslateWord(Word word)
+        {
+            var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
+            word.Kanji = word.Kanji;
+            dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ","");
+            word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
+
+            var wm = new WordManager(con);
+            var eng = wm.GetWordMeaning(word.Kanji);
+            if (eng != "")
+            {
+                word.English = eng;
+            }
+            else
+            {
+                word.English = await MakeEnglish(word.Kanji);
+            }
+
+            return word;
         }
     }
 }
