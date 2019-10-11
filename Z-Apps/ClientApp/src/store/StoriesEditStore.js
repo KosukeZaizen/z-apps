@@ -3,7 +3,10 @@ import * as commonFnc from '../components/common/functions';
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
-const initialState = { storyDesc: {}, sentences: [], words: [] };
+const beginTranslationType = 'BEGIN_TRANSLATION';
+const finishTranslationType = 'FINISH_TRANSLATION';
+
+const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, };
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
@@ -63,6 +66,8 @@ export const actionCreators = {
 
     translate: (sentence) => async (dispatch, getState) => {
         try {
+            dispatch({ type: beginTranslationType });
+
             const state = getState().storiesEdit;
             const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
 
@@ -87,6 +92,7 @@ export const actionCreators = {
             window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
+        dispatch({ type: finishTranslationType });
     },
 
     translateWord: (pWord) => async (dispatch, getState) => {
@@ -256,5 +262,18 @@ export const reducer = (state, action) => {
         };
     }
 
+    if (action.type === beginTranslationType) {
+        return {
+            ...state,
+            isTranslating: true,
+        };
+    }
+
+    if (action.type === finishTranslationType) {
+        return {
+            ...state,
+            isTranslating: false,
+        };
+    }
     return state;
 };

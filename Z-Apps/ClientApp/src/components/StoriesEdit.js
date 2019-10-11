@@ -128,6 +128,7 @@ class StoriesEdit extends React.Component {
                                 removeLine={this.props.removeLine}
                                 translate={this.props.translate}
                                 translateWord={this.props.translateWord}
+                                isTranslating={this.props.isTranslating}
                             />
                             :
                             <center>
@@ -200,6 +201,7 @@ class Sentences extends React.Component {
                                             >
                                                 <b>↓　Translate Sentence　↓</b>
                                             </button>
+                                            {this.props.isTranslating ? <span style={{ color: "white", marginLeft:20 }}>Translating...</span> : null}
                                             <div style={{ textAligh: "right", float:"right" }}>
                                                 <button
                                                     style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}

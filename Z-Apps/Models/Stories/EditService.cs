@@ -58,7 +58,6 @@ namespace Z_Apps.Models.Stories
             sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
             sentence.Romaji = ConvertTsu(sentence.Romaji);
 
-
             var words = await GetTranslatedWordList(dicHiraganaKanji, sentence);
 
             return new TranslationResult() { sentence = sentence, words = words };
@@ -205,17 +204,24 @@ namespace Z_Apps.Models.Stories
             return result;
         }
 
+
         private string ConvertSpecialChar(string hiragana)
         {
             string result = hiragana;
             var dic = new Dictionary<string, string>() { { "  ", " " }, { " 、", "、" }, { " 。", "。" }, { " ！", "！" }, { " 」", "」" }, { "「 ", "「" } };
+            var dic2 = new Dictionary<string, string>() { { "、 ", "、" }, { "。 ", "。" }, { "！ ", "！" }, { "」 ", "」" }, { "「 ", "「" } };
 
             foreach (KeyValuePair<string, string> kvp in dic)
             {
                 result = result.Replace(kvp.Key, kvp.Value);
             }
+            foreach (KeyValuePair<string, string> kvp in dic2)
+            {
+                result = result.Replace(kvp.Key, kvp.Value);
+            }
             return result;
         }
+
 
         private async Task<string> MakeEnglish(string kanji)
         {
