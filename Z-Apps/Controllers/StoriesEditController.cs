@@ -9,17 +9,17 @@ using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
-using static Z_Apps.Models.Stories.Service;
+using static Z_Apps.Models.Stories.EditService;
 
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
     public class StoriesEditController : Controller
     {
-        private Service service;
+        private EditService service;
         public StoriesEditController()
         {
-            service = new Service(new DBCon());
+            service = new EditService(new DBCon());
         }
 
         [HttpGet("[action]/{storyName?}")]
