@@ -95,7 +95,7 @@ namespace Z_Apps.Models.Stories
                     w.LineNumber = sentence.LineNumber;
                     w.WordNumber = j;
                     w.Kanji = arrKanji[i];
-                    w.Hiragana = arrHiragana[i];
+                    w.Hiragana = (w.Kanji == arrHiragana[i]) ? "" : arrHiragana[i];
 
 
                     var eng = wm.GetWordMeaning(w.Kanji);
