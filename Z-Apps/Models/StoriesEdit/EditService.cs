@@ -259,17 +259,19 @@ namespace Z_Apps.Models.StoriesEdit
 
         public bool Save(DataToBeSaved data)
         {
-            var stm = new StoryEditManager(con);
-            var sem = new SentenceEditManager(con);
-            var wm = new WordEditManager(con);
+            if (data.token == PrivateConsts.REGISTER_PASS) {
+                var stm = new StoryEditManager(con);
+                var sem = new SentenceEditManager(con);
+                var wm = new WordEditManager(con);
 
-            if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
-            {
-                if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
                 {
-                    if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                    if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                     {
-                        return true;
+                        if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -278,17 +280,20 @@ namespace Z_Apps.Models.StoriesEdit
 
         public bool Register(DataToBeSaved data)
         {
-            var stm = new StoryEditManager(con);
-            var sem = new SentenceEditManager(con);
-            var wm = new WordEditManager(con);
-
-            if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+            if (data.token == PrivateConsts.REGISTER_PASS)
             {
-                if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                var stm = new StoryEditManager(con);
+                var sem = new SentenceEditManager(con);
+                var wm = new WordEditManager(con);
+
+                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
                 {
-                    if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                    if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                     {
-                        return true;
+                        if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

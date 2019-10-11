@@ -29,6 +29,7 @@ class StoriesEdit extends React.Component {
         };
 
         this.props.loadStory(this.state.storyName);
+        this.props.setInitialToken();
     }
 
     componentDidUpdate() {

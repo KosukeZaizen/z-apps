@@ -35,7 +35,18 @@ export const actionCreators = {
         try {
             const url = `api/StoriesEdit/GetSentences/${storyId}`;
             const response = await fetch(url);
-            const sentences = await response.json();
+            let sentences = await response.json();
+
+            if (!sentences || sentences.length <= 0) {
+                sentences = [{
+                    storyId,
+                    lineNumber: 1,
+                    kanji: "",
+                    hiragana: "",
+                    romaji: "",
+                    english: "",
+                }];
+            }
 
             dispatch({ type: receiveSentencesType, sentences });
 
@@ -49,7 +60,18 @@ export const actionCreators = {
         try {
             const url = `api/StoriesEdit/GetWords/${storyId}`;
             const response = await fetch(url);
-            const words = await response.json();
+            let words = await response.json();
+
+            if (!words || words.length <= 0) {
+                words = [{
+                    storyId,
+                    lineNumber: 1,
+                    wordNumber: 1,
+                    kanji: "",
+                    hiragana: "",
+                    english: "",
+                }];
+            }
 
             dispatch({ type: receiveWordsType, words });
 
@@ -67,6 +89,21 @@ export const actionCreators = {
 
     handleChangeToken: (event) => (dispatch, getState) => {
         const token = event.target.value;
+        dispatch({ type: changeTokenType, token });
+    },
+
+    setInitialToken: () => (dispatch, getState) => {
+
+        //セーブデータがあればそれを設定
+        const saveData = localStorage.getItem("folktales-register-token");
+        const objSaveData = JSON.parse(saveData);
+
+        let token;
+        if (objSaveData) {
+            token = objSaveData.token || "";
+        } else {
+            token = "";
+        }
         dispatch({ type: changeTokenType, token });
     },
 
@@ -246,6 +283,8 @@ export const actionCreators = {
         try {
             if (window.confirm('Are you sure that you want to save?')) {
                 const { storyDesc, sentences, words, token } = getState().storiesEdit;
+                localStorage.setItem("folktales-register-token", JSON.stringify({token}));
+
                 const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
 
                 if (result) {
