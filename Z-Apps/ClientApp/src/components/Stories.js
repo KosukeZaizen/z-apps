@@ -182,6 +182,12 @@ class Stories extends React.Component {
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
+                    <Link
+                        to="/folktales"
+                        style={{ fontSize:"x-large"}}
+                    >
+                        Read other folktales >>
+                    </Link>
                     <FooterMenu
                         onClickLangBtn={this.onClickLangBtn}
                         langState={this.state}

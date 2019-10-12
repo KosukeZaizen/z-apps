@@ -26,7 +26,7 @@ export const actionCreators = {
             dispatch({ type: receiveStoryType, storyDesc });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
@@ -51,7 +51,7 @@ export const actionCreators = {
             dispatch({ type: receiveSentencesType, sentences });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
@@ -76,7 +76,7 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
@@ -109,6 +109,8 @@ export const actionCreators = {
 
     translate: (sentence) => async (dispatch, getState) => {
         try {
+            if (!sentence.kanji || sentence.kanji.length <= 0) return;
+
             dispatch({ type: beginTranslationType });
 
             const state = getState().storiesEdit;
@@ -140,6 +142,8 @@ export const actionCreators = {
 
     translateWord: (pWord) => async (dispatch, getState) => {
         try {
+            if (!pWord.kanji || pWord.kanji.length <= 0) return;
+
             const state = getState().storiesEdit;
             const result = await commonFnc.sendPost(pWord, "api/StoriesEdit/TranslateWord");
 
@@ -149,7 +153,7 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words: trimmedW });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },

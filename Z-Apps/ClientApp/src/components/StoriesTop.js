@@ -84,7 +84,7 @@ class StoriesTop extends React.Component {
                                                         <td colSpan={2}>
                                                             <center>
                                                                 <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                    <b>{s.storyName}</b>
+                                                                    <b>{s.storyName.split("_").join(" ")}</b>
                                                                 </h2>
                                                             </center>
                                                         </td>
@@ -107,7 +107,7 @@ class StoriesTop extends React.Component {
                                                                     </span>
                                                                 )
                                                             }
-                                                            <center><p style={{ margin: "20px" }}>Read {s.storyName.split("-").join(" ")} >></p></center>
+                                                            <center><p style={{ margin: "20px" }}>Read {s.storyName.split("_").join(" ")} >></p></center>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -132,7 +132,7 @@ class StoriesTop extends React.Component {
                                                         )
                                                     }
                                                 </div>
-                                                <p>Read {s.storyName.split("-").join(" ")} >></p>
+                                                <p>Read {s.storyName.split("_").join(" ")} >></p>
                                             </div>
                                     }
                                 </div>
