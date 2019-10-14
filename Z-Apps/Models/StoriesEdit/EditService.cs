@@ -4,6 +4,9 @@ using System.Linq;
 using Z_Apps.Models.StoriesEdit.StoriesEdit;
 using Z_Apps.Models.StoriesEdit.SentencesEdit;
 using Z_Apps.Models.StoriesEdit.WordsEdit;
+using Z_Apps.Models.Stories.Stories;
+using Z_Apps.Models.Stories.Sentences;
+using Z_Apps.Models.Stories.Words;
 using Z_Apps.Util;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -95,16 +98,16 @@ namespace Z_Apps.Models.StoriesEdit
                     w.LineNumber = sentence.LineNumber;
                     w.WordNumber = j;
                     w.Kanji = arrKanji[i];
-                    w.Hiragana = (w.Kanji == arrHiragana[i]) ? "" : arrHiragana[i];
 
-
-                    var eng = wm.GetWordMeaning(w.Kanji);
-                    if (eng != "")
+                    var dicWord = wm.GetWordMeaning(w.Kanji);
+                    if (dicWord.Count > 0)
                     {
-                        w.English = eng;
+                        w.Hiragana = (string)dicWord["Hiragana"];
+                        w.English = (string)dicWord["English"];
                     }
                     else
                     {
+                        w.Hiragana = (w.Kanji == arrHiragana[i]) ? "" : arrHiragana[i];
                         w.English = await MakeEnglish(arrKanji[i]);
                     }
                     lstWords.Add(w);
@@ -238,19 +241,18 @@ namespace Z_Apps.Models.StoriesEdit
 
         public async Task<WordEdit> TranslateWord(WordEdit word)
         {
-            var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
-            word.Kanji = word.Kanji;
-            dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ","");
-            word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
-
             var wm = new WordEditManager(con);
-            var eng = wm.GetWordMeaning(word.Kanji);
-            if (eng != "")
+            var dicWord = wm.GetWordMeaning(word.Kanji);
+            if (dicWord.Count > 0)
             {
-                word.English = eng;
+                word.Hiragana = (string)dicWord["Hiragana"];
+                word.English = (string)dicWord["English"];
             }
             else
             {
+                var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
+                dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ", "");
+                word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
                 word.English = await MakeEnglish(word.Kanji);
             }
 
@@ -278,15 +280,15 @@ namespace Z_Apps.Models.StoriesEdit
             return false;
         }
 
-        public bool Register(DataToBeSaved data)
+        public bool Register(DataToBeRegistered data)
         {
             if (data.token == PrivateConsts.REGISTER_PASS)
             {
-                var stm = new StoryEditManager(con);
-                var sem = new SentenceEditManager(con);
-                var wm = new WordEditManager(con);
+                var stm = new StoryManager(con);
+                var sem = new SentenceManager(con);
+                var wm = new WordManager(con);
 
-                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName,data.storyDesc.Description))
                 {
                     if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                     {

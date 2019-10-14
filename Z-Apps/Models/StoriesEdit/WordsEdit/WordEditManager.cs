@@ -43,14 +43,14 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
             return resultWords;
         }
 
-        public string GetWordMeaning(string kanji)
+        public Dictionary<string, object> GetWordMeaning(string kanji)
         {
             //SQL文作成
             string sql = "";
-            sql += "select English, count(*) as cnt";
+            sql += "select English, Hiragana, count(*) as cnt";
             sql += "  from tblDictionaryEdit";
             sql += "  where Kanji like @kanji";
-            sql += "  group by English";
+            sql += "  group by English, Hiragana";
             sql += "  having count(*) = (";
             sql += "	select max(cnt)";
             sql += "		from";
@@ -58,7 +58,7 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
             sql += "				select count(*) as cnt";
             sql += "				from tblDictionaryEdit";
             sql += "				where Kanji like @kanji";
-            sql += "				group by English";
+            sql += "				group by English, Hiragana";
             sql += "			)";
             sql += "	v)";
 
@@ -67,9 +67,9 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
 
             foreach (var dicWord in words)
             {
-                return (string)dicWord["English"];
+                return dicWord;
             }
-            return "";
+            return new Dictionary<string, object>();
         }
 
         public bool DeleteInsertWords(int storyId, IEnumerable<WordEdit> words)

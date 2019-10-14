@@ -63,7 +63,8 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
 
         public bool UpdateDesc(int storyId, string desc)
         {
-            string replacedDesc = desc.Replace("\n", "\\n");
+            string replacedDesc = desc.Replace("\r", "\n").Replace("\n\n", "\n").Replace("\n\n", "\n")
+                .Replace("\n", "\\n");
 
             //SQL文作成
             string sql = "";

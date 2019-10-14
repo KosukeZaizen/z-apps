@@ -225,7 +225,7 @@ export const actionCreators = {
             }
         }
         const wToAdd = {
-            storyId: w[0],
+            storyId: w[0].storyId,
             lineNumber: lineNumber,
             wordNumber: wordNumber + 1,
             kanji: "",
@@ -289,6 +289,31 @@ export const actionCreators = {
 
                 if (result) {
                     alert("Success to save!");
+                } else {
+                    alert("Failed to save...");
+                }
+            }
+        } catch (e) {
+            console.log(e);
+            alert("Error!");
+        }
+    },
+
+    register: () => async (dispatch, getState) => {
+        try {
+            if (window.confirm('Are you sure that you want to register?')) {
+                const { storyDesc, sentences, words, token } = getState().storiesEdit;
+                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+
+                let result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+
+                if (result) {
+                    result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Register");
+                    if (result) {
+                        alert("Success to register!");
+                    } else {
+                        alert("Failed to register...");
+                    }
                 } else {
                     alert("Failed to save...");
                 }

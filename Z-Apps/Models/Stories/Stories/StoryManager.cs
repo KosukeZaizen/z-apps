@@ -60,5 +60,42 @@ namespace Z_Apps.Models.Stories.Stories
             }
             return null;
         }
+
+        public bool UpdateDesc(int storyId, string storyName, string desc)
+        {
+            bool result;
+            string replacedDesc = desc.Replace("\r", "\n").Replace("\n\n", "\n").Replace("\n\n", "\n")
+                .Replace("\n", "\\n");
+
+            //SQL文作成
+            string sql = "";
+            sql += "Insert into tblStoryMst";
+            sql += " (StoryId, StoryName, Description) values(@storyId, @storyName, @desc)";
+
+            try
+            {
+                //List<Dictionary<string, Object>>型で取得
+                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                { "@storyId", new object[2] { SqlDbType.Int, storyId }},
+                { "@storyName", new object[2] { SqlDbType.NVarChar, storyName }}
+            });
+            }
+            catch (Exception e)
+            {
+                //SQL文作成
+                sql = "";
+                sql += "update tblStoryMst";
+                sql += " set Description = @desc where StoryId Like @storyId";
+
+                //List<Dictionary<string, Object>>型で取得
+                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                { "@storyId", new object[2] { SqlDbType.Int, storyId }}
+            });
+            }
+            return result;
+        }
+
     }
 }

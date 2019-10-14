@@ -97,10 +97,17 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public bool Register([FromBody] DataToBeSaved data)
+        public bool Register([FromBody] DataToBeRegistered data)
         {
             var result = service.Register(data);
             return result;
+        }
+        public class DataToBeRegistered
+        {
+            public IEnumerable<Word> words;
+            public IEnumerable<Sentence> sentences;
+            public Story storyDesc;
+            public string token;
         }
     }
 }
