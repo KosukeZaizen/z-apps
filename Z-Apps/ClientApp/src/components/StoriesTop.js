@@ -94,8 +94,8 @@ class StoriesTop extends React.Component {
                                                             <img
                                                                 src={Imgs[s.storyName]}
                                                                 width="90%"
-                                                                alt={s.storyName}
-                                                                title={s.storyName}
+                                                                alt={s.storyName.split("_").join(" ")}
+                                                                title={s.storyName.split("_").join(" ")}
                                                                 style={{marginLeft:"10px",marginBottom:"10px"}}
                                                             />
                                                         </td>
@@ -115,13 +115,13 @@ class StoriesTop extends React.Component {
                                             :
                                             <div>
                                                 <b>
-                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>{s.storyName}</h2>
+                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>{s.storyName.split("_").join(" ")}</h2>
                                                 </b>
                                                 <img
                                                     src={Imgs[s.storyName]}
                                                     width="90%"
-                                                    alt={s.storyName}
-                                                    title={s.storyName}
+                                                    alt={s.storyName.split("_").join(" ")}
+                                                    title={s.storyName.split("_").join(" ")}
                                                 />
                                                 <div style={{ textAlign: "left", margin: "10px" }}>
                                                     {
