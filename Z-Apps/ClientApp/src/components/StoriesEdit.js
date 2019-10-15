@@ -130,6 +130,7 @@ class StoriesEdit extends React.Component {
                                 translate={this.props.translate}
                                 translateWord={this.props.translateWord}
                                 isTranslating={this.props.isTranslating}
+                                margeWord={this.props.margeWord}
                             />
                             :
                             <center>
@@ -274,6 +275,7 @@ class Sentences extends React.Component {
                                         addWord={this.props.addWord}
                                         removeWord={this.props.removeWord}
                                         translateWord={this.props.translateWord}
+                                        margeWord={this.props.margeWord}
                                     />
                                     :
                                     null
@@ -331,6 +333,14 @@ class WordList extends React.Component {
                                                 a.wordNumber - b.wordNumber
                                             ).map((w, i) =>
                                                 <tr key={w.wordNumber}>
+                                                    <td width="10px">
+                                                        <button
+                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
+                                                            className="btn btn-dark btn-xs"
+                                                            onClick={() => this.props.margeWord(w.lineNumber, w.wordNumber)}
+                                                        ><b>M</b>
+                                                        </button>
+                                                    </td>
                                                     <td width="20%">
                                                         <textarea
                                                             value={w.kanji}

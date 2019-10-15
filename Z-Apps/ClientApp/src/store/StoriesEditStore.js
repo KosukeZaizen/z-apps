@@ -279,6 +279,38 @@ export const actionCreators = {
             }
     },
 
+    margeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
+        if (window.confirm('Do you really want to marge the words?')) {
+            const state = getState().storiesEdit;
+            let w = state.words.concat().sort((a, b) => {
+                if (a.lineNumber < b.lineNumber) return -1;
+                if (a.lineNumber > b.lineNumber) return 1;
+                if (a.wordNumber < b.wordNumber) return -1;
+                if (a.wordNumber > b.wordNumber) return 1;
+                return 0;
+            });
+
+            for (let key in w) {
+                if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
+                    if (w[key].lineNumber === w[Number(key) + 1].lineNumber) {
+                        w[key].kanji += w[Number(key) + 1].kanji;
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            w = w.filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber + 1))
+                .map(word => {
+                    if (word.lineNumber === lineNumber && word.wordNumber > wordNumber + 1) {
+                        word.wordNumber--;
+                    }
+                    return word;
+                });
+            dispatch({ type: receiveWordsType, words: w });
+        }
+    },
+
     save: () => async (dispatch, getState) => {
         try {
             if (window.confirm('Are you sure that you want to save?')) {
