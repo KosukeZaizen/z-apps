@@ -122,10 +122,10 @@ class Stories extends React.Component {
                         </span>
                     </div>
                     <h1 style={{
-                        margin: "30px",
-                        lineHeight: "30px",
+                        margin: "25px",
+                        lineHeight: "35px",
                     }}>
-                        <b>{title}</b>
+                        <b>{title + " Story"}</b>
                     </h1>
                     <br />
                     {
