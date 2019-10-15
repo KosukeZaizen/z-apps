@@ -76,7 +76,7 @@ class StoriesEdit extends React.Component {
                         lineHeight: "30px",
                         color: "#eb6905",
                     }}>
-                        <b>{title}</b>
+                        <b>{title + " Story"}</b>
                     </h1>
                     <br />
                     {
