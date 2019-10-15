@@ -48,7 +48,7 @@ class StoriesEdit extends React.Component {
         return (
             <center>
                 <Head
-                    title={title}
+                    title={title + " Story"}
                     noindex={true}
                 />
                 <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:"-1" }}>
@@ -76,7 +76,7 @@ class StoriesEdit extends React.Component {
                         lineHeight: "30px",
                         color: "#eb6905",
                     }}>
-                        <b>{title + " Story"}</b>
+                        <b>{title}</b>
                     </h1>
                     <br />
                     {

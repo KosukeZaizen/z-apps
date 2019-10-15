@@ -100,7 +100,7 @@ class Stories extends React.Component {
         return (
             <center>
                 <Head
-                    title={title}
+                    title={title + " Story"}
                     desc={this.props.storyDesc.description && this.props.storyDesc.description.split("\\n").join(" ")}
                 />
                 <div style={{ maxWidth: 700 }}>
@@ -125,7 +125,7 @@ class Stories extends React.Component {
                         margin: "25px",
                         lineHeight: "35px",
                     }}>
-                        <b>{title + " Story"}</b>
+                        <b>{title}</b>
                     </h1>
                     <br />
                     {
