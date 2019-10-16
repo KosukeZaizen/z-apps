@@ -253,7 +253,8 @@ namespace Z_Apps.Models.StoriesEdit
                 var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
                 dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ", "");
                 word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
-                word.English = await MakeEnglish(word.Kanji);
+                string eng = await MakeEnglish(word.Kanji);
+                word.English = eng.ToLower();
             }
 
             return word;
