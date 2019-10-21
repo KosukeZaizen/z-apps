@@ -108,7 +108,8 @@ namespace Z_Apps.Models.StoriesEdit
                     else
                     {
                         w.Hiragana = (w.Kanji == arrHiragana[i]) ? "" : arrHiragana[i];
-                        w.English = await MakeEnglish(arrKanji[i]);
+                         var eng = await MakeEnglish(arrKanji[i]);
+                        w.English = eng.ToLower();
                     }
                     lstWords.Add(w);
                 }
@@ -256,7 +257,6 @@ namespace Z_Apps.Models.StoriesEdit
                 string eng = await MakeEnglish(word.Kanji);
                 word.English = eng.ToLower();
             }
-
             return word;
         }
 
