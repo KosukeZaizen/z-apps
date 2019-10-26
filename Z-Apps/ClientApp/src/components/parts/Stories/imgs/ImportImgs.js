@@ -5,6 +5,7 @@ import Kaguya_Hime from './kaguya-hime.png';
 import Kasa_Jizo from './kasa-jizo.png';
 import Kachi_Kachi_Yama from './Kachi-Kachi-Yama.jpg';
 import Yuki_Onna from './Yuki-Onna.png';
+import Hanasaka_Jiisan from './hanasaka-jiisan.png';
 
 export default {
     Momotaro,
@@ -14,4 +15,5 @@ export default {
     Kasa_Jizo,
     Kachi_Kachi_Yama,
     Yuki_Onna,
+    Hanasaka_Jiisan,
 }
