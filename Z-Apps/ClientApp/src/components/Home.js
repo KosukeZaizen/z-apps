@@ -8,7 +8,7 @@ const Home = props => (
     <div className="home">
         <Head
             title="Z-Apps"
-            desc="Applications to learn Japanese, made by Kosuke Zaizen. I hope you enjoy!"
+            desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!"
         />
         <center>
             <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>
@@ -17,22 +17,25 @@ const Home = props => (
                     made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
                 <p className="no-margin">I hope you enjoy!</p>
             </div>
-            <Link to="/ninja">
+
+            <Link to="/hiragana-quiz">
                 <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
-                    <CardTitle>Lingual Ninja Game!</CardTitle>
-                    <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
-                    <Button color="secondary">Play!</Button>
-                </Card>
-            </Link>
-            <br />
-            <Link to="/folktales">
-                <Card body inverse color="primary">
-                    <CardTitle>Japanese Folktales!</CardTitle>
-                    <CardText>An App to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
+                    <CardTitle>Hiragana / Katakana Quiz</CardTitle>
+                    <CardText>An app to remember Hiragana and Katakana! I hope this will help you to study.</CardText>
                     <Button color="secondary">Try!</Button>
                 </Card>
             </Link>
             <br />
+
+            <Link to="/folktales">
+                <Card body inverse color="primary">
+                    <CardTitle>Japanese Folktales</CardTitle>
+                    <CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
+                    <Button color="secondary">Try!</Button>
+                </Card>
+            </Link>
+            <br />
+
             <Link to="/kanji-converter">
                 <Card body inverse color="success">
                     <CardTitle>Kanji Converter</CardTitle>
@@ -41,6 +44,7 @@ const Home = props => (
                 </Card>
             </Link>
             <br />
+
             <Link to="/romaji-converter">
                 <Card body inverse color="danger">
                     <CardTitle>Romaji Converter</CardTitle>
@@ -49,14 +53,16 @@ const Home = props => (
                 </Card>
             </Link>
             <br />
-            <Link to="/hiragana-quiz">
+
+            <Link to="/ninja">
                 <Card body inverse color="warning">
-                    <CardTitle>Hiragana / Katakana Quiz</CardTitle>
-                    <CardText>An app to remember Hiragana and Katakana! I hope this will help you to study.</CardText>
-                    <Button color="secondary">Try!</Button>
+                    <CardTitle>Lingual Ninja Game</CardTitle>
+                    <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
+                    <Button color="secondary">Play!</Button>
                 </Card>
             </Link>
             <br />
+
             <Link to="/color-code">
                 <Card body inverse color="info">
                     <CardTitle>Color Code Getter</CardTitle>
