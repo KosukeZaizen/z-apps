@@ -92,7 +92,7 @@ class StoriesTop extends React.Component {
                                                     <tr>
                                                         <td width="50%">
                                                             <img
-                                                                src={Imgs[s.storyName]}
+                                                                src={Imgs[s.storyName.split("_-_").join("_")]}
                                                                 width="90%"
                                                                 alt={s.storyName.split("_").join(" ")}
                                                                 title={s.storyName.split("_").join(" ")}
@@ -118,7 +118,7 @@ class StoriesTop extends React.Component {
                                                     <h2 style={{ color: "black", marginBottom: "20px" }}>{s.storyName.split("_").join(" ")}</h2>
                                                 </b>
                                                 <img
-                                                    src={Imgs[s.storyName]}
+                                                    src={Imgs[s.storyName.split("_-_").join("_")]}
                                                     width="90%"
                                                     alt={s.storyName.split("_").join(" ")}
                                                     title={s.storyName.split("_").join(" ")}

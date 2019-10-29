@@ -82,10 +82,10 @@ class StoriesEdit extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName]}
+                                src={Imgs[this.state.storyName.split("_-_").join("_")]}
                                 width="100px"
-                                alt={this.state.storyName}
-                                title={this.state.storyName}
+                                alt={this.state.storyName.split("_-_").join("_")}
+                                title={this.state.storyName.split("_-_").join("_")}
                             />
                             :
                             null

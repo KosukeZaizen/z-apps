@@ -131,7 +131,7 @@ class Stories extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName]}
+                                src={Imgs[this.state.storyName.split("_-_").join("_")]}
                                 width="90%"
                                 alt={title}
                                 title={title}
