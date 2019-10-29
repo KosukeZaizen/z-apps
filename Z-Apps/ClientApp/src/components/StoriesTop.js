@@ -73,70 +73,77 @@ class StoriesTop extends React.Component {
                             </center>
                     }
                     {
-                        allStories && allStories.map(s =>
-                            <a key={s.storyId} href={`/folktales/${s.storyName}`}>
-                                <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                    {
-                                        screenWidth > 500 ?
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colSpan={2}>
-                                                            <center>
-                                                                <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                    <b>{s.storyName.split("_").join(" ")}</b>
-                                                                </h2>
-                                                            </center>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="50%">
-                                                            <img
-                                                                src={Imgs[s.storyName.split("_-_").join("_")]}
-                                                                width="90%"
-                                                                alt={s.storyName.split("_").join(" ")}
-                                                                title={s.storyName.split("_").join(" ")}
-                                                                style={{marginLeft:"10px",marginBottom:"10px"}}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                s.description.split("\\n").map((d, i) =>
-                                                                    <span key={i} style={{ color: "black" }}>
-                                                                        {d}<br />
-                                                                    </span>
-                                                                )
-                                                            }
-                                                            <center><p style={{ margin: "20px" }}>Read {s.storyName.split("_").join(" ")} >></p></center>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            :
-                                            <div>
-                                                <b>
-                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>{s.storyName.split("_").join(" ")}</h2>
-                                                </b>
-                                                <img
-                                                    src={Imgs[s.storyName.split("_-_").join("_")]}
-                                                    width="90%"
-                                                    alt={s.storyName.split("_").join(" ")}
-                                                    title={s.storyName.split("_").join(" ")}
-                                                />
-                                                <div style={{ textAlign: "left", margin: "10px" }}>
-                                                    {
-                                                        s.description.split("\\n").map((d, i) =>
-                                                            <span key={i} style={{ color: "black" }}>
-                                                                {d}<br />
-                                                            </span>
-                                                        )
-                                                    }
+                        allStories && allStories.map(s => {
+                            const nameForUrl = s.storyName;
+                            const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                            const nameForImg = s.storyName.split("--").join("_");
+
+                            return (
+                                <a key={s.storyId} href={`/folktales/${nameForUrl}`}>
+                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                        {
+                                            screenWidth > 500 ?
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colSpan={2}>
+                                                                <center>
+                                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>
+                                                                        <b>{nameToShow}</b>
+                                                                    </h2>
+                                                                </center>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="50%">
+                                                                <img
+                                                                    src={Imgs[nameForImg]}
+                                                                    width="90%"
+                                                                    alt={nameToShow}
+                                                                    title={nameToShow}
+                                                                    style={{ marginLeft: "10px", marginBottom: "10px" }}
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    s.description.split("\\n").map((d, i) =>
+                                                                        <span key={i} style={{ color: "black" }}>
+                                                                            {d}<br />
+                                                                        </span>
+                                                                    )
+                                                                }
+                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                :
+                                                <div>
+                                                    <b>
+                                                        <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
+                                                    </b>
+                                                    <img
+                                                        src={Imgs[nameForImg]}
+                                                        width="90%"
+                                                        alt={nameToShow}
+                                                        title={nameToShow}
+                                                    />
+                                                    <div style={{ textAlign: "left", margin: "10px" }}>
+                                                        {
+                                                            s.description.split("\\n").map((d, i) =>
+                                                                <span key={i} style={{ color: "black" }}>
+                                                                    {d}<br />
+                                                                </span>
+                                                            )
+                                                        }
+                                                    </div>
+                                                    <p>Read {nameToShow} >></p>
                                                 </div>
-                                                <p>Read {s.storyName.split("_").join(" ")} >></p>
-                                            </div>
-                                    }
-                                </div>
-                            </a>
+                                        }
+                                    </div>
+                                </a>
+                            );
+                        }
                         )
                     }
                 </div>
