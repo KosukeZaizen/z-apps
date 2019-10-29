@@ -43,7 +43,7 @@ class StoriesEdit extends React.Component {
 
     render() {
         const storyName = this.props.storyDesc.storyName || "";
-        const title = storyName.split("_").join(" ");
+        const title = storyName.split("--").join(" - ").split("_").join(" ");
         const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
             <center>
@@ -82,10 +82,8 @@ class StoriesEdit extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName.split("_-_").join("_")]}
+                                src={Imgs[this.state.storyName.split("--").join("_")]}
                                 width="100px"
-                                alt={this.state.storyName.split("_-_").join("_")}
-                                title={this.state.storyName.split("_-_").join("_")}
                             />
                             :
                             null

@@ -96,7 +96,7 @@ class Stories extends React.Component {
 
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
-        const title = storyName.split("_").join(" ");
+        const title = storyName.split("--").join(" - ").split("_").join(" ");
         return (
             <center>
                 <Head
@@ -108,16 +108,16 @@ class Stories extends React.Component {
                         <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Home
-                                    </span>
+                            </span>
                         </Link>
                         ＞
-                                <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Japanese Folktales
-                                    </span>
+                            </span>
                         </Link>
                         ＞
-                                <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             {title}
                         </span>
                     </div>
@@ -131,7 +131,7 @@ class Stories extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName.split("_-_").join("_")]}
+                                src={Imgs[this.state.storyName.split("--").join("_")]}
                                 width="90%"
                                 alt={title}
                                 title={title}
