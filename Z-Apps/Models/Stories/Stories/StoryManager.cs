@@ -66,7 +66,7 @@ namespace Z_Apps.Models.Stories.Stories
             //SQL文作成
             string sql = "";
             sql += "select * from tblStoryMst";
-            sql += " where StoryName Like @storyId";
+            sql += " where StoryId Like @storyId";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
