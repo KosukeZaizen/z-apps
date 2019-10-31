@@ -61,38 +61,62 @@ namespace Z_Apps.Models.Stories.Stories
             return null;
         }
 
+        public Story GetStoryById(int storyId)
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "select * from tblStoryMst";
+            sql += " where StoryName Like @storyId";
+
+            //List<Dictionary<string, Object>>型で取得
+            var stories = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+
+            //Story型に変換してreturn
+            foreach (var dicStory in stories)
+            {
+                var story = new Story();
+                story.StoryId = (int)dicStory["StoryId"];
+                story.StoryName = (string)dicStory["StoryName"];
+                story.Description = (string)dicStory["Description"];
+
+                return story;
+            }
+            return null;
+        }
+
         public bool UpdateDesc(int storyId, string storyName, string desc)
         {
             bool result;
             string replacedDesc = desc.Replace("\r", "\n").Replace("\n\n", "\n").Replace("\n\n", "\n")
                 .Replace("\n", "\\n");
 
-            //SQL文作成
             string sql = "";
-            sql += "Insert into tblStoryMst";
-            sql += " (StoryId, StoryName, Description) values(@storyId, @storyName, @desc)";
-
-            try
+            if (GetStoryById(storyId) == null)
             {
+                //レコードがなければInsert
+                sql = "";
+                sql += "Insert into tblStoryMst";
+                sql += " (StoryId, StoryName, Description) values(@storyId, @storyName, @desc)";
+
                 //List<Dictionary<string, Object>>型で取得
                 result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
-                { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
-                { "@storyId", new object[2] { SqlDbType.Int, storyId }},
-                { "@storyName", new object[2] { SqlDbType.NVarChar, storyName }}
-            });
+                    { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId }},
+                    { "@storyName", new object[2] { SqlDbType.NVarChar, storyName }}
+                });
             }
-            catch (Exception e)
+            else
             {
-                //SQL文作成
+                //レコードがあればUpdate
                 sql = "";
                 sql += "update tblStoryMst";
                 sql += " set Description = @desc where StoryId Like @storyId";
 
                 //List<Dictionary<string, Object>>型で取得
                 result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
-                { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
-                { "@storyId", new object[2] { SqlDbType.Int, storyId }}
-            });
+                    { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId }}
+                });
             }
             return result;
         }
