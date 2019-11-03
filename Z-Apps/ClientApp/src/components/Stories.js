@@ -97,6 +97,19 @@ class Stories extends React.Component {
     render() {
         const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
+        const titleOfAbout = storyName.split("--")[0].split("_").join(" ");
+        const styleForAboutTitle = {
+            fontSize: "large",
+            background: "#fee8b4",
+            boxShadow: "0px 0px 0px 5px #fee8b4",
+            border: "dashed 2px white",
+            padding: "0.2em 0.5em",
+            marginBottom: "10px",
+        };
+        const styleForStoryTitle = {
+            fontSize: "x-large",
+            //borderTop: "double 5px #fee8b4",
+        };
         return (
             <center>
                 <Head
@@ -155,6 +168,7 @@ class Stories extends React.Component {
                     {
                         this.props.storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                <h2 style={styleForAboutTitle}>About {titleOfAbout}</h2>
                                 {
                                     this.props.storyDesc.description.split("\\n").map((d, i) =>
                                         <span key={i}>
@@ -169,14 +183,18 @@ class Stories extends React.Component {
                     <br />
                     {
                         this.props.storyDesc.storyId ?
-                            <Sentences
-                                storyId={this.props.storyDesc.storyId}
-                                sentences={this.props.sentences}
-                                loadSentences={this.props.loadSentences.bind(this)}
-                                words={this.props.words}
-                                loadWords={this.props.loadWords.bind(this)}
-                                langState={this.state}
-                            />
+                            <span>
+                                <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
+                                <br />
+                                <Sentences
+                                    storyId={this.props.storyDesc.storyId}
+                                    sentences={this.props.sentences}
+                                    loadSentences={this.props.loadSentences.bind(this)}
+                                    words={this.props.words}
+                                    loadWords={this.props.loadWords.bind(this)}
+                                    langState={this.state}
+                                />
+                            </span>
                             :
                             <center>
                                 <CircularProgress key="circle" size="20%" />
