@@ -7,11 +7,11 @@ import Head from './parts/Helmet';
 const Home = props => (
     <div className="home">
         <Head
-            title="Z-Apps"
+            title="Lingual Ninja"
             desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!"
         />
         <center>
-            <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Z-Apps!</h1>
+            <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Lingual Ninja!</h1>
             <div className="initial-message">
                 <p className="no-margin">Applications to learn Japanese,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                     made by <Link to="/developer">Kosuke Zaizen</Link>.</p>

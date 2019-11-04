@@ -46,7 +46,7 @@ export default class NavMenu extends React.Component {
             <header>
                 <Navbar variant="pills" className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3">
                     <Container>
-                        <NavbarBrand tag={Link} to="/"><b className="z-apps-title text-light">Z-Apps</b></NavbarBrand>
+                        <NavbarBrand tag={Link} to="/"><b className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
                             <NavigationItems />

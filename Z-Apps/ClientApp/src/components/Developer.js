@@ -8,10 +8,10 @@ function SayHello() {
         <p>
             <b>Hello! I'm Kosuke Zaizen!</b><br />
             <br />
-            Thank you for using Z-Apps!<br />
+            Thank you for using Lingual Ninja!<br />
             I am a Japanese software engineer.<br />
-            Z-Apps is a website for Japanese learners.<br />
-            I hope Z-Apps can help!
+            Lingual Ninja is a website for Japanese learners.<br />
+            I hope Lingual Ninja can help!
         </p>
     );
 }
@@ -20,7 +20,7 @@ const Developer = props => (
     <div className="developer">
         <Head
             title="Kosuke Zaizen"
-            desc="I am a Japanese software engineer. Z-Apps is a website for Japanese learners. I hope Z-Apps can help!"
+            desc="I am a Japanese software engineer. Lingual Ninja is a website for Japanese learners. I hope Lingual Ninja can help!"
         />
         <center>
             <h1>Kosuke Zaizen</h1>
