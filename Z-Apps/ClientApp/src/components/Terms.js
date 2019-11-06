@@ -24,7 +24,7 @@ const Terms = props => (
                 <hr />
                 <h2>Contact</h2>
                 If you have trouble, please contact using this link:<br />
-                <a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">　uni-browser >></a>
+                <a href="https://uni-browser.lingual-ninja.com/?pageId=4" target="_blank" rel="noopener noreferrer">　uni-browser >></a>
             </div>
         </center>
     </div>

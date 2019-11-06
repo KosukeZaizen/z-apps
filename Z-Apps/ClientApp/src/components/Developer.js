@@ -54,7 +54,7 @@ const Developer = props => (
                     <p className="no-margin">
                         To contact me, please write a message<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                         using the link below:</p><br />
-                        <b><a href="https://www.uni-browser.net/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
+                    <b><a href="https://uni-browser.lingual-ninja.com/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
                         
                     <br /><br /><br />
                     <p className="no-margin">
