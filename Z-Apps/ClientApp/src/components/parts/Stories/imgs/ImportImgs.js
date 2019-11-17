@@ -9,6 +9,8 @@ import Hanasaka_Jiisan from './hanasaka-jiisan.png';
 import Orihime_and_Hikoboshi_Tanabata from './Orihime-and-Hikoboshi-Tanabata.jpg';
 import Kintaro_Sakata_Kintoki from './Kintaro.png';
 import The_Rabbit_and_the_Turtle from './rabbit-turtle.png';
+import Zashiki_Warashi from './zashiki-warashi.png';
+import Tanokyu from './tanokyu.png';
 
 export default {
     Momotaro,
@@ -22,4 +24,6 @@ export default {
     Orihime_and_Hikoboshi_Tanabata,
     Kintaro_Sakata_Kintoki,
     The_Rabbit_and_the_Turtle,
+    Zashiki_Warashi,
+    Tanokyu,
 }
