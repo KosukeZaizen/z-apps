@@ -206,6 +206,7 @@ class Stories extends React.Component {
                     >
                         Read other folktales >>
                     </Link>
+                    <div style={{ height: "60px", }}></div>
                     <FooterMenu
                         onClickLangBtn={this.onClickLangBtn}
                         langState={this.state}
