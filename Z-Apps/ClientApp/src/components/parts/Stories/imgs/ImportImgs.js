@@ -12,6 +12,7 @@ import The_Rabbit_and_the_Turtle from './rabbit-turtle.png';
 import Zashiki_Warashi from './zashiki-warashi.png';
 import Tanokyu from './tanokyu.png';
 import Saru_Kani_Gassen from './saru-kani.png';
+import Neko_no_Te from './neko-no-te.png';
 
 export default {
     Momotaro,
@@ -28,4 +29,5 @@ export default {
     Zashiki_Warashi,
     Tanokyu,
     Saru_Kani_Gassen,
+    Neko_no_Te,
 }
