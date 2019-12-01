@@ -13,6 +13,7 @@ import Zashiki_Warashi from './zashiki-warashi.png';
 import Tanokyu from './tanokyu.png';
 import Saru_Kani_Gassen from './saru-kani.png';
 import Neko_no_Te from './neko-no-te.png';
+import Japanese_River_Otter from './otter.png';
 
 export default {
     Momotaro,
@@ -30,4 +31,5 @@ export default {
     Tanokyu,
     Saru_Kani_Gassen,
     Neko_no_Te,
+    Japanese_River_Otter,
 }
