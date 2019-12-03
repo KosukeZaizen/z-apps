@@ -175,7 +175,7 @@ class Description extends React.Component {
         return (
             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
                 <textarea
-                    rows="5"
+                    rows="10"
                     style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                     value={this.props.desc}
                     onChange={this.props.handleChangeDesc}
