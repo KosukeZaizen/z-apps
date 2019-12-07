@@ -12,7 +12,7 @@ namespace Z_Apps.Models.Stories
 {
     public class Service
     {
-        
+
         private DBCon con;
         public Service(DBCon con)
         {
@@ -24,6 +24,53 @@ namespace Z_Apps.Models.Stories
             var stm = new StoryManager(con);
             var stories = stm.GetAllStories();
             return stories;
+        }
+
+        public IEnumerable<Story> GetOtherStories(int storyId)
+        {
+            //戻り値
+            List<Story> result = new List<Story>();
+
+            //10日に１回変わる数値を取得
+            int numFor10Days = GetNumberForThe10Days();
+            //自分自身を除いた、全てのStory
+            var stories = GetAllStories().Where(s => s.StoryId != storyId);
+            //ストーリー数の初期値
+            int originalCount = stories.Count();
+
+            //再帰呼び出しのため、一度nullで初期化
+            Func<IEnumerable<Story>, IEnumerable<Story>> getRandomStory = null;
+            getRandomStory = (s) =>
+            {
+                //10日に一度変わる数値から、indexを生成
+                int index = numFor10Days % s.Count();
+
+                //上記で生成したindexの要素を、結果のリストに追加
+                result.Add(s.ElementAt(index));
+
+                int count = result.Count();
+                if (count >= 10)
+                {
+                    //ストーリーを10こ抽出後、戻り値として返す
+                    return result;
+                }
+                else
+                {
+                    //追加した項目を除外して、再帰呼び出し
+                    return getRandomStory(s.Where(st => st != s.ElementAt(index)));
+                }
+            };
+            return getRandomStory(stories);
+        }
+
+        //10日に１回変わる数値を取得
+        private int GetNumberForThe10Days()
+        {
+            // 2019年1月1日からの経過日数
+            double interval = (DateTime.Today - new DateTime(2019, 1, 1)).TotalDays;
+
+            //経過日数を10で割った商
+            return (int)interval / 10;
         }
 
         public Story GetPageData(string storyName)

@@ -28,6 +28,20 @@ namespace Z_Apps.Controllers
                 return stories;
         }
 
+        [HttpGet("[action]/{storyId?}")]
+        public IEnumerable<Story> GetOtherStories(int storyId)
+        {
+            if (storyId > 0)
+            {
+                var stories = service.GetOtherStories(storyId);
+                return stories;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         [HttpGet("[action]/{storyName?}")]
         public Story GetPageData(string storyName)
         {

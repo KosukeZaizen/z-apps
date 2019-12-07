@@ -27,7 +27,7 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words });
 
             //other stories
-            const url4 = `api/Stories/GetAllStories`;
+            const url4 = `api/Stories/GetOtherStories/${storyId}`;
             const response4 = await fetch(url4);
             const otherStories = await response4.json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
