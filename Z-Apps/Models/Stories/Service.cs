@@ -33,6 +33,8 @@ namespace Z_Apps.Models.Stories
 
             //10日に１回変わる数値を取得
             int numFor10Days = GetNumberForThe10Days();
+            //ストーリーごとにも変わる数値を取得
+            int numForStory = numFor10Days + storyId;
             //自分自身を除いた、全てのStory
             var stories = GetAllStories().Where(s => s.StoryId != storyId);
             //ストーリー数の初期値
@@ -43,15 +45,15 @@ namespace Z_Apps.Models.Stories
             getRandomStory = (s) =>
             {
                 //10日に一度変わる数値から、indexを生成
-                int index = numFor10Days % s.Count();
+                int index = numForStory % s.Count();
 
                 //上記で生成したindexの要素を、結果のリストに追加
                 result.Add(s.ElementAt(index));
 
                 int count = result.Count();
-                if (count >= 10)
+                if (count >= 7)
                 {
-                    //ストーリーを10こ抽出後、戻り値として返す
+                    //ストーリーを7こ抽出後、再帰終了
                     return result;
                 }
                 else
