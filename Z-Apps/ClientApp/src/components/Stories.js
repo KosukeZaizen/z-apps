@@ -16,6 +16,7 @@ class Stories extends React.Component {
         const storyName = params.storyName.toString();
         this.state = {
             storyName: storyName,
+            screenWidth: parseInt(window.innerWidth, 10),
         };
 
         this.screenHeight = parseInt(window.innerHeight, 10);
@@ -41,6 +42,23 @@ class Stories extends React.Component {
         }
 
         this.props.loadStory(this.state.storyName);
+
+        let timer = 0;
+        window.onresize = () => {
+            if (timer > 0) {
+                clearTimeout(timer);
+            }
+
+            timer = setTimeout(() => {
+                this.changeScreenSize();
+            }, 100);
+        };
+    }
+
+    changeScreenSize = () => {
+        this.setState({
+            screenWidth: parseInt(window.innerWidth, 10),
+        });
     }
 
     onClickLangBtn = (btnType) => {
@@ -108,13 +126,15 @@ class Stories extends React.Component {
         };
         const styleForStoryTitle = {
             fontSize: "x-large",
-            //borderTop: "double 5px #fee8b4",
+            fontWeight: "bold",
         };
+        const { screenWidth } = this.state;
+        const { storyDesc, sentences, words, otherStories } = this.props;
         return (
             <center>
                 <Head
                     title={title + " Story"}
-                    desc={this.props.storyDesc.description && this.props.storyDesc.description.split("\\n").join(" ")}
+                    desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
@@ -166,11 +186,11 @@ class Stories extends React.Component {
                     }
                     <br />
                     {
-                        this.props.storyDesc.description ?
+                        storyDesc.description ?
                             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                                 <h2 style={styleForAboutTitle}>About {titleOfAbout}</h2>
                                 {
-                                    this.props.storyDesc.description.split("\\n").map((d, i) =>
+                                    storyDesc.description.split("\\n").map((d, i) =>
                                         <span key={i}>
                                             {d}<br />
                                         </span>
@@ -182,16 +202,14 @@ class Stories extends React.Component {
                     }
                     <br />
                     {
-                        this.props.storyDesc.storyId ?
+                        storyDesc.storyId ?
                             <span>
                                 <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
                                 <br />
                                 <Sentences
-                                    storyId={this.props.storyDesc.storyId}
-                                    sentences={this.props.sentences}
-                                    loadSentences={this.props.loadSentences.bind(this)}
-                                    words={this.props.words}
-                                    loadWords={this.props.loadWords.bind(this)}
+                                    storyId={storyDesc.storyId}
+                                    sentences={sentences}
+                                    words={words}
                                     langState={this.state}
                                 />
                             </span>
@@ -200,16 +218,99 @@ class Stories extends React.Component {
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
+                    {
+                        otherStories && otherStories.length > 0 ?
+                            <div style={{ textAlign: "left", marginTop: "30px", marginBottom: "20px" }}>
+                                <h2 style={styleForStoryTitle}>More folktales</h2>
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        otherStories && otherStories.map(s => {
+                            const nameForUrl = s.storyName;
+                            const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                            const nameForImg = s.storyName.split("--").join("_");
+
+                            return (
+                                <a key={s.storyId} href={`/folktales/${nameForUrl}`}>
+                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                        {
+                                            screenWidth > 500 ?
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colSpan={2}>
+                                                                <center>
+                                                                    <h3 style={{ color: "black", marginBottom: "20px" }}>
+                                                                        <b>{nameToShow}</b>
+                                                                    </h3>
+                                                                </center>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="50%">
+                                                                <img
+                                                                    src={Imgs[nameForImg]}
+                                                                    width="90%"
+                                                                    alt={nameToShow}
+                                                                    title={nameToShow}
+                                                                    style={{ marginLeft: "10px", marginBottom: "10px" }}
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    s.description.split("\\n").map((d, i) =>
+                                                                        <span key={i} style={{ color: "black" }}>
+                                                                            {d}<br />
+                                                                        </span>
+                                                                    )
+                                                                }
+                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                :
+                                                <div>
+                                                    <b>
+                                                        <h3 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h3>
+                                                    </b>
+                                                    <img
+                                                        src={Imgs[nameForImg]}
+                                                        width="90%"
+                                                        alt={nameToShow}
+                                                        title={nameToShow}
+                                                    />
+                                                    <div style={{ textAlign: "left", margin: "10px" }}>
+                                                        {
+                                                            s.description.split("\\n").map((d, i) =>
+                                                                <span key={i} style={{ color: "black" }}>
+                                                                    {d}<br />
+                                                                </span>
+                                                            )
+                                                        }
+                                                    </div>
+                                                    <p>Read {nameToShow} >></p>
+                                                </div>
+                                        }
+                                    </div>
+                                </a>
+                            );
+                        }
+                        )
+                    }
                     <Link
                         to="/folktales"
-                        style={{ fontSize:"x-large"}}
+                        style={{ fontSize: "x-large" }}
                     >
-                        Read other folktales >>
+                        Other folktales >>
                     </Link>
                     <div style={{ height: "60px", }}></div>
                     <FooterMenu
                         onClickLangBtn={this.onClickLangBtn}
                         langState={this.state}
+                        screenWidth={screenWidth}
                     />
                 </div>
             </center>
@@ -219,22 +320,9 @@ class Stories extends React.Component {
 
 class Sentences extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.props.loadSentences(this.props.storyId);
-    }
-
-    componentDidUpdate() {
-        if (this.props.sentences && this.props.sentences.length > 0) {
-            if (!this.props.words || this.props.words.length <= 0) {
-                this.props.loadWords(this.props.storyId);
-            }
-        }
-    }
-
     render() {
-        const isLoading = !this.props.sentences || this.props.sentences.length <= 0;
-        const { langState } = this.props;
+        const { storyId, sentences, words, langState } = this.props;
+        const isLoading = !sentences || sentences.length <= 0;
 
         return (
             <div style={{ textAlign: "left" }}>
@@ -244,7 +332,7 @@ class Sentences extends React.Component {
                             <CircularProgress key="circle" size="20%" />
                         </center>
                         :
-                        this.props.sentences && this.props.sentences.map(s =>
+                        sentences && sentences.map(s =>
                             <span key={s.lineNumber}>
                                 <table style={{ width: "100%" }}>
                                     <tbody>
@@ -287,10 +375,9 @@ class Sentences extends React.Component {
                                     </tbody>
                                 </table>
                                 <WordList
-                                    words={this.props.words}
+                                    words={words}
                                     s={s}
-                                    loadSentences={this.props.loadSentences}
-                                    storyId={this.props.storyId}
+                                    storyId={storyId}
                                 />
                                 <hr />
                             </span>
@@ -387,26 +474,8 @@ class FooterMenu extends React.Component {
         super(props);
 
         this.state = {
-            screenWidth: parseInt(window.innerWidth, 10),
             showLangMenu: true,
         };
-
-        let timer = 0;
-        window.onresize = () => {
-            if (timer > 0) {
-                clearTimeout(timer);
-            }
-
-            timer = setTimeout(() => {
-                this.changeScreenSize();
-            }, 100);
-        };
-    }
-
-    changeScreenSize = () => {
-        this.setState({
-            screenWidth: parseInt(window.innerWidth, 10),
-        });
     }
 
     showLangMenu = () => {
@@ -414,8 +483,8 @@ class FooterMenu extends React.Component {
     }
 
     render() {
-        const { screenWidth, showLangMenu } = this.state;
-        const { langState } = this.props
+        const { showLangMenu } = this.state;
+        const { screenWidth, langState } = this.props
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
