@@ -37,8 +37,6 @@ namespace Z_Apps.Models.Stories
             int numForStory = numFor10Days + storyId;
             //自分自身を除いた、全てのStory
             var stories = GetAllStories().Where(s => s.StoryId != storyId);
-            //ストーリー数の初期値
-            int originalCount = stories.Count();
 
             //再帰呼び出しのため、一度nullで初期化
             Func<IEnumerable<Story>, IEnumerable<Story>> getRandomStory = null;
