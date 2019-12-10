@@ -61,7 +61,7 @@ class StoriesEdit extends React.Component {
                             </span>
                         </Link>
                         ＞
-                        <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <Link to="/folktalesEdit" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="title">
                                 Japanese Folktales
                             </span>

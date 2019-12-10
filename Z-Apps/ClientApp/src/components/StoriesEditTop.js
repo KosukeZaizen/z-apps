@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actionCreators } from '../store/StoriesTopStore';
+import { actionCreators } from '../store/StoriesEditTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
@@ -28,6 +28,8 @@ class StoriesTop extends React.Component {
                 this.changeScreenSize();
             }, 100);
         };
+
+        alert("edit");
     }
 
     changeScreenSize = () => {
@@ -43,7 +45,7 @@ class StoriesTop extends React.Component {
             <center>
                 <Head
                     title="Japanese Folktales"
-                    desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                    noindex={true}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
@@ -79,7 +81,7 @@ class StoriesTop extends React.Component {
                             const nameForImg = s.storyName.split("--").join("_");
 
                             return (
-                                <a key={s.storyId} href={`/folktales/${nameForUrl}`}>
+                                <a key={s.storyId} href={`/folktalesEdit/${nameForUrl}`}>
                                     <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                                         {
                                             screenWidth > 500 ?
