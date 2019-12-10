@@ -123,6 +123,7 @@ class Stories extends React.Component {
             border: "dashed 2px white",
             padding: "0.2em 0.5em",
             marginBottom: "10px",
+            fontWeight: "bold",
         };
         const styleForStoryTitle = {
             fontSize: "x-large",
