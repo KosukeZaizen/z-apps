@@ -15,7 +15,7 @@ import Saru_Kani_Gassen from './saru-kani.png';
 import Neko_no_Te from './neko-no-te.png';
 import Japanese_River_Otter from './japanese-river-otter.png';
 import The_Old_Man_with_a_Lump from './The_Old_Man_with_a_Lump.png';
-import Warashibe_Choja_Straw_Millionaire from './warashibe-choja.png';
+import Warashibe_Choja_The_Straw_Millionaire from './warashibe-choja.png';
 
 export default {
     Momotaro,
@@ -35,5 +35,5 @@ export default {
     Neko_no_Te,
     Japanese_River_Otter,
     The_Old_Man_with_a_Lump,
-    Warashibe_Choja_Straw_Millionaire,
+    Warashibe_Choja_The_Straw_Millionaire,
 }
