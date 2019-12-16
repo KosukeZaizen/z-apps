@@ -134,7 +134,7 @@ class Stories extends React.Component {
         return (
             <center>
                 <Head
-                    title={title + " Story"}
+                    title={title + " Story | Japanese Folktales"}
                     desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
                 />
                 <div style={{ maxWidth: 700 }}>
