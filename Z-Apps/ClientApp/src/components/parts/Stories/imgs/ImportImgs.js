@@ -16,6 +16,8 @@ import Neko_no_Te from './neko-no-te.png';
 import Japanese_River_Otter from './japanese-river-otter.png';
 import The_Old_Man_with_a_Lump from './The_Old_Man_with_a_Lump.png';
 import Warashibe_Choja_The_Straw_Millionaire from './warashibe-choja.png';
+import I_Will_Buy_Your_Dream from './buy-dream.jpg';
+
 
 export default {
     Momotaro,
@@ -36,4 +38,5 @@ export default {
     Japanese_River_Otter,
     The_Old_Man_with_a_Lump,
     Warashibe_Choja_The_Straw_Millionaire,
+    I_Will_Buy_Your_Dream,
 }
