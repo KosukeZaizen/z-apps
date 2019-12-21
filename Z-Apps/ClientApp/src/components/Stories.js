@@ -234,23 +234,23 @@ class Stories extends React.Component {
                             const nameForImg = s.storyName.split("--").join("_");
 
                             return (
-                                <a key={s.storyId} href={`/folktales/${nameForUrl}`}>
-                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                        {
-                                            screenWidth > 500 ?
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td colSpan={2}>
-                                                                <center>
-                                                                    <h3 style={{ color: "black", marginBottom: "20px" }}>
-                                                                        <b>{nameToShow}</b>
-                                                                    </h3>
-                                                                </center>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="50%">
+                                <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                    {
+                                        screenWidth > 500 ?
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colSpan={2}>
+                                                            <center>
+                                                                <h3 style={{ color: "black", marginBottom: "20px" }}>
+                                                                    <b>{nameToShow}</b>
+                                                                </h3>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="50%">
+                                                            <a href={`/folktales/${nameForUrl}`}>
                                                                 <img
                                                                     src={Imgs[nameForImg]}
                                                                     width="90%"
@@ -258,45 +258,53 @@ class Stories extends React.Component {
                                                                     title={nameToShow}
                                                                     style={{ marginLeft: "10px", marginBottom: "10px" }}
                                                                 />
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    s.description.split("\\n").map((d, i) =>
-                                                                        <span key={i} style={{ color: "black" }}>
-                                                                            {d}<br />
-                                                                        </span>
-                                                                    )
-                                                                }
-                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                :
-                                                <div>
-                                                    <b>
-                                                        <h3 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h3>
-                                                    </b>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                s.description.split("\\n").map((d, i) =>
+                                                                    <span key={i} style={{ color: "black" }}>
+                                                                        {d}<br />
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <center>
+                                                                <p style={{ margin: "20px" }}>
+                                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                                </p>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            :
+                                            <div>
+                                                <b>
+                                                    <h3 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h3>
+                                                </b>
+                                                <a href={`/folktales/${nameForUrl}`}>
                                                     <img
                                                         src={Imgs[nameForImg]}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
                                                     />
-                                                    <div style={{ textAlign: "left", margin: "10px" }}>
-                                                        {
-                                                            s.description.split("\\n").map((d, i) =>
-                                                                <span key={i} style={{ color: "black" }}>
-                                                                    {d}<br />
-                                                                </span>
-                                                            )
-                                                        }
-                                                    </div>
-                                                    <p>Read {nameToShow} >></p>
+                                                </a>
+                                                <div style={{ textAlign: "left", margin: "10px" }}>
+                                                    {
+                                                        s.description.split("\\n").map((d, i) =>
+                                                            <span key={i} style={{ color: "black" }}>
+                                                                {d}<br />
+                                                            </span>
+                                                        )
+                                                    }
                                                 </div>
-                                        }
-                                    </div>
-                                </a>
+                                                <p>
+                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                </p>
+                                            </div>
+                                    }
+                                </div>
                             );
                         }
                         )

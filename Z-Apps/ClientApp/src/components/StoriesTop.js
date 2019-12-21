@@ -39,6 +39,13 @@ class StoriesTop extends React.Component {
     render() {
         const { allStories } = this.props;
         const { screenWidth } = this.state;
+        const styleForAboutTitle = {
+            background: "#fee8b4",
+            boxShadow: "0px 0px 0px 5px #fee8b4",
+            border: "dashed 2px white",
+            padding: "0.2em 0.5em",
+            marginBottom: "10px",
+        };
         return (
             <center>
                 <Head
@@ -63,6 +70,10 @@ class StoriesTop extends React.Component {
                     }}>
                         <b>Japanese Folktales</b>
                     </h1>
+                    <p style={styleForAboutTitle}>
+                            Free app to learn Japanese from folktales!<br />
+                            You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!
+                    </p>
                     <br />
                     {
                         allStories && allStories.length > 0 ?
@@ -79,23 +90,23 @@ class StoriesTop extends React.Component {
                             const nameForImg = s.storyName.split("--").join("_");
 
                             return (
-                                <a key={s.storyId} href={`/folktales/${nameForUrl}`}>
-                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                        {
-                                            screenWidth > 500 ?
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td colSpan={2}>
-                                                                <center>
-                                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                        <b>{nameToShow}</b>
-                                                                    </h2>
-                                                                </center>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="50%">
+                                <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                                    {
+                                        screenWidth > 500 ?
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colSpan={2}>
+                                                            <center>
+                                                                <h2 style={{ color: "black", marginBottom: "20px" }}>
+                                                                    <b>{nameToShow}</b>
+                                                                </h2>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="50%">
+                                                            <a href={`/folktales/${nameForUrl}`}>
                                                                 <img
                                                                     src={Imgs[nameForImg]}
                                                                     width="90%"
@@ -103,45 +114,53 @@ class StoriesTop extends React.Component {
                                                                     title={nameToShow}
                                                                     style={{ marginLeft: "10px", marginBottom: "10px" }}
                                                                 />
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    s.description.split("\\n").map((d, i) =>
-                                                                        <span key={i} style={{ color: "black" }}>
-                                                                            {d}<br />
-                                                                        </span>
-                                                                    )
-                                                                }
-                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                :
-                                                <div>
-                                                    <b>
-                                                        <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
-                                                    </b>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                s.description.split("\\n").map((d, i) =>
+                                                                    <span key={i} style={{ color: "black" }}>
+                                                                        {d}<br />
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <center>
+                                                                <p style={{ margin: "20px" }}>
+                                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                                </p>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            :
+                                            <div>
+                                                <b>
+                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
+                                                </b>
+                                                <a href={`/folktales/${nameForUrl}`}>
                                                     <img
                                                         src={Imgs[nameForImg]}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
                                                     />
-                                                    <div style={{ textAlign: "left", margin: "10px" }}>
-                                                        {
-                                                            s.description.split("\\n").map((d, i) =>
-                                                                <span key={i} style={{ color: "black" }}>
-                                                                    {d}<br />
-                                                                </span>
-                                                            )
-                                                        }
-                                                    </div>
-                                                    <p>Read {nameToShow} >></p>
+                                                </a>
+                                                <div style={{ textAlign: "left", margin: "10px" }}>
+                                                    {
+                                                        s.description.split("\\n").map((d, i) =>
+                                                            <span key={i} style={{ color: "black" }}>
+                                                                {d}<br />
+                                                            </span>
+                                                        )
+                                                    }
                                                 </div>
-                                        }
-                                    </div>
-                                </a>
+                                                <p>
+                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                </p>
+                                            </div>
+                                    }
+                                </div>
                             );
                         }
                         )
