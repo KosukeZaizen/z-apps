@@ -36,7 +36,7 @@ class Stories extends React.Component {
                 ...this.state,
                 kanji: true,
                 hiragana: true,
-                romaji: false,
+                romaji: true,
                 english: true,
             };
         }
