@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import GoogleAds from 'react-google-ads'
 import Imgs from './parts/Stories/imgs/ImportImgs';
+import { GOOGLE_ADS_CLIENT, GOOGLE_ADS_SLOT } from './common/privateConsts';
 
 class Stories extends React.Component {
 
@@ -315,6 +317,14 @@ class Stories extends React.Component {
                     >
                         Other folktales >>
                     </Link>
+                    <br /><br />
+                    <GoogleAds
+                        client={GOOGLE_ADS_CLIENT}
+                        slot={GOOGLE_ADS_SLOT}
+                        className="adsbygoogle"
+                        format="auto"
+                        style={{ display: 'block' }}
+                    />
                     <div style={{ height: "60px", }}></div>
                     <FooterMenu
                         onClickLangBtn={this.onClickLangBtn}
