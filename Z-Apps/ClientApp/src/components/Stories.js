@@ -220,6 +220,7 @@ class Stories extends React.Component {
                                 <CircularProgress key="circle" size="20%" />
                             </center>
                     }
+                    <GoogleAd />
                     {
                         otherStories && otherStories.length > 0 ?
                             <div style={{ textAlign: "left", marginTop: "30px", marginBottom: "20px" }}>
