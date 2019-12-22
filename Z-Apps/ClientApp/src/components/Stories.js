@@ -319,6 +319,7 @@ class Stories extends React.Component {
                     </Link>
                     <br /><br />
                     <FB />
+                    <br />
                     <GoogleAd />
                     <div style={{ height: "60px", }}></div>
                     <FooterMenu
