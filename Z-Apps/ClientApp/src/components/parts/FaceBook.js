@@ -9,7 +9,7 @@ export default class FB extends React.Component {
         } else {
             width = 300;
         }
-        const height = 185;
+        const height = 200;
 
         return (
             <center>
