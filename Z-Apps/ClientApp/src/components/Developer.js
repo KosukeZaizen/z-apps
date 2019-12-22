@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Developer.css';
 import image from '../img/KosukeZaizen.JPG';
 import Head from './parts/Helmet';
+import FB from './parts/FaceBook';
 
 function SayHello() {
     return (
@@ -61,47 +62,11 @@ const Developer = props => (
                         Also, I am writing a blog for people<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                         studying Japanese:</p><br />
                         <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
-                        <br /><br />
-                    
-                    <NinjaFacebook />
-                    <div id="fb-root"></div>
+                    <br /><br />
+                    <FB />
                 </center>
             </div>
         </center>
     </div >
 );
-
-
-class NinjaFacebook extends React.Component {
-
-    initNinjaFacebook(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1';
-        fjs.parentNode.insertBefore(js, fjs);
-    }
-
-    render() {
-        return (
-            <div
-                onLoad={this.initNinjaFacebook(document, 'script', 'facebook-jssdk')}
-                className="fb-page"
-                data-href="https://www.facebook.com/Lingual-Ninja-491712431290062/"
-                data-width="300"
-                data-hight="300"
-                data-small-header="false"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="true"
-            >
-                <blockquote cite="https://www.facebook.com/Lingual-Ninja-491712431290062/" className="fb-xfbml-parse-ignore">
-                    <a href="https://www.facebook.com/Lingual-Ninja-491712431290062/">
-                        Facebook: Lingual Ninja！
-                    </a>
-                </blockquote>
-            </div>
-        );
-    }
-}
 export default Developer;

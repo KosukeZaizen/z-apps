@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 
 const Home = props => (
@@ -72,6 +73,8 @@ const Home = props => (
             </Link>
 
         </center>
+        <br />
+        <FB />
     </div>
 );
 export default Home;

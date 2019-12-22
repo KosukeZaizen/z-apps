@@ -1,6 +1,7 @@
 import React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
+import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 
 class HiraganaQuiz extends React.Component {
@@ -33,6 +34,8 @@ class HiraganaQuiz extends React.Component {
                     consts={this.consts}
                     changePage={this.changePage}
                 />
+                <br />
+                <FB />
             </center>
         );
     }

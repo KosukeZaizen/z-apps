@@ -7,6 +7,7 @@ import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GoogleAd from './parts/GoogleAd';
 import Imgs from './parts/Stories/imgs/ImportImgs';
+import FB from './parts/FaceBook';
 
 class Stories extends React.Component {
 
@@ -318,6 +319,7 @@ class Stories extends React.Component {
                         Other folktales >>
                     </Link>
                     <br /><br />
+                    <FB />
                     <GoogleAd />
                     <div style={{ height: "60px", }}></div>
                     <FooterMenu

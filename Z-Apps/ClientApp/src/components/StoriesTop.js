@@ -6,6 +6,7 @@ import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Imgs from './parts/Stories/imgs/ImportImgs';
+import FB from './parts/FaceBook';
 
 class StoriesTop extends React.Component {
 
@@ -166,6 +167,7 @@ class StoriesTop extends React.Component {
                         )
                     }
                 </div>
+                <FB />
             </center>
         );
     }
