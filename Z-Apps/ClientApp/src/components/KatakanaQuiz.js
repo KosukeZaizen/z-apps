@@ -2,6 +2,7 @@ import React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 import FB from './parts/FaceBook';
+import GoogleAd from './parts/GoogleAd';
 import Head from './parts/Helmet';
 
 class KatakanaQuiz extends React.Component {
@@ -32,6 +33,8 @@ class KatakanaQuiz extends React.Component {
                 />
                 <br />
                 <FB />
+                <br />
+                <GoogleAd />
             </center>
         );
     }
