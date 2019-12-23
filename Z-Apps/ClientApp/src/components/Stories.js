@@ -6,8 +6,8 @@ import { actionCreators } from '../store/StoriesStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import GoogleAd from './parts/GoogleAd';
-import Imgs from './parts/Stories/imgs/ImportImgs';
 import FB from './parts/FaceBook';
+import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class Stories extends React.Component {
 
