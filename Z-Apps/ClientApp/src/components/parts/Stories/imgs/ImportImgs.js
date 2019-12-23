@@ -18,6 +18,7 @@ import The_Old_Man_with_a_Lump from './The_Old_Man_with_a_Lump.png';
 import Warashibe_Choja_The_Straw_Millionaire from './warashibe-choja.png';
 import I_Will_Buy_Your_Dream from './buy-dream.jpg';
 import The_Three_Charms from './three-charms.png';
+import The_Magical_Stone_Grinder from './magical-stone-grinder.png';
 
 
 export default {
@@ -41,4 +42,5 @@ export default {
     Warashibe_Choja_The_Straw_Millionaire,
     I_Will_Buy_Your_Dream,
     The_Three_Charms,
+    The_Magical_Stone_Grinder,
 }
