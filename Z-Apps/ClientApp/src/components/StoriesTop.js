@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Imgs from './parts/Stories/imgs/ImportImgs';
 import FB from './parts/FaceBook';
+import GoogleAd from './parts/GoogleAd';
+import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesTop extends React.Component {
 
@@ -168,6 +169,8 @@ class StoriesTop extends React.Component {
                     }
                 </div>
                 <FB />
+                <br />
+                <GoogleAd />
             </center>
         );
     }
