@@ -19,7 +19,7 @@ import Warashibe_Choja_The_Straw_Millionaire from './warashibe-choja.png';
 import I_Will_Buy_Your_Dream from './buy-dream.jpg';
 import The_Three_Charms from './three-charms.png';
 import The_Salty_Stone_Grinder_A_New_Years_Tale from './magical-stone-grinder.png';
-
+import Dorobo_The_Robbers from './dorobo.png';
 
 export default {
     Momotaro,
@@ -43,4 +43,5 @@ export default {
     I_Will_Buy_Your_Dream,
     The_Three_Charms,
     The_Salty_Stone_Grinder_A_New_Years_Tale,
+    Dorobo_The_Robbers,
 }
