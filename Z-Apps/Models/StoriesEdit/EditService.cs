@@ -16,7 +16,7 @@ namespace Z_Apps.Models.StoriesEdit
 {
     public class EditService
     {
-        
+
         private DBCon con;
         public EditService(DBCon con)
         {
@@ -57,7 +57,7 @@ namespace Z_Apps.Models.StoriesEdit
             sentence.Hiragana = dicHiraganaKanji["hiragana"];
             sentence.Romaji = MakeRomaji(sentence.Hiragana);
             sentence.English = await MakeEnglish(sentence.Kanji);
-            
+
             sentence.Hiragana = ConvertSpecialChar(sentence.Hiragana);
             sentence.Romaji = ConvertSpecialChar(sentence.Romaji);
             sentence.Romaji = ConvertTsu(sentence.Romaji);
@@ -73,7 +73,7 @@ namespace Z_Apps.Models.StoriesEdit
             public IEnumerable<WordEdit> words;
         }
 
-        public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string,string> dicHiraganaKanji, SentenceEdit sentence)
+        public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence)
         {
             var wm = new WordEditManager(con);
             var lstWords = new List<WordEdit>();
@@ -90,7 +90,8 @@ namespace Z_Apps.Models.StoriesEdit
             int j = 0;
             for (int i = 0; i < arrKanji.Length; i++)
             {
-                if (arrKanji[i].Length > 0) {
+                if (arrKanji[i].Length > 0)
+                {
                     j++;
 
                     var w = new WordEdit();
@@ -108,7 +109,7 @@ namespace Z_Apps.Models.StoriesEdit
                     else
                     {
                         w.Hiragana = (w.Kanji == arrHiragana[i]) ? "" : arrHiragana[i];
-                         var eng = await MakeEnglish(arrKanji[i]);
+                        var eng = await MakeEnglish(arrKanji[i]);
                         w.English = eng.ToLower();
                     }
                     lstWords.Add(w);
@@ -119,7 +120,7 @@ namespace Z_Apps.Models.StoriesEdit
 
         private Dictionary<string, string> MakeHigraganaAndKanji(string kanjis)
         {
-            var dicResult = new Dictionary<string, string>() { {"kanji","" },{"hiragana","" } };
+            var dicResult = new Dictionary<string, string>() { { "kanji", "" }, { "hiragana", "" } };
 
             string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
@@ -230,7 +231,7 @@ namespace Z_Apps.Models.StoriesEdit
 
         private async Task<string> MakeEnglish(string kanji)
         {
-            string url = @"https://script.google.com/macros/s/AKfycbzIEz24LNM-m92y6elzl8DCoG-uZi-HhDZ5ARQKPtMyll9w6V4/exec?text=" 
+            string url = @"https://script.google.com/macros/s/AKfycbzIEz24LNM-m92y6elzl8DCoG-uZi-HhDZ5ARQKPtMyll9w6V4/exec?text="
                 + kanji + @"&source=ja&target=en";
 
             using (var client = new HttpClient())
@@ -262,45 +263,60 @@ namespace Z_Apps.Models.StoriesEdit
 
         public bool Save(DataToBeSaved data)
         {
-            if (data.token == PrivateConsts.REGISTER_PASS) {
-                var stm = new StoryEditManager(con);
-                var sem = new SentenceEditManager(con);
-                var wm = new WordEditManager(con);
-
-                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+            try
+            {
+                if (data.token == PrivateConsts.REGISTER_PASS)
                 {
-                    if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                    var stm = new StoryEditManager(con);
+                    var sem = new SentenceEditManager(con);
+                    var wm = new WordEditManager(con);
+
+                    if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
                     {
-                        if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                        if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                         {
-                            return true;
+                            if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool Register(DataToBeRegistered data)
         {
-            if (data.token == PrivateConsts.REGISTER_PASS)
+            try
             {
-                var stm = new StoryManager(con);
-                var sem = new SentenceManager(con);
-                var wm = new WordManager(con);
-
-                if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName,data.storyDesc.Description))
+                if (data.token == PrivateConsts.REGISTER_PASS)
                 {
-                    if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                    var stm = new StoryManager(con);
+                    var sem = new SentenceManager(con);
+                    var wm = new WordManager(con);
+
+                    if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName, data.storyDesc.Description))
                     {
-                        if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                        if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                         {
-                            return true;
+                            if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
