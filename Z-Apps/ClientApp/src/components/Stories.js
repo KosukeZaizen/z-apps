@@ -311,12 +311,12 @@ class Stories extends React.Component {
                         }
                         )
                     }
-                    <Link
-                        to="/folktales"
+                    <a
+                        href="/folktales"
                         style={{ fontSize: "x-large" }}
                     >
                         All folktales >>
-                    </Link>
+                    </a>
                     <br /><br />
                     <FB />
                     <br />
