@@ -315,7 +315,7 @@ class Stories extends React.Component {
                         to="/folktales"
                         style={{ fontSize: "x-large" }}
                     >
-                        Other folktales >>
+                        All folktales >>
                     </Link>
                     <br /><br />
                     <FB />
