@@ -16,11 +16,21 @@ class NavigationItems extends React.Component {
         let linkList = [];
         for (let key in objLinks) {
             linkList.push(
-                <NavLink key={key} tag={Link} className="text-light dropdown" to={objLinks[key]}>{key}</NavLink>
+                <NavLink
+                    key={key}
+                    tag={Link}
+                    className="text-light dropdown"
+                    to={objLinks[key]}
+                >
+                    {key}
+                </NavLink>
             );
         }
         return (
-            <ul className="navbar-nav flex-grow">
+            <ul
+                className="navbar-nav flex-grow"
+                onClick={this.props.closeToggle}
+            >
                 {linkList}
             </ul>
         );
@@ -32,6 +42,7 @@ export default class NavMenu extends React.Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.closeToggle = this.closeToggle.bind(this);
         this.state = {
             isOpen: false
         };
@@ -39,6 +50,11 @@ export default class NavMenu extends React.Component {
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
+        });
+    }
+    closeToggle() {
+        this.setState({
+            isOpen: false
         });
     }
     render() {
@@ -49,7 +65,7 @@ export default class NavMenu extends React.Component {
                         <NavbarBrand tag={Link} to="/"><b className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
-                            <NavigationItems />
+                            <NavigationItems closeToggle={this.closeToggle} />
                         </Collapse>
                     </Container>
                 </Navbar>
