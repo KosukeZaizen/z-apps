@@ -16,6 +16,8 @@ class Stories extends React.Component {
 
         const { params } = props.match;
         const storyName = params.storyName.toString();
+        this.props.loadStory(storyName);
+
         this.state = {
             storyName: storyName,
             screenWidth: parseInt(window.innerWidth, 10),
@@ -43,8 +45,6 @@ class Stories extends React.Component {
             };
         }
 
-        this.props.loadStory(this.state.storyName);
-
         let timer = 0;
         window.onresize = () => {
             if (timer > 0) {
@@ -55,6 +55,16 @@ class Stories extends React.Component {
                 this.changeScreenSize();
             }, 100);
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location !== this.props.location) {
+            const storyName = nextProps.location.pathname.split("/").filter(a => a).pop();
+            this.props.loadStory(storyName);
+            this.setState({
+                storyName: storyName,
+            });
+        }
     }
 
     changeScreenSize = () => {
@@ -252,7 +262,7 @@ class Stories extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td width="50%">
-                                                            <a href={`/folktales/${nameForUrl}`}>
+                                                            <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
                                                                     src={Imgs[nameForImg]}
                                                                     width="90%"
@@ -260,7 +270,7 @@ class Stories extends React.Component {
                                                                     title={nameToShow}
                                                                     style={{ marginLeft: "10px", marginBottom: "10px" }}
                                                                 />
-                                                            </a>
+                                                            </Link>
                                                         </td>
                                                         <td>
                                                             {
@@ -272,7 +282,7 @@ class Stories extends React.Component {
                                                             }
                                                             <center>
                                                                 <p style={{ margin: "20px" }}>
-                                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
                                                                 </p>
                                                             </center>
                                                         </td>
@@ -284,14 +294,14 @@ class Stories extends React.Component {
                                                 <b>
                                                     <h3 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h3>
                                                 </b>
-                                                <a href={`/folktales/${nameForUrl}`}>
+                                                <Link to={`/folktales/${nameForUrl}`}>
                                                     <img
                                                         src={Imgs[nameForImg]}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
                                                     />
-                                                </a>
+                                                </Link>
                                                 <div style={{ textAlign: "left", margin: "10px" }}>
                                                     {
                                                         s.description.split("\\n").map((d, i) =>
@@ -302,7 +312,7 @@ class Stories extends React.Component {
                                                     }
                                                 </div>
                                                 <p>
-                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
                                                 </p>
                                             </div>
                                     }
@@ -311,12 +321,12 @@ class Stories extends React.Component {
                         }
                         )
                     }
-                    <a
-                        href="/folktales"
+                    <Link
+                        to="/folktales"
                         style={{ fontSize: "x-large" }}
                     >
                         All folktales >>
-                    </a>
+                    </Link>
                     <br /><br />
                     <FB />
                     <br />

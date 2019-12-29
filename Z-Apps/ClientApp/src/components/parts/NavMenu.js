@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './NavMenu.css';
 
+export let wasNavMenuUsed = false;
+
 class NavigationItems extends React.Component {
 
     render() {
@@ -56,13 +58,14 @@ export default class NavMenu extends React.Component {
         this.setState({
             isOpen: false
         });
+        wasNavMenuUsed = true;
     }
     render() {
         return (
             <header>
                 <Navbar variant="pills" className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3">
                     <Container>
-                        <NavbarBrand tag={Link} to="/" onClick={this.closeToggle}><b className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></NavbarBrand>
+                        <NavbarBrand tag={Link} to="/"><b onClick={this.closeToggle} className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
                             <NavigationItems closeToggle={this.closeToggle} />

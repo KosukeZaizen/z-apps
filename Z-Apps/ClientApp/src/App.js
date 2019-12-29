@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';
 import { isGoogleAdsDisplayed } from './components/parts/GoogleAd';
+import { wasNavMenuUsed } from './components/parts/NavMenu';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -33,9 +34,9 @@ export default class App extends React.Component {
     }
 
     render() {
-        if (isGoogleAdsDisplayed) {
-            // Adsenseが表示されている場合はリロードし、画面遷移時に自動広告が引き継がれること防ぐ
-            //（ゲーム中の広告表示や、スマホのナビメニュー直下が隠れて遷移結果が見えない状態などを防ぐ）
+        if (isGoogleAdsDisplayed && wasNavMenuUsed) {
+            // Adsenseが表示されているときにNavMenuからの遷移があった場合はリロードし、
+            // 自動広告によって画面遷移が分かりにくくなる状態を防ぐ
             window.location.reload();
             return (
                 <LoadingAnimation num={3} />

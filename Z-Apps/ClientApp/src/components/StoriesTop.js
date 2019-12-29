@@ -108,7 +108,7 @@ class StoriesTop extends React.Component {
                                                     </tr>
                                                     <tr>
                                                         <td width="50%">
-                                                            <a href={`/folktales/${nameForUrl}`}>
+                                                            <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
                                                                     src={Imgs[nameForImg]}
                                                                     width="90%"
@@ -116,7 +116,7 @@ class StoriesTop extends React.Component {
                                                                     title={nameToShow}
                                                                     style={{ marginLeft: "10px", marginBottom: "10px" }}
                                                                 />
-                                                            </a>
+                                                            </Link>
                                                         </td>
                                                         <td>
                                                             {
@@ -128,7 +128,7 @@ class StoriesTop extends React.Component {
                                                             }
                                                             <center>
                                                                 <p style={{ margin: "20px" }}>
-                                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
                                                                 </p>
                                                             </center>
                                                         </td>
@@ -140,14 +140,14 @@ class StoriesTop extends React.Component {
                                                 <b>
                                                     <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
                                                 </b>
-                                                <a href={`/folktales/${nameForUrl}`}>
+                                                <Link to={`/folktales/${nameForUrl}`}>
                                                     <img
                                                         src={Imgs[nameForImg]}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
                                                     />
-                                                </a>
+                                                </Link>
                                                 <div style={{ textAlign: "left", margin: "10px" }}>
                                                     {
                                                         s.description.split("\\n").map((d, i) =>
@@ -158,7 +158,7 @@ class StoriesTop extends React.Component {
                                                     }
                                                 </div>
                                                 <p>
-                                                    <a href={`/folktales/${nameForUrl}`}>Read {nameToShow} >></a>
+                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
                                                 </p>
                                             </div>
                                     }
