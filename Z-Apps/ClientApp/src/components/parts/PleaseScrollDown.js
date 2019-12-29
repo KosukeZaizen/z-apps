@@ -13,6 +13,10 @@ export default class PleaseScrollDown extends React.Component {
         window.addEventListener('scroll', this.judge);
     }
 
+    componentDidMount() {
+        this.judge();
+    }
+
     componentDidUpdate(preciousProps) {
         if (preciousProps.targetElement !== this.props.targetElement) {
             this.judge();
@@ -49,28 +53,31 @@ export default class PleaseScrollDown extends React.Component {
         const { pleaseScrollDown } = this.state;
         const { screenWidth, targetElement } = this.props;
         const width = screenWidth || parseInt(window.innerWidth, 10);
+        if (!targetElement) return null;
 
         return (
-            <div style={{
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                zIndex: pleaseScrollDown ? 999999990 : 0,
-                width: `${width}px`,
-                height: "70px",
-                opacity: pleaseScrollDown ? 1.0 : 0,
-                transition: "all 2s ease",
-                fontSize: "x-large",
-                backgroundColor: "#EEEEEE",
-                borderRadius: "30px 30px 0px 0px",
-            }}>
-                <span
-                    id="pleaseScroll"
-                >
-                    <span></span>
-                    <AnchorLink href={`#${targetElement && targetElement.id}`}>Scroll</AnchorLink>
-                </span>
-            </div>
+            <center>
+                <div style={{
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    zIndex: pleaseScrollDown ? 999999990 : 0,
+                    width: `${width}px`,
+                    height: "70px",
+                    opacity: pleaseScrollDown ? 1.0 : 0,
+                    transition: "all 2s ease",
+                    fontSize: "x-large",
+                    backgroundColor: "#EEEEEE",
+                    borderRadius: "30px 30px 0px 0px",
+                }}>
+                    <span
+                        id="pleaseScroll"
+                    >
+                        <span></span>
+                        <AnchorLink href={`#${targetElement && targetElement.id}`}>Scroll</AnchorLink>
+                    </span>
+                </div>
+            </center>
         )
     }
 }
