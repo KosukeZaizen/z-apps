@@ -7,21 +7,21 @@
     padding-top: 70px;
 }
 
-#pleaseScroll span {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 34px;
-    height: 34px;
-    margin-left: -17px;
-    border-left: 1px solid #000;
-    border-bottom: 1px solid #000;
-    -webkit-transform: rotateZ(-45deg);
-    transform: rotateZ(-45deg);
-    -webkit-animation: sdb 1.5s infinite;
-    animation: sdb 1.5s infinite;
-    box-sizing: border-box;
-}
+    #pleaseScroll span {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 34px;
+        height: 34px;
+        margin-left: -17px;
+        border-left: 1px solid #007bff;
+        border-bottom: 1px solid #007bff;
+        -webkit-transform: rotateZ(-45deg);
+        transform: rotateZ(-45deg);
+        -webkit-animation: sdb 1.5s infinite;
+        animation: sdb 1.5s infinite;
+        box-sizing: border-box;
+    }
 
 @-webkit-keyframes sdb {
     0% {

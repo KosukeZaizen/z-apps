@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import '../css/Stories.css';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
@@ -227,7 +228,10 @@ class Stories extends React.Component {
                     <br />
                     {
                         storyDesc.description ?
-                            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                            <div
+                                style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}
+                                id="aboutFolktale"
+                            >
                                 <h2 style={styleForAboutTitle}>About {titleOfAbout}</h2>
                                 {
                                     storyDesc.description.split("\\n").map((d, i) =>
@@ -539,19 +543,21 @@ class PleaseScrollDown extends React.Component {
                 position: "fixed",
                 bottom: 0,
                 left: 0,
-                zIndex: 999999999,
+                zIndex: pleaseScrollDown ? 999999990 : 0,
                 width: `${screenWidth}px`,
                 height: "70px",
                 backgroundColor: "white",
                 opacity: pleaseScrollDown ? 1.0 : 0,
-                transition: pleaseScrollDown ? "all 1.5s ease" : "all 1.5s ease",
+                transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
                 fontSize: "x-large",
                 backgroundColor: "#EEEEEE",
+                borderRadius: "30px 30px 0px 0px",
             }}>
                 <span
                     id="pleaseScroll"
                 >
-                    <span></span>Scroll
+                    <span></span>
+                    <AnchorLink href='#aboutFolktale'>Scroll</AnchorLink>
                 </span>
             </div>
         )
@@ -585,12 +591,12 @@ class FooterMenu extends React.Component {
                 position: "fixed",
                 bottom: 0,
                 left: 0,
-                zIndex: 999999999,
+                zIndex: showFooterMenu ? 999999999 : 0,
                 width: `${screenWidth}px`,
                 height: "50px",
                 backgroundColor: "white",
                 opacity: showFooterMenu ? 1.0 : 0,
-                transition: showFooterMenu ? "all 1.5s ease" : "all 1.5s ease",
+                transition: showFooterMenu ? "all 2s ease" : "all 2s ease",
             }}>
                 <table style={{
                     position: "fixed",

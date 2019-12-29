@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './NavMenu.css';
 
-export let wasNavMenuUsed = false;
-
 class NavigationItems extends React.Component {
 
     render() {
@@ -58,7 +56,6 @@ export default class NavMenu extends React.Component {
         this.setState({
             isOpen: false
         });
-        wasNavMenuUsed = true;
     }
     render() {
         return (

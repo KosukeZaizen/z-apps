@@ -1,11 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import logo1 from './parts/Ninja/img/logo.png';
 import logo2 from './parts/Ninja2/img/logo.png';
 import logo3 from './parts/Ninja3/img/logo.png';
 import Head from './parts/Helmet';
+import { isGoogleAdsDisplayed } from './parts/GoogleAd';
 
 const NinjaGameTop = () => {
+
+    if (isGoogleAdsDisplayed) {
+        // Adsenseが表示されているときに遷移があった場合はリロードし、
+        // 自動広告によってゲームが邪魔されることを防ぐ
+        window.location.reload();
+
+        return (
+            <center>
+                <CircularProgress key="circle" size="20%" />
+            </center>
+        );
+    }
+
     return (
         <div className="ninjaGameTop" style={{ fontSize: "large" }}>
             <Head
