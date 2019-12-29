@@ -13,6 +13,12 @@ export default class PleaseScrollDown extends React.Component {
         window.addEventListener('scroll', this.judge);
     }
 
+    componentDidUpdate(preciousProps) {
+        if (preciousProps.targetElement !== this.props.targetElement) {
+            this.judge();
+        }
+    }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.judge);
     }
@@ -52,7 +58,6 @@ export default class PleaseScrollDown extends React.Component {
                 zIndex: pleaseScrollDown ? 999999990 : 0,
                 width: `${width}px`,
                 height: "70px",
-                backgroundColor: "white",
                 opacity: pleaseScrollDown ? 1.0 : 0,
                 transition: "all 2s ease",
                 fontSize: "x-large",

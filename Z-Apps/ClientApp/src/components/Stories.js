@@ -61,12 +61,16 @@ class Stories extends React.Component {
             }, 100);
         };
 
-        window.addEventListener('scroll', this.judgeFooter)
+        window.addEventListener('scroll', this.judgeFooter);
         this.refSentences = React.createRef();
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.judgeFooter);
+    }
+
+    componentDidMount() {
+        this.judgeFooter();
     }
 
     componentDidUpdate(preciousProps) {
@@ -87,6 +91,8 @@ class Stories extends React.Component {
     }
 
     judgeFooter = () => {
+        if (!this.refSentences) return;
+
         const divSentences = this.refSentences.current;
         if (!divSentences) return;
 
@@ -249,23 +255,25 @@ class Stories extends React.Component {
                             null
                     }
                     <br />
-                    {
-                        storyDesc.storyId ?
-                            <div ref={this.refSentences}>
-                                <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
-                                <br />
-                                <Sentences
-                                    storyId={storyDesc.storyId}
-                                    sentences={sentences}
-                                    words={words}
-                                    langState={this.state}
-                                />
-                            </div>
-                            :
-                            <center>
-                                <CircularProgress key="circle" size="20%" />
-                            </center>
-                    }
+                    <div ref={this.refSentences}>
+                        {
+                            storyDesc.storyId ?
+                                <div>
+                                    <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
+                                    <br />
+                                    <Sentences
+                                        storyId={storyDesc.storyId}
+                                        sentences={sentences}
+                                        words={words}
+                                        langState={this.state}
+                                    />
+                                </div>
+                                :
+                                <center>
+                                    <CircularProgress key="circle" size="20%" />
+                                </center>
+                        }
+                    </div>
                     {
                         otherStories && otherStories.length > 0 ?
                             <div style={{ textAlign: "left", marginTop: "30px", marginBottom: "20px" }}>
@@ -550,7 +558,6 @@ class PleaseScrollDown extends React.Component {
                 zIndex: pleaseScrollDown ? 999999990 : 0,
                 width: `${screenWidth}px`,
                 height: "70px",
-                backgroundColor: "white",
                 opacity: pleaseScrollDown ? 1.0 : 0,
                 transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
                 fontSize: "x-large",
