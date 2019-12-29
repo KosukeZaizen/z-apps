@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import '../css/Stories.css';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
@@ -22,6 +23,7 @@ class Stories extends React.Component {
             storyName: storyName,
             screenWidth: parseInt(window.innerWidth, 10),
             screenHeight: parseInt(window.innerHeight, 10),
+            pleaseScrollDown: true,
             showFooterMenu: false,
         };
 
@@ -81,20 +83,30 @@ class Stories extends React.Component {
 
     judgeFooter = () => {
         const divSentences = this.refSentences.current;
+        if (!divSentences) return;
+
         const { screenHeight } = this.state;
         const offsetY = divSentences.getBoundingClientRect().top;
         const t_height = divSentences.offsetHeight;
         const t_position = offsetY - screenHeight;
 
-        if (-screenHeight <= (t_position + t_height) && t_position < 0) {
-            // 画面内
+        if (t_position >= 0) {
+            // sentencesよりも上側の時
             this.setState({
-                showFooterMenu: true
+                pleaseScrollDown: true,
+                showFooterMenu: false
+            });
+        } else if (-screenHeight > (t_position + t_height)) {
+            // sentencesよりも下側の時
+            this.setState({
+                pleaseScrollDown: false,
+                showFooterMenu: false
             });
         } else {
-            // 画面外
+            // sentencesが画面内
             this.setState({
-                showFooterMenu: false
+                pleaseScrollDown: false,
+                showFooterMenu: true
             });
         }
     }
@@ -167,7 +179,7 @@ class Stories extends React.Component {
             fontSize: "x-large",
             fontWeight: "bold",
         };
-        const { screenWidth, showFooterMenu } = this.state;
+        const { screenWidth, pleaseScrollDown, showFooterMenu } = this.state;
         const { storyDesc, sentences, words, otherStories } = this.props;
         return (
             <center>
@@ -212,17 +224,6 @@ class Stories extends React.Component {
                             null
                     }
                     <br />
-                    {
-                        this.screenHeight < 750 ?
-                            <div style={{
-                                color: "red",
-                            }}>
-                                <br />
-                                <b>↓ Please scroll down ↓</b>
-                            </div>
-                            :
-                            null
-                    }
                     <br />
                     {
                         storyDesc.description ?
@@ -363,6 +364,10 @@ class Stories extends React.Component {
                         langState={this.state}
                         screenWidth={screenWidth}
                         showFooterMenu={showFooterMenu}
+                    />
+                    <PleaseScrollDown
+                        pleaseScrollDown={pleaseScrollDown}
+                        screenWidth={screenWidth}
                     />
                 </div>
             </center>
@@ -516,6 +521,39 @@ class WordList extends React.Component {
                     }
                 </div>
             </span>
+        )
+    }
+}
+
+class PleaseScrollDown extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const { screenWidth, pleaseScrollDown } = this.props
+
+        return (
+            <div style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                zIndex: 999999999,
+                width: `${screenWidth}px`,
+                height: "70px",
+                backgroundColor: "white",
+                opacity: pleaseScrollDown ? 1.0 : 0,
+                transition: pleaseScrollDown ? "all 1.5s ease" : "all 1.5s ease",
+                fontSize: "x-large",
+                backgroundColor: "#EEEEEE",
+            }}>
+                <span
+                    id="pleaseScroll"
+                >
+                    <span></span>Scroll
+                </span>
+            </div>
         )
     }
 }
