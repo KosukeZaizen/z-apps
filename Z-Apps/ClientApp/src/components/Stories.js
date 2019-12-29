@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-import '../css/Stories.css';
+import './parts/PleaseScrollDown.css';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
@@ -63,6 +63,10 @@ class Stories extends React.Component {
 
         window.addEventListener('scroll', this.judgeFooter)
         this.refSentences = React.createRef();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.judgeFooter);
     }
 
     componentDidUpdate(preciousProps) {
