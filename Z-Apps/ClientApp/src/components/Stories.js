@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesStore';
-import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import Imgs from './parts/Stories/imgs/ImportImgs';
@@ -21,6 +21,8 @@ class Stories extends React.Component {
         this.state = {
             storyName: storyName,
             screenWidth: parseInt(window.innerWidth, 10),
+            screenHeight: parseInt(window.innerHeight, 10),
+            showFooterMenu: false,
         };
 
         this.screenHeight = parseInt(window.innerHeight, 10);
@@ -55,6 +57,9 @@ class Stories extends React.Component {
                 this.changeScreenSize();
             }, 100);
         };
+
+        window.addEventListener('scroll', this.judgeFooter)
+        this.refSentences = React.createRef();
     }
 
     componentDidUpdate(nextProps) {
@@ -70,7 +75,28 @@ class Stories extends React.Component {
     changeScreenSize = () => {
         this.setState({
             screenWidth: parseInt(window.innerWidth, 10),
+            screenHeight: parseInt(window.innerHeight, 10),
         });
+    }
+
+    judgeFooter = () => {
+        const divSentences = this.refSentences.current;
+        const { screenHeight } = this.state;
+        const offsetY = divSentences.getBoundingClientRect().top;
+        const t_height = divSentences.offsetHeight;
+        const t_position = offsetY - screenHeight;
+
+        if (-screenHeight <= (t_position + t_height) && t_position < 0) {
+            // 画面内
+            this.setState({
+                showFooterMenu: true
+            });
+        } else {
+            // 画面外
+            this.setState({
+                showFooterMenu: false
+            });
+        }
     }
 
     onClickLangBtn = (btnType) => {
@@ -141,7 +167,7 @@ class Stories extends React.Component {
             fontSize: "x-large",
             fontWeight: "bold",
         };
-        const { screenWidth } = this.state;
+        const { screenWidth, showFooterMenu } = this.state;
         const { storyDesc, sentences, words, otherStories } = this.props;
         return (
             <center>
@@ -216,7 +242,7 @@ class Stories extends React.Component {
                     <br />
                     {
                         storyDesc.storyId ?
-                            <span>
+                            <div ref={this.refSentences}>
                                 <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
                                 <br />
                                 <Sentences
@@ -225,7 +251,7 @@ class Stories extends React.Component {
                                     words={words}
                                     langState={this.state}
                                 />
-                            </span>
+                            </div>
                             :
                             <center>
                                 <CircularProgress key="circle" size="20%" />
@@ -336,6 +362,7 @@ class Stories extends React.Component {
                         onClickLangBtn={this.onClickLangBtn}
                         langState={this.state}
                         screenWidth={screenWidth}
+                        showFooterMenu={showFooterMenu}
                     />
                 </div>
             </center>
@@ -509,7 +536,7 @@ class FooterMenu extends React.Component {
 
     render() {
         const { showLangMenu } = this.state;
-        const { screenWidth, langState } = this.props
+        const { screenWidth, langState, showFooterMenu } = this.props
         const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
         const buttonWidth = (tableWidth / 4) - 4;
         const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
@@ -524,6 +551,8 @@ class FooterMenu extends React.Component {
                 width: `${screenWidth}px`,
                 height: "50px",
                 backgroundColor: "white",
+                opacity: showFooterMenu ? 1.0 : 0,
+                transition: showFooterMenu ? "all 1.5s ease" : "all 1.5s ease",
             }}>
                 <table style={{
                     position: "fixed",
