@@ -57,7 +57,7 @@ class Stories extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
         if (nextProps.location !== this.props.location) {
             const storyName = nextProps.location.pathname.split("/").filter(a => a).pop();
             this.setState({
