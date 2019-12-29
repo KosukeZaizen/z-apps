@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';
+import ScrollMemory from 'react-router-scroll-memory';
 import { isGoogleAdsDisplayed } from './components/parts/GoogleAd';
 import { wasNavMenuUsed } from './components/parts/NavMenu';
 
@@ -45,6 +46,7 @@ export default class App extends React.Component {
         return (
             <Layout>
                 <Suspense fallback={<LoadingAnimation num={1} />}>
+                    <ScrollMemory />
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route path='/terms' component={Terms} />
