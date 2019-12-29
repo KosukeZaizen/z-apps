@@ -62,9 +62,9 @@ class Stories extends React.Component {
         this.refSentences = React.createRef();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.location !== this.props.location) {
-            const storyName = nextProps.location.pathname.split("/").filter(a => a).pop();
+    componentDidUpdate(preciousProps) {
+        if (preciousProps.location !== this.props.location) {
+            const storyName = this.props.location.pathname.split("/").filter(a => a).pop();
             this.setState({
                 storyName: storyName,
             });
