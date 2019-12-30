@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
 import Head from './parts/Helmet';
+import PleaseScrollDown from './parts/PleaseScrollDown';
 
 let objConst = {};
 
@@ -52,6 +53,8 @@ class KanjiConverter extends React.Component {
         this.initText = this.initText.bind(this);
         this.onChangeKanji = this.onChangeKanji.bind(this);
         this.onClickConvert = this.onClickConvert.bind(this);
+
+        this.ref = React.createRef();
     }
 
 
@@ -150,9 +153,9 @@ class KanjiConverter extends React.Component {
                 <h1>
                     <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
-                <span className="redChar">※ Please also check the result.</span><br />
+                <span className="redChar" id="scrollTargetId">※ Please also check the result.</span><br />
 
-                <table className="kanji-table">
+                <table className="kanji-table" ref={this.ref}>
                     <tbody>
                         <tr>
                             <th>
@@ -229,6 +232,10 @@ class KanjiConverter extends React.Component {
                     </span>
                 </div>
                 {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
+                <PleaseScrollDown
+                    criteriaRef={this.ref}
+                    targetId="scrollTargetId"
+                />
             </center >
         );
     }

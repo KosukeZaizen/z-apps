@@ -177,7 +177,7 @@ class StoriesTop extends React.Component {
                 <br />
                 <GoogleAd />
                 <PleaseScrollDown
-                    targetElement={this.ref.current}
+                    criteriaRef={this.ref}
                     screenWidth={screenWidth}
                 />
             </center>

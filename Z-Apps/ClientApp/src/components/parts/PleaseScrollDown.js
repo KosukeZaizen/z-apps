@@ -18,7 +18,7 @@ export default class PleaseScrollDown extends React.Component {
     }
 
     componentDidUpdate(preciousProps) {
-        if (preciousProps.targetElement !== this.props.targetElement) {
+        if (preciousProps.criteriaRef.current !== this.props.criteriaRef.current) {
             this.judge();
         }
     }
@@ -28,12 +28,13 @@ export default class PleaseScrollDown extends React.Component {
     }
 
     judge = () => {
-        const { screenHeight, targetElement } = this.props;
-        if (!targetElement) return;
+        const { screenHeight, criteriaRef } = this.props;
+        const elem = criteriaRef && criteriaRef.current;
+        if (!elem) return;
 
         const height = screenHeight || parseInt(window.innerHeight, 10);
 
-        const offsetY = targetElement.getBoundingClientRect().top;
+        const offsetY = elem.getBoundingClientRect().top;
         const t_position = offsetY - height;
 
         if (t_position >= 0) {
@@ -51,9 +52,10 @@ export default class PleaseScrollDown extends React.Component {
 
     render() {
         const { pleaseScrollDown } = this.state;
-        const { screenWidth, targetElement } = this.props;
+        const { screenWidth, criteriaRef, targetId } = this.props;
+        const elem = criteriaRef && criteriaRef.current;
         const width = screenWidth || parseInt(window.innerWidth, 10);
-        if (!targetElement) return null;
+        if (!elem) return null;
 
         return (
             <center>
@@ -74,7 +76,7 @@ export default class PleaseScrollDown extends React.Component {
                         id="pleaseScroll"
                     >
                         <span></span>
-                        <AnchorLink href={`#${targetElement && targetElement.id}`}>Scroll</AnchorLink>
+                        <AnchorLink href={`#${targetId || (elem && elem.id)}`}>Scroll</AnchorLink>
                     </span>
                 </div>
             </center>

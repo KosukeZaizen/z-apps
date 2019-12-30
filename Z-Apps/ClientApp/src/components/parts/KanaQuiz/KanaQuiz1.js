@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import PleaseScrollDown from '../PleaseScrollDown';
 
 export default class Quiz1 extends React.Component {
 
@@ -15,6 +15,8 @@ export default class Quiz1 extends React.Component {
         this.state = {
             maxChar: 0,
         };
+
+        this.ref = React.createRef();
     }
 
     startGame(maxChar) {
@@ -52,6 +54,7 @@ export default class Quiz1 extends React.Component {
                     id="btn102"
                     onClick={() => this.startGame(102)}
                     className={this.consts.START_BUTTON_DANGER}
+                    ref={this.ref}
                 >
                     All {this.props.consts.KANA_TYPE} characters
                 </button>
@@ -65,9 +68,13 @@ export default class Quiz1 extends React.Component {
                         className={this.consts.START_BUTTON_DARK}
                     >
                         {this.props.consts.OTHER_KANA_TYPE} Quiz
-                </button>
+                    </button>
                 </Link>
                 <br />
+                <PleaseScrollDown
+                    criteriaRef={this.ref}
+                    targetId="disp1"
+                />
             </div>
         );
     }
