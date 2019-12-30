@@ -24,7 +24,7 @@ class Stories extends React.Component {
             storyName: storyName,
             screenWidth: parseInt(window.innerWidth, 10),
             screenHeight: parseInt(window.innerHeight, 10),
-            pleaseScrollDown: true,
+            pleaseScrollDown: false,
             showFooterMenu: false,
         };
 
@@ -70,7 +70,11 @@ class Stories extends React.Component {
     }
 
     componentDidMount() {
-        this.judgeFooter();
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.judgeFooter();
+            }, i * 1000);
+        }
     }
 
     componentDidUpdate(preciousProps) {

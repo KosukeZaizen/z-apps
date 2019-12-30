@@ -7,14 +7,18 @@ export default class PleaseScrollDown extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pleaseScrollDown: true,
+            pleaseScrollDown: false,
         }
 
         window.addEventListener('scroll', this.judge);
     }
 
     componentDidMount() {
-        this.judge();
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.judge();
+            }, i * 1000);
+        }
     }
 
     componentDidUpdate(preciousProps) {
