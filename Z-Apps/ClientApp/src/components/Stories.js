@@ -222,7 +222,7 @@ class Stories extends React.Component {
                     </div>
                     <h1 style={{
                         margin: "25px",
-                        lineHeight: "35px",
+                        lineHeight: screenWidth > 500 ? "45px" : "35px",
                     }}>
                         <b>{title}</b>
                     </h1>
