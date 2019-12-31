@@ -378,7 +378,6 @@ class Stories extends React.Component {
                     <FB />
                     <br />
                     <GoogleAd />
-                    <div style={{ height: "60px", }}></div>
                     <FooterMenu
                         onClickLangBtn={this.onClickLangBtn}
                         langState={this.state}
