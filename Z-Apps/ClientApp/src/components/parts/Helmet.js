@@ -10,6 +10,9 @@ const PageHeader = props => {
         return null;
     }
 
+    const topUrl = "https://z-apps.lingual-ninja.com"
+    console.log("img", topUrl + props.img);
+
     return (
         <div className="application">
             <Helmet>
@@ -31,6 +34,31 @@ const PageHeader = props => {
                         :
                         null
                 }
+                {
+                    props.title ?
+                        <meta property="og:title" content={props.title} />
+                        :
+                        null
+                }
+                {
+                    props.isHome ?
+                        <meta property="og:type" content="website" />
+                        :
+                        <meta property="og:type" content="article" />
+                }
+                {
+                    props.desc ?
+                        <meta property="og:description" content={props.desc} />
+                        :
+                        null
+                }
+                {
+                    props.img ?
+                        <meta property="og:image" content={topUrl + props.img} />
+                        :
+                        null
+                }
+                <meta property="og:url" content={window.location.href} />
             </Helmet>
         </div>
     );

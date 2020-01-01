@@ -201,6 +201,7 @@ class Stories extends React.Component {
                 <Head
                     title={title + " Story | Japanese Folktales"}
                     desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
+                    img={Imgs[this.state.storyName.split("--").join("_")]}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>

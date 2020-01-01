@@ -19,6 +19,7 @@ export default class Home extends React.Component {
                 <Head
                     title="Lingual Ninja"
                     desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!"
+                    isHome={true}
                 />
                 <center>
                     <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Lingual Ninja!</h1>
