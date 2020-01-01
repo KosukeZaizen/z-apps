@@ -45,12 +45,5 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
-  },
-  "reactSnap": {
-    "waitFor": 20000,
-    "include": [
-      "/folktales"
-    ],
-    "skipThirdPartyRequests": true
   }
 }
