@@ -32,8 +32,7 @@
     "eslint-plugin-flowtype": "^2.50.3",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "react-snap": "^1.23.0"
+    "eslint-plugin-react": "^7.11.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,7 +40,6 @@
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "react-snap",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
