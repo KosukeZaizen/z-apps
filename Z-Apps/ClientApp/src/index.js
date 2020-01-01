@@ -27,12 +27,22 @@ const store = configureStore(history, initialState);
 
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  rootElement);
+if (rootElement.hasChildNodes()) {
+    ReactDOM.hydrate(
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>,
+        rootElement);
+} else {
+    ReactDOM.render(
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>,
+        rootElement);
+}
 
 //registerServiceWorker();
