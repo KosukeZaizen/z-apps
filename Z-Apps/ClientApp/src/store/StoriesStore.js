@@ -33,7 +33,8 @@ export const actionCreators = {
             dispatch({ type: receiveOtherStoriesType, otherStories });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            window.location.reload();
             return;
         }
     },

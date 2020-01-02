@@ -11,7 +11,8 @@ export const actionCreators = {
             dispatch({ type: receiveStoriesType, allStories });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            window.location.reload();
             return;
         }
     },
