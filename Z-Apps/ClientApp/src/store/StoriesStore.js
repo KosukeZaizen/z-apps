@@ -1,3 +1,5 @@
+import { serverSideErrorProc } from '../components/common/functions';
+
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
@@ -33,9 +35,7 @@ export const actionCreators = {
             dispatch({ type: receiveOtherStoriesType, otherStories });
 
         } catch (e) {
-            //window.location.href = `/not-found?p=${window.location.pathname}`;
-            window.location.reload();
-            return;
+            serverSideErrorProc();
         }
     },
 };

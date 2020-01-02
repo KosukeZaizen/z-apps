@@ -1,4 +1,4 @@
-export function getParams(){
+export function getParams() {
     let arg = {};
     const pair = window.location.search.substring(1).split('&');
     for (let i = 0; pair[i]; i++) {
@@ -17,4 +17,22 @@ export async function sendPost(objToSend, url) {
     };
     const response = await fetch(url, { method, headers, body });
     return response.json();
+}
+
+export function serverSideErrorProc() {
+    const saveKey = "db-access-error-time";
+
+    const savedErrTime = window.sessionStorage.getItem(saveKey);
+    const intSavedTime = parseInt(savedErrTime);
+
+    const now = new Date();
+    const nowTime = now.getTime();
+
+    if (intSavedTime && (nowTime - intSavedTime < 15000)) {
+        window.location.href = `/not-found?p=${window.location.pathname}`;
+    } else {
+        window.sessionStorage.setItem(saveKey, nowTime.toString());
+        window.location.reload();
+    }
+    return;
 }

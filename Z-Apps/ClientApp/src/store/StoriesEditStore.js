@@ -328,6 +328,7 @@ export const actionCreators = {
         } catch (e) {
             console.log(e);
             alert("Error!");
+            alert("Error!");
         }
     },
 
@@ -352,6 +353,7 @@ export const actionCreators = {
             }
         } catch (e) {
             console.log(e);
+            alert("Error!");
             alert("Error!");
         }
     },
