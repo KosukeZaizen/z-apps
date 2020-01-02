@@ -11,8 +11,18 @@ export const actionCreators = {
             dispatch({ type: receiveStoriesType, allStories });
 
         } catch (e) {
-            //window.location.href = `/not-found?p=${window.location.pathname}`;
-            window.location.reload();
+            const savedErrTime = window.sessionStorage.getItem("db-access-error-time");
+            const intSavedTime = parseInt(savedErrTime);
+
+            const now = new Date();
+            const nowTime = now.getTime();
+
+            if (intSavedTime && (nowTime - intSavedTime < 10000)) {
+                window.location.href = `/not-found?p=${window.location.pathname}`;
+            } else {
+                window.sessionStorage.setItem("db-access-error-time", nowTime.toString());
+                window.location.reload();
+            }
             return;
         }
     },
