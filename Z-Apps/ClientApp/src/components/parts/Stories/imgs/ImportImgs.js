@@ -21,6 +21,7 @@ import The_Three_Charms from './three-charms.png';
 import The_Salty_Stone_Grinder_A_New_Years_Tale from './magical-stone-grinder.png';
 import Dorobo_The_Thieves from './dorobo.png';
 import Binbougami_and_Fukunokami_The_God_of_Poverty_and_The_God_of_Wealth from './fukunokami.png';
+import Drinking_Sake_with_a_Ghost from './ghost.png';
 
 export default {
     Momotaro,
@@ -46,4 +47,5 @@ export default {
     The_Salty_Stone_Grinder_A_New_Years_Tale,
     Dorobo_The_Thieves,
     Binbougami_and_Fukunokami_The_God_of_Poverty_and_The_God_of_Wealth,
+    Drinking_Sake_with_a_Ghost,
 }
