@@ -13,7 +13,7 @@ export const actionCreators = {
             dispatch({ type: receiveStoriesType, allStories });
 
         } catch (e) {
-            serverSideErrorProc();
+            window.location.reload();
         }
     },
 };

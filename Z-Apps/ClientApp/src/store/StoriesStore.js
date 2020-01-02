@@ -35,7 +35,7 @@ export const actionCreators = {
             dispatch({ type: receiveOtherStoriesType, otherStories });
 
         } catch (e) {
-            serverSideErrorProc();
+            window.location.reload();
         }
     },
 };
