@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { render } from 'react-snapshot';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
@@ -27,7 +28,7 @@ const store = configureStore(history, initialState);
 
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
