@@ -2,11 +2,46 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import Loadable from "react-loadable";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
+import Layout from './components/parts/Layout';
+import Head from './components/parts/Helmet';
+import Imgs from './components/parts/Stories/imgs/ImportImgs';
 
 const getPage = (Page) => {
+    const arrPath = window.location.pathname.split("/");
+    if (arrPath && arrPath.length > 1 && arrPath[1] === "folktales") {
+        if (arrPath.length > 2 && arrPath[2]) {
+            const title = arrPath[2].split("--").join(" - ").split("_").join(" ");
+            return Loadable({
+                loader: () => Page,
+                loading: () => (
+                    <span>
+                        <Head
+                            title={title + " Story | Japanese Folktales"}
+                            desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                            img={Imgs[arrPath[2].split("--").join("_")]}
+                        />
+                        <LoadingAnimation num={1} />
+                    </span>
+                )
+            });
+        } else {
+            return Loadable({
+                loader: () => Page,
+                loading: () => (
+                    <span>
+                        <Head
+                            title="Japanese Folktales - Lingual Ninja"
+                            desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                            img="Momotaro"
+                        />
+                        <LoadingAnimation num={1} />
+                    </span>
+                )
+            });
+        }
+    }
     return Loadable({
         loader: () => Page,
         loading: () => <LoadingAnimation num={1} />

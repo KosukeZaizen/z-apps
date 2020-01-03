@@ -45,5 +45,35 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
+  },
+  "reactSnapshot": {
+    "include": [
+      "/folktales",
+      "/folktales/Momotaro",
+      "/folktales/Urashima_Taro",
+      "/folktales/Issunboushi",
+      "/folktales/Kaguya_Hime",
+      "/folktales/Kasa_Jizo",
+      "/folktales/Kachi_Kachi_Yama",
+      "/folktales/Yuki_Onna",
+      "/folktales/Hanasaka_Jiisan",
+      "/folktales/Orihime_and_Hikoboshi--Tanabata",
+      "/folktales/Kintaro--Sakata_Kintoki",
+      "/folktales/The_Rabbit_and_the_Turtle",
+      "/folktales/Zashiki_Warashi",
+      "/folktales/Tanokyu",
+      "/folktales/Saru_Kani_Gassen",
+      "/folktales/Neko_no_Te",
+      "/folktales/Japanese_River_Otter",
+      "/folktales/The_Old_Man_with_a_Lump",
+      "/folktales/Warashibe_Choja--The_Straw_Millionaire",
+      "/folktales/I_Will_Buy_Your_Dream",
+      "/folktales/The_Three_Charms",
+      "/folktales/The_Salty_Stone_Grinder--A_New_Years_Tale",
+      "/folktales/Dorobo--The_Thieves",
+      "/folktales/Binbougami_and_Fukunokami--The_God_of_Poverty_and_The_God_of_Wealth",
+      "/folktales/Drinking_Sake_with_a_Ghost"
+    ],
+    "snapshotDelay": 500
   }
 }
