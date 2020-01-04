@@ -17,7 +17,7 @@ class Stories extends React.Component {
         super(props);
 
         const { params } = props.match;
-        const storyName = params.storyName.toString();
+        const storyName = params.storyName.toString().split("#")[0];
         this.props.loadStory(storyName);
 
         this.state = {
