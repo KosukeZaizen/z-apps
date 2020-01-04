@@ -15,6 +15,20 @@ export const actionCreators = {
             const storyDesc = await response1.json();
             dispatch({ type: receiveStoryType, storyDesc });
 
+            if (storyDesc) {
+                if (storyName !== storyDesc.storyName) {
+                    if (!storyDesc.storyName) {
+                        serverSideErrorProc();
+                    }else if (storyName.toLowerCase === storyDesc.storyName.toLowerCase) {
+                        window.location.href = `/folktales/${storyDesc.storyName}`;
+                    }
+                    return;
+                }
+            } else {
+                serverSideErrorProc();
+                return;
+            }
+
             //sentences
             const storyId = storyDesc.storyId;
             const url2 = `api/Stories/GetSentences/${storyId}`;

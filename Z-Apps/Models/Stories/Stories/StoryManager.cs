@@ -49,16 +49,14 @@ namespace Z_Apps.Models.Stories.Stories
             var stories = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyName", new object[2] { SqlDbType.NChar, storyName } } });
 
             //Story型に変換してreturn
+            var story = new Story();
             foreach (var dicStory in stories)
             {
-                var story = new Story();
                 story.StoryId = (int)dicStory["StoryId"];
                 story.StoryName = (string)dicStory["StoryName"];
                 story.Description = (string)dicStory["Description"];
-
-                return story;
             }
-            return null;
+            return story;
         }
 
         public Story GetStoryById(int storyId)
