@@ -15,7 +15,7 @@ export default class FB extends React.Component {
             <center>
                 <iframe
                     title="fb"
-                    src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingual-Ninja-491712431290062%2F&width=${width}&height=${height}&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId`}
+                    src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=${width}&height=${height}&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId`}
                     width={width}
                     height={height}
                     style={{ border: "none", overflow: "hidden" }}
