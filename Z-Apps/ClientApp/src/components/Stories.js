@@ -201,7 +201,7 @@ class Stories extends React.Component {
                 <Head
                     title={title + " Story | Japanese Folktales"}
                     desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
-                    img={Imgs[this.state.storyName.split("--").join("_")]}
+                    img={Imgs[this.state.storyName.split("--").join("_").split("-").join("_")]}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
@@ -231,7 +231,7 @@ class Stories extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName.split("--").join("_")]}
+                                src={Imgs[this.state.storyName.split("--").join("_").split("-").join("_")]}
                                 width="90%"
                                 alt={title}
                                 title={title}
@@ -291,7 +291,7 @@ class Stories extends React.Component {
                         otherStories && otherStories.map(s => {
                             const nameForUrl = s.storyName;
                             const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                            const nameForImg = s.storyName.split("--").join("_");
+                            const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                             return (
                                 <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>

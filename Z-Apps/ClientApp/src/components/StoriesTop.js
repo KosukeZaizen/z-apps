@@ -93,7 +93,7 @@ class StoriesTop extends React.Component {
                             allStories && allStories.map(s => {
                                 const nameForUrl = s.storyName;
                                 const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                                const nameForImg = s.storyName.split("--").join("_");
+                                const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                                 return (
                                     <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>

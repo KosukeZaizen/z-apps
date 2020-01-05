@@ -78,7 +78,7 @@ class StoriesTop extends React.Component {
                         allStories && allStories.map(s => {
                             const nameForUrl = s.storyName;
                             const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                            const nameForImg = s.storyName.split("--").join("_");
+                            const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                             return (
                                 <a key={s.storyId} href={`/folktalesEdit/${nameForUrl}`}>
