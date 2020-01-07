@@ -22,7 +22,8 @@ import The_Salty_Stone_Grinder_A_New_Years_Tale from './magical-stone-grinder.pn
 import Dorobo_The_Thieves from './dorobo.png';
 import Binbougami_and_Fukunokami_The_God_of_Poverty_and_The_God_of_Wealth from './fukunokami.png';
 import Drinking_Sake_with_a_Ghost from './ghost.png';
-import Tengu_no_Uchiwa_The_Fan_of_The_Long_nosed_Goblin from './tengu.jpg';
+import Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin from './tengu.jpg';
+import Ubasuteyama from './ubasuteyama.png';
 
 export default {
     Momotaro,
@@ -49,5 +50,6 @@ export default {
     Dorobo_The_Thieves,
     Binbougami_and_Fukunokami_The_God_of_Poverty_and_The_God_of_Wealth,
     Drinking_Sake_with_a_Ghost,
-    Tengu_no_Uchiwa_The_Fan_of_The_Long_nosed_Goblin,
+    Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin,
+    Ubasuteyama,
 }
