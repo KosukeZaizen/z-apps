@@ -36,6 +36,7 @@ export default class Terms extends React.Component {
                     </div>
                     <PleaseScrollDown
                         criteriaRef={this.ref}
+                        targetId="scrollTargetId"
                     />
                 </center>
             </div>
