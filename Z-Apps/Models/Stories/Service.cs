@@ -63,8 +63,8 @@ namespace Z_Apps.Models.Stories
             // 2019年1月1日からの経過日数
             double interval = (DateTime.Today - new DateTime(2019, 1, 1)).TotalDays;
 
-            //経過日数を10で割った商の3乗
-            return (int)Math.Pow((int)interval / 10, 3);
+            //経過日数を10で割った商の2乗
+            return (int)Math.Pow((int)interval / 10, 2);
         }
 
         public Story GetPageData(string storyName)
