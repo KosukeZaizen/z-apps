@@ -38,29 +38,23 @@ namespace Z_Apps.Models.Stories
             //自分自身を除いた、全てのStory
             var stories = GetAllStories().Where(s => s.StoryId != storyId);
 
-            //再帰呼び出しのため、一度nullで初期化
-            Func<IEnumerable<Story>, IEnumerable<Story>> getRandomStory = null;
-            getRandomStory = (s) =>
+            var storiesHistory = new List<IEnumerable<Story>>() { stories };
+            for (var i = 0; i < 10; i++)
             {
+                var newStories = storiesHistory.LastOrDefault();
+                if (newStories == null) return null;
+
                 //10日に一度変わる数値から、indexを生成
-                int index = numForStory % s.Count();
+                int index = numForStory % (newStories.Count());
 
-                //上記で生成したindexの要素を、結果のリストに追加
-                result.Add(s.ElementAt(index));
+                //上記で生成したindexの要素
+                var selectedStory = newStories.ElementAt(index);
+                result.Add(selectedStory);
 
-                int count = result.Count();
-                if (count >= 7)
-                {
-                    //ストーリーを7こ抽出後、再帰終了
-                    return result;
-                }
-                else
-                {
-                    //追加した項目を除外して、再帰呼び出し
-                    return getRandomStory(s.Where(st => st != s.ElementAt(index)));
-                }
-            };
-            return getRandomStory(stories);
+                //選択済みのストーリーを除外したListを、次のループで使用
+                storiesHistory.Add(newStories.Where(st => st.StoryId != selectedStory.StoryId));
+            }
+            return result;
         }
 
         //10日に１回変わる数値を取得
