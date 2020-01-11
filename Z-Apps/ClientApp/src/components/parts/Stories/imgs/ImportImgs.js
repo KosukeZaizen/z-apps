@@ -24,7 +24,7 @@ import Binbougami_and_Fukunokami_The_God_of_Poverty_and_The_God_of_Wealth from '
 import Drinking_Sake_with_a_Ghost from './ghost.png';
 import Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin from './tengu.jpg';
 import Ubasuteyama from './ubasuteyama.png';
-import Kappa from './kappa.jpg';
+import Kappa from './kappa.png';
 
 export default {
     Momotaro,
