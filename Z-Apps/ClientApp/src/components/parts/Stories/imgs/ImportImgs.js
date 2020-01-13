@@ -25,6 +25,7 @@ import Drinking_Sake_with_a_Ghost from './ghost.png';
 import Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin from './tengu.jpg';
 import Ubasuteyama from './ubasuteyama.png';
 import Kappa from './kappa.png';
+import Mukade_The_Centipede from './Mukade.png';
 
 export default {
     Momotaro,
@@ -54,4 +55,5 @@ export default {
     Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin,
     Ubasuteyama,
     Kappa,
+    Mukade_The_Centipede,
 }
