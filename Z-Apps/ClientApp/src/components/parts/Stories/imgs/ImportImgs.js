@@ -26,6 +26,7 @@ import Tengu_no_Uchiwa_The_Fan_of_The_Long_Nosed_Goblin from './tengu.jpg';
 import Ubasuteyama from './ubasuteyama.png';
 import Kappa from './kappa.png';
 import Mukade_The_Centipede from './Mukade.png';
+import Iwana_The_Mountain_Trout from './iwana.png';
 
 export default {
     Momotaro,
@@ -56,4 +57,5 @@ export default {
     Ubasuteyama,
     Kappa,
     Mukade_The_Centipede,
+    Iwana_The_Mountain_Trout,
 }
