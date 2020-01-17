@@ -311,7 +311,7 @@ class Stories extends React.Component {
                                                         <td width="50%">
                                                             <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
-                                                                    src={`/imgs/${storyName.split("--")[0]}.png`}
+                                                                    src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                                     width="90%"
                                                                     alt={nameToShow}
                                                                     title={nameToShow}
@@ -343,7 +343,7 @@ class Stories extends React.Component {
                                                 </b>
                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                     <img
-                                                        src={`/imgs/${storyName.split("--")[0]}.png`}
+                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
