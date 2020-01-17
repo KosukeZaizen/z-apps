@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesEdit extends React.Component {
 
@@ -82,7 +81,7 @@ class StoriesEdit extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName.split("--").join("_").split("-").join("_")]}
+                                src={`/imgs/${this.state.storyName.split("--")[0]}.png`}
                                 width="100px"
                             />
                             :

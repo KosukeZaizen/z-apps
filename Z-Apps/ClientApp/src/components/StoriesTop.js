@@ -8,7 +8,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FB from './parts/FaceBook';
 import GoogleAd from './parts/GoogleAd';
 import PleaseScrollDown from './parts/PleaseScrollDown';
-import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesTop extends React.Component {
 
@@ -93,7 +92,6 @@ class StoriesTop extends React.Component {
                             allStories && allStories.map(s => {
                                 const nameForUrl = s.storyName;
                                 const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                                const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                                 return (
                                     <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
@@ -114,7 +112,7 @@ class StoriesTop extends React.Component {
                                                             <td width="50%">
                                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                                     <img
-                                                                        src={Imgs[nameForImg]}
+                                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                                         width="90%"
                                                                         alt={nameToShow}
                                                                         title={nameToShow}
@@ -146,7 +144,7 @@ class StoriesTop extends React.Component {
                                                     </b>
                                                     <Link to={`/folktales/${nameForUrl}`}>
                                                         <img
-                                                            src={Imgs[nameForImg]}
+                                                            src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                             width="90%"
                                                             alt={nameToShow}
                                                             title={nameToShow}

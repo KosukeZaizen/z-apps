@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { isGoogleAdsDisplayed } from './GoogleAd';
+import * as consts from '../common/consts';
 
 const PageHeader = props => {
 
@@ -10,7 +11,7 @@ const PageHeader = props => {
         return null;
     }
 
-    const topUrl = "https://z-apps.lingual-ninja.com"
+    const topUrl = consts.TOP_URL;
 
     return (
         <div className="application">

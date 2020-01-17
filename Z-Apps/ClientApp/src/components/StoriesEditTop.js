@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesEditTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Imgs from './parts/Stories/imgs/ImportImgs';
 
 class StoriesTop extends React.Component {
 
@@ -99,7 +98,7 @@ class StoriesTop extends React.Component {
                                                         <tr>
                                                             <td width="50%">
                                                                 <img
-                                                                    src={Imgs[nameForImg]}
+                                                                    src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                                     width="90%"
                                                                     alt={nameToShow}
                                                                     title={nameToShow}
@@ -125,7 +124,7 @@ class StoriesTop extends React.Component {
                                                         <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
                                                     </b>
                                                     <img
-                                                        src={Imgs[nameForImg]}
+                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}

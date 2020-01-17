@@ -9,7 +9,7 @@ import './parts/PleaseScrollDown.css';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
-import Imgs from './parts/Stories/imgs/ImportImgs';
+import * as consts from './common/consts';
 
 class Stories extends React.Component {
 
@@ -201,7 +201,7 @@ class Stories extends React.Component {
                 <Head
                     title={title + " Story | Japanese Folktales"}
                     desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
-                    img={Imgs[this.state.storyName.split("--").join("_").split("-").join("_")]}
+                    img={`/imgs/${storyName.split("--")[0]}.png`}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
@@ -231,7 +231,7 @@ class Stories extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={Imgs[this.state.storyName.split("--").join("_").split("-").join("_")]}
+                                src={`/imgs/${storyName.split("--")[0]}.png`}
                                 width="90%"
                                 alt={title}
                                 title={title}
@@ -291,7 +291,6 @@ class Stories extends React.Component {
                         otherStories && otherStories.map(s => {
                             const nameForUrl = s.storyName;
                             const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                            const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                             return (
                                 <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
@@ -312,7 +311,7 @@ class Stories extends React.Component {
                                                         <td width="50%">
                                                             <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
-                                                                    src={Imgs[nameForImg]}
+                                                                    src={`/imgs/${storyName.split("--")[0]}.png`}
                                                                     width="90%"
                                                                     alt={nameToShow}
                                                                     title={nameToShow}
@@ -344,7 +343,7 @@ class Stories extends React.Component {
                                                 </b>
                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                     <img
-                                                        src={Imgs[nameForImg]}
+                                                        src={`/imgs/${storyName.split("--")[0]}.png`}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}
