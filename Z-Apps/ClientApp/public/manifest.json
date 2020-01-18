@@ -1,6 +1,6 @@
 {
-  "short_name": "Z_Apps",
-  "name": "Z_Apps",
+  "short_name": "Lingual Ninja",
+  "name": "Lingual Ninja",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
