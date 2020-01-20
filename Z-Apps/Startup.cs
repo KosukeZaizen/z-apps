@@ -54,7 +54,7 @@ namespace Z_Apps
             {
                 var ua = context.Request.Headers["User-Agent"].ToString();
 
-                if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
+                if (ua.StartsWith("facebookexternalhit") || ua.Contains("Twitterbot"))
                 {
 
                     string url = context.Request.Path.Value;
@@ -66,6 +66,8 @@ namespace Z_Apps
                     {
                         await context.Response.WriteAsync("" +
                             "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#\">" +
+                            "<meta name=\"twitter:card\" content=\"summary\" />" +
+                            "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
                             "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\" />" +
                             "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com\" />" +
                             "<meta property=\"og:type\" content=\"website\" />" +
@@ -75,8 +77,6 @@ namespace Z_Apps
                             "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
                             "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
                             "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                            "<meta name=\"twitter:card\" content=\"summary\">" +
-                            "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
                             "</head>");
                     }
                     else if (url.Contains("folktales/"))
@@ -90,6 +90,8 @@ namespace Z_Apps
 
                         await context.Response.WriteAsync("" +
                                 "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#\">" +
+                                "<meta name=\"twitter:card\" content=\"summary_large_image\" />" +
+                                "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
                                 "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png\" />" +
                                 "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\" />" +
                                 "<meta property=\"og:type\" content=\"article\" />" +
@@ -99,8 +101,6 @@ namespace Z_Apps
                                 "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
                                 "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
                                 "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                                "<meta name=\"twitter:card\" content=\"summary_large_image\" />" +
-                                "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
                                 "</head>");
 
                     }
@@ -108,6 +108,8 @@ namespace Z_Apps
                     {
                         await context.Response.WriteAsync("" +
                                 "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#\">" +
+                                "<meta name=\"twitter:card\" content=\"summary\" />" +
+                                "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
                                 "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\" />" +
                                 "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\" />" +
                                 "<meta property=\"og:type\" content=\"article\" />" +
@@ -117,8 +119,6 @@ namespace Z_Apps
                                 "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
                                 "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
                                 "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                                "<meta name=\"twitter:card\" content=\"summary\">" +
-                                "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
                                 "</head>");
                     }
                 }
