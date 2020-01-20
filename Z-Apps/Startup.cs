@@ -131,6 +131,7 @@ namespace Z_Apps
                                     "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
                                     "</head>";
                         }
+                        logger.LogWarning(resultHTML);
                         await context.Response.WriteAsync(resultHTML);
                     }
                 }
