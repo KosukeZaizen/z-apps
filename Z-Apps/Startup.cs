@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Z_Apps.Models;
 using Z_Apps.Models.Stories.Stories;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Z_Apps
 {
@@ -60,7 +61,8 @@ namespace Z_Apps
             {
                 var ua = context.Request.Headers["User-Agent"].ToString();
 
-                if (ua.StartsWith("facebookexternalhit") || ua.Contains("Twitterbot"))
+                //if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
+                if (ua.StartsWith("facebookexternalhit"))
                 {
                     logger.LogWarning($"SNS bot");
                     
@@ -76,62 +78,61 @@ namespace Z_Apps
                         {
                             resultHTML = "" +
                                 "<head>" +
-                                "<meta name=\"twitter:card\" content=\"summary\">" +
-                                "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
-                                "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\">" +
-                                "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com\">" +
-                                "<meta property=\"og:type\" content=\"website\">" +
-                                "<meta property=\"og:title\" content=\"Lingual Ninja\">" +
-                                "<meta property=\"og:image:alt\" content=\"Lingual Ninja\">" +
-                                "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\">" +
-                                "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
-                                "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
-                                "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
-                                "</head>" +
+                                "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
+                                "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                "<meta property='og:url' content='https://z-apps.lingual-ninja.com'>" + Environment.NewLine +
+                                "<meta property='og:type' content='website'>" + Environment.NewLine +
+                                "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
+                                "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
+                                "<meta property='og:description' content='Applications to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
+                                "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                "</head>" + Environment.NewLine +
                                 "<body>Content for SNS bot</body>";
                         }
-                        else if (url.Contains("folktales/"))
+                        else if (url.Contains("folktales/") && url.Length > 10)
                         {
                             string storyName = url.Split("folktales/")[1].Replace("/", "");
 
                             var storyManager = new StoryManager(new DBCon());
                             var story = storyManager.GetStory(storyName);
-                            var description = story.Description.Replace("\\n", " ").Replace("\"", "&quot;");
+                            var description = story.Description.Replace("\\n", " ").Replace("\'", "&#39;");
                             var title = storyName.Replace("--", " - ").Replace("_", " ");
 
                             resultHTML = "" +
-                                    "<head>" +
-                                    "<meta name=\"twitter:card\" content=\"summary\">" +
-                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
-                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png\">" +
-                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\">" +
-                                    "<meta property=\"og:type\" content=\"article\">" +
-                                    "<meta property=\"og:title\" content=\"" + title + "\">" +
-                                    "<meta property=\"og:image:alt\" content=\"" + title + "\">" +
-                                    "<meta property=\"og:description\" content=\"" + description + "\">" +
-                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
-                                    "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
-                                    "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
-                                    "</head>" +
+                                    "<head>" + Environment.NewLine +
+                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='" + description + "'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
-
                         }
                         else
                         {
                             resultHTML = "" +
                                     "<head>" +
-                                    "<meta name=\"twitter:card\" content=\"summary\">" +
-                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
-                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\">" +
-                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\">" +
-                                    "<meta property=\"og:type\" content=\"article\">" +
-                                    "<meta property=\"og:title\" content=\"Lingual Ninja\">" +
-                                    "<meta property=\"og:image:alt\" content=\"Lingual Ninja\">" +
-                                    "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\">" +
-                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
-                                    "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
-                                    "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
-                                    "</head>" +
+                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Applications to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
                         logger.LogWarning(resultHTML);
