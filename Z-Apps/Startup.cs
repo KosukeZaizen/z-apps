@@ -1,3 +1,4 @@
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,14 +9,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Z_Apps.Models;
 using Z_Apps.Models.Stories.Stories;
+using Microsoft.Extensions.Logging;
 
 namespace Z_Apps
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger logger;
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
+            this.logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -30,6 +34,8 @@ namespace Z_Apps
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +62,7 @@ namespace Z_Apps
 
                 if (ua.StartsWith("facebookexternalhit") || ua.Contains("Twitterbot"))
                 {
-
+                    logger.LogWarning($"SNS bot");
                     string url = context.Request.Path.Value;
                     if (url == null)
                     {
@@ -124,6 +130,7 @@ namespace Z_Apps
                 }
                 else
                 {
+                    logger.LogWarning($"Not SNS bot");
                     await next.Invoke();
                 }
             });
