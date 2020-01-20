@@ -75,19 +75,20 @@ namespace Z_Apps
                         if (url == "/")
                         {
                             resultHTML = "" +
-                                "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#\">" +
-                                "<meta name=\"twitter:card\" content=\"summary\" />" +
-                                "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
-                                "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\" />" +
-                                "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com\" />" +
-                                "<meta property=\"og:type\" content=\"website\" />" +
-                                "<meta property=\"og:title\" content=\"Lingual Ninja\" />" +
-                                "<meta property=\"og:image:alt\" content=\"Lingual Ninja\" />" +
-                                "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\" />" +
-                                "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
-                                "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
-                                "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                                "</head>";
+                                "<head>" +
+                                "<meta name=\"twitter:card\" content=\"summary\">" +
+                                "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
+                                "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\">" +
+                                "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com\">" +
+                                "<meta property=\"og:type\" content=\"website\">" +
+                                "<meta property=\"og:title\" content=\"Lingual Ninja\">" +
+                                "<meta property=\"og:image:alt\" content=\"Lingual Ninja\">" +
+                                "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\">" +
+                                "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
+                                "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
+                                "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
+                                "</head>" +
+                                "<body>Content for SNS bot</body>";
                         }
                         else if (url.Contains("folktales/"))
                         {
@@ -99,37 +100,39 @@ namespace Z_Apps
                             var title = storyName.Replace("--", " - ").Replace("_", " ");
 
                             resultHTML = "" +
-                                    "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#\">" +
-                                    "<meta name=\"twitter:card\" content=\"summary_large_image\" />" +
-                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
-                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png\" />" +
-                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\" />" +
-                                    "<meta property=\"og:type\" content=\"article\" />" +
-                                    "<meta property=\"og:title\" content=\"" + title + "\" />" +
-                                    "<meta property=\"og:image:alt\" content=\"" + title + "\" />" +
-                                    "<meta property=\"og:description\" content=\"" + description + "\" />" +
-                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
-                                    "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
-                                    "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                                    "</head>";
+                                    "<head>" +
+                                    "<meta name=\"twitter:card\" content=\"summary\">" +
+                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
+                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png\">" +
+                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\">" +
+                                    "<meta property=\"og:type\" content=\"article\">" +
+                                    "<meta property=\"og:title\" content=\"" + title + "\">" +
+                                    "<meta property=\"og:image:alt\" content=\"" + title + "\">" +
+                                    "<meta property=\"og:description\" content=\"" + description + "\">" +
+                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
+                                    "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
+                                    "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
+                                    "</head>" +
+                                    "<body>Content for SNS bot</body>";
 
                         }
                         else
                         {
                             resultHTML = "" +
-                                    "<head prefix=\"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#\">" +
-                                    "<meta name=\"twitter:card\" content=\"summary\" />" +
-                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\" />" +
-                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\" />" +
-                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\" />" +
-                                    "<meta property=\"og:type\" content=\"article\" />" +
-                                    "<meta property=\"og:title\" content=\"Lingual Ninja\" />" +
-                                    "<meta property=\"og:image:alt\" content=\"Lingual Ninja\" />" +
-                                    "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\" />" +
-                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\" />" +
-                                    "<meta property=\"fb:app_id\" content=\"217853132566874\" />" +
-                                    "<meta property=\"fb:page_id\" content=\"491712431290062\" />" +
-                                    "</head>";
+                                    "<head>" +
+                                    "<meta name=\"twitter:card\" content=\"summary\">" +
+                                    "<meta name=\"twitter:site\" content=\"@LingualNinja\">" +
+                                    "<meta property=\"og:image\" content=\"https://z-apps.lingual-ninja.com/ogp-img.png\">" +
+                                    "<meta property=\"og:url\" content=\"" + "https://z-apps.lingual-ninja.com" + url + "\">" +
+                                    "<meta property=\"og:type\" content=\"article\">" +
+                                    "<meta property=\"og:title\" content=\"Lingual Ninja\">" +
+                                    "<meta property=\"og:image:alt\" content=\"Lingual Ninja\">" +
+                                    "<meta property=\"og:description\" content=\"Applications to learn Japanese! You can study Japanese from Japanese folktales!\">" +
+                                    "<meta property=\"og:site_name\" content=\"Lingual Ninja\">" +
+                                    "<meta property=\"fb:app_id\" content=\"217853132566874\">" +
+                                    "<meta property=\"fb:page_id\" content=\"491712431290062\">" +
+                                    "</head>" +
+                                    "<body>Content for SNS bot</body>";
                         }
                         logger.LogWarning(resultHTML);
                         await context.Response.WriteAsync(resultHTML);
