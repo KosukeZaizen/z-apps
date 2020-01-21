@@ -220,6 +220,7 @@ class KanjiConverter extends React.Component {
                 <br />
                 <br />
                 <FB />
+                <br />
                 {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
                 <div className="yahoo-div">
                     <span className="yahoo-text">Supported by Yahoo! デベロッパーネットワーク　ルビ振りAPI<br />
