@@ -1,4 +1,5 @@
 import React from 'react';
+import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 
 class ColorPalette extends React.Component {
@@ -196,6 +197,8 @@ class ColorPalette extends React.Component {
                         </table>
                     </div>
                 </div>
+                <br />
+                <FB />
             </center >
         )
     }

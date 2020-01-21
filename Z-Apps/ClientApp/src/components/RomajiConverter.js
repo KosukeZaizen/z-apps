@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/RomajiConverter.css';
+import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 
 let objConst = {};
@@ -161,6 +162,8 @@ class RomajiConverter extends React.Component {
                     </p>
                 <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br />
+                <br />
+                <FB />
             </center>
         );
     }

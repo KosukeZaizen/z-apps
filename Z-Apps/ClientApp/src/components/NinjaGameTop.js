@@ -6,6 +6,7 @@ import logo2 from './parts/Ninja2/img/logo.png';
 import logo3 from './parts/Ninja3/img/logo.png';
 import Head from './parts/Helmet';
 import { isGoogleAdsDisplayed } from './parts/GoogleAd';
+import FB from './parts/FaceBook';
 
 const NinjaGameTop = () => {
 
@@ -45,6 +46,9 @@ const NinjaGameTop = () => {
                 Chapter3: Frozen Nightmare<br />
                 <img width="100%" src={logo3} alt="Ninja Game 3" />
             </Link>
+            <br />
+            <br />
+            <FB />
         </div>
     );
 }

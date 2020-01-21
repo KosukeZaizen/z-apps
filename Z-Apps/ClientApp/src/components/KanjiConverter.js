@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
+import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 
@@ -218,6 +219,7 @@ class KanjiConverter extends React.Component {
                 <a href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html" target="_blank" rel="noopener noreferrer"><b>What is Kanji? >></b></a>
                 <br />
                 <br />
+                <FB />
                 {/* Begin Yahoo! JAPAN Web Services Attribution Snippet */}
                 <div className="yahoo-div">
                     <span className="yahoo-text">Supported by Yahoo! デベロッパーネットワーク　ルビ振りAPI<br />
