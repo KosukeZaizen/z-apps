@@ -57,12 +57,15 @@ class StoriesTop extends React.Component {
                     desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
-                        <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
-                                Home
-                            </span>
-                        </Link>
+                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
+                        <span itemprop="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                <span itemProp="name">
+                                    Home
+                                </span>
+                            </Link>
+                            <meta itemProp="position" content="1" />
+                        </span>
                         ＞
                         <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             Japanese Folktales

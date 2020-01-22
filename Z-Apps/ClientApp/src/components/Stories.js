@@ -204,18 +204,24 @@ class Stories extends React.Component {
                     img={`/imgs/${storyName.split("--")[0]}.png`}
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left" }}>
-                        <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
+                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
+                        <span itemprop="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                        <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="name">
                                 Home
                             </span>
-                        </Link>
+                            </Link>
+                            <meta itemProp="position" content="1" />
+                        </span>
                         ＞
-                        <Link to="/folktales" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
+                        <span itemprop="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                        <Link to="/folktales" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="name">
                                 Japanese Folktales
                             </span>
+                            <meta itemprop="position" content="2" />
                         </Link>
+                        </span>
                         ＞
                         <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             {title}
