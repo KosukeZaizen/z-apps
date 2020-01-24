@@ -223,8 +223,11 @@ class Stories extends React.Component {
                         </Link>
                         </span>
                         ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            {title}
+                        <span itemprop="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                {title}
+                            </span>
+                            <meta itemprop="position" content="3" />
                         </span>
                     </div>
                     <h1 style={{

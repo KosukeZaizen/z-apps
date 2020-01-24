@@ -67,8 +67,11 @@ class StoriesTop extends React.Component {
                             <meta itemProp="position" content="1" />
                         </span>
                         ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            Japanese Folktales
+                        <span itemprop="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                Japanese Folktales
+                            </span>
+                            <meta itemProp="position" content="2" />
                         </span>
                     </div>
                     <h1 style={{
