@@ -201,7 +201,7 @@ class Stories extends React.Component {
                 <Head
                     title={title + " Story | Japanese Folktales"}
                     desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
-                    img={`/imgs/${storyName.split("--")[0]}.png`}
+                    img={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
@@ -240,7 +240,7 @@ class Stories extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={`/imgs/${storyName.split("--")[0]}.png`}
+                                src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
                                 width="90%"
                                 alt={title}
                                 title={title}
@@ -320,7 +320,7 @@ class Stories extends React.Component {
                                                         <td width="50%">
                                                             <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
-                                                                    src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                                    src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                                     width="90%"
                                                                     alt={nameToShow}
                                                                     title={nameToShow}
@@ -352,7 +352,7 @@ class Stories extends React.Component {
                                                 </b>
                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                     <img
-                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}

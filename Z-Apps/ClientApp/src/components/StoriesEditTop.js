@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesEditTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as consts from './common/consts';
 
 class StoriesTop extends React.Component {
 
@@ -47,9 +48,9 @@ class StoriesTop extends React.Component {
                     noindex={true}
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{textAlign:"left"}}>
-                        <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px"}}>
-                            <span itemProp="title">
+                    <div className="breadcrumbs" style={{textAlign:"left"}}>
+                        <Link to="/" style={{ marginRight: "5px", marginLeft: "5px"}}>
+                            <span>
                                 Home
                             </span>
                         </Link>
@@ -77,7 +78,6 @@ class StoriesTop extends React.Component {
                         allStories && allStories.map(s => {
                             const nameForUrl = s.storyName;
                             const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-                            const nameForImg = s.storyName.split("--").join("_").split("-").join("_");
 
                             return (
                                 <a key={s.storyId} href={`/folktalesEdit/${nameForUrl}`}>
@@ -98,7 +98,7 @@ class StoriesTop extends React.Component {
                                                         <tr>
                                                             <td width="50%">
                                                                 <img
-                                                                    src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                                    src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                                     width="90%"
                                                                     alt={nameToShow}
                                                                     title={nameToShow}
@@ -124,7 +124,7 @@ class StoriesTop extends React.Component {
                                                         <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
                                                     </b>
                                                     <img
-                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                         width="90%"
                                                         alt={nameToShow}
                                                         title={nameToShow}

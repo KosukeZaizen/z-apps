@@ -105,7 +105,7 @@ namespace Z_Apps
                                     "<head>" + Environment.NewLine +
                                     "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/imgs/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
                                     "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +

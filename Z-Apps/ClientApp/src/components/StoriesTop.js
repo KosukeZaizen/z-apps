@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FB from './parts/FaceBook';
 import GoogleAd from './parts/GoogleAd';
 import PleaseScrollDown from './parts/PleaseScrollDown';
+import * as consts from './common/consts';
 
 class StoriesTop extends React.Component {
 
@@ -118,7 +119,7 @@ class StoriesTop extends React.Component {
                                                             <td width="50%">
                                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                                     <img
-                                                                        src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                                         width="90%"
                                                                         alt={nameToShow}
                                                                         title={nameToShow}
@@ -150,7 +151,7 @@ class StoriesTop extends React.Component {
                                                     </b>
                                                     <Link to={`/folktales/${nameForUrl}`}>
                                                         <img
-                                                            src={`/imgs/${nameForUrl.split("--")[0]}.png`}
+                                                            src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                             width="90%"
                                                             alt={nameToShow}
                                                             title={nameToShow}

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as consts from './common/consts';
 
 class StoriesEdit extends React.Component {
 
@@ -53,15 +54,15 @@ class StoriesEdit extends React.Component {
                 <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:"-1" }}>
                 </div>
                 <div style={{ maxWidth: 1000 }}>
-                    <div className="breadcrumbs" itemScope itemType="http://data-vocabulary.org/Breadcrumb" style={{ textAlign: "left", color: "white" }}>
-                        <Link to="/" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
+                    <div className="breadcrumbs" style={{ textAlign: "left", color: "white" }}>
+                        <Link to="/" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span>
                                 Home
                             </span>
                         </Link>
                         ＞
-                        <Link to="/folktalesEdit" itemProp="url" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="title">
+                        <Link to="/folktalesEdit" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span>
                                 Japanese Folktales
                             </span>
                         </Link>
@@ -81,7 +82,7 @@ class StoriesEdit extends React.Component {
                     {
                         this.state.storyName ?
                             <img
-                                src={`/imgs/${this.state.storyName.split("--")[0]}.png`}
+                                src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
                                 width="100px"
                             />
                             :

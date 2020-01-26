@@ -54,7 +54,7 @@ const PageHeader = props => {
                 }
                 {
                     props.img ?
-                        <meta property="og:image" content={topUrl + props.img} />
+                        <meta property="og:image" content={props.img} />
                         :
                         null
                 }
