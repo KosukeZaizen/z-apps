@@ -11,6 +11,7 @@ using Z_Apps.Models;
 using Z_Apps.Models.Stories.Stories;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net.Http;
 
 namespace Z_Apps
 {
@@ -60,13 +61,24 @@ namespace Z_Apps
             app.Use(async (context, next) =>
             {
                 var ua = context.Request.Headers["User-Agent"].ToString();
+                string url = context.Request.Path.Value;
 
-                //if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
-                if (ua.StartsWith("facebookexternalhit"))
+                if (url.EndsWith("sitemap.xml"))
                 {
-                    logger.LogWarning($"SNS bot");
+                    logger.LogWarning("sitemap.xml");
+                    using (var client = new HttpClient())
+                    {
+                        var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
+                        string resultXML = await response.Content.ReadAsStringAsync();
+
+                        logger.LogWarning(resultXML);
+                        await context.Response.WriteAsync(resultXML);
+                    }
+                }
+                else if (ua.StartsWith("facebookexternalhit"))
+                {
+                    logger.LogWarning("SNS bot");
                     
-                    string url = context.Request.Path.Value;
                     if (url == null)
                     {
                         await next.Invoke();
