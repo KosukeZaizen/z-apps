@@ -110,7 +110,7 @@ namespace Z_Apps
 
                             var storyManager = new StoryManager(new DBCon());
                             var story = storyManager.GetStory(storyName);
-                            var description = story.Description.Replace("\\n", " ").Replace("\'", "&#39;");
+                            var description = story?.Description.Replace("\\n", " ").Replace("\'", "&#39;");
                             var title = storyName.Replace("--", " - ").Replace("_", " ");
 
                             resultHTML = "" +
