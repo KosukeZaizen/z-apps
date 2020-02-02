@@ -76,14 +76,16 @@ export default class App extends React.Component {
         }, 5000);
     }
 
-    SendAccessLog = () => {
-        const userId = localStorage.getItem("lingual-ninja-userId") || "0";
+    SendAccessLog = async () => {
+        const saveKey = "lingual-ninja-userId";
+        const userId = localStorage.getItem(saveKey) || "0";
         const accessInfo = {
             userId: userId,
             href: window.location.href,
             token: privateConsts.LOG_TOKEN
         };
-        const result = commonFnc.sendPost(accessInfo, "api/SystemBase/RegisterAccessLog");
+        const result = await commonFnc.sendPost(accessInfo, "api/SystemBase/RegisterAccessLog");
+        localStorage.setItem(saveKey, result);
     }
 }
 

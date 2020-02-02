@@ -1,5 +1,6 @@
 using System;
-using Z_Apps.Models.SystemBase.AccessInfo;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Z_Apps.Util;
 using static Z_Apps.Controllers.SystemBaseController;
 
@@ -7,38 +8,30 @@ namespace Z_Apps.Models.SystemBase
 {
     public class LogService
     {
-
-        private DBCon con;
-        public LogService(DBCon con)
+        private readonly ILogger logger;
+        public LogService(ILogger<LogService> logger)
         {
-            this.con = con;
+            this.logger = logger;
         }
 
-        public bool RegisterAccessLog(DataToBeRegistered data)
+        public string RegisterAccessLog(DataToBeRegistered data)
         {
             try
             {
                 if (data.token == PrivateConsts.LOG_TOKEN)
                 {
-                    var aim = new AccessInfoManager(con);
+                    if (data.userId == "0") data.userId = DateTime.Now.ToString("yyyyMMddhhmmssfff");
 
-                    var accessInfo = new AccessInfo.AccessInfo
-                    {
-                        time = DateTime.Now,
-                        userId = UInt32.Parse(data.userId),
-                        href = data.href
-                    };
+                    string accessLog = "{userId:" + data.userId + ",href:\"" + data.href + "\"}";
+                    logger.LogWarning(accessLog);
 
-                    if (aim.InsertAccessInfo(accessInfo))
-                    {
-                        return true;
-                    }
+                    return data.userId;
                 }
-                return false;
+                return "";
             }
             catch (Exception ex)
             {
-                return false;
+                return "";
             }
         }
     }

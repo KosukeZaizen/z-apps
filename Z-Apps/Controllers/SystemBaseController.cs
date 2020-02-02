@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Z_Apps.Models;
+using Microsoft.Extensions.Logging;
 using Z_Apps.Models.SystemBase;
 
 namespace Z_Apps.Controllers
@@ -8,15 +8,15 @@ namespace Z_Apps.Controllers
     public class SystemBaseController : Controller
     {
         private LogService service;
-        public SystemBaseController()
+        public SystemBaseController(ILogger<LogService> logger)
         {
-            service = new LogService(new DBCon());
+            service = new LogService(logger);
         }
 
         [HttpPost("[action]")]
-        public bool RegisterAccessLog([FromBody] DataToBeRegistered data)
+        public string RegisterAccessLog([FromBody] DataToBeRegistered data)
         {
-            bool result = service.RegisterAccessLog(data);
+            string result = service.RegisterAccessLog(data);
             return result;
         }
         public class DataToBeRegistered
