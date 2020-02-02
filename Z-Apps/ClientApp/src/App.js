@@ -4,6 +4,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
+import * as commonFnc from './components/common/functions';
+import * as privateConsts from './components/common/privateConsts';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -30,6 +32,8 @@ export default class App extends React.Component {
         const { pathname } = window.location;
         ReactGA.set({ page: pathname });
         ReactGA.pageview(pathname);
+
+        this.SetIntervalToSendAccessLog();
     }
 
     render() {
@@ -61,6 +65,25 @@ export default class App extends React.Component {
                 </Suspense>
             </Layout>
         );
+    }
+
+    SetIntervalToSendAccessLog = () => {
+        setTimeout(() => {
+            this.SendAccessLog();
+            setInterval(() => {
+                this.SendAccessLog();
+            }, 10000);
+        }, 5000);
+    }
+
+    SendAccessLog = () => {
+        const userId = localStorage.getItem("lingual-ninja-userId") || "0";
+        const accessInfo = {
+            userId: userId,
+            href: window.location.href,
+            token: privateConsts.LOG_TOKEN
+        };
+        const result = commonFnc.sendPost(accessInfo, "api/SystemBase/RegisterAccessLog");
     }
 }
 
