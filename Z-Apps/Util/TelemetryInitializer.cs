@@ -29,13 +29,13 @@ public class TelemetryInitializer : ITelemetryInitializer
             }
         }
 
-        var trace = (TraceTelemetry)telemetry;
+        var trace = telemetry as TraceTelemetry;
         if (trace != null)
         {
             if (trace.Message.Contains("userId") && trace.Message.Contains("href"))
             {
                 //アクセスログ出力は、サンプリング対象から除外する
-                var sampling = (ISupportSampling)telemetry;
+                var sampling = telemetry as ISupportSampling;
                 if (sampling != null)
                 {
                     sampling.SamplingPercentage = 100;
