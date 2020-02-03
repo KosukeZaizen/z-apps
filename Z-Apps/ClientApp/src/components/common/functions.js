@@ -1,3 +1,6 @@
+import * as privateConsts from './privateConsts';
+
+
 export function getParams() {
     let arg = {};
     const pair = window.location.search.substring(1).split('&');
@@ -35,4 +38,26 @@ export function serverSideErrorProc() {
         window.location.reload();
     }
     return;
+}
+
+export function sendAccessLog() {
+    const saveKey = "lingual-ninja-userId";
+    const savedUserId = localStorage.getItem(saveKey);
+    let userId;
+
+    if (savedUserId) {
+        userId = savedUserId;
+    } else {
+        var nowDate = new Date();
+        userId = nowDate.getTime() + "-" + Math.floor(Math.random() * 1000);
+        localStorage.setItem(saveKey, userId);
+    }
+
+    const accessInfo = {
+        userId: userId,
+        href: window.location.href,
+        token: privateConsts.LOG_TOKEN
+    };
+
+    sendPost(accessInfo, "api/SystemBase/RegisterAccessLog");
 }
