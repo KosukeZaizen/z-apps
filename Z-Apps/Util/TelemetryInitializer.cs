@@ -2,10 +2,7 @@ using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using System.Linq;
 using System;
-using System.Net;
 
 public class TelemetryInitializer : ITelemetryInitializer
 {
@@ -29,6 +26,20 @@ public class TelemetryInitializer : ITelemetryInitializer
             if (ua != null)
             {
                 supportProperties.Properties["User-Agent"] = ua;
+            }
+        }
+
+        var trace = (TraceTelemetry)telemetry;
+        if (trace != null)
+        {
+            if (trace.Message.Contains("userId") && trace.Message.Contains("href"))
+            {
+                //アクセスログ出力は、サンプリング対象から除外する
+                var sampling = (ISupportSampling)telemetry;
+                if (sampling != null)
+                {
+                    sampling.SamplingPercentage = 100;
+                }
             }
         }
     }

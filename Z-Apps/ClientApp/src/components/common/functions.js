@@ -40,7 +40,7 @@ export function serverSideErrorProc() {
     return;
 }
 
-export function sendAccessLog() {
+export async function sendAccessLog() {
     const saveKey = "lingual-ninja-userId";
     const savedUserId = localStorage.getItem(saveKey);
     let userId;
