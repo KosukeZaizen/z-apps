@@ -23,6 +23,7 @@ const Ninja2 = lazy(() => import('./components/NinjaGame2'));
 const Ninja3 = lazy(() => import('./components/NinjaGame3'));
 const GameOver = lazy(() => import('./components/GameOver'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
+const Boscobel = lazy(() => import('./components/Boscobel'));
 const NotFound = lazy(() => import('./components/404'));
 
 export default class App extends React.Component {
@@ -58,6 +59,7 @@ export default class App extends React.Component {
                         <Route path='/ninja3' component={Ninja3} />
                         <Route path='/game-over' component={GameOver} />
                         <Route path='/color-code' component={ColorPalette} />
+                        <Route path='/boscobel' component={Boscobel} />
                         <Route path='/not-found' component={NotFound} />
                         <Route component={NotFoundRedirect} />
                     </Switch>
