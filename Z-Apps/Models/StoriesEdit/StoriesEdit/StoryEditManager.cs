@@ -19,7 +19,8 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
         {
             //SQL文作成
             string sql = "";
-            sql += "select * from tblStoryMstEdit";
+            sql += " select * from tblStoryMstEdit";
+            sql += " order by storyId desc";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, null);
