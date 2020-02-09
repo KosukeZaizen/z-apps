@@ -16,17 +16,11 @@ class StoriesEdit extends React.Component {
         const storyName = params.storyName.toString();
         this.state = {
             storyName: storyName,
+            importData: "",
+            imported: false,
         };
 
         this.screenHeight = parseInt(window.innerHeight, 10);
-
-        this.state = {
-            ...this.state,
-            kanji: true,
-            hiragana: true,
-            romaji: false,
-            english: true,
-        };
 
         this.props.loadStory(this.state.storyName);
         this.props.setInitialToken();
@@ -39,6 +33,26 @@ class StoriesEdit extends React.Component {
                 this.props.loadWords(this.props.storyDesc.storyId);
             }
         }
+    }
+
+    handleChangeImportData = (event) => {
+        this.setState({ importData: event.target.value });
+    }
+
+    import = () => {
+        const { addLine, removeBlankLine, translateAllSentences, saveWidhoutConfirmation, translate } = this.props;
+
+        const importedSentences = this.state.importData.replace("\r", "").split("\n");
+        const importedSentencesWithoutBlank = importedSentences.filter(s => s);
+
+        importedSentencesWithoutBlank.map((s, idx) => {
+            addLine(idx, s);
+        });
+
+        removeBlankLine();
+        translateAllSentences(saveWidhoutConfirmation);
+
+        this.setState({imported: true});
     }
 
     render() {
@@ -79,6 +93,27 @@ class StoriesEdit extends React.Component {
                         <b>{title}</b>
                     </h1>
                     <br />
+                    {
+                        this.props.sentences.filter(s => s && s.kanji.length > 0).length <= 0 &&
+                        <span>
+                            <b style={{color: "white"}}>Import</b><br />
+                            <textarea
+                                rows="10"
+                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
+                                value={this.state.importData}
+                                onChange={this.handleChangeImportData}
+                            />
+                            <button
+                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                                className="btn btn-dark btn-xs"
+                                onClick={this.import}
+                            >
+                                <b>Import</b>
+                            </button>
+                            <br />
+                            <br />
+                        </span>
+                    }
                     {
                         this.state.storyName ?
                             <img
@@ -144,7 +179,7 @@ class StoriesEdit extends React.Component {
                     <button
                         style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                         className="btn btn-dark btn-xs"
-                        onClick={() => this.props.save()}
+                        onClick={this.props.save}
                     >
                         <b>Save</b>
                     </button>
@@ -152,7 +187,7 @@ class StoriesEdit extends React.Component {
                     <button
                         style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                         className="btn btn-dark btn-xs"
-                        onClick={() => this.props.register()}
+                        onClick={this.props.register}
                     >
                         <b>Register</b>
                     </button>
