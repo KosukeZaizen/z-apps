@@ -128,7 +128,7 @@ class StoriesEdit extends React.Component {
                                 translate={this.props.translate}
                                 translateWord={this.props.translateWord}
                                 isTranslating={this.props.isTranslating}
-                                margeWord={this.props.margeWord}
+                                mergeWord={this.props.mergeWord}
                             />
                             :
                             <center>
@@ -273,7 +273,7 @@ class Sentences extends React.Component {
                                         addWord={this.props.addWord}
                                         removeWord={this.props.removeWord}
                                         translateWord={this.props.translateWord}
-                                        margeWord={this.props.margeWord}
+                                        mergeWord={this.props.mergeWord}
                                     />
                                     :
                                     null
@@ -335,7 +335,7 @@ class WordList extends React.Component {
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.margeWord(w.lineNumber, w.wordNumber)}
+                                                            onClick={() => this.props.mergeWord(w.lineNumber, w.wordNumber)}
                                                         ><b>M</b>
                                                         </button>
                                                     </td>
