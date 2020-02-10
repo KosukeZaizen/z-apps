@@ -9,12 +9,19 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage;
 using Z_Apps.Util;
+using Z_Apps.Models.SystemBase;
 
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
     public class ShopImgController : Controller
     {
+        private readonly StorageService storageService;
+        public ShopImgController()
+        {
+            storageService = new StorageService();
+        }
+
         [HttpPost("[action]")]
         public async Task<Object> Upload(IFormFile file, string shop, string pw, string fileName)
         {
@@ -28,31 +35,12 @@ namespace Z_Apps.Controllers
                 return new { result = "ng", errMessage = "Error! Invalid file!" };
             }
 
-            //storageAccountの作成（接続情報の定義）
-            //アカウントネームやキー情報はAzureポータルから確認できる。
-            var accountName = PrivateConsts.STORAGE_ACCOUNT_NAME;
-            var accessKey = PrivateConsts.STORAGE_ACCOUNT_KEY;
-
-            var credential = new StorageCredentials(accountName, accessKey);
-            var storageAccount = new CloudStorageAccount(credential, true);
-
-            ////////////////// ここまでは各Storageサービス共通 //////////////////////////////////
-
-            //blob
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            //container
-            CloudBlobContainer container = blobClient.GetContainerReference("lingual-storage");
-
-
             //upload
-            //アップロード後のファイル名を指定（無くてよい）
-            CloudBlockBlob blockBlob_upload = container.GetBlockBlobReference(shop + "/" + fileName + ".png");
-
-            //アップロード処理
-            using (var stream = formFile.OpenReadStream())
+            if (!await storageService.UploadAndOverwriteFileAsync(formFile, shop + "/" + fileName + ".png"))
             {
-                await blockBlob_upload.UploadFromStreamAsync(stream);
-            }
+                return new { result = "ng", errMessage = "Error! Upload was failed!" };
+            };
+
             return new { result = "ok" };
         }
     }
