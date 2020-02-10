@@ -176,21 +176,30 @@ class StoriesEdit extends React.Component {
                         onChange={this.props.handleChangeToken}
                     />
                     <br />
+                    <div style={{
+                        position: "fixed",
+                        bottom: 0,
+                        left: 0,
+                        zIndex: 99999999,
+                        backgroundColor: "black",
+                        width: "100%",
+                    }}>
+                        <button
+                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                            className="btn btn-dark btn-xs"
+                            onClick={this.props.save}
+                        >
+                            <b>Save</b>
+                        </button>
+                        "　"
                     <button
-                        style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                        className="btn btn-dark btn-xs"
-                        onClick={this.props.save}
-                    >
-                        <b>Save</b>
-                    </button>
-                    "　"
-                    <button
-                        style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                        className="btn btn-dark btn-xs"
-                        onClick={this.props.register}
-                    >
-                        <b>Register</b>
-                    </button>
+                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                            className="btn btn-dark btn-xs"
+                            onClick={this.props.register}
+                        >
+                            <b>Register</b>
+                        </button>
+                    </div>
                 </div>
             </center>
         );
