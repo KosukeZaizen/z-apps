@@ -134,10 +134,61 @@ export const actionCreators = {
             dispatch({ type: receiveWordsType, words: trimmedW });
 
         } catch (e) {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
+            //window.location.href = `/not-found?p=${window.location.pathname}`;
+            console.log("error at translate", e);
             return;
         }
         dispatch({ type: finishTranslationType });
+    },
+
+    translateAllSentences: (saveWidhoutConfirmation) => async (dispatch, getState) => {
+        console.log("start import");
+        dispatch({ type: beginTranslationType });
+
+        const state = getState().storiesEdit;
+        const sentences = state.sentences.concat();
+
+        console.log("Length:" + sentences.length);
+
+        for (let idx in sentences) {
+            console.log(idx + "/" + sentences.length);
+
+            const sentence = sentences[idx];
+            try {
+                if (!sentence.kanji || sentence.kanji.length <= 0) return;
+
+                dispatch({ type: beginTranslationType });
+
+                const state = getState().storiesEdit;
+                const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
+
+
+                const s = state.sentences.concat();
+                for (let key in s) {
+                    if (s[key].lineNumber === sentence.lineNumber) {
+                        s[key] = result && result.sentence;
+                    }
+                }
+                dispatch({ type: receiveSentencesType, sentences: s });
+
+
+                const w = state.words.concat();
+                const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
+                result && result.words && result.words.map(resultWord => {
+                    trimmedW.push(resultWord);
+                })
+                dispatch({ type: receiveWordsType, words: trimmedW });
+
+            } catch (e) {
+                //window.location.href = `/not-found?p=${window.location.pathname}`;
+                console.log("error at translate", e);
+                return;
+            }
+        }
+        console.log("finish translate");
+        dispatch({ type: finishTranslationType });
+
+        saveWidhoutConfirmation();
     },
 
     translateWord: (pWord) => async (dispatch, getState) => {
@@ -177,7 +228,7 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    addLine: (previousLineNumber) => (dispatch, getState) => {
+    addLine: (previousLineNumber, kanjiToInsert) => (dispatch, getState) => {
         const state = getState().storiesEdit;
 
         const s = state.sentences.concat();
@@ -189,7 +240,7 @@ export const actionCreators = {
         const sToAdd = {
             storyId: s[0].storyId,
             lineNumber: previousLineNumber + 1,
-            kanji: "",
+            kanji: kanjiToInsert || "",
             hiragana: "",
             romaji: "",
             english: "",
@@ -264,6 +315,16 @@ export const actionCreators = {
         }
     },
 
+    removeBlankLine: () => (dispatch, getState) => {
+
+        const state = getState().storiesEdit;
+
+        const s = state.sentences.concat()
+            .filter(sentence => sentence.kanji);
+
+        dispatch({ type: receiveSentencesType, sentences: s });
+    },
+
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
             if (window.confirm('Are you sure that you want to remove this word?')) {
                 const state = getState().storiesEdit;
@@ -279,7 +340,7 @@ export const actionCreators = {
             }
     },
 
-    margeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
+    mergeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
         if (window.confirm('Do you really want to marge the words?')) {
             const state = getState().storiesEdit;
             let w = state.words.concat().sort((a, b) => {
@@ -324,6 +385,25 @@ export const actionCreators = {
                 } else {
                     alert("Failed to save...");
                 }
+            }
+        } catch (e) {
+            console.log(e);
+            alert("Error!");
+            alert("Error!");
+        }
+    },
+
+    saveWidhoutConfirmation: () => async (dispatch, getState) => {
+        try {
+            const { storyDesc, sentences, words, token } = getState().storiesEdit;
+            localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+
+            const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+
+            if (result) {
+                alert("Success to save!");
+            } else {
+                alert("Failed to save...");
             }
         } catch (e) {
             console.log(e);

@@ -1,196 +1,152 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { actionCreators } from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as consts from './common/consts';
 
-class StoriesEdit extends React.Component {
+export default class Boscobel extends React.Component {
 
     constructor(props) {
         super(props);
 
-        const { params } = props.match;
-        const storyName = params.storyName.toString();
+        //セーブデータがあればそれを設定
+        const saveData = localStorage.getItem("boscobel-token");
+        const objSaveData = JSON.parse(saveData);
+
+        let token;
+        if (objSaveData) {
+            token = objSaveData.token || "";
+        } else {
+            token = "";
+        }
+
         this.state = {
-            storyName: storyName,
-            importData: "",
-            imported: false,
-        };
+            background: null,
+            top: null,
+            pw: token,
+        }
 
-        this.screenHeight = parseInt(window.innerHeight, 10);
-
-        this.props.loadStory(this.state.storyName);
-        this.props.setInitialToken();
-    }
-
-    componentDidUpdate() {
-        if (this.props.storyDesc.storyId) {
-            if (!this.props.sentences || this.props.sentences.length <= 0) {
-                this.props.loadSentences(this.props.storyDesc.storyId);
-                this.props.loadWords(this.props.storyDesc.storyId);
-            }
+        this.consts = {
+            background: "background",
+            top: "top",
         }
     }
 
-    handleChangeImportData = (event) => {
-        this.setState({ importData: event.target.value });
+    handleChangeFile = (e, imageType) => {
+        const target = e.target;
+        const file = target.files.item(0);
+        if (imageType === this.consts.background) {
+            this.setState({ background: file });
+        } else if (imageType === this.consts.top){
+            this.setState({ top: file });
+        }
     }
 
-    import = () => {
-        const { addLine, removeBlankLine, translateAllSentences, saveWidhoutConfirmation, translate } = this.props;
+    handleChangePW = (e) => {
+        this.setState({ pw: e.target.value });
+        localStorage.setItem("boscobel-token", JSON.stringify({ token: e.target.value }));
+    }
 
-        const importedSentences = this.state.importData.replace("\r", "").split("\n");
-        const importedSentencesWithoutBlank = importedSentences.filter(s => s);
+    uploadFile = (imageType) => {
+        let file = null;
+        if (imageType === this.consts.background) {
+            file = this.state.background;
+        } else if (imageType === this.consts.top) {
+            file = this.state.top;
+        }
 
-        importedSentencesWithoutBlank.map((s, idx) => {
-            addLine(idx, s);
-        });
+        if (!file || file.name.split(".").pop().toLowerCase() !== "png") {
+            alert("Error! Please select a png file.");
+            return;
+        }
 
-        removeBlankLine();
-        translateAllSentences(saveWidhoutConfirmation);
 
-        this.setState({imported: true});
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("shop", "boscobel");
+        formData.append("fileName", imageType);
+        formData.append("pw", this.state.pw);
+
+        fetch('/api/ShopImg/Upload', { method: 'POST', body: formData })
+            .then(async (response) => {
+
+                const result = await response.json();
+                if (result) {
+                    if (result.errMessage) {
+                        alert(result.errMessage);
+                    } else {
+                        alert("Success to upload!");
+                        window.open('https://www.cafe-boscobel.com/');
+                        window.location.reload();
+                    }
+                } else {
+                    alert("Failed to upload... Status:" + response.status);
+                }
+            })
+            .catch(() => {
+                alert("Failed to upload...");
+            });
     }
 
     render() {
-        const storyName = this.props.storyDesc.storyName || "";
-        const title = storyName.split("--").join(" - ").split("_").join(" ");
-        const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
             <center>
                 <Head
-                    title={title + " Story"}
+                    title={"Boscobel - Upload Image"}
                     noindex={true}
                 />
-                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:"-1" }}>
+                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
                 </div>
-                <div style={{ maxWidth: 1000 }}>
-                    <div className="breadcrumbs" style={{ textAlign: "left", color: "white" }}>
-                        <Link to="/" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span>
-                                Home
-                            </span>
-                        </Link>
-                        ＞
-                        <Link to="/folktalesEdit" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span>
-                                Japanese Folktales
-                            </span>
-                        </Link>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            {title}
-                        </span>
-                    </div>
+                <div style={{ maxWidth: 1000, color:"white" }}>
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
                         color: "#eb6905",
                     }}>
-                        <b>{title}</b>
+                        <b>Boscobel - Upload Image</b>
                     </h1>
                     <br />
-                    {
-                        this.props.sentences.filter(s => s && s.kanji.length > 0).length <= 0 &&
-                        <span>
-                            <b style={{color: "white"}}>Import</b><br />
-                            <textarea
-                                rows="10"
-                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                value={this.state.importData}
-                                onChange={this.handleChangeImportData}
-                            />
-                            <button
-                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.import}
-                            >
-                                <b>Import</b>
-                            </button>
-                            <br />
-                            <br />
-                        </span>
-                    }
-                    {
-                        this.state.storyName ?
-                            <img
-                                src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
-                                width="100px"
-                            />
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        this.screenHeight < 750 ?
-                            <div style={{
-                                color: "red",
-                            }}>
-                                <br />
-                                <b>↓ Please scroll down ↓</b>
-                            </div>
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        this.props.storyDesc.description ?
-                            <Description
-                                desc={this.props.storyDesc.description}
-                                handleChangeDesc={this.props.handleChangeDesc}
-                            />
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        showSentences ?
-                            <Sentences
-                                storyId={this.props.storyDesc.storyId}
-                                sentences={this.props.sentences}
-                                loadSentences={this.props.loadSentences}
-                                words={this.props.words}
-                                loadWords={this.props.loadWords}
-                                handleChangeSentence={this.props.handleChangeSentence}
-                                addLine={this.props.addLine}
-                                handleChangeWord={this.props.handleChangeWord}
-                                addWord={this.props.addWord}
-                                removeWord={this.props.removeWord}
-                                removeLine={this.props.removeLine}
-                                translate={this.props.translate}
-                                translateWord={this.props.translateWord}
-                                isTranslating={this.props.isTranslating}
-                                mergeWord={this.props.mergeWord}
-                            />
-                            :
-                            <center>
-                                <CircularProgress key="circle" size="20%" />
-                            </center>
-                    }
+                    パスワード（30cmを超える金魚の名前は？）
                     <input
                         type="text"
-                        value={this.props.token}
-                        onChange={this.props.handleChangeToken}
+                        onChange={this.handleChangePW}
+                        value={this.state.pw}
+                        style={{color: "black"}}
                     />
                     <br />
-                    <button
-                        style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                        className="btn btn-dark btn-xs"
-                        onClick={this.props.save}
-                    >
-                        <b>Save</b>
-                    </button>
-                    "　"
-                    <button
-                        style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                        className="btn btn-dark btn-xs"
-                        onClick={this.props.register}
-                    >
-                        <b>Register</b>
-                    </button>
+                    <br />
+                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
+                        <h2>Background Image</h2>
+                        <br />
+                        Current image:<br />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }} />
+                        <br /><br />
+                        Select a png file from your computer! (Only png is valid!)
+                        <input type="file" name="background" onChange={(e) => this.handleChangeFile(e, this.consts.background)} />
+                        <br /><br />
+                        <button
+                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }}
+                            className="btn btn-primary btn-xs"
+                            onClick={() => this.uploadFile(this.consts.background)}
+                        >
+                            <b>Upload</b>
+                        </button>
+                    </div>
+                    <br />
+                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
+                        <h2>Top Image</h2>
+                        <br />
+                        Current image:<br />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }} />
+                        <br /><br />
+                        Select a png file from your computer! (Only png is valid!)
+                        <input type="file" name="top" onChange={(e) => this.handleChangeFile(e, this.consts.top)} />
+                        <br /><br />
+                        <button
+                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }}
+                            className="btn btn-primary btn-xs"
+                            onClick={() => this.uploadFile(this.consts.top)}
+                        >
+                            <b>Upload</b>
+                        </button>
+                    </div>
                 </div>
             </center>
         );
@@ -308,7 +264,7 @@ class Sentences extends React.Component {
                                         addWord={this.props.addWord}
                                         removeWord={this.props.removeWord}
                                         translateWord={this.props.translateWord}
-                                        mergeWord={this.props.mergeWord}
+                                        margeWord={this.props.margeWord}
                                     />
                                     :
                                     null
@@ -370,7 +326,7 @@ class WordList extends React.Component {
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.mergeWord(w.lineNumber, w.wordNumber)}
+                                                            onClick={() => this.props.margeWord(w.lineNumber, w.wordNumber)}
                                                         ><b>M</b>
                                                         </button>
                                                     </td>
@@ -433,8 +389,3 @@ class WordList extends React.Component {
         )
     }
 }
-
-export default connect(
-    state => state.storiesEdit,
-    dispatch => bindActionCreators(actionCreators, dispatch)
-)(StoriesEdit);
