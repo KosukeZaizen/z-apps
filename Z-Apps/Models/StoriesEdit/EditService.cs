@@ -11,6 +11,7 @@ using Z_Apps.Util;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static Z_Apps.Controllers.StoriesEditController;
+using Z_Apps.Models.SystemBase;
 
 namespace Z_Apps.Models.StoriesEdit
 {
@@ -306,6 +307,8 @@ namespace Z_Apps.Models.StoriesEdit
                         {
                             if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
                             {
+                                var storageBk = new StorageBackupService();
+                                storageBk.MakeBackup();// We don't wait because it takes too long.
                                 return true;
                             }
                         }

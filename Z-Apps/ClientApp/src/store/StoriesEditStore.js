@@ -317,12 +317,19 @@ export const actionCreators = {
 
     removeBlankLine: () => (dispatch, getState) => {
 
+        //sentences
         const state = getState().storiesEdit;
 
         const s = state.sentences.concat()
             .filter(sentence => sentence.kanji);
 
         dispatch({ type: receiveSentencesType, sentences: s });
+
+        //words
+        const w = state.words.concat()
+            .filter(word => word.kanji);
+
+        dispatch({ type: receiveWordsType, words: w });
     },
 
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
