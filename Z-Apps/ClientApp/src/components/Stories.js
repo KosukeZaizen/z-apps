@@ -280,6 +280,7 @@ class Stories extends React.Component {
                                         sentences={sentences}
                                         words={words}
                                         langState={this.state}
+                                        audioFolder={storyName && storyName.split("--")[0]}
                                     />
                                 </div>
                                 :
@@ -406,7 +407,7 @@ class Stories extends React.Component {
 class Sentences extends React.Component {
 
     render() {
-        const { storyId, sentences, words, langState } = this.props;
+        const { storyId, sentences, words, langState, audioFolder } = this.props;
         const isLoading = !sentences || sentences.length <= 0;
 
         return (
@@ -463,6 +464,7 @@ class Sentences extends React.Component {
                                     words={words}
                                     s={s}
                                     storyId={storyId}
+                                    audioFolder={audioFolder}
                                 />
                                 <hr />
                             </span>
@@ -492,15 +494,23 @@ class WordList extends React.Component {
     }
 
     render() {
+        const { audioFolder } = this.props;
+        const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
         return (
             <span>
+
+                <audio
+                    src={audioPath}
+                    style={{width:"100%", height: "30px", marginTop: "5px"}}
+                    controls
+                />
                 {
                     this.props.words && this.props.words.filter(w =>
                         w.lineNumber === this.props.s.lineNumber
                     ).length > 0 ?
                         this.state.showWordList ?
                             <button
-                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "white" }}
+                                style={{ marginTop: 5, marginBottom: 2, height: 28, paddingTop: 0, color: "white" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.hideWordList}
                             >
@@ -508,7 +518,7 @@ class WordList extends React.Component {
                             </button>
                             :
                             <button
-                                style={{ marginTop: 10, height: 28, paddingTop: 0, color: "white" }}
+                                style={{ marginTop: 5, height: 28, paddingTop: 0, color: "white" }}
                                 className="btn btn-dark btn-xs"
                                 onClick={this.showWordList}
                             >
