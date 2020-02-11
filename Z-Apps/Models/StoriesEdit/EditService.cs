@@ -307,8 +307,15 @@ namespace Z_Apps.Models.StoriesEdit
                         {
                             if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
                             {
-                                var storageBk = new StorageBackupService();
-                                storageBk.MakeBackup();// We don't wait because it takes too long.
+                                try
+                                {
+                                    var storageBk = new StorageBackupService();
+                                    storageBk.MakeBackup().ContinueWith(_ => {; });// We don't wait because it takes too long.
+                                }
+                                catch (Exception ex)
+                                {
+                                    //握りつぶす
+                                }
                                 return true;
                             }
                         }
