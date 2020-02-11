@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 using Z_Apps.Models.SystemBase;
 
 namespace Z_Apps.Controllers
@@ -24,6 +25,13 @@ namespace Z_Apps.Controllers
             public string userId;
             public string href;
             public string token;
+        }
+
+        [HttpPost("[action]")]
+        public async Task MakeDbBackupAsync([FromBody] object data)
+        {
+            var storageBk = new StorageBackupService();
+            bool x = await storageBk.MakeBackup();
         }
     }
 }

@@ -22,6 +22,16 @@ export async function sendPost(objToSend, url) {
     return response.json();
 }
 
+export async function sendPostNoJsonResult(objToSend, url) {
+    const method = "POST";
+    const body = JSON.stringify(objToSend);
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    const response = await fetch(url, { method, headers, body });
+    return response;
+}
+
 export function serverSideErrorProc() {
     const saveKey = "db-access-error-time";
 

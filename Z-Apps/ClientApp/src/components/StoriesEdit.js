@@ -40,7 +40,7 @@ class StoriesEdit extends React.Component {
     }
 
     import = () => {
-        const { addLine, removeBlankLine, translateAllSentences, saveWidhoutConfirmation, translate } = this.props;
+        const { addLine, removeBlankLine, translateAllSentences, saveWidhoutConfirmation } = this.props;
 
         const importedSentences = this.state.importData.replace("\r", "").split("\n");
         const importedSentencesWithoutBlank = importedSentences.filter(s => s);

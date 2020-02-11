@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
@@ -47,26 +48,28 @@ namespace Z_Apps.Models.SystemBase
 
             foreach (string tableName in tableNames)
             {
-                string data = "";
+                StringBuilder sb = new StringBuilder();
                 var records = dbUtil.GetAllDataFromOneTable(tableName);
 
                 foreach (string key in records[0].Keys)
                 {
-                    data += key + "\t";
+                    sb.Append(key);
+                    sb.Append("\t");
                 }
-                data += "\n";
+                sb.Append("\n");
 
                 foreach (var record in records)
                 {
                     foreach (string key in records[0].Keys)
                     {
-                        data += record[key].ToString() + "\t";
+                        sb.Append(record[key].ToString());
+                        sb.Append("\t");
                     }
-                    data += "\n";
+                    sb.Append("\n");
                 }
 
                 DateTime dt = DateTime.Now;
-                await UploadAndOverwriteFileAsync(data, "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+                await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
             }
 
             return true;
