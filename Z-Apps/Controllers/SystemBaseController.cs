@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Z_Apps.Models.SystemBase;
+using Z_Apps.Util;
 
 namespace Z_Apps.Controllers
 {
@@ -28,10 +29,17 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task MakeDbBackupAsync([FromBody] object data)
+        public async Task MakeDbBackupAsync([FromBody] ReceivedToken data)
         {
-            var storageBk = new StorageBackupService();
-            bool x = await storageBk.MakeBackup();
+            if (data.token == PrivateConsts.REGISTER_PASS)
+            {
+                var storageBk = new StorageBackupService();
+                bool x = await storageBk.MakeBackup();
+            }
+        }
+        public class ReceivedToken
+        {
+            public string token;
         }
     }
 }
