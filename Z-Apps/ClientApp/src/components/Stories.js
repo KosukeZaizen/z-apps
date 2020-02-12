@@ -460,12 +460,15 @@ class Sentences extends React.Component {
                                         }
                                     </tbody>
                                 </table>
-                                <WordList
-                                    words={words}
-                                    s={s}
-                                    storyId={storyId}
-                                    audioFolder={audioFolder}
-                                />
+                                {
+                                    words && words.length > 0 &&
+                                    <WordList
+                                        words={words}
+                                        s={s}
+                                        storyId={storyId}
+                                        audioFolder={audioFolder}
+                                    />
+                                }
                                 <hr />
                             </span>
                         )
@@ -498,7 +501,6 @@ class WordList extends React.Component {
         const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
         return (
             <span>
-
                 <audio
                     src={audioPath}
                     style={{width:"100%", height: "30px", marginTop: "5px"}}
