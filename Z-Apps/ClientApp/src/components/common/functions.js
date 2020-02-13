@@ -22,6 +22,16 @@ export async function sendPost(objToSend, url) {
     return response.json();
 }
 
+export function sendPostWithoutAwait(objToSend, url) {
+    const method = "POST";
+    const body = JSON.stringify(objToSend);
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    fetch(url, { method, headers, body });
+}
+
 export async function sendPostNoJsonResult(objToSend, url) {
     const method = "POST";
     const body = JSON.stringify(objToSend);
@@ -69,5 +79,5 @@ export async function sendAccessLog() {
         token: privateConsts.LOG_TOKEN
     };
 
-    sendPost(accessInfo, "api/SystemBase/RegisterAccessLog");
+    sendPostWithoutAwait(accessInfo, "api/SystemBase/RegisterAccessLog");
 }
