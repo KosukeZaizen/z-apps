@@ -484,7 +484,8 @@ class WordList extends React.Component {
         super(props);
 
         this.state = {
-            showWordList: false
+            showWordList: false,
+            showAudio: false,
         };
     }
 
@@ -498,14 +499,20 @@ class WordList extends React.Component {
 
     render() {
         const { audioFolder } = this.props;
+        const { showAudio } = this.state;
         const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
         return (
             <span>
-                <audio
-                    src={audioPath}
-                    style={{width:"100%", height: "30px", marginTop: "5px"}}
-                    controls
-                />
+                {
+                    <audio
+                        src={audioPath}
+                        style={{ width: "100%", height: "30px", marginTop: "5px", display: showAudio ? "block" : "none" }}
+                        onCanPlayThrough={() => {
+                            this.setState({showAudio: true});
+                        }}
+                        controls
+                    />
+                }
                 {
                     this.props.words && this.props.words.filter(w =>
                         w.lineNumber === this.props.s.lineNumber
