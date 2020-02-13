@@ -36,7 +36,6 @@ namespace Z_Apps.Models
                     connection.Open();
 
                     // SQLの実行
-                    //command.CommandText = sql;
                     SqlDataReader sdr = command.ExecuteReader();
 
                     var records = new List<Dictionary<string, Object>>();
