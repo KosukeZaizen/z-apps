@@ -1,5 +1,6 @@
 import { serverSideErrorProc } from '../components/common/functions';
 
+const initializeType = 'INITIALIZE';
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
 const receiveWordsType = 'RECEIVE_WORDS';
@@ -9,6 +10,8 @@ const initialState = { storyDesc: [], sentences: [], words: [], otherStories: []
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
+            dispatch({ type: initializeType });
+
             //story
             const url1 = `api/Stories/GetPageData/${storyName}`;
             const response1 = await fetch(url1);
@@ -56,6 +59,10 @@ export const actionCreators = {
 
 export const reducer = (state, action) => {
     state = state || initialState;
+
+    if (action.type === initializeType) {
+        return initialState;
+    }
 
     if (action.type === receiveStoryType) {
         return {
