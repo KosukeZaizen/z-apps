@@ -68,7 +68,7 @@ export async function sendAccessLog() {
     if (savedUserId) {
         userId = savedUserId;
     } else {
-        var nowDate = new Date();
+        const nowDate = new Date();
         userId = nowDate.getTime() + "-" + Math.floor(Math.random() * 1000);
         localStorage.setItem(saveKey, userId);
     }
