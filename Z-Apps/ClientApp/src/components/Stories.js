@@ -506,7 +506,7 @@ class AudioContol extends React.Component {
                 src={audioPath}
                 style={{ width: "100%", height: "30px", marginTop: "5px" }}
                 onCanPlayThrough={() => {
-                    this.setState({ showControl: true});
+                    this.setState({ showControl: true });
                 }}
                 controls={this.state.showControl}
             />
