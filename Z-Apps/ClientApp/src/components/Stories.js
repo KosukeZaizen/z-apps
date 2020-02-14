@@ -460,15 +460,15 @@ class Sentences extends React.Component {
                                         }
                                     </tbody>
                                 </table>
-                                {
-                                    words && words.length > 0 &&
-                                    <WordList
-                                        words={words}
-                                        s={s}
-                                        storyId={storyId}
-                                        audioFolder={audioFolder}
-                                    />
-                                }
+                                <AudioContol
+                                    s={s}
+                                    audioFolder={audioFolder}
+                                />
+                                <WordList
+                                    words={words}
+                                    s={s}
+                                    storyId={storyId}
+                                />
                                 <hr />
                             </span>
                         )
@@ -477,6 +477,33 @@ class Sentences extends React.Component {
         );
     }
 };
+
+class AudioContol extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showControl: false
+        };
+    }
+
+    render() {
+        const { audioFolder } = this.props;
+        const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
+
+        return (
+            <audio
+                preload={true}
+                src={audioPath}
+                style={{ width: "100%", height: "30px", marginTop: "5px" }}
+                onCanPlayThrough={() => {
+                    this.setState({ showControl: true});
+                }}
+                controls={this.state.showControl}
+            />
+        );
+    }
+}
 
 class WordList extends React.Component {
 
@@ -497,15 +524,8 @@ class WordList extends React.Component {
     }
 
     render() {
-        const { audioFolder } = this.props;
-        const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
         return (
             <span>
-                <audio
-                    src={audioPath}
-                    style={{width:"100%", height: "30px", marginTop: "5px"}}
-                    controls
-                />
                 {
                     this.props.words && this.props.words.filter(w =>
                         w.lineNumber === this.props.s.lineNumber
