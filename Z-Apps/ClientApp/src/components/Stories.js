@@ -485,6 +485,15 @@ class AudioContol extends React.Component {
         this.state = {
             showControl: false
         };
+
+        this.refAudio = React.createRef();
+    }
+
+    componentDidMount() {
+        if (!this.refAudio) return;
+
+        const audio = this.refAudio.current;
+        audio.load();
     }
 
     render() {
@@ -493,7 +502,7 @@ class AudioContol extends React.Component {
 
         return (
             <audio
-                preload={true}
+                ref={this.refAudio}
                 src={audioPath}
                 style={{ width: "100%", height: "30px", marginTop: "5px" }}
                 onCanPlayThrough={() => {
