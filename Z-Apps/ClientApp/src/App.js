@@ -6,6 +6,7 @@ import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
 import { sendAccessLog } from './components/common/functions';
 
+
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
 const Developer = lazy(() => import('./components/Developer'));
@@ -22,6 +23,7 @@ const Ninja1 = lazy(() => import('./components/NinjaGame'));
 const Ninja2 = lazy(() => import('./components/NinjaGame2'));
 const Ninja3 = lazy(() => import('./components/NinjaGame3'));
 const GameOver = lazy(() => import('./components/GameOver'));
+const SiteMapEdit = lazy(() => import('./components/SiteMapEdit'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const Boscobel = lazy(() => import('./components/Boscobel'));
 const NotFound = lazy(() => import('./components/404'));
@@ -58,6 +60,7 @@ export default class App extends React.Component {
                         <Route path='/ninja2' component={Ninja2} />
                         <Route path='/ninja3' component={Ninja3} />
                         <Route path='/game-over' component={GameOver} />
+                        <Route path='/sitemapEdit' component={SiteMapEdit} />
                         <Route path='/color-code' component={ColorPalette} />
                         <Route path='/boscobel' component={Boscobel} />
                         <Route path='/not-found' component={NotFound} />
