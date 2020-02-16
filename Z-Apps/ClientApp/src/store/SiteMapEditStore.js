@@ -12,18 +12,24 @@ const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: f
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
-            const url = `api/StoriesEdit/GetPageData/${storyName}`;
+            console.log("hello");
+
+            const url = `api/SiteMapEdit/GetSiteMap`;
             const response = await fetch(url);
+            console.log(response);
+
             const storyDesc = await response.json();
 
-            const unescapeHTML = (html) => {
-                const escapeEl = document.createElement("textarea");
-                escapeEl.innerHTML = html;
-                return escapeEl.textContent;
-            }
+            console.log(storyDesc);
 
-            storyDesc.description = unescapeHTML(storyDesc.description.split("\\n").join("&#13;&#10;"));
-            dispatch({ type: receiveStoryType, storyDesc });
+            //const unescapeHTML = (html) => {
+            //    const escapeEl = document.createElement("textarea");
+            //    escapeEl.innerHTML = html;
+            //    return escapeEl.textContent;
+            //}
+
+            //storyDesc.description = unescapeHTML(storyDesc.description.split("\\n").join("&#13;&#10;"));
+            //dispatch({ type: receiveStoryType, storyDesc });
 
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
