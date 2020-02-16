@@ -22,47 +22,15 @@ class SiteMapEdit extends React.Component {
 
         this.screenHeight = parseInt(window.innerHeight, 10);
 
-        this.props.loadStory(this.state.storyName);
+        this.props.loadSitemap();
         this.props.setInitialToken();
     }
 
-    componentDidUpdate() {
-        if (this.props.storyDesc.storyId) {
-            if (!this.props.sentences || this.props.sentences.length <= 0) {
-                this.props.loadSentences(this.props.storyDesc.storyId);
-                this.props.loadWords(this.props.storyDesc.storyId);
-            }
-        }
-    }
-
-    handleChangeImportData = (event) => {
-        this.setState({ importData: event.target.value });
-    }
-
-    import = () => {
-        const { addLine, removeBlankLine, translateAllSentences, saveWidhoutConfirmation } = this.props;
-
-        const importedSentences = this.state.importData.replace("\r", "").split("\n");
-        const importedSentencesWithoutBlank = importedSentences.filter(s => s);
-
-        importedSentencesWithoutBlank.map((s, idx) => {
-            addLine(idx, s);
-        });
-
-        removeBlankLine();
-        translateAllSentences(saveWidhoutConfirmation);
-
-        this.setState({ imported: true });
-    }
-
     render() {
-        const storyName = this.props.storyDesc.storyName || "";
-        const title = storyName.split("--").join(" - ").split("_").join(" ");
-        const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
             <center>
                 <Head
-                    title={title + " Story"}
+                    title={"edit sitemap"}
                     noindex={true}
                 />
                 <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
@@ -82,7 +50,7 @@ class SiteMapEdit extends React.Component {
                         </Link>
                         ＞
                         <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            {title}
+                            edit sitemap
                         </span>
                     </div>
                     <h1 style={{
@@ -90,80 +58,16 @@ class SiteMapEdit extends React.Component {
                         lineHeight: "30px",
                         color: "#eb6905",
                     }}>
-                        <b>{title}</b>
+                        <b>Edit Sitemap</b>
                     </h1>
-                    <br />
-                    {
-                        this.props.sentences.filter(s => s && s.kanji.length > 0).length <= 0 &&
-                        <span>
-                            <b style={{ color: "white" }}>Import</b><br />
-                            <textarea
-                                rows="10"
-                                style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                value={this.state.importData}
-                                onChange={this.handleChangeImportData}
-                            />
-                            <button
-                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.import}
-                            >
-                                <b>Import</b>
-                            </button>
-                            <br />
-                            <br />
-                        </span>
-                    }
-                    {
-                        this.state.storyName ?
-                            <img
-                                src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
-                                width="100px"
-                            />
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        this.screenHeight < 750 ?
-                            <div style={{
-                                color: "red",
-                            }}>
-                                <br />
-                                <b>↓ Please scroll down ↓</b>
-                            </div>
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        this.props.storyDesc.description ?
-                            <Description
-                                desc={this.props.storyDesc.description}
-                                handleChangeDesc={this.props.handleChangeDesc}
-                            />
-                            :
-                            null
-                    }
                     <br />
                     {
                         showSentences ?
                             <Sentences
-                                storyId={this.props.storyDesc.storyId}
-                                sentences={this.props.sentences}
-                                loadSentences={this.props.loadSentences}
-                                words={this.props.words}
-                                loadWords={this.props.loadWords}
-                                handleChangeSentence={this.props.handleChangeSentence}
+                                sitemap={this.props.sitemap}
+                                handleChangeSitemap={this.props.handleChangeSitemap}
                                 addLine={this.props.addLine}
-                                handleChangeWord={this.props.handleChangeWord}
-                                addWord={this.props.addWord}
-                                removeWord={this.props.removeWord}
                                 removeLine={this.props.removeLine}
-                                translate={this.props.translate}
-                                translateWord={this.props.translateWord}
-                                isTranslating={this.props.isTranslating}
-                                mergeWord={this.props.mergeWord}
                             />
                             :
                             <center>
@@ -205,30 +109,6 @@ class SiteMapEdit extends React.Component {
         );
     }
 };
-
-class Description extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    render() {
-        return (
-            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                <textarea
-                    rows="10"
-                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                    value={this.props.desc}
-                    onChange={this.props.handleChangeDesc}
-                />
-            </div>
-        )
-    }
-}
-
 class Sentences extends React.Component {
 
     constructor(props) {
@@ -242,16 +122,16 @@ class Sentences extends React.Component {
         return (
             <div style={{ textAlign: "left" }}>
                 {
-                    this.props.sentences && this.props.sentences.map((s, i) =>
-                        <span key={s.lineNumber}>
+                    this.props.sitemap && this.props.sitemap.map((s, i) =>
+                        <span key={s.loc}>
                             <table style={{ width: "100%" }}>
                                 <tbody>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｋ:　</b></td>
+                                        <td width="20px"><b>loc:　</b></td>
                                         <td><input
                                             type="text"
-                                            value={s.kanji}
-                                            onChange={(e) => this.props.handleChangeSentence(e, i, "kanji")}
+                                            value={s.loc}
+                                            onChange={(e) => this.props.handleChangeSitemap(e, i, "loc")}
                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                         /></td>
                                     </tr>
@@ -259,19 +139,11 @@ class Sentences extends React.Component {
                                         <td>
                                         </td>
                                         <td style={{ textAligh: "left" }}>
-                                            <button
-                                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                                                className="btn btn-dark btn-xs"
-                                                onClick={() => this.props.translate(s)}
-                                            >
-                                                <b>↓　Translate Sentence　↓</b>
-                                            </button>
-                                            {this.props.isTranslating ? <span style={{ color: "white", marginLeft: 20 }}>Translating...</span> : null}
                                             <div style={{ textAligh: "right", float: "right" }}>
                                                 <button
                                                     style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                                                     className="btn btn-dark btn-xs"
-                                                    onClick={() => this.props.removeLine(s.lineNumber)}
+                                                    onClick={() => this.props.removeLine(s.loc)}
                                                 >
                                                     <b>Remove Sentence</b>
                                                 </button>
