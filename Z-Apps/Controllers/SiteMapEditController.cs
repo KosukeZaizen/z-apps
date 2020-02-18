@@ -1,49 +1,40 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models.SystemBase;
-using System.Net.Http;
+using Z_Apps.Util;
 
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
     public class SiteMapEditController : Controller
     {
-        private readonly StorageService storageService;
+        private readonly SiteMapService service;
         public SiteMapEditController()
         {
-            storageService = new StorageService();
+            service = new SiteMapService();
         }
 
         [HttpGet("[action]/")]
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap()
         {
-            var listResult = new List<Dictionary<string, string>>();
+            return await service.GetSiteMap();
+        }
 
-            string resultXML = "";
-            using (var client = new HttpClient())
+        [HttpPost("[action]")]
+        public async Task<bool> RegisterSiteMap([FromBody] DataToBeRegistered data)
+        {
+            var result = false;
+            if (data.token == PrivateConsts.REGISTER_PASS)
             {
-                var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
-                resultXML = await response.Content.ReadAsStringAsync();
+                result = await service.RegisterSitemap(data.sitemap);
             }
-
-
-            XElement xmlTree = XElement.Parse(resultXML);
-            var urls = xmlTree.Elements();
-
-            foreach (XElement url in urls)
-            {
-                var dic = new Dictionary<string, string>();
-                dic.Add("loc", url.Elements().Where(u => u.Name.ToString().Contains("loc")).First().Value);
-                dic.Add("lastmod", url.Elements().Where(u => u.Name.ToString().Contains("lastmod")).First().Value);
-
-                listResult.Add(dic);
-            }
-
-            return listResult;
+            return result;
+        }
+        public class DataToBeRegistered
+        {
+            public IEnumerable<Dictionary<string, string>> sitemap;
+            public string token;
         }
     }
 }

@@ -71,9 +71,10 @@ export default class SiteMapEdit extends React.Component {
 
     register = async () => {
         try {
-            if (window.confirm('Are you sure that you want to save?')) {
+            if (window.confirm('Are you sure that you want to register?')) {
                 const { sitemap, token } = this.state;
-                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+
+                console.log({ sitemap, token });
 
                 const result = await commonFnc.sendPost({ sitemap, token }, "api/SiteMapEdit/RegisterSiteMap");
 
@@ -83,11 +84,17 @@ export default class SiteMapEdit extends React.Component {
                     alert("Failed to save...");
                 }
             }
-        } catch (e) {
-            console.log(e);
+        } catch (ex) {
+            console.log(ex);
             alert("Error!");
             alert("Error!");
         }
+    }
+
+    changeToken = (event) => {
+        const token = event.target.value;
+        this.setState({token: token});
+        localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
     }
 
     render() {
@@ -149,8 +156,8 @@ export default class SiteMapEdit extends React.Component {
                     }
                     <input
                         type="text"
-                        value={this.props.token}
-                        onChange={this.props.handleChangeToken}
+                        value={this.state.token}
+                        onChange={this.changeToken}
                     />
                     <br />
                     <div style={{
@@ -166,7 +173,7 @@ export default class SiteMapEdit extends React.Component {
                     <button
                             style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                             className="btn btn-dark btn-xs"
-                            onClick={this.props.register}
+                            onClick={this.register}
                         >
                             <b>Register</b>
                         </button>
