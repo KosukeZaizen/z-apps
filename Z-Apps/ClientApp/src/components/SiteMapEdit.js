@@ -1,8 +1,5 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actionCreators } from '../store/SiteMapEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as consts from './common/consts';
@@ -37,6 +34,28 @@ export default class SiteMapEdit extends React.Component {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
+    }
+
+    handleChangeSitemap = (event, i, item) => {
+        const s = this.state.sitemap.concat();
+        s[i][item] = event.target.value.split(" ").join("");
+
+        this.setState({ sitemap:s });
+    }
+
+    addLine = (i) => {
+        const s = this.state.sitemap.concat();
+        s.splice(i+1, 0, { loc: "", lastmod: "" });
+        console.log(s);
+
+        this.setState({ sitemap: s });
+    }
+
+    removeLine = (i) => {
+        const s = this.state.sitemap.filter((l,m) => m!=i);
+        console.log(s);
+
+        this.setState({ sitemap: s });
     }
 
     render() {
@@ -77,12 +96,20 @@ export default class SiteMapEdit extends React.Component {
                     <br />
                     {
                         this.state.sitemap.length > 0 ?
-                            <Sitemaps
-                                sitemap={sitemap}
-                                handleChangeSitemap={this.props.handleChangeSitemap}
-                                addLine={this.props.addLine}
-                                removeLine={this.props.removeLine}
-                            />
+                            <div style={{ textAlign: "left" }}>
+                                {
+                                    sitemap && sitemap.map((s, i) =>
+                                        <SitemapInfo
+                                            s={s}
+                                            i={i}
+                                            key={i}
+                                            handleChangeSitemap={this.handleChangeSitemap}
+                                            addLine={this.addLine}
+                                            removeLine={this.removeLine}
+                                        />
+                                    )
+                                }
+                            </div>
                             :
                             <center>
                                 <CircularProgress key="circle" size="20%" />
@@ -117,32 +144,6 @@ export default class SiteMapEdit extends React.Component {
         );
     }
 };
-class Sitemaps extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    render() {
-        const { sitemap } = this.props;
-        return (
-            <div style={{ textAlign: "left" }}>
-                {
-                    sitemap && sitemap.map((s, i) =>
-                        <SitemapInfo
-                            s={s}
-                            i={i}
-                            key={s.loc}
-                        />
-                    )
-                }
-            </div>
-        );
-    }
-};
 
 class SitemapInfo extends React.Component {
 
@@ -153,10 +154,49 @@ class SitemapInfo extends React.Component {
         };
     }
 
+    checkInput = (s) => {
+        try {
+            if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0) return "The URL is strange.";
+
+            if (s.lastmod.length != 25) return "Length of lastmod need to be 25.";
+
+            const dateAndTime = s.lastmod.split("T");
+
+            if (dateAndTime.length != 2) return "lastmod needs T";
+
+            const date = dateAndTime[0];
+            const time = dateAndTime[1];
+
+            if (date.length != 10) return "The length of the date part needs to be 10.";
+
+            const arrDate = date.split("-");
+
+            if (!(Number(arrDate[0]) >= 2019 && Number(arrDate[0]) < 2030)) return "Year is strange.";
+            if (!(Number(arrDate[1]) >= 1 && Number(arrDate[1]) <= 12)) return "Month is strange.";
+            if (!(Number(arrDate[2]) >= 1 && Number(arrDate[2]) <= 31)) return "Date is strange.";
+
+            const arrTime = time.split("+");
+
+            if (arrTime[1] != "09:00") return "lastmod needs +09:00";
+
+            const arrTime2 = arrTime[0].split(":");
+
+            if (!(Number(arrTime2[0]) >= 0 && Number(arrTime2[0]) <= 24)) return "Hour needs to be 0 to 24.";
+            if (!(Number(arrTime2[1]) >= 0 && Number(arrTime2[1]) <= 59)) return "Minute needs to be 0 to 59.";
+            if (!(Number(arrTime2[2]) >= 0 && Number(arrTime2[2]) <= 99)) return "Second needs to be 0 to 99.";
+
+        } catch (ex) {
+            return ex.message;
+        }
+
+        return "";
+    }
+
     render() {
-        const { s, i } = this.props;
+        const { s, i, handleChangeSitemap, addLine, removeLine } = this.props;
         return (
             <span>
+                <span style={{ color: "red" }}>{this.checkInput(s)}</span>
                 <table style={{ width: "100%" }}>
                     <tbody>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>
@@ -164,7 +204,7 @@ class SitemapInfo extends React.Component {
                             <td><input
                                 type="text"
                                 value={s.loc}
-                                onChange={(e) => this.props.handleChangeSitemap(e, i, "loc")}
+                                onChange={(e) => handleChangeSitemap(e, i, "loc")}
                                 style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                             /></td>
                         </tr>
@@ -173,7 +213,7 @@ class SitemapInfo extends React.Component {
                             <td><input
                                 type="text"
                                 value={s.lastmod}
-                                onChange={(e) => this.props.handleChangeSentence(e, i, "hiragana")}
+                                onChange={(e) => handleChangeSitemap(e, i, "lastmod")}
                                 style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                             /></td>
                         </tr>
@@ -182,7 +222,7 @@ class SitemapInfo extends React.Component {
                 <button
                     style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
                     className="btn btn-dark btn-xs"
-                    onClick={() => this.props.addLine(s.lineNumber)}
+                    onClick={() => addLine(i)}
                 >
                     <b>Add Line</b>
                 </button>
@@ -191,9 +231,9 @@ class SitemapInfo extends React.Component {
                     <button
                         style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                         className="btn btn-dark btn-xs"
-                        onClick={() => this.props.removeLine(s.loc)}
+                        onClick={() => removeLine(i)}
                     >
-                        <b>Remove Sentence</b>
+                        <b>Remove Line</b>
                     </button>
                 </div>
 
