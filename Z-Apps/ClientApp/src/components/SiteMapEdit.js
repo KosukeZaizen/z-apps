@@ -37,7 +37,6 @@ export default class SiteMapEdit extends React.Component {
             const response = await fetch(url);
 
             const sitemap = await response.json();
-            console.log(sitemap);
 
             this.setState({ sitemap: sitemap });
 
@@ -57,15 +56,12 @@ export default class SiteMapEdit extends React.Component {
     addLine = (i) => {
         const s = this.state.sitemap.concat();
         s.splice(i+1, 0, { loc: "", lastmod: "" });
-        console.log(s);
 
         this.setState({ sitemap: s });
     }
 
     removeLine = (i) => {
         const s = this.state.sitemap.filter((l,m) => m!=i);
-        console.log(s);
-
         this.setState({ sitemap: s });
     }
 
@@ -73,8 +69,6 @@ export default class SiteMapEdit extends React.Component {
         try {
             if (window.confirm('Are you sure that you want to register?')) {
                 const { sitemap, token } = this.state;
-
-                console.log({ sitemap, token });
 
                 const result = await commonFnc.sendPost({ sitemap, token }, "api/SiteMapEdit/RegisterSiteMap");
 
@@ -97,8 +91,47 @@ export default class SiteMapEdit extends React.Component {
         localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
     }
 
+    checkInput = (s) => {
+        try {
+            if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0) return "The URL is strange.";
+
+            if (s.lastmod.length != 25) return "Length of lastmod need to be 25.";
+
+            const dateAndTime = s.lastmod.split("T");
+
+            if (dateAndTime.length != 2) return "lastmod needs T";
+
+            const date = dateAndTime[0];
+            const time = dateAndTime[1];
+
+            if (date.length != 10) return "The length of the date part needs to be 10.";
+
+            const arrDate = date.split("-");
+
+            if (!(Number(arrDate[0]) >= 2019 && Number(arrDate[0]) < 2030)) return "Year is strange.";
+            if (!(Number(arrDate[1]) >= 1 && Number(arrDate[1]) <= 12)) return "Month is strange.";
+            if (!(Number(arrDate[2]) >= 1 && Number(arrDate[2]) <= 31)) return "Date is strange.";
+
+            const arrTime = time.split("+");
+
+            if (arrTime[1] != "09:00") return "lastmod needs +09:00";
+
+            const arrTime2 = arrTime[0].split(":");
+
+            if (!(Number(arrTime2[0]) >= 0 && Number(arrTime2[0]) <= 24)) return "Hour needs to be 0 to 24.";
+            if (!(Number(arrTime2[1]) >= 0 && Number(arrTime2[1]) <= 59)) return "Minute needs to be 0 to 59.";
+            if (!(Number(arrTime2[2]) >= 0 && Number(arrTime2[2]) <= 99)) return "Second needs to be 0 to 99.";
+
+        } catch (ex) {
+            return ex.message;
+        }
+
+        return "";
+    }
+
     render() {
         const { sitemap } = this.state;
+        const resultOfCheck = sitemap.filter(s => this.checkInput(s) != "").length === 0;
         return (
             <center>
                 <Head
@@ -145,6 +178,7 @@ export default class SiteMapEdit extends React.Component {
                                             handleChangeSitemap={this.handleChangeSitemap}
                                             addLine={this.addLine}
                                             removeLine={this.removeLine}
+                                            checkInput={this.checkInput}
                                         />
                                     )
                                 }
@@ -171,12 +205,16 @@ export default class SiteMapEdit extends React.Component {
                         <span style={{ color: "white" }}>Count: {sitemap.length}</span>
                         "　"
                     <button
-                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: resultOfCheck ? "black" : "red" }}
                             className="btn btn-dark btn-xs"
+                            disabled={!resultOfCheck}
                             onClick={this.register}
                         >
                             <b>Register</b>
                         </button>
+                        <span style={{color: "red"}}>
+                            {resultOfCheck || "　error is occuring"}
+                        </span>
                     </div>
                 </div>
             </center>
@@ -193,49 +231,11 @@ class SitemapInfo extends React.Component {
         };
     }
 
-    checkInput = (s) => {
-        try {
-            if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0) return "The URL is strange.";
-
-            if (s.lastmod.length != 25) return "Length of lastmod need to be 25.";
-
-            const dateAndTime = s.lastmod.split("T");
-
-            if (dateAndTime.length != 2) return "lastmod needs T";
-
-            const date = dateAndTime[0];
-            const time = dateAndTime[1];
-
-            if (date.length != 10) return "The length of the date part needs to be 10.";
-
-            const arrDate = date.split("-");
-
-            if (!(Number(arrDate[0]) >= 2019 && Number(arrDate[0]) < 2030)) return "Year is strange.";
-            if (!(Number(arrDate[1]) >= 1 && Number(arrDate[1]) <= 12)) return "Month is strange.";
-            if (!(Number(arrDate[2]) >= 1 && Number(arrDate[2]) <= 31)) return "Date is strange.";
-
-            const arrTime = time.split("+");
-
-            if (arrTime[1] != "09:00") return "lastmod needs +09:00";
-
-            const arrTime2 = arrTime[0].split(":");
-
-            if (!(Number(arrTime2[0]) >= 0 && Number(arrTime2[0]) <= 24)) return "Hour needs to be 0 to 24.";
-            if (!(Number(arrTime2[1]) >= 0 && Number(arrTime2[1]) <= 59)) return "Minute needs to be 0 to 59.";
-            if (!(Number(arrTime2[2]) >= 0 && Number(arrTime2[2]) <= 99)) return "Second needs to be 0 to 99.";
-
-        } catch (ex) {
-            return ex.message;
-        }
-
-        return "";
-    }
-
     render() {
-        const { s, i, handleChangeSitemap, addLine, removeLine } = this.props;
+        const { s, i, handleChangeSitemap, addLine, removeLine, checkInput } = this.props;
         return (
             <span>
-                <span style={{ color: "red" }}>{this.checkInput(s)}</span>
+                <span style={{ color: "red" }}>{checkInput(s)}</span>
                 <table style={{ width: "100%" }}>
                     <tbody>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>

@@ -78,10 +78,15 @@ namespace Z_Apps.Models.SystemBase
                 sb.Append("  </url>");
                 sb.Append("\n");
             }
-
             sb.Append("</urlset>");
 
-            var a = sb.ToString();
+            string strSitemap = sb.ToString();
+
+            await storageService.UploadAndOverwriteFileAsync(strSitemap, "appsPublic/sitemap.xml");
+
+            //backup
+            DateTime dt = DateTime.Now;
+            await storageBkService.UploadAndOverwriteFileAsync(strSitemap, "lingual-storage-bk/sitemap/" + dt.ToString("yyyy-MM") + "-sitemap.xml");
 
             return true;
         }
