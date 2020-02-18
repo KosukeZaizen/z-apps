@@ -29,12 +29,7 @@ namespace Z_Apps.Models.SystemBase
         {
             var listResult = new List<Dictionary<string, string>>();
 
-            string resultXML = "";
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
-                resultXML = await response.Content.ReadAsStringAsync();
-            }
+            var resultXML = await GetSiteMapText();
 
 
             XElement xmlTree = XElement.Parse(resultXML);
@@ -52,8 +47,26 @@ namespace Z_Apps.Models.SystemBase
             return listResult;
         }
 
-        public async Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
+        public async Task<string> GetSiteMapText()
         {
+            string resultXML = "";
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
+                resultXML = await response.Content.ReadAsStringAsync();
+            }
+            return resultXML;
+        }
+
+            public async Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
+        {
+            //backup
+            var previousXML = await GetSiteMapText();
+            DateTime dt = DateTime.Now;
+            await storageBkService.UploadAndOverwriteFileAsync(previousXML, "lingual-storage-bk/sitemap/" + dt.ToString("yyyy-MM") + "-sitemap.xml");
+
+
+            //register new sitemap
             StringBuilder sb = new StringBuilder();
             sb.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sb.Append("\n");
@@ -81,12 +94,7 @@ namespace Z_Apps.Models.SystemBase
             sb.Append("</urlset>");
 
             string strSitemap = sb.ToString();
-
             await storageService.UploadAndOverwriteFileAsync(strSitemap, "appsPublic/sitemap.xml");
-
-            //backup
-            DateTime dt = DateTime.Now;
-            await storageBkService.UploadAndOverwriteFileAsync(strSitemap, "lingual-storage-bk/sitemap/" + dt.ToString("yyyy-MM") + "-sitemap.xml");
 
             return true;
         }
