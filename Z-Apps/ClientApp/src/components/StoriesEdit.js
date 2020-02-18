@@ -199,6 +199,19 @@ class StoriesEdit extends React.Component {
                         >
                             <b>Register</b>
                         </button>
+                        "　"
+                        <a
+                            href="/sitemapEdit"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <button
+                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
+                                className="btn btn-dark btn-xs"
+                            >
+                                <b>Sitemap</b>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </center>

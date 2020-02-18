@@ -42,5 +42,16 @@ namespace Z_Apps.Models.SystemBase
             }
             return true;
         }
+
+        public async Task<bool> UploadAndOverwriteFileAsync(string content, string filePath)
+        {
+            //upload
+            //アップロード後のファイル名を指定（無くてよい）
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(filePath);
+
+            //アップロード処理
+            await blockBlob.UploadTextAsync(content);
+            return true;
+        }
     }
 }
