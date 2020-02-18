@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as commonFnc from './common/functions';
 import * as consts from './common/consts';
 
 export default class SiteMapEdit extends React.Component {
@@ -9,15 +10,25 @@ export default class SiteMapEdit extends React.Component {
     constructor(props) {
         super(props);
 
-        const { params } = props.match;
+        //セーブデータがあればそれを設定
+        const saveData = localStorage.getItem("folktales-register-token");
+        const objSaveData = JSON.parse(saveData);
+
+        let token;
+        if (objSaveData) {
+            token = objSaveData.token || "";
+        } else {
+            token = "";
+        }
+
         this.state = {
             sitemap: [],
+            token: token,
         };
 
         this.screenHeight = parseInt(window.innerHeight, 10);
 
         this.loadSitemap();
-        //this.props.setInitialToken();
     }
 
     loadSitemap = async () => {
@@ -56,6 +67,27 @@ export default class SiteMapEdit extends React.Component {
         console.log(s);
 
         this.setState({ sitemap: s });
+    }
+
+    register = async () => {
+        try {
+            if (window.confirm('Are you sure that you want to save?')) {
+                const { sitemap, token } = this.state;
+                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+
+                const result = await commonFnc.sendPost({ sitemap, token }, "api/SiteMapEdit/RegisterSiteMap");
+
+                if (result) {
+                    alert("Success to save!");
+                } else {
+                    alert("Failed to save...");
+                }
+            }
+        } catch (e) {
+            console.log(e);
+            alert("Error!");
+            alert("Error!");
+        }
     }
 
     render() {
