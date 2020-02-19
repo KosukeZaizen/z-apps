@@ -13,8 +13,8 @@ namespace Z_Apps.Models.Stories
     public class Service
     {
 
-        private DBCon con;
-        public Service(DBCon con)
+        private IDBCon con;
+        public Service(IDBCon con)
         {
             this.con = con;
         }

@@ -9,8 +9,8 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
 {
     public class SentenceEditManager
     {
-        private DBCon Con;
-        public SentenceEditManager(DBCon con)
+        private IDBCon Con;
+        public SentenceEditManager(IDBCon con)
         {
             Con = con;
         }

@@ -36,11 +36,13 @@ namespace Z_Apps
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services.AddSingleton<IDBCon, DBCon>();
+
             services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDBCon con)
         {
             if (env.IsDevelopment())
             {
@@ -65,7 +67,7 @@ namespace Z_Apps
                 if (url.EndsWith("sitemap.xml"))
                 {
                     logger.LogWarning("sitemap.xml");
-                    var siteMapService = new SiteMapService();
+                    var siteMapService = new SiteMapService(con);
                     string resultXML = await siteMapService.GetSiteMapText();
                     logger.LogWarning(resultXML);
 
@@ -104,7 +106,7 @@ namespace Z_Apps
                         {
                             string storyName = url.Split("folktales/")[1].Replace("/", "");
 
-                            var storyManager = new StoryManager(new DBCon());
+                            var storyManager = new StoryManager(con);
                             var story = storyManager.GetStory(storyName);
                             var description = story?.Description.Replace("\\n", " ").Replace("\'", "&#39;");
                             var title = storyName.Replace("--", " - ").Replace("_", " ");

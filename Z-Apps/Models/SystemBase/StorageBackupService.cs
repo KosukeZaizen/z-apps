@@ -12,8 +12,11 @@ namespace Z_Apps.Models.SystemBase
     public class StorageBackupService
     {
         private readonly CloudBlobContainer container;
-        public StorageBackupService()
+        private readonly IDBCon con;
+        public StorageBackupService(IDBCon con)
         {
+            this.con = con;
+
             //storageAccountの作成（接続情報の定義）
             //アカウントネームやキー情報はAzureポータルから確認できる。
             var accountName = PrivateConsts.STORAGE_BK_ACCOUNT_NAME;
@@ -43,7 +46,7 @@ namespace Z_Apps.Models.SystemBase
 
         public async Task<bool> MakeBackup()
         {
-            var dbUtil = new DB_Util(new DBCon());
+            var dbUtil = new DB_Util(con);
             var tableNames = dbUtil.GetAllTableNames();
 
             foreach (string tableName in tableNames)

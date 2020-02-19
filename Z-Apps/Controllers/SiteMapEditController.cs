@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Z_Apps.Models;
 using Z_Apps.Models.SystemBase;
 using Z_Apps.Util;
 
@@ -10,9 +11,9 @@ namespace Z_Apps.Controllers
     public class SiteMapEditController : Controller
     {
         private readonly SiteMapService service;
-        public SiteMapEditController()
+        public SiteMapEditController(IDBCon con)
         {
-            service = new SiteMapService();
+            service = new SiteMapService(con);
         }
 
         [HttpGet("[action]/")]

@@ -4,8 +4,8 @@ using Z_Apps.Models;
 
 public class DB_Util
 {
-    private DBCon con;
-    public DB_Util(DBCon con)
+    private IDBCon con;
+    public DB_Util(IDBCon con)
     {
         this.con = con;
     }

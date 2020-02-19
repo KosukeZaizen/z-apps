@@ -21,9 +21,9 @@ namespace Z_Apps.Controllers
     public class StoriesEditController : Controller
     {
         private EditService service;
-        public StoriesEditController()
+        public StoriesEditController(IDBCon con)
         {
-            service = new EditService(new DBCon());
+            service = new EditService(con);
         }
 
         [HttpGet("[action]/")]

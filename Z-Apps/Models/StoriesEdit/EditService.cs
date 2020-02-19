@@ -18,8 +18,8 @@ namespace Z_Apps.Models.StoriesEdit
     public class EditService
     {
 
-        private DBCon con;
-        public EditService(DBCon con)
+        private IDBCon con;
+        public EditService(IDBCon con)
         {
             this.con = con;
         }

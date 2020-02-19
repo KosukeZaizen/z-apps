@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Z_Apps.Util;
 using System.Data;
 
 namespace Z_Apps.Models
 {
-    public class DBCon
+    public interface IDBCon
+    {
+        List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams);
+
+        bool ExecuteUpdate(string sql, Dictionary<string, object[]> dicParams);
+    }
+
+    public class DBCon: IDBCon
     {
         public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams)
         {

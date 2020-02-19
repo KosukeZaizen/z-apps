@@ -9,8 +9,8 @@ namespace Z_Apps.Models.Stories.Words
 {
     public class WordManager
     {
-        private DBCon Con;
-        public WordManager(DBCon con)
+        private IDBCon Con;
+        public WordManager(IDBCon con)
         {
             Con = con;
         }

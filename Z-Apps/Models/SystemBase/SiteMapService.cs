@@ -14,10 +14,10 @@ namespace Z_Apps.Models.SystemBase
         private readonly StorageService storageService;
         private readonly StorageBackupService storageBkService;
 
-        public SiteMapService()
+        public SiteMapService(IDBCon con)
         {
             storageService = new StorageService();
-            storageBkService = new StorageBackupService();
+            storageBkService = new StorageBackupService(con);
         }
 
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap()

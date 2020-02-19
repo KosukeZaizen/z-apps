@@ -16,9 +16,9 @@ namespace Z_Apps.Controllers
     public class StoriesController : Controller
     {
         private Service service;
-        public StoriesController()
+        public StoriesController(IDBCon con)
         {
-            service = new Service(new DBCon());
+            service = new Service(con);
         }
 
         [HttpGet("[action]/")]
