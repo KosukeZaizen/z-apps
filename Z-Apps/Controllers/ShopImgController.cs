@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage;
 using Z_Apps.Util;
 using Z_Apps.Models.SystemBase;
 
@@ -16,10 +10,10 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class ShopImgController : Controller
     {
-        private readonly StorageService storageService;
-        public ShopImgController()
+        private readonly IStorageService storageService;
+        public ShopImgController(IStorageService storageService)
         {
-            storageService = new StorageService();
+            this.storageService = storageService;
         }
 
         [HttpPost("[action]")]

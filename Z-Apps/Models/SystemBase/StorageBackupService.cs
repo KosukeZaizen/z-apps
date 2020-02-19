@@ -9,7 +9,14 @@ using Z_Apps.Util;
 
 namespace Z_Apps.Models.SystemBase
 {
-    public class StorageBackupService
+    public interface IStorageBackupService
+    {
+        Task<bool> UploadAndOverwriteFileAsync(string content, string filePath);
+
+        Task<bool> MakeBackup();
+    }
+
+    public class StorageBackupService: IStorageBackupService
     {
         private readonly CloudBlobContainer container;
         private readonly IDBCon con;

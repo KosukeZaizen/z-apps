@@ -10,17 +10,18 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class SystemBaseController : Controller
     {
-        private readonly LogService service;
-        private readonly IDBCon con;
-        public SystemBaseController(ILogger<LogService> logger, IDBCon con)
+        private readonly LogService logService;
+        private readonly IStorageBackupService storageBkService;
+        public SystemBaseController(ILogger<LogService> logger, IStorageBackupService storageBkService)
         {
-            service = new LogService(logger);
+            logService = new LogService(logger);
+            this.storageBkService = storageBkService;
         }
 
         [HttpPost("[action]")]
         public string RegisterAccessLog([FromBody] DataToBeRegistered data)
         {
-            string result = service.RegisterAccessLog(data);
+            string result = logService.RegisterAccessLog(data);
             return result;
         }
         public class DataToBeRegistered
@@ -35,8 +36,7 @@ namespace Z_Apps.Controllers
         {
             if (data.token == PrivateConsts.REGISTER_PASS)
             {
-                var storageBk = new StorageBackupService(con);
-                bool x = await storageBk.MakeBackup();
+                bool x = await storageBkService.MakeBackup();
             }
         }
         public class ReceivedToken

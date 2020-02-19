@@ -11,9 +11,9 @@ namespace Z_Apps.Controllers
     public class SiteMapEditController : Controller
     {
         private readonly SiteMapService service;
-        public SiteMapEditController(IDBCon con)
+        public SiteMapEditController(IStorageService storageService, IStorageBackupService storageBkService)
         {
-            service = new SiteMapService(con);
+            service = new SiteMapService(storageService, storageBkService);
         }
 
         [HttpGet("[action]/")]
