@@ -17,14 +17,11 @@ namespace Z_Apps
     public class Startup
     {
         private readonly ILogger logger;
-        private readonly IStorageService storageService;
-        private readonly IStorageBackupService storageBkService;
+
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
             this.logger = logger;
-            this.storageService = storageService;
-            this.storageBkService = storageBkService;
         }
 
         public IConfiguration Configuration { get; }
@@ -43,11 +40,12 @@ namespace Z_Apps
             services.AddSingleton<IDBCon, DBCon>();
             services.AddSingleton<IStorageService, StorageService>();
             services.AddSingleton<IStorageBackupService, StorageBackupService>();
+            services.AddSingleton<ISiteMapService, SiteMapService>();
             services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDBCon con)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDBCon con, ISiteMapService siteMapService)
         {
             if (env.IsDevelopment())
             {
@@ -72,7 +70,6 @@ namespace Z_Apps
                 if (url.EndsWith("sitemap.xml"))
                 {
                     logger.LogWarning("sitemap.xml");
-                    var siteMapService = new SiteMapService(storageService, storageBkService);
                     string resultXML = await siteMapService.GetSiteMapText();
                     logger.LogWarning(resultXML);
 

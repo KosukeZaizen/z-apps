@@ -10,16 +10,16 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class SiteMapEditController : Controller
     {
-        private readonly SiteMapService service;
-        public SiteMapEditController(IStorageService storageService, IStorageBackupService storageBkService)
+        private readonly ISiteMapService siteMapService;
+        public SiteMapEditController(ISiteMapService siteMapService)
         {
-            service = new SiteMapService(storageService, storageBkService);
+            this.siteMapService = siteMapService;
         }
 
         [HttpGet("[action]/")]
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap()
         {
-            return await service.GetSiteMap();
+            return await siteMapService.GetSiteMap();
         }
 
         [HttpPost("[action]")]
@@ -28,7 +28,7 @@ namespace Z_Apps.Controllers
             var result = false;
             if (data.token == PrivateConsts.REGISTER_PASS)
             {
-                result = await service.RegisterSitemap(data.sitemap);
+                result = await siteMapService.RegisterSitemap(data.sitemap);
             }
             return result;
         }

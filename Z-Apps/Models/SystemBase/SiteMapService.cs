@@ -9,7 +9,16 @@ using Z_Apps.Util;
 
 namespace Z_Apps.Models.SystemBase
 {
-    public class SiteMapService
+    public interface ISiteMapService
+    {
+        Task<IEnumerable<Dictionary<string, string>>> GetSiteMap();
+
+        Task<string> GetSiteMapText();
+
+        Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems);
+    }
+
+    public class SiteMapService: ISiteMapService
     {
         private readonly IStorageService storageService;
         private readonly IStorageBackupService storageBkService;
