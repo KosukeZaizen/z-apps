@@ -26,7 +26,7 @@ namespace Z_Apps.Models.Stories
         private readonly SentenceManager sentenceManager;
         private readonly WordManager wordManager;
 
-        public StoriesService(IDBCon con)
+        public StoriesService(DBCon con)
         {
             storyManager = new StoryManager(con);
             sentenceManager = new SentenceManager(con);

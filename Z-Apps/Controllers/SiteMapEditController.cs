@@ -9,8 +9,8 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class SiteMapEditController : Controller
     {
-        private readonly ISiteMapService siteMapService;
-        public SiteMapEditController(ISiteMapService siteMapService)
+        private readonly SiteMapService siteMapService;
+        public SiteMapEditController(SiteMapService siteMapService)
         {
             this.siteMapService = siteMapService;
         }

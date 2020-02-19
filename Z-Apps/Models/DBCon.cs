@@ -6,14 +6,7 @@ using System.Data;
 
 namespace Z_Apps.Models
 {
-    public interface IDBCon
-    {
-        List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams);
-
-        bool ExecuteUpdate(string sql, Dictionary<string, object[]> dicParams);
-    }
-
-    public class DBCon: IDBCon
+    public class DBCon
     {
         public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams)
         {

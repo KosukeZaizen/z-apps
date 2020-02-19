@@ -8,14 +8,7 @@ using Z_Apps.Util;
 
 namespace Z_Apps.Models.SystemBase
 {
-    public interface IStorageService
-    {
-        Task<bool> UploadAndOverwriteFileAsync(IFormFile file, string filePath);
-
-        Task<bool> UploadAndOverwriteFileAsync(string content, string filePath);
-    }
-
-    public class StorageService: IStorageService
+    public class StorageService
     {
         private readonly CloudBlobContainer container;
         public StorageService()

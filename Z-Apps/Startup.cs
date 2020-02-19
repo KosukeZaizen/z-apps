@@ -39,10 +39,14 @@ namespace Z_Apps
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddSingleton<IDBCon, DBCon>();
-            services.AddSingleton<IStorageService, StorageService>();
-            services.AddSingleton<IStorageBackupService, StorageBackupService>();
-            services.AddSingleton<ISiteMapService, SiteMapService>();
+            var con = new DBCon();
+            var storageService = new StorageService();
+            var storageBackupService = new StorageBackupService(con);
+
+            services.AddSingleton(con);
+            services.AddSingleton(storageService);
+            services.AddSingleton(storageBackupService);
+            services.AddSingleton(new SiteMapService(storageService, storageBackupService));
 
             services.AddSingleton<IStoriesService, StoriesService>();
             services.AddSingleton<IStoriesEditService, StoriesEditService>();
@@ -51,7 +55,7 @@ namespace Z_Apps
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDBCon con, ISiteMapService siteMapService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DBCon con, SiteMapService siteMapService)
         {
             if (env.IsDevelopment())
             {

@@ -45,7 +45,7 @@ namespace Z_Apps.Models.StoriesEdit
         private readonly SentenceEditManager sentenceEditManager;
         private readonly WordEditManager wordEditManager;
 
-        public StoriesEditService(IDBCon con)
+        public StoriesEditService(DBCon con)
         {
             storyEditManager = new StoryEditManager(con);
             sentenceEditManager = new SentenceEditManager(con);

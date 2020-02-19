@@ -19,8 +19,8 @@ namespace Z_Apps.Models.SystemBase
     public class StorageBackupService: IStorageBackupService
     {
         private readonly CloudBlobContainer container;
-        private readonly IDBCon con;
-        public StorageBackupService(IDBCon con)
+        private readonly DBCon con;
+        public StorageBackupService(DBCon con)
         {
             this.con = con;
 

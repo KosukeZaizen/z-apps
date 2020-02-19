@@ -10,8 +10,8 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class ShopImgController : Controller
     {
-        private readonly IStorageService storageService;
-        public ShopImgController(IStorageService storageService)
+        private readonly StorageService storageService;
+        public ShopImgController(StorageService storageService)
         {
             this.storageService = storageService;
         }
