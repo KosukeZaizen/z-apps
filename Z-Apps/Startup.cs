@@ -48,8 +48,8 @@ namespace Z_Apps
             services.AddSingleton(storageBackupService);
             services.AddSingleton(new SiteMapService(storageService, storageBackupService));
 
-            services.AddSingleton<IStoriesService, StoriesService>();
-            services.AddSingleton<IStoriesEditService, StoriesEditService>();
+            services.AddSingleton(new StoriesService(con));
+            services.AddSingleton(new StoriesEditService(con));
 
             services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }

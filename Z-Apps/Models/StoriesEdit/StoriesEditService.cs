@@ -14,28 +14,7 @@ using static Z_Apps.Models.StoriesEdit.StoriesEditService;
 
 namespace Z_Apps.Models.StoriesEdit
 {
-    public interface IStoriesEditService
-    {
-        IEnumerable<StoryEdit> GetAllStories();
-
-        StoryEdit GetPageData(string storyName);
-
-        IEnumerable<SentenceEdit> GetSentences(int storyId);
-
-        IEnumerable<WordEdit> GetWords(int storyId);
-
-        Task<TranslationResult> Translate(SentenceEdit sentence);
-
-        Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence);
-
-        Task<WordEdit> TranslateWord(WordEdit word);
-
-        bool Save(DataToBeSaved data);
-
-        bool Register(DataToBeRegistered data);
-    }
-
-    public class StoriesEditService: IStoriesEditService
+    public class StoriesEditService
     {
         private readonly StoryManager storyManager;
         private readonly SentenceManager sentenceManager;

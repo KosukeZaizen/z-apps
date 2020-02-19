@@ -10,8 +10,8 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class StoriesController : Controller
     {
-        private IStoriesService storiesService;
-        public StoriesController(IStoriesService storiesService)
+        private StoriesService storiesService;
+        public StoriesController(StoriesService storiesService)
         {
             this.storiesService = storiesService;
         }

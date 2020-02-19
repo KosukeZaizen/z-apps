@@ -7,20 +7,7 @@ using Z_Apps.Models.Stories.Words;
 
 namespace Z_Apps.Models.Stories
 {
-    public interface IStoriesService
-    {
-        IEnumerable<Story> GetAllStories();
-
-        IEnumerable<Story> GetOtherStories(int storyId);
-
-        Story GetPageData(string storyName);
-
-        IEnumerable<Sentence> GetSentences(int storyId);
-
-        IEnumerable<Word> GetWords(int storyId);
-    }
-
-    public class StoriesService: IStoriesService
+    public class StoriesService
     {
         private readonly StoryManager storyManager;
         private readonly SentenceManager sentenceManager;
