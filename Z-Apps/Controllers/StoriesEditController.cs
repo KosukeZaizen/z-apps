@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Z_Apps.Models;
-using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
-using static Z_Apps.Models.StoriesEdit.EditService;
+using static Z_Apps.Models.StoriesEdit.StoriesEditService;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.StoriesEdit.SentencesEdit;
 using Z_Apps.Models.StoriesEdit.StoriesEdit;
@@ -20,17 +15,16 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class StoriesEditController : Controller
     {
-        private EditService service;
-        public StoriesEditController(IDBCon con)
+        private IStoriesEditService storiesEditService;
+        public StoriesEditController(IStoriesEditService storiesEditService)
         {
-            service = new EditService(con);
+            this.storiesEditService = storiesEditService;
         }
 
         [HttpGet("[action]/")]
         public IEnumerable<StoryEdit> GetAllStories()
         {
-            var stories = service.GetAllStories();
-            return stories;
+            return storiesEditService.GetAllStories();
         }
 
         [HttpGet("[action]/{storyName?}")]
@@ -38,8 +32,7 @@ namespace Z_Apps.Controllers
         {
             if (!string.IsNullOrEmpty(storyName))
             {
-                var story = service.GetPageData(storyName);
-                return story;
+                return storiesEditService.GetPageData(storyName);
             }
             else
             {
@@ -52,8 +45,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var sentences = service.GetSentences(storyId);
-                return sentences;
+                return storiesEditService.GetSentences(storyId);
             }
             else
             {
@@ -66,8 +58,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var wordList = service.GetWords(storyId);
-                return wordList;
+                return storiesEditService.GetWords(storyId);
             }
             else
             {
@@ -78,22 +69,19 @@ namespace Z_Apps.Controllers
         [HttpPost("[action]")]
         public async Task<TranslationResult> Translate([FromBody] SentenceEdit sentence)
         {
-            var result = await service.Translate(sentence);
-            return result;
+            return await storiesEditService.Translate(sentence);
         }
 
         [HttpPost("[action]")]
         public async Task<WordEdit> TranslateWord([FromBody] WordEdit word)
         {
-            var result = await service.TranslateWord(word);
-            return result;
+            return await storiesEditService.TranslateWord(word);
         }
 
         [HttpPost("[action]")]
         public bool Save([FromBody] DataToBeSaved data)
         {
-            var result = service.Save(data);
-            return result;
+            return storiesEditService.Save(data);
         }
         public class DataToBeSaved
         {
@@ -106,8 +94,7 @@ namespace Z_Apps.Controllers
         [HttpPost("[action]")]
         public bool Register([FromBody] DataToBeRegistered data)
         {
-            var result = service.Register(data);
-            return result;
+            return storiesEditService.Register(data);
         }
         public class DataToBeRegistered
         {

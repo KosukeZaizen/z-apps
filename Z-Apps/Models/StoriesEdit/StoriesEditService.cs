@@ -10,43 +10,73 @@ using Z_Apps.Util;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static Z_Apps.Controllers.StoriesEditController;
+using static Z_Apps.Models.StoriesEdit.StoriesEditService;
 
 namespace Z_Apps.Models.StoriesEdit
 {
-    public class EditService
+    public interface IStoriesEditService
     {
+        IEnumerable<StoryEdit> GetAllStories();
 
-        private IDBCon con;
-        public EditService(IDBCon con)
+        StoryEdit GetPageData(string storyName);
+
+        IEnumerable<SentenceEdit> GetSentences(int storyId);
+
+        IEnumerable<WordEdit> GetWords(int storyId);
+
+        Task<TranslationResult> Translate(SentenceEdit sentence);
+
+        Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence);
+
+        Task<WordEdit> TranslateWord(WordEdit word);
+
+        bool Save(DataToBeSaved data);
+
+        bool Register(DataToBeRegistered data);
+    }
+
+    public class StoriesEditService: IStoriesEditService
+    {
+        private readonly StoryManager storyManager;
+        private readonly SentenceManager sentenceManager;
+        private readonly WordManager wordManager;
+
+        private readonly StoryEditManager storyEditManager;
+        private readonly SentenceEditManager sentenceEditManager;
+        private readonly WordEditManager wordEditManager;
+
+        public StoriesEditService(IDBCon con)
         {
-            this.con = con;
+            storyEditManager = new StoryEditManager(con);
+            sentenceEditManager = new SentenceEditManager(con);
+            wordEditManager = new WordEditManager(con);
+
+            storyManager = new StoryManager(con);
+            sentenceManager = new SentenceManager(con);
+            wordManager = new WordManager(con);
         }
 
         public IEnumerable<StoryEdit> GetAllStories()
         {
-            var stm = new StoryEditManager(con);
-            var stories = stm.GetAllStories();
+            var stories = storyEditManager.GetAllStories();
             return stories;
         }
 
         public StoryEdit GetPageData(string storyName)
         {
-            var stm = new StoryEditManager(con);
-            var story = stm.GetStory(storyName);
+            var story = storyEditManager.GetStory(storyName);
             return story;
         }
 
         public IEnumerable<SentenceEdit> GetSentences(int storyId)
         {
-            var sem = new SentenceEditManager(con);
-            var sentences = sem.GetSentences(storyId);
+            var sentences = sentenceEditManager.GetSentences(storyId);
             return sentences;
         }
 
         public IEnumerable<WordEdit> GetWords(int storyId)
         {
-            var wm = new WordEditManager(con);
-            var words = wm.GetWords(storyId);
+            var words = wordEditManager.GetWords(storyId);
             return words;
         }
 
@@ -74,7 +104,6 @@ namespace Z_Apps.Models.StoriesEdit
 
         public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence)
         {
-            var wm = new WordEditManager(con);
             var lstWords = new List<WordEdit>();
 
             var arrHiragana = dicHiraganaKanji["hiragana"]
@@ -99,7 +128,7 @@ namespace Z_Apps.Models.StoriesEdit
                     w.WordNumber = j;
                     w.Kanji = arrKanji[i];
 
-                    var dicWord = wm.GetWordMeaning(w.Kanji);
+                    var dicWord = wordEditManager.GetWordMeaning(w.Kanji);
                     if (dicWord.Count > 0)
                     {
                         w.Hiragana = (string)dicWord["Hiragana"];
@@ -242,8 +271,7 @@ namespace Z_Apps.Models.StoriesEdit
 
         public async Task<WordEdit> TranslateWord(WordEdit word)
         {
-            var wm = new WordEditManager(con);
-            var dicWord = wm.GetWordMeaning(word.Kanji);
+            var dicWord = wordEditManager.GetWordMeaning(word.Kanji);
             if (dicWord.Count > 0)
             {
                 word.Hiragana = (string)dicWord["Hiragana"];
@@ -266,15 +294,11 @@ namespace Z_Apps.Models.StoriesEdit
             {
                 if (data.token == PrivateConsts.REGISTER_PASS)
                 {
-                    var stm = new StoryEditManager(con);
-                    var sem = new SentenceEditManager(con);
-                    var wm = new WordEditManager(con);
-
-                    if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+                    if (storyEditManager.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
                     {
-                        if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                        if (sentenceEditManager.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                         {
-                            if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                            if (wordEditManager.DeleteInsertWords(data.storyDesc.StoryId, data.words))
                             {
                                 return true;
                             }
@@ -295,15 +319,11 @@ namespace Z_Apps.Models.StoriesEdit
             {
                 if (data.token == PrivateConsts.REGISTER_PASS)
                 {
-                    var stm = new StoryManager(con);
-                    var sem = new SentenceManager(con);
-                    var wm = new WordManager(con);
-
-                    if (stm.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName, data.storyDesc.Description))
+                    if (storyManager.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName, data.storyDesc.Description))
                     {
-                        if (sem.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
+                        if (sentenceManager.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
                         {
-                            if (wm.DeleteInsertWords(data.storyDesc.StoryId, data.words))
+                            if (wordManager.DeleteInsertWords(data.storyDesc.StoryId, data.words))
                             {
                                 return true;
                             }
