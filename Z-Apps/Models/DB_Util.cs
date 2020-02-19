@@ -29,7 +29,7 @@ public class DB_Util
         return tableNames;
     }
 
-    public new List<Dictionary<string, object>> GetAllDataFromOneTable(string tableName)
+    public List<Dictionary<string, object>> GetAllDataFromOneTable(string tableName)
     {
         //SQL文作成
         string sql = "SELECT *";
