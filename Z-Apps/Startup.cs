@@ -2,7 +2,6 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +11,8 @@ using Z_Apps.Models.Stories.Stories;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
+using Z_Apps.Util;
+using Z_Apps.Models.SystemBase;
 
 namespace Z_Apps
 {
@@ -66,14 +67,11 @@ namespace Z_Apps
                 if (url.EndsWith("sitemap.xml"))
                 {
                     logger.LogWarning("sitemap.xml");
-                    using (var client = new HttpClient())
-                    {
-                        var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
-                        string resultXML = await response.Content.ReadAsStringAsync();
+                    var siteMapService = new SiteMapService();
+                    string resultXML = await siteMapService.GetSiteMapText();
+                    logger.LogWarning(resultXML);
 
-                        logger.LogWarning(resultXML);
-                        await context.Response.WriteAsync(resultXML);
-                    }
+                    await context.Response.WriteAsync(resultXML);
                 }
                 else if (ua.StartsWith("facebookexternalhit"))
                 {

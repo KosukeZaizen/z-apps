@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Z_Apps.Util;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -46,7 +47,7 @@ namespace Z_Apps.Models.SystemBase
             string resultXML = "";
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(@"https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/sitemap.xml");
+                var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
             }
             return resultXML;
