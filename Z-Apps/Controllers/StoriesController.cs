@@ -1,10 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Z_Apps.Models;
 using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
@@ -15,17 +10,16 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class StoriesController : Controller
     {
-        private IStoriesService storyService;
+        private IStoriesService storiesService;
         public StoriesController(IStoriesService storiesService)
         {
-            this.storyService = storiesService;
+            this.storiesService = storiesService;
         }
 
         [HttpGet("[action]/")]
         public IEnumerable<Story> GetAllStories()
         {
-                var stories = storyService.GetAllStories();
-                return stories;
+            return storiesService.GetAllStories();
         }
 
         [HttpGet("[action]/{storyId?}")]
@@ -33,8 +27,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var stories = storyService.GetOtherStories(storyId);
-                return stories;
+                return storiesService.GetOtherStories(storyId);
             }
             else
             {
@@ -47,8 +40,7 @@ namespace Z_Apps.Controllers
         {
             if (!string.IsNullOrEmpty(storyName))
             {
-                var story = storyService.GetPageData(storyName);
-                return story;
+                return storiesService.GetPageData(storyName);
             }
             else
             {
@@ -61,8 +53,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var sentences = storyService.GetSentences(storyId);
-                return sentences;
+                return storiesService.GetSentences(storyId);
             }
             else
             {
@@ -75,8 +66,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var wordList = storyService.GetWords(storyId);
-                return wordList;
+                return storiesService.GetWords(storyId);
             }
             else
             {
