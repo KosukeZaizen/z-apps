@@ -15,16 +15,16 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class StoriesController : Controller
     {
-        private Service service;
-        public StoriesController(IDBCon con)
+        private IStoriesService storyService;
+        public StoriesController(IStoriesService storyService)
         {
-            service = new Service(con);
+            this.storyService = storyService;
         }
 
         [HttpGet("[action]/")]
         public IEnumerable<Story> GetAllStories()
         {
-                var stories = service.GetAllStories();
+                var stories = storyService.GetAllStories();
                 return stories;
         }
 
@@ -33,7 +33,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var stories = service.GetOtherStories(storyId);
+                var stories = storyService.GetOtherStories(storyId);
                 return stories;
             }
             else
@@ -47,7 +47,7 @@ namespace Z_Apps.Controllers
         {
             if (!string.IsNullOrEmpty(storyName))
             {
-                var story = service.GetPageData(storyName);
+                var story = storyService.GetPageData(storyName);
                 return story;
             }
             else
@@ -61,7 +61,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var sentences = service.GetSentences(storyId);
+                var sentences = storyService.GetSentences(storyId);
                 return sentences;
             }
             else
@@ -75,7 +75,7 @@ namespace Z_Apps.Controllers
         {
             if (storyId > 0)
             {
-                var wordList = service.GetWords(storyId);
+                var wordList = storyService.GetWords(storyId);
                 return wordList;
             }
             else

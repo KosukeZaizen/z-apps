@@ -11,6 +11,7 @@ using Z_Apps.Models.Stories.Stories;
 using Microsoft.Extensions.Logging;
 using System;
 using Z_Apps.Models.SystemBase;
+using Z_Apps.Models.Stories;
 
 namespace Z_Apps
 {
@@ -41,6 +42,9 @@ namespace Z_Apps
             services.AddSingleton<IStorageService, StorageService>();
             services.AddSingleton<IStorageBackupService, StorageBackupService>();
             services.AddSingleton<ISiteMapService, SiteMapService>();
+
+            services.AddSingleton<IStoriesService, StoriesService>();
+
             services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }
 

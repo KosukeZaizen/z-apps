@@ -4,25 +4,38 @@ using System.Linq;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
-using Z_Apps.Util;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Z_Apps.Models.Stories
 {
-    public class Service
+    public interface IStoriesService
     {
+        IEnumerable<Story> GetAllStories();
 
-        private IDBCon con;
-        public Service(IDBCon con)
+        IEnumerable<Story> GetOtherStories(int storyId);
+
+        Story GetPageData(string storyName);
+
+        IEnumerable<Sentence> GetSentences(int storyId);
+
+        IEnumerable<Word> GetWords(int storyId);
+    }
+
+    public class StoriesService: IStoriesService
+    {
+        private readonly StoryManager storyManager;
+        private readonly SentenceManager sentenceManager;
+        private readonly WordManager wordManager;
+
+        public StoriesService(IDBCon con)
         {
-            this.con = con;
+            storyManager = new StoryManager(con);
+            sentenceManager = new SentenceManager(con);
+            wordManager = new WordManager(con);
         }
 
         public IEnumerable<Story> GetAllStories()
         {
-            var stm = new StoryManager(con);
-            var stories = stm.GetAllStories();
+            var stories = storyManager.GetAllStories();
             return stories;
         }
 
@@ -69,22 +82,19 @@ namespace Z_Apps.Models.Stories
 
         public Story GetPageData(string storyName)
         {
-            var stm = new StoryManager(con);
-            var story = stm.GetStory(storyName);
+            var story = storyManager.GetStory(storyName);
             return story;
         }
 
         public IEnumerable<Sentence> GetSentences(int storyId)
         {
-            var sem = new SentenceManager(con);
-            var sentences = sem.GetSentences(storyId);
+            var sentences = sentenceManager.GetSentences(storyId);
             return sentences;
         }
 
         public IEnumerable<Word> GetWords(int storyId)
         {
-            var wm = new WordManager(con);
-            var words = wm.GetWords(storyId);
+            var words = wordManager.GetWords(storyId);
             return words;
         }
     }
