@@ -4,7 +4,7 @@ using Z_Apps.Models;
 
 public class DB_Util
 {
-    private IDBCon con;
+    private readonly IDBCon con;
     public DB_Util(IDBCon con)
     {
         this.con = con;

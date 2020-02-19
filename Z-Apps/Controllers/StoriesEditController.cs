@@ -15,7 +15,7 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class StoriesEditController : Controller
     {
-        private IStoriesEditService storiesEditService;
+        private readonly IStoriesEditService storiesEditService;
         public StoriesEditController(IStoriesEditService storiesEditService)
         {
             this.storiesEditService = storiesEditService;

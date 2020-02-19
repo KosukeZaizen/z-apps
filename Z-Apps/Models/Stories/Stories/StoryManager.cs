@@ -9,7 +9,7 @@ namespace Z_Apps.Models.Stories.Stories
 {
     public class StoryManager
     {
-        private IDBCon Con;
+        private readonly IDBCon Con;
         public StoryManager(IDBCon con)
         {
             Con = con;
