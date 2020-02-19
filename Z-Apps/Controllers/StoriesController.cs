@@ -16,9 +16,9 @@ namespace Z_Apps.Controllers
     public class StoriesController : Controller
     {
         private IStoriesService storyService;
-        public StoriesController(IStoriesService storyService)
+        public StoriesController(IStoriesService storiesService)
         {
-            this.storyService = storyService;
+            this.storyService = storiesService;
         }
 
         [HttpGet("[action]/")]
