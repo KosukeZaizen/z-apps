@@ -47,7 +47,6 @@ namespace Z_Apps
             services.AddSingleton(storageService);
             services.AddSingleton(storageBackupService);
             services.AddSingleton(new SiteMapService(storageService, storageBackupService));
-
             services.AddSingleton(new StoriesService(con));
             services.AddSingleton(new StoriesEditService(con));
 
