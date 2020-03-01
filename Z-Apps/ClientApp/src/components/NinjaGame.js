@@ -73,6 +73,8 @@ class NinjaGame extends React.Component {
             height: "100%",
             backgroundColor: "black",
             zIndex: 9999999,
+            userSelect: "none",
+            touchCallout: "none",
         };
 
         return (
