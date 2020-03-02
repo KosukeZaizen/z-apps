@@ -317,9 +317,9 @@ export default class Page2 extends React.Component {
                 //最後の巻物に触った時のメッセージ
                 KOSUKE_SCROLL_TITLE: "おめでとう！",
                 KOSUKE_SCROLL_MESSAGE:
-                    "全クリおめでとう！\n" +
+                    "クリアおめでとう！\n" +
                     "これで君も立派な忍者だ！\n" +
-                    "このゲームで遊んでくれて、ありがとう！",
+                    "次の章では、雪山の村を救おう！",
             };
 
         } else {
