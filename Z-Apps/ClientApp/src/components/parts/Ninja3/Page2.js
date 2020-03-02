@@ -148,6 +148,11 @@ export default class Page2 extends React.Component {
                 this.jButton = false;
             }
 
+            if (this.closeButton === true) {
+                //巻物を閉じる（Enterキー等押下時）
+                this.closeScroll = true;
+            }
+
             //重力加速度
             this.ninja.speedY += this.ninja.inWater ? 1.1 * TIME_STEP : 2.1 * TIME_STEP;
 

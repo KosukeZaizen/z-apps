@@ -97,6 +97,8 @@ export const setKeyboardEvent = function (objGame) {
             keyType = "jump";
         } else if (keyCode === 32) {
             keyType = "jump";
+        } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            keyType = "close";
         }
         objGame.onClickButton(keyType);
     };
@@ -118,6 +120,8 @@ export const setKeyboardEvent = function (objGame) {
             keyType = "jump";
         } else if (keyCode === 32) {
             keyType = "jump";
+        } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            keyType = "close";
         }
         objGame.onMouseUp(keyType);
     };
@@ -135,6 +139,9 @@ export const onClickButton = function (btnType) {
     } else if (btnType === "jump") {
         //jumpボタン押下判定
         this.jButton = true;
+    } else if (btnType === "close") {
+        //closeキー押下判定（Enter、Delete等）
+        this.closeButton = true;
     }
 }
 //ボタン押下終了時処理
@@ -145,6 +152,9 @@ export const onMouseUp = function (btnType) {
     } else if (btnType === "right") {
         //→ボタン押下判定
         this.rButton = false;
+    } else if (btnType === "close") {
+        //closeキー押下判定（Enter、Delete等）
+        this.closeButton = false;
     }
 }
 

@@ -503,6 +503,11 @@ export default class Page2 extends React.Component {
                 this.jButton = false;
             }
 
+            if (this.closeButton === true) {
+                //巻物を閉じる（Enterキー等押下時）
+                this.closeScroll = true;
+            }
+
             //重力加速度
             this.ninja.speedY += this.ninja.inWater ? 1.1 : 2.1;
 
@@ -697,6 +702,8 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
+            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+                keyType = "close";
             }
             objGame.onClickButton(keyType);
         };
@@ -718,6 +725,8 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
+            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+                keyType = "close";
             }
             objGame.onMouseUp(keyType);
         };
@@ -734,6 +743,9 @@ export default class Page2 extends React.Component {
         } else if (btnType === "jump") {
             //jumpボタン押下判定
             this.jButton = true;
+        } else if (btnType === "close") {
+            //closeキー押下判定（Enter、Delete等）
+            this.closeButton = true;
         }
     }
     //ボタン押下終了時処理
@@ -744,6 +756,9 @@ export default class Page2 extends React.Component {
         } else if (btnType === "right") {
             //→ボタン押下判定
             this.rButton = false;
+        } else if (btnType === "close") {
+            //closeキー押下判定（Enter、Delete等）
+            this.closeButton = false;
         }
     }
 
