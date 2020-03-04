@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import '../css/RomajiConverter.css';
 import FB from './parts/FaceBook';
 import Head from './parts/Helmet';

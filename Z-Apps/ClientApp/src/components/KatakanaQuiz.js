@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 import FB from './parts/FaceBook';

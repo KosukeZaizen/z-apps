@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主人公）
 import { Obj } from './objs/obj';//オブジェクト描画

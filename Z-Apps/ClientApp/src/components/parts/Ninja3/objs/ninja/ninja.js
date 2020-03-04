@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import runningNinja from './../../../Ninja/objs/ninja/ninja_hashiru.png';
 
 

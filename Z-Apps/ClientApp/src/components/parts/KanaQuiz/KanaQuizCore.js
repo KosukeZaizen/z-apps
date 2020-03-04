@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Quiz1 } from './KanaQuiz1';
 import { Quiz2 } from './KanaQuiz2';
 import { Quiz3 } from './KanaQuiz3';

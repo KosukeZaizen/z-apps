@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import './PleaseScrollDown.css';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import '../css/Terms.css';
 import img404 from '../img/404.png';
 import { Link } from 'react-router-dom';

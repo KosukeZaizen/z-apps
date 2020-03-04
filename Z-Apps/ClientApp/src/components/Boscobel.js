@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Head from './parts/Helmet';
 
 export default class Boscobel extends React.Component {

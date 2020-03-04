@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import logo from './img/logo.png';
 
 export default class Page1 extends React.Component {

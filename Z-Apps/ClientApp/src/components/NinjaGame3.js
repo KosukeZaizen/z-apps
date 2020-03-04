@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Page1 } from './parts/Ninja3/Page1';
 import { Page2 } from './parts/Ninja3/Page2';
 import * as Consts from './parts/Ninja3/Consts'

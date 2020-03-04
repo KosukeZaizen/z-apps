@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Page1 } from './parts/Ninja2/Page1';
 import { Page2 } from './parts/Ninja2/Page2';
 import { getParams } from './common/functions';
