@@ -4,14 +4,20 @@ import Head from './parts/Helmet';
 
 class ColorPalette extends React.Component {
 
+    consts: {
+        COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
+        MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
+        MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
+    };
+
+    state: {
+        hue: number,
+        saturation: number,
+        lightness: number,
+    }
+
     constructor(props) {
         super(props);
-
-        this.consts = {
-            COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
-            MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
-            MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
-        }
 
         this.state = {
             hue: 300,
@@ -19,7 +25,6 @@ class ColorPalette extends React.Component {
             lightness: 50,
         };
 
-        this.hueError = "";
         this.onChangeHue = this.onChangeHue.bind(this);
         this.onClickHueBar = this.onClickHueBar.bind(this);
         this.onClickTable = this.onClickTable.bind(this);
@@ -63,8 +68,6 @@ class ColorPalette extends React.Component {
         //数値型に変換
         hue = parseInt(hue, 10);
 
-        this.hueError = hue > 360 ? this.const.MSG_HUE_RANGE_ERROR : "";
-
         this.setState({
             hue: hue,
         });
@@ -102,31 +105,9 @@ class ColorPalette extends React.Component {
             maxWidth: 400,
             margin: 10,
         };
-        let styleHueTable = {
-            maxWidth: 400,
-            height: 30,
-            width: "100%",
-            tableLayout: "fixed",
-            zIndex: 100,
-            marginBottom: 30,
-        };
-        let styleHuePicker = {
-            maxWidth: 400,
-            marginTop: 29,
-            height: 2,
-            zIndex: 150,
-            position: "absolute",
-            top: 0,
-        };
-        let styleSlTable = {
-            maxWidth: 300,
-            height: 280,
-            width: "100%",
-            tableLayout: "fixed",
-        };
 
         return (
-            <center id="color-palette">
+            <div className="center" id="color-palette">
                 <Head
                     title="Color Code Getter"
                     desc="Get your favorite Color Code automatically!"
@@ -170,7 +151,14 @@ class ColorPalette extends React.Component {
                     <label>Click your favorite color!</label><br />
                     <div style={{ position: "relative", }}>
                         {/* 色相グラデーションバー */}
-                        <table style={styleHueTable}>
+                        <table style={{
+                            maxWidth: 400,
+                            height: 30,
+                            width: "100%",
+                            tableLayout: "fixed",
+                            zIndex: 100,
+                            marginBottom: 30,
+                        }}>
                             <tbody>
                                 <tr>
                                     {getHueBar(this.onClickHueBar)}
@@ -185,12 +173,24 @@ class ColorPalette extends React.Component {
                             step="1"
                             value={this.state.hue}
                             onChange={(e) => { this.onChangeHue(e) }}
-                            style={styleHuePicker}
+                            style={{
+                                maxWidth: 400,
+                                marginTop: 29,
+                                height: 2,
+                                zIndex: 150,
+                                position: "absolute",
+                                top: 0,
+                            }}
                         />
                     </div>
                     {/* 2次元テーブル */}
                     <div id="wrapper">
-                        <table style={styleSlTable} className="content">
+                        <table style={{
+                            maxWidth: 300,
+                            height: 280,
+                            width: "100%",
+                            tableLayout: "fixed",
+                        }} className="content">
                             <tbody>
                                 {getSlTable(this.state.hue, this.onClickTable, this.state)}
                             </tbody>
@@ -199,7 +199,7 @@ class ColorPalette extends React.Component {
                 </div>
                 <br />
                 <FB />
-            </center >
+            </div >
         )
     }
 };
@@ -214,7 +214,7 @@ function changeHslToStyle(hue, saturation, lightness) {
 //--------------------------------------------------
 // HSLから背景色付きのtdを返す
 //--------------------------------------------------
-function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, state) {
+function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, state?) {
 
     let booLightness = false;
     let booSaturation = false;
@@ -309,7 +309,7 @@ function changeHslToColorCode(h, s, l) {
 // HSL配列をRGB配列に変換
 //--------------------------------------------------
 function changeHslToRgb(hue, saturation, lightness) {
-    var result = false;
+    var result = null;
 
     if (((hue || hue === 0) && hue <= 360) && ((saturation || saturation === 0) && saturation <= 100) && ((lightness || lightness === 0) && lightness <= 100)) {
         var red = 0,

@@ -30,17 +30,11 @@ var ColorPalette = /** @class */ (function (_super) {
     __extends(ColorPalette, _super);
     function ColorPalette(props) {
         var _this = _super.call(this, props) || this;
-        _this.consts = {
-            COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
-            MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
-            MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
-        };
         _this.state = {
             hue: 300,
             saturation: 90,
             lightness: 50,
         };
-        _this.hueError = "";
         _this.onChangeHue = _this.onChangeHue.bind(_this);
         _this.onClickHueBar = _this.onClickHueBar.bind(_this);
         _this.onClickTable = _this.onClickTable.bind(_this);
@@ -76,7 +70,6 @@ var ColorPalette = /** @class */ (function (_super) {
         hue = (hue).replace(/[^0-9]/g, '');
         //数値型に変換
         hue = parseInt(hue, 10);
-        this.hueError = hue > 360 ? this.const.MSG_HUE_RANGE_ERROR : "";
         this.setState({
             hue: hue,
         });
@@ -109,29 +102,7 @@ var ColorPalette = /** @class */ (function (_super) {
             maxWidth: 400,
             margin: 10,
         };
-        var styleHueTable = {
-            maxWidth: 400,
-            height: 30,
-            width: "100%",
-            tableLayout: "fixed",
-            zIndex: 100,
-            marginBottom: 30,
-        };
-        var styleHuePicker = {
-            maxWidth: 400,
-            marginTop: 29,
-            height: 2,
-            zIndex: 150,
-            position: "absolute",
-            top: 0,
-        };
-        var styleSlTable = {
-            maxWidth: 300,
-            height: 280,
-            width: "100%",
-            tableLayout: "fixed",
-        };
-        return (React.createElement("center", { id: "color-palette" },
+        return (React.createElement("div", { className: "center", id: "color-palette" },
             React.createElement(Helmet_1.default, { title: "Color Code Getter", desc: "Get your favorite Color Code automatically!" }),
             React.createElement("h1", { style: styleTitle }, "Color Code Getter"),
             React.createElement("div", { style: styleContents },
@@ -154,12 +125,31 @@ var ColorPalette = /** @class */ (function (_super) {
                 React.createElement("label", null, "Click your favorite color!"),
                 React.createElement("br", null),
                 React.createElement("div", { style: { position: "relative", } },
-                    React.createElement("table", { style: styleHueTable },
+                    React.createElement("table", { style: {
+                            maxWidth: 400,
+                            height: 30,
+                            width: "100%",
+                            tableLayout: "fixed",
+                            zIndex: 100,
+                            marginBottom: 30,
+                        } },
                         React.createElement("tbody", null,
                             React.createElement("tr", null, getHueBar(this.onClickHueBar)))),
-                    React.createElement("input", { type: "range", min: "0", max: "360", step: "1", value: this.state.hue, onChange: function (e) { _this.onChangeHue(e); }, style: styleHuePicker })),
+                    React.createElement("input", { type: "range", min: "0", max: "360", step: "1", value: this.state.hue, onChange: function (e) { _this.onChangeHue(e); }, style: {
+                            maxWidth: 400,
+                            marginTop: 29,
+                            height: 2,
+                            zIndex: 150,
+                            position: "absolute",
+                            top: 0,
+                        } })),
                 React.createElement("div", { id: "wrapper" },
-                    React.createElement("table", { style: styleSlTable, className: "content" },
+                    React.createElement("table", { style: {
+                            maxWidth: 300,
+                            height: 280,
+                            width: "100%",
+                            tableLayout: "fixed",
+                        }, className: "content" },
                         React.createElement("tbody", null, getSlTable(this.state.hue, this.onClickTable, this.state))))),
             React.createElement("br", null),
             React.createElement(FaceBook_1.default, null)));
@@ -241,7 +231,7 @@ function changeHslToColorCode(h, s, l) {
 // HSL配列をRGB配列に変換
 //--------------------------------------------------
 function changeHslToRgb(hue, saturation, lightness) {
-    var result = false;
+    var result = null;
     if (((hue || hue === 0) && hue <= 360) && ((saturation || saturation === 0) && saturation <= 100) && ((lightness || lightness === 0) && lightness <= 100)) {
         var red = 0, green = 0, blue = 0, q = 0, p = 0, hueToRgb;
         hue = Number(hue) / 360;
