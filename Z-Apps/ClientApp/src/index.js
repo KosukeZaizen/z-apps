@@ -34,7 +34,7 @@ history.listen(function (_a) {
     functions_1.sendAccessLog();
 });
 // Get the application-wide store instance, prepopulating with state from the server where available.
-var initialState = window.initialReduxState;
+var initialState = window["initialReduxState"];
 var store = configureStore_1.default(history, initialState);
 var rootElement = document.getElementById('root');
 react_dom_1.default.render(React.createElement(react_redux_1.Provider, { store: store },

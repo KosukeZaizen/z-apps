@@ -49,8 +49,8 @@ function configureStore(history, initialState) {
     // In development, use the browser's Redux dev tools extension if installed
     var enhancers = [];
     var isDevelopment = process.env.NODE_ENV === 'development';
-    if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
-        enhancers.push(window.devToolsExtension());
+    if (isDevelopment && typeof window !== 'undefined' && window["devToolsExtension"]) {
+        enhancers.push(window["devToolsExtension"]());
     }
     var rootReducer = redux_1.combineReducers(__assign(__assign({}, reducers), { routing: react_router_redux_1.routerReducer }));
     return redux_1.createStore(rootReducer, initialState, redux_1.compose.apply(void 0, __spreadArrays([redux_1.applyMiddleware.apply(void 0, middleware)], enhancers)));

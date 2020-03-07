@@ -5,6 +5,8 @@ import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 
 export default class Terms extends React.Component {
+    ref: React.RefObject<HTMLHRElement>;
+
     constructor(props) {
         super(props);
         this.ref = React.createRef();
@@ -17,7 +19,7 @@ export default class Terms extends React.Component {
                     title="Terms of Use"
                     desc="Lingual Ninja - The ownership of website and Responsibility"
                 />
-                <center>
+                <div style={{textAlign: "center"}}>
                     <h1 id="scrollTargetId">Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Terms of Use</h1>
                     <div className="contents">
                         <hr />
@@ -38,7 +40,7 @@ export default class Terms extends React.Component {
                         criteriaRef={this.ref}
                         targetId="scrollTargetId"
                     />
-                </center>
+                </div>
             </div>
         );
     }
