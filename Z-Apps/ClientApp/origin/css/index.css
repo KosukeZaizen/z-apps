@@ -3,6 +3,7 @@
 }
 .center table,
 .center div,
+.center input,
 .center p {
     margin-right: auto;
     margin-left: auto;
