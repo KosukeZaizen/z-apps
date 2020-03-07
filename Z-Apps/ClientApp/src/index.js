@@ -11,6 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("bootstrap/dist/css/bootstrap.css");
+require("./css/index.css");
 var React = __importStar(require("react"));
 var react_dom_1 = __importDefault(require("react-dom"));
 var react_redux_1 = require("react-redux");

@@ -38,7 +38,7 @@ var Terms = /** @class */ (function (_super) {
     Terms.prototype.render = function () {
         return (React.createElement("div", { className: "terms" },
             React.createElement(Helmet_1.default, { title: "Terms of Use", desc: "Lingual Ninja - The ownership of website and Responsibility" }),
-            React.createElement("div", { style: { textAlign: "center" } },
+            React.createElement("div", { className: "center" },
                 React.createElement("h1", { id: "scrollTargetId" },
                     "Lingual Ninja",
                     React.createElement("span", { className: 'hidden-xs' }, " "),

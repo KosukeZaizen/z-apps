@@ -1,0 +1,9 @@
+.center {
+    text-align: center;
+}
+.center table,
+.center div,
+.center p {
+    margin-right: auto;
+    margin-left: auto;
+}

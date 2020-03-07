@@ -40,14 +40,14 @@ var StoriesTop = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.changeScreenSize = function () {
             _this.setState({
-                screenWidth: parseInt(window.innerWidth, 10),
+                screenWidth: window.innerWidth
             });
         };
         _this.state = {
-            screenWidth: parseInt(window.innerWidth, 10),
+            screenWidth: window.innerWidth,
         };
         _this.props.loadAllStories();
-        var timer = 0;
+        var timer;
         window.onresize = function () {
             if (timer > 0) {
                 clearTimeout(timer);
@@ -69,16 +69,16 @@ var StoriesTop = /** @class */ (function (_super) {
             padding: "0.2em 0.5em",
             marginBottom: "10px",
         };
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: "Japanese Folktales", desc: "Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!" }),
             React.createElement("div", { style: { maxWidth: 700 } },
                 React.createElement("div", { className: "breadcrumbs", itemScope: true, itemType: "https://schema.org/BreadcrumbList", style: { textAlign: "left" } },
-                    React.createElement("span", { itemprop: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
+                    React.createElement("span", { itemProp: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
                         React.createElement(react_router_dom_1.Link, { to: "/", itemProp: "item", style: { marginRight: "5px", marginLeft: "5px" } },
                             React.createElement("span", { itemProp: "name" }, "Home")),
                         React.createElement("meta", { itemProp: "position", content: "1" })),
                     "\uFF1E",
-                    React.createElement("span", { itemprop: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
+                    React.createElement("span", { itemProp: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
                         React.createElement("span", { itemProp: "name", style: { marginRight: "5px", marginLeft: "5px" } }, "Japanese Folktales"),
                         React.createElement("meta", { itemProp: "position", content: "2" }))),
                 React.createElement("h1", { style: {
@@ -94,7 +94,7 @@ var StoriesTop = /** @class */ (function (_super) {
                 allStories && allStories.length > 0 ?
                     null
                     :
-                        React.createElement("center", null,
+                        React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
                 React.createElement("div", { id: "scrollTargetId", ref: this.ref }, allStories && allStories.map(function (s) {
                     var nameForUrl = s.storyName;
@@ -104,11 +104,11 @@ var StoriesTop = /** @class */ (function (_super) {
                             React.createElement("tbody", null,
                                 React.createElement("tr", null,
                                     React.createElement("td", { colSpan: 2 },
-                                        React.createElement("center", null,
+                                        React.createElement("div", { className: "center" },
                                             React.createElement("h2", { style: { color: "black", marginBottom: "20px" } },
                                                 React.createElement("b", null, nameToShow))))),
                                 React.createElement("tr", null,
-                                    React.createElement("td", { width: "50%" },
+                                    React.createElement("td", { style: { width: "50%" } },
                                         React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
                                             React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } }))),
                                     React.createElement("td", null,
@@ -117,7 +117,7 @@ var StoriesTop = /** @class */ (function (_super) {
                                                 d,
                                                 React.createElement("br", null));
                                         }),
-                                        React.createElement("center", null,
+                                        React.createElement("div", { className: "center" },
                                             React.createElement("p", { style: { margin: "20px" } },
                                                 React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
                                                     "Read ",
@@ -148,4 +148,4 @@ var StoriesTop = /** @class */ (function (_super) {
     return StoriesTop;
 }(React.Component));
 ;
-exports.default = react_redux_1.connect(function (state) { return state.storiesTop; }, function (dispatch) { return redux_1.bindActionCreators(StoriesTopStore_1.actionCreators, dispatch); })(StoriesTop);
+exports.default = react_redux_1.connect(function (state) { return state["storiesTop"]; }, function (dispatch) { return redux_1.bindActionCreators(StoriesTopStore_1.actionCreators, dispatch); })(StoriesTop);

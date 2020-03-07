@@ -19,7 +19,7 @@ export default class Terms extends React.Component {
                     title="Terms of Use"
                     desc="Lingual Ninja - The ownership of website and Responsibility"
                 />
-                <div style={{textAlign: "center"}}>
+                <div className="center">
                     <h1 id="scrollTargetId">Lingual Ninja<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Terms of Use</h1>
                     <div className="contents">
                         <hr />
