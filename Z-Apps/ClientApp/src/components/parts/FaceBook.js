@@ -27,7 +27,7 @@ var FB = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     FB.prototype.render = function () {
-        var innerWidth = parseInt(window.innerWidth, 10);
+        var innerWidth = window.innerWidth;
         var width;
         if (innerWidth > 350) {
             width = 350;
@@ -36,8 +36,8 @@ var FB = /** @class */ (function (_super) {
             width = 300;
         }
         var height = 200;
-        return (React.createElement("center", null,
-            React.createElement("iframe", { title: "fb", src: "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=" + width + "&height=" + height + "&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId", width: width, height: height, style: { border: "none", overflow: "hidden" }, scrolling: "yes", frameBorder: "0", allowtransparency: "true", allow: "encrypted-media" })));
+        return (React.createElement("div", { className: "center" },
+            React.createElement("iframe", { title: "fb", src: "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=" + width + "&height=" + height + "&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId", width: width, height: height, style: { border: "none", overflow: "hidden" }, scrolling: "yes", frameBorder: "0", allowTransparency: true, allow: "encrypted-media" })));
     };
     return FB;
 }(React.Component));

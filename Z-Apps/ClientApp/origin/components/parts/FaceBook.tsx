@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default class FB extends React.Component {
     render() {
-        const innerWidth = parseInt(window.innerWidth, 10);
+        const innerWidth = window.innerWidth;
         let width;
         if (innerWidth > 350) {
             width = 350;
@@ -12,7 +12,7 @@ export default class FB extends React.Component {
         const height = 200;
 
         return (
-            <center>
+            <div className="center">
                 <iframe
                     title="fb"
                     src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=${width}&height=${height}&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId`}
@@ -21,10 +21,10 @@ export default class FB extends React.Component {
                     style={{ border: "none", overflow: "hidden" }}
                     scrolling="yes"
                     frameBorder="0"
-                    allowtransparency="true"
+                    allowTransparency={true}
                     allow="encrypted-media"
                 />
-            </center>
+            </div>
         );
     }
 }
