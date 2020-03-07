@@ -12,22 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(require("react"));
 require("../css/Terms.css");
-var _404_png_1 = __importDefault(require("../img/404.png"));
 var react_router_dom_1 = require("react-router-dom");
 var reactstrap_1 = require("reactstrap");
 var functions_1 = require("./common/functions");
 var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var img404 = require('../img/404.png');
 var NotFound = function (props) {
     var params = functions_1.getParams();
     return (React.createElement("div", null,
         React.createElement(Helmet_1.default, { title: "404", noindex: true }),
-        React.createElement("center", null,
+        React.createElement("div", { className: "center" },
             React.createElement("h1", null, "Page not found!"),
             React.createElement("hr", null),
-            React.createElement("img", { src: _404_png_1.default, width: "50%", alt: "404 error" }),
+            React.createElement("img", { src: img404, width: "50%", alt: "404 error" }),
             React.createElement("h2", null,
                 "No match for ",
-                React.createElement("code", null, params && params.p)),
+                React.createElement("code", null, params && params["p"])),
             React.createElement("p", null, "Please check if the url is correct!"),
             React.createElement(react_router_dom_1.Link, { to: "/" },
                 React.createElement(reactstrap_1.Button, { color: "primary", style: { width: "50%" } },

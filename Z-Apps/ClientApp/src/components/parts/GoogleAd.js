@@ -28,8 +28,8 @@ var react_google_ads_1 = __importDefault(require("react-google-ads"));
 var privateConsts_1 = require("../common/privateConsts");
 var GoogleAd = /** @class */ (function (_super) {
     __extends(GoogleAd, _super);
-    function GoogleAd() {
-        var _this = _super.call(this) || this;
+    function GoogleAd(props) {
+        var _this = _super.call(this, props) || this;
         // コンポーネント外でのAdsense表示判定のため、Adsenseの状態を変数としてexport
         exports.isGoogleAdsDisplayed = true;
         return _this;

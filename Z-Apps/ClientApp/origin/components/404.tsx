@@ -1,10 +1,10 @@
 import * as React from 'react';
 import '../css/Terms.css';
-import img404 from '../img/404.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { getParams } from './common/functions';
 import Head from './parts/Helmet';
+const img404 = require('../img/404.png');
 
 const NotFound = props => {
     const params = getParams();
@@ -15,7 +15,7 @@ const NotFound = props => {
                 title="404"
                 noindex={true}
             />
-            <center>
+            <div className="center">
                 <h1>Page not found!</h1>
                 <hr />
                 <img
@@ -23,12 +23,12 @@ const NotFound = props => {
                     width="50%"
                     alt="404 error"
                 />
-                <h2>No match for <code>{params && params.p}</code></h2>
+                <h2>No match for <code>{params && params["p"]}</code></h2>
                 <p>Please check if the url is correct!</p>
                 <Link to="/">
                     <Button color="primary" style={{ width: "50%" }}><b>Home</b></Button>
                 </Link>
-            </center>
+            </div>
         </div>
     )
 };

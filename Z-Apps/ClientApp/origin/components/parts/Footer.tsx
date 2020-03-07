@@ -6,7 +6,7 @@ export default class Footer extends React.Component {
     render() {
         return (
             <footer className="footer">
-                <center>
+                <div className="center">
                     <div className="container text-muted">
                         <span className="text-muted">Copyright <Link to="/developer">Kosuke Zaizen</Link>. All rights reserved.
                             <span className='hidden-xs'>　　</span>
@@ -14,7 +14,7 @@ export default class Footer extends React.Component {
                         </span>
                         <Link to="/terms">Terms of Use</Link>
                     </div>
-                </center>
+                </div>
             </footer>);
     }
 }

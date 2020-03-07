@@ -30,7 +30,7 @@ var Footer = /** @class */ (function (_super) {
     }
     Footer.prototype.render = function () {
         return (React.createElement("footer", { className: "footer" },
-            React.createElement("center", null,
+            React.createElement("div", { className: "center" },
                 React.createElement("div", { className: "container text-muted" },
                     React.createElement("span", { className: "text-muted" },
                         "Copyright ",

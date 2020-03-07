@@ -6,8 +6,8 @@ export let isGoogleAdsDisplayed;
 
 export default class GoogleAd extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // コンポーネント外でのAdsense表示判定のため、Adsenseの状態を変数としてexport
         isGoogleAdsDisplayed = true;
     }

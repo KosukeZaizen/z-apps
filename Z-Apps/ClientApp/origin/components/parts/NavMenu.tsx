@@ -6,6 +6,10 @@ import './NavMenu.css';
 
 class NavigationItems extends React.Component {
 
+    props: {
+        closeToggle: ()=>void,
+    };
+
     render() {
         let objLinks = {
             "Hiragana / Katakana Quiz": "/hiragana-quiz",
@@ -38,6 +42,11 @@ class NavigationItems extends React.Component {
 }
 
 export default class NavMenu extends React.Component {
+
+    state: {
+        isOpen: boolean,
+    };
+    
     constructor(props) {
         super(props);
 
@@ -62,7 +71,7 @@ export default class NavMenu extends React.Component {
             <header>
                 <Navbar variant="pills" className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3">
                     <Container>
-                        <NavbarBrand tag={Link} to="/"><b onClick={this.closeToggle} className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></NavbarBrand>
+                        <NavbarBrand tag={Link} to="/"><b onClick={this.closeToggle} className="z-apps-title text-light"><span style={{whiteSpace: "nowrap"}}>Lingual Ninja</span></b></NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
                         <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
                             <NavigationItems closeToggle={this.closeToggle} />

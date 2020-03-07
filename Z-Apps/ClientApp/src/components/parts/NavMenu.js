@@ -72,7 +72,7 @@ var NavMenu = /** @class */ (function (_super) {
                 React.createElement(reactstrap_1.Container, null,
                     React.createElement(reactstrap_1.NavbarBrand, { tag: react_router_dom_1.Link, to: "/" },
                         React.createElement("b", { onClick: this.closeToggle, className: "z-apps-title text-light" },
-                            React.createElement("nobr", null, "Lingual Ninja"))),
+                            React.createElement("span", { style: { whiteSpace: "nowrap" } }, "Lingual Ninja"))),
                     React.createElement(reactstrap_1.NavbarToggler, { onClick: this.toggle, className: "mr-2" }),
                     React.createElement(reactstrap_1.Collapse, { className: "d-md-inline-flex flex-md-row-reverse", isOpen: this.state.isOpen, navbar: true },
                         React.createElement(NavigationItems, { closeToggle: this.closeToggle }))))));
