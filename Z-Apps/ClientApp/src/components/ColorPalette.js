@@ -30,6 +30,11 @@ var ColorPalette = /** @class */ (function (_super) {
     __extends(ColorPalette, _super);
     function ColorPalette(props) {
         var _this = _super.call(this, props) || this;
+        _this.consts = {
+            COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
+            MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
+            MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
+        };
         _this.state = {
             hue: 300,
             saturation: 90,

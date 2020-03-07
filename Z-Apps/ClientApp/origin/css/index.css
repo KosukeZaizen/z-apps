@@ -1,10 +1,7 @@
 .center {
     text-align: center;
 }
-.center table,
-.center div,
-.center input,
-.center p {
+.center * {
     margin-right: auto;
     margin-left: auto;
 }
