@@ -40,7 +40,7 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.render = function () {
         return (React.createElement("div", { className: "home" },
             React.createElement(Helmet_1.default, { title: "Lingual Ninja", desc: "Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!", isHome: true }),
-            React.createElement("center", null,
+            React.createElement("div", { style: { textAlign: "center" } },
                 React.createElement("h1", null,
                     "Welcome to",
                     React.createElement("span", { className: 'hidden-xs' }, " "),

@@ -7,7 +7,7 @@ import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 
 export default class Home extends React.Component {
-    ref: React.RefObject<{}>;
+    ref: React.LegacyRef<HTMLDivElement>;
 
     constructor(props) {
         super(props);
@@ -22,7 +22,7 @@ export default class Home extends React.Component {
                     desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!"
                     isHome={true}
                 />
-                <center>
+                <div style={{textAlign: "center"}}>
                     <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Lingual Ninja!</h1>
                     <div className="initial-message">
                         <p className="no-margin">Applications to learn Japanese,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
@@ -85,7 +85,7 @@ export default class Home extends React.Component {
                         </Link>
 
                     </div>
-                </center>
+                </div>
                 <br />
                 <FB />
                 <PleaseScrollDown
