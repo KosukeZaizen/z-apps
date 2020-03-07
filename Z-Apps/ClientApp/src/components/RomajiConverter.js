@@ -1,15 +1,37 @@
-import * as React from 'react';
-import '../css/RomajiConverter.css';
-import FB from './parts/FaceBook';
-import Head from './parts/Helmet';
-
-let objConst = {};
-
-class RomajiConverter extends React.Component {
-
-    constructor(props) {
-        super(props);
-
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+require("../css/RomajiConverter.css");
+var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var objConst = {};
+var RomajiConverter = /** @class */ (function (_super) {
+    __extends(RomajiConverter, _super);
+    function RomajiConverter(props) {
+        var _this = _super.call(this, props) || this;
         objConst = {
             objTwoChars: { "きゃ": "kya", "きゅ": "kyu", "きょ": "kyo", "しゃ": "sha", "しゅ": "shu", "しょ": "sho", "ちゃ": "cha", "ちゅ": "chu", "ちょ": "cho", "にゃ": "nya", "にゅ": "nyu", "にょ": "nyo", "ひゃ": "hya", "ひゅ": "hyu", "ひょ": "hyo", "みゃ": "mya", "みゅ": "myu", "みょ": "myo", "りゃ": "rya", "りゅ": "ryu", "りょ": "ryo", "ぎゃ": "gya", "ぎゅ": "gyu", "ぎょ": "gyo", "じゃ": "ja", "じゅ": "ju", "じょ": "jo", "びゃ": "bya", "びゅ": "byu", "びょ": "byo", "ぴゃ": "pya", "ぴゅ": "pyu", "ぴょ": "pyo", "じぇ": "jie", "ちぇ": "chie", "てぃ": "tei", "でぃ": "dei", "でゅ": "deyu", "ふぁ": "fua", "ふぃ": "fui", "ふぇ": "fue", "ふぉ": "fuo", "ゔぁ": "bua", "ゔぃ": "bui", "ゔぇ": "bue", "ゔぉ": "buo" },
             objTwoChars_K: { "キャ": "kya", "キュ": "kyu", "キョ": "kyo", "シャ": "sha", "シュ": "shu", "ショ": "sho", "チャ": "cha", "チュ": "chu", "チョ": "cho", "ニャ": "nya", "ニュ": "nyu", "ニョ": "nyo", "ヒャ": "hya", "ヒュ": "hyu", "ヒョ": "hyo", "ミャ": "mya", "ミュ": "myu", "ミョ": "myo", "リャ": "rya", "リュ": "ryu", "リョ": "ryo", "ギャ": "gya", "ギュ": "gyu", "ギョ": "gyo", "ジャ": "ja", "ジュ": "ju", "ジョ": "jo", "ビャ": "bya", "ビュ": "byu", "ビョ": "byo", "ピャ": "pya", "ピュ": "pyu", "ピョ": "pyo", "ジェ": "jie", "チェ": "chie", "ティ": "tei", "ディ": "dei", "デュ": "deyu", "ファ": "fua", "フィ": "fui", "フェ": "fue", "フォ": "fuo", "ヴァ": "bua", "ヴィ": "bui", "ヴェ": "bue", "ヴォ": "buo" },
@@ -21,89 +43,69 @@ class RomajiConverter extends React.Component {
             objN_K: { "ン": "n" },
             objLongSound: { "oo": "o", "ou": "o", "uu": "u" },
             objChangeLine: { "<br />": "\n", "<br/>": "\n", "<br>": "\n", '<p class="line-wrap">': "", "</p>": "" },
-
             MSG_PROMPT: "Please type or paste the sentences of [Hiragana] or [Katakana] here.",
             MSG_NO_COPY_TARGET: "There are no Romaji characters to copy!\r\nPlease input Hiragana or Katakana!",
             MSG_COPY_DONE: "Copy completed!\r\nYou can paste it anywhere.",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
-
             BTN_LABEL: "Click here to copy Romaji!",
-
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
-
             ioArea: []
         };
-
-        this.state = {
+        _this.state = {
             textVal: "",
             prompt: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
-        this.setStateTextVal = this.setStateTextVal.bind(this);
-        this.initText = this.initText.bind(this);
+        _this.setStateTextVal = _this.setStateTextVal.bind(_this);
+        _this.initText = _this.initText.bind(_this);
+        return _this;
     }
-
-
-    initText() {
+    RomajiConverter.prototype.initText = function () {
         if (this.state.prompt === objConst.MSG_PROMPT) {
             this.setState({
                 prompt: "",
                 inputColor: "blackChar",
             });
         }
-    }
-
-
+    };
     // State(textVal)を変更
-    setStateTextVal(textVal) {
-
-        let textVal_r = textVal;
-
+    RomajiConverter.prototype.setStateTextVal = function (textVal) {
+        var textVal_r = textVal;
         textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
         textVal_r = convertChars(textVal_r, objConst.objTwoChars);
-
         textVal_r = convertChars(textVal_r, objConst.objOneChar);
         textVal_r = convertChars(textVal_r, objConst.objOneChar_K);
-
         textVal_r = convertChars(textVal_r, objConst.objM);
         textVal_r = convertChars(textVal_r, objConst.objM_K);
-
         textVal_r = convertChars(textVal_r, objConst.objN);
         textVal_r = convertChars(textVal_r, objConst.objN_K);
-
         textVal_r = this.convertSmallTsu(textVal_r);
-
         textVal_r = convertChars(textVal_r, objConst.objLongSound);
-
         this.setState({
             textVal: textVal_r,
             prompt: textVal,
         });
-    }
-
-    convertSmallTsu(text) {
+    };
+    RomajiConverter.prototype.convertSmallTsu = function (text) {
         text = convertChars(text, { "っch": "tch", "ッch": "tch" });
-
-        let arrText = text.split("");
-        for (let index in arrText) {
+        var arrText = text.split("");
+        for (var index in arrText) {
             if (arrText[index] === "っ" || arrText[index] === "ッ") {
                 arrText[index] = arrText[Number(index) + 1] || "";
             }
         }
         return arrText.join("");
-    }
-
-    onScrollInput() {
+    };
+    RomajiConverter.prototype.onScrollInput = function () {
         getIoElement();
         objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
-    }
-
-    onClickCopy() {
-        let strTarget = getCopyTarget();
-
+    };
+    RomajiConverter.prototype.onClickCopy = function () {
+        var strTarget = getCopyTarget();
         if (strTarget.trim() === "") {
             alert(objConst.MSG_NO_COPY_TARGET);
-        } else {
+        }
+        else {
             if (execCopy(strTarget)) {
                 alert(objConst.MSG_COPY_DONE);
             }
@@ -111,17 +113,12 @@ class RomajiConverter extends React.Component {
                 alert(objConst.MSG_COPY_ERR);
             }
         }
-    }
-
-
+    };
     //ローマ字変換アプリの表示
-    render() {
-        return (
-            <center className="romaji-converter">
-                <Head
-                    title="Romaji Converter"
-                    desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"
-                />
+    RomajiConverter.prototype.render = function () {
+        var _this = this;
+        return (<center className="romaji-converter">
+                <Helmet_1.default title="Romaji Converter" desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"/>
                 <h1>
                     <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
                 </h1>
@@ -138,18 +135,10 @@ class RomajiConverter extends React.Component {
                         </tr>
                         <tr>
                             <td className="row">
-                                <ChildInput
-                                    inputColor={this.state.inputColor}
-                                    prompt={this.state.prompt}
-                                    onChange={(e) => { this.setStateTextVal(e) }}
-                                    onFocus={(e) => { this.initText(e) }}
-                                    onScroll={this.onScrollInput}
-                                />
+                                <ChildInput inputColor={this.state.inputColor} prompt={this.state.prompt} onChange={function (e) { _this.setStateTextVal(e); }} onFocus={function (e) { _this.initText(e); }} onScroll={this.onScrollInput}/>
                             </td>
                             <td className="tdOutput">
-                                <Child
-                                    textVal={this.state.textVal}
-                                />
+                                <Child textVal={this.state.textVal}/>
                             </td>
                         </tr>
                     </tbody>
@@ -163,96 +152,82 @@ class RomajiConverter extends React.Component {
                 <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
                 <br />
                 <br />
-                <FB />
-            </center>
-        );
-    }
-};
-
-
+                <FaceBook_1.default />
+            </center>);
+    };
+    return RomajiConverter;
+}(React.Component));
+;
 //入力エリアの定義（※props経由で親を参照できる）
-class ChildInput extends React.Component {
-    _onChange(e) {
+var ChildInput = /** @class */ (function (_super) {
+    __extends(ChildInput, _super);
+    function ChildInput() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ChildInput.prototype._onChange = function (e) {
         this.props.onChange(e.target.value);
-    }
-
-    _onFocus(e) {
+    };
+    ChildInput.prototype._onFocus = function (e) {
         this.props.onFocus(e.target.value);
-    }
-
-    _onScroll() {
+    };
+    ChildInput.prototype._onScroll = function () {
         this.props.onScroll();
-    }
-
+    };
     //入力エリアの表示
-    render() {
-        return (
-            <center className="t-area-center">
-                <textarea
-                    id="inputArea"
-                    className={this.props.inputColor}
-                    onChange={(e) => { this._onChange(e) }}
-                    onFocus={(e) => { this._onFocus(e) }}
-                    onScroll={() => { this._onScroll() }}
-                    value={this.props.prompt}
-                />
-            </center>
-        );
-    }
-};
-
-
+    ChildInput.prototype.render = function () {
+        var _this = this;
+        return (<center className="t-area-center">
+                <textarea id="inputArea" className={this.props.inputColor} onChange={function (e) { _this._onChange(e); }} onFocus={function (e) { _this._onFocus(e); }} onScroll={function () { _this._onScroll(); }} value={this.props.prompt}/>
+            </center>);
+    };
+    return ChildInput;
+}(React.Component));
+;
 //ローマ字出力エリア
-class Child extends React.Component {
-    render() {
+var Child = /** @class */ (function (_super) {
+    __extends(Child, _super);
+    function Child() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Child.prototype.render = function () {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return <p key={index} className="line-wrap">{line}<br /></p>;
         });
         return <div id="outputArea" className="lines">{lines}</div>;
-    }
-};
-
+    };
+    return Child;
+}(React.Component));
+;
 function getIoElement() {
     if (objConst.ioArea.length < 2) {
         objConst.ioArea[0] = document.getElementById("inputArea");
         objConst.ioArea[1] = document.getElementById("outputArea");
     }
 }
-
 function convertChars(text, obj) {
-    for (let key in obj) {
-        let arrText = text.split(key);
+    for (var key in obj) {
+        var arrText = text.split(key);
         text = arrText.join(obj[key]);
     }
     return text;
 }
-
 function getCopyTarget() {
     getIoElement();
     return convertChars(objConst.ioArea[1].innerHTML, objConst.objChangeLine);
 }
-
 function execCopy(string) {
-
     var tmp = document.createElement("div");
     var pre = document.createElement('pre');
-
     pre.style.webkitUserSelect = 'auto';
     pre.style.userSelect = 'auto';
-
     tmp.appendChild(pre).textContent = string;
-
     var s = tmp.style;
     s.position = 'fixed';
     s.right = '200%';
-
     document.body.appendChild(tmp);
     document.getSelection().selectAllChildren(tmp);
-
     var result = document.execCommand("copy");
-
     document.body.removeChild(tmp);
-
     return result;
 }
-export default RomajiConverter;
+exports.default = RomajiConverter;

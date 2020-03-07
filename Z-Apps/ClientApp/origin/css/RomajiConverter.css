@@ -1,0 +1,83 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.romaji-converter td {
+    width: 100%;
+}
+
+.romaji-converter .row {
+    height: 300px;
+    margin: 0;
+    padding: 0;
+}
+
+.romaji-converter .t-area-center {
+    width: 100%;
+}
+
+.romaji-converter textarea {
+    width: 100%;
+    height: 300px;
+    margin: 0px;
+}
+
+.romaji-converter table {
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    font-size: 20px;
+    table-layout: fixed;
+    border: solid;
+    border-color: lightblue;
+}
+
+.romaji-converter th {
+    padding: 5px 5px 7px;
+    color: #FFF;
+    border: 1px solid #729CC6;
+    background: linear-gradient(#3377BB,#255788);
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+    text-shadow: -1px -1px 2px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+.romaji-converter .tdOutput {
+    height: 300px;
+    word-wrap: break-word;
+}
+
+.romaji-converter .lines {
+    overflow-y: scroll;
+    height: 300px;
+}
+
+.romaji-converter .line-wrap {
+    margin: 0;
+}
+
+.romaji-converter .redChar {
+    color: red;
+}
+
+.romaji-converter .blackChar {
+    color: black;
+}
+
+.romaji-converter #btnCopy {
+    max-width: 800px;
+}
+
+.romaji-converter h1 {
+    margin: 30px;
+    line-height: 30px;
+}
+
+.romaji-converter .no-margin {
+    margin: 7px;
+    line-height: 10px;
+}

@@ -1,49 +1,65 @@
-import * as React from 'react';
-import '../css/Developer.css';
-import image from '../img/KosukeZaizen.jpg';
-import Head from './parts/Helmet';
-import FB from './parts/FaceBook';
-import PleaseScrollDown from './parts/PleaseScrollDown';
-
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+require("../css/Developer.css");
+var KosukeZaizen_jpg_1 = __importDefault(require("../img/KosukeZaizen.jpg"));
+var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
 function SayHello() {
-    return (
-        <p>
+    return (<p>
             <b>Hello! I'm Kosuke Zaizen!</b><br />
             <br />
             Thank you for using Lingual Ninja!<br />
             I am a Japanese software engineer.<br />
             Lingual Ninja is a website for Japanese learners.<br />
             I hope Lingual Ninja can help!
-        </p>
-    );
+        </p>);
 }
-
-
-export default class Developer extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.ref = React.createRef();
+var Developer = /** @class */ (function (_super) {
+    __extends(Developer, _super);
+    function Developer(props) {
+        var _this = _super.call(this, props) || this;
+        _this.ref = React.createRef();
+        return _this;
     }
-
-    render() {
-        return (
-            <div className="developer">
-                <Head
-                    title="Kosuke Zaizen"
-                    desc="I am a Japanese software engineer. Lingual Ninja is a website for Japanese learners. I hope Lingual Ninja can help!"
-                />
+    Developer.prototype.render = function () {
+        return (<div className="developer">
+                <Helmet_1.default title="Kosuke Zaizen" desc="I am a Japanese software engineer. Lingual Ninja is a website for Japanese learners. I hope Lingual Ninja can help!"/>
                 <center>
                     <h1>Kosuke Zaizen</h1>
 
                     <div className="contents">
-                        <hr id="scrollTargetId" />
+                        <hr id="scrollTargetId"/>
                         <span className='hidden-xs'>
                             <table>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <img width="200px" src={image} alt="Kosuke Zaizen" />
+                                            <img width="200px" src={KosukeZaizen_jpg_1.default} alt="Kosuke Zaizen"/>
                                         </td>
                                         <td className="tdExplanation" valign="top">
                                             <SayHello />
@@ -54,12 +70,12 @@ export default class Developer extends React.Component {
                         </span>
                         <span className='visible-xs'>
                             <center>
-                                <img width="200px" src={image} alt="Kosuke Zaizen" />
+                                <img width="200px" src={KosukeZaizen_jpg_1.default} alt="Kosuke Zaizen"/>
                                 <br /><br />
                                 <SayHello />
                             </center>
                         </span>
-                        <hr ref={this.ref} />
+                        <hr ref={this.ref}/>
                         <br />
                         <center>
                             <p className="no-margin">
@@ -73,15 +89,13 @@ export default class Developer extends React.Component {
                                 studying Japanese:</p><br />
                             <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
                             <br /><br />
-                            <FB />
+                            <FaceBook_1.default />
                         </center>
                     </div>
-                    <PleaseScrollDown
-                        criteriaRef={this.ref}
-                        targetId="scrollTargetId"
-                    />
+                    <PleaseScrollDown_1.default criteriaRef={this.ref} targetId="scrollTargetId"/>
                 </center>
-            </div >
-        );
-    }
-}
+            </div>);
+    };
+    return Developer;
+}(React.Component));
+exports.default = Developer;

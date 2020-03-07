@@ -1,56 +1,56 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import logo1 from './parts/Ninja/img/logo.png';
-import logo2 from './parts/Ninja2/img/logo.png';
-import logo3 from './parts/Ninja3/img/logo.png';
-import Head from './parts/Helmet';
-import { isGoogleAdsDisplayed } from './parts/GoogleAd';
-import FB from './parts/FaceBook';
-
-const NinjaGameTop = () => {
-
-    if (isGoogleAdsDisplayed) {
+"use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+var react_router_dom_1 = require("react-router-dom");
+var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
+var logo_png_1 = __importDefault(require("./parts/Ninja/img/logo.png"));
+var logo_png_2 = __importDefault(require("./parts/Ninja2/img/logo.png"));
+var logo_png_3 = __importDefault(require("./parts/Ninja3/img/logo.png"));
+var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var GoogleAd_1 = require("./parts/GoogleAd");
+var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+var NinjaGameTop = function () {
+    if (GoogleAd_1.isGoogleAdsDisplayed) {
         // Adsenseが表示されているときに遷移があった場合はリロードし、
         // 自動広告によってゲームが邪魔されることを防ぐ
         window.location.reload();
-
-        return (
-            <center>
-                <CircularProgress key="circle" size="20%" />
-            </center>
-        );
+        return (<center>
+                <CircularProgress_1.default key="circle" size="20%"/>
+            </center>);
     }
-
-    return (
-        <div className="ninjaGameTop" style={{ fontSize: "large" }}>
-            <Head
-                title="Lingual Ninja Games"
-                desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
-            />
+    return (<div className="ninjaGameTop" style={{ fontSize: "large" }}>
+            <Helmet_1.default title="Lingual Ninja Games" desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"/>
             <center><h1>Lingual Ninja Games</h1></center>
             <br />
-            <Link to="/ninja1">
+            <react_router_dom_1.Link to="/ninja1">
                 Chapter1: Scrolls Of The Four Elements<br />
-                <img width="100%" src={logo1} alt="Ninja Game 1" />
-            </Link>
+                <img width="100%" src={logo_png_1.default} alt="Ninja Game 1"/>
+            </react_router_dom_1.Link>
             <br />
             <br />
-            <Link to="/ninja2">
+            <react_router_dom_1.Link to="/ninja2">
                 Chapter2: Castle Of The Maze<br />
-                <img width="100%" src={logo2} alt="Ninja Game 2" />
-            </Link>
+                <img width="100%" src={logo_png_2.default} alt="Ninja Game 2"/>
+            </react_router_dom_1.Link>
             <br />
             <br />
-            <Link to="/ninja3">
+            <react_router_dom_1.Link to="/ninja3">
                 Chapter3: Frozen Nightmare<br />
-                <img width="100%" src={logo3} alt="Ninja Game 3" />
-            </Link>
+                <img width="100%" src={logo_png_3.default} alt="Ninja Game 3"/>
+            </react_router_dom_1.Link>
             <br />
             <br />
-            <FB />
-        </div>
-    );
-}
-
-export default NinjaGameTop;
+            <FaceBook_1.default />
+        </div>);
+};
+exports.default = NinjaGameTop;

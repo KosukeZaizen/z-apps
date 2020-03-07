@@ -1,44 +1,62 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import * as Consts from '../Consts'
-
-export default class Obj extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.onClickOkButtonInScroll = this.onClickOkButtonInScroll.bind(this);
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+var react_router_dom_1 = require("react-router-dom");
+var Consts = __importStar(require("../Consts"));
+var Obj = /** @class */ (function (_super) {
+    __extends(Obj, _super);
+    function Obj(props) {
+        var _this = _super.call(this, props) || this;
+        _this.onClickOkButtonInScroll = _this.onClickOkButtonInScroll.bind(_this);
+        return _this;
     }
-
-    onClickOkButtonInScroll() {
+    Obj.prototype.onClickOkButtonInScroll = function () {
         this.props.obj.visible = false;
-    }
-
-    render() {
-        let UL = this.props.UL;
-        let img = this.props.obj.img;
-
+    };
+    Obj.prototype.render = function () {
+        var _this = this;
+        var UL = this.props.UL;
+        var img = this.props.obj.img;
         if (this.props.obj.scroll) {
             //画面全体に表示するメッセージを含んだ巻物
             if (this.props.obj.visible === true) {
                 //巻物表示時
-                let size = this.props.obj.size * UL;
-                let posX = this.props.obj.posX * UL;
-                let posY = this.props.obj.posY * UL;
-                let zIndex = this.props.obj.zIndex;
-                let fontSize = this.props.obj.fontSize * UL || 4 * UL;
-                let title = this.props.obj.title;
-                let message = this.props.obj.message;
-                let speakerImg = this.props.obj.speakerImg;
-
-                let styleImg = {
+                var size = this.props.obj.size * UL;
+                var posX = this.props.obj.posX * UL;
+                var posY = this.props.obj.posY * UL;
+                var zIndex = this.props.obj.zIndex;
+                var fontSize = this.props.obj.fontSize * UL || 4 * UL;
+                var title = this.props.obj.title;
+                var message = this.props.obj.message;
+                var speakerImg = this.props.obj.speakerImg;
+                var styleImg = {
                     position: "absolute",
                     left: posX,
                     top: posY,
                     zIndex: zIndex,
                     width: size,
                 };
-
-                let styleTexts = {
+                var styleTexts = {
                     position: "absolute",
                     left: posX,
                     top: posY + (size * 9 / 100),
@@ -47,14 +65,12 @@ export default class Obj extends React.Component {
                     width: size,
                     lineHeight: fontSize / 20,
                 };
-
-                let h1Style = {
+                var h1Style = {
                     margin: size / 50,
                     fontSize: fontSize * 3 / 2,
                 };
-
-                let btnWidth = size / 3;
-                let styleBtnClose = {
+                var btnWidth = size / 3;
+                var styleBtnClose = {
                     position: "absolute",
                     left: posX + size / 3,
                     top: posY + size * 3 / 10,
@@ -62,58 +78,37 @@ export default class Obj extends React.Component {
                     fontSize: fontSize,
                     width: btnWidth,
                 };
-
-                let arrlines = message.split("\n");
-                const listlines = arrlines.map((line, index) =>
-                    <p key={index}>{line}</p>
-                );
-
-                return (
-                    <div>
-                        <img
-                            src={img}
-                            style={styleImg}
-                            alt={"ninja game object"}
-                        />
+                var arrlines = message.split("\n");
+                var listlines = arrlines.map(function (line, index) {
+                    return <p key={index}>{line}</p>;
+                });
+                return (<div>
+                        <img src={img} style={styleImg} alt={"ninja game object"}/>
                         <div style={styleTexts}>
                             <center>
                                 <h1 style={h1Style}>{title}</h1>
                                 <span>{listlines}</span>
                             </center>
                         </div>
-                        <CloseElement
-                            className={"btn btn-dark btn-lg btn-block"}
-                            style={styleBtnClose}
-                            onClick={() => { this.onClickOkButtonInScroll() }}
-                            styleBtnClose={styleBtnClose}
-                            obj={this.props.obj}
-                            game={this.props.game}
-                        />
-                        <SpeakerImage
-                            img={speakerImg}
-                            size={size}
-                            zIndex={zIndex}
-                            posX={posX}
-                            posY={posY}
-                        />
-                    </div>
-                );
-            } else {
+                        <CloseElement className={"btn btn-dark btn-lg btn-block"} style={styleBtnClose} onClick={function () { _this.onClickOkButtonInScroll(); }} styleBtnClose={styleBtnClose} obj={this.props.obj} game={this.props.game}/>
+                        <SpeakerImage img={speakerImg} size={size} zIndex={zIndex} posX={posX} posY={posY}/>
+                    </div>);
+            }
+            else {
                 //visible falseの場合、巻物を表示しない
                 return <div></div>;
             }
-
-        } else if (img) {
+        }
+        else if (img) {
             //imgという引数を受け取っている場合、画像要素を生成
-            let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
-            let img = this.props.obj.img;
-            let size = this.props.obj.size * UL;
-            let posX = this.props.obj.posX * UL;
-            let posY = this.props.obj.posY * UL;
-            let zIndex = this.props.obj.zIndex;
-            let opacity = this.props.obj.opacity;
-
-            let style = {
+            var rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
+            var img_1 = this.props.obj.img;
+            var size = this.props.obj.size * UL;
+            var posX = this.props.obj.posX * UL;
+            var posY = this.props.obj.posY * UL;
+            var zIndex = this.props.obj.zIndex;
+            var opacity = this.props.obj.opacity;
+            var style = {
                 position: "absolute",
                 left: posX,
                 top: posY,
@@ -121,23 +116,16 @@ export default class Obj extends React.Component {
                 zIndex: zIndex,
                 opacity: opacity,
             };
-            return (
-                <img
-                    src={img}
-                    width={size}
-                    style={style}
-                    alt={"object"}
-                />
-            );
-        } else if (this.props.obj.divType) {
+            return (<img_1 src={img_1} width={size} style={style} alt={"object"}/>);
+        }
+        else if (this.props.obj.divType) {
             //水や、画面の外を黒くするためのdiv要素
             //divTypeの中の文字列がそのままclass名になり、CSSが効く
-            let size = this.props.obj.size * UL;
-            let posX = this.props.obj.posX * UL;
-            let posY = this.props.obj.posY * UL;
-            let zIndex = this.props.obj.zIndex;
-
-            let style = {
+            var size = this.props.obj.size * UL;
+            var posX = this.props.obj.posX * UL;
+            var posY = this.props.obj.posY * UL;
+            var zIndex = this.props.obj.zIndex;
+            var style = {
                 position: "absolute",
                 left: posX,
                 top: posY,
@@ -145,23 +133,19 @@ export default class Obj extends React.Component {
                 width: size,
                 height: size,
             };
-            return (
-                <div
-                    style={style} className={this.props.obj.divType}
-                >
-                </div>
-            );
-        } else {
+            return (<div style={style} className={this.props.obj.divType}>
+                </div>);
+        }
+        else {
             //該当の引数を受け取っていない場合、div要素を生成
-            let size = this.props.obj.size * UL;
-            let posX = this.props.obj.posX * UL;
-            let posY = this.props.obj.posY * UL;
-            let zIndex = this.props.obj.zIndex;
-            let fontSize = this.props.obj.fontSize * UL || 4 * UL;
-            let message = this.props.obj.message;
-            let fontColor = this.props.obj.fontColor;
-
-            let style = {
+            var size = this.props.obj.size * UL;
+            var posX = this.props.obj.posX * UL;
+            var posY = this.props.obj.posY * UL;
+            var zIndex = this.props.obj.zIndex;
+            var fontSize = this.props.obj.fontSize * UL || 4 * UL;
+            var message = this.props.obj.message;
+            var fontColor = this.props.obj.fontColor;
+            var style = {
                 position: "absolute",
                 left: posX,
                 top: posY,
@@ -169,88 +153,61 @@ export default class Obj extends React.Component {
                 fontSize: fontSize,
                 color: fontColor,
             };
-            return (
-                <div
-                    width={size}
-                    style={style}
-                >
+            return (<div width={size} style={style}>
                     {message}
-                </div>
-            );
+                </div>);
         }
-    }
-}
-
+    };
+    return Obj;
+}(React.Component));
+exports.Obj = Obj;
+exports.default = Obj;
 //巻物に話者の画像がついていた場合、それも表示する
 function SpeakerImage(props) {
-    let img = props.img;
-
+    var img = props.img;
     if (img) {
-        let size = props.size / 10;
-        let zIndex = props.zIndex + 3;
-        let posX = props.posX + size * 1.3;
-        let posY = props.posY + size * 0.5;
-
-        let style = {
+        var size = props.size / 10;
+        var zIndex = props.zIndex + 3;
+        var posX = props.posX + size * 1.3;
+        var posY = props.posY + size * 0.5;
+        var style = {
             position: "absolute",
             left: posX,
             top: posY,
             zIndex: zIndex,
-        }
-
-        return (
-            <img
-                src={img}
-                width={size}
-                alt={"object"}
-                style={style}
-            />
-        );
-    } else {
+        };
+        return (<img src={img} width={size} alt={"object"} style={style}/>);
+    }
+    else {
         return <div></div>;
     }
 }
-
 function CloseElement(props) {
     if (props.obj.finalMessage) {
         //全クリ時のメッセージ
-
         //localStorageに自動セーブ（次回起動時データ）
-        const saveData = {
+        var saveData = {
             ninja: null,
             stage: 1,
-        }
+        };
         localStorage.setItem(Consts.SAVE_NAME, JSON.stringify(saveData));
-
         //タイムステップ毎のループの終了
         clearInterval(props.game.timerId);
-
-        return (
-            <Link to="/ninja">
-                <button
-                    className={"btn btn-dark btn-lg btn-block"}
-                    style={props.styleBtnClose}
-                >
+        return (<react_router_dom_1.Link to="/ninja">
+                <button className={"btn btn-dark btn-lg btn-block"} style={props.styleBtnClose}>
                     {"Exit Game"}
                 </button>
-            </Link>
-        );
-    } else {
+            </react_router_dom_1.Link>);
+    }
+    else {
         //全クリ時のメッセージでない通常メッセージ
         if (props.game.closeScroll) {
             //ジャンプボタンが押されていたら、巻物を閉じる
             props.onClick();
             props.game.closeScroll = false;
         }
-        return (
-            <button
-                className={"btn btn-dark btn-lg btn-block"}
-                style={props.styleBtnClose}
-                onClick={() => { props.onClick() }}
-            >
+        return (<button className={"btn btn-dark btn-lg btn-block"} style={props.styleBtnClose} onClick={function () { props.onClick(); }}>
                 {"Close"}
-            </button>
-        );
+            </button>);
     }
 }
-export { Obj };

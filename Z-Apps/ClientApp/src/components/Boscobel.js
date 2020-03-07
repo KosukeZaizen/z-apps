@@ -1,131 +1,180 @@
-import * as React from 'react';
-import Head from './parts/Helmet';
-
-export default class Boscobel extends React.Component {
-
-    constructor(props) {
-        super(props);
-
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var Boscobel = /** @class */ (function (_super) {
+    __extends(Boscobel, _super);
+    function Boscobel(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleChangeFile = function (e, imageType) {
+            var target = e.target;
+            var file = target.files.item(0);
+            if (imageType === _this.consts.background) {
+                _this.setState({ background: file });
+            }
+            else if (imageType === _this.consts.top) {
+                _this.setState({ top: file });
+            }
+        };
+        _this.handleChangePW = function (e) {
+            _this.setState({ pw: e.target.value });
+            localStorage.setItem("boscobel-token", JSON.stringify({ token: e.target.value }));
+        };
+        _this.uploadFile = function (imageType) {
+            var file = null;
+            if (imageType === _this.consts.background) {
+                file = _this.state.background;
+            }
+            else if (imageType === _this.consts.top) {
+                file = _this.state.top;
+            }
+            if (!file || file.name.split(".").pop().toLowerCase() !== "png") {
+                alert("Error! Please select a png file.");
+                return;
+            }
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append("shop", "boscobel");
+            formData.append("fileName", imageType);
+            formData.append("pw", _this.state.pw);
+            fetch('/api/ShopImg/Upload', { method: 'POST', body: formData })
+                .then(function (response) { return __awaiter(_this, void 0, void 0, function () {
+                var result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, response.json()];
+                        case 1:
+                            result = _a.sent();
+                            if (result) {
+                                if (result.errMessage) {
+                                    alert(result.errMessage);
+                                }
+                                else {
+                                    alert("Success to upload!");
+                                    window.open('https://www.cafe-boscobel.com/');
+                                    window.location.reload();
+                                }
+                            }
+                            else {
+                                alert("Failed to upload... Status:" + response.status);
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            }); })
+                .catch(function () {
+                alert("Failed to upload...");
+            });
+        };
         //セーブデータがあればそれを設定
-        const saveData = localStorage.getItem("boscobel-token");
-        const objSaveData = JSON.parse(saveData);
-
-        let token;
+        var saveData = localStorage.getItem("boscobel-token");
+        var objSaveData = JSON.parse(saveData);
+        var token;
         if (objSaveData) {
             token = objSaveData.token || "";
-        } else {
+        }
+        else {
             token = "";
         }
-
-        this.state = {
+        _this.state = {
             background: null,
             top: null,
             pw: token,
-        }
-
-        this.consts = {
+        };
+        _this.consts = {
             background: "background",
             top: "top",
-        }
+        };
+        return _this;
     }
-
-    handleChangeFile = (e, imageType) => {
-        const target = e.target;
-        const file = target.files.item(0);
-        if (imageType === this.consts.background) {
-            this.setState({ background: file });
-        } else if (imageType === this.consts.top){
-            this.setState({ top: file });
-        }
-    }
-
-    handleChangePW = (e) => {
-        this.setState({ pw: e.target.value });
-        localStorage.setItem("boscobel-token", JSON.stringify({ token: e.target.value }));
-    }
-
-    uploadFile = (imageType) => {
-        let file = null;
-        if (imageType === this.consts.background) {
-            file = this.state.background;
-        } else if (imageType === this.consts.top) {
-            file = this.state.top;
-        }
-
-        if (!file || file.name.split(".").pop().toLowerCase() !== "png") {
-            alert("Error! Please select a png file.");
-            return;
-        }
-
-
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("shop", "boscobel");
-        formData.append("fileName", imageType);
-        formData.append("pw", this.state.pw);
-
-        fetch('/api/ShopImg/Upload', { method: 'POST', body: formData })
-            .then(async (response) => {
-
-                const result = await response.json();
-                if (result) {
-                    if (result.errMessage) {
-                        alert(result.errMessage);
-                    } else {
-                        alert("Success to upload!");
-                        window.open('https://www.cafe-boscobel.com/');
-                        window.location.reload();
-                    }
-                } else {
-                    alert("Failed to upload... Status:" + response.status);
-                }
-            })
-            .catch(() => {
-                alert("Failed to upload...");
-            });
-    }
-
-    render() {
-        return (
-            <center>
-                <Head
-                    title={"Boscobel - Upload Image"}
-                    noindex={true}
-                />
+    Boscobel.prototype.render = function () {
+        var _this = this;
+        return (<center>
+                <Helmet_1.default title={"Boscobel - Upload Image"} noindex={true}/>
                 <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
                 </div>
-                <div style={{ maxWidth: 1000, color:"white" }}>
+                <div style={{ maxWidth: 1000, color: "white" }}>
                     <h1 style={{
-                        margin: "30px",
-                        lineHeight: "30px",
-                        color: "#eb6905",
-                    }}>
+            margin: "30px",
+            lineHeight: "30px",
+            color: "#eb6905",
+        }}>
                         <b>Boscobel - Upload Image</b>
                     </h1>
                     <br />
                     パスワード（30cmを超える金魚の名前は？）
-                    <input
-                        type="text"
-                        onChange={this.handleChangePW}
-                        value={this.state.pw}
-                        style={{color: "black"}}
-                    />
+                    <input type="text" onChange={this.handleChangePW} value={this.state.pw} style={{ color: "black" }}/>
                     <br />
                     <br />
                     <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
                         <h2>Background Image</h2>
                         <br />
                         Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }} />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }}/>
                         <br /><br />
                         Select a png file from your computer! (Only png is valid!)
-                        <input type="file" name="background" onChange={(e) => this.handleChangeFile(e, this.consts.background)} />
+                        <input type="file" name="background" onChange={function (e) { return _this.handleChangeFile(e, _this.consts.background); }}/>
                         <br /><br />
-                        <button
-                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }}
-                            className="btn btn-primary btn-xs"
-                            onClick={() => this.uploadFile(this.consts.background)}
-                        >
+                        <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }} className="btn btn-primary btn-xs" onClick={function () { return _this.uploadFile(_this.consts.background); }}>
                             <b>Upload</b>
                         </button>
                     </div>
@@ -134,92 +183,64 @@ export default class Boscobel extends React.Component {
                         <h2>Top Image</h2>
                         <br />
                         Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }} />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }}/>
                         <br /><br />
                         Select a png file from your computer! (Only png is valid!)
-                        <input type="file" name="top" onChange={(e) => this.handleChangeFile(e, this.consts.top)} />
+                        <input type="file" name="top" onChange={function (e) { return _this.handleChangeFile(e, _this.consts.top); }}/>
                         <br /><br />
-                        <button
-                            style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }}
-                            className="btn btn-primary btn-xs"
-                            onClick={() => this.uploadFile(this.consts.top)}
-                        >
+                        <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }} className="btn btn-primary btn-xs" onClick={function () { return _this.uploadFile(_this.consts.top); }}>
                             <b>Upload</b>
                         </button>
                     </div>
                 </div>
-            </center>
-        );
+            </center>);
+    };
+    return Boscobel;
+}(React.Component));
+exports.default = Boscobel;
+;
+var Description = /** @class */ (function (_super) {
+    __extends(Description, _super);
+    function Description(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {};
+        return _this;
     }
-};
-
-class Description extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
+    Description.prototype.render = function () {
+        return (<div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
+                <textarea rows="10" style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }} value={this.props.desc} onChange={this.props.handleChangeDesc}/>
+            </div>);
+    };
+    return Description;
+}(React.Component));
+var Sentences = /** @class */ (function (_super) {
+    __extends(Sentences, _super);
+    function Sentences(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {};
+        return _this;
     }
-
-    render() {
-        return (
-            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                <textarea
-                    rows="10"
-                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                    value={this.props.desc}
-                    onChange={this.props.handleChangeDesc}
-                />
-            </div>
-        )
-    }
-}
-
-class Sentences extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    render() {
-        return (
-            <div style={{ textAlign: "left" }}>
-                {
-                    this.props.sentences && this.props.sentences.map((s,i) =>
-                        <span key={s.lineNumber}>
+    Sentences.prototype.render = function () {
+        var _this = this;
+        return (<div style={{ textAlign: "left" }}>
+                {this.props.sentences && this.props.sentences.map(function (s, i) {
+            return <span key={s.lineNumber}>
                             <table style={{ width: "100%" }}>
                                 <tbody>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                         <td width="20px"><b>Ｋ:　</b></td>
-                                        <td><input
-                                            type="text"
-                                            value={s.kanji}
-                                            onChange={(e) => this.props.handleChangeSentence(e, i,"kanji")}
-                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                        /></td>
+                                        <td><input type="text" value={s.kanji} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "kanji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
                                     </tr>
                                     <tr>
                                         <td>
                                         </td>
-                                        <td style={{textAligh: "left"}}>
-                                            <button
-                                                style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                                                className="btn btn-dark btn-xs"
-                                                onClick={() => this.props.translate(s)}
-                                            >
+                                        <td style={{ textAligh: "left" }}>
+                                            <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.translate(s); }}>
                                                 <b>↓　Translate Sentence　↓</b>
                                             </button>
-                                            {this.props.isTranslating ? <span style={{ color: "white", marginLeft:20 }}>Translating...</span> : null}
-                                            <div style={{ textAligh: "right", float:"right" }}>
-                                                <button
-                                                    style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
-                                                    className="btn btn-dark btn-xs"
-                                                    onClick={() => this.props.removeLine(s.lineNumber)}
-                                                >
+                                            {_this.props.isTranslating ? <span style={{ color: "white", marginLeft: 20 }}>Translating...</span> : null}
+                                            <div style={{ textAligh: "right", float: "right" }}>
+                                                <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.removeLine(s.lineNumber); }}>
                                                     <b>Remove Sentence</b>
                                                 </button>
                                             </div>
@@ -227,165 +248,99 @@ class Sentences extends React.Component {
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                         <td width="20px"><b>Ｈ:　</b></td>
-                                        <td><input
-                                            type="text"
-                                            value={s.hiragana}
-                                            onChange={(e) => this.props.handleChangeSentence(e, i, "hiragana")}
-                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                        /></td>
+                                        <td><input type="text" value={s.hiragana} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "hiragana"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                         <td width="20px"><b>Ｒ:　</b></td>
-                                        <td><input
-                                            type="text"
-                                            value={s.romaji}
-                                            onChange={(e) => this.props.handleChangeSentence(e, i, "romaji")}
-                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                        /></td>
+                                        <td><input type="text" value={s.romaji} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "romaji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
                                         <td width="20px"><b>Ｅ:　</b></td>
-                                        <td><input
-                                            type="text"
-                                            value={s.english}
-                                            onChange={(e) => this.props.handleChangeSentence(e, i, "english")}
-                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                        /></td>
+                                        <td><input type="text" value={s.english} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "english"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            {
-                                this.props.words && this.props.words.length > 0 ?
-                                <WordList
-                                        words={this.props.words}
-                                        s={s}
-                                        storyId={this.props.storyId}
-                                        handleChangeWord={this.props.handleChangeWord}
-                                        addWord={this.props.addWord}
-                                        removeWord={this.props.removeWord}
-                                        translateWord={this.props.translateWord}
-                                        margeWord={this.props.margeWord}
-                                    />
-                                    :
-                                    null
-                            }
-                            <button
-                                style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={() => this.props.addLine(s.lineNumber)}
-                            >
+                            {_this.props.words && _this.props.words.length > 0 ?
+                <WordList words={_this.props.words} s={s} storyId={_this.props.storyId} handleChangeWord={_this.props.handleChangeWord} addWord={_this.props.addWord} removeWord={_this.props.removeWord} translateWord={_this.props.translateWord} margeWord={_this.props.margeWord}/>
+                :
+                    null}
+                            <button style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.addLine(s.lineNumber); }}>
                                 <b>Add Line</b>
                             </button>
 
                             <br /><br />
                             <hr />
-                        </span>
-                    )
-                }
-            </div>
-        );
-    }
-};
-
-class WordList extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
+                        </span>;
+        })}
+            </div>);
+    };
+    return Sentences;
+}(React.Component));
+;
+var WordList = /** @class */ (function (_super) {
+    __extends(WordList, _super);
+    function WordList(props) {
+        var _this = _super.call(this, props) || this;
+        _this.showWordList = function () {
+            _this.setState({ showWordList: true });
+        };
+        _this.hideWordList = function () {
+            _this.setState({ showWordList: false });
+        };
+        _this.state = {
             showWordList: true,
         };
+        return _this;
     }
-
-    showWordList = () => {
-        this.setState({ showWordList: true });
-    }
-
-    hideWordList = () => {
-        this.setState({ showWordList: false });
-    }
-
-    render() {
-        return (
-            <span>
+    WordList.prototype.render = function () {
+        var _this = this;
+        return (<span>
                 <br />
                 <div style={{ backgroundColor: "#1b181b" }}>
-                    {
-                        this.state.showWordList ?
-                            <center>
-                                <table border="1" style={{ width:"100%", borderCollapse: "collapse" }}>
+                    {this.state.showWordList ?
+            <center>
+                                <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
                                     <tbody>
-                                        {
-                                            this.props.words && this.props.words.filter((w) =>
-                                                w.lineNumber === this.props.s.lineNumber
-                                            ).sort((a, b) =>
-                                                a.wordNumber - b.wordNumber
-                                            ).map((w, i) =>
-                                                <tr key={w.wordNumber}>
+                                        {this.props.words && this.props.words.filter(function (w) {
+                return w.lineNumber === _this.props.s.lineNumber;
+            }).sort(function (a, b) {
+                return a.wordNumber - b.wordNumber;
+            }).map(function (w, i) {
+                return <tr key={w.wordNumber}>
                                                     <td width="10px">
-                                                        <button
-                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
-                                                            className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.margeWord(w.lineNumber, w.wordNumber)}
-                                                        ><b>M</b>
+                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.margeWord(w.lineNumber, w.wordNumber); }}><b>M</b>
                                                         </button>
                                                     </td>
                                                     <td width="20%">
-                                                        <textarea
-                                                            value={w.kanji}
-                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "kanji")}
-                                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                                        />
+                                                        <textarea value={w.kanji} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "kanji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
                                                     </td>
                                                     <td width="10px">
-                                                        <button
-                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
-                                                            className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.translateWord(w)}
-                                                        ><b>⇒</b>
+                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.translateWord(w); }}><b>⇒</b>
                                                         </button>
                                                     </td>
                                                     <td width="23%">
-                                                        <textarea
-                                                            value={w.hiragana}
-                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "hiragana")}
-                                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                                        />
+                                                        <textarea value={w.hiragana} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "hiragana"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
                                                     </td>
                                                     <td>
-                                                        <textarea
-                                                            value={w.english}
-                                                            onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "english")}
-                                                            style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                                                        />
+                                                        <textarea value={w.english} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "english"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
                                                     </td>
                                                     <td width="10px">
-                                                        <button
-                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
-                                                            className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.removeWord(w.lineNumber, w.wordNumber)}
-                                                        ><b>－</b>
+                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.removeWord(w.lineNumber, w.wordNumber); }}><b>－</b>
                                                         </button>
                                                     </td>
                                                     <td width="10px">
-                                                        <button
-                                                            style={{ height: "100%", paddingTop: 0, color: "black" }}
-                                                            className="btn btn-dark btn-xs"
-                                                            onClick={() => this.props.addWord(w.lineNumber, w.wordNumber)}
-                                                        ><b>＋</b>
+                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.addWord(w.lineNumber, w.wordNumber); }}><b>＋</b>
                                                         </button>
                                                     </td>
-                                                </tr>
-                                            )
-                                        }
+                                                </tr>;
+            })}
                                     </tbody>
                                 </table>
                             </center>
-                            :
-                            null
-                    }
+            :
+                null}
                 </div>
-            </span>
-        )
-    }
-}
+            </span>);
+    };
+    return WordList;
+}(React.Component));

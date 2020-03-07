@@ -1,20 +1,40 @@
-import Imgs from '../ImportImgs';
-import * as OnTouch from '../OnTouch';//タッチ関数
-import * as EachTime from '../EachTime';//タイムステップごとの処理
-import { messages } from '../Messages';//メッセージモジュール
-import { changeStage } from '../CommonFnc'//共通関数
-
+"use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ImportImgs_1 = __importDefault(require("../ImportImgs"));
+var OnTouch = __importStar(require("../OnTouch")); //タッチ関数
+var EachTime = __importStar(require("../EachTime")); //タイムステップごとの処理
+var Messages_1 = require("../Messages"); //メッセージモジュール
+var CommonFnc_1 = require("../CommonFnc"); //共通関数
 //------------------------------------------------------------
 //
 //　ステージに配置されるオブジェクトを生成するための関数群
 //
 //------------------------------------------------------------
-
 //ブロック生成関数
-export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
-    let objResult = {};
-
-    for (let index in arrPos) {
+function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+    var objResult = {};
+    for (var index in arrPos) {
         objResult["block" + index] = {
             size: size,
             posX: arrPos[index][0] * size,
@@ -27,12 +47,11 @@ export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
     }
     return objResult;
 }
-
+exports.getBlocks = getBlocks;
 //氷ブロック生成関数
-export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
-    let objResult = {};
-
-    for (let index in arrPos) {
+function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+    var objResult = {};
+    for (var index in arrPos) {
         objResult["iceBlock" + index] = {
             size: size,
             posX: arrPos[index][0] * size,
@@ -46,9 +65,9 @@ export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
     }
     return objResult;
 }
-
+exports.getIceBlocks = getIceBlocks;
 //画像　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft, opacity) {
+function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft, opacity) {
     return {
         size: size,
         posX: posX,
@@ -60,43 +79,39 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft, opac
         opacity: opacity,
     };
 }
-
+exports.getOnePic = getOnePic;
 //矢印看板
-export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
+function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
     //看板に触れた時にメッセージを出したくない場合は、scrollNameにnullを渡す
-    let objResult = {};
+    var objResult = {};
     if (boolLeft) {
         //左向き矢印
-        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex-1, OnTouch.toNothing);
+        objResult["Kanban" + scrollName] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
         if (scrollName) {
-            objResult = {
-                ...objResult,
-                ...getSoroll(scrollName, 10, posX+4, posY+3, Imgs.Arrow1, null, zIndex, true)
-            };
-        } else {
-            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 4, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, true);
+            objResult = __assign(__assign({}, objResult), getSoroll(scrollName, 10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, true));
         }
-    } else {
+        else {
+            objResult["Arrow" + scrollName] = getOnePic(10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, true);
+        }
+    }
+    else {
         //右向き矢印
-        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex - 1, OnTouch.toNothing);
+        objResult["Kanban" + scrollName] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
         if (scrollName) {
-            objResult = {
-                ...objResult,
-                ...getSoroll(scrollName, 10, posX + 5, posY + 3, Imgs.Arrow1, null, zIndex, false)
-            };
-        } else {
-            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 5, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, false);
+            objResult = __assign(__assign({}, objResult), getSoroll(scrollName, 10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, false));
+        }
+        else {
+            objResult["Arrow" + scrollName] = getOnePic(10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, false);
         }
     }
     return objResult;
 }
-
+exports.getArrowBoard = getArrowBoard;
 //飛ぶ岩　生成関数
-export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
-    let objResult = {};
-    img = img || Imgs.Rock;
-
-    objResult[`Rock${name}`] = {
+function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
+    var objResult = {};
+    img = img || ImportImgs_1.default.Rock;
+    objResult["Rock" + name] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -104,43 +119,43 @@ export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
         img: img,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: `Fire${name}`,
+        fireName: "Fire" + name,
         maxHeight: maxHeight,
     };
-    objResult[`Fire${name}`] = {
+    objResult["Fire" + name] = {
         size: size,
         posX: posX,
         posY: posY + (size * 3 / 4),
         zIndex: zIndex - 1,
-        img: Imgs.FireR,
+        img: ImportImgs_1.default.FireR,
         onTouch: OnTouch.toNothing,
         eachTime: EachTime.FlyingRock,
         maxHeight: maxHeight,
     };
     return objResult;
 }
-
+exports.getFlyingRock = getFlyingRock;
 //飛ぶ岩（右向き）　生成関数
-export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
-    let objResult = {};
-    objResult[`Rock${id}`] = {
+function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
+    var objResult = {};
+    objResult["Rock" + id] = {
         size: size,
         posX: posX,
         posY: posY,
         zIndex: zIndex,
-        img: Imgs.RockRight,
+        img: ImportImgs_1.default.RockRight,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: `Fire${id}`,
+        fireName: "Fire" + id,
         maxRight: maxRight,
         direction: "right",
     };
-    objResult[`Fire${id}`] = {
+    objResult["Fire" + id] = {
         size: size,
         posX: posX - (size * 3 / 4),
         posY: posY,
         zIndex: zIndex - 1,
-        img: Imgs.FireRight,
+        img: ImportImgs_1.default.FireRight,
         onTouch: OnTouch.toNothing,
         eachTime: EachTime.FlyingRock,
         maxRight: maxRight,
@@ -148,29 +163,29 @@ export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
     };
     return objResult;
 }
-
+exports.getFlyingRockRight = getFlyingRockRight;
 //飛ぶ岩（左向き）　生成関数
-export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
-    let objResult = {};
-    objResult[`Rock${id}`] = {
+function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
+    var objResult = {};
+    objResult["Rock" + id] = {
         size: size,
         posX: posX,
         posY: posY,
         zIndex: zIndex,
-        img: Imgs.RockRight,
+        img: ImportImgs_1.default.RockRight,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: `Fire${id}`,
+        fireName: "Fire" + id,
         maxLeft: maxLeft,
         direction: "left",
-        boolLeft:true,
+        boolLeft: true,
     };
-    objResult[`Fire${id}`] = {
+    objResult["Fire" + id] = {
         size: size,
         posX: posX + (size * 3 / 4),
         posY: posY,
         zIndex: zIndex - 1,
-        img: Imgs.FireRight,
+        img: ImportImgs_1.default.FireRight,
         onTouch: OnTouch.toNothing,
         eachTime: EachTime.FlyingRock,
         maxLeft: maxLeft,
@@ -179,19 +194,19 @@ export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
     };
     return objResult;
 }
-
+exports.getFlyingRockLeft = getFlyingRockLeft;
 //凍ったオブジェクト　生成関数
-export function getFrozenObj(name, size, posX, posY, img, zIndex, boolLeft) {
-    let objResult = {};
+function getFrozenObj(name, size, posX, posY, img, zIndex, boolLeft) {
+    var objResult = {};
     zIndex = zIndex || 10;
     objResult[name] = getOnePic(size, posX, posY, img, zIndex, OnTouch.toNothing, boolLeft);
-    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, Imgs.Ice, 5, OnTouch.toBlock, false, 0.8);
-    objResult[`${name}Ice2`] = getOnePic(size, posX, posY, Imgs.Ice, 40, OnTouch.toBlock, false, 0.5);
+    objResult[name + "Ice1"] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 5, OnTouch.toBlock, false, 0.8);
+    objResult[name + "Ice2"] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 40, OnTouch.toBlock, false, 0.5);
     return objResult;
 }
-
+exports.getFrozenObj = getFrozenObj;
 //文字列要素　生成関数
-export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
+function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
     return {
         size: size,
         posX: posX,
@@ -202,12 +217,11 @@ export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch)
         onTouch: onTouch,
     };
 }
-
+exports.getMessage = getMessage;
 //メッセージ表示　巻物
-export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, isFinal) {
-    let objResult = {};
-
-    objResult[`${name}_ScrollOpener`] = {
+function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, isFinal) {
+    var objResult = {};
+    objResult[name + "_ScrollOpener"] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -215,28 +229,28 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
         img: img,
         boolLeft: boolLeft,
         onTouch: OnTouch.toScrollOpener,
-        openTargetTitle: messages[`${name}_SCROLL_TITLE`],
+        openTargetTitle: Messages_1.messages[name + "_SCROLL_TITLE"],
     };
-    objResult[`${name}_ScrollMessage`] = {
+    objResult[name + "_ScrollMessage"] = {
         size: 150,
         posX: 5,
         posY: 5,
         zIndex: 1000,
-        img: Imgs.ScrollOpen,
+        img: ImportImgs_1.default.ScrollOpen,
         scroll: true,
         visible: false,
         onTouch: OnTouch.toNothing,
-        title: messages[`${name}_SCROLL_TITLE`],
-        message: messages[`${name}_SCROLL_MESSAGE`],
+        title: Messages_1.messages[name + "_SCROLL_TITLE"],
+        message: Messages_1.messages[name + "_SCROLL_MESSAGE"],
         fontSize: 3,
         speakerImg: speakerImg,
         finalMessage: isFinal,
     };
     return objResult;
 }
-
+exports.getSoroll = getSoroll;
 //ステージ変更用ドア
-export function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextLeft) {
+function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextLeft) {
     return {
         size: size,
         posX: posX,
@@ -248,12 +262,12 @@ export function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextL
         nextY: nextY,
         nextLeft: nextLeft,
         onTouch: OnTouch.toStageChangeCommon,
-        changeStage: changeStage,
+        changeStage: CommonFnc_1.changeStage,
     };
 }
-
+exports.getDoor = getDoor;
 //敵
-export function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
+function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
     return {
         size: size,
         posX: posX,
@@ -267,38 +281,38 @@ export function getEnemy(size, posX, posY, img, zIndex, speedX, speedY) {
         eachTime: EachTime.Enemy,
     };
 }
-
+exports.getEnemy = getEnemy;
 //一つ目
-export function getOneEye(size, posX, posY, zIndex) {
+function getOneEye(size, posX, posY, zIndex) {
     return {
         size: size,
         posX: posX,
         posY: posY,
         zIndex: zIndex,
-        img: Imgs.Hitotsume,
+        img: ImportImgs_1.default.Hitotsume,
         onTouch: OnTouch.toEnemy,
         enemy: true,
         eachTime: EachTime.OneEye,
     };
 }
-
+exports.getOneEye = getOneEye;
 //ボス
-export function getBoss() {
+function getBoss() {
     return {
         size: 14,
         posX: 8,
         posY: 53,
         zIndex: 25,
-        img: Imgs.Boss,
+        img: ImportImgs_1.default.Boss,
         onTouch: OnTouch.toMortalEnemy,
         enemy: true,
         eachTime: EachTime.Boss,
     };
 }
-
+exports.getBoss = getBoss;
 //ステージ変更用ゲート（左）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getLeftGate(next, nextX, nextY, posX) {
+function getLeftGate(next, nextX, nextY, posX) {
     return {
         size: 300,
         posX: -300 + (posX || 0),
@@ -309,13 +323,13 @@ export function getLeftGate(next, nextX, nextY, posX) {
         nextY: nextY,
         nextLeft: true,
         onTouch: OnTouch.toStageChangeCommon,
-        changeStage: changeStage,
+        changeStage: CommonFnc_1.changeStage,
     };
 }
-
+exports.getLeftGate = getLeftGate;
 //ステージ変更用ゲート（右）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getRightGate(next, nextX, nextY, posX) {
+function getRightGate(next, nextX, nextY, posX) {
     return {
         size: 300,
         posX: 160 + (posX || 0),
@@ -326,14 +340,14 @@ export function getRightGate(next, nextX, nextY, posX) {
         nextY: nextY,
         nextLeft: false,
         onTouch: OnTouch.toStageChangeCommon,
-        changeStage: changeStage,
+        changeStage: CommonFnc_1.changeStage,
     };
 }
-
+exports.getRightGate = getRightGate;
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
-    const posY = heightOfTheGate - 1000 || -1012;
+function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
+    var posY = heightOfTheGate - 1000 || -1012;
     return {
         size: 1000,
         posX: -420,
@@ -344,14 +358,14 @@ export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
         nextY: nextY,
         nextLeft: nextLeft,
         onTouch: OnTouch.toStageChangeCommon,
-        changeStage: changeStage,
+        changeStage: CommonFnc_1.changeStage,
     };
 }
-
+exports.getTopGate = getTopGate;
 //ステージ変更用ゲート（下）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
-    const posY = heightOfTheGate || 87;
+function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
+    var posY = heightOfTheGate || 87;
     return {
         size: 1000,
         posX: -420,
@@ -362,12 +376,12 @@ export function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
         nextY: nextY,
         nextLeft: nextLeft,
         onTouch: OnTouch.toStageChangeCommon,
-        changeStage: changeStage,
+        changeStage: CommonFnc_1.changeStage,
     };
 }
-
+exports.getBottomGate = getBottomGate;
 //触ったら死亡する、不動オブジェクト
-export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
+function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
     return {
         size: size,
         posX: posX,
@@ -379,14 +393,13 @@ export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
         boolLeft: boolLeft,
     };
 }
-
+exports.getDangerousObj = getDangerousObj;
 //雪 生成関数
-export function getSnows(strength, zIndex, reverse) {
-    let objResult = {};
-    const eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
-
-    for (let i = 0; i <= 160 * strength; i++) {
-        for (let j = -10; j <= 75 * strength; j++) {
+function getSnows(strength, zIndex, reverse) {
+    var objResult = {};
+    var eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
+    for (var i = 0; i <= 160 * strength; i++) {
+        for (var j = -10; j <= 75 * strength; j++) {
             objResult["snowX" + i + "Y" + j] = {
                 size: 30,
                 posX: Math.floor(Math.random() * 161),
@@ -402,11 +415,10 @@ export function getSnows(strength, zIndex, reverse) {
     }
     return objResult;
 }
-
+exports.getSnows = getSnows;
 //鍵　生成関数
-export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-    let objResult = {};
-
+function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
+    var objResult = {};
     if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
         //まだ鍵を見付けていない場合のみ表示
         objResult["key"] = {
@@ -414,7 +426,7 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
             posX: posX,
             posY: posY,
             zIndex: zIndex,
-            img: Imgs.imgKey,
+            img: ImportImgs_1.default.imgKey,
             onTouch: OnTouch.toScrollOpener,
             openTargetTitle: openTargetTitle,
             boolLeft: true,
@@ -422,9 +434,9 @@ export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
     }
     return objResult;
 }
-
+exports.getKeys = getKeys;
 //画面外を黒くする要素
-export function getObjOutOfScreen() {
+function getObjOutOfScreen() {
     return {
         outOfScreenLeft: {
             size: 300,
@@ -456,9 +468,9 @@ export function getObjOutOfScreen() {
         },
     };
 }
-
+exports.getObjOutOfScreen = getObjOutOfScreen;
 //全ステージ共通の壁（render内で設定）
-export function getObjWalls() {
+function getObjWalls() {
     return {
         leftWall: {
             size: 300,
@@ -476,9 +488,9 @@ export function getObjWalls() {
         },
     };
 }
-
+exports.getObjWalls = getObjWalls;
 //全ステージ共通の壁（render内で設定）
-export function getObjFloor() {
+function getObjFloor() {
     return {
         floor1: {
             size: 200,
@@ -510,3 +522,4 @@ export function getObjFloor() {
         },
     };
 }
+exports.getObjFloor = getObjFloor;

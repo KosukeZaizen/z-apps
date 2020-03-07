@@ -1,19 +1,41 @@
-import * as React from 'react';
-import { Page1 } from './parts/Ninja2/Page1';
-import { Page2 } from './parts/Ninja2/Page2';
-import { getParams } from './common/functions';
-import '../css/NinjaGame2.css';
-import Head from './parts/Helmet';
-
-class NinjaGame extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        let ninja;
-        let stage;
-
-        const initialNinja = {
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+var Page1_1 = require("./parts/Ninja2/Page1");
+var Page2_1 = require("./parts/Ninja2/Page2");
+var functions_1 = require("./common/functions");
+require("../css/NinjaGame2.css");
+var Helmet_1 = __importDefault(require("./parts/Helmet"));
+var NinjaGame = /** @class */ (function (_super) {
+    __extends(NinjaGame, _super);
+    function NinjaGame(props) {
+        var _this = _super.call(this, props) || this;
+        var ninja;
+        var stage;
+        var initialNinja = {
             size: 12,
             speedX: 0,
             speedY: 0,
@@ -22,52 +44,48 @@ class NinjaGame extends React.Component {
             readScroll: [],
             boolLeft: true,
         };
-
         //セーブデータ読み込み
-        const saveData = localStorage.getItem('saveData2');
-
+        var saveData = localStorage.getItem('saveData2');
         //セーブデータがあればそれを設定
-        const objSaveData = JSON.parse(saveData);
+        var objSaveData = JSON.parse(saveData);
         if (objSaveData) {
             ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
-        } else {
+        }
+        else {
             ninja = initialNinja;
             stage = 1;
         }
-
         //urlパラメータ取得
-        const params = getParams();
-        const lang = (!!params) ? params.l : "";
-
-        this.state = {
+        var params = functions_1.getParams();
+        var lang = (!!params) ? params.l : "";
+        _this.state = {
             language: lang,
             curPage: 1,
-            stage: stage,//デバッグ用（通常時1）★
+            stage: stage,
             //stage: 1,
             ninja: ninja,
         };
-        this.readElementScroll = [];
+        _this.readElementScroll = [];
+        return _this;
     }
-
-    changePage(num, lang) {
+    NinjaGame.prototype.changePage = function (num, lang) {
         this.setState({
             curPage: num,
             language: lang,
         });
-    }
-
-    changeStage(num, ninja) {
+    };
+    NinjaGame.prototype.changeStage = function (num, ninja) {
         this.readElementScroll = [];
         this.setState({
             stage: num,
             ninja: ninja,
             curPage: 2,
         });
-    }
-
-    render() {
-        let style = {
+    };
+    NinjaGame.prototype.render = function () {
+        var _this = this;
+        var style = {
             position: "fixed",
             top: 0,
             left: 0,
@@ -78,43 +96,20 @@ class NinjaGame extends React.Component {
             userSelect: "none",
             touchCallout: "none",
         };
-
-        return (
-            <center id="ninja-game" style={style}>
-                <Head
-                    title="Lingual Ninja Games - Castle Of The Maze"
-                    desc="Japanese action game! Be a ninja, and defeat the enemy in the castle!"
-                />
-                <Pages
-                    state={this.state}
-                    changePage={(i, lang) => { this.changePage(i, lang) }}
-                    changeStage={(i, j) => { this.changeStage(i, j) }}
-                    changeLanguage={() => { this.changeLanguage() }}
-                    readElementScroll={this.readElementScroll}
-                />
-            </center>
-        )
-    }
-};
-
+        return (<center id="ninja-game" style={style}>
+                <Helmet_1.default title="Lingual Ninja Games - Castle Of The Maze" desc="Japanese action game! Be a ninja, and defeat the enemy in the castle!"/>
+                <Pages state={this.state} changePage={function (i, lang) { _this.changePage(i, lang); }} changeStage={function (i, j) { _this.changeStage(i, j); }} changeLanguage={function () { _this.changeLanguage(); }} readElementScroll={this.readElementScroll}/>
+            </center>);
+    };
+    return NinjaGame;
+}(React.Component));
+;
 function Pages(props) {
-
     if (props.state.curPage === 2 || !!props.state.language) {
-        return (
-            <Page2
-                changeStage={(i, j) => { props.changeStage(i, j) }}
-                ninja={props.state.ninja}
-                stage={props.state.stage}
-                readElementScroll={props.readElementScroll}
-                language={props.state.language}
-            />
-        );
-    } else if (props.state.curPage === 1) {
-        return (
-            <Page1
-                changePage={(i, lang) => { props.changePage(i, lang) }}
-            />
-        );
+        return (<Page2_1.Page2 changeStage={function (i, j) { props.changeStage(i, j); }} ninja={props.state.ninja} stage={props.state.stage} readElementScroll={props.readElementScroll} language={props.state.language}/>);
+    }
+    else if (props.state.curPage === 1) {
+        return (<Page1_1.Page1 changePage={function (i, lang) { props.changePage(i, lang); }}/>);
     }
 }
-export default NinjaGame;
+exports.default = NinjaGame;

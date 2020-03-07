@@ -1,136 +1,133 @@
+"use strict";
 //------------------------------------------------------------
 //　全てのオブジェクトの画像をimportし、exportするモジュール
 //------------------------------------------------------------
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 //＜過去要素引継ぎ＞
-
 //岩
-import Rock from './../Ninja/objs/rock.png';
+var rock_png_1 = __importDefault(require("./../Ninja/objs/rock.png"));
 //逆向きの岩
-import RockR from './../Ninja/objs/rockRiverse.png';
+var rockRiverse_png_1 = __importDefault(require("./../Ninja/objs/rockRiverse.png"));
 //逆向きの炎
-import FireR from './../Ninja/objs/fireReverse.png';
+var fireReverse_png_1 = __importDefault(require("./../Ninja/objs/fireReverse.png"));
 //ポチ
-import Pochi from './../Ninja/objs/pochi.png';
+var pochi_png_1 = __importDefault(require("./../Ninja/objs/pochi.png"));
 //閉じている巻物
-import Scroll from './../Ninja/objs/scrollObj.png';
+var scrollObj_png_1 = __importDefault(require("./../Ninja/objs/scrollObj.png"));
 //開いている巻物
-import ScrollOpen from './../Ninja/objs/scrollOpen.png';
+var scrollOpen_png_1 = __importDefault(require("./../Ninja/objs/scrollOpen.png"));
 //シノ（先輩くのいち）
-import Shino from './../Ninja/objs/shino.png';
+var shino_png_1 = __importDefault(require("./../Ninja/objs/shino.png"));
 //看板
-import Kanban1 from './../Ninja/objs/kanban1.png';
+var kanban1_png_1 = __importDefault(require("./../Ninja/objs/kanban1.png"));
 //看板の矢印
-import Arrow1 from './../Ninja/objs/arrow1.png';
+var arrow1_png_1 = __importDefault(require("./../Ninja/objs/arrow1.png"));
 //鳥居
-import Torii from './../Ninja/objs/torii.png';
+var torii_png_1 = __importDefault(require("./../Ninja/objs/torii.png"));
 //額縁
-import Frame from './../Ninja/objs/frame.jpg';
+var frame_jpg_1 = __importDefault(require("./../Ninja/objs/frame.jpg"));
 //木
-import Tree from './../Ninja/objs/tree1.png';
+var tree1_png_1 = __importDefault(require("./../Ninja/objs/tree1.png"));
 //仏壇
-import Butsudan from './../Ninja/objs/butsudan.png';
+var butsudan_png_1 = __importDefault(require("./../Ninja/objs/butsudan.png"));
 //地蔵
-import Jizo from './../Ninja/objs/jizo.png';
-
+var jizo_png_1 = __importDefault(require("./../Ninja/objs/jizo.png"));
 //鬼
-import Oni from './../Ninja2/objs/oni.png';
+var oni_png_1 = __importDefault(require("./../Ninja2/objs/oni.png"));
 //おばけ1
-import Obake1 from './../Ninja2/objs/cat.png';
+var cat_png_1 = __importDefault(require("./../Ninja2/objs/cat.png"));
 //おばけ2
-import Obake2 from './../Ninja2/objs/bat.png';
+var bat_png_1 = __importDefault(require("./../Ninja2/objs/bat.png"));
 //一つ目
-import Hitotsume from './../Ninja2/objs/hitotsume.png';
+var hitotsume_png_1 = __importDefault(require("./../Ninja2/objs/hitotsume.png"));
 //火の玉
-import Hinotama from './../Ninja2/objs/hinotama.png';
+var hinotama_png_1 = __importDefault(require("./../Ninja2/objs/hinotama.png"));
 //ボス
-import Boss from './../Ninja2/objs/badDog.png';
+var badDog_png_1 = __importDefault(require("./../Ninja2/objs/badDog.png"));
 //炎（右）
-import FireRight from './../Ninja2/objs/fireBallR.png';
+var fireBallR_png_1 = __importDefault(require("./../Ninja2/objs/fireBallR.png"));
 //木ブロック
-import Block from './../Ninja2/objs/woodenBox.jpg';
+var woodenBox_jpg_1 = __importDefault(require("./../Ninja2/objs/woodenBox.jpg"));
 //ブロック
-import StoneBlock from './../Ninja2/objs/block.jpg';
-
+var block_jpg_1 = __importDefault(require("./../Ninja2/objs/block.jpg"));
 //------------------------------------------------------------
 //＜新要素＞
-
 //雪だるま
-import Snowman from './objs/snowman.png';
+var snowman_png_1 = __importDefault(require("./objs/snowman.png"));
 //小僧
-import Monk from './objs/monk.png';
+var monk_png_1 = __importDefault(require("./objs/monk.png"));
 //氷
-import Ice from './objs/ice.jpg';
+var ice_jpg_1 = __importDefault(require("./objs/ice.jpg"));
 //岩（右）
-import RockRight from './objs/rockRight.png';
+var rockRight_png_1 = __importDefault(require("./objs/rockRight.png"));
 //扉
-import DarkDoor from './objs/darkDoor.jpg';
+var darkDoor_jpg_1 = __importDefault(require("./objs/darkDoor.jpg"));
 //死神
-import Shinigami from './objs/shinigami.png';
+var shinigami_png_1 = __importDefault(require("./objs/shinigami.png"));
 //墓
-import Grave from './objs/grave.png';
+var grave_png_1 = __importDefault(require("./objs/grave.png"));
 //老婆
-import OldWoman from './objs/oldWoman.png';
+var oldWoman_png_1 = __importDefault(require("./objs/oldWoman.png"));
 //少女１
-import Girl1 from './objs/girl1.png';
+var girl1_png_1 = __importDefault(require("./objs/girl1.png"));
 //少女２
-import Girl2 from './objs/girl2.png';
+var girl2_png_1 = __importDefault(require("./objs/girl2.png"));
 //仙人
-import Sennin from './objs/sennin.png';
+var sennin_png_1 = __importDefault(require("./objs/sennin.png"));
 //サファイア
-import Sapphire from './objs/sapphire.png';
+var sapphire_png_1 = __importDefault(require("./objs/sapphire.png"));
 //雪の結晶
-import IceStone from './objs/iceStone.png';
+var iceStone_png_1 = __importDefault(require("./objs/iceStone.png"));
 //下向きの看板
-import DownArrow from './objs/downArrow.png';
+var downArrow_png_1 = __importDefault(require("./objs/downArrow.png"));
 //青キノコ
-import AoKinoko from './objs/aoKinoko.png';
+var aoKinoko_png_1 = __importDefault(require("./objs/aoKinoko.png"));
 //赤キノコ
-import AkaKinoko from './objs/akaKinoko.png';
+var akaKinoko_png_1 = __importDefault(require("./objs/akaKinoko.png"));
 //ひげ
-import Hige from './objs/hige.gif';
-
-export default {
-    Rock,
-    RockR,
-    FireR,
-    Pochi,
-    Scroll,
-    ScrollOpen,
-    Shino,
-    Kanban1,
-    Arrow1,
-    Torii,
-    Frame,
-    Tree,
-    Butsudan,
-    Jizo,
-
-    Oni,
-    Obake1,
-    Obake2,
-    Hitotsume,
-    Hinotama,
-    Boss,
-    FireRight,
-    DarkDoor,
-    Block,
-    StoneBlock,
-
-    Snowman,
-    Monk,
-    Ice,
-    RockRight,
-    Shinigami,
-    Grave,
-    OldWoman,
-    Girl1,
-    Girl2,
-    Sennin,
-    Sapphire,
-    IceStone,
-    DownArrow,
-    AoKinoko,
-    AkaKinoko,
-    Hige,
-}
+var hige_gif_1 = __importDefault(require("./objs/hige.gif"));
+exports.default = {
+    Rock: rock_png_1.default,
+    RockR: rockRiverse_png_1.default,
+    FireR: fireReverse_png_1.default,
+    Pochi: pochi_png_1.default,
+    Scroll: scrollObj_png_1.default,
+    ScrollOpen: scrollOpen_png_1.default,
+    Shino: shino_png_1.default,
+    Kanban1: kanban1_png_1.default,
+    Arrow1: arrow1_png_1.default,
+    Torii: torii_png_1.default,
+    Frame: frame_jpg_1.default,
+    Tree: tree1_png_1.default,
+    Butsudan: butsudan_png_1.default,
+    Jizo: jizo_png_1.default,
+    Oni: oni_png_1.default,
+    Obake1: cat_png_1.default,
+    Obake2: bat_png_1.default,
+    Hitotsume: hitotsume_png_1.default,
+    Hinotama: hinotama_png_1.default,
+    Boss: badDog_png_1.default,
+    FireRight: fireBallR_png_1.default,
+    DarkDoor: darkDoor_jpg_1.default,
+    Block: woodenBox_jpg_1.default,
+    StoneBlock: block_jpg_1.default,
+    Snowman: snowman_png_1.default,
+    Monk: monk_png_1.default,
+    Ice: ice_jpg_1.default,
+    RockRight: rockRight_png_1.default,
+    Shinigami: shinigami_png_1.default,
+    Grave: grave_png_1.default,
+    OldWoman: oldWoman_png_1.default,
+    Girl1: girl1_png_1.default,
+    Girl2: girl2_png_1.default,
+    Sennin: sennin_png_1.default,
+    Sapphire: sapphire_png_1.default,
+    IceStone: iceStone_png_1.default,
+    DownArrow: downArrow_png_1.default,
+    AoKinoko: aoKinoko_png_1.default,
+    AkaKinoko: akaKinoko_png_1.default,
+    Hige: hige_gif_1.default,
+};
