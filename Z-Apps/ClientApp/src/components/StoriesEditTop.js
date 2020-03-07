@@ -37,14 +37,14 @@ var StoriesTop = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.changeScreenSize = function () {
             _this.setState({
-                screenWidth: parseInt(window.innerWidth, 10),
+                screenWidth: window.innerWidth,
             });
         };
         _this.state = {
-            screenWidth: parseInt(window.innerWidth, 10),
+            screenWidth: window.innerWidth,
         };
         _this.props.loadAllStories();
-        var timer = 0;
+        var timer;
         window.onresize = function () {
             if (timer > 0) {
                 clearTimeout(timer);
@@ -59,7 +59,7 @@ var StoriesTop = /** @class */ (function (_super) {
     StoriesTop.prototype.render = function () {
         var allStories = this.props.allStories;
         var screenWidth = this.state.screenWidth;
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: "Japanese Folktales", noindex: true }),
             React.createElement("div", { style: { maxWidth: 700 } },
                 React.createElement("div", { className: "breadcrumbs", style: { textAlign: "left" } },
@@ -76,7 +76,7 @@ var StoriesTop = /** @class */ (function (_super) {
                 allStories && allStories.length > 0 ?
                     null
                     :
-                        React.createElement("center", null,
+                        React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
                 allStories && allStories.map(function (s) {
                     var nameForUrl = s.storyName;
@@ -87,11 +87,11 @@ var StoriesTop = /** @class */ (function (_super) {
                                 React.createElement("tbody", null,
                                     React.createElement("tr", null,
                                         React.createElement("td", { colSpan: 2 },
-                                            React.createElement("center", null,
+                                            React.createElement("div", { className: "center" },
                                                 React.createElement("h2", { style: { color: "black", marginBottom: "20px" } },
                                                     React.createElement("b", null, nameToShow))))),
                                     React.createElement("tr", null,
-                                        React.createElement("td", { width: "50%" },
+                                        React.createElement("td", { style: { width: "50%" } },
                                             React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } })),
                                         React.createElement("td", null,
                                             s.description.split("\\n").map(function (d, i) {
@@ -99,7 +99,7 @@ var StoriesTop = /** @class */ (function (_super) {
                                                     d,
                                                     React.createElement("br", null));
                                             }),
-                                            React.createElement("center", null,
+                                            React.createElement("div", { className: "center" },
                                                 React.createElement("p", { style: { margin: "20px" } },
                                                     "Read ",
                                                     nameToShow,
@@ -123,4 +123,4 @@ var StoriesTop = /** @class */ (function (_super) {
     return StoriesTop;
 }(React.Component));
 ;
-exports.default = react_redux_1.connect(function (state) { return state.storiesTop; }, function (dispatch) { return redux_1.bindActionCreators(StoriesEditTopStore_1.actionCreators, dispatch); })(StoriesTop);
+exports.default = react_redux_1.connect(function (state) { return state["storiesTop"]; }, function (dispatch) { return redux_1.bindActionCreators(StoriesEditTopStore_1.actionCreators, dispatch); })(StoriesTop);

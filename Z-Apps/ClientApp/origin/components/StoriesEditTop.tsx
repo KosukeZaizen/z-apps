@@ -9,16 +9,26 @@ import * as consts from './common/consts';
 
 class StoriesTop extends React.Component {
 
+    props: {
+        loadAllStories: () => void,
+        allStories: {
+            storyName: string,
+            storyId: number,
+            description: string,
+        }[],
+    };
+    state: {screenWidth: number};
+
     constructor(props) {
         super(props);
 
         this.state = {
-            screenWidth: parseInt(window.innerWidth, 10),
+            screenWidth: window.innerWidth,
         };
 
         this.props.loadAllStories();
 
-        let timer = 0;
+        let timer;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
@@ -34,7 +44,7 @@ class StoriesTop extends React.Component {
 
     changeScreenSize = () => {
         this.setState({
-            screenWidth: parseInt(window.innerWidth, 10),
+            screenWidth: window.innerWidth,
         });
     }
 
@@ -42,7 +52,7 @@ class StoriesTop extends React.Component {
         const allStories = this.props.allStories;
         const { screenWidth } = this.state;
         return (
-            <center>
+            <div className="center">
                 <Head
                     title="Japanese Folktales"
                     noindex={true}
@@ -70,9 +80,9 @@ class StoriesTop extends React.Component {
                         allStories && allStories.length > 0 ?
                             null
                             :
-                            <center>
+                            <div className="center">
                                 <CircularProgress key="circle" size="20%" />
-                            </center>
+                            </div>
                     }
                     {
                         allStories && allStories.map(s => {
@@ -88,15 +98,15 @@ class StoriesTop extends React.Component {
                                                     <tbody>
                                                         <tr>
                                                             <td colSpan={2}>
-                                                                <center>
+                                                                <div className="center">
                                                                     <h2 style={{ color: "black", marginBottom: "20px" }}>
                                                                         <b>{nameToShow}</b>
                                                                     </h2>
-                                                                </center>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td width="50%">
+                                                            <td style={{width:"50%"}}>
                                                                 <img
                                                                     src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
                                                                     width="90%"
@@ -113,7 +123,9 @@ class StoriesTop extends React.Component {
                                                                         </span>
                                                                     )
                                                                 }
-                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
+                                                                <div className="center">
+                                                                    <p style={{ margin: "20px" }}>Read {nameToShow} >></p>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -148,12 +160,12 @@ class StoriesTop extends React.Component {
                         )
                     }
                 </div>
-            </center>
+            </div>
         );
     }
 };
 
 export default connect(
-    state => state.storiesTop,
+    state => state["storiesTop"],
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(StoriesTop);
