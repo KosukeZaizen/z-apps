@@ -37,10 +37,8 @@ history.listen(function (_a) {
 var initialState = window.initialReduxState;
 var store = configureStore_1.default(history, initialState);
 var rootElement = document.getElementById('root');
-react_dom_1.default.render(<react_redux_1.Provider store={store}>
-    <react_router_redux_1.ConnectedRouter history={history}>
-      <App_1.default />
-    </react_router_redux_1.ConnectedRouter>
-  </react_redux_1.Provider>, rootElement);
+react_dom_1.default.render(React.createElement(react_redux_1.Provider, { store: store },
+    React.createElement(react_router_redux_1.ConnectedRouter, { history: history },
+        React.createElement(App_1.default, null))), rootElement);
 registerServiceWorker_1.default();
 //unregister();

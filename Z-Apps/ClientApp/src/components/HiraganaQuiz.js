@@ -49,14 +49,13 @@ var HiraganaQuiz = /** @class */ (function (_super) {
         return _this;
     }
     HiraganaQuiz.prototype.render = function () {
-        return (<center className="kana-quiz">
-                <Helmet_1.default title="Hiragana Quiz" desc="An app to remember Hiragana! I hope this will help you to study!"/>
-                <KanaQuizCore_1.QuizCore consts={this.consts} changePage={this.changePage}/>
-                <br />
-                <FaceBook_1.default />
-                <br />
-                <GoogleAd_1.default />
-            </center>);
+        return (React.createElement("center", { className: "kana-quiz" },
+            React.createElement(Helmet_1.default, { title: "Hiragana Quiz", desc: "An app to remember Hiragana! I hope this will help you to study!" }),
+            React.createElement(KanaQuizCore_1.QuizCore, { consts: this.consts, changePage: this.changePage }),
+            React.createElement("br", null),
+            React.createElement(FaceBook_1.default, null),
+            React.createElement("br", null),
+            React.createElement(GoogleAd_1.default, null)));
     };
     return HiraganaQuiz;
 }(React.Component));

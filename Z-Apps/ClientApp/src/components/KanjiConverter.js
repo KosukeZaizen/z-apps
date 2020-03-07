@@ -140,73 +140,60 @@ var KanjiConverter = /** @class */ (function (_super) {
             return _this.result = w.convertedWord;
         });
         this.result && this.setStateTextVal(this.result);
-        return (<center className="kanji-converter">
-                <Helmet_1.default title="Kanji Converter" desc="A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"/>
-                <h1>
-                    <b>Kanji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
-                </h1>
-                <span className="redChar" id="scrollTargetId">※ Please also check the result.</span><br />
-
-                <table className="kanji-table" ref={this.ref}>
-                    <tbody>
-                        <tr>
-                            <th>
-                                <center>Kanji</center>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td className="row">
-                                <textarea id="inputKanji" onChange={function (e) { _this.onChangeKanji(e); }} className={this.state.inputColor} value={this.state.inputKanji} onFocus={function (e) { _this.initText(e); }} maxlength="250"/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button id="btnConvert" onClick={function (e) { _this.onClickConvert(e); }} className={objConst.CONVERT_BUTTON}>
-                    {objConst.CONVERT_BTN_LABEL}
-                </button>
-                {this.props.isLoading ? <span>Loading...</span> : []}
-                <table className="result-table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <center>Hiragana</center>
-                            </th>
-                            <th>
-                                <center>Romaji</center>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td className="row">
-                                <ChildInput onScroll={this.onScrollInput} result={this.result}/>
-                            </td>
-                            <td className="tdOutput">
-                                <Child textVal={this.textVal}/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.COPY_BTN_LABEL}</button>
-                <br />
-                <p className="no-margin">
-                    If you want to know about Kanji,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                    please check this:
-                    </p>
-                <a href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html" target="_blank" rel="noopener noreferrer"><b>What is Kanji? >></b></a>
-                <br />
-                <br />
-                <FaceBook_1.default />
-                <br />
-                
-                <div className="yahoo-div">
-                    <span className="yahoo-text">Supported by Yahoo! デベロッパーネットワーク　ルビ振りAPI<br />
-                        <a href="https://developer.yahoo.co.jp/about">
-                            <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif" title="Webサービス by Yahoo! JAPAN" alt="Web Services by Yahoo! JAPAN" width="125" height="17" border="0" className="yahoo"/>
-                        </a>
-                    </span>
-                </div>
-                
-                <PleaseScrollDown_1.default criteriaRef={this.ref} targetId="scrollTargetId"/>
-            </center>);
+        return (React.createElement("center", { className: "kanji-converter" },
+            React.createElement(Helmet_1.default, { title: "Kanji Converter", desc: "A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!" }),
+            React.createElement("h1", null,
+                React.createElement("b", null,
+                    "Kanji",
+                    React.createElement("span", { className: 'hidden-xs' }, " "),
+                    React.createElement("span", { className: 'visible-xs' },
+                        React.createElement("br", null)),
+                    "Converter")),
+            React.createElement("span", { className: "redChar", id: "scrollTargetId" }, "\u203B Please also check the result."),
+            React.createElement("br", null),
+            React.createElement("table", { className: "kanji-table", ref: this.ref },
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement("th", null,
+                            React.createElement("center", null, "Kanji"))),
+                    React.createElement("tr", null,
+                        React.createElement("td", { className: "row" },
+                            React.createElement("textarea", { id: "inputKanji", onChange: function (e) { _this.onChangeKanji(e); }, className: this.state.inputColor, value: this.state.inputKanji, onFocus: function (e) { _this.initText(e); }, maxlength: "250" }))))),
+            React.createElement("button", { id: "btnConvert", onClick: function (e) { _this.onClickConvert(e); }, className: objConst.CONVERT_BUTTON }, objConst.CONVERT_BTN_LABEL),
+            this.props.isLoading ? React.createElement("span", null, "Loading...") : [],
+            React.createElement("table", { className: "result-table" },
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement("th", null,
+                            React.createElement("center", null, "Hiragana")),
+                        React.createElement("th", null,
+                            React.createElement("center", null, "Romaji"))),
+                    React.createElement("tr", null,
+                        React.createElement("td", { className: "row" },
+                            React.createElement(ChildInput, { onScroll: this.onScrollInput, result: this.result })),
+                        React.createElement("td", { className: "tdOutput" },
+                            React.createElement(Child, { textVal: this.textVal }))))),
+            React.createElement("button", { id: "btnCopy", onClick: this.onClickCopy, className: objConst.COPY_BUTTON }, objConst.COPY_BTN_LABEL),
+            React.createElement("br", null),
+            React.createElement("p", { className: "no-margin" },
+                "If you want to know about Kanji,",
+                React.createElement("span", { className: 'hidden-xs' }, " "),
+                React.createElement("span", { className: 'visible-xs' },
+                    React.createElement("br", null)),
+                "please check this:"),
+            React.createElement("a", { href: "https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html", target: "_blank", rel: "noopener noreferrer" },
+                React.createElement("b", null, "What is Kanji? >>")),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement(FaceBook_1.default, null),
+            React.createElement("br", null),
+            React.createElement("div", { className: "yahoo-div" },
+                React.createElement("span", { className: "yahoo-text" },
+                    "Supported by Yahoo! \u30C7\u30D9\u30ED\u30C3\u30D1\u30FC\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u3000\u30EB\u30D3\u632F\u308AAPI",
+                    React.createElement("br", null),
+                    React.createElement("a", { href: "https://developer.yahoo.co.jp/about" },
+                        React.createElement("img", { src: "https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif", title: "Web\u30B5\u30FC\u30D3\u30B9 by Yahoo! JAPAN", alt: "Web Services by Yahoo! JAPAN", width: "125", height: "17", border: "0", className: "yahoo" })))),
+            React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" })));
     };
     return KanjiConverter;
 }(React.Component));
@@ -223,9 +210,8 @@ var ChildInput = /** @class */ (function (_super) {
     //入力エリアの表示
     ChildInput.prototype.render = function () {
         var _this = this;
-        return (<center className="t-area-center">
-                <textarea id="inputArea" className={this.props.inputColor} onScroll={function () { _this._onScroll(); }} value={this.props.result}/>
-            </center>);
+        return (React.createElement("center", { className: "t-area-center" },
+            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onScroll: function () { _this._onScroll(); }, value: this.props.result })));
     };
     return ChildInput;
 }(React.Component));
@@ -238,9 +224,11 @@ var Child = /** @class */ (function (_super) {
     }
     Child.prototype.render = function () {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
-            return <p key={index} className="line-wrap">{line}<br /></p>;
+            return React.createElement("p", { key: index, className: "line-wrap" },
+                line,
+                React.createElement("br", null));
         });
-        return <div id="outputArea" className="lines">{lines}</div>;
+        return React.createElement("div", { id: "outputArea", className: "lines" }, lines);
     };
     return Child;
 }(React.Component));

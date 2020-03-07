@@ -63,50 +63,47 @@ var App = /** @class */ (function (_super) {
         functions_1.sendAccessLog();
     };
     App.prototype.render = function () {
-        return (<Layout_1.default>
-                <react_1.Suspense fallback={<LoadingAnimation num={1}/>}>
-                    <react_router_scroll_memory_1.default />
-                    <react_router_1.Switch>
-                        <react_router_1.Route exact path='/' component={Home}/>
-                        <react_router_1.Route path='/terms' component={Terms}/>
-                        <react_router_1.Route path='/developer' component={Developer}/>
-                        <react_router_1.Route path='/kanji-converter' component={KanjiConverter}/>
-                        <react_router_1.Route path='/romaji-converter' component={RomajiConverter}/>
-                        <react_router_1.Route path='/hiragana-quiz' component={HiraganaQuiz}/>
-                        <react_router_1.Route path='/katakana-quiz' component={KatakanaQuiz}/>
-                        <react_router_1.Route exact path='/folktales' component={StoriesTop}/>
-                        <react_router_1.Route exact path='/folktales/:storyName' component={Stories}/>
-                        <react_router_1.Route exact path='/folktalesEdit' component={StoriesEditTop}/>
-                        <react_router_1.Route exact path='/folktalesEdit/:storyName' component={StoriesEdit}/>
-                        <react_router_1.Route path='/ninja' component={NinjaTop}/>
-                        <react_router_1.Route path='/ninja1' component={Ninja1}/>
-                        <react_router_1.Route path='/ninja2' component={Ninja2}/>
-                        <react_router_1.Route path='/ninja3' component={Ninja3}/>
-                        <react_router_1.Route path='/game-over' component={GameOver}/>
-                        <react_router_1.Route path='/sitemapEdit' component={SiteMapEdit}/>
-                        <react_router_1.Route path='/color-code' component={ColorPalette}/>
-                        <react_router_1.Route path='/boscobel' component={Boscobel}/>
-                        <react_router_1.Route path='/not-found' component={NotFound}/>
-                        <react_router_1.Route component={NotFoundRedirect}/>
-                    </react_router_1.Switch>
-                </react_1.Suspense>
-            </Layout_1.default>);
+        return (React.createElement(Layout_1.default, null,
+            React.createElement(react_1.Suspense, { fallback: React.createElement(LoadingAnimation, { num: 1 }) },
+                React.createElement(react_router_scroll_memory_1.default, null),
+                React.createElement(react_router_1.Switch, null,
+                    React.createElement(react_router_1.Route, { exact: true, path: '/', component: Home }),
+                    React.createElement(react_router_1.Route, { path: '/terms', component: Terms }),
+                    React.createElement(react_router_1.Route, { path: '/developer', component: Developer }),
+                    React.createElement(react_router_1.Route, { path: '/kanji-converter', component: KanjiConverter }),
+                    React.createElement(react_router_1.Route, { path: '/romaji-converter', component: RomajiConverter }),
+                    React.createElement(react_router_1.Route, { path: '/hiragana-quiz', component: HiraganaQuiz }),
+                    React.createElement(react_router_1.Route, { path: '/katakana-quiz', component: KatakanaQuiz }),
+                    React.createElement(react_router_1.Route, { exact: true, path: '/folktales', component: StoriesTop }),
+                    React.createElement(react_router_1.Route, { exact: true, path: '/folktales/:storyName', component: Stories }),
+                    React.createElement(react_router_1.Route, { exact: true, path: '/folktalesEdit', component: StoriesEditTop }),
+                    React.createElement(react_router_1.Route, { exact: true, path: '/folktalesEdit/:storyName', component: StoriesEdit }),
+                    React.createElement(react_router_1.Route, { path: '/ninja', component: NinjaTop }),
+                    React.createElement(react_router_1.Route, { path: '/ninja1', component: Ninja1 }),
+                    React.createElement(react_router_1.Route, { path: '/ninja2', component: Ninja2 }),
+                    React.createElement(react_router_1.Route, { path: '/ninja3', component: Ninja3 }),
+                    React.createElement(react_router_1.Route, { path: '/game-over', component: GameOver }),
+                    React.createElement(react_router_1.Route, { path: '/sitemapEdit', component: SiteMapEdit }),
+                    React.createElement(react_router_1.Route, { path: '/color-code', component: ColorPalette }),
+                    React.createElement(react_router_1.Route, { path: '/boscobel', component: Boscobel }),
+                    React.createElement(react_router_1.Route, { path: '/not-found', component: NotFound }),
+                    React.createElement(react_router_1.Route, { component: NotFoundRedirect })))));
     };
     return App;
 }(React.Component));
 exports.default = App;
 function NotFoundRedirect(_a) {
     var location = _a.location;
-    return (<div>
-            <LoadingAnimation num={1}/>
-            <react_router_1.Redirect to={"/not-found?p=" + location.pathname}/>
-        </div>);
+    return (React.createElement("div", null,
+        React.createElement(LoadingAnimation, { num: 1 }),
+        React.createElement(react_router_1.Redirect, { to: "/not-found?p=" + location.pathname })));
 }
 function LoadingAnimation(props) {
     var arr = [];
     for (var i = 0; i < props.num; i++) {
-        arr.push(<span key={i}><br /></span>);
+        arr.push(React.createElement("span", { key: i },
+            React.createElement("br", null)));
     }
-    arr.push(<CircularProgress_1.default key="circle" size="20%"/>);
-    return <center>{arr}</center>;
+    arr.push(React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" }));
+    return React.createElement("center", null, arr);
 }

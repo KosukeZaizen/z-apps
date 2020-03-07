@@ -21,6 +21,6 @@ function NinjaChar(props) {
         transform: left,
         zIndex: 25,
     };
-    return (<img src={ninja_hashiru_png_1.default} alt={props.imgAlt} width={props.width} style={style}/>);
+    return (React.createElement("img", { src: ninja_hashiru_png_1.default, alt: props.imgAlt, width: props.width, style: style }));
 }
 exports.NinjaChar = NinjaChar;

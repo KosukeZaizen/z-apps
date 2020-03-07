@@ -117,43 +117,46 @@ var RomajiConverter = /** @class */ (function (_super) {
     //ローマ字変換アプリの表示
     RomajiConverter.prototype.render = function () {
         var _this = this;
-        return (<center className="romaji-converter">
-                <Helmet_1.default title="Romaji Converter" desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"/>
-                <h1>
-                    <b>Romaji<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Converter</b>
-                </h1>
-                <span className="redChar">※ Please also check the result.</span>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>
-                                <center>Hiragana<br />or<br />Katakana</center>
-                            </th>
-                            <th>
-                                <center>Romaji</center>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td className="row">
-                                <ChildInput inputColor={this.state.inputColor} prompt={this.state.prompt} onChange={function (e) { _this.setStateTextVal(e); }} onFocus={function (e) { _this.initText(e); }} onScroll={this.onScrollInput}/>
-                            </td>
-                            <td className="tdOutput">
-                                <Child textVal={this.state.textVal}/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button id="btnCopy" onClick={this.onClickCopy} className={objConst.COPY_BUTTON}>{objConst.BTN_LABEL}</button>
-                <br />
-                <p className="no-margin">
-                    If you want to check Romaji chart,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                    please check this:
-                    </p>
-                <a href="https://www.lingual-ninja.com/2018/07/romaji.html" target="_blank" rel="noopener noreferrer"><b>Romaji Chart >></b></a>
-                <br />
-                <br />
-                <FaceBook_1.default />
-            </center>);
+        return (React.createElement("center", { className: "romaji-converter" },
+            React.createElement(Helmet_1.default, { title: "Romaji Converter", desc: "A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!" }),
+            React.createElement("h1", null,
+                React.createElement("b", null,
+                    "Romaji",
+                    React.createElement("span", { className: 'hidden-xs' }, " "),
+                    React.createElement("span", { className: 'visible-xs' },
+                        React.createElement("br", null)),
+                    "Converter")),
+            React.createElement("span", { className: "redChar" }, "\u203B Please also check the result."),
+            React.createElement("table", null,
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement("th", null,
+                            React.createElement("center", null,
+                                "Hiragana",
+                                React.createElement("br", null),
+                                "or",
+                                React.createElement("br", null),
+                                "Katakana")),
+                        React.createElement("th", null,
+                            React.createElement("center", null, "Romaji"))),
+                    React.createElement("tr", null,
+                        React.createElement("td", { className: "row" },
+                            React.createElement(ChildInput, { inputColor: this.state.inputColor, prompt: this.state.prompt, onChange: function (e) { _this.setStateTextVal(e); }, onFocus: function (e) { _this.initText(e); }, onScroll: this.onScrollInput })),
+                        React.createElement("td", { className: "tdOutput" },
+                            React.createElement(Child, { textVal: this.state.textVal }))))),
+            React.createElement("button", { id: "btnCopy", onClick: this.onClickCopy, className: objConst.COPY_BUTTON }, objConst.BTN_LABEL),
+            React.createElement("br", null),
+            React.createElement("p", { className: "no-margin" },
+                "If you want to check Romaji chart,",
+                React.createElement("span", { className: 'hidden-xs' }, " "),
+                React.createElement("span", { className: 'visible-xs' },
+                    React.createElement("br", null)),
+                "please check this:"),
+            React.createElement("a", { href: "https://www.lingual-ninja.com/2018/07/romaji.html", target: "_blank", rel: "noopener noreferrer" },
+                React.createElement("b", null, "Romaji Chart >>")),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement(FaceBook_1.default, null)));
     };
     return RomajiConverter;
 }(React.Component));
@@ -176,9 +179,8 @@ var ChildInput = /** @class */ (function (_super) {
     //入力エリアの表示
     ChildInput.prototype.render = function () {
         var _this = this;
-        return (<center className="t-area-center">
-                <textarea id="inputArea" className={this.props.inputColor} onChange={function (e) { _this._onChange(e); }} onFocus={function (e) { _this._onFocus(e); }} onScroll={function () { _this._onScroll(); }} value={this.props.prompt}/>
-            </center>);
+        return (React.createElement("center", { className: "t-area-center" },
+            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onChange: function (e) { _this._onChange(e); }, onFocus: function (e) { _this._onFocus(e); }, onScroll: function () { _this._onScroll(); }, value: this.props.prompt })));
     };
     return ChildInput;
 }(React.Component));
@@ -191,9 +193,11 @@ var Child = /** @class */ (function (_super) {
     }
     Child.prototype.render = function () {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
-            return <p key={index} className="line-wrap">{line}<br /></p>;
+            return React.createElement("p", { key: index, className: "line-wrap" },
+                line,
+                React.createElement("br", null));
         });
-        return <div id="outputArea" className="lines">{lines}</div>;
+        return React.createElement("div", { id: "outputArea", className: "lines" }, lines);
     };
     return Child;
 }(React.Component));

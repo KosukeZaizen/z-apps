@@ -33,20 +33,18 @@ var IncorrectTable = /** @class */ (function (_super) {
         var top = "Characters you should remember:";
         var trList = [];
         for (var key in this.props.incorrectList) {
-            trList.push(<tr key={key}><td>{this.props.incorrectList[key]}</td><td>　:　</td><td>{key}</td></tr>);
+            trList.push(React.createElement("tr", { key: key },
+                React.createElement("td", null, this.props.incorrectList[key]),
+                React.createElement("td", null, "\u3000:\u3000"),
+                React.createElement("td", null, key)));
         }
-        return (<reactstrap_1.Card body inverse color="primary">
-                <reactstrap_1.CardHeader tag="h3">{top}</reactstrap_1.CardHeader>
-                <reactstrap_1.CardBody>
-                    <table>
-                        <tbody>
-                            {trList}
-                        </tbody>
-                    </table>
-                    <br />
-                    <reactstrap_1.Button onClick={function () { _this.props.changePage(1); }} type="button">Retry</reactstrap_1.Button>
-                </reactstrap_1.CardBody>
-            </reactstrap_1.Card>);
+        return (React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "primary" },
+            React.createElement(reactstrap_1.CardHeader, { tag: "h3" }, top),
+            React.createElement(reactstrap_1.CardBody, null,
+                React.createElement("table", null,
+                    React.createElement("tbody", null, trList)),
+                React.createElement("br", null),
+                React.createElement(reactstrap_1.Button, { onClick: function () { _this.props.changePage(1); }, type: "button" }, "Retry"))));
     };
     return IncorrectTable;
 }(React.Component));
@@ -58,23 +56,21 @@ var RelatedArticles = /** @class */ (function (_super) {
     RelatedArticles.prototype.render = function () {
         var linkList = [];
         for (var key in this.props.objLinks) {
-            linkList.push(<div key={key}>
-                    <span className="font-large">
-                        &nbsp; &nbsp;
-                    <u>
-                            <a href={this.props.objLinks[key]} target="_blank" rel="noopener noreferrer">
-                                {key} &gt;&gt;
-                            </a>
-                        </u>
-                    </span>
-                    <br />
-                </div>);
+            linkList.push(React.createElement("div", { key: key },
+                React.createElement("span", { className: "font-large" },
+                    "\u00A0 \u00A0",
+                    React.createElement("u", null,
+                        React.createElement("a", { href: this.props.objLinks[key], target: "_blank", rel: "noopener noreferrer" },
+                            key,
+                            " >>"))),
+                React.createElement("br", null)));
         }
-        return (<div className="related-articles">
-                <b><span className="font-large">Related articles:</span></b><br />
-                <br />
-                {linkList}
-            </div>);
+        return (React.createElement("div", { className: "related-articles" },
+            React.createElement("b", null,
+                React.createElement("span", { className: "font-large" }, "Related articles:")),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            linkList));
     };
     return RelatedArticles;
 }(React.Component));
@@ -92,30 +88,26 @@ var Quiz3 = /** @class */ (function (_super) {
     }
     Quiz3.prototype.render = function () {
         var _this = this;
-        return (<div id="disp3">
-                <h1>
-                    Your score is:<br />
-                    {this.props.score}
-                    /
-                    {this.props.maxChar}</h1>
-                <br />
-                {Object.keys(this.props.incorrectList).length > 0 &&
-            <IncorrectTable incorrectList={this.props.incorrectList} changePage={function (i) { _this.props.changePage(i); }}/>}
-                <br />
-                <react_router_dom_1.Link to={"/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz"}>
-                    <button className={this.consts.BUTTON_SUCCESS}>
-                        {this.props.consts.OTHER_KANA_TYPE} Quiz!
-                    </button>
-                </react_router_dom_1.Link>
-                <br />
-                <react_router_dom_1.Link to={"/romaji-converter"}>
-                    <button className={this.consts.BUTTON_DANGER}>
-                        Romaji Converter
-                    </button>
-                </react_router_dom_1.Link>
-                <br />
-                <RelatedArticles objLinks={this.props.consts.OBJ_LINKS}/>
-            </div>);
+        return (React.createElement("div", { id: "disp3" },
+            React.createElement("h1", null,
+                "Your score is:",
+                React.createElement("br", null),
+                this.props.score,
+                "/",
+                this.props.maxChar),
+            React.createElement("br", null),
+            Object.keys(this.props.incorrectList).length > 0 &&
+                React.createElement(IncorrectTable, { incorrectList: this.props.incorrectList, changePage: function (i) { _this.props.changePage(i); } }),
+            React.createElement("br", null),
+            React.createElement(react_router_dom_1.Link, { to: "/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz" },
+                React.createElement("button", { className: this.consts.BUTTON_SUCCESS },
+                    this.props.consts.OTHER_KANA_TYPE,
+                    " Quiz!")),
+            React.createElement("br", null),
+            React.createElement(react_router_dom_1.Link, { to: "/romaji-converter" },
+                React.createElement("button", { className: this.consts.BUTTON_DANGER }, "Romaji Converter")),
+            React.createElement("br", null),
+            React.createElement(RelatedArticles, { objLinks: this.props.consts.OBJ_LINKS })));
     };
     return Quiz3;
 }(React.Component));

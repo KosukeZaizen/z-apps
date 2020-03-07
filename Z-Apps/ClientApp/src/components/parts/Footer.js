@@ -29,17 +29,17 @@ var Footer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Footer.prototype.render = function () {
-        return (<footer className="footer">
-                <center>
-                    <div className="container text-muted">
-                        <span className="text-muted">Copyright <react_router_dom_1.Link to="/developer">Kosuke Zaizen</react_router_dom_1.Link>. All rights reserved.
-                            <span className='hidden-xs'>　　</span>
-                            <span className='visible-xs'><br /></span>
-                        </span>
-                        <react_router_dom_1.Link to="/terms">Terms of Use</react_router_dom_1.Link>
-                    </div>
-                </center>
-            </footer>);
+        return (React.createElement("footer", { className: "footer" },
+            React.createElement("center", null,
+                React.createElement("div", { className: "container text-muted" },
+                    React.createElement("span", { className: "text-muted" },
+                        "Copyright ",
+                        React.createElement(react_router_dom_1.Link, { to: "/developer" }, "Kosuke Zaizen"),
+                        ". All rights reserved.",
+                        React.createElement("span", { className: 'hidden-xs' }, "\u3000\u3000"),
+                        React.createElement("span", { className: 'visible-xs' },
+                            React.createElement("br", null))),
+                    React.createElement(react_router_dom_1.Link, { to: "/terms" }, "Terms of Use")))));
     };
     return Footer;
 }(React.Component));

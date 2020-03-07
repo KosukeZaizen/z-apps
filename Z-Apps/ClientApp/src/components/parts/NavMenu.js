@@ -39,13 +39,9 @@ var NavigationItems = /** @class */ (function (_super) {
         };
         var linkList = [];
         for (var key in objLinks) {
-            linkList.push(<reactstrap_1.NavLink key={key} tag={react_router_dom_1.Link} className="text-light dropdown" to={objLinks[key]}>
-                    {key}
-                </reactstrap_1.NavLink>);
+            linkList.push(React.createElement(reactstrap_1.NavLink, { key: key, tag: react_router_dom_1.Link, className: "text-light dropdown", to: objLinks[key] }, key));
         }
-        return (<ul className="navbar-nav flex-grow" onClick={this.props.closeToggle}>
-                {linkList}
-            </ul>);
+        return (React.createElement("ul", { className: "navbar-nav flex-grow", onClick: this.props.closeToggle }, linkList));
     };
     return NavigationItems;
 }(React.Component));
@@ -71,17 +67,15 @@ var NavMenu = /** @class */ (function (_super) {
         });
     };
     NavMenu.prototype.render = function () {
-        return (<header>
-                <reactstrap_1.Navbar variant="pills" className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3">
-                    <reactstrap_1.Container>
-                        <reactstrap_1.NavbarBrand tag={react_router_dom_1.Link} to="/"><b onClick={this.closeToggle} className="z-apps-title text-light"><nobr>Lingual Ninja</nobr></b></reactstrap_1.NavbarBrand>
-                        <reactstrap_1.NavbarToggler onClick={this.toggle} className="mr-2"/>
-                        <reactstrap_1.Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
-                            <NavigationItems closeToggle={this.closeToggle}/>
-                        </reactstrap_1.Collapse>
-                    </reactstrap_1.Container>
-                </reactstrap_1.Navbar>
-            </header>);
+        return (React.createElement("header", null,
+            React.createElement(reactstrap_1.Navbar, { variant: "pills", className: "navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3" },
+                React.createElement(reactstrap_1.Container, null,
+                    React.createElement(reactstrap_1.NavbarBrand, { tag: react_router_dom_1.Link, to: "/" },
+                        React.createElement("b", { onClick: this.closeToggle, className: "z-apps-title text-light" },
+                            React.createElement("nobr", null, "Lingual Ninja"))),
+                    React.createElement(reactstrap_1.NavbarToggler, { onClick: this.toggle, className: "mr-2" }),
+                    React.createElement(reactstrap_1.Collapse, { className: "d-md-inline-flex flex-md-row-reverse", isOpen: this.state.isOpen, navbar: true },
+                        React.createElement(NavigationItems, { closeToggle: this.closeToggle }))))));
     };
     return NavMenu;
 }(React.Component));

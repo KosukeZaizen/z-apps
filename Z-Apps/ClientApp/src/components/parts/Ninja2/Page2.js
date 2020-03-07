@@ -2316,15 +2316,12 @@ var Page2 = /** @class */ (function (_super) {
             //背景画像の変更
             this.backgroundSetting.backgroundImage = "url(" + this.bgImg + ")";
         }
-        return (<div id="Page2" style={this.pageStyle}>
-                <div id="gameScreen" style={this.state.screenStyle}>
-                    <ninja_1.NinjaChar imgAlt="Running Ninja" width={this.ninja.size * this.UL} x={this.state.ninjaStat.ninjaX} y={this.state.ninjaStat.ninjaY} boolLeft={this.state.ninjaStat.left}/>
-                    <RenderObjs game={this}/>
-                </div>
-                <b>
-                    <RenderScreenBottom onClickButton={this.onClickButton.bind(this)} onMouseUp={this.onMouseUp.bind(this)} terminalPC={this.terminalPC} UL={this.UL} lang={this.props.language}/>
-                </b>
-            </div>);
+        return (React.createElement("div", { id: "Page2", style: this.pageStyle },
+            React.createElement("div", { id: "gameScreen", style: this.state.screenStyle },
+                React.createElement(ninja_1.NinjaChar, { imgAlt: "Running Ninja", width: this.ninja.size * this.UL, x: this.state.ninjaStat.ninjaX, y: this.state.ninjaStat.ninjaY, boolLeft: this.state.ninjaStat.left }),
+                React.createElement(RenderObjs, { game: this })),
+            React.createElement("b", null,
+                React.createElement(RenderScreenBottom, { onClickButton: this.onClickButton.bind(this), onMouseUp: this.onMouseUp.bind(this), terminalPC: this.terminalPC, UL: this.UL, lang: this.props.language }))));
     };
     return Page2;
 }(React.Component));
@@ -2333,9 +2330,9 @@ exports.default = Page2;
 function RenderObjs(props) {
     var objList = [];
     for (var key in props.game.objs) {
-        objList.push(<obj_1.Obj key={key} obj={props.game.objs[key]} UL={props.game.UL} game={props.game}/>);
+        objList.push(React.createElement(obj_1.Obj, { key: key, obj: props.game.objs[key], UL: props.game.UL, game: props.game }));
     }
-    return <span>{objList}</span>;
+    return React.createElement("span", null, objList);
 }
 function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
@@ -2357,23 +2354,17 @@ function RenderScreenBottom(props) {
             color: "white",
         };
         if (props.lang === "Japanese") {
-            return (<div style={styleDivPcMessage}>
-                    <span style={styleTextPcMessage}>
-                        PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。
-                    </span>
-                </div>);
+            return (React.createElement("div", { style: styleDivPcMessage },
+                React.createElement("span", { style: styleTextPcMessage }, "PC\u3067\u306F\u3001\u30AD\u30FC\u30DC\u30FC\u30C9\u306E\u300C\u2190\u300D\u300C\u2191\u300D\u300C\u2192\u300D\u30AD\u30FC\u3067\u64CD\u4F5C\u3092\u3057\u3066\u304F\u3060\u3055\u3044\u3002")));
         }
         else {
-            return (<div style={styleDivPcMessage}>
-                    <span style={styleTextPcMessage}>
-                        Please use [←], [↑], and [→] keys to play!
-                    </span>
-                </div>);
+            return (React.createElement("div", { style: styleDivPcMessage },
+                React.createElement("span", { style: styleTextPcMessage }, "Please use [\u2190], [\u2191], and [\u2192] keys to play!")));
         }
     }
     else {
         //スマホ・タブレットの場合、画面下部にボタンを表示
-        return (<RenderButtons onClickButton={props.onClickButton} onMouseUp={props.onMouseUp} UL={props.UL}/>);
+        return (React.createElement(RenderButtons, { onClickButton: props.onClickButton, onMouseUp: props.onMouseUp, UL: props.UL }));
     }
 }
 function RenderButtons(props) {
@@ -2400,27 +2391,15 @@ function RenderButtons(props) {
         fontSize: 4 * UL,
         margin: "1px",
     };
-    return (<table id="controller" style={controllerStyle}>
-            <tbody>
-                <tr>
-                    <td align="right">
-                        <button style={sideButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("left"); }} onTouchStart={function () { props.onClickButton("left"); }} onMouseUp={function () { props.onMouseUp("left"); }} onMouseOut={function () { props.onMouseUp("left"); }} onTouchEnd={function () { props.onMouseUp("left"); }}>
-                            {"＜"}
-                        </button>
-                    </td>
-                    <td align="center">
-                        <button style={jumpButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("jump"); }} onTouchStart={function () { props.onClickButton("jump"); }} onMouseUp={function () { props.onMouseUp("jump"); }} onMouseOut={function () { props.onMouseUp("jump"); }} onTouchEnd={function () { props.onMouseUp("jump"); }}>
-                            {"↑　jump　↑"}
-                        </button>
-                    </td>
-                    <td align="left">
-                        <button style={sideButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("right"); }} onTouchStart={function () { props.onClickButton("right"); }} onMouseUp={function () { props.onMouseUp("right"); }} onMouseOut={function () { props.onMouseUp("right"); }} onTouchEnd={function () { props.onMouseUp("right"); }}>
-                            {"＞"}
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>);
+    return (React.createElement("table", { id: "controller", style: controllerStyle },
+        React.createElement("tbody", null,
+            React.createElement("tr", null,
+                React.createElement("td", { align: "right" },
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("left"); }, onTouchStart: function () { props.onClickButton("left"); }, onMouseUp: function () { props.onMouseUp("left"); }, onMouseOut: function () { props.onMouseUp("left"); }, onTouchEnd: function () { props.onMouseUp("left"); } }, "＜")),
+                React.createElement("td", { align: "center" },
+                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("jump"); }, onTouchStart: function () { props.onClickButton("jump"); }, onMouseUp: function () { props.onMouseUp("jump"); }, onMouseOut: function () { props.onMouseUp("jump"); }, onTouchEnd: function () { props.onMouseUp("jump"); } }, "↑　jump　↑")),
+                React.createElement("td", { align: "left" },
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("right"); }, onTouchStart: function () { props.onClickButton("right"); }, onMouseUp: function () { props.onMouseUp("right"); }, onMouseOut: function () { props.onMouseUp("right"); }, onTouchEnd: function () { props.onMouseUp("right"); } }, "＞"))))));
 }
 function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
     //コメントは忍者が右から来た想定

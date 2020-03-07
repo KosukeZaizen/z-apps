@@ -54,15 +54,11 @@ var GameOver = /** @class */ (function (_super) {
             title = "Oops! Game over!";
             msgButton = "Continue the game";
         }
-        return (<center>
-                <Helmet_1.default title="Game Over" noindex={true}/>
-                <h2 style={bottomMargin}>{title}</h2>
-                <react_router_dom_1.Link to={gameUrl}>
-                    <button className={this.consts.BTN_START_CLASS}>
-                        {msgButton}
-                    </button>
-                </react_router_dom_1.Link>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement(Helmet_1.default, { title: "Game Over", noindex: true }),
+            React.createElement("h2", { style: bottomMargin }, title),
+            React.createElement(react_router_dom_1.Link, { to: gameUrl },
+                React.createElement("button", { className: this.consts.BTN_START_CLASS }, msgButton))));
     };
     return GameOver;
 }(React.Component));

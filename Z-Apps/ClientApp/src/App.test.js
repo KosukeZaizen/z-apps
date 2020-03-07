@@ -35,9 +35,7 @@ it('renders without crashing', function () {
     }); };
     var store = storeFake({});
     var div = document.createElement('div');
-    react_dom_1.default.render(<react_redux_1.Provider store={store}>
-      <react_router_dom_1.MemoryRouter>
-        <App_1.default />
-      </react_router_dom_1.MemoryRouter>
-    </react_redux_1.Provider>, div);
+    react_dom_1.default.render(React.createElement(react_redux_1.Provider, { store: store },
+        React.createElement(react_router_dom_1.MemoryRouter, null,
+            React.createElement(App_1.default, null))), div);
 });

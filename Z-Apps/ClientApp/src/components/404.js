@@ -19,18 +19,18 @@ var functions_1 = require("./common/functions");
 var Helmet_1 = __importDefault(require("./parts/Helmet"));
 var NotFound = function (props) {
     var params = functions_1.getParams();
-    return (<div>
-            <Helmet_1.default title="404" noindex={true}/>
-            <center>
-                <h1>Page not found!</h1>
-                <hr />
-                <img src={_404_png_1.default} width="50%" alt="404 error"/>
-                <h2>No match for <code>{params && params.p}</code></h2>
-                <p>Please check if the url is correct!</p>
-                <react_router_dom_1.Link to="/">
-                    <reactstrap_1.Button color="primary" style={{ width: "50%" }}><b>Home</b></reactstrap_1.Button>
-                </react_router_dom_1.Link>
-            </center>
-        </div>);
+    return (React.createElement("div", null,
+        React.createElement(Helmet_1.default, { title: "404", noindex: true }),
+        React.createElement("center", null,
+            React.createElement("h1", null, "Page not found!"),
+            React.createElement("hr", null),
+            React.createElement("img", { src: _404_png_1.default, width: "50%", alt: "404 error" }),
+            React.createElement("h2", null,
+                "No match for ",
+                React.createElement("code", null, params && params.p)),
+            React.createElement("p", null, "Please check if the url is correct!"),
+            React.createElement(react_router_dom_1.Link, { to: "/" },
+                React.createElement(reactstrap_1.Button, { color: "primary", style: { width: "50%" } },
+                    React.createElement("b", null, "Home"))))));
 };
 exports.default = NotFound;

@@ -36,9 +36,8 @@ var FB = /** @class */ (function (_super) {
             width = 300;
         }
         var height = 200;
-        return (<center>
-                <iframe title="fb" src={"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=" + width + "&height=" + height + "&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId"} width={width} height={height} style={{ border: "none", overflow: "hidden" }} scrolling="yes" frameBorder="0" allowtransparency="true" allow="encrypted-media"/>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement("iframe", { title: "fb", src: "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=" + width + "&height=" + height + "&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId", width: width, height: height, style: { border: "none", overflow: "hidden" }, scrolling: "yes", frameBorder: "0", allowtransparency: "true", allow: "encrypted-media" })));
     };
     return FB;
 }(React.Component));

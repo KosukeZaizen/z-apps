@@ -80,26 +80,23 @@ var PleaseScrollDown = /** @class */ (function (_super) {
         var width = screenWidth || parseInt(window.innerWidth, 10);
         if (!elem)
             return null;
-        return (<center>
-                <div style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            zIndex: pleaseScrollDown ? 999999990 : 0,
-            width: width + "px",
-            height: "70px",
-            opacity: pleaseScrollDown ? 1.0 : 0,
-            transition: "all 2s ease",
-            fontSize: "x-large",
-            backgroundColor: "#EEEEEE",
-            borderRadius: "30px 30px 0px 0px",
-        }}>
-                    <span id="pleaseScroll">
-                        <span></span>
-                        <react_anchor_link_smooth_scroll_1.default href={"#" + (targetId || (elem && elem.id))}>Scroll</react_anchor_link_smooth_scroll_1.default>
-                    </span>
-                </div>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement("div", { style: {
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    zIndex: pleaseScrollDown ? 999999990 : 0,
+                    width: width + "px",
+                    height: "70px",
+                    opacity: pleaseScrollDown ? 1.0 : 0,
+                    transition: "all 2s ease",
+                    fontSize: "x-large",
+                    backgroundColor: "#EEEEEE",
+                    borderRadius: "30px 30px 0px 0px",
+                } },
+                React.createElement("span", { id: "pleaseScroll" },
+                    React.createElement("span", null),
+                    React.createElement(react_anchor_link_smooth_scroll_1.default, { href: "#" + (targetId || (elem && elem.id)) }, "Scroll")))));
     };
     return PleaseScrollDown;
 }(React.Component));

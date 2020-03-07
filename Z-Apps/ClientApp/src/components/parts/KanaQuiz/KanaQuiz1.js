@@ -48,36 +48,32 @@ var Quiz1 = /** @class */ (function (_super) {
     };
     Quiz1.prototype.render = function () {
         var _this = this;
-        return (<div id="disp1">
-                <h1>{this.props.consts.KANA_TYPE} Quiz!</h1>
-                <p>
-                    Please bookmark this page to remember all {this.props.consts.KANA_TYPE} characters!
-                </p>
-                <br />
-                <button id="btn10" onClick={function () { return _this.startGame(10); }} className={this.consts.START_BUTTON_PRIMARY}>
-                    Random 10 characters
-                </button>
-                <br />
-
-                <button id="btn30" onClick={function () { return _this.startGame(30); }} className={this.consts.START_BUTTON_SUCCESS}>
-                    Random 30 characters
-                </button>
-                <br />
-
-                <button id="btn102" onClick={function () { return _this.startGame(102); }} className={this.consts.START_BUTTON_DANGER} ref={this.ref}>
-                    All {this.props.consts.KANA_TYPE} characters
-                </button>
-                <br />
-                <hr />
-                <br />
-                <react_router_dom_1.Link to={"/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz"}>
-                    <button id="btnOther" onClick={function () { return "start(102)"; }} className={this.consts.START_BUTTON_DARK}>
-                        {this.props.consts.OTHER_KANA_TYPE} Quiz
-                    </button>
-                </react_router_dom_1.Link>
-                <br />
-                <PleaseScrollDown_1.default criteriaRef={this.ref} targetId="disp1"/>
-            </div>);
+        return (React.createElement("div", { id: "disp1" },
+            React.createElement("h1", null,
+                this.props.consts.KANA_TYPE,
+                " Quiz!"),
+            React.createElement("p", null,
+                "Please bookmark this page to remember all ",
+                this.props.consts.KANA_TYPE,
+                " characters!"),
+            React.createElement("br", null),
+            React.createElement("button", { id: "btn10", onClick: function () { return _this.startGame(10); }, className: this.consts.START_BUTTON_PRIMARY }, "Random 10 characters"),
+            React.createElement("br", null),
+            React.createElement("button", { id: "btn30", onClick: function () { return _this.startGame(30); }, className: this.consts.START_BUTTON_SUCCESS }, "Random 30 characters"),
+            React.createElement("br", null),
+            React.createElement("button", { id: "btn102", onClick: function () { return _this.startGame(102); }, className: this.consts.START_BUTTON_DANGER, ref: this.ref },
+                "All ",
+                this.props.consts.KANA_TYPE,
+                " characters"),
+            React.createElement("br", null),
+            React.createElement("hr", null),
+            React.createElement("br", null),
+            React.createElement(react_router_dom_1.Link, { to: "/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz" },
+                React.createElement("button", { id: "btnOther", onClick: function () { return "start(102)"; }, className: this.consts.START_BUTTON_DARK },
+                    this.props.consts.OTHER_KANA_TYPE,
+                    " Quiz")),
+            React.createElement("br", null),
+            React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "disp1" })));
     };
     return Quiz1;
 }(React.Component));

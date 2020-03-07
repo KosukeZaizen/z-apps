@@ -197,67 +197,49 @@ var SiteMapEdit = /** @class */ (function (_super) {
         var _this = this;
         var sitemap = this.state.sitemap;
         var resultOfCheck = sitemap.filter(function (s) { return _this.checkInput(s) != ""; }).length === 0;
-        return (<center>
-                <Helmet_1.default title={"Edit Sitemap"} noindex={true}/>
-                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
-                </div>
-                <div style={{ maxWidth: 1000 }}>
-                    <div className="breadcrumbs" style={{ textAlign: "left", color: "white" }}>
-                        <react_router_dom_1.Link to="/" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span>
-                                Home
-                            </span>
-                        </react_router_dom_1.Link>
-                        ＞
-                        <react_router_dom_1.Link to="/folktalesEdit" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span>
-                                Japanese Folktales
-                            </span>
-                        </react_router_dom_1.Link>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            edit sitemap
-                        </span>
-                    </div>
-                    <h1 style={{
-            margin: "30px",
-            lineHeight: "30px",
-            color: "#eb6905",
-        }}>
-                        <b>Edit Sitemap</b>
-                    </h1>
-                    <br />
-                    {this.state.sitemap.length > 0 ?
-            <div style={{ textAlign: "left" }}>
-                                {sitemap && sitemap.map(function (s, i) {
-                return <SitemapInfo s={s} i={i} key={i} handleChangeSitemap={_this.handleChangeSitemap} addLine={_this.addLine} removeLine={_this.removeLine} checkInput={_this.checkInput}/>;
-            })}
-                            </div>
-            :
-                <center>
-                                <CircularProgress_1.default key="circle" size="20%"/>
-                            </center>}
-                    <input type="text" value={this.state.token} onChange={this.changeToken}/>
-                    <br />
-                    <div style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            zIndex: 99999999,
-            backgroundColor: "black",
-            width: "100%",
-        }}>
-                        <span style={{ color: "white" }}>Count: {sitemap.length}</span>
-                        "　"
-                    <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: resultOfCheck ? "black" : "red" }} className="btn btn-dark btn-xs" disabled={!resultOfCheck} onClick={this.register}>
-                            <b>Register</b>
-                        </button>
-                        <span style={{ color: "red" }}>
-                            {resultOfCheck || "　error is occuring"}
-                        </span>
-                    </div>
-                </div>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement(Helmet_1.default, { title: "Edit Sitemap", noindex: true }),
+            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" } }),
+            React.createElement("div", { style: { maxWidth: 1000 } },
+                React.createElement("div", { className: "breadcrumbs", style: { textAlign: "left", color: "white" } },
+                    React.createElement(react_router_dom_1.Link, { to: "/", style: { marginRight: "5px", marginLeft: "5px" } },
+                        React.createElement("span", null, "Home")),
+                    "\uFF1E",
+                    React.createElement(react_router_dom_1.Link, { to: "/folktalesEdit", style: { marginRight: "5px", marginLeft: "5px" } },
+                        React.createElement("span", null, "Japanese Folktales")),
+                    "\uFF1E",
+                    React.createElement("span", { style: { marginRight: "5px", marginLeft: "5px" } }, "edit sitemap")),
+                React.createElement("h1", { style: {
+                        margin: "30px",
+                        lineHeight: "30px",
+                        color: "#eb6905",
+                    } },
+                    React.createElement("b", null, "Edit Sitemap")),
+                React.createElement("br", null),
+                this.state.sitemap.length > 0 ?
+                    React.createElement("div", { style: { textAlign: "left" } }, sitemap && sitemap.map(function (s, i) {
+                        return React.createElement(SitemapInfo, { s: s, i: i, key: i, handleChangeSitemap: _this.handleChangeSitemap, addLine: _this.addLine, removeLine: _this.removeLine, checkInput: _this.checkInput });
+                    }))
+                    :
+                        React.createElement("center", null,
+                            React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
+                React.createElement("input", { type: "text", value: this.state.token, onChange: this.changeToken }),
+                React.createElement("br", null),
+                React.createElement("div", { style: {
+                        position: "fixed",
+                        bottom: 0,
+                        left: 0,
+                        zIndex: 99999999,
+                        backgroundColor: "black",
+                        width: "100%",
+                    } },
+                    React.createElement("span", { style: { color: "white" } },
+                        "Count: ",
+                        sitemap.length),
+                    "\"\u3000\"",
+                    React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: resultOfCheck ? "black" : "red" }, className: "btn btn-dark btn-xs", disabled: !resultOfCheck, onClick: this.register },
+                        React.createElement("b", null, "Register")),
+                    React.createElement("span", { style: { color: "red" } }, resultOfCheck || "　error is occuring")))));
     };
     return SiteMapEdit;
 }(React.Component));
@@ -272,33 +254,28 @@ var SitemapInfo = /** @class */ (function (_super) {
     }
     SitemapInfo.prototype.render = function () {
         var _a = this.props, s = _a.s, i = _a.i, handleChangeSitemap = _a.handleChangeSitemap, addLine = _a.addLine, removeLine = _a.removeLine, checkInput = _a.checkInput;
-        return (<span>
-                <span style={{ color: "red" }}>{checkInput(s)}</span>
-                <table style={{ width: "100%" }}>
-                    <tbody>
-                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td width="20px"><b>loc:　</b></td>
-                            <td><input type="text" value={s.loc} onChange={function (e) { return handleChangeSitemap(e, i, "loc"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                        </tr>
-                        <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td width="20px"><b>lastmod:　</b></td>
-                            <td><input type="text" value={s.lastmod} onChange={function (e) { return handleChangeSitemap(e, i, "lastmod"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return addLine(i); }}>
-                    <b>Add Line</b>
-                </button>
-
-                <div style={{ textAligh: "right", float: "right" }}>
-                    <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return removeLine(i); }}>
-                        <b>Remove Line</b>
-                    </button>
-                </div>
-
-                <br /><br />
-                <hr />
-            </span>);
+        return (React.createElement("span", null,
+            React.createElement("span", { style: { color: "red" } }, checkInput(s)),
+            React.createElement("table", { style: { width: "100%" } },
+                React.createElement("tbody", null,
+                    React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                        React.createElement("td", { width: "20px" },
+                            React.createElement("b", null, "loc:\u3000")),
+                        React.createElement("td", null,
+                            React.createElement("input", { type: "text", value: s.loc, onChange: function (e) { return handleChangeSitemap(e, i, "loc"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
+                    React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                        React.createElement("td", { width: "20px" },
+                            React.createElement("b", null, "lastmod:\u3000")),
+                        React.createElement("td", null,
+                            React.createElement("input", { type: "text", value: s.lastmod, onChange: function (e) { return handleChangeSitemap(e, i, "lastmod"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))))),
+            React.createElement("button", { style: { marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return addLine(i); } },
+                React.createElement("b", null, "Add Line")),
+            React.createElement("div", { style: { textAligh: "right", float: "right" } },
+                React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return removeLine(i); } },
+                    React.createElement("b", null, "Remove Line"))),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement("hr", null)));
     };
     return SitemapInfo;
 }(React.Component));

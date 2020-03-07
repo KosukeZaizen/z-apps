@@ -35,7 +35,7 @@ var GoogleAd = /** @class */ (function (_super) {
         return _this;
     }
     GoogleAd.prototype.render = function () {
-        return (<react_google_ads_1.default client={privateConsts_1.GOOGLE_ADS_CLIENT} slot={privateConsts_1.GOOGLE_ADS_SLOT} className="adsbygoogle" format="auto" style={{ display: 'block' }}/>);
+        return (React.createElement(react_google_ads_1.default, { client: privateConsts_1.GOOGLE_ADS_CLIENT, slot: privateConsts_1.GOOGLE_ADS_SLOT, className: "adsbygoogle", format: "auto", style: { display: 'block' } }));
     };
     return GoogleAd;
 }(React.Component));

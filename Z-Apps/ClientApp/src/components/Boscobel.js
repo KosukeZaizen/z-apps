@@ -148,52 +148,50 @@ var Boscobel = /** @class */ (function (_super) {
     }
     Boscobel.prototype.render = function () {
         var _this = this;
-        return (<center>
-                <Helmet_1.default title={"Boscobel - Upload Image"} noindex={true}/>
-                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
-                </div>
-                <div style={{ maxWidth: 1000, color: "white" }}>
-                    <h1 style={{
-            margin: "30px",
-            lineHeight: "30px",
-            color: "#eb6905",
-        }}>
-                        <b>Boscobel - Upload Image</b>
-                    </h1>
-                    <br />
-                    パスワード（30cmを超える金魚の名前は？）
-                    <input type="text" onChange={this.handleChangePW} value={this.state.pw} style={{ color: "black" }}/>
-                    <br />
-                    <br />
-                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                        <h2>Background Image</h2>
-                        <br />
-                        Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }}/>
-                        <br /><br />
-                        Select a png file from your computer! (Only png is valid!)
-                        <input type="file" name="background" onChange={function (e) { return _this.handleChangeFile(e, _this.consts.background); }}/>
-                        <br /><br />
-                        <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }} className="btn btn-primary btn-xs" onClick={function () { return _this.uploadFile(_this.consts.background); }}>
-                            <b>Upload</b>
-                        </button>
-                    </div>
-                    <br />
-                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                        <h2>Top Image</h2>
-                        <br />
-                        Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }}/>
-                        <br /><br />
-                        Select a png file from your computer! (Only png is valid!)
-                        <input type="file" name="top" onChange={function (e) { return _this.handleChangeFile(e, _this.consts.top); }}/>
-                        <br /><br />
-                        <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }} className="btn btn-primary btn-xs" onClick={function () { return _this.uploadFile(_this.consts.top); }}>
-                            <b>Upload</b>
-                        </button>
-                    </div>
-                </div>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement(Helmet_1.default, { title: "Boscobel - Upload Image", noindex: true }),
+            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" } }),
+            React.createElement("div", { style: { maxWidth: 1000, color: "white" } },
+                React.createElement("h1", { style: {
+                        margin: "30px",
+                        lineHeight: "30px",
+                        color: "#eb6905",
+                    } },
+                    React.createElement("b", null, "Boscobel - Upload Image")),
+                React.createElement("br", null),
+                "\u30D1\u30B9\u30EF\u30FC\u30C9\uFF0830cm\u3092\u8D85\u3048\u308B\u91D1\u9B5A\u306E\u540D\u524D\u306F\uFF1F\uFF09",
+                React.createElement("input", { type: "text", onChange: this.handleChangePW, value: this.state.pw, style: { color: "black" } }),
+                React.createElement("br", null),
+                React.createElement("br", null),
+                React.createElement("div", { style: { padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" } },
+                    React.createElement("h2", null, "Background Image"),
+                    React.createElement("br", null),
+                    "Current image:",
+                    React.createElement("br", null),
+                    React.createElement("img", { src: "https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png", style: { width: "100%" } }),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    "Select a png file from your computer! (Only png is valid!)",
+                    React.createElement("input", { type: "file", name: "background", onChange: function (e) { return _this.handleChangeFile(e, _this.consts.background); } }),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }, className: "btn btn-primary btn-xs", onClick: function () { return _this.uploadFile(_this.consts.background); } },
+                        React.createElement("b", null, "Upload"))),
+                React.createElement("br", null),
+                React.createElement("div", { style: { padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" } },
+                    React.createElement("h2", null, "Top Image"),
+                    React.createElement("br", null),
+                    "Current image:",
+                    React.createElement("br", null),
+                    React.createElement("img", { src: "https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png", style: { width: "100%" } }),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    "Select a png file from your computer! (Only png is valid!)",
+                    React.createElement("input", { type: "file", name: "top", onChange: function (e) { return _this.handleChangeFile(e, _this.consts.top); } }),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0 }, className: "btn btn-primary btn-xs", onClick: function () { return _this.uploadFile(_this.consts.top); } },
+                        React.createElement("b", null, "Upload"))))));
     };
     return Boscobel;
 }(React.Component));
@@ -207,9 +205,8 @@ var Description = /** @class */ (function (_super) {
         return _this;
     }
     Description.prototype.render = function () {
-        return (<div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                <textarea rows="10" style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }} value={this.props.desc} onChange={this.props.handleChangeDesc}/>
-            </div>);
+        return (React.createElement("div", { style: { padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" } },
+            React.createElement("textarea", { rows: "10", style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }, value: this.props.desc, onChange: this.props.handleChangeDesc })));
     };
     return Description;
 }(React.Component));
@@ -222,57 +219,49 @@ var Sentences = /** @class */ (function (_super) {
     }
     Sentences.prototype.render = function () {
         var _this = this;
-        return (<div style={{ textAlign: "left" }}>
-                {this.props.sentences && this.props.sentences.map(function (s, i) {
-            return <span key={s.lineNumber}>
-                            <table style={{ width: "100%" }}>
-                                <tbody>
-                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｋ:　</b></td>
-                                        <td><input type="text" value={s.kanji} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "kanji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td style={{ textAligh: "left" }}>
-                                            <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.translate(s); }}>
-                                                <b>↓　Translate Sentence　↓</b>
-                                            </button>
-                                            {_this.props.isTranslating ? <span style={{ color: "white", marginLeft: 20 }}>Translating...</span> : null}
-                                            <div style={{ textAligh: "right", float: "right" }}>
-                                                <button style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.removeLine(s.lineNumber); }}>
-                                                    <b>Remove Sentence</b>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｈ:　</b></td>
-                                        <td><input type="text" value={s.hiragana} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "hiragana"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                                    </tr>
-                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｒ:　</b></td>
-                                        <td><input type="text" value={s.romaji} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "romaji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                                    </tr>
-                                    <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｅ:　</b></td>
-                                        <td><input type="text" value={s.english} onChange={function (e) { return _this.props.handleChangeSentence(e, i, "english"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            {_this.props.words && _this.props.words.length > 0 ?
-                <WordList words={_this.props.words} s={s} storyId={_this.props.storyId} handleChangeWord={_this.props.handleChangeWord} addWord={_this.props.addWord} removeWord={_this.props.removeWord} translateWord={_this.props.translateWord} margeWord={_this.props.margeWord}/>
-                :
-                    null}
-                            <button style={{ marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.addLine(s.lineNumber); }}>
-                                <b>Add Line</b>
-                            </button>
-
-                            <br /><br />
-                            <hr />
-                        </span>;
-        })}
-            </div>);
+        return (React.createElement("div", { style: { textAlign: "left" } }, this.props.sentences && this.props.sentences.map(function (s, i) {
+            return React.createElement("span", { key: s.lineNumber },
+                React.createElement("table", { style: { width: "100%" } },
+                    React.createElement("tbody", null,
+                        React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                            React.createElement("td", { width: "20px" },
+                                React.createElement("b", null, "\uFF2B:\u3000")),
+                            React.createElement("td", null,
+                                React.createElement("input", { type: "text", value: s.kanji, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "kanji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
+                        React.createElement("tr", null,
+                            React.createElement("td", null),
+                            React.createElement("td", { style: { textAligh: "left" } },
+                                React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.translate(s); } },
+                                    React.createElement("b", null, "\u2193\u3000Translate Sentence\u3000\u2193")),
+                                _this.props.isTranslating ? React.createElement("span", { style: { color: "white", marginLeft: 20 } }, "Translating...") : null,
+                                React.createElement("div", { style: { textAligh: "right", float: "right" } },
+                                    React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.removeLine(s.lineNumber); } },
+                                        React.createElement("b", null, "Remove Sentence"))))),
+                        React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                            React.createElement("td", { width: "20px" },
+                                React.createElement("b", null, "\uFF28:\u3000")),
+                            React.createElement("td", null,
+                                React.createElement("input", { type: "text", value: s.hiragana, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "hiragana"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
+                        React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                            React.createElement("td", { width: "20px" },
+                                React.createElement("b", null, "\uFF32:\u3000")),
+                            React.createElement("td", null,
+                                React.createElement("input", { type: "text", value: s.romaji, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "romaji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
+                        React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
+                            React.createElement("td", { width: "20px" },
+                                React.createElement("b", null, "\uFF25:\u3000")),
+                            React.createElement("td", null,
+                                React.createElement("input", { type: "text", value: s.english, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "english"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))))),
+                _this.props.words && _this.props.words.length > 0 ?
+                    React.createElement(WordList, { words: _this.props.words, s: s, storyId: _this.props.storyId, handleChangeWord: _this.props.handleChangeWord, addWord: _this.props.addWord, removeWord: _this.props.removeWord, translateWord: _this.props.translateWord, margeWord: _this.props.margeWord })
+                    :
+                        null,
+                React.createElement("button", { style: { marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.addLine(s.lineNumber); } },
+                    React.createElement("b", null, "Add Line")),
+                React.createElement("br", null),
+                React.createElement("br", null),
+                React.createElement("hr", null));
+        })));
     };
     return Sentences;
 }(React.Component));
@@ -294,53 +283,38 @@ var WordList = /** @class */ (function (_super) {
     }
     WordList.prototype.render = function () {
         var _this = this;
-        return (<span>
-                <br />
-                <div style={{ backgroundColor: "#1b181b" }}>
-                    {this.state.showWordList ?
-            <center>
-                                <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
-                                    <tbody>
-                                        {this.props.words && this.props.words.filter(function (w) {
-                return w.lineNumber === _this.props.s.lineNumber;
-            }).sort(function (a, b) {
-                return a.wordNumber - b.wordNumber;
-            }).map(function (w, i) {
-                return <tr key={w.wordNumber}>
-                                                    <td width="10px">
-                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.margeWord(w.lineNumber, w.wordNumber); }}><b>M</b>
-                                                        </button>
-                                                    </td>
-                                                    <td width="20%">
-                                                        <textarea value={w.kanji} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "kanji"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
-                                                    </td>
-                                                    <td width="10px">
-                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.translateWord(w); }}><b>⇒</b>
-                                                        </button>
-                                                    </td>
-                                                    <td width="23%">
-                                                        <textarea value={w.hiragana} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "hiragana"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
-                                                    </td>
-                                                    <td>
-                                                        <textarea value={w.english} onChange={function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "english"); }} style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}/>
-                                                    </td>
-                                                    <td width="10px">
-                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.removeWord(w.lineNumber, w.wordNumber); }}><b>－</b>
-                                                        </button>
-                                                    </td>
-                                                    <td width="10px">
-                                                        <button style={{ height: "100%", paddingTop: 0, color: "black" }} className="btn btn-dark btn-xs" onClick={function () { return _this.props.addWord(w.lineNumber, w.wordNumber); }}><b>＋</b>
-                                                        </button>
-                                                    </td>
-                                                </tr>;
-            })}
-                                    </tbody>
-                                </table>
-                            </center>
-            :
-                null}
-                </div>
-            </span>);
+        return (React.createElement("span", null,
+            React.createElement("br", null),
+            React.createElement("div", { style: { backgroundColor: "#1b181b" } }, this.state.showWordList ?
+                React.createElement("center", null,
+                    React.createElement("table", { border: "1", style: { width: "100%", borderCollapse: "collapse" } },
+                        React.createElement("tbody", null, this.props.words && this.props.words.filter(function (w) {
+                            return w.lineNumber === _this.props.s.lineNumber;
+                        }).sort(function (a, b) {
+                            return a.wordNumber - b.wordNumber;
+                        }).map(function (w, i) {
+                            return React.createElement("tr", { key: w.wordNumber },
+                                React.createElement("td", { width: "10px" },
+                                    React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.margeWord(w.lineNumber, w.wordNumber); } },
+                                        React.createElement("b", null, "M"))),
+                                React.createElement("td", { width: "20%" },
+                                    React.createElement("textarea", { value: w.kanji, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "kanji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
+                                React.createElement("td", { width: "10px" },
+                                    React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.translateWord(w); } },
+                                        React.createElement("b", null, "\u21D2"))),
+                                React.createElement("td", { width: "23%" },
+                                    React.createElement("textarea", { value: w.hiragana, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "hiragana"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
+                                React.createElement("td", null,
+                                    React.createElement("textarea", { value: w.english, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "english"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
+                                React.createElement("td", { width: "10px" },
+                                    React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.removeWord(w.lineNumber, w.wordNumber); } },
+                                        React.createElement("b", null, "\uFF0D"))),
+                                React.createElement("td", { width: "10px" },
+                                    React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.addWord(w.lineNumber, w.wordNumber); } },
+                                        React.createElement("b", null, "\uFF0B"))));
+                        }))))
+                :
+                    null)));
     };
     return WordList;
 }(React.Component));

@@ -51,13 +51,13 @@ var QuizCore = /** @class */ (function (_super) {
     QuizCore.prototype.render = function () {
         var _this = this;
         if (this.state.pageNum === 1) {
-            return (<KanaQuiz1_1.Quiz1 consts={this.props.consts} changePage={function (i) { return _this.changePage(i); }} setMaxChar={function (i) { return _this.setMaxChar(i); }}/>);
+            return (React.createElement(KanaQuiz1_1.Quiz1, { consts: this.props.consts, changePage: function (i) { return _this.changePage(i); }, setMaxChar: function (i) { return _this.setMaxChar(i); } }));
         }
         else if (this.state.pageNum === 2) {
-            return (<KanaQuiz2_1.Quiz2 consts={this.props.consts} maxChar={this.state.maxChar} changePage={function (i) { return _this.changePage(i); }} setIncorrectList={function (obj) { return _this.setIncorrectList(obj); }} setScore={function (i) { return _this.setScore(i); }}/>);
+            return (React.createElement(KanaQuiz2_1.Quiz2, { consts: this.props.consts, maxChar: this.state.maxChar, changePage: function (i) { return _this.changePage(i); }, setIncorrectList: function (obj) { return _this.setIncorrectList(obj); }, setScore: function (i) { return _this.setScore(i); } }));
         }
         else if (this.state.pageNum === 3) {
-            return (<KanaQuiz3_1.Quiz3 consts={this.props.consts} changePage={function (i) { return _this.changePage(i); }} maxChar={this.state.maxChar} score={this.state.score} incorrectList={this.state.incorrectList}/>);
+            return (React.createElement(KanaQuiz3_1.Quiz3, { consts: this.props.consts, changePage: function (i) { return _this.changePage(i); }, maxChar: this.state.maxChar, score: this.state.score, incorrectList: this.state.incorrectList }));
         }
     };
     return QuizCore;

@@ -91,54 +91,39 @@ var Quiz2 = /** @class */ (function (_super) {
         var incorrect = Object.keys(this.incorrectList).length || 0;
         var currentGame = correct + incorrect + 1;
         var maxGame = this.props.maxChar;
-        return (<div id="disp2">
-                Progress:&nbsp;
-                    {currentGame}/{maxGame}
-                <br />
-
-                Correct:&nbsp;
-                    {correct}
-                &nbsp;&nbsp;&nbsp;
-                Incorrect:&nbsp;
-                    {incorrect}
-                <br />
-                <br />
-
-                Question:<br />
-                <b className="question">{this.question}</b>
-                <br />
-                <br />
-
-                Which is the correct Romaji for the {this.props.consts.KANA_TYPE} character above?<br />
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <button className={this.consts.ANSWER_BUTTON_PRIMARY} onClick={function () { return _this.onClickBtn(1); }}>
-                                    {this.btn1Value}
-                                </button>
-                            </td>
-                            <td>
-                                <button className={this.consts.ANSWER_BUTTON_PRIMARY} onClick={function () { return _this.onClickBtn(2); }}>
-                                    {this.btn2Value}
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button className={this.consts.ANSWER_BUTTON_PRIMARY} onClick={function () { return _this.onClickBtn(3); }}>
-                                    {this.btn3Value}
-                                </button>
-                            </td>
-                            <td>
-                                <button className={this.consts.ANSWER_BUTTON_PRIMARY} onClick={function () { return _this.onClickBtn(4); }}>
-                                    {this.btn4Value}
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>);
+        return (React.createElement("div", { id: "disp2" },
+            "Progress:\u00A0",
+            currentGame,
+            "/",
+            maxGame,
+            React.createElement("br", null),
+            "Correct:\u00A0",
+            correct,
+            "\u00A0\u00A0\u00A0 Incorrect:\u00A0",
+            incorrect,
+            React.createElement("br", null),
+            React.createElement("br", null),
+            "Question:",
+            React.createElement("br", null),
+            React.createElement("b", { className: "question" }, this.question),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            "Which is the correct Romaji for the ",
+            this.props.consts.KANA_TYPE,
+            " character above?",
+            React.createElement("br", null),
+            React.createElement("table", null,
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement("td", null,
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(1); } }, this.btn1Value)),
+                        React.createElement("td", null,
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(2); } }, this.btn2Value))),
+                    React.createElement("tr", null,
+                        React.createElement("td", null,
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(3); } }, this.btn3Value)),
+                        React.createElement("td", null,
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(4); } }, this.btn4Value)))))));
     };
     return Quiz2;
 }(React.Component));

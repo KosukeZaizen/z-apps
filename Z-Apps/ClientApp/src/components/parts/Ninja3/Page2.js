@@ -324,15 +324,12 @@ var Page2 = /** @class */ (function (_super) {
             //背景画像の変更
             this.backgroundSetting.backgroundImage = "url(" + this.bgImg + ")";
         }
-        return (<div id="Page2" style={this.pageStyle}>
-                <div id="gameScreen" style={this.state.screenStyle}>
-                    <ninja_1.NinjaChar imgAlt="Running Ninja" width={this.ninja.size * UL} x={this.state.ninjaStat.ninjaX} y={this.state.ninjaStat.ninjaY} boolLeft={this.state.ninjaStat.left}/>
-                    <RenderObjs game={this}/>
-                </div>
-                <b>
-                    <RenderScreenBottom onClickButton={GameCore.onClickButton.bind(this)} onMouseUp={GameCore.onMouseUp.bind(this)} terminalPC={this.terminalPC}/>
-                </b>
-            </div>);
+        return (React.createElement("div", { id: "Page2", style: this.pageStyle },
+            React.createElement("div", { id: "gameScreen", style: this.state.screenStyle },
+                React.createElement(ninja_1.NinjaChar, { imgAlt: "Running Ninja", width: this.ninja.size * UL, x: this.state.ninjaStat.ninjaX, y: this.state.ninjaStat.ninjaY, boolLeft: this.state.ninjaStat.left }),
+                React.createElement(RenderObjs, { game: this })),
+            React.createElement("b", null,
+                React.createElement(RenderScreenBottom, { onClickButton: GameCore.onClickButton.bind(this), onMouseUp: GameCore.onMouseUp.bind(this), terminalPC: this.terminalPC }))));
     };
     return Page2;
 }(React.Component));
@@ -341,9 +338,9 @@ exports.default = Page2;
 function RenderObjs(props) {
     var objList = [];
     for (var key in props.game.objs) {
-        objList.push(<obj_1.Obj key={key} obj={props.game.objs[key]} UL={UL} game={props.game}/>);
+        objList.push(React.createElement(obj_1.Obj, { key: key, obj: props.game.objs[key], UL: UL, game: props.game }));
     }
-    return <span>{objList}</span>;
+    return React.createElement("span", null, objList);
 }
 function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
@@ -364,15 +361,12 @@ function RenderScreenBottom(props) {
             fontSize: "xx-large",
             color: "white",
         };
-        return (<div style={styleDivPcMessage}>
-                <span style={styleTextPcMessage}>
-                    {Messages_2.messages.PC_KEYBOARD}
-                </span>
-            </div>);
+        return (React.createElement("div", { style: styleDivPcMessage },
+            React.createElement("span", { style: styleTextPcMessage }, Messages_2.messages.PC_KEYBOARD)));
     }
     else {
         //スマホ・タブレットの場合、画面下部にボタンを表示
-        return (<RenderButtons onClickButton={props.onClickButton} onMouseUp={props.onMouseUp}/>);
+        return (React.createElement(RenderButtons, { onClickButton: props.onClickButton, onMouseUp: props.onMouseUp }));
     }
 }
 function RenderButtons(props) {
@@ -398,25 +392,13 @@ function RenderButtons(props) {
         fontSize: 4 * UL,
         margin: "1px",
     };
-    return (<table id="controller" style={controllerStyle}>
-            <tbody>
-                <tr>
-                    <td align="right">
-                        <button style={sideButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("left"); }} onTouchStart={function () { props.onClickButton("left"); }} onMouseUp={function () { props.onMouseUp("left"); }} onMouseOut={function () { props.onMouseUp("left"); }} onTouchEnd={function () { props.onMouseUp("left"); }}>
-                            {"＜"}
-                        </button>
-                    </td>
-                    <td align="center">
-                        <button style={jumpButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("jump"); }} onTouchStart={function () { props.onClickButton("jump"); }} onMouseUp={function () { props.onMouseUp("jump"); }} onMouseOut={function () { props.onMouseUp("jump"); }} onTouchEnd={function () { props.onMouseUp("jump"); }}>
-                            {"↑　jump　↑"}
-                        </button>
-                    </td>
-                    <td align="left">
-                        <button style={sideButtonStyle} className={"btn btn-info btn-lg btn-block"} onMouseDown={function () { props.onClickButton("right"); }} onTouchStart={function () { props.onClickButton("right"); }} onMouseUp={function () { props.onMouseUp("right"); }} onMouseOut={function () { props.onMouseUp("right"); }} onTouchEnd={function () { props.onMouseUp("right"); }}>
-                            {"＞"}
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>);
+    return (React.createElement("table", { id: "controller", style: controllerStyle },
+        React.createElement("tbody", null,
+            React.createElement("tr", null,
+                React.createElement("td", { align: "right" },
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("left"); }, onTouchStart: function () { props.onClickButton("left"); }, onMouseUp: function () { props.onMouseUp("left"); }, onMouseOut: function () { props.onMouseUp("left"); }, onTouchEnd: function () { props.onMouseUp("left"); } }, "＜")),
+                React.createElement("td", { align: "center" },
+                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("jump"); }, onTouchStart: function () { props.onClickButton("jump"); }, onMouseUp: function () { props.onMouseUp("jump"); }, onMouseOut: function () { props.onMouseUp("jump"); }, onTouchEnd: function () { props.onMouseUp("jump"); } }, "↑　jump　↑")),
+                React.createElement("td", { align: "left" },
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("right"); }, onTouchStart: function () { props.onClickButton("right"); }, onMouseUp: function () { props.onMouseUp("right"); }, onMouseOut: function () { props.onMouseUp("right"); }, onTouchEnd: function () { props.onMouseUp("right"); } }, "＞"))))));
 }

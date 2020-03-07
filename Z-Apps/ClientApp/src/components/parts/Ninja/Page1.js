@@ -46,57 +46,34 @@ var Page1 = /** @class */ (function (_super) {
             marginBottom: 10,
         };
         var screenHeight = parseInt(window.innerHeight, 10);
-        return (<div id="page1">
-                <span onClick={function () { _this.hideTopImage(); }}>
-                    <TopImage topImage={this.state.topImage}/>
-                </span>
-                <h2 style={{ color: "white", }}>Which language do you prefer?</h2>
-                {screenHeight > 360 ?
-            <span>
-                            <span onClick={function () { _this.props.changePage(2, "English"); }}>
-                                <button style={bottomMargin} className={this.consts.BTN_START_CLASS}>
-                                    {"English"}
-                                </button>
-                            </span>
-                            <span onClick={function () { _this.props.changePage(2, "Japanese"); }}>
-                                <button className={this.consts.BTN_START_CLASS}>
-                                    {"日本語"}
-                                </button>
-                            </span>
-                        </span>
-            :
-                <span>
-                            <table style={{ width: "100%" }}>
-                                <tbody>
-                                    <tr>
-                                        <td align="center">
-                                            <span onClick={function () { _this.props.changePage(2, "English"); }}>
-                                                <button style={{ width: "80%" }} className={this.consts.BTN_START_CLASS}>
-                                                    {"English"}
-                                                </button>
-                                            </span>
-                                        </td>
-                                        <td align="center">
-                                            <span onClick={function () { _this.props.changePage(2, "Japanese"); }}>
-                                                <button style={{ width: "80%" }} className={this.consts.BTN_START_CLASS}>
-                                                    {"日本語"}
-                                                </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </span>}
-                <br />
-                <center style={{ color: "white" }}>
-                    If you want to be a real Ninja, please check this:<br />
-                    <a href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html" target="_blank" rel="noopener noreferrer">
-                        How to be a Ninja >>
-                        </a>
-                </center>
-                <br />
-                <br />
-            </div>);
+        return (React.createElement("div", { id: "page1" },
+            React.createElement("span", { onClick: function () { _this.hideTopImage(); } },
+                React.createElement(TopImage, { topImage: this.state.topImage })),
+            React.createElement("h2", { style: { color: "white", } }, "Which language do you prefer?"),
+            screenHeight > 360 ?
+                React.createElement("span", null,
+                    React.createElement("span", { onClick: function () { _this.props.changePage(2, "English"); } },
+                        React.createElement("button", { style: bottomMargin, className: this.consts.BTN_START_CLASS }, "English")),
+                    React.createElement("span", { onClick: function () { _this.props.changePage(2, "Japanese"); } },
+                        React.createElement("button", { className: this.consts.BTN_START_CLASS }, "日本語")))
+                :
+                    React.createElement("span", null,
+                        React.createElement("table", { style: { width: "100%" } },
+                            React.createElement("tbody", null,
+                                React.createElement("tr", null,
+                                    React.createElement("td", { align: "center" },
+                                        React.createElement("span", { onClick: function () { _this.props.changePage(2, "English"); } },
+                                            React.createElement("button", { style: { width: "80%" }, className: this.consts.BTN_START_CLASS }, "English"))),
+                                    React.createElement("td", { align: "center" },
+                                        React.createElement("span", { onClick: function () { _this.props.changePage(2, "Japanese"); } },
+                                            React.createElement("button", { style: { width: "80%" }, className: this.consts.BTN_START_CLASS }, "日本語"))))))),
+            React.createElement("br", null),
+            React.createElement("center", { style: { color: "white" } },
+                "If you want to be a real Ninja, please check this:",
+                React.createElement("br", null),
+                React.createElement("a", { href: "https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html", target: "_blank", rel: "noopener noreferrer" }, "How to be a Ninja >>")),
+            React.createElement("br", null),
+            React.createElement("br", null)));
     };
     return Page1;
 }(React.Component));
@@ -104,9 +81,10 @@ exports.Page1 = Page1;
 exports.default = Page1;
 function TopImage(props) {
     if (props.topImage) {
-        return <h1><img width="100%" src={logo_png_1.default} alt="Lingual Ninja Games - Scrolls of The Four Elements"/></h1>;
+        return React.createElement("h1", null,
+            React.createElement("img", { width: "100%", src: logo_png_1.default, alt: "Lingual Ninja Games - Scrolls of The Four Elements" }));
     }
     else {
-        return <span></span>;
+        return React.createElement("span", null);
     }
 }

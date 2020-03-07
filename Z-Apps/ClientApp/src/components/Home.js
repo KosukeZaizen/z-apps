@@ -38,76 +38,64 @@ var Home = /** @class */ (function (_super) {
         return _this;
     }
     Home.prototype.render = function () {
-        return (<div className="home">
-                <Helmet_1.default title="Lingual Ninja" desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!" isHome={true}/>
-                <center>
-                    <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Lingual Ninja!</h1>
-                    <div className="initial-message">
-                        <p className="no-margin">Applications to learn Japanese,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                            made by <react_router_dom_1.Link to="/developer">Kosuke Zaizen</react_router_dom_1.Link>.</p>
-                        <p className="no-margin">I hope you enjoy!</p>
-                    </div>
-
-                    <div ref={this.ref} id="scrollTargetId">
-                        <react_router_dom_1.Link to="/hiragana-quiz">
-                            <reactstrap_1.Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
-                                <reactstrap_1.CardTitle>Hiragana / Katakana Quiz</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>An app to remember Hiragana and Katakana! I hope this will help you to study.</reactstrap_1.CardText>
-                                <reactstrap_1.Button color="secondary">Try!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-                        <br />
-
-                        <react_router_dom_1.Link to="/folktales">
-                            <reactstrap_1.Card body inverse color="primary">
-                                <reactstrap_1.CardTitle>Japanese Folktales</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</reactstrap_1.CardText>
-                                <reactstrap_1.Button color="secondary">Try!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-                        <br />
-
-                        <react_router_dom_1.Link to="/kanji-converter">
-                            <reactstrap_1.Card body inverse color="success">
-                                <reactstrap_1.CardTitle>Kanji Converter</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!</reactstrap_1.CardText>
-                                <reactstrap_1.Button color="secondary">Try!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-                        <br />
-
-                        <react_router_dom_1.Link to="/romaji-converter">
-                            <reactstrap_1.Card body inverse color="danger">
-                                <reactstrap_1.CardTitle>Romaji Converter</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!</reactstrap_1.CardText>
-                                <reactstrap_1.Button>Try!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-                        <br />
-
-                        <react_router_dom_1.Link to="/ninja">
-                            <reactstrap_1.Card body inverse color="warning">
-                                <reactstrap_1.CardTitle>Lingual Ninja Game</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</reactstrap_1.CardText>
-                                <reactstrap_1.Button color="secondary">Play!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-                        <br />
-
-                        <react_router_dom_1.Link to="/color-code">
-                            <reactstrap_1.Card body inverse color="info">
-                                <reactstrap_1.CardTitle>Color Code Getter</reactstrap_1.CardTitle>
-                                <reactstrap_1.CardText>Get the Color Code of your favolite color!</reactstrap_1.CardText>
-                                <reactstrap_1.Button color="secondary">Try!</reactstrap_1.Button>
-                            </reactstrap_1.Card>
-                        </react_router_dom_1.Link>
-
-                    </div>
-                </center>
-                <br />
-                <FaceBook_1.default />
-                <PleaseScrollDown_1.default criteriaRef={this.ref} targetId="scrollTargetId"/>
-            </div>);
+        return (React.createElement("div", { className: "home" },
+            React.createElement(Helmet_1.default, { title: "Lingual Ninja", desc: "Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!", isHome: true }),
+            React.createElement("center", null,
+                React.createElement("h1", null,
+                    "Welcome to",
+                    React.createElement("span", { className: 'hidden-xs' }, " "),
+                    React.createElement("span", { className: 'visible-xs' },
+                        React.createElement("br", null)),
+                    "Lingual Ninja!"),
+                React.createElement("div", { className: "initial-message" },
+                    React.createElement("p", { className: "no-margin" },
+                        "Applications to learn Japanese,",
+                        React.createElement("span", { className: 'hidden-xs' }, " "),
+                        React.createElement("span", { className: 'visible-xs' },
+                            React.createElement("br", null)),
+                        "made by ",
+                        React.createElement(react_router_dom_1.Link, { to: "/developer" }, "Kosuke Zaizen"),
+                        "."),
+                    React.createElement("p", { className: "no-margin" }, "I hope you enjoy!")),
+                React.createElement("div", { ref: this.ref, id: "scrollTargetId" },
+                    React.createElement(react_router_dom_1.Link, { to: "/hiragana-quiz" },
+                        React.createElement(reactstrap_1.Card, { body: true, style: { backgroundColor: '#333', borderColor: '#333', color: "white" } },
+                            React.createElement(reactstrap_1.CardTitle, null, "Hiragana / Katakana Quiz"),
+                            React.createElement(reactstrap_1.CardText, null, "An app to remember Hiragana and Katakana! I hope this will help you to study."),
+                            React.createElement(reactstrap_1.Button, { color: "secondary" }, "Try!"))),
+                    React.createElement("br", null),
+                    React.createElement(react_router_dom_1.Link, { to: "/folktales" },
+                        React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "primary" },
+                            React.createElement(reactstrap_1.CardTitle, null, "Japanese Folktales"),
+                            React.createElement(reactstrap_1.CardText, null, "An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"),
+                            React.createElement(reactstrap_1.Button, { color: "secondary" }, "Try!"))),
+                    React.createElement("br", null),
+                    React.createElement(react_router_dom_1.Link, { to: "/kanji-converter" },
+                        React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "success" },
+                            React.createElement(reactstrap_1.CardTitle, null, "Kanji Converter"),
+                            React.createElement(reactstrap_1.CardText, null, "A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"),
+                            React.createElement(reactstrap_1.Button, { color: "secondary" }, "Try!"))),
+                    React.createElement("br", null),
+                    React.createElement(react_router_dom_1.Link, { to: "/romaji-converter" },
+                        React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "danger" },
+                            React.createElement(reactstrap_1.CardTitle, null, "Romaji Converter"),
+                            React.createElement(reactstrap_1.CardText, null, "A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"),
+                            React.createElement(reactstrap_1.Button, null, "Try!"))),
+                    React.createElement("br", null),
+                    React.createElement(react_router_dom_1.Link, { to: "/ninja" },
+                        React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "warning" },
+                            React.createElement(reactstrap_1.CardTitle, null, "Lingual Ninja Game"),
+                            React.createElement(reactstrap_1.CardText, null, "Action game! Be a Ninja, and collect the scrolls in Japan!"),
+                            React.createElement(reactstrap_1.Button, { color: "secondary" }, "Play!"))),
+                    React.createElement("br", null),
+                    React.createElement(react_router_dom_1.Link, { to: "/color-code" },
+                        React.createElement(reactstrap_1.Card, { body: true, inverse: true, color: "info" },
+                            React.createElement(reactstrap_1.CardTitle, null, "Color Code Getter"),
+                            React.createElement(reactstrap_1.CardText, null, "Get the Color Code of your favolite color!"),
+                            React.createElement(reactstrap_1.Button, { color: "secondary" }, "Try!"))))),
+            React.createElement("br", null),
+            React.createElement(FaceBook_1.default, null),
+            React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" })));
     };
     return Home;
 }(React.Component));

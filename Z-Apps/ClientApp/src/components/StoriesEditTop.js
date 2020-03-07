@@ -59,85 +59,66 @@ var StoriesTop = /** @class */ (function (_super) {
     StoriesTop.prototype.render = function () {
         var allStories = this.props.allStories;
         var screenWidth = this.state.screenWidth;
-        return (<center>
-                <Helmet_1.default title="Japanese Folktales" noindex={true}/>
-                <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" style={{ textAlign: "left" }}>
-                        <react_router_dom_1.Link to="/" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span>
-                                Home
-                            </span>
-                        </react_router_dom_1.Link>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            Japanese Folktales
-                        </span>
-                    </div>
-                    <h1 style={{
-            margin: "30px",
-            lineHeight: "40px",
-        }}>
-                        <b>Japanese Folktales</b>
-                    </h1>
-                    <br />
-                    {allStories && allStories.length > 0 ?
-            null
-            :
-                <center>
-                                <CircularProgress_1.default key="circle" size="20%"/>
-                            </center>}
-                    {allStories && allStories.map(function (s) {
-            var nameForUrl = s.storyName;
-            var nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
-            return (<a key={s.storyId} href={"/folktalesEdit/" + nameForUrl}>
-                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                        {screenWidth > 500 ?
-                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td colSpan={2}>
-                                                                <center>
-                                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                        <b>{nameToShow}</b>
-                                                                    </h2>
-                                                                </center>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="50%">
-                                                                <img src={consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png"} width="90%" alt={nameToShow} title={nameToShow} style={{ marginLeft: "10px", marginBottom: "10px" }}/>
-                                                            </td>
-                                                            <td>
-                                                                {s.description.split("\\n").map(function (d, i) {
-                    return <span key={i} style={{ color: "black" }}>
-                                                                            {d}<br />
-                                                                        </span>;
-                })}
-                                                                <center><p style={{ margin: "20px" }}>Read {nameToShow} >></p></center>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                :
-                    <div>
-                                                    <b>
-                                                        <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
-                                                    </b>
-                                                    <img src={consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png"} width="90%" alt={nameToShow} title={nameToShow}/>
-                                                    <div style={{ textAlign: "left", margin: "10px" }}>
-                                                        {s.description.split("\\n").map(function (d, i) {
-                        return <span key={i} style={{ color: "black" }}>
-                                                                    {d}<br />
-                                                                </span>;
-                    })}
-                                                    </div>
-                                                    <p>Read {nameToShow} >></p>
-                                                </div>}
-                                    </div>
-                                </a>);
-        })}
-                </div>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement(Helmet_1.default, { title: "Japanese Folktales", noindex: true }),
+            React.createElement("div", { style: { maxWidth: 700 } },
+                React.createElement("div", { className: "breadcrumbs", style: { textAlign: "left" } },
+                    React.createElement(react_router_dom_1.Link, { to: "/", style: { marginRight: "5px", marginLeft: "5px" } },
+                        React.createElement("span", null, "Home")),
+                    "\uFF1E",
+                    React.createElement("span", { style: { marginRight: "5px", marginLeft: "5px" } }, "Japanese Folktales")),
+                React.createElement("h1", { style: {
+                        margin: "30px",
+                        lineHeight: "40px",
+                    } },
+                    React.createElement("b", null, "Japanese Folktales")),
+                React.createElement("br", null),
+                allStories && allStories.length > 0 ?
+                    null
+                    :
+                        React.createElement("center", null,
+                            React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
+                allStories && allStories.map(function (s) {
+                    var nameForUrl = s.storyName;
+                    var nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                    return (React.createElement("a", { key: s.storyId, href: "/folktalesEdit/" + nameForUrl },
+                        React.createElement("div", { style: { padding: "10px", marginBottom: "10px", border: "5px double #333333" } }, screenWidth > 500 ?
+                            React.createElement("table", null,
+                                React.createElement("tbody", null,
+                                    React.createElement("tr", null,
+                                        React.createElement("td", { colSpan: 2 },
+                                            React.createElement("center", null,
+                                                React.createElement("h2", { style: { color: "black", marginBottom: "20px" } },
+                                                    React.createElement("b", null, nameToShow))))),
+                                    React.createElement("tr", null,
+                                        React.createElement("td", { width: "50%" },
+                                            React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } })),
+                                        React.createElement("td", null,
+                                            s.description.split("\\n").map(function (d, i) {
+                                                return React.createElement("span", { key: i, style: { color: "black" } },
+                                                    d,
+                                                    React.createElement("br", null));
+                                            }),
+                                            React.createElement("center", null,
+                                                React.createElement("p", { style: { margin: "20px" } },
+                                                    "Read ",
+                                                    nameToShow,
+                                                    " >>"))))))
+                            :
+                                React.createElement("div", null,
+                                    React.createElement("b", null,
+                                        React.createElement("h2", { style: { color: "black", marginBottom: "20px" } }, nameToShow)),
+                                    React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow }),
+                                    React.createElement("div", { style: { textAlign: "left", margin: "10px" } }, s.description.split("\\n").map(function (d, i) {
+                                        return React.createElement("span", { key: i, style: { color: "black" } },
+                                            d,
+                                            React.createElement("br", null));
+                                    })),
+                                    React.createElement("p", null,
+                                        "Read ",
+                                        nameToShow,
+                                        " >>")))));
+                }))));
     };
     return StoriesTop;
 }(React.Component));

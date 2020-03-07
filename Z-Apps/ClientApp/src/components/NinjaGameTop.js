@@ -24,33 +24,32 @@ var NinjaGameTop = function () {
         // Adsenseが表示されているときに遷移があった場合はリロードし、
         // 自動広告によってゲームが邪魔されることを防ぐ
         window.location.reload();
-        return (<center>
-                <CircularProgress_1.default key="circle" size="20%"/>
-            </center>);
+        return (React.createElement("center", null,
+            React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })));
     }
-    return (<div className="ninjaGameTop" style={{ fontSize: "large" }}>
-            <Helmet_1.default title="Lingual Ninja Games" desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"/>
-            <center><h1>Lingual Ninja Games</h1></center>
-            <br />
-            <react_router_dom_1.Link to="/ninja1">
-                Chapter1: Scrolls Of The Four Elements<br />
-                <img width="100%" src={logo_png_1.default} alt="Ninja Game 1"/>
-            </react_router_dom_1.Link>
-            <br />
-            <br />
-            <react_router_dom_1.Link to="/ninja2">
-                Chapter2: Castle Of The Maze<br />
-                <img width="100%" src={logo_png_2.default} alt="Ninja Game 2"/>
-            </react_router_dom_1.Link>
-            <br />
-            <br />
-            <react_router_dom_1.Link to="/ninja3">
-                Chapter3: Frozen Nightmare<br />
-                <img width="100%" src={logo_png_3.default} alt="Ninja Game 3"/>
-            </react_router_dom_1.Link>
-            <br />
-            <br />
-            <FaceBook_1.default />
-        </div>);
+    return (React.createElement("div", { className: "ninjaGameTop", style: { fontSize: "large" } },
+        React.createElement(Helmet_1.default, { title: "Lingual Ninja Games", desc: "Japanese action game! Be a Ninja, and collect the scrolls in Japan!" }),
+        React.createElement("center", null,
+            React.createElement("h1", null, "Lingual Ninja Games")),
+        React.createElement("br", null),
+        React.createElement(react_router_dom_1.Link, { to: "/ninja1" },
+            "Chapter1: Scrolls Of The Four Elements",
+            React.createElement("br", null),
+            React.createElement("img", { width: "100%", src: logo_png_1.default, alt: "Ninja Game 1" })),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement(react_router_dom_1.Link, { to: "/ninja2" },
+            "Chapter2: Castle Of The Maze",
+            React.createElement("br", null),
+            React.createElement("img", { width: "100%", src: logo_png_2.default, alt: "Ninja Game 2" })),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement(react_router_dom_1.Link, { to: "/ninja3" },
+            "Chapter3: Frozen Nightmare",
+            React.createElement("br", null),
+            React.createElement("img", { width: "100%", src: logo_png_3.default, alt: "Ninja Game 3" })),
+        React.createElement("br", null),
+        React.createElement("br", null),
+        React.createElement(FaceBook_1.default, null)));
 };
 exports.default = NinjaGameTop;

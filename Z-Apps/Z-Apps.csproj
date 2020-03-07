@@ -34,7 +34,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\origin\components\Home.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\src\components\parts\Stories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\origin\components\Home.tsx" />
   </ItemGroup>
 
   <ItemGroup>

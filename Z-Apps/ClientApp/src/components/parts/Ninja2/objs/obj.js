@@ -79,23 +79,20 @@ var Obj = /** @class */ (function (_super) {
                 };
                 var arrlines = message.split("\n");
                 var listlines = arrlines.map(function (line, index) {
-                    return <p key={index}>{line}</p>;
+                    return React.createElement("p", { key: index }, line);
                 });
-                return (<div>
-                        <img src={img} style={styleImg} alt={"ninja game object"}/>
-                        <div style={styleTexts}>
-                            <center>
-                                <h1 style={h1Style}>{title}</h1>
-                                <span>{listlines}</span>
-                            </center>
-                        </div>
-                        <CloseElement className={"btn btn-dark btn-lg btn-block"} style={styleBtnClose} onClick={function () { _this.onClickOkButtonInScroll(); }} styleBtnClose={styleBtnClose} obj={this.props.obj} game={this.props.game}/>
-                        <SpeakerImage img={speakerImg} size={size} zIndex={zIndex} posX={posX} posY={posY}/>
-                    </div>);
+                return (React.createElement("div", null,
+                    React.createElement("img", { src: img, style: styleImg, alt: "ninja game object" }),
+                    React.createElement("div", { style: styleTexts },
+                        React.createElement("center", null,
+                            React.createElement("h1", { style: h1Style }, title),
+                            React.createElement("span", null, listlines))),
+                    React.createElement(CloseElement, { className: "btn btn-dark btn-lg btn-block", style: styleBtnClose, onClick: function () { _this.onClickOkButtonInScroll(); }, styleBtnClose: styleBtnClose, obj: this.props.obj, game: this.props.game }),
+                    React.createElement(SpeakerImage, { img: speakerImg, size: size, zIndex: zIndex, posX: posX, posY: posY })));
             }
             else {
                 //visible falseの場合、巻物を表示しない
-                return <div></div>;
+                return React.createElement("div", null);
             }
         }
         else if (img) {
@@ -113,7 +110,7 @@ var Obj = /** @class */ (function (_super) {
                 transform: rotateLeft,
                 zIndex: zIndex,
             };
-            return (<img_1 src={img_1} width={size} style={style} alt={"ninja game object"}/>);
+            return (React.createElement("img", { src: img_1, width: size, style: style, alt: "ninja game object" }));
         }
         else if (this.props.obj.divType) {
             //水や、画面の外を黒くするためのdiv要素
@@ -130,8 +127,7 @@ var Obj = /** @class */ (function (_super) {
                 width: size,
                 height: size,
             };
-            return (<div style={style} className={this.props.obj.divType}>
-                </div>);
+            return (React.createElement("div", { style: style, className: this.props.obj.divType }));
         }
         else {
             //該当の引数を受け取っていない場合、div要素を生成
@@ -148,9 +144,7 @@ var Obj = /** @class */ (function (_super) {
                 zIndex: zIndex,
                 fontSize: fontSize,
             };
-            return (<div width={size} style={style}>
-                    {message}
-                </div>);
+            return (React.createElement("div", { width: size, style: style }, message));
         }
     };
     return Obj;
@@ -171,10 +165,10 @@ function SpeakerImage(props) {
             top: posY,
             zIndex: zIndex,
         };
-        return (<img src={img} width={size} alt={"ninja game object"} style={style}/>);
+        return (React.createElement("img", { src: img, width: size, alt: "ninja game object", style: style }));
     }
     else {
-        return <div></div>;
+        return React.createElement("div", null);
     }
 }
 function CloseElement(props) {
@@ -188,11 +182,8 @@ function CloseElement(props) {
         //タイムステップごとのループの終了
         clearInterval(props.game.timerId);
         //全クリ時のメッセージ
-        return (<react_router_dom_1.Link to="/ninja3">
-                <button className={"btn btn-dark btn-lg btn-block"} style={props.styleBtnClose}>
-                    {"Next Chapter"}
-                </button>
-            </react_router_dom_1.Link>);
+        return (React.createElement(react_router_dom_1.Link, { to: "/ninja3" },
+            React.createElement("button", { className: "btn btn-dark btn-lg btn-block", style: props.styleBtnClose }, "Next Chapter")));
     }
     else {
         //全クリ時のメッセージでない通常メッセージ
@@ -201,8 +192,6 @@ function CloseElement(props) {
             props.onClick();
             props.game.closeScroll = false;
         }
-        return (<button className={"btn btn-dark btn-lg btn-block"} style={props.styleBtnClose} onClick={function () { props.onClick(); }}>
-                {"Close"}
-            </button>);
+        return (React.createElement("button", { className: "btn btn-dark btn-lg btn-block", style: props.styleBtnClose, onClick: function () { props.onClick(); } }, "Close"));
     }
 }

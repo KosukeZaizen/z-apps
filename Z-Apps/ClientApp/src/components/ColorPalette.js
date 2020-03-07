@@ -131,65 +131,38 @@ var ColorPalette = /** @class */ (function (_super) {
             width: "100%",
             tableLayout: "fixed",
         };
-        return (<center id="color-palette">
-                <Helmet_1.default title="Color Code Getter" desc="Get your favorite Color Code automatically!"/>
-                <h1 style={styleTitle}>Color Code Getter</h1>
-                <div style={styleContents}>
-                    <div style={{ padding: 10, marginBottom: 10, border: "5px double #333333", }}>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <label style={{ margin: 4, }}>Current color: </label>
-                                    </td>
-                                    <td>
-                                        <div style={styleResultDisplay}></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label style={{ margin: 4, }}>Color code: </label>
-                                    </td>
-                                    <td>
-                                        <label style={{ margin: 4, }}>
-                                            <span id="color-code-to-copy">
-                                                {changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness)}
-                                            </span>
-                                        </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button onClick={this.onClickCopy} className={this.consts.COPY_BUTTON_PRIMARY} style={{ margin: 5 }}>
-                            Click here to copy the Color Code!
-                </button>
-                    </div>
-                    <br />
-                    <label>Click your favorite color!</label><br />
-                    <div style={{ position: "relative", }}>
-                        
-                        <table style={styleHueTable}>
-                            <tbody>
-                                <tr>
-                                    {getHueBar(this.onClickHueBar)}
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <input type="range" min="0" max="360" step="1" value={this.state.hue} onChange={function (e) { _this.onChangeHue(e); }} style={styleHuePicker}/>
-                    </div>
-                    
-                    <div id="wrapper">
-                        <table style={styleSlTable} className="content">
-                            <tbody>
-                                {getSlTable(this.state.hue, this.onClickTable, this.state)}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <br />
-                <FaceBook_1.default />
-            </center>);
+        return (React.createElement("center", { id: "color-palette" },
+            React.createElement(Helmet_1.default, { title: "Color Code Getter", desc: "Get your favorite Color Code automatically!" }),
+            React.createElement("h1", { style: styleTitle }, "Color Code Getter"),
+            React.createElement("div", { style: styleContents },
+                React.createElement("div", { style: { padding: 10, marginBottom: 10, border: "5px double #333333", } },
+                    React.createElement("table", null,
+                        React.createElement("tbody", null,
+                            React.createElement("tr", null,
+                                React.createElement("td", null,
+                                    React.createElement("label", { style: { margin: 4, } }, "Current color: ")),
+                                React.createElement("td", null,
+                                    React.createElement("div", { style: styleResultDisplay }))),
+                            React.createElement("tr", null,
+                                React.createElement("td", null,
+                                    React.createElement("label", { style: { margin: 4, } }, "Color code: ")),
+                                React.createElement("td", null,
+                                    React.createElement("label", { style: { margin: 4, } },
+                                        React.createElement("span", { id: "color-code-to-copy" }, changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness))))))),
+                    React.createElement("button", { onClick: this.onClickCopy, className: this.consts.COPY_BUTTON_PRIMARY, style: { margin: 5 } }, "Click here to copy the Color Code!")),
+                React.createElement("br", null),
+                React.createElement("label", null, "Click your favorite color!"),
+                React.createElement("br", null),
+                React.createElement("div", { style: { position: "relative", } },
+                    React.createElement("table", { style: styleHueTable },
+                        React.createElement("tbody", null,
+                            React.createElement("tr", null, getHueBar(this.onClickHueBar)))),
+                    React.createElement("input", { type: "range", min: "0", max: "360", step: "1", value: this.state.hue, onChange: function (e) { _this.onChangeHue(e); }, style: styleHuePicker })),
+                React.createElement("div", { id: "wrapper" },
+                    React.createElement("table", { style: styleSlTable, className: "content" },
+                        React.createElement("tbody", null, getSlTable(this.state.hue, this.onClickTable, this.state))))),
+            React.createElement("br", null),
+            React.createElement(FaceBook_1.default, null)));
     };
     return ColorPalette;
 }(React.Component));
@@ -213,19 +186,16 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
     if (booLightness || booSaturation) {
         if (booLightness && booSaturation) {
             //選択されたセルは反転した色にする
-            return (<td key={key} onClick={function () { return onClickTable(hue, saturation, lightness); }} style={{ background: changeHslToStyle(hue + 180, 100, 60) }}>
-                </td>);
+            return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue + 180, 100, 60) } }));
         }
         else {
             //選択された位置から十字に色付けする
-            return (<td key={key} onClick={function () { return onClickTable(hue, saturation, lightness); }} style={{ background: changeHslToStyle(hue + 180, 30, 30) }}>
-                </td>);
+            return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue + 180, 30, 30) } }));
         }
     }
     else {
         //選択されていない通常セル
-        return (<td key={key} onClick={function () { return onClickTable(hue, saturation, lightness); }} style={{ background: changeHslToStyle(hue, saturation, lightness) }}>
-            </td>);
+        return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue, saturation, lightness) } }));
     }
 }
 //--------------------------------------------------
@@ -246,7 +216,7 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
     for (var lightness = 100; lightness >= 0; lightness--) {
         tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
     }
-    return <tr key={key}>{tdList}</tr>;
+    return React.createElement("tr", { key: key }, tdList);
 }
 //--------------------------------------------------
 // 彩度・明度によるテーブルを作成

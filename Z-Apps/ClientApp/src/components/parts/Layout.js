@@ -15,10 +15,7 @@ var reactstrap_1 = require("reactstrap");
 var NavMenu_1 = __importDefault(require("./NavMenu"));
 var Footer_1 = __importDefault(require("./Footer"));
 require("./Layout.css");
-exports.default = (function (props) { return (<div>
-        <NavMenu_1.default />
-        <reactstrap_1.Container className="contents-container">
-            {props.children}
-        </reactstrap_1.Container>
-        <Footer_1.default />
-    </div>); });
+exports.default = (function (props) { return (React.createElement("div", null,
+    React.createElement(NavMenu_1.default, null),
+    React.createElement(reactstrap_1.Container, { className: "contents-container" }, props.children),
+    React.createElement(Footer_1.default, null))); });

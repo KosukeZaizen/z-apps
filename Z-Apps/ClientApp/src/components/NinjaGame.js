@@ -98,20 +98,19 @@ var NinjaGame = /** @class */ (function (_super) {
             userSelect: "none",
             touchCallout: "none",
         };
-        return (<center id="ninja-game" style={style}>
-                <Helmet_1.default title="Lingual Ninja Games - Scrolls of The Four Elements" desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"/>
-                <Pages state={this.state} changePage={function (i, lang) { _this.changePage(i, lang); }} changeStage={function (i, j) { _this.changeStage(i, j); }} changeLanguage={function () { _this.changeLanguage(); }} readElementScroll={this.readElementScroll}/>
-            </center>);
+        return (React.createElement("center", { id: "ninja-game", style: style },
+            React.createElement(Helmet_1.default, { title: "Lingual Ninja Games - Scrolls of The Four Elements", desc: "Japanese action game! Be a Ninja, and collect the scrolls in Japan!" }),
+            React.createElement(Pages, { state: this.state, changePage: function (i, lang) { _this.changePage(i, lang); }, changeStage: function (i, j) { _this.changeStage(i, j); }, changeLanguage: function () { _this.changeLanguage(); }, readElementScroll: this.readElementScroll })));
     };
     return NinjaGame;
 }(React.Component));
 ;
 function Pages(props) {
     if (props.state.curPage === 1) {
-        return (<Page1_1.Page1 changePage={function (i, lang) { props.changePage(i, lang); }}/>);
+        return (React.createElement(Page1_1.Page1, { changePage: function (i, lang) { props.changePage(i, lang); } }));
     }
     else if (props.state.curPage === 2) {
-        return (<Page2_1.Page2 changeStage={function (i, j) { props.changeStage(i, j); }} ninja={props.state.ninja} stage={props.state.stage} readElementScroll={props.readElementScroll} language={props.state.language}/>);
+        return (React.createElement(Page2_1.Page2, { changeStage: function (i, j) { props.changeStage(i, j); }, ninja: props.state.ninja, stage: props.state.stage, readElementScroll: props.readElementScroll, language: props.state.language }));
     }
 }
 exports.default = NinjaGame;

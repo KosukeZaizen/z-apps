@@ -18,38 +18,36 @@ var PageHeader = function (props) {
         return null;
     }
     var topUrl = consts.TOP_URL;
-    return (<div className="application">
-            <react_helmet_1.Helmet>
-                {props.title ?
-        <title>{props.title}</title>
-        :
-            null}
-                {props.desc ?
-        <meta name="description" content={props.desc}/>
-        :
-            null}
-                {props.noindex ?
-        <meta name="robots" content="noindex"/>
-        :
-            null}
-                {props.title ?
-        <meta property="og:title" content={props.title}/>
-        :
-            null}
-                {props.isHome ?
-        <meta property="og:type" content="website"/>
-        :
-            <meta property="og:type" content="article"/>}
-                {props.desc ?
-        <meta property="og:description" content={props.desc}/>
-        :
-            null}
-                {props.img ?
-        <meta property="og:image" content={props.img}/>
-        :
-            null}
-                <meta property="og:url" content={topUrl + window.location.pathname}/>
-            </react_helmet_1.Helmet>
-        </div>);
+    return (React.createElement("div", { className: "application" },
+        React.createElement(react_helmet_1.Helmet, null,
+            props.title ?
+                React.createElement("title", null, props.title)
+                :
+                    null,
+            props.desc ?
+                React.createElement("meta", { name: "description", content: props.desc })
+                :
+                    null,
+            props.noindex ?
+                React.createElement("meta", { name: "robots", content: "noindex" })
+                :
+                    null,
+            props.title ?
+                React.createElement("meta", { property: "og:title", content: props.title })
+                :
+                    null,
+            props.isHome ?
+                React.createElement("meta", { property: "og:type", content: "website" })
+                :
+                    React.createElement("meta", { property: "og:type", content: "article" }),
+            props.desc ?
+                React.createElement("meta", { property: "og:description", content: props.desc })
+                :
+                    null,
+            props.img ?
+                React.createElement("meta", { property: "og:image", content: props.img })
+                :
+                    null,
+            React.createElement("meta", { property: "og:url", content: topUrl + window.location.pathname }))));
 };
 exports.default = PageHeader;
