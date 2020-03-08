@@ -41,8 +41,8 @@ var GameOver = /** @class */ (function (_super) {
         };
         //urlパラメータ取得
         var params = functions_1.getParams();
-        var game = params.g || "";
-        var lang = params.l || "";
+        var game = params["g"] || "";
+        var lang = params["l"] || "";
         var gameUrl = "/" + game + "?l=" + lang;
         var title;
         var msgButton;
@@ -54,7 +54,7 @@ var GameOver = /** @class */ (function (_super) {
             title = "Oops! Game over!";
             msgButton = "Continue the game";
         }
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: "Game Over", noindex: true }),
             React.createElement("h2", { style: bottomMargin }, title),
             React.createElement(react_router_dom_1.Link, { to: gameUrl },

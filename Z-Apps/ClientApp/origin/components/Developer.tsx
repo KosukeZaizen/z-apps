@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '../css/Developer.css';
-import image from '../img/KosukeZaizen.jpg';
 import Head from './parts/Helmet';
 import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
+const image = require('../img/KosukeZaizen.jpg');
 
 function SayHello() {
     return (

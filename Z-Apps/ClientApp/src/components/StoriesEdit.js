@@ -56,7 +56,7 @@ var StoriesEdit = /** @class */ (function (_super) {
             importData: "",
             imported: false,
         };
-        _this.screenHeight = parseInt(window.innerHeight, 10);
+        _this.screenHeight = window.innerHeight;
         _this.props.loadStory(_this.state.storyName);
         _this.props.setInitialToken();
         return _this;
@@ -73,9 +73,9 @@ var StoriesEdit = /** @class */ (function (_super) {
         var storyName = this.props.storyDesc.storyName || "";
         var title = storyName.split("--").join(" - ").split("_").join(" ");
         var showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: title + " Story", noindex: true }),
-            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" } }),
+            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: -1 } }),
             React.createElement("div", { style: { maxWidth: 1000 } },
                 React.createElement("div", { className: "breadcrumbs", style: { textAlign: "left", color: "white" } },
                     React.createElement(react_router_dom_1.Link, { to: "/", style: { marginRight: "5px", marginLeft: "5px" } },
@@ -96,7 +96,7 @@ var StoriesEdit = /** @class */ (function (_super) {
                     React.createElement("span", null,
                         React.createElement("b", { style: { color: "white" } }, "Import"),
                         React.createElement("br", null),
-                        React.createElement("textarea", { rows: "10", style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }, value: this.state.importData, onChange: this.handleChangeImportData }),
+                        React.createElement("textarea", { rows: 10, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }, value: this.state.importData, onChange: this.handleChangeImportData }),
                         React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: this.import },
                             React.createElement("b", null, "Import")),
                         React.createElement("br", null),
@@ -123,7 +123,7 @@ var StoriesEdit = /** @class */ (function (_super) {
                 showSentences ?
                     React.createElement(Sentences, { storyId: this.props.storyDesc.storyId, sentences: this.props.sentences, loadSentences: this.props.loadSentences, words: this.props.words, loadWords: this.props.loadWords, handleChangeSentence: this.props.handleChangeSentence, addLine: this.props.addLine, handleChangeWord: this.props.handleChangeWord, addWord: this.props.addWord, removeWord: this.props.removeWord, removeLine: this.props.removeLine, translate: this.props.translate, translateWord: this.props.translateWord, isTranslating: this.props.isTranslating, mergeWord: this.props.mergeWord })
                     :
-                        React.createElement("center", null,
+                        React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
                 React.createElement("input", { type: "text", value: this.props.token, onChange: this.props.handleChangeToken }),
                 React.createElement("br", null),
@@ -157,7 +157,7 @@ var Description = /** @class */ (function (_super) {
     }
     Description.prototype.render = function () {
         return (React.createElement("div", { style: { padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" } },
-            React.createElement("textarea", { rows: "10", style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }, value: this.props.desc, onChange: this.props.handleChangeDesc })));
+            React.createElement("textarea", { rows: 10, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }, value: this.props.desc, onChange: this.props.handleChangeDesc })));
     };
     return Description;
 }(React.Component));
@@ -175,31 +175,31 @@ var Sentences = /** @class */ (function (_super) {
                 React.createElement("table", { style: { width: "100%" } },
                     React.createElement("tbody", null,
                         React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                            React.createElement("td", { width: "20px" },
+                            React.createElement("td", { style: { width: "20px" } },
                                 React.createElement("b", null, "\uFF2B:\u3000")),
                             React.createElement("td", null,
                                 React.createElement("input", { type: "text", value: s.kanji, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "kanji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
                         React.createElement("tr", null,
                             React.createElement("td", null),
-                            React.createElement("td", { style: { textAligh: "left" } },
+                            React.createElement("td", { style: { textAlign: "left" } },
                                 React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.translate(s); } },
                                     React.createElement("b", null, "\u2193\u3000Translate Sentence\u3000\u2193")),
                                 _this.props.isTranslating ? React.createElement("span", { style: { color: "white", marginLeft: 20 } }, "Translating...") : null,
-                                React.createElement("div", { style: { textAligh: "right", float: "right" } },
+                                React.createElement("div", { style: { textAlign: "right", float: "right" } },
                                     React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.removeLine(s.lineNumber); } },
                                         React.createElement("b", null, "Remove Sentence"))))),
                         React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                            React.createElement("td", { width: "20px" },
+                            React.createElement("td", { style: { width: "20px" } },
                                 React.createElement("b", null, "\uFF28:\u3000")),
                             React.createElement("td", null,
                                 React.createElement("input", { type: "text", value: s.hiragana, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "hiragana"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
                         React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                            React.createElement("td", { width: "20px" },
+                            React.createElement("td", { style: { width: "20px" } },
                                 React.createElement("b", null, "\uFF32:\u3000")),
                             React.createElement("td", null,
                                 React.createElement("input", { type: "text", value: s.romaji, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "romaji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
                         React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                            React.createElement("td", { width: "20px" },
+                            React.createElement("td", { style: { width: "20px" } },
                                 React.createElement("b", null, "\uFF25:\u3000")),
                             React.createElement("td", null,
                                 React.createElement("input", { type: "text", value: s.english, onChange: function (e) { return _this.props.handleChangeSentence(e, i, "english"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))))),
@@ -237,30 +237,30 @@ var WordList = /** @class */ (function (_super) {
         return (React.createElement("span", null,
             React.createElement("br", null),
             React.createElement("div", { style: { backgroundColor: "#1b181b" } }, this.state.showWordList ?
-                React.createElement("center", null,
-                    React.createElement("table", { border: "1", style: { width: "100%", borderCollapse: "collapse" } },
+                React.createElement("div", { className: "center" },
+                    React.createElement("table", { style: { border: 1, width: "100%", borderCollapse: "collapse" } },
                         React.createElement("tbody", null, this.props.words && this.props.words.filter(function (w) {
                             return w.lineNumber === _this.props.s.lineNumber;
                         }).sort(function (a, b) {
                             return a.wordNumber - b.wordNumber;
                         }).map(function (w, i) {
                             return React.createElement("tr", { key: w.wordNumber },
-                                React.createElement("td", { width: "10px" },
+                                React.createElement("td", { style: { width: "10px" } },
                                     React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.mergeWord(w.lineNumber, w.wordNumber); } },
                                         React.createElement("b", null, "M"))),
-                                React.createElement("td", { width: "20%" },
+                                React.createElement("td", { style: { width: "20%" } },
                                     React.createElement("textarea", { value: w.kanji, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "kanji"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
-                                React.createElement("td", { width: "10px" },
+                                React.createElement("td", { style: { width: "10px" } },
                                     React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.translateWord(w); } },
                                         React.createElement("b", null, "\u21D2"))),
-                                React.createElement("td", { width: "23%" },
+                                React.createElement("td", { style: { width: "23%" } },
                                     React.createElement("textarea", { value: w.hiragana, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "hiragana"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
                                 React.createElement("td", null,
                                     React.createElement("textarea", { value: w.english, onChange: function (e) { return _this.props.handleChangeWord(e, _this.props.s.lineNumber, w.wordNumber, "english"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } })),
-                                React.createElement("td", { width: "10px" },
+                                React.createElement("td", { style: { width: "10px" } },
                                     React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.removeWord(w.lineNumber, w.wordNumber); } },
                                         React.createElement("b", null, "\uFF0D"))),
-                                React.createElement("td", { width: "10px" },
+                                React.createElement("td", { style: { width: "10px" } },
                                     React.createElement("button", { style: { height: "100%", paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return _this.props.addWord(w.lineNumber, w.wordNumber); } },
                                         React.createElement("b", null, "\uFF0B"))));
                         }))))
@@ -269,4 +269,4 @@ var WordList = /** @class */ (function (_super) {
     };
     return WordList;
 }(React.Component));
-exports.default = react_redux_1.connect(function (state) { return state.storiesEdit; }, function (dispatch) { return redux_1.bindActionCreators(StoriesEditStore_1.actionCreators, dispatch); })(StoriesEdit);
+exports.default = react_redux_1.connect(function (state) { return state["storiesEdit"]; }, function (dispatch) { return redux_1.bindActionCreators(StoriesEditStore_1.actionCreators, dispatch); })(StoriesEdit);

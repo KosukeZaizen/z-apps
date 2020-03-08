@@ -25,10 +25,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(require("react"));
 require("../css/Developer.css");
-var KosukeZaizen_jpg_1 = __importDefault(require("../img/KosukeZaizen.jpg"));
 var Helmet_1 = __importDefault(require("./parts/Helmet"));
 var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
 var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
+var image = require('../img/KosukeZaizen.jpg');
 function SayHello() {
     return (React.createElement("p", null,
         React.createElement("b", null, "Hello! I'm Kosuke Zaizen!"),
@@ -61,12 +61,12 @@ var Developer = /** @class */ (function (_super) {
                             React.createElement("tbody", null,
                                 React.createElement("tr", null,
                                     React.createElement("td", null,
-                                        React.createElement("img", { width: "200px", src: KosukeZaizen_jpg_1.default, alt: "Kosuke Zaizen" })),
+                                        React.createElement("img", { width: "200px", src: image, alt: "Kosuke Zaizen" })),
                                     React.createElement("td", { className: "tdExplanation", valign: "top" },
                                         React.createElement(SayHello, null)))))),
                     React.createElement("span", { className: 'visible-xs' },
                         React.createElement("div", { className: "center" },
-                            React.createElement("img", { width: "200px", src: KosukeZaizen_jpg_1.default, alt: "Kosuke Zaizen" }),
+                            React.createElement("img", { width: "200px", src: image, alt: "Kosuke Zaizen" }),
                             React.createElement("br", null),
                             React.createElement("br", null),
                             React.createElement(SayHello, null))),

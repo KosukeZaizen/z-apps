@@ -5,6 +5,10 @@ import Head from './parts/Helmet';
 
 class GameOver extends React.Component {
 
+    consts: {
+        BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
+    }
+
     render() {
         this.consts = {
             BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
@@ -16,8 +20,8 @@ class GameOver extends React.Component {
         //urlパラメータ取得
         const params = getParams();
 
-        const game = params.g || "";
-        const lang = params.l || "";
+        const game = params["g"] || "";
+        const lang = params["l"] || "";
 
         const gameUrl = "/" + game + "?l=" + lang;
 
@@ -32,7 +36,7 @@ class GameOver extends React.Component {
         }
 
         return (
-            <center>
+            <div className="center">
                 <Head
                     title="Game Over"
                     noindex={true}
@@ -43,7 +47,7 @@ class GameOver extends React.Component {
                         {msgButton}
                     </button>
                 </Link>
-            </center>
+            </div>
         );
     }
 }

@@ -7,7 +7,62 @@ import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as consts from './common/consts';
 
+type storyDesc = {
+    storyId: number,
+    storyName: string,
+    description: string,
+};
+type sentence = {
+    lineNumber: number,
+    kanji: string,
+    hiragana: string,
+    romaji: string,
+    english: string,
+};
+type word = {
+    lineNumber: number,
+    wordNumber: number,
+    kanji: string,
+    hiragana: string,
+    english: string,
+};
+
 class StoriesEdit extends React.Component {
+
+    screenHeight: number;
+    props: {
+        loadStory: (storyName: string)=>void,
+        loadSentences: (storyId: number)=>void,
+        loadWords: (storyId: number)=>void,
+        setInitialToken: ()=>void,
+        addLine: (idx: number, s: string)=>void, 
+        removeBlankLine: ()=>void, 
+        translateAllSentences: (saveWidhoutConfirmation: ()=>void)=>void, 
+        saveWidhoutConfirmation: ()=>void,
+        handleChangeDesc: () => void,
+        handleChangeSentence: () => void,
+        handleChangeWord: () => void,
+        addWord: () => void,
+        removeWord: () => void,
+        removeLine: () => void,
+        translate: () => void,
+        translateWord: () => void,
+        isTranslating: () => void,
+        mergeWord: () => void,
+        handleChangeToken: () => void,
+        save: () => void,
+        register: () => void,
+
+        storyDesc: storyDesc,
+        sentences: sentence[],
+        words: word[],
+        token: string,
+    }
+    state: {
+        storyName: string,
+        importData: string,
+        imported: boolean,
+    }
 
     constructor(props) {
         super(props);
@@ -20,7 +75,7 @@ class StoriesEdit extends React.Component {
             imported: false,
         };
 
-        this.screenHeight = parseInt(window.innerHeight, 10);
+        this.screenHeight = window.innerHeight;
 
         this.props.loadStory(this.state.storyName);
         this.props.setInitialToken();
@@ -60,12 +115,12 @@ class StoriesEdit extends React.Component {
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const showSentences = this.props.sentences && this.props.sentences.length > 0 && this.props.words && this.props.words.length > 0;
         return (
-            <center>
+            <div className="center">
                 <Head
                     title={title + " Story"}
                     noindex={true}
                 />
-                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:"-1" }}>
+                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position:"fixed", top:0, right:0, zIndex:-1 }}>
                 </div>
                 <div style={{ maxWidth: 1000 }}>
                     <div className="breadcrumbs" style={{ textAlign: "left", color: "white" }}>
@@ -98,7 +153,7 @@ class StoriesEdit extends React.Component {
                         <span>
                             <b style={{color: "white"}}>Import</b><br />
                             <textarea
-                                rows="10"
+                                rows={10}
                                 style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                 value={this.state.importData}
                                 onChange={this.handleChangeImportData}
@@ -166,9 +221,9 @@ class StoriesEdit extends React.Component {
                                 mergeWord={this.props.mergeWord}
                             />
                             :
-                            <center>
+                            <div className="center">
                                 <CircularProgress key="circle" size="20%" />
-                            </center>
+                            </div>
                     }
                     <input
                         type="text"
@@ -214,12 +269,17 @@ class StoriesEdit extends React.Component {
                         </a>
                     </div>
                 </div>
-            </center>
+            </div>
         );
     }
 };
 
 class Description extends React.Component {
+
+    props: {
+        desc:string,
+        handleChangeDesc:()=>void,
+    }
 
     constructor(props) {
         super(props);
@@ -232,7 +292,7 @@ class Description extends React.Component {
         return (
             <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
                 <textarea
-                    rows="10"
+                    rows={10}
                     style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                     value={this.props.desc}
                     onChange={this.props.handleChangeDesc}
@@ -243,6 +303,24 @@ class Description extends React.Component {
 }
 
 class Sentences extends React.Component {
+
+    props: {
+        storyId: number,
+        sentences: sentence[],
+        words: word[],
+        loadSentences: (storyId: number) => void,
+        loadWords: (storyId: number) => void,
+        handleChangeSentence: (e: React.ChangeEvent<HTMLInputElement>,i: number,type:string) => void,
+        handleChangeWord: () => void,
+        addWord: () => void,
+        addLine: (idx: number, s?: string) => void,
+        removeWord: () => void,
+        removeLine: (lineNumber: number) => void,
+        translate: (s: sentence) => void,
+        translateWord: () => void,
+        isTranslating: () => void,
+        mergeWord: () => void,
+    }
 
     constructor(props) {
         super(props);
@@ -260,7 +338,7 @@ class Sentences extends React.Component {
                             <table style={{ width: "100%" }}>
                                 <tbody>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｋ:　</b></td>
+                                        <td style={{width: "20px"}}><b>Ｋ:　</b></td>
                                         <td><input
                                             type="text"
                                             value={s.kanji}
@@ -271,7 +349,7 @@ class Sentences extends React.Component {
                                     <tr>
                                         <td>
                                         </td>
-                                        <td style={{textAligh: "left"}}>
+                                        <td style={{textAlign: "left"}}>
                                             <button
                                                 style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                                                 className="btn btn-dark btn-xs"
@@ -280,7 +358,7 @@ class Sentences extends React.Component {
                                                 <b>↓　Translate Sentence　↓</b>
                                             </button>
                                             {this.props.isTranslating ? <span style={{ color: "white", marginLeft:20 }}>Translating...</span> : null}
-                                            <div style={{ textAligh: "right", float:"right" }}>
+                                            <div style={{ textAlign: "right", float:"right" }}>
                                                 <button
                                                     style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                                                     className="btn btn-dark btn-xs"
@@ -292,7 +370,7 @@ class Sentences extends React.Component {
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｈ:　</b></td>
+                                        <td style={{width: "20px"}}><b>Ｈ:　</b></td>
                                         <td><input
                                             type="text"
                                             value={s.hiragana}
@@ -301,7 +379,7 @@ class Sentences extends React.Component {
                                         /></td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｒ:　</b></td>
+                                        <td style={{width: "20px"}}><b>Ｒ:　</b></td>
                                         <td><input
                                             type="text"
                                             value={s.romaji}
@@ -310,7 +388,7 @@ class Sentences extends React.Component {
                                         /></td>
                                     </tr>
                                     <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                                        <td width="20px"><b>Ｅ:　</b></td>
+                                        <td style={{width: "20px"}}><b>Ｅ:　</b></td>
                                         <td><input
                                             type="text"
                                             value={s.english}
@@ -355,6 +433,21 @@ class Sentences extends React.Component {
 
 class WordList extends React.Component {
 
+    props: {
+        words: word[],
+        s: sentence,
+        storyId: number,
+        handleChangeWord: (e: React.ChangeEvent<HTMLTextAreaElement>,lineNumber: number, wordNumber: number, type: string)=>void,
+        addWord: (lineNumber: number, wordNumber: number)=>void,
+        removeWord: (lineNumber: number, wordNumber: number)=>void,
+        translateWord: (w: word)=>void,
+        mergeWord: (lineNumber: number, wordNumber: number)=>void,
+    };
+
+    state: {
+        showWordList: boolean,
+    }
+
     constructor(props) {
         super(props);
 
@@ -378,8 +471,8 @@ class WordList extends React.Component {
                 <div style={{ backgroundColor: "#1b181b" }}>
                     {
                         this.state.showWordList ?
-                            <center>
-                                <table border="1" style={{ width:"100%", borderCollapse: "collapse" }}>
+                            <div className="center">
+                                <table style={{ border: 1, width:"100%", borderCollapse: "collapse" }}>
                                     <tbody>
                                         {
                                             this.props.words && this.props.words.filter((w) =>
@@ -388,7 +481,7 @@ class WordList extends React.Component {
                                                 a.wordNumber - b.wordNumber
                                             ).map((w, i) =>
                                                 <tr key={w.wordNumber}>
-                                                    <td width="10px">
+                                                    <td style={{width: "10px"}}>
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
@@ -396,14 +489,14 @@ class WordList extends React.Component {
                                                         ><b>M</b>
                                                         </button>
                                                     </td>
-                                                    <td width="20%">
+                                                    <td style={{width:"20%"}}>
                                                         <textarea
                                                             value={w.kanji}
                                                             onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "kanji")}
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
                                                     </td>
-                                                    <td width="10px">
+                                                    <td style={{width:"10px"}}>
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
@@ -411,7 +504,7 @@ class WordList extends React.Component {
                                                         ><b>⇒</b>
                                                         </button>
                                                     </td>
-                                                    <td width="23%">
+                                                    <td style={{width:"23%"}}>
                                                         <textarea
                                                             value={w.hiragana}
                                                             onChange={(e) => this.props.handleChangeWord(e, this.props.s.lineNumber, w.wordNumber, "hiragana")}
@@ -425,7 +518,7 @@ class WordList extends React.Component {
                                                             style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
                                                         />
                                                     </td>
-                                                    <td width="10px">
+                                                    <td style={{width:"10px"}}>
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
@@ -433,7 +526,7 @@ class WordList extends React.Component {
                                                         ><b>－</b>
                                                         </button>
                                                     </td>
-                                                    <td width="10px">
+                                                    <td style={{width:"10px"}}>
                                                         <button
                                                             style={{ height: "100%", paddingTop: 0, color: "black" }}
                                                             className="btn btn-dark btn-xs"
@@ -446,7 +539,7 @@ class WordList extends React.Component {
                                         }
                                     </tbody>
                                 </table>
-                            </center>
+                            </div>
                             :
                             null
                     }
@@ -457,6 +550,6 @@ class WordList extends React.Component {
 }
 
 export default connect(
-    state => state.storiesEdit,
+    state => state["storiesEdit"],
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(StoriesEdit);
