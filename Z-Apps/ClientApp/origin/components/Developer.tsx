@@ -20,6 +20,7 @@ function SayHello() {
 
 
 export default class Developer extends React.Component {
+    ref: React.RefObject<HTMLHRElement>;
 
     constructor(props) {
         super(props);
@@ -33,7 +34,7 @@ export default class Developer extends React.Component {
                     title="Kosuke Zaizen"
                     desc="I am a Japanese software engineer. Lingual Ninja is a website for Japanese learners. I hope Lingual Ninja can help!"
                 />
-                <center>
+                <div className="center">
                     <h1>Kosuke Zaizen</h1>
 
                     <div className="contents">
@@ -53,15 +54,15 @@ export default class Developer extends React.Component {
                             </table>
                         </span>
                         <span className='visible-xs'>
-                            <center>
+                            <div className="center">
                                 <img width="200px" src={image} alt="Kosuke Zaizen" />
                                 <br /><br />
                                 <SayHello />
-                            </center>
+                            </div>
                         </span>
                         <hr ref={this.ref} />
                         <br />
-                        <center>
+                        <div className="center">
                             <p className="no-margin">
                                 To contact me, please write a message<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
                                 using the link below:</p><br />
@@ -74,13 +75,13 @@ export default class Developer extends React.Component {
                             <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
                             <br /><br />
                             <FB />
-                        </center>
+                        </div>
                     </div>
                     <PleaseScrollDown
                         criteriaRef={this.ref}
                         targetId="scrollTargetId"
                     />
-                </center>
+                </div>
             </div >
         );
     }
