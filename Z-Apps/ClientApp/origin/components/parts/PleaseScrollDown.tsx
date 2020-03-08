@@ -4,6 +4,17 @@ import './PleaseScrollDown.css';
 
 export default class PleaseScrollDown extends React.Component {
 
+    props:{
+        criteriaRef: React.RefObject<HTMLDivElement>,
+        screenHeight?: number,
+        screenWidth?: number,
+        targetId?: string,
+    };
+
+    state:{
+        pleaseScrollDown: boolean,
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -36,7 +47,7 @@ export default class PleaseScrollDown extends React.Component {
         const elem = criteriaRef && criteriaRef.current;
         if (!elem) return;
 
-        const height = screenHeight || parseInt(window.innerHeight, 10);
+        const height = screenHeight || window.innerHeight;
 
         const offsetY = elem.getBoundingClientRect().top;
         const t_position = offsetY - height;
@@ -58,11 +69,11 @@ export default class PleaseScrollDown extends React.Component {
         const { pleaseScrollDown } = this.state;
         const { screenWidth, criteriaRef, targetId } = this.props;
         const elem = criteriaRef && criteriaRef.current;
-        const width = screenWidth || parseInt(window.innerWidth, 10);
+        const width = screenWidth || window.innerWidth;
         if (!elem) return null;
 
         return (
-            <center>
+            <div className="center">
                 <div style={{
                     position: "fixed",
                     bottom: 0,
@@ -83,7 +94,7 @@ export default class PleaseScrollDown extends React.Component {
                         <AnchorLink href={`#${targetId || (elem && elem.id)}`}>Scroll</AnchorLink>
                     </span>
                 </div>
-            </center>
+            </div>
         )
     }
 }

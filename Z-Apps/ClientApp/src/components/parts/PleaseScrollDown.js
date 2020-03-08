@@ -35,7 +35,7 @@ var PleaseScrollDown = /** @class */ (function (_super) {
             var elem = criteriaRef && criteriaRef.current;
             if (!elem)
                 return;
-            var height = screenHeight || parseInt(window.innerHeight, 10);
+            var height = screenHeight || window.innerHeight;
             var offsetY = elem.getBoundingClientRect().top;
             var t_position = offsetY - height;
             if (t_position >= 0) {
@@ -77,10 +77,10 @@ var PleaseScrollDown = /** @class */ (function (_super) {
         var pleaseScrollDown = this.state.pleaseScrollDown;
         var _a = this.props, screenWidth = _a.screenWidth, criteriaRef = _a.criteriaRef, targetId = _a.targetId;
         var elem = criteriaRef && criteriaRef.current;
-        var width = screenWidth || parseInt(window.innerWidth, 10);
+        var width = screenWidth || window.innerWidth;
         if (!elem)
             return null;
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement("div", { style: {
                     position: "fixed",
                     bottom: 0,
