@@ -98,7 +98,7 @@ class ColorPalette extends React.Component {
 
         let styleTitle = {
             maxWidth: 600,
-            margin: 20,
+            marginTop: 20,
             marginBottom: 30,
             color: currentColor,
         };
@@ -109,7 +109,8 @@ class ColorPalette extends React.Component {
         };
         let styleContents = {
             maxWidth: 400,
-            margin: 10,
+            marginTop: 10,
+            marginBottom: 10,
         };
 
         return (

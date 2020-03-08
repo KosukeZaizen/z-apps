@@ -94,7 +94,7 @@ var ColorPalette = /** @class */ (function (_super) {
         var currentColor = changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness);
         var styleTitle = {
             maxWidth: 600,
-            margin: 20,
+            marginTop: 20,
             marginBottom: 30,
             color: currentColor,
         };
@@ -105,11 +105,12 @@ var ColorPalette = /** @class */ (function (_super) {
         };
         var styleContents = {
             maxWidth: 400,
-            margin: 10,
+            marginTop: 10,
+            marginBottom: 10,
         };
         return (React.createElement("div", { className: "center", id: "color-palette" },
             React.createElement(Helmet_1.default, { title: "Color Code Getter", desc: "Get your favorite Color Code automatically!" }),
-            React.createElement("h1", { style: styleTitle }, "Color Code Getter!!"),
+            React.createElement("h1", { style: styleTitle }, "Color Code Getter"),
             React.createElement("div", { style: styleContents },
                 React.createElement("div", { style: { padding: 10, marginBottom: 10, border: "5px double #333333", } },
                     React.createElement("table", null,
