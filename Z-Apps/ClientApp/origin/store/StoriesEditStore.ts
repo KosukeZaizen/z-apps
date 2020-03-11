@@ -1,4 +1,5 @@
 import * as commonFnc from '../components/common/functions';
+import {storyDesc, sentence, word} from '../types/stories';
 
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
@@ -7,7 +8,39 @@ const changeTokenType = 'CHANGTE_TOKEN';
 const beginTranslationType = 'BEGIN_TRANSLATION';
 const finishTranslationType = 'FINISH_TRANSLATION';
 
+export interface StoriesEditState {
+    storyDesc: storyDesc,
+    sentences: sentence[],
+    words: word[],
+    token: string,
+    isTranslating: boolean;
+}
+
 const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, token:"", };
+
+export interface IActionCreators {
+    loadStory: (storyName: string)=>void;
+    loadSentences: (storyId: number)=>void;
+    loadWords: (storyId: number)=>void;
+    setInitialToken: ()=>void;
+    addLine: (idx: number, s: string)=>void;
+    removeBlankLine: ()=>void;
+    translateAllSentences: (saveWidhoutConfirmation: ()=>void)=>void;
+    saveWidhoutConfirmation: ()=>void;
+    handleChangeDesc: () => void;
+    handleChangeSentence: () => void;
+    handleChangeWord: () => void;
+    addWord: () => void;
+    removeWord: () => void;
+    removeLine: () => void;
+    translate: () => void;
+    translateWord: () => void;
+    isTranslating: () => void;
+    mergeWord: () => void;
+    handleChangeToken: () => void;
+    save: () => void;
+    register: () => void;
+}
 
 export const actionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {

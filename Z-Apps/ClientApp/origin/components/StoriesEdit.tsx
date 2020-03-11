@@ -2,68 +2,22 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actionCreators } from '../store/StoriesEditStore';
+import * as storiesEditStore from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as consts from './common/consts';
+import {storyDesc, sentence, word} from '../types/stories';
 
-type storyDesc = {
-    storyId: number,
+
+type Props = storiesEditStore.StoriesEditState & storiesEditStore.IActionCreators;
+type State = {
     storyName: string,
-    description: string,
+    importData: string,
+    imported: boolean,
 };
-type sentence = {
-    lineNumber: number,
-    kanji: string,
-    hiragana: string,
-    romaji: string,
-    english: string,
-};
-type word = {
-    lineNumber: number,
-    wordNumber: number,
-    kanji: string,
-    hiragana: string,
-    english: string,
-};
-
-class StoriesEdit extends React.Component {
+class StoriesEdit extends React.Component<Props, State> {
 
     screenHeight: number;
-    props: {
-        loadStory: (storyName: string)=>void,
-        loadSentences: (storyId: number)=>void,
-        loadWords: (storyId: number)=>void,
-        setInitialToken: ()=>void,
-        addLine: (idx: number, s: string)=>void, 
-        removeBlankLine: ()=>void, 
-        translateAllSentences: (saveWidhoutConfirmation: ()=>void)=>void, 
-        saveWidhoutConfirmation: ()=>void,
-        handleChangeDesc: () => void,
-        handleChangeSentence: () => void,
-        handleChangeWord: () => void,
-        addWord: () => void,
-        removeWord: () => void,
-        removeLine: () => void,
-        translate: () => void,
-        translateWord: () => void,
-        isTranslating: () => void,
-        mergeWord: () => void,
-        handleChangeToken: () => void,
-        save: () => void,
-        register: () => void,
-
-        storyDesc: storyDesc,
-        sentences: sentence[],
-        words: word[],
-        token: string,
-    }
-    state: {
-        storyName: string,
-        importData: string,
-        imported: boolean,
-    }
-
     constructor(props) {
         super(props);
 
@@ -550,6 +504,6 @@ class WordList extends React.Component {
 }
 
 export default connect(
-    state => state["storiesEdit"],
-    dispatch => bindActionCreators(actionCreators, dispatch)
+    state  => state["storiesEdit"],
+    dispatch => bindActionCreators(storiesEditStore.actionCreators, dispatch)
 )(StoriesEdit);

@@ -27,7 +27,7 @@ var React = __importStar(require("react"));
 var redux_1 = require("redux");
 var react_redux_1 = require("react-redux");
 var react_router_dom_1 = require("react-router-dom");
-var StoriesEditStore_1 = require("../store/StoriesEditStore");
+var storiesEditStore = __importStar(require("../store/StoriesEditStore"));
 var Helmet_1 = __importDefault(require("./parts/Helmet"));
 var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
 var consts = __importStar(require("./common/consts"));
@@ -269,4 +269,4 @@ var WordList = /** @class */ (function (_super) {
     };
     return WordList;
 }(React.Component));
-exports.default = react_redux_1.connect(function (state) { return state["storiesEdit"]; }, function (dispatch) { return redux_1.bindActionCreators(StoriesEditStore_1.actionCreators, dispatch); })(StoriesEdit);
+exports.default = react_redux_1.connect(function (state) { return state["storiesEdit"]; }, function (dispatch) { return redux_1.bindActionCreators(storiesEditStore.actionCreators, dispatch); })(StoriesEdit);
