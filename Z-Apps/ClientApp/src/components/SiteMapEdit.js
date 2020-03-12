@@ -189,7 +189,7 @@ var SiteMapEdit = /** @class */ (function (_super) {
             sitemap: [],
             token: token,
         };
-        _this.screenHeight = parseInt(window.innerHeight, 10);
+        _this.screenHeight = window.innerHeight;
         _this.loadSitemap();
         return _this;
     }
@@ -197,9 +197,9 @@ var SiteMapEdit = /** @class */ (function (_super) {
         var _this = this;
         var sitemap = this.state.sitemap;
         var resultOfCheck = sitemap.filter(function (s) { return _this.checkInput(s) != ""; }).length === 0;
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: "Edit Sitemap", noindex: true }),
-            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" } }),
+            React.createElement("div", { style: { width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: -1 } }),
             React.createElement("div", { style: { maxWidth: 1000 } },
                 React.createElement("div", { className: "breadcrumbs", style: { textAlign: "left", color: "white" } },
                     React.createElement(react_router_dom_1.Link, { to: "/", style: { marginRight: "5px", marginLeft: "5px" } },
@@ -221,7 +221,7 @@ var SiteMapEdit = /** @class */ (function (_super) {
                         return React.createElement(SitemapInfo, { s: s, i: i, key: i, handleChangeSitemap: _this.handleChangeSitemap, addLine: _this.addLine, removeLine: _this.removeLine, checkInput: _this.checkInput });
                     }))
                     :
-                        React.createElement("center", null,
+                        React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
                 React.createElement("input", { type: "text", value: this.state.token, onChange: this.changeToken }),
                 React.createElement("br", null),
@@ -259,18 +259,18 @@ var SitemapInfo = /** @class */ (function (_super) {
             React.createElement("table", { style: { width: "100%" } },
                 React.createElement("tbody", null,
                     React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                        React.createElement("td", { width: "20px" },
+                        React.createElement("td", { style: { width: "20px" } },
                             React.createElement("b", null, "loc:\u3000")),
                         React.createElement("td", null,
                             React.createElement("input", { type: "text", value: s.loc, onChange: function (e) { return handleChangeSitemap(e, i, "loc"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))),
                     React.createElement("tr", { style: { backgroundColor: "black", color: "#757575" } },
-                        React.createElement("td", { width: "20px" },
+                        React.createElement("td", { style: { width: "20px" } },
                             React.createElement("b", null, "lastmod:\u3000")),
                         React.createElement("td", null,
                             React.createElement("input", { type: "text", value: s.lastmod, onChange: function (e) { return handleChangeSitemap(e, i, "lastmod"); }, style: { width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" } }))))),
             React.createElement("button", { style: { marginTop: 10, marginBottom: 2, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return addLine(i); } },
                 React.createElement("b", null, "Add Line")),
-            React.createElement("div", { style: { textAligh: "right", float: "right" } },
+            React.createElement("div", { style: { textAlign: "right", float: "right" } },
                 React.createElement("button", { style: { marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }, className: "btn btn-dark btn-xs", onClick: function () { return removeLine(i); } },
                     React.createElement("b", null, "Remove Line"))),
             React.createElement("br", null),

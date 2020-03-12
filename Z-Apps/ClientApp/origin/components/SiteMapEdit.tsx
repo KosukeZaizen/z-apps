@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as commonFnc from './common/functions';
-import * as consts from './common/consts';
 
-export default class SiteMapEdit extends React.Component {
+export default class SiteMapEdit extends React.Component<{
+
+},
+{
+    sitemap: { loc: string, lastmod: string }[];
+    token: string;
+}> {
+
+    screenHeight: number;
 
     constructor(props) {
         super(props);
@@ -26,7 +33,7 @@ export default class SiteMapEdit extends React.Component {
             token: token,
         };
 
-        this.screenHeight = parseInt(window.innerHeight, 10);
+        this.screenHeight = window.innerHeight;
 
         this.loadSitemap();
     }
@@ -133,12 +140,12 @@ export default class SiteMapEdit extends React.Component {
         const { sitemap } = this.state;
         const resultOfCheck = sitemap.filter(s => this.checkInput(s) != "").length === 0;
         return (
-            <center>
+            <div className="center">
                 <Head
                     title={"Edit Sitemap"}
                     noindex={true}
                 />
-                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: "-1" }}>
+                <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: -1 }}>
                 </div>
                 <div style={{ maxWidth: 1000 }}>
                     <div className="breadcrumbs" style={{ textAlign: "left", color: "white" }}>
@@ -184,9 +191,9 @@ export default class SiteMapEdit extends React.Component {
                                 }
                             </div>
                             :
-                            <center>
+                            <div className="center">
                                 <CircularProgress key="circle" size="20%" />
-                            </center>
+                            </div>
                     }
                     <input
                         type="text"
@@ -217,12 +224,20 @@ export default class SiteMapEdit extends React.Component {
                         </span>
                     </div>
                 </div>
-            </center>
+            </div>
         );
     }
 };
 
-class SitemapInfo extends React.Component {
+class SitemapInfo extends React.Component<{ 
+    s: { loc: string; lastmod: string; }; 
+    i: number; 
+    key: number; 
+    handleChangeSitemap: (event: any, i: any, item: any) => void; 
+    addLine: (i: any) => void; 
+    removeLine: (i: any) => void; 
+    checkInput: (s: any) => any; 
+}> {
 
     constructor(props) {
         super(props);
@@ -239,7 +254,7 @@ class SitemapInfo extends React.Component {
                 <table style={{ width: "100%" }}>
                     <tbody>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td width="20px"><b>loc:　</b></td>
+                            <td style={{width:"20px"}}><b>loc:　</b></td>
                             <td><input
                                 type="text"
                                 value={s.loc}
@@ -248,7 +263,7 @@ class SitemapInfo extends React.Component {
                             /></td>
                         </tr>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td width="20px"><b>lastmod:　</b></td>
+                            <td style={{width:"20px"}}><b>lastmod:　</b></td>
                             <td><input
                                 type="text"
                                 value={s.lastmod}
@@ -266,7 +281,7 @@ class SitemapInfo extends React.Component {
                     <b>Add Line</b>
                 </button>
 
-                <div style={{ textAligh: "right", float: "right" }}>
+                <div style={{ textAlign: "right", float: "right" }}>
                     <button
                         style={{ marginTop: 10, marginBottom: 10, height: 28, paddingTop: 0, color: "black" }}
                         className="btn btn-dark btn-xs"
