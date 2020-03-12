@@ -9,10 +9,10 @@ const beginTranslationType = 'BEGIN_TRANSLATION';
 const finishTranslationType = 'FINISH_TRANSLATION';
 
 export interface StoriesEditState {
-    storyDesc: storyDesc,
-    sentences: sentence[],
-    words: word[],
-    token: string,
+    storyDesc: storyDesc;
+    sentences: sentence[];
+    words: word[];
+    token: string;
     isTranslating: boolean;
 }
 

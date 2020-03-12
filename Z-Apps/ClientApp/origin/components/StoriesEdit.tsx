@@ -11,9 +11,9 @@ import {storyDesc, sentence, word} from '../types/stories';
 
 type Props = storiesEditStore.StoriesEditState & storiesEditStore.IActionCreators;
 type State = {
-    storyName: string,
-    importData: string,
-    imported: boolean,
+    storyName: string;
+    importData: string;
+    imported: boolean;
 };
 class StoriesEdit extends React.Component<Props, State> {
 

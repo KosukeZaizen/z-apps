@@ -38,7 +38,7 @@ var React = __importStar(require("react"));
 var redux_1 = require("redux");
 var react_redux_1 = require("react-redux");
 var react_router_dom_1 = require("react-router-dom");
-var StoriesStore_1 = require("../store/StoriesStore");
+var storiesStore = __importStar(require("../store/StoriesStore"));
 var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
 var react_anchor_link_smooth_scroll_1 = __importDefault(require("react-anchor-link-smooth-scroll"));
 require("./parts/PleaseScrollDown.css");
@@ -52,8 +52,8 @@ var Stories = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.changeScreenSize = function () {
             _this.setState({
-                screenWidth: parseInt(window.innerWidth, 10),
-                screenHeight: parseInt(window.innerHeight, 10),
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
             });
         };
         _this.judgeFooter = function () {
@@ -136,12 +136,12 @@ var Stories = /** @class */ (function (_super) {
         _this.props.loadStory(storyName);
         _this.state = {
             storyName: storyName,
-            screenWidth: parseInt(window.innerWidth, 10),
-            screenHeight: parseInt(window.innerHeight, 10),
+            screenWidth: window.innerWidth,
+            screenHeight: window.innerHeight,
             pleaseScrollDown: false,
             showFooterMenu: false,
         };
-        _this.screenHeight = parseInt(window.innerHeight, 10);
+        _this.screenHeight = window.innerHeight;
         var saveData = localStorage.getItem("folktales-languages");
         var objSaveData = JSON.parse(saveData);
         if (objSaveData) {
@@ -150,7 +150,7 @@ var Stories = /** @class */ (function (_super) {
         else {
             _this.state = __assign(__assign({}, _this.state), { kanji: true, hiragana: true, romaji: true, english: true });
         }
-        var timer = 0;
+        var timer;
         window.onresize = function () {
             if (timer > 0) {
                 clearTimeout(timer);
@@ -202,23 +202,23 @@ var Stories = /** @class */ (function (_super) {
         };
         var _a = this.state, screenWidth = _a.screenWidth, pleaseScrollDown = _a.pleaseScrollDown, showFooterMenu = _a.showFooterMenu;
         var _b = this.props, storyDesc = _b.storyDesc, sentences = _b.sentences, words = _b.words, otherStories = _b.otherStories;
-        return (React.createElement("center", null,
+        return (React.createElement("div", { className: "center" },
             React.createElement(Helmet_1.default, { title: title + " Story | Japanese Folktales", desc: storyDesc.description && storyDesc.description.split("\\n").join(" "), img: consts.BLOB_URL + "/folktalesImg/" + storyName.split("--")[0] + ".png" }),
             React.createElement("div", { style: { maxWidth: 700 } },
                 React.createElement("div", { className: "breadcrumbs", itemScope: true, itemType: "https://schema.org/BreadcrumbList", style: { textAlign: "left" } },
-                    React.createElement("span", { itemprop: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
+                    React.createElement("span", { itemProp: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
                         React.createElement(react_router_dom_1.Link, { to: "/", itemProp: "item", style: { marginRight: "5px", marginLeft: "5px" } },
                             React.createElement("span", { itemProp: "name" }, "Home")),
                         React.createElement("meta", { itemProp: "position", content: "1" })),
                     "\uFF1E",
-                    React.createElement("span", { itemprop: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
+                    React.createElement("span", { itemProp: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
                         React.createElement(react_router_dom_1.Link, { to: "/folktales", itemProp: "item", style: { marginRight: "5px", marginLeft: "5px" } },
                             React.createElement("span", { itemProp: "name" }, "Japanese Folktales"),
-                            React.createElement("meta", { itemprop: "position", content: "2" }))),
+                            React.createElement("meta", { itemProp: "position", content: "2" }))),
                     "\uFF1E",
-                    React.createElement("span", { itemprop: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
+                    React.createElement("span", { itemProp: "itemListElement", itemScope: true, itemType: "http://schema.org/ListItem" },
                         React.createElement("span", { itemProp: "name", style: { marginRight: "5px", marginLeft: "5px" } }, title),
-                        React.createElement("meta", { itemprop: "position", content: "3" }))),
+                        React.createElement("meta", { itemProp: "position", content: "3" }))),
                 React.createElement("h1", { style: {
                         margin: "25px",
                         lineHeight: screenWidth > 500 ? "45px" : "35px",
@@ -251,7 +251,7 @@ var Stories = /** @class */ (function (_super) {
                         React.createElement("br", null),
                         React.createElement(Sentences, { storyId: storyDesc.storyId, sentences: sentences, words: words, langState: this.state, audioFolder: storyName && storyName.split("--")[0] }))
                     :
-                        React.createElement("center", null,
+                        React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" }))),
                 otherStories && otherStories.length > 0 ?
                     React.createElement("div", { style: { textAlign: "left", marginTop: "30px", marginBottom: "20px" } },
@@ -266,11 +266,11 @@ var Stories = /** @class */ (function (_super) {
                             React.createElement("tbody", null,
                                 React.createElement("tr", null,
                                     React.createElement("td", { colSpan: 2 },
-                                        React.createElement("center", null,
+                                        React.createElement("div", { className: "center" },
                                             React.createElement("h3", { style: { color: "black", marginBottom: "20px" } },
                                                 React.createElement("b", null, nameToShow))))),
                                 React.createElement("tr", null,
-                                    React.createElement("td", { width: "50%" },
+                                    React.createElement("td", { style: { width: "50%" } },
                                         React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
                                             React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } }))),
                                     React.createElement("td", null,
@@ -279,7 +279,7 @@ var Stories = /** @class */ (function (_super) {
                                                 d,
                                                 React.createElement("br", null));
                                         }),
-                                        React.createElement("center", null,
+                                        React.createElement("div", { className: "center" },
                                             React.createElement("p", { style: { margin: "20px" } },
                                                 React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
                                                     "Read ",
@@ -323,7 +323,7 @@ var Sentences = /** @class */ (function (_super) {
         var _a = this.props, storyId = _a.storyId, sentences = _a.sentences, words = _a.words, langState = _a.langState, audioFolder = _a.audioFolder;
         var isLoading = !sentences || sentences.length <= 0;
         return (React.createElement("div", { style: { textAlign: "left" } }, isLoading ?
-            React.createElement("center", null,
+            React.createElement("div", { className: "center" },
                 React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" }))
             :
                 sentences && sentences.map(function (s) {
@@ -419,21 +419,21 @@ var WordList = /** @class */ (function (_super) {
                         React.createElement("button", { style: { marginTop: 5, height: 28, paddingTop: 0, color: "white" }, className: "btn btn-dark btn-xs", onClick: this.showWordList }, "\u25BC\u3000Show word list")
                 :
                     null,
-            React.createElement("div", { style: { backgroundColor: "#f8f7f8" } }, this.state.showWordList ?
-                React.createElement("center", null,
-                    React.createElement("table", { border: "1", style: { borderCollapse: "collapse" } },
+            React.createElement("div", null, this.state.showWordList ?
+                React.createElement("div", { className: "center", style: { backgroundColor: "#f8f7f8" } },
+                    React.createElement("table", null,
                         React.createElement("tbody", null, this.props.words && this.props.words.filter(function (w) {
                             return w.lineNumber === _this.props.s.lineNumber;
                         }).map(function (w) {
                             return React.createElement("tr", { key: w.wordNumber },
-                                React.createElement("td", { style: { textAlign: "center", minWidth: 100 } },
+                                React.createElement("td", { style: { textAlign: "center", minWidth: 100, border: "1px solid" } },
                                     w.kanji,
                                     React.createElement("br", null),
                                     w.hiragana ?
                                         "(" + w.hiragana + ")"
                                         :
                                             null),
-                                React.createElement("td", { style: { paddingLeft: 3, paddingRight: 3 } }, w.english));
+                                React.createElement("td", { style: { paddingLeft: 3, paddingRight: 3, border: "1px solid" } }, w.english));
                         }))))
                 :
                     null)));
@@ -506,11 +506,11 @@ var FooterMenu = /** @class */ (function (_super) {
                     border: "1px solid gray",
                 } },
                 React.createElement("tbody", null,
-                    React.createElement("tr", { width: "100%", onClick: this.showLangMenu },
-                        React.createElement("td", { colSpan: "4", style: { padding: 3 } }, showLangMenu ?
-                            React.createElement("center", null, "\u25BC Select the languages to read \u25BC")
+                    React.createElement("tr", { style: { width: "100%" }, onClick: this.showLangMenu },
+                        React.createElement("td", { colSpan: 4, style: { padding: 3 } }, showLangMenu ?
+                            React.createElement("div", { className: "center" }, "\u25BC Select the languages to read \u25BC")
                             :
-                                React.createElement("center", null, "\u25B2 Show language menu \u25B2"))),
+                                React.createElement("div", { className: "center" }, "\u25B2 Show language menu \u25B2"))),
                     showLangMenu ?
                         React.createElement("tr", null,
                             React.createElement("td", { style: tdStyle },
@@ -534,4 +534,4 @@ var FooterMenu = /** @class */ (function (_super) {
     };
     return FooterMenu;
 }(React.Component));
-exports.default = react_redux_1.connect(function (state) { return state.stories; }, function (dispatch) { return redux_1.bindActionCreators(StoriesStore_1.actionCreators, dispatch); })(Stories);
+exports.default = react_redux_1.connect(function (state) { return state.stories; }, function (dispatch) { return redux_1.bindActionCreators(storiesStore.actionCreators, dispatch); })(Stories);

@@ -1,4 +1,5 @@
 import { serverSideErrorProc } from '../components/common/functions';
+import {storyDesc, sentence, word} from '../types/stories';
 
 const initializeType = 'INITIALIZE';
 const receiveStoryType = 'RECEIVE_STORY';
@@ -7,7 +8,19 @@ const receiveWordsType = 'RECEIVE_WORDS';
 const receiveOtherStoriesType = 'RECEIVE_OTHER_STORIES';
 const initialState = { storyDesc: [], sentences: [], words: [], otherStories: [] };
 
-export const actionCreators = {
+export interface StoriesEditState {
+    storyDesc: storyDesc;
+    sentences: sentence[];
+    words: word[];
+    token: string;
+    isTranslating: boolean;
+}
+
+export interface IActionCreators {
+    loadStory: (storyName: string)=>void;
+}
+
+export const actionCreators:IActionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
             dispatch({ type: initializeType });
