@@ -117,7 +117,7 @@ var RomajiConverter = /** @class */ (function (_super) {
     //ローマ字変換アプリの表示
     RomajiConverter.prototype.render = function () {
         var _this = this;
-        return (React.createElement("center", { className: "romaji-converter" },
+        return (React.createElement("div", { className: "romaji-converter center" },
             React.createElement(Helmet_1.default, { title: "Romaji Converter", desc: "A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!" }),
             React.createElement("h1", null,
                 React.createElement("b", null,
@@ -131,17 +131,17 @@ var RomajiConverter = /** @class */ (function (_super) {
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement("th", null,
-                            React.createElement("center", null,
+                            React.createElement("div", { className: "center" },
                                 "Hiragana",
                                 React.createElement("br", null),
                                 "or",
                                 React.createElement("br", null),
                                 "Katakana")),
                         React.createElement("th", null,
-                            React.createElement("center", null, "Romaji"))),
+                            React.createElement("div", { className: "center" }, "Romaji"))),
                     React.createElement("tr", null,
                         React.createElement("td", { className: "row" },
-                            React.createElement(ChildInput, { inputColor: this.state.inputColor, prompt: this.state.prompt, onChange: function (e) { _this.setStateTextVal(e); }, onFocus: function (e) { _this.initText(e); }, onScroll: this.onScrollInput })),
+                            React.createElement(ChildInput, { inputColor: this.state.inputColor, prompt: this.state.prompt, onChange: function (e) { _this.setStateTextVal(e); }, onFocus: function (e) { _this.initText(); }, onScroll: this.onScrollInput })),
                         React.createElement("td", { className: "tdOutput" },
                             React.createElement(Child, { textVal: this.state.textVal }))))),
             React.createElement("button", { id: "btnCopy", onClick: this.onClickCopy, className: objConst.COPY_BUTTON }, objConst.BTN_LABEL),
@@ -179,7 +179,7 @@ var ChildInput = /** @class */ (function (_super) {
     //入力エリアの表示
     ChildInput.prototype.render = function () {
         var _this = this;
-        return (React.createElement("center", { className: "t-area-center" },
+        return (React.createElement("div", { className: "t-area-center center" },
             React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onChange: function (e) { _this._onChange(e); }, onFocus: function (e) { _this._onFocus(e); }, onScroll: function () { _this._onScroll(); }, value: this.props.prompt })));
     };
     return ChildInput;

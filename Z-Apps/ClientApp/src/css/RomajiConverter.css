@@ -54,6 +54,7 @@
 .romaji-converter .lines {
     overflow-y: scroll;
     height: 300px;
+    text-align: left;
 }
 
 .romaji-converter .line-wrap {

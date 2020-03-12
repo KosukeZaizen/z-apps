@@ -3,9 +3,16 @@ import '../css/RomajiConverter.css';
 import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 
-let objConst = {};
+let objConst: any = {};
 
-class RomajiConverter extends React.Component {
+class RomajiConverter extends React.Component<{
+
+},
+{
+    prompt: string;
+    textVal: string; 
+    inputColor: string;
+}> {
 
     constructor(props) {
         super(props);
@@ -117,7 +124,7 @@ class RomajiConverter extends React.Component {
     //ローマ字変換アプリの表示
     render() {
         return (
-            <center className="romaji-converter">
+            <div className="romaji-converter center">
                 <Head
                     title="Romaji Converter"
                     desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"
@@ -130,10 +137,10 @@ class RomajiConverter extends React.Component {
                     <tbody>
                         <tr>
                             <th>
-                                <center>Hiragana<br />or<br />Katakana</center>
+                            <div className="center">Hiragana<br />or<br />Katakana</div>
                             </th>
                             <th>
-                                <center>Romaji</center>
+                            <div className="center">Romaji</div>
                             </th>
                         </tr>
                         <tr>
@@ -142,7 +149,7 @@ class RomajiConverter extends React.Component {
                                     inputColor={this.state.inputColor}
                                     prompt={this.state.prompt}
                                     onChange={(e) => { this.setStateTextVal(e) }}
-                                    onFocus={(e) => { this.initText(e) }}
+                                    onFocus={(e) => { this.initText() }}
                                     onScroll={this.onScrollInput}
                                 />
                             </td>
@@ -164,14 +171,21 @@ class RomajiConverter extends React.Component {
                 <br />
                 <br />
                 <FB />
-            </center>
+            </div>
         );
     }
 };
 
 
 //入力エリアの定義（※props経由で親を参照できる）
-class ChildInput extends React.Component {
+class ChildInput extends React.Component<{
+    inputColor: string; 
+        prompt: string; 
+        onChange: (e: any) => void; 
+        onFocus: (e: any) => void; 
+        onScroll: () => void;
+}> {
+
     _onChange(e) {
         this.props.onChange(e.target.value);
     }
@@ -187,7 +201,7 @@ class ChildInput extends React.Component {
     //入力エリアの表示
     render() {
         return (
-            <center className="t-area-center">
+            <div className="t-area-center center">
                 <textarea
                     id="inputArea"
                     className={this.props.inputColor}
@@ -196,14 +210,17 @@ class ChildInput extends React.Component {
                     onScroll={() => { this._onScroll() }}
                     value={this.props.prompt}
                 />
-            </center>
+            </div>
         );
     }
 };
 
 
 //ローマ字出力エリア
-class Child extends React.Component {
+class Child extends React.Component<{ 
+    textVal: string;
+ }> {
+
     render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return <p key={index} className="line-wrap">{line}<br /></p>;
