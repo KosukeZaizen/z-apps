@@ -55,7 +55,7 @@
     }
   },
   "scripts": {
-    "start": "rimraf ./build && react-scripts start",
+    "start": "start npm run watch & (rimraf ./build && react-scripts start)",
     "build": "react-scripts build tsc",
     "typescriptCompile": "(copyfiles -u 1 origin/**/*.html origin/**/*.css origin/**/*.png origin/**/*.jpg origin/**/*.jpeg src/) && tsc",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
