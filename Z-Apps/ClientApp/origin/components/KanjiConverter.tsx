@@ -7,9 +7,14 @@ import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 
-let objConst = {};
+let objConst: any = {};
 
 class KanjiConverter extends React.Component {
+    state: any;
+    props: any;
+    result: string;
+    textVal: string;
+    ref: React.RefObject<HTMLTableElement>;
 
     constructor(props) {
         super(props);
@@ -146,7 +151,7 @@ class KanjiConverter extends React.Component {
         this.result && this.setStateTextVal(this.result);
 
         return (
-            <center className="kanji-converter">
+            <div className="kanji-converter center">
                 <Head
                     title="Kanji Converter"
                     desc="A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"
@@ -160,7 +165,7 @@ class KanjiConverter extends React.Component {
                     <tbody>
                         <tr>
                             <th>
-                                <center>Kanji</center>
+                                <div className="center">Kanji</div>
                             </th>
                         </tr>
                         <tr>
@@ -170,8 +175,8 @@ class KanjiConverter extends React.Component {
                                     onChange={(e) => { this.onChangeKanji(e) }}
                                     className={this.state.inputColor}
                                     value={this.state.inputKanji}
-                                    onFocus={(e) => { this.initText(e) }}
-                                    maxlength="250"
+                                    onFocus={(e) => { this.initText() }}
+                                    maxLength={250}
                                 />
                             </td>
                         </tr>
@@ -179,7 +184,7 @@ class KanjiConverter extends React.Component {
                 </table>
                 <button
                     id="btnConvert"
-                    onClick={(e) => { this.onClickConvert(e) }}
+                    onClick={(e) => { this.onClickConvert() }}
                     className={objConst.CONVERT_BUTTON}
                 >
                     {objConst.CONVERT_BTN_LABEL}
@@ -189,10 +194,10 @@ class KanjiConverter extends React.Component {
                     <tbody>
                         <tr>
                             <th>
-                                <center>Hiragana</center>
+                                <div className="center">Hiragana</div>
                             </th>
                             <th>
-                                <center>Romaji</center>
+                                <div className="center">Romaji</div>
                             </th>
                         </tr>
                         <tr>
@@ -228,8 +233,7 @@ class KanjiConverter extends React.Component {
                             <img src="https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif"
                                 title="Webサービス by Yahoo! JAPAN"
                                 alt="Web Services by Yahoo! JAPAN"
-                                width="125" height="17" border="0"
-                                className="yahoo"
+                                width="125" height="17" className="yahoo"
                             />
                         </a>
                     </span>
@@ -239,13 +243,14 @@ class KanjiConverter extends React.Component {
                     criteriaRef={this.ref}
                     targetId="scrollTargetId"
                 />
-            </center >
+            </div>
         );
     }
 };
 
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component {
+    props: any;
 
     _onScroll() {
         this.props.onScroll();
@@ -254,14 +259,14 @@ class ChildInput extends React.Component {
     //入力エリアの表示
     render() {
         return (
-            <center className="t-area-center">
+            <div className="t-area-center center">
                 <textarea
                     id="inputArea"
                     className={this.props.inputColor}
                     onScroll={() => { this._onScroll() }}
                     value={this.props.result}
                 />
-            </center>
+            </div>
         );
     }
 };
@@ -269,6 +274,8 @@ class ChildInput extends React.Component {
 
 //ローマ字出力エリア
 class Child extends React.Component {
+    props: any;
+
     render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return <p key={index} className="line-wrap">{line}<br /></p>;
@@ -322,6 +329,6 @@ function execCopy(string) {
 }
 
 export default connect(
-    state => state.kanjiConverter,
+    (state: any) => state.kanjiConverter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(KanjiConverter);

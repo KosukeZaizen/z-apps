@@ -140,7 +140,7 @@ var KanjiConverter = /** @class */ (function (_super) {
             return _this.result = w.convertedWord;
         });
         this.result && this.setStateTextVal(this.result);
-        return (React.createElement("center", { className: "kanji-converter" },
+        return (React.createElement("div", { className: "kanji-converter center" },
             React.createElement(Helmet_1.default, { title: "Kanji Converter", desc: "A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!" }),
             React.createElement("h1", null,
                 React.createElement("b", null,
@@ -155,19 +155,19 @@ var KanjiConverter = /** @class */ (function (_super) {
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement("th", null,
-                            React.createElement("center", null, "Kanji"))),
+                            React.createElement("div", { className: "center" }, "Kanji"))),
                     React.createElement("tr", null,
                         React.createElement("td", { className: "row" },
-                            React.createElement("textarea", { id: "inputKanji", onChange: function (e) { _this.onChangeKanji(e); }, className: this.state.inputColor, value: this.state.inputKanji, onFocus: function (e) { _this.initText(e); }, maxlength: "250" }))))),
-            React.createElement("button", { id: "btnConvert", onClick: function (e) { _this.onClickConvert(e); }, className: objConst.CONVERT_BUTTON }, objConst.CONVERT_BTN_LABEL),
+                            React.createElement("textarea", { id: "inputKanji", onChange: function (e) { _this.onChangeKanji(e); }, className: this.state.inputColor, value: this.state.inputKanji, onFocus: function (e) { _this.initText(); }, maxLength: 250 }))))),
+            React.createElement("button", { id: "btnConvert", onClick: function (e) { _this.onClickConvert(); }, className: objConst.CONVERT_BUTTON }, objConst.CONVERT_BTN_LABEL),
             this.props.isLoading ? React.createElement("span", null, "Loading...") : [],
             React.createElement("table", { className: "result-table" },
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement("th", null,
-                            React.createElement("center", null, "Hiragana")),
+                            React.createElement("div", { className: "center" }, "Hiragana")),
                         React.createElement("th", null,
-                            React.createElement("center", null, "Romaji"))),
+                            React.createElement("div", { className: "center" }, "Romaji"))),
                     React.createElement("tr", null,
                         React.createElement("td", { className: "row" },
                             React.createElement(ChildInput, { onScroll: this.onScrollInput, result: this.result })),
@@ -192,7 +192,7 @@ var KanjiConverter = /** @class */ (function (_super) {
                     "Supported by Yahoo! \u30C7\u30D9\u30ED\u30C3\u30D1\u30FC\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u3000\u30EB\u30D3\u632F\u308AAPI",
                     React.createElement("br", null),
                     React.createElement("a", { href: "https://developer.yahoo.co.jp/about" },
-                        React.createElement("img", { src: "https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif", title: "Web\u30B5\u30FC\u30D3\u30B9 by Yahoo! JAPAN", alt: "Web Services by Yahoo! JAPAN", width: "125", height: "17", border: "0", className: "yahoo" })))),
+                        React.createElement("img", { src: "https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif", title: "Web\u30B5\u30FC\u30D3\u30B9 by Yahoo! JAPAN", alt: "Web Services by Yahoo! JAPAN", width: "125", height: "17", className: "yahoo" })))),
             React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" })));
     };
     return KanjiConverter;
@@ -210,7 +210,7 @@ var ChildInput = /** @class */ (function (_super) {
     //入力エリアの表示
     ChildInput.prototype.render = function () {
         var _this = this;
-        return (React.createElement("center", { className: "t-area-center" },
+        return (React.createElement("div", { className: "t-area-center center" },
             React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onScroll: function () { _this._onScroll(); }, value: this.props.result })));
     };
     return ChildInput;
