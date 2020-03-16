@@ -3,7 +3,10 @@ import { Card, Button, CardHeader, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
-class IncorrectTable extends React.Component {
+class IncorrectTable extends React.Component<{
+    incorrectList: any;
+    changePage: any;
+}> {
 
     render() {
         let top = "Characters you should remember:";
@@ -30,7 +33,9 @@ class IncorrectTable extends React.Component {
 }
 
 
-class RelatedArticles extends React.Component {
+class RelatedArticles extends React.Component<{
+    objLinks: any;
+}> {
 
     render() {
         let linkList = [];
@@ -61,7 +66,19 @@ class RelatedArticles extends React.Component {
 }
 
 
-export default class Quiz3 extends React.Component {
+export default class Quiz3 extends React.Component<{
+    score: number;
+    maxChar: number;
+    incorrectList: any;
+    changePage: any;
+    consts: any;
+}> {
+    consts: {
+        BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block";
+        BUTTON_SUCCESS: "btn btn-success btn-lg btn-block";
+        BUTTON_DANGER: "btn btn-danger btn-lg btn-block";
+        BUTTON_DARK: "btn btn-dark btn-lg btn-block";
+    }
 
     constructor(props) {
         super(props);

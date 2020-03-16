@@ -5,7 +5,7 @@ import './PleaseScrollDown.css';
 export default class PleaseScrollDown extends React.Component {
 
     props:{
-        criteriaRef: React.RefObject<HTMLDivElement>,
+        criteriaRef: React.RefObject<HTMLElement>,
         screenHeight?: number,
         screenWidth?: number,
         targetId?: string,

@@ -1,6 +1,28 @@
 import * as React from 'react';
+import { AnyTxtRecord } from 'dns';
 
-export default class Quiz2 extends React.Component {
+export default class Quiz2 extends React.Component<{
+    consts: any;
+    maxChar: number;
+    changePage: any;
+    setScore: any;
+    setIncorrectList: any;
+},{
+    gameCount: number;
+}> {
+    consts: {
+        ANSWER_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block active";
+    };
+    correct: number;
+    incorrectList: any;
+    question: string;
+    btn1Value: string;
+    btn2Value: string;
+    btn3Value: string;
+    btn4Value: string;
+    indexQ: number | string;
+    listAll: any;
+    listTmp: any;
 
     constructor(props) {
         super(props);

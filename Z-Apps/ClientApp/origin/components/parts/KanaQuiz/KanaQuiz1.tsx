@@ -2,7 +2,21 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import PleaseScrollDown from '../PleaseScrollDown';
 
-export default class Quiz1 extends React.Component {
+export default class Quiz1 extends React.Component<{
+    consts: { 
+        KANA_TYPE: string;
+        OTHER_KANA_TYPE: string;
+    };
+     changePage: (i: any) => void; 
+     setMaxChar: (i: any) => void;
+}> {
+    consts: {
+        START_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block";
+        START_BUTTON_SUCCESS: "btn btn-success btn-lg btn-block";
+        START_BUTTON_DANGER: "btn btn-danger btn-lg btn-block";
+        START_BUTTON_DARK: "btn btn-dark btn-lg btn-block";
+    }
+    ref: React.RefObject<HTMLButtonElement>;
 
     constructor(props) {
         super(props);

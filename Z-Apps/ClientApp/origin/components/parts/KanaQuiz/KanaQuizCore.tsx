@@ -4,7 +4,15 @@ import { Quiz2 } from './KanaQuiz2';
 import { Quiz3 } from './KanaQuiz3';
 
 
-export default class QuizCore extends React.Component {
+export default class QuizCore extends React.Component<{
+    consts: any;
+},
+{
+    pageNum: number;
+    maxChar: number;
+    score: 0;
+    incorrectList: string;
+}> {
 
     constructor(props) {
         super(props);
