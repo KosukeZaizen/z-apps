@@ -45,9 +45,9 @@ var KatakanaQuiz = /** @class */ (function (_super) {
         return _this;
     }
     KatakanaQuiz.prototype.render = function () {
-        return (React.createElement("center", { className: "kana-quiz" },
+        return (React.createElement("div", { className: "kana-quiz center" },
             React.createElement(Helmet_1.default, { title: "Katakana Quiz", desc: "An app to remember Katakana! I hope this will help you to study!" }),
-            React.createElement(KanaQuizCore_1.QuizCore, { consts: this.consts, changePage: this.changePage }),
+            React.createElement(KanaQuizCore_1.QuizCore, { consts: this.consts }),
             React.createElement("br", null),
             React.createElement(FaceBook_1.default, null),
             React.createElement("br", null),
