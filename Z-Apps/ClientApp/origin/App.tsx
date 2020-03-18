@@ -88,5 +88,5 @@ function LoadingAnimation(props) {
         arr.push(<span key={i}><br /></span>);
     }
     arr.push(<CircularProgress key="circle" size="20%" />);
-    return <center>{arr}</center>;
+    return <div className="center">{arr}</div>;
 }

@@ -105,5 +105,5 @@ function LoadingAnimation(props) {
             React.createElement("br", null)));
     }
     arr.push(React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" }));
-    return React.createElement("center", null, arr);
+    return React.createElement("div", { className: "center" }, arr);
 }
