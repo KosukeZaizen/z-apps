@@ -5,7 +5,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
-import { sendAccessLog } from './components/common/functions';
 
 
 const Home = lazy(() => import('./components/Home'));
@@ -35,8 +34,6 @@ export default class App extends React.Component {
         const { pathname } = window.location;
         ReactGA.set({ page: pathname });
         ReactGA.pageview(pathname);
-
-        sendAccessLog();
     }
 
     render() {

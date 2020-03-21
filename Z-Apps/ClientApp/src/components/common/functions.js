@@ -35,15 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var privateConsts = __importStar(require("./privateConsts"));
 function getParams() {
     var arg = {};
     var pair = window.location.search.substring(1).split('&');
@@ -121,28 +113,3 @@ function serverSideErrorProc() {
     return;
 }
 exports.serverSideErrorProc = serverSideErrorProc;
-function sendAccessLog() {
-    return __awaiter(this, void 0, void 0, function () {
-        var saveKey, savedUserId, userId, nowDate, accessInfo;
-        return __generator(this, function (_a) {
-            saveKey = "lingual-ninja-userId";
-            savedUserId = localStorage.getItem(saveKey);
-            if (savedUserId) {
-                userId = savedUserId;
-            }
-            else {
-                nowDate = new Date();
-                userId = nowDate.getTime() + "-" + Math.floor(Math.random() * 1000);
-                localStorage.setItem(saveKey, userId);
-            }
-            accessInfo = {
-                userId: userId,
-                href: window.location.href,
-                token: privateConsts.LOG_TOKEN
-            };
-            sendPostWithoutAwait(accessInfo, "api/SystemBase/RegisterAccessLog");
-            return [2 /*return*/];
-        });
-    });
-}
-exports.sendAccessLog = sendAccessLog;

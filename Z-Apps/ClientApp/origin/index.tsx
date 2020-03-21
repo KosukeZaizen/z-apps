@@ -11,7 +11,6 @@ import registerServiceWorker from './registerServiceWorker';
 //import { unregister } from './registerServiceWorker';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS } from './components/common/privateConsts';
-import { sendAccessLog } from './components/common/functions';
 
 ReactGA.initialize(GOOGLE_ANALYTICS);
 
@@ -22,8 +21,6 @@ const history = createBrowserHistory({ basename: baseUrl });
 history.listen(({ pathname }) => {
     ReactGA.set({ page: pathname });
     ReactGA.pageview(pathname);
-
-    sendAccessLog();
 });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.

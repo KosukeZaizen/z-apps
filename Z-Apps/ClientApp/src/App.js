@@ -30,7 +30,6 @@ var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProg
 var Layout_1 = __importDefault(require("./components/parts/Layout"));
 var react_ga_1 = __importDefault(require("react-ga"));
 var react_router_scroll_memory_1 = __importDefault(require("react-router-scroll-memory"));
-var functions_1 = require("./components/common/functions");
 var Home = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Home')); }); });
 var Terms = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Terms')); }); });
 var Developer = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Developer')); }); });
@@ -60,7 +59,6 @@ var App = /** @class */ (function (_super) {
         var pathname = window.location.pathname;
         react_ga_1.default.set({ page: pathname });
         react_ga_1.default.pageview(pathname);
-        functions_1.sendAccessLog();
     };
     App.prototype.render = function () {
         return (React.createElement(Layout_1.default, null,

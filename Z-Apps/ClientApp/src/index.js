@@ -23,7 +23,6 @@ var registerServiceWorker_1 = __importDefault(require("./registerServiceWorker")
 //import { unregister } from './registerServiceWorker';
 var react_ga_1 = __importDefault(require("react-ga"));
 var privateConsts_1 = require("./components/common/privateConsts");
-var functions_1 = require("./components/common/functions");
 react_ga_1.default.initialize(privateConsts_1.GOOGLE_ANALYTICS);
 // Create browser history to use in the Redux store
 var baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -32,7 +31,6 @@ history.listen(function (_a) {
     var pathname = _a.pathname;
     react_ga_1.default.set({ page: pathname });
     react_ga_1.default.pageview(pathname);
-    functions_1.sendAccessLog();
 });
 // Get the application-wide store instance, prepopulating with state from the server where available.
 var initialState = window["initialReduxState"];
