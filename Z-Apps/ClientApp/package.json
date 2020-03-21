@@ -61,6 +61,6 @@
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/",
-    "watch": "npm-watch"
+    "watch": "tsc & npm-watch"
   }
 }
