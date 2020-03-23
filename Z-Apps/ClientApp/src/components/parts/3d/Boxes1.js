@@ -43,7 +43,7 @@ function Box(props) {
     react_three_fiber_1.useFrame(function () { return (mesh.current.rotation.x = mesh.current.rotation.y += 0.01); });
     return (react_1.default.createElement("mesh", __assign({}, props, { ref: mesh, scale: active ? [1.5, 1.5, 1.5] : [1, 1, 1], onClick: function (e) { return setActive(!active); }, onPointerOver: function (e) { return setHover(true); }, onPointerOut: function (e) { return setHover(false); } }),
         react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1, 1, 1] }),
-        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: hovered ? 'hotpink' : 'orange' })));
+        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: hovered ? 'hotpink' : 'green' })));
 }
 var Boxes1 = /** @class */ (function (_super) {
     __extends(Boxes1, _super);
