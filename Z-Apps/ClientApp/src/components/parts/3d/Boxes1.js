@@ -40,7 +40,7 @@ function Box(props) {
     });
     var color = char === "〇" ? "hotpink" : char === "×" ? "green" : "gray";
     return (char === "" ?
-        react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh, scale: [0.8, 0.8, 0.8], onClick: function (e) { return setChar(x, y); } },
+        react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh, scale: [0.6, 0.6, 0.6], onClick: function (e) { return setChar(x, y); } },
             react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1, 1, 1] }),
             react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color }))
         :
@@ -61,17 +61,53 @@ var Boxes1 = /** @class */ (function (_super) {
     __extends(Boxes1, _super);
     function Boxes1(props) {
         var _this = _super.call(this, props) || this;
+        _this.getInitialChars = function () { return [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ]; };
+        _this.calculateWinner = function (s) {
+            var squares = s.flat();
+            var lines = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+            for (var i = 0; i < lines.length; i++) {
+                var _a = lines[i], a = _a[0], b = _a[1], c = _a[2];
+                if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                    return squares[a];
+                }
+            }
+            return null;
+        };
         _this.setChar = function (x, y) {
             var newChars = _this.state.chars;
             newChars[x][y] = _this.state.turn ? "〇" : "×";
             _this.setState({ chars: newChars, turn: !_this.state.turn });
+            var winner = _this.calculateWinner(newChars);
+            if (winner) {
+                setTimeout(function () {
+                    alert(winner + " win!");
+                    _this.setState({ chars: _this.getInitialChars(), turn: true });
+                }, 100);
+                return;
+            }
+            var isDraw = newChars.flat().every(function (v) { return v !== ""; });
+            if (isDraw) {
+                setTimeout(function () {
+                    alert("Draw game!");
+                    _this.setState({ chars: _this.getInitialChars(), turn: true });
+                }, 100);
+            }
         };
         _this.state = {
-            chars: [
-                ["", "", ""],
-                ["", "", ""],
-                ["", "", ""]
-            ],
+            chars: _this.getInitialChars(),
             turn: true
         };
         return _this;

@@ -3,7 +3,7 @@ import { Canvas, useFrame } from 'react-three-fiber'
 import Frame from './Frame';
 
 function Box(props) {
-    const {x, y, setChar, char} = props;
+    const { x, y, setChar, char } = props;
 
     // This reference will give us direct access to the mesh
     const mesh: React.MutableRefObject<THREE.Mesh> = useRef()
@@ -22,7 +22,7 @@ function Box(props) {
             <mesh
                 position={[x - 1, y - 1, 0]}
                 ref={mesh}
-                scale={[0.8, 0.8, 0.8]}
+                scale={[0.6, 0.6, 0.6]}
                 onClick={e => setChar(x, y)}
             >
                 <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
@@ -65,19 +65,60 @@ export default class Boxes1 extends React.Component<{}, { chars, turn }> {
     constructor(props) {
         super(props);
         this.state = {
-            chars: [
-                ["", "", ""],
-                ["", "", ""],
-                ["", "", ""]
-            ],
+            chars: this.getInitialChars(),
             turn: true
         }
     }
 
+    getInitialChars = () => [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+    ]
+
+    calculateWinner = (s) => {
+        const squares = s.flat();
+        const lines = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+          const [a, b, c] = lines[i];
+          if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+            return squares[a];
+          }
+        }
+        return null;
+      }
+
     setChar = (x: number, y: number) => {
         const newChars = this.state.chars;
+
         newChars[x][y] = this.state.turn ? "〇" : "×";
-        this.setState({chars: newChars, turn: !this.state.turn});
+        this.setState({ chars: newChars, turn: !this.state.turn });
+
+        const winner = this.calculateWinner(newChars);
+        if(winner){
+            setTimeout(() => {
+                alert(winner + " win!");
+                this.setState({ chars: this.getInitialChars(), turn: true });
+            }, 100);
+            return;
+        }
+
+        const isDraw = newChars.flat().every(v => v !== "");
+        if (isDraw) {
+            setTimeout(() => {
+                alert("Draw game!");
+                this.setState({ chars: this.getInitialChars(), turn: true });
+            }, 100);
+        }
     }
 
     render() {
