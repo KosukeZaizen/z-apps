@@ -28,15 +28,30 @@ var react_three_fiber_1 = require("react-three-fiber");
 var Frame_1 = __importDefault(require("./Frame"));
 function Box(props) {
     var x = props.x, y = props.y, setChar = props.setChar, char = props.char;
+    var _a = react_1.useState(0), rotationX = _a[0], setRotationX = _a[1];
+    var _b = react_1.useState(0), rotationY = _b[0], setRotationY = _b[1];
     // This reference will give us direct access to the mesh
     var mesh = react_1.useRef();
     var mesh2 = react_1.useRef();
+    var mesh3 = react_1.useRef();
     // Rotate mesh every frame, this is outside of React without overhead
     react_three_fiber_1.useFrame(function () {
-        mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
-        if (!mesh2.current)
-            return;
-        mesh2.current.rotation.x += 0.01;
+        if (mesh.current) {
+            mesh.current.rotation.x = rotationX;
+            mesh.current.rotation.y = rotationY;
+        }
+        if (mesh2.current) {
+            mesh2.current.rotation.x = rotationX;
+            mesh2.current.rotation.y = rotationY;
+            mesh2.current.rotation.z = 0.4;
+        }
+        if (mesh3.current) {
+            mesh3.current.rotation.x = rotationX;
+            mesh3.current.rotation.y = rotationY;
+            mesh3.current.rotation.z = 0.4;
+        }
+        setRotationX(rotationX + 0.01);
+        setRotationY(rotationY + 0.01);
     });
     var color = char === "〇" ? "hotpink" : char === "×" ? "green" : "gray";
     return (char === "" ?
@@ -46,15 +61,15 @@ function Box(props) {
         :
             char === "×" ?
                 react_1.default.createElement(react_1.default.Fragment, null,
-                    react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh, scale: [0.8, 0.8, 0.8] },
+                    react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh2, scale: [0.8, 0.8, 0.8] },
                         react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1.1, 0.2, 0.2] }),
                         react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })),
-                    react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh2, scale: [0.8, 0.8, 0.8] },
+                    react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh3, scale: [0.8, 0.8, 0.8] },
                         react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [0.2, 1.1, 0.2] }),
                         react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })))
                 :
                     react_1.default.createElement("mesh", { position: [x - 1, y - 1, 0], ref: mesh, scale: [0.8, 0.8, 0.8] },
-                        react_1.default.createElement("torusGeometry", { attach: "geometry", args: [0.5, 0.15, 64, 100] }),
+                        react_1.default.createElement("torusGeometry", { attach: "geometry", args: [0.4, 0.15, 64, 100] }),
                         react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })));
 }
 var Boxes1 = /** @class */ (function (_super) {
