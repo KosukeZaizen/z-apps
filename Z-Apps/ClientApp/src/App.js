@@ -49,6 +49,7 @@ var GameOver = react_1.lazy(function () { return Promise.resolve().then(function
 var SiteMapEdit = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/SiteMapEdit')); }); });
 var ColorPalette = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/ColorPalette')); }); });
 var Boscobel = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Boscobel')); }); });
+var Boxes1 = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/parts/3d/Boxes1')); }); });
 var NotFound = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/404')); }); });
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
@@ -84,6 +85,7 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { path: '/sitemapEdit', component: SiteMapEdit }),
                     React.createElement(react_router_1.Route, { path: '/color-code', component: ColorPalette }),
                     React.createElement(react_router_1.Route, { path: '/boscobel', component: Boscobel }),
+                    React.createElement(react_router_1.Route, { path: '/3d/boxes1', component: Boxes1 }),
                     React.createElement(react_router_1.Route, { path: '/not-found', component: NotFound }),
                     React.createElement(react_router_1.Route, { component: NotFoundRedirect })))));
     };
