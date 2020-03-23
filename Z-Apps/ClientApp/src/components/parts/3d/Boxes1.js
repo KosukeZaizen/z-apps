@@ -40,29 +40,61 @@ var Frame_1 = __importDefault(require("./Frame"));
 function Box(props) {
     // This reference will give us direct access to the mesh
     var mesh = react_1.useRef();
+    var mesh2 = react_1.useRef();
     // Set up state for the hovered and active state
-    var _a = react_1.useState(false), hovered = _a[0], setHover = _a[1];
-    var _b = react_1.useState(false), active = _b[0], setActive = _b[1];
+    var _a = react_1.useState(""), char = _a[0], setChar = _a[1];
     // Rotate mesh every frame, this is outside of React without overhead
-    react_three_fiber_1.useFrame(function () { return (mesh.current.rotation.x = mesh.current.rotation.y += 0.01); });
-    return (react_1.default.createElement("mesh", __assign({}, props, { ref: mesh, scale: active ? [1.5, 1.5, 1.5] : [1, 1, 1], onClick: function (e) { return setActive(!active); }, onPointerOver: function (e) { return setHover(true); }, onPointerOut: function (e) { return setHover(false); } }),
-        react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1, 1, 1] }),
-        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: hovered ? 'hotpink' : 'green' })));
+    react_three_fiber_1.useFrame(function () {
+        mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
+        if (!mesh2.current)
+            return;
+        mesh2.current.rotation.y = mesh2.current.rotation.z += 0.01;
+    });
+    var color = char === "〇" ? "hotpink" : char === "×" ? "green" : "gray";
+    return (char === "" ?
+        react_1.default.createElement("mesh", __assign({}, props, { ref: mesh, scale: [0.8, 0.8, 0.8], onClick: function (e) { return setChar("×"); } }),
+            react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1, 1, 1] }),
+            react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color }))
+        :
+            char === "×" ?
+                react_1.default.createElement(react_1.default.Fragment, null,
+                    react_1.default.createElement("mesh", __assign({}, props, { ref: mesh, scale: [0.8, 0.8, 0.8] }),
+                        react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [0.2, 0.2, 1] }),
+                        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })),
+                    react_1.default.createElement("mesh", __assign({}, props, { ref: mesh2, scale: [0.8, 0.8, 0.8] }),
+                        react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [0.2, 1, 0.2] }),
+                        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })))
+                :
+                    react_1.default.createElement("mesh", __assign({}, props, { ref: mesh, scale: [0.8, 0.8, 0.8] }),
+                        react_1.default.createElement("torusGeometry", { attach: "geometry", args: [0.5, 0.15, 64, 100] }),
+                        react_1.default.createElement("meshStandardMaterial", { attach: "material", color: color })));
 }
 var Boxes1 = /** @class */ (function (_super) {
     __extends(Boxes1, _super);
     function Boxes1(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            chars: [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+            ],
+            turn: true
+        };
+        return _this;
     }
     Boxes1.prototype.render = function () {
+        var boxes = [];
+        for (var x = -1; x <= 1; x = (x + 1) | 0) {
+            for (var y = -1; y <= 1; y = (y + 1) | 0) {
+                boxes.push(react_1.default.createElement(Box, { position: [x, y, 0] }));
+            }
+        }
         return (react_1.default.createElement(Frame_1.default, null,
             react_1.default.createElement(react_three_fiber_1.Canvas, null,
                 react_1.default.createElement("ambientLight", null),
                 react_1.default.createElement("pointLight", { position: [10, 10, 10] }),
-                react_1.default.createElement(Box, { position: [-0.5, 0.5, 0] }),
-                react_1.default.createElement(Box, { position: [0.5, 0.5, 0] }),
-                react_1.default.createElement(Box, { position: [-0.5, -0.5, 0] }),
-                react_1.default.createElement(Box, { position: [0.5, -0.5, 0] }))));
+                boxes)));
     };
     return Boxes1;
 }(react_1.default.Component));
