@@ -26,7 +26,7 @@ const GameOver = lazy(() => import('./components/GameOver'));
 const SiteMapEdit = lazy(() => import('./components/SiteMapEdit'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const Boscobel = lazy(() => import('./components/Boscobel'));
-const Three = lazy(() => import('./components/parts/3d/Three'));
+const Boxes1 = lazy(() => import('./components/parts/3d/Boxes1'));
 const NotFound = lazy(() => import('./components/404'));
 
 export default class App extends React.Component {
@@ -62,7 +62,7 @@ export default class App extends React.Component {
                         <Route path='/sitemapEdit' component={SiteMapEdit} />
                         <Route path='/color-code' component={ColorPalette} />
                         <Route path='/boscobel' component={Boscobel} />
-                        <Route path='/3d/three' component={Three} />
+                        <Route path='/3d/boxes1' component={Boxes1} />
                         <Route path='/not-found' component={NotFound} />
                         <Route component={NotFoundRedirect} />
                     </Switch>

@@ -45,9 +45,9 @@ function Box(props) {
         react_1.default.createElement("boxBufferGeometry", { attach: "geometry", args: [1, 1, 1] }),
         react_1.default.createElement("meshStandardMaterial", { attach: "material", color: hovered ? 'hotpink' : 'orange' })));
 }
-var Three = /** @class */ (function (_super) {
-    __extends(Three, _super);
-    function Three(props) {
+var Boxes1 = /** @class */ (function (_super) {
+    __extends(Boxes1, _super);
+    function Boxes1(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             width: window.innerWidth,
@@ -61,7 +61,7 @@ var Three = /** @class */ (function (_super) {
         }, 200);
         return _this;
     }
-    Three.prototype.render = function () {
+    Boxes1.prototype.render = function () {
         var _a = this.state, width = _a.width, height = _a.height;
         return (react_1.default.createElement("div", { style: {
                 width: width,
@@ -70,7 +70,7 @@ var Three = /** @class */ (function (_super) {
                 position: "absolute",
                 top: 0,
                 left: 0,
-                zIndex: 1,
+                zIndex: -100,
             } },
             react_1.default.createElement(react_three_fiber_1.Canvas, null,
                 react_1.default.createElement("ambientLight", null),
@@ -80,6 +80,6 @@ var Three = /** @class */ (function (_super) {
                 react_1.default.createElement(Box, { position: [-0.5, -0.5, 0] }),
                 react_1.default.createElement(Box, { position: [0.5, -0.5, 0] }))));
     };
-    return Three;
+    return Boxes1;
 }(react_1.default.Component));
-exports.default = Three;
+exports.default = Boxes1;
