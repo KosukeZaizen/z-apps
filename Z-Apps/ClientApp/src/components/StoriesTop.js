@@ -111,7 +111,7 @@ var StoriesTop = /** @class */ (function (_super) {
                                     React.createElement("td", { style: { width: "50%" } },
                                         React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
                                             React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } }))),
-                                    React.createElement("td", null,
+                                    React.createElement("td", { style: { textAlign: "left" } },
                                         s.description.split("\\n").map(function (d, i) {
                                             return React.createElement("span", { key: i, style: { color: "black" } },
                                                 d,

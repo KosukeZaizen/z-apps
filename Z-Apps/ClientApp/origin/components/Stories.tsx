@@ -349,7 +349,7 @@ class Stories extends React.Component<Props, State> {
                                                                 />
                                                             </Link>
                                                         </td>
-                                                        <td>
+                                                        <td style={{textAlign: "left"}}>
                                                             {
                                                                 s.description.split("\\n").map((d, i) =>
                                                                     <span key={i} style={{ color: "black" }}>

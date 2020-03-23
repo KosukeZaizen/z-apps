@@ -137,7 +137,7 @@ class StoriesTop extends React.Component {
                                                                     />
                                                                 </Link>
                                                             </td>
-                                                            <td>
+                                                            <td style={{textAlign: "left"}}>
                                                                 {
                                                                     s.description.split("\\n").map((d, i) =>
                                                                         <span key={i} style={{ color: "black" }}>
