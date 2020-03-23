@@ -17,6 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
+var Helmet_1 = __importDefault(require("../Helmet"));
 var Boxes1 = /** @class */ (function (_super) {
     __extends(Boxes1, _super);
     function Boxes1(props) {
@@ -39,6 +40,7 @@ var Boxes1 = /** @class */ (function (_super) {
     };
     Boxes1.prototype.render = function () {
         var _a = this.state, width = _a.width, height = _a.height;
+        var _b = this.props, title = _b.title, desc = _b.desc;
         return (react_1.default.createElement("div", { style: {
                 width: width,
                 height: height,
@@ -47,7 +49,9 @@ var Boxes1 = /** @class */ (function (_super) {
                 top: 0,
                 left: 0,
                 zIndex: -100,
-            } }, this.props.children));
+            } },
+            react_1.default.createElement(Helmet_1.default, { title: title, desc: desc }),
+            this.props.children));
     };
     return Boxes1;
 }(react_1.default.Component));

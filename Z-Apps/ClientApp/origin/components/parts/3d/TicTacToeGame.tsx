@@ -158,7 +158,7 @@ export default class Boxes1 extends React.Component<{}, { chars, turn }> {
             }
         }
         return (
-            <Frame>
+            <Frame title="tic-tac-toe game" desc="Enjoy 3D tic-tac-toe game!">
                 <Canvas>
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />

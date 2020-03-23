@@ -1,6 +1,10 @@
 import React from 'react'
+import Head from '../Helmet';
 
-export default class Boxes1 extends React.Component<{}, {
+export default class Boxes1 extends React.Component<{
+    title: string;
+    desc: string;
+}, {
     width: number;
     height: number;
 }> {
@@ -29,6 +33,7 @@ export default class Boxes1 extends React.Component<{}, {
 
     render() {
         const {width, height} = this.state;
+        const {title, desc} = this.props;
         return (
             <div style={{
                 width,
@@ -39,6 +44,10 @@ export default class Boxes1 extends React.Component<{}, {
                 left: 0,
                 zIndex: -100,
             }}>
+                <Head
+                    title={title}
+                    desc={desc}
+                />
                 {this.props.children}
             </div>
         );
