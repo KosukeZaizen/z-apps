@@ -30,9 +30,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var react_three_fiber_1 = require("react-three-fiber");
+var Frame_1 = __importDefault(require("./Frame"));
 function Box(props) {
     // This reference will give us direct access to the mesh
     var mesh = react_1.useRef();
@@ -48,30 +52,10 @@ function Box(props) {
 var Boxes1 = /** @class */ (function (_super) {
     __extends(Boxes1, _super);
     function Boxes1(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            width: window.innerWidth,
-            height: window.innerHeight,
-        };
-        setInterval(function () {
-            _this.setState({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }, 200);
-        return _this;
+        return _super.call(this, props) || this;
     }
     Boxes1.prototype.render = function () {
-        var _a = this.state, width = _a.width, height = _a.height;
-        return (react_1.default.createElement("div", { style: {
-                width: width,
-                height: height,
-                backgroundColor: "black",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: -100,
-            } },
+        return (react_1.default.createElement(Frame_1.default, null,
             react_1.default.createElement(react_three_fiber_1.Canvas, null,
                 react_1.default.createElement("ambientLight", null),
                 react_1.default.createElement("pointLight", { position: [10, 10, 10] }),

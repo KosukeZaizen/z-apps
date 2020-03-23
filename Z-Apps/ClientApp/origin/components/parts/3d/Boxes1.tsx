@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from 'react-three-fiber'
+import Frame from './Frame';
 
 function Box(props) {
     // This reference will give us direct access to the mesh
@@ -26,39 +27,15 @@ function Box(props) {
     )
 }
 
-export default class Boxes1 extends React.Component<{},{
-    width: number;
-    height: number;
-}> {
+export default class Boxes1 extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-
-        this.state = {
-            width: window.innerWidth,
-            height: window.innerHeight,
-        }
-
-        setInterval(()=>{
-            this.setState({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            })
-        }, 200);
     }
 
     render() {
-        const {width, height} = this.state;
         return (
-            <div style={{
-                width,
-                height,
-                backgroundColor: "black",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: -100,
-            }}>
+            <Frame>
                 <Canvas>
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
@@ -67,7 +44,7 @@ export default class Boxes1 extends React.Component<{},{
                     <Box position={[-0.5, -0.5, 0]} />
                     <Box position={[0.5, -0.5, 0]} />
                 </Canvas>
-            </div>
+            </Frame>
         );
     }
 }
