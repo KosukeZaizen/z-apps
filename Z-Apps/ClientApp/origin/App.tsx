@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Suspense, lazy } from 'react';
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
 import ReactGA from 'react-ga';

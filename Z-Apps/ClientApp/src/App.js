@@ -25,7 +25,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(require("react"));
 var react_1 = require("react");
-var react_router_1 = require("react-router");
+var react_router_1 = require("react-router-dom");
 var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
 var Layout_1 = __importDefault(require("./components/parts/Layout"));
 var react_ga_1 = __importDefault(require("react-ga"));
