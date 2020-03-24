@@ -5,9 +5,9 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/tengumura4.jpg';
+const bgImg = require('../img/background/tengumura4.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //キノコ村　流れ出る温泉
 Stage.getObjs = (ninja) => {
@@ -15,7 +15,7 @@ Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = (ninja.snow) ? 1 : 0;//風速
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

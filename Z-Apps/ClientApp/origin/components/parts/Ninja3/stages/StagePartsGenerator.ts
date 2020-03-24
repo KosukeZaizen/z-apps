@@ -11,7 +11,7 @@ import { changeStage } from '../CommonFnc'//共通関数
 //------------------------------------------------------------
 
 //ブロック生成関数
-export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity?) {
     let objResult = {};
 
     for (let index in arrPos) {
@@ -62,7 +62,7 @@ export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft?, opa
 }
 
 //矢印看板
-export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
+export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft?) {
     //看板に触れた時にメッセージを出したくない場合は、scrollNameにnullを渡す
     let objResult = {};
     if (boolLeft) {
@@ -150,7 +150,7 @@ export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight?) {
 }
 
 //飛ぶ岩（左向き）　生成関数
-export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
+export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft?) {
     let objResult = {};
     objResult[`Rock${id}`] = {
         size: size,
@@ -350,7 +350,7 @@ export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft?) {
 
 //ステージ変更用ゲート（下）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
+export function getBottomGate(next, heightOfTheGate, nextX, nextY?, nextLeft?) {
     const posY = heightOfTheGate || 87;
     return {
         size: 1000,

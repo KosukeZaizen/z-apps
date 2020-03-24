@@ -7,15 +7,15 @@ import * as OnTouch from '../OnTouch';
 //タイムステップごとの処理
 import * as EachTime from '../EachTime';
 //背景画像
-import bgImg from '../img/background/washitsu.jpg';
+const bgImg = require('../img/background/washitsu.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //仙人の家（室内）
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

@@ -3,9 +3,9 @@ import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //背景画像
-import bgImg from '../img/background/tengumura2.jpg';
+const bgImg = require('../img/background/tengumura2.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //キノコ村　街中１
 Stage.getObjs = (ninja) => {
@@ -13,7 +13,7 @@ Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = (ninja.snow) ? 1 : 0;//風速
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

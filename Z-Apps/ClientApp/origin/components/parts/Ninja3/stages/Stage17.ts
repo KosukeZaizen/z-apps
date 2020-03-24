@@ -5,15 +5,15 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/grave1.jpg';
+const bgImg = require('../img/background/grave1.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //英雄の墓１
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
 
@@ -33,6 +33,7 @@ Stage.getObjs = (ninja) => {
 
         leftGate: StageParts.getLeftGate(18, 157, null, -9),
         topGate: StageParts.getTopGate(15, -50, 125, 63),
+        bottomGate: null,
     };
 
     if (ninja.posX < 80) {

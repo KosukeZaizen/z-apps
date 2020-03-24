@@ -5,9 +5,9 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/grave2.jpg';
+const bgImg = require('../img/background/grave2.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //英雄の墓２
 Stage.getObjs = (ninja) => {
@@ -34,6 +34,7 @@ Stage.getObjs = (ninja) => {
         rightGate: StageParts.getRightGate(17, -8, null, 9),
         leftGate: StageParts.getLeftGate(19),
         gateToLastRoom: StageParts.getDoor(22, 9, 80, null, 10, 21, 145, -10, true),
+        bottomGate: null,
     };
 
     if (ninja.posX > 80) {

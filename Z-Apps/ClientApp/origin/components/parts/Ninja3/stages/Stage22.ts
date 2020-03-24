@@ -5,9 +5,9 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/last.jpg';
+const bgImg = require('../img/background/last.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //クリア後
 Stage.getObjs = (ninja) => {

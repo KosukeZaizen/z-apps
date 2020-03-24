@@ -5,9 +5,9 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/grave3.jpg';
+const bgImg = require('../img/background/grave3.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //英雄の墓３
 Stage.getObjs = (ninja) => {
