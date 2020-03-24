@@ -5,10 +5,10 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../../Ninja/img/background/ryokan1.jpg';
+const bgImg = require('../../Ninja/img/background/furuie5.jpg');
 
 
-const Stage = {};
+const Stage: any = {};
 Stage.bgImg = bgImg;
 
 Stage.getObjs = () => {
@@ -17,13 +17,15 @@ Stage.getObjs = () => {
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ...StageParts.getSoroll("POCHI2", 10, 50, 62, Imgs.Pochi, Imgs.Pochi, 20),
+        ...StageParts.getSoroll("POCHI", 10, 145, -20, null,Imgs.Pochi, 20),
 
-        butsudan: StageParts.getOnePic(40, 5, 32, Imgs.Butsudan, 20, OnTouch.toTree),
+        snowman: StageParts.getOnePic(12, 60, 62, Imgs.Snowman, 20, OnTouch.toBlock),
 
-        ...StageParts.getSoroll("TOBIISHI", 10, 19, 42, Imgs.Scroll, null, 22),
+        ...StageParts.getArrowBoard(null, 7, 60, 10, true),
 
-        rightGate: StageParts.getRightGate(2),
+        leftGate: StageParts.getLeftGate(2),
+
+        ...StageParts.getSnows(0.1, 30),
     };
 }
 export default Stage;

@@ -7,7 +7,7 @@ import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 
 export default class Home extends React.Component {
-    ref: React.LegacyRef<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
         super(props);

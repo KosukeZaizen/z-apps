@@ -1,7 +1,10 @@
 import * as React from 'react';
-import logo from './img/logo.png';
+const logo = require('./img/logo.png');
 
 export default class Page1 extends React.Component {
+    consts: { BTN_START_CLASS: string; };
+    state: any;
+    props: any;
 
     constructor(props) {
         super(props);
@@ -21,7 +24,7 @@ export default class Page1 extends React.Component {
         const bottomMargin = {
             marginBottom: 10,
         };
-        const screenHeight = parseInt(window.innerHeight, 10);
+        const screenHeight = window.innerHeight;
         return (
             <div id="page1">
                 <span onClick={() => { this.hideTopImage() }}>
@@ -78,7 +81,7 @@ export default class Page1 extends React.Component {
                         </span>
                 }
                 <br />
-                <center style={{color:"white"}}>
+                <div className="center" style={{color:"white"}}>
                     If you want to be a real Ninja, please check this:<br />
                     <a
                         href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
@@ -87,7 +90,7 @@ export default class Page1 extends React.Component {
                     >
                         How to be a Ninja >>
                         </a>
-                </center>
+                </div>
                 <br />
                 <br />
             </div>

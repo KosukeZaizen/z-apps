@@ -1,12 +1,12 @@
 import * as React from 'react';
-import runningNinja from './../../../Ninja/objs/ninja/ninja_hashiru.png';
+const runningNinja = require('./../../../Ninja/objs/ninja/ninja_hashiru.png');
 
 
 function NinjaChar(props) {
 
     let left = props.boolLeft ? "" : "scale(-1, 1)";
 
-    let style = {
+    let style: any = {
         position: "absolute",
         left: props.x,
         top: props.y,

@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { AnyTxtRecord } from 'dns';
 
 export default class Obj extends React.Component {
+    props: {
+        obj: any;
+        game: any;
+        UL: any;
+    }
 
     constructor(props) {
         super(props);
@@ -29,7 +35,7 @@ export default class Obj extends React.Component {
                 let message = this.props.obj.message;
                 let speakerImg = this.props.obj.speakerImg;
 
-                let styleImg = {
+                let styleImg: any = {
                     position: "absolute",
                     left: posX,
                     top: posY,
@@ -37,7 +43,7 @@ export default class Obj extends React.Component {
                     width: size,
                 };
 
-                let styleTexts = {
+                let styleTexts: any = {
                     position: "absolute",
                     left: posX,
                     top: posY + (size * 9 / 100),
@@ -47,13 +53,13 @@ export default class Obj extends React.Component {
                     lineHeight: fontSize / 20,
                 };
 
-                let h1Style = {
+                let h1Style: any = {
                     margin: size / 50,
                     fontSize: fontSize * 3 / 2,
                 };
 
                 let btnWidth = size / 3;
-                let styleBtnClose = {
+                let styleBtnClose: any = {
                     position: "absolute",
                     left: posX + size / 3,
                     top: posY + size * 3 / 10,
@@ -75,10 +81,10 @@ export default class Obj extends React.Component {
                             alt={"ninja game object"}
                         />
                         <div style={styleTexts}>
-                            <center>
+                            <div className="center">
                                 <h1 style={h1Style}>{title}</h1>
                                 <span>{listlines}</span>
-                            </center>
+                            </div>
                         </div>
                         <CloseElement
                             className={"btn btn-dark btn-lg btn-block"}
@@ -141,7 +147,7 @@ export default class Obj extends React.Component {
                     let posY = this.props.obj.posY * UL;
                     let zIndex = this.props.obj.zIndex;
 
-                    let style = {
+                    let style: any = {
                         position: "absolute",
                         left: posX,
                         top: posY,
@@ -169,7 +175,7 @@ export default class Obj extends React.Component {
                 let posY = this.props.obj.posY * UL;
                 let zIndex = this.props.obj.zIndex;
 
-                let style = {
+                let style: any = {
                     position: "absolute",
                     left: posX,
                     top: posY,
@@ -193,7 +199,7 @@ export default class Obj extends React.Component {
             let posY = this.props.obj.posY * UL;
             let zIndex = this.props.obj.zIndex;
 
-            let style = {
+            let style: any = {
                 position: "absolute",
                 left: posX,
                 top: posY,
@@ -216,16 +222,16 @@ export default class Obj extends React.Component {
             let fontSize = this.props.obj.fontSize * UL || 4 * UL;
             let message = this.props.obj.message;
 
-            let style = {
+            let style: any = {
                 position: "absolute",
                 left: posX,
                 top: posY,
                 zIndex: zIndex,
                 fontSize: fontSize,
+                width: size,
             };
             return (
                 <div
-                    width={size}
                     style={style}
                 >
                     {message}
@@ -245,7 +251,7 @@ function SpeakerImage(props) {
         let posX = props.posX + size * 1.3;
         let posY = props.posY + size * 0.5;
 
-        let style = {
+        let style: any = {
             position: "absolute",
             left: posX,
             top: posY,

@@ -1,19 +1,19 @@
 //ステージの部品作成用関数群の読み込み
 import * as StageParts from './StagePartsGenerator';
-//背景画像
-import bgImg from '../img/background/cliff.jpg';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
+//背景画像
+const bgImg = require('../img/background/cliff.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = (ninja.snow) ? 2.5 : 0;//風速
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
 

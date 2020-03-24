@@ -6,74 +6,108 @@ import { Obj } from './objs/obj';
 //オブジェクト素材画像----------------
 
 //岩
-import imgRock from './objs/rock.png';
+const imgRock = require('./objs/rock.png');
 //岩（上下反転）
-import imgRockR from './objs/rockRiverse.png';
+const imgRockR = require('./objs/rockRiverse.png');
 //木
-import imgTree1 from './objs/tree1.png';
+const imgTree1 = require('./objs/tree1.png');
 //看板
-import imgKanban1 from './objs/kanban1.png';
+const imgKanban1 = require('./objs/kanban1.png');
 //看板の矢印
-import imgArrow1 from './objs/arrow1.png';
+const imgArrow1 = require('./objs/arrow1.png');
 //鳥居
-import imgTorii from './objs/torii.png';
+const imgTorii = require('./objs/torii.png');
 //Welcomeのフレーム
-import imgFrame from './objs/frame.jpg';
+const imgFrame = require('./objs/frame.jpg');
 //火
-import imgfire1 from './objs/fire1.png';
+const imgfire1 = require('./objs/fire1.png');
 //火（上下反転）
-import imgfireR from './objs/fireReverse.png';
+const imgfireR = require('./objs/fireReverse.png');
 //ポチ
-import imgPochi from './objs/pochi.png';
+const imgPochi = require('./objs/pochi.png');
 //閉じている巻物
-import imgScroll from './objs/scrollObj.png';
+const imgScroll = require('./objs/scrollObj.png');
 //開いている巻物
-import imgScrollOpen from './objs/scrollOpen.png';
+const imgScrollOpen = require('./objs/scrollOpen.png');
 //仏壇
-import imgButsudan from './objs/butsudan.png';
+const imgButsudan = require('./objs/butsudan.png');
 //シノ（先輩くのいち）
-import imgShino from './objs/shino.png';
+const imgShino = require('./objs/shino.png');
 //地蔵
-import imgJizo from './objs/jizo.png';
+const imgJizo = require('./objs/jizo.png');
 //ハニワ
-import imgHaniwa from './objs/haniwa.png';
+const imgHaniwa = require('./objs/haniwa.png');
 //コウスケ
-import imgKosuke from './objs/kosuke.png';
+const imgKosuke = require('./objs/kosuke.png');
 
 
 //背景画像//---------------------------
 
 //stage1
-import furuie from './img/background/furuie5.jpg';
+const furuie = require('./img/background/furuie5.jpg');
 //stage2
-import town1 from './img/background/town1.jpg';
+const town1 = require('./img/background/town1.jpg');
 //stage3
-import ryokan1 from './img/background/ryokan1.jpg';
+const ryokan1 = require('./img/background/ryokan1.jpg');
 //stage4
-import riverside1 from './img/background/riverside.jpg';
+const riverside1 = require('./img/background/riverside.jpg');
 //stage5
-import river1 from './img/background/river.jpg';
+const river1 = require('./img/background/river.jpg');
 //stage6
-import river2 from './img/background/river2.jpg';
+const river2 = require('./img/background/river2.jpg');
 //stage7
-import jizos from './img/background/jizos.jpg';
+const jizos = require('./img/background/jizos.jpg');
 //stage8
-import gardianDog from './img/background/gardianDog.jpg';
+const gardianDog = require('./img/background/gardianDog.jpg');
 //stage9
-import shrine from './img/background/shrine.jpg';
+const shrine = require('./img/background/shrine.jpg');
 //stage10
-import skyStone from './img/background/sky1.jpg';
+const skyStone = require('./img/background/sky1.jpg');
 //stage11
-import castleRiver from './img/background/castleRiver.jpg';
+const castleRiver = require('./img/background/castleRiver.jpg');
 //stage12
-import castleWall from './img/background/castleWall.jpg';
+const castleWall = require('./img/background/castleWall.jpg');
 //stage13
-import castle from './img/background/castle.jpg';
+const castle = require('./img/background/castle.jpg');
 //stage14
-import heaven from './img/background/heaven.png';
+const heaven = require('./img/background/heaven.png');
 
 
 export default class Page2 extends React.Component {
+    props: any;
+    state: any;
+
+    terminalPC: boolean;
+    initFlag: boolean;
+    prevStage: number;
+    UL: number;
+    ninja: any;
+    objWalls: { leftWall: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; rightWall: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; };
+    readElementScroll: any;
+    objOutOfScreen: { outOfScreenLeft: { size: number; posX: number; posY: number; onTouch: () => void; divType: string; }; outOfScreenRight: { size: number; posX: number; posY: number; onTouch: () => void; divType: string; }; outOfScreenTop: any; outOfScreenBottom: any; };
+    objFloor: { floor1: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; floor2: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; floor3: any; floor4: any; };
+    backgroundSetting: {
+        /* 背景画像 */
+        backgroundImage: string;
+        /* 画像を常に天地左右の中央に配置 */
+        backgroundPosition: string;
+        /* 画像をタイル状に繰り返し表示しない */
+        backgroundRepeat: string;
+        /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+        backgroundSize: string;
+        /* 背景画像が読み込まれる前に表示される背景のカラー */
+        backgroundColor: string;
+    };
+    consts: any;
+    lButton: boolean;
+    rButton: boolean;
+    jButton: boolean;
+    pageStyle: any;
+    timerId: NodeJS.Timeout;
+    objs: any;
+    closeScroll: boolean;
+    closeButton: boolean;
+    bgImg: any;
 
     constructor(props) {
         super(props);
@@ -482,8 +516,8 @@ export default class Page2 extends React.Component {
     //---------------↓　resize　↓---------------
     getWindowSize() {
         let pageWidth, pageHeight;
-        let screenWidth = parseInt(window.innerWidth, 10);
-        let screenHeight = parseInt(window.innerHeight, 10);
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
 
         if (screenWidth > screenHeight) {
             //横長
@@ -691,7 +725,7 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
-        document.onkeydown = function (e) {
+        document.onkeydown = function (e: any) {
             if (!e) e = window.event; // レガシー
 
             // ------------------------------------------------------------
@@ -717,7 +751,7 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         // キーボードを離したときに実行されるイベント
         // ------------------------------------------------------------
-        document.onkeyup = function (e) {
+        document.onkeyup = function (e: any) {
             if (!e) e = window.event; // レガシー
 
             // キーコード
@@ -2072,7 +2106,7 @@ function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
     if (props.terminalPC) {
 
-        let styleDivPcMessage = {
+        let styleDivPcMessage: any = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -2083,7 +2117,7 @@ function RenderScreenBottom(props) {
             justifyContent: "center",
             alignItems: "center",
         };
-        let styleTextPcMessage = {
+        let styleTextPcMessage: any = {
             fontSize: "xx-large",
             color: "white",
         };
@@ -2120,7 +2154,7 @@ function RenderButtons(props) {
     const UL = props.UL;
 
     //ボタンがあるテーブルのスタイル
-    let controllerStyle = {
+    let controllerStyle: any = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,

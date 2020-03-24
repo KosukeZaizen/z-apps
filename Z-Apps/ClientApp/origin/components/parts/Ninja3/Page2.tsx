@@ -37,6 +37,29 @@ import Stage22 from './stages/Stage22';
 let UL;
 
 export default class Page2 extends React.Component {
+    props: any;
+    state: any;
+
+    terminalPC: boolean;
+    getWindowSize: () => { pageWidth: any; pageHeight: any; };
+    setKeyboardEvent: (objGame: any) => void;
+    onClickButton: any;
+    onMouseUp: any;
+    lang: any;
+    prevStage: number;
+    ninja: any;
+    readElementScroll: any;
+    backgroundSetting: { backgroundImage: string; backgroundPosition: string; backgroundRepeat: string; backgroundSize: string; backgroundColor: string; };
+    lButton: boolean;
+    rButton: boolean;
+    jButton: boolean;
+    timerId: NodeJS.Timeout;
+    closeScroll: boolean;
+    closeButton: boolean;
+    objs: any;
+    bgImg: any;
+    wind: any;
+    pageStyle: any;
 
     constructor(props) {
         super(props);
@@ -401,7 +424,7 @@ function RenderScreenBottom(props) {
 
     if (props.terminalPC) {
         //PCの場合、キーボード操作を促すメッセージ表示
-        let styleDivPcMessage = {
+        let styleDivPcMessage: any = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -437,7 +460,7 @@ function RenderScreenBottom(props) {
 function RenderButtons(props) {
 
     //ボタンがあるテーブルのスタイル
-    let controllerStyle = {
+    let controllerStyle: any = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,

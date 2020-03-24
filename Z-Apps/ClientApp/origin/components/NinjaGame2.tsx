@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Page1 } from './parts/Ninja/Page1';
-import { Page2 } from './parts/Ninja/Page2';
-import '../css/NinjaGame.css';
+import { Page1 } from './parts/Ninja2/Page1';
+import { Page2 } from './parts/Ninja2/Page2';
+import { getParams } from './common/functions';
+import '../css/NinjaGame2.css';
 import Head from './parts/Helmet';
 
 class NinjaGame extends React.Component {
+    readElementScroll: any[];
 
     constructor(props) {
         super(props);
@@ -12,34 +14,35 @@ class NinjaGame extends React.Component {
         let ninja;
         let stage;
 
+        const initialNinja = {
+            size: 12,
+            speedX: 0,
+            speedY: 0,
+            posX: 145,
+            posY: 60,
+            readScroll: [],
+            boolLeft: true,
+        };
+
         //セーブデータ読み込み
-        const saveData = localStorage.getItem('saveData1');
-        if (saveData) {
-            //セーブデータがあればそれを設定
-            const objSaveData = JSON.parse(saveData);
-            ninja = objSaveData.ninja || {
-                size: 12,
-                speedX: 0,
-                speedY: 0,
-                posX: 145,
-                posY: -20,
-                readScroll: [],
-            };
+        const saveData = localStorage.getItem('saveData2');
+
+        //セーブデータがあればそれを設定
+        const objSaveData = JSON.parse(saveData);
+        if (objSaveData) {
+            ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
         } else {
-            //セーブデータがなければ、初期値を設定
-            ninja = {
-                size: 12,
-                speedX: 0,
-                speedY: 0,
-                posX: 145,
-                posY: -20,
-                readScroll: [],
-            };
+            ninja = initialNinja;
             stage = 1;
         }
+
+        //urlパラメータ取得
+        const params = getParams();
+        const lang = (!!params) ? params["l"] : "";
+
         this.state = {
-            language: "English",
+            language: lang,
             curPage: 1,
             stage: stage,//デバッグ用（通常時1）★
             //stage: 1,
@@ -65,7 +68,7 @@ class NinjaGame extends React.Component {
     }
 
     render() {
-        let style = {
+        let style: any = {
             position: "fixed",
             top: 0,
             left: 0,
@@ -78,31 +81,25 @@ class NinjaGame extends React.Component {
         };
 
         return (
-            <center id="ninja-game" style={style}>
+            <div className="center" id="ninja-game" style={style}>
                 <Head
-                    title="Lingual Ninja Games - Scrolls of The Four Elements"
-                    desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
+                    title="Lingual Ninja Games - Castle Of The Maze"
+                    desc="Japanese action game! Be a ninja, and defeat the enemy in the castle!"
                 />
                 <Pages
                     state={this.state}
                     changePage={(i, lang) => { this.changePage(i, lang) }}
                     changeStage={(i, j) => { this.changeStage(i, j) }}
-                    changeLanguage={() => { this.changeLanguage() }}
                     readElementScroll={this.readElementScroll}
                 />
-            </center>
+            </div>
         )
     }
 };
 
 function Pages(props) {
-    if (props.state.curPage === 1) {
-        return (
-            <Page1
-                changePage={(i,lang) => { props.changePage(i,lang) }}
-            />
-        );
-    } else if (props.state.curPage === 2) {
+
+    if (props.state.curPage === 2 || !!props.state.language) {
         return (
             <Page2
                 changeStage={(i, j) => { props.changeStage(i, j) }}
@@ -110,6 +107,12 @@ function Pages(props) {
                 stage={props.state.stage}
                 readElementScroll={props.readElementScroll}
                 language={props.state.language}
+            />
+        );
+    } else if (props.state.curPage === 1) {
+        return (
+            <Page1
+                changePage={(i, lang) => { props.changePage(i, lang) }}
             />
         );
     }

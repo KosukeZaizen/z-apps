@@ -5,16 +5,16 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg1 from '../img/background/snow2.jpg';
-import bgImg2 from '../img/background/snow2-2.jpg';
+const bgImg1 = require('../img/background/snow2.jpg');
+const bgImg2 = require('../img/background/snow2-2.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //修行僧がいる雪道
 Stage.getObjs = (ninja) => {
     Stage.windSpeed = (ninja.snow) ? -1 : 0;//風速
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

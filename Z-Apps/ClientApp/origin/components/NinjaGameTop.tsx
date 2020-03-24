@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import logo1 from './parts/Ninja/img/logo.png';
-import logo2 from './parts/Ninja2/img/logo.png';
-import logo3 from './parts/Ninja3/img/logo.png';
 import Head from './parts/Helmet';
 import { isGoogleAdsDisplayed } from './parts/GoogleAd';
 import FB from './parts/FaceBook';
+
+const logo1 =require('./parts/Ninja/img/logo.png');
+const logo2 =require('./parts/Ninja2/img/logo.png');
+const logo3 =require('./parts/Ninja3/img/logo.png');
 
 const NinjaGameTop = () => {
 
@@ -16,9 +17,9 @@ const NinjaGameTop = () => {
         window.location.reload();
 
         return (
-            <center>
+            <div className="center">
                 <CircularProgress key="circle" size="20%" />
-            </center>
+            </div>
         );
     }
 
@@ -28,7 +29,7 @@ const NinjaGameTop = () => {
                 title="Lingual Ninja Games"
                 desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
             />
-            <center><h1>Lingual Ninja Games</h1></center>
+            <div className="center"><h1>Lingual Ninja Games</h1></div>
             <br />
             <Link to="/ninja1">
                 Chapter1: Scrolls Of The Four Elements<br />

@@ -5,15 +5,15 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/snow1.jpg';
+const bgImg = require('../img/background/snow1.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = 0;//風速の最大・最小
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

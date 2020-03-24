@@ -5,9 +5,9 @@ import Imgs from '../ImportImgs';
 //タッチ関数の読み込み
 import * as OnTouch from '../OnTouch';
 //背景画像
-import bgImg from '../img/background/snow5.jpg';
+const bgImg = require('../img/background/snow5.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //仙人の家（外）
 Stage.getObjs = (ninja) => {
@@ -15,7 +15,7 @@ Stage.getObjs = (ninja) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = (ninja.snow) ? 0 : 0;//風速
 
-    let returnObjs = {
+    let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),

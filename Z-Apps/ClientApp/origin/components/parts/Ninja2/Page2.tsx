@@ -1,107 +1,131 @@
 import * as React from 'react';
 import { NinjaChar } from './objs/ninja/ninja';
 import { Obj } from './objs/obj';
+import { AnyTxtRecord } from 'dns';
 
 
 //オブジェクト素材画像----------------
 
 //岩
-import imgRock from './../Ninja/objs/rock.png';
+const imgRock = require('./../Ninja/objs/rock.png');
 //岩（上下反転）
-import imgRockR from './../Ninja/objs/rockRiverse.png';
+const imgRockR = require('./../Ninja/objs/rockRiverse.png');
 //ポチ
-import imgPochi from './../Ninja/objs/pochi.png';
+const imgPochi = require('./../Ninja/objs/pochi.png');
 //閉じている巻物
-import imgScroll from './../Ninja/objs/scrollObj.png';
+const imgScroll = require('./../Ninja/objs/scrollObj.png');
 //開いている巻物
-import imgScrollOpen from './../Ninja/objs/scrollOpen.png';
+const imgScrollOpen = require('./../Ninja/objs/scrollOpen.png');
 //シノ（先輩くのいち）
-import imgShino from './../Ninja/objs/shino.png';
+const imgShino = require('./../Ninja/objs/shino.png');
 //屋敷（屋根）
-import imgHouse1 from './objs/house.png';
+const imgHouse1 = require('./objs/house.png');
 //悪忍者
-import imgBadNinja from './objs/ninja_bad.png';
+const imgBadNinja = require('./objs/ninja_bad.png');
 //鷲
-import imgWashi from './objs/washi.png';
+const imgWashi = require('./objs/washi.png');
 //木箱
-import imgBox1 from './objs/box.jpg';
+const imgBox1 = require('./objs/box.jpg');
 //レンガ
-import imgBlock1 from './objs/block.jpg';
+const imgBlock1 = require('./objs/block.jpg');
 //カニ
-import imgKani from './objs/kani.png';
+const imgKani = require('./objs/kani.png');
 //フグ
-import imgFugu from './objs/fugu.png';
+const imgFugu = require('./objs/fugu.png');
 //海藻
-import imgKaisou from './objs/kaisou.png';
+const imgKaisou = require('./objs/kaisou.png');
 //デカい魚
-import imgKimme from './objs/onikinme.png';
+const imgKimme = require('./objs/onikinme.png');
 //FireBall
-import imgFireBallR from './objs/fireBallR.png';
+const imgFireBallR = require('./objs/fireBallR.png');
 //扉
-import imgDoor from './objs/tobira.jpg';
+const imgDoor = require('./objs/tobira.jpg');
 //木のブロック
-import imgWoodenBlock from './objs/woodenBox.jpg';
+const imgWoodenBlock = require('./objs/woodenBox.jpg');
 //鍵
-import imgKey from './objs/kagi.png';
+const imgKey = require('./objs/kagi.png');
 //はしご
-import imgHashigo from './objs/hashigo_wood.png';
+const imgHashigo = require('./objs/hashigo_wood.png');
 //一つ目
-import imgOneEye from './objs/hitotsume.png';
+const imgOneEye = require('./objs/hitotsume.png');
 //青い火の玉
-import imgBlueFire from './objs/hinotama.png';
+const imgBlueFire = require('./objs/hinotama.png');
 //鬼
-import imgOni from './objs/oni.png';
+const imgOni = require('./objs/oni.png');
 //ボス
-import imgBoss from './objs/badDog.png';
+const imgBoss = require('./objs/badDog.png');
 //コウモリ
-import imgBat from './objs/bat.png';
+const imgBat = require('./objs/bat.png');
 //看板
-import imgKanban1 from './../Ninja/objs/kanban1.png';
+const imgKanban1 = require('./../Ninja/objs/kanban1.png');
 //看板の矢印
-import imgArrow1 from './../Ninja/objs/arrow1.png';
+const imgArrow1 = require('./../Ninja/objs/arrow1.png');
 //鳥居
-import imgTorii from './../Ninja/objs/torii.png';
+const imgTorii = require('./../Ninja/objs/torii.png');
 
 
 //背景画像//---------------------------
 
 //stage1
-import stage1 from './img/background/castle1.jpg';
+const stage1 = require('./img/background/castle1.jpg');
 //stage2
-import stage2 from './img/background/whiteWall.jpg';
+const stage2 = require('./img/background/whiteWall.jpg');
 //stage3
-import stage3 from './img/background/whiteWall2.jpg';
+const stage3 = require('./img/background/whiteWall2.jpg');
 //stage4
-import stage4 from './img/background/whiteWall3.jpg';
+const stage4 = require('./img/background/whiteWall3.jpg');
 //stage5
-import stage5 from './img/background/waterCastle.jpg';
+const stage5 = require('./img/background/waterCastle.jpg');
 //stage6～8
-import inWater from './img/background/rockWall.jpg';
+const inWater = require('./img/background/rockWall.jpg');
 //stage9
-import stage9 from './img/background/furo.jpg';
+const stage9 = require('./img/background/furo.jpg');
 //stage10
-import stage10 from './img/background/datsuiJo.jpg';
+const stage10 = require('./img/background/datsuiJo.jpg');
 //stage11～13
-import twoLayer from './img/background/washitsu.jpg';
+const twoLayer = require('./img/background/washitsu.jpg');
 //stage14
-import stage14 from './img/background/wa1.jpg';
+const stage14 = require('./img/background/wa1.jpg');
 //stage15
-import stage15 from './img/background/soto.jpg';
+const stage15 = require('./img/background/soto.jpg');
 //stage16
-import stage16 from './img/background/wa2.jpg';
+const stage16 = require('./img/background/wa2.jpg');
 //stage17
-import stage17 from './img/background/wa3.jpg';
+const stage17 = require('./img/background/wa3.jpg');
 //stage18
-import stage18 from './img/background/wa4.jpg';
+const stage18 = require('./img/background/wa4.jpg');
 //stage19
-import stage19 from './img/background/boss.jpg';
+const stage19 = require('./img/background/boss.jpg');
 //stage19（クリア後）
-import stage19a from './img/background/afterBoss.jpg';
+const stage19a = require('./img/background/afterBoss.jpg');
 //stage20
-import stage20 from './img/background/wa5.jpg';
+const stage20 = require('./img/background/wa5.jpg');
 
 
 export default class Page2 extends React.Component {
+    props: any;
+    state: any;
+
+    terminalPC: boolean;
+    lang: any;
+    prevStage: number;
+    UL: number;
+    ninja: any;
+    readElementScroll: any;
+    objOutOfScreen: any;
+    objWalls: any;
+    objFloor: any;
+    backgroundSetting: any;
+    consts: any;
+    lButton: boolean;
+    rButton: boolean;
+    jButton: boolean;
+    timerId: NodeJS.Timeout;
+    objs: any;
+    closeScroll: boolean;
+    closeButton: boolean;
+    pageStyle: any;
+    bgImg: any;
 
     constructor(props) {
         super(props);
@@ -625,8 +649,8 @@ export default class Page2 extends React.Component {
     //---------------↓　resize　↓---------------
     getWindowSize() {
         let pageWidth, pageHeight;
-        let screenWidth = parseInt(window.innerWidth, 10);
-        let screenHeight = parseInt(window.innerHeight, 10);
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
 
         if (screenWidth > screenHeight) {
             //横長
@@ -685,7 +709,7 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
-        document.onkeydown = function (e) {
+        document.onkeydown = function (e: any) {
             if (!e) e = window.event; // レガシー
 
             // ------------------------------------------------------------
@@ -711,7 +735,7 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         // キーボードを離したときに実行されるイベント
         // ------------------------------------------------------------
-        document.onkeyup = function (e) {
+        document.onkeyup = function (e: any) {
             if (!e) e = window.event; // レガシー
 
             // キーコード
@@ -2750,7 +2774,7 @@ function RenderScreenBottom(props) {
 
     if (props.terminalPC) {
 
-        let styleDivPcMessage = {
+        let styleDivPcMessage: any = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -2761,7 +2785,7 @@ function RenderScreenBottom(props) {
             justifyContent: "center",
             alignItems: "center",
         };
-        let styleTextPcMessage = {
+        let styleTextPcMessage: any = {
             fontSize: "xx-large",
             color: "white",
         };
@@ -2798,7 +2822,7 @@ function RenderButtons(props) {
     const UL = props.UL;
 
     //ボタンがあるテーブルのスタイル
-    let controllerStyle = {
+    let controllerStyle: any = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,
@@ -2806,14 +2830,14 @@ function RenderButtons(props) {
         backgroundColor: "black",
     };
     //左右のボタンのスタイル
-    let sideButtonStyle = {
+    let sideButtonStyle: any = {
         width: 30 * UL,
         height: 15 * UL,
         fontSize: 4 * UL + "px",
         margin: "1px",
     };
     //ジャンプボタンのスタイル
-    let jumpButtonStyle = {
+    let jumpButtonStyle: any = {
         width: 100 * UL,
         height: 15 * UL,
         fontSize: 4 * UL,

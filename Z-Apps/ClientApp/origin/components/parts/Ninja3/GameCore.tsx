@@ -7,8 +7,8 @@
 
 export const getWindowSize = function () {
     let pageWidth, pageHeight;
-    let screenWidth = parseInt(window.innerWidth, 10);
-    let screenHeight = parseInt(window.innerHeight, 10);
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
     if (screenWidth > screenHeight) {
         //横長
@@ -80,7 +80,7 @@ export const setKeyboardEvent = function (objGame) {
     // ------------------------------------------------------------
     // キーボードを押したときに実行されるイベント
     // ------------------------------------------------------------
-    document.onkeydown = function (e) {
+    document.onkeydown = function (e: any) {
         if (!e) e = window.event; // レガシー
 
         // ------------------------------------------------------------
@@ -106,7 +106,7 @@ export const setKeyboardEvent = function (objGame) {
     // ------------------------------------------------------------
     // キーボードを離したときに実行されるイベント
     // ------------------------------------------------------------
-    document.onkeyup = function (e) {
+    document.onkeyup = function (e: any) {
         if (!e) e = window.event; // レガシー
 
         // キーコード

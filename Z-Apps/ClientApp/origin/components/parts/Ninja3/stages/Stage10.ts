@@ -3,9 +3,9 @@ import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
 import Imgs from '../ImportImgs';
 //背景画像
-import bgImg from '../img/background/tengumura1.jpg';
+const bgImg = require('../img/background/tengumura1.jpg');
 
-const Stage = {};
+const Stage: any = {};
 
 //夜の階段（仙人の家の近く）
 Stage.getObjs = (ninja) => {

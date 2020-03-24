@@ -29,7 +29,7 @@ export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
 }
 
 //氷ブロック生成関数
-export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
+export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity?) {
     let objResult = {};
 
     for (let index in arrPos) {
@@ -48,7 +48,7 @@ export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
 }
 
 //画像　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft, opacity) {
+export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft?, opacity?) {
     return {
         size: size,
         posX: posX,
@@ -92,7 +92,7 @@ export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
 }
 
 //飛ぶ岩　生成関数
-export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
+export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight?, img?) {
     let objResult = {};
     img = img || Imgs.Rock;
 
@@ -121,7 +121,7 @@ export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
 }
 
 //飛ぶ岩（右向き）　生成関数
-export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
+export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight?) {
     let objResult = {};
     objResult[`Rock${id}`] = {
         size: size,
@@ -181,7 +181,7 @@ export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
 }
 
 //凍ったオブジェクト　生成関数
-export function getFrozenObj(name, size, posX, posY, img, zIndex, boolLeft) {
+export function getFrozenObj(name, size, posX, posY, img, zIndex?, boolLeft?) {
     let objResult = {};
     zIndex = zIndex || 10;
     objResult[name] = getOnePic(size, posX, posY, img, zIndex, OnTouch.toNothing, boolLeft);
@@ -204,7 +204,7 @@ export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch)
 }
 
 //メッセージ表示　巻物
-export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, isFinal) {
+export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft?, isFinal?) {
     let objResult = {};
 
     objResult[`${name}_ScrollOpener`] = {
@@ -298,7 +298,7 @@ export function getBoss() {
 
 //ステージ変更用ゲート（左）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getLeftGate(next, nextX, nextY, posX) {
+export function getLeftGate(next, nextX?, nextY?, posX?) {
     return {
         size: 300,
         posX: -300 + (posX || 0),
@@ -315,7 +315,7 @@ export function getLeftGate(next, nextX, nextY, posX) {
 
 //ステージ変更用ゲート（右）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getRightGate(next, nextX, nextY, posX) {
+export function getRightGate(next, nextX?, nextY?, posX?) {
     return {
         size: 300,
         posX: 160 + (posX || 0),
@@ -332,7 +332,7 @@ export function getRightGate(next, nextX, nextY, posX) {
 
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
-export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
+export function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft?) {
     const posY = heightOfTheGate - 1000 || -1012;
     return {
         size: 1000,
@@ -367,7 +367,7 @@ export function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
 }
 
 //触ったら死亡する、不動オブジェクト
-export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
+export function getDangerousObj(size, posX, posY, img?, zIndex?, boolLeft?) {
     return {
         size: size,
         posX: posX,
@@ -381,7 +381,7 @@ export function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
 }
 
 //雪 生成関数
-export function getSnows(strength, zIndex, reverse) {
+export function getSnows(strength, zIndex?, reverse?) {
     let objResult = {};
     const eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
 
@@ -403,25 +403,6 @@ export function getSnows(strength, zIndex, reverse) {
     return objResult;
 }
 
-//鍵　生成関数
-export function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-    let objResult = {};
-
-    if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
-        //まだ鍵を見付けていない場合のみ表示
-        objResult["key"] = {
-            size: 10,
-            posX: posX,
-            posY: posY,
-            zIndex: zIndex,
-            img: Imgs.imgKey,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: openTargetTitle,
-            boolLeft: true,
-        };
-    }
-    return objResult;
-}
 
 //画面外を黒くする要素
 export function getObjOutOfScreen() {

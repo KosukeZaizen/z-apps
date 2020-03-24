@@ -112,7 +112,7 @@ var SiteMapEdit = /** @class */ (function (_super) {
                     case 0:
                         _b.trys.push([0, 3, , 4]);
                         if (!window.confirm('Are you sure that you want to register?')) return [3 /*break*/, 2];
-                        _a = this.state, sitemap = _a.sitemap, token = _a.token;
+                        _a = this.state; sitemap = _a.sitemap; token = _a.token;
                         return [4 /*yield*/, commonFnc.sendPost({ sitemap: sitemap, token: token }, "api/SiteMapEdit/RegisterSiteMap")];
                     case 1:
                         result = _b.sent();

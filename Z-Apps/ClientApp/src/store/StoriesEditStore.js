@@ -476,7 +476,7 @@ exports.actionCreators = {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
                     if (!window.confirm('Are you sure that you want to save?')) return [3 /*break*/, 2];
-                    _a = getState().storiesEdit, storyDesc = _a.storyDesc, sentences = _a.sentences, words = _a.words, token = _a.token;
+                    _a = getState().storiesEdit; storyDesc = _a.storyDesc; sentences = _a.sentences; words = _a.words; token = _a.token;
                     localStorage.setItem("folktales-register-token", JSON.stringify({ token: token }));
                     return [4 /*yield*/, commonFnc.sendPost({ storyDesc: storyDesc, sentences: sentences, words: words, token: token }, "api/StoriesEdit/Save")];
                 case 1:
@@ -505,7 +505,7 @@ exports.actionCreators = {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = getState().storiesEdit, storyDesc = _a.storyDesc, sentences = _a.sentences, words = _a.words, token = _a.token;
+                    _a = getState().storiesEdit; storyDesc = _a.storyDesc; sentences = _a.sentences; words = _a.words; token = _a.token;
                     localStorage.setItem("folktales-register-token", JSON.stringify({ token: token }));
                     return [4 /*yield*/, commonFnc.sendPost({ storyDesc: storyDesc, sentences: sentences, words: words, token: token }, "api/StoriesEdit/Save")];
                 case 1:
@@ -534,7 +534,7 @@ exports.actionCreators = {
                 case 0:
                     _b.trys.push([0, 5, , 6]);
                     if (!window.confirm('Are you sure that you want to register?')) return [3 /*break*/, 4];
-                    _a = getState().storiesEdit, storyDesc = _a.storyDesc, sentences = _a.sentences, words = _a.words, token = _a.token;
+                    _a = getState().storiesEdit; storyDesc = _a.storyDesc; sentences = _a.sentences; words = _a.words; token = _a.token;
                     localStorage.setItem("folktales-register-token", JSON.stringify({ token: token }));
                     return [4 /*yield*/, commonFnc.sendPost({ storyDesc: storyDesc, sentences: sentences, words: words, token: token }, "api/StoriesEdit/Save")];
                 case 1:

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import * as Consts from '../Consts'
 
 export default class Obj extends React.Component {
+    props: any;
+    state: any;
 
     constructor(props) {
         super(props);
@@ -29,7 +32,7 @@ export default class Obj extends React.Component {
                 let message = this.props.obj.message;
                 let speakerImg = this.props.obj.speakerImg;
 
-                let styleImg = {
+                let styleImg: any = {
                     position: "absolute",
                     left: posX,
                     top: posY,
@@ -37,7 +40,7 @@ export default class Obj extends React.Component {
                     width: size,
                 };
 
-                let styleTexts = {
+                let styleTexts: any = {
                     position: "absolute",
                     left: posX,
                     top: posY + (size * 9 / 100),
@@ -47,13 +50,13 @@ export default class Obj extends React.Component {
                     lineHeight: fontSize / 20,
                 };
 
-                let h1Style = {
+                let h1Style: any = {
                     margin: size / 50,
                     fontSize: fontSize * 3 / 2,
                 };
 
                 let btnWidth = size / 3;
-                let styleBtnClose = {
+                let styleBtnClose: any = {
                     position: "absolute",
                     left: posX + size / 3,
                     top: posY + size * 3 / 10,
@@ -75,10 +78,10 @@ export default class Obj extends React.Component {
                             alt={"ninja game object"}
                         />
                         <div style={styleTexts}>
-                            <center>
+                            <div className="center">
                                 <h1 style={h1Style}>{title}</h1>
                                 <span>{listlines}</span>
-                            </center>
+                            </div>
                         </div>
                         <CloseElement
                             className={"btn btn-dark btn-lg btn-block"}
@@ -110,20 +113,22 @@ export default class Obj extends React.Component {
             let posX = this.props.obj.posX * UL;
             let posY = this.props.obj.posY * UL;
             let zIndex = this.props.obj.zIndex;
+            let opacity = this.props.obj.opacity;
 
-            let style = {
+            let style: any = {
                 position: "absolute",
                 left: posX,
                 top: posY,
                 transform: rotateLeft,
                 zIndex: zIndex,
+                opacity: opacity,
             };
             return (
                 <img
                     src={img}
                     width={size}
                     style={style}
-                    alt={"ninja game object"}
+                    alt={"object"}
                 />
             );
         } else if (this.props.obj.divType) {
@@ -134,7 +139,7 @@ export default class Obj extends React.Component {
             let posY = this.props.obj.posY * UL;
             let zIndex = this.props.obj.zIndex;
 
-            let style = {
+            let style: any = {
                 position: "absolute",
                 left: posX,
                 top: posY,
@@ -156,17 +161,19 @@ export default class Obj extends React.Component {
             let zIndex = this.props.obj.zIndex;
             let fontSize = this.props.obj.fontSize * UL || 4 * UL;
             let message = this.props.obj.message;
+            let fontColor = this.props.obj.fontColor;
 
-            let style = {
+            let style: any = {
                 position: "absolute",
                 left: posX,
                 top: posY,
                 zIndex: zIndex,
                 fontSize: fontSize,
+                color: fontColor,
+                width: size,
             };
             return (
                 <div
-                    width={size}
                     style={style}
                 >
                     {message}
@@ -186,7 +193,7 @@ function SpeakerImage(props) {
         let posX = props.posX + size * 1.3;
         let posY = props.posY + size * 0.5;
 
-        let style = {
+        let style: any = {
             position: "absolute",
             left: posX,
             top: posY,
@@ -197,7 +204,7 @@ function SpeakerImage(props) {
             <img
                 src={img}
                 width={size}
-                alt={"ninja game object"}
+                alt={"object"}
                 style={style}
             />
         );
@@ -208,25 +215,25 @@ function SpeakerImage(props) {
 
 function CloseElement(props) {
     if (props.obj.finalMessage) {
+        //全クリ時のメッセージ
 
         //localStorageに自動セーブ（次回起動時データ）
         const saveData = {
             ninja: null,
             stage: 1,
         }
-        localStorage.setItem('saveData2', JSON.stringify(saveData));
+        localStorage.setItem(Consts.SAVE_NAME, JSON.stringify(saveData));
 
-        //タイムステップごとのループの終了
+        //タイムステップ毎のループの終了
         clearInterval(props.game.timerId);
 
-        //全クリ時のメッセージ
         return (
-            <Link to="/ninja3">
+            <Link to="/ninja">
                 <button
                     className={"btn btn-dark btn-lg btn-block"}
                     style={props.styleBtnClose}
                 >
-                    {"Next Chapter"}
+                    {"Exit Game"}
                 </button>
             </Link>
         );
@@ -248,5 +255,4 @@ function CloseElement(props) {
         );
     }
 }
-
 export { Obj };
