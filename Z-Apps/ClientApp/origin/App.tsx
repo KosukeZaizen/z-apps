@@ -74,15 +74,30 @@ export default class App extends React.Component {
 
 function NotFoundRedirect({ location }) {
     
-    setTimeout(() => {
-        document.location.href = `/not-found?p=${location.pathname}`;
-    }, 12000);
+    waitAndRedirect("pageNotFoundRedirect");
 
     return (
         <div>
             <LoadingAnimation num={1} />
         </div>
     );
+}
+
+function waitAndRedirect(saveKey) {
+
+    const savedErrTime = window.sessionStorage.getItem(saveKey);
+    const intSavedTime = parseInt(savedErrTime);
+
+    const now = new Date();
+    const nowTime = now.getTime();
+
+    if (intSavedTime && (nowTime - intSavedTime < 15000)) {
+        window.location.href = `/not-found?p=${window.location.pathname}`;
+    } else {
+        window.sessionStorage.setItem(saveKey, nowTime.toString());
+        window.location.reload();
+    }
+    return;
 }
 
 function LoadingAnimation(props) {
