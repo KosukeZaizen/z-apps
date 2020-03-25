@@ -171,6 +171,7 @@ export default class Obj extends React.Component {
                 fontSize: fontSize,
                 color: fontColor,
                 width: size,
+                textAlign: "left"
             };
             return (
                 <div

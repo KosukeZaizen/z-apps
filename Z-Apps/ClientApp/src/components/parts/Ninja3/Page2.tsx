@@ -53,7 +53,7 @@ export default class Page2 extends React.Component {
     lButton: boolean;
     rButton: boolean;
     jButton: boolean;
-    timerId: NodeJS.Timeout;
+    timerId: any;
     closeScroll: boolean;
     closeButton: boolean;
     objs: any;
@@ -61,8 +61,7 @@ export default class Page2 extends React.Component {
     wind: any;
     pageStyle: any;
 
-    constructor(props) {
-        super(props);
+    componentWillMount() {
 
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = GameCore.checkTerminalPC();
@@ -74,9 +73,9 @@ export default class Page2 extends React.Component {
         this.onMouseUp = GameCore.onMouseUp.bind(this);
 
         //引数で受け取った関数と言語設定を、各import元ファイルから使えるように設定
-        CommonFnc.setChangeStage(props.changeStage);
-        setLang(props.language);
-        this.lang = props.language;
+        CommonFnc.setChangeStage(this.props.changeStage);
+        setLang(this.props.language);
+        this.lang = this.props.language;
 
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;

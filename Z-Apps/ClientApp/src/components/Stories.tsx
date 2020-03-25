@@ -610,7 +610,7 @@ class WordList extends React.Component<{
                                                 w.lineNumber === this.props.s.lineNumber
                                             ).map(w =>
                                                 <tr key={w.wordNumber}>
-                                                    <td style={{ textAlign: "center", minWidth: 100, border: "1px solid" }}>
+                                                    <td style={{ minWidth: 100, border: "1px solid" }}>
                                                         {w.kanji}<br />
                                                         {
                                                             w.hiragana ?

@@ -120,21 +120,20 @@ export default class Page2 extends React.Component {
     lButton: boolean;
     rButton: boolean;
     jButton: boolean;
-    timerId: NodeJS.Timeout;
+    timerId: any;
     objs: any;
     closeScroll: boolean;
     closeButton: boolean;
     pageStyle: any;
     bgImg: any;
 
-    constructor(props) {
-        super(props);
+    componentWillMount() {
 
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = this.checkTerminalPC();
 
         //ゲームオーバー画面に送信するための言語情報
-        this.lang = props.language;
+        this.lang = this.props.language;
 
         //前のステージ（ステージ変更判定に利用）
         this.prevStage = 0;

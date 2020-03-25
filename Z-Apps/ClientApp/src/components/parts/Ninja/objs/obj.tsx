@@ -229,6 +229,7 @@ export default class Obj extends React.Component {
                 zIndex: zIndex,
                 fontSize: fontSize,
                 width: size,
+                textAlign: "left"
             };
             return (
                 <div

@@ -22,14 +22,12 @@ class StoriesTop extends React.Component {
     };
     state: {screenWidth: number};
 
-    constructor(props: object) {
+    constructor(props) {
         super(props);
 
         this.state = {
             screenWidth: window.innerWidth,
         };
-
-        this.props.loadAllStories();
 
         let timer;
         window.onresize = () => {
@@ -43,6 +41,10 @@ class StoriesTop extends React.Component {
         };
 
         this.ref = React.createRef();
+    }
+
+    componentDidMount(){
+        this.props.loadAllStories();
     }
 
     changeScreenSize = () => {
