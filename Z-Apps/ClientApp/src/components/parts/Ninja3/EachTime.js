@@ -10,9 +10,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Consts_1 = require("./Consts");
-var ImportImgs_1 = __importDefault(require("./ImportImgs"));
-var OnTouch = __importStar(require("./OnTouch")); //タッチ関数
+const Consts_1 = require("./Consts");
+const ImportImgs_1 = __importDefault(require("./ImportImgs"));
+const OnTouch = __importStar(require("./OnTouch")); //タッチ関数
 //------------------------------------------------------------
 //
 //　　　　　タイムステップごとの関数
@@ -79,7 +79,7 @@ exports.Enemy = Enemy;
 function OneEye(ninja, key) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
-        var day = new Date().getTime();
+        let day = new Date().getTime();
         //5回に1回火の玉生成
         var random1 = Math.floor(Math.random() * 6);
         var random2 = Math.floor(Math.random() * 6);
@@ -113,11 +113,11 @@ exports.OneEye = OneEye;
 function Boss(ninja, key) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
-        var day = new Date().getTime();
+        let day = new Date().getTime();
         //5回に1回コウモリ生成
-        var random1 = Math.floor(Math.random() * 14);
-        var random2 = Math.floor(Math.random() * 8);
-        var random3 = Math.floor(Math.random() * 8) || 1;
+        let random1 = Math.floor(Math.random() * 14);
+        let random2 = Math.floor(Math.random() * 8);
+        let random3 = Math.floor(Math.random() * 8) || 1;
         if (random1 * random2 === 9) {
             ninja.game.objs["shinigami" + day] = {
                 size: 13,
@@ -153,7 +153,7 @@ exports.IceBlock = IceBlock;
 //=======================================
 function FlyingRock(ninja, key) {
     if (!this.direction) {
-        var maxHeight = this.maxHeight || -500;
+        const maxHeight = this.maxHeight || -500;
         if (this.isFlying) {
             if (this.posY < maxHeight) {
                 //画面から大きくはみ出した場合、消す
@@ -165,7 +165,7 @@ function FlyingRock(ninja, key) {
         }
     }
     else if (this.direction === "right") {
-        var maxRight = this.maxRight || 500;
+        const maxRight = this.maxRight || 500;
         if (this.isFlying) {
             if (this.posX > maxRight) {
                 //画面から大きくはみ出した場合、消す
@@ -177,7 +177,7 @@ function FlyingRock(ninja, key) {
         }
     }
     else if (this.direction === "left") {
-        var maxLeft = this.maxLeft || -500;
+        const maxLeft = this.maxLeft || -500;
         if (this.isFlying) {
             if (this.posX < maxLeft) {
                 //画面から大きくはみ出した場合、消す

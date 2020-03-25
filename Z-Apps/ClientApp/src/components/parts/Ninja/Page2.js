@@ -1,28 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -41,98 +17,94 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var ninja_1 = require("./objs/ninja/ninja");
-var obj_1 = require("./objs/obj");
+const React = __importStar(require("react"));
+const ninja_1 = require("./objs/ninja/ninja");
+const obj_1 = require("./objs/obj");
 //オブジェクト素材画像----------------
 //岩
-var rock_png_1 = __importDefault(require("./objs/rock.png"));
+const imgRock = require('./objs/rock.png');
 //岩（上下反転）
-var rockRiverse_png_1 = __importDefault(require("./objs/rockRiverse.png"));
+const imgRockR = require('./objs/rockRiverse.png');
 //木
-var tree1_png_1 = __importDefault(require("./objs/tree1.png"));
+const imgTree1 = require('./objs/tree1.png');
 //看板
-var kanban1_png_1 = __importDefault(require("./objs/kanban1.png"));
+const imgKanban1 = require('./objs/kanban1.png');
 //看板の矢印
-var arrow1_png_1 = __importDefault(require("./objs/arrow1.png"));
+const imgArrow1 = require('./objs/arrow1.png');
 //鳥居
-var torii_png_1 = __importDefault(require("./objs/torii.png"));
+const imgTorii = require('./objs/torii.png');
 //Welcomeのフレーム
-var frame_jpg_1 = __importDefault(require("./objs/frame.jpg"));
+const imgFrame = require('./objs/frame.jpg');
 //火
-var fire1_png_1 = __importDefault(require("./objs/fire1.png"));
+const imgfire1 = require('./objs/fire1.png');
 //火（上下反転）
-var fireReverse_png_1 = __importDefault(require("./objs/fireReverse.png"));
+const imgfireR = require('./objs/fireReverse.png');
 //ポチ
-var pochi_png_1 = __importDefault(require("./objs/pochi.png"));
+const imgPochi = require('./objs/pochi.png');
 //閉じている巻物
-var scrollObj_png_1 = __importDefault(require("./objs/scrollObj.png"));
+const imgScroll = require('./objs/scrollObj.png');
 //開いている巻物
-var scrollOpen_png_1 = __importDefault(require("./objs/scrollOpen.png"));
+const imgScrollOpen = require('./objs/scrollOpen.png');
 //仏壇
-var butsudan_png_1 = __importDefault(require("./objs/butsudan.png"));
+const imgButsudan = require('./objs/butsudan.png');
 //シノ（先輩くのいち）
-var shino_png_1 = __importDefault(require("./objs/shino.png"));
+const imgShino = require('./objs/shino.png');
 //地蔵
-var jizo_png_1 = __importDefault(require("./objs/jizo.png"));
+const imgJizo = require('./objs/jizo.png');
 //ハニワ
-var haniwa_png_1 = __importDefault(require("./objs/haniwa.png"));
+const imgHaniwa = require('./objs/haniwa.png');
 //コウスケ
-var kosuke_png_1 = __importDefault(require("./objs/kosuke.png"));
+const imgKosuke = require('./objs/kosuke.png');
 //背景画像//---------------------------
 //stage1
-var furuie5_jpg_1 = __importDefault(require("./img/background/furuie5.jpg"));
+const furuie = require('./img/background/furuie5.jpg');
 //stage2
-var town1_jpg_1 = __importDefault(require("./img/background/town1.jpg"));
+const town1 = require('./img/background/town1.jpg');
 //stage3
-var ryokan1_jpg_1 = __importDefault(require("./img/background/ryokan1.jpg"));
+const ryokan1 = require('./img/background/ryokan1.jpg');
 //stage4
-var riverside_jpg_1 = __importDefault(require("./img/background/riverside.jpg"));
+const riverside1 = require('./img/background/riverside.jpg');
 //stage5
-var river_jpg_1 = __importDefault(require("./img/background/river.jpg"));
+const river1 = require('./img/background/river.jpg');
 //stage6
-var river2_jpg_1 = __importDefault(require("./img/background/river2.jpg"));
+const river2 = require('./img/background/river2.jpg');
 //stage7
-var jizos_jpg_1 = __importDefault(require("./img/background/jizos.jpg"));
+const jizos = require('./img/background/jizos.jpg');
 //stage8
-var gardianDog_jpg_1 = __importDefault(require("./img/background/gardianDog.jpg"));
+const gardianDog = require('./img/background/gardianDog.jpg');
 //stage9
-var shrine_jpg_1 = __importDefault(require("./img/background/shrine.jpg"));
+const shrine = require('./img/background/shrine.jpg');
 //stage10
-var sky1_jpg_1 = __importDefault(require("./img/background/sky1.jpg"));
+const skyStone = require('./img/background/sky1.jpg');
 //stage11
-var castleRiver_jpg_1 = __importDefault(require("./img/background/castleRiver.jpg"));
+const castleRiver = require('./img/background/castleRiver.jpg');
 //stage12
-var castleWall_jpg_1 = __importDefault(require("./img/background/castleWall.jpg"));
+const castleWall = require('./img/background/castleWall.jpg');
 //stage13
-var castle_jpg_1 = __importDefault(require("./img/background/castle.jpg"));
+const castle = require('./img/background/castle.jpg');
 //stage14
-var heaven_png_1 = __importDefault(require("./img/background/heaven.png"));
-var Page2 = /** @class */ (function (_super) {
-    __extends(Page2, _super);
-    function Page2(props) {
-        var _this = _super.call(this, props) || this;
+const heaven = require('./img/background/heaven.png');
+class Page2 extends React.Component {
+    constructor(props) {
+        super(props);
         //(PC) or (スマホ/タブレット) 判定
-        _this.terminalPC = _this.checkTerminalPC();
+        this.terminalPC = this.checkTerminalPC();
         //初期描画の時のみtrueとする（2回目以降はfalse）
         //タイムステップごとの処理の登録を1回のみ行うために用いる
-        _this.initFlag = true;
+        this.initFlag = true;
         //前のステージ（ステージ変更判定に利用）
-        _this.prevStage = 0;
+        this.prevStage = 0;
         //画面の高さと幅を取得
-        var pageSize = _this.getWindowSize();
+        let pageSize = this.getWindowSize();
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
-        _this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
         //前のステージから受け取った忍者の初期値を設定
-        _this.ninja = _this.props.ninja;
-        _this.readElementScroll = _this.props.readElementScroll;
-        _this.ninja.game = _this;
+        this.ninja = this.props.ninja;
+        this.readElementScroll = this.props.readElementScroll;
+        this.ninja.game = this;
         //画面外を黒くする要素
-        _this.objOutOfScreen = {
+        this.objOutOfScreen = {
             outOfScreenLeft: {
                 size: 300,
                 posX: -300,
@@ -163,7 +135,7 @@ var Page2 = /** @class */ (function (_super) {
             },
         };
         //全ステージ共通の壁（render内で設定）
-        _this.objWalls = {
+        this.objWalls = {
             leftWall: {
                 size: 300,
                 posX: -310,
@@ -180,7 +152,7 @@ var Page2 = /** @class */ (function (_super) {
             },
         };
         //床（必要な場合、render内で設定）
-        _this.objFloor = {
+        this.objFloor = {
             floor1: {
                 size: 200,
                 posX: -20,
@@ -212,9 +184,9 @@ var Page2 = /** @class */ (function (_super) {
         };
         //背景の初期設定
         //        this.bgImg = furuie;
-        _this.backgroundSetting = {
+        this.backgroundSetting = {
             /* 背景画像 */
-            backgroundImage: "url(" + furuie5_jpg_1.default + ")",
+            backgroundImage: `url(${furuie})`,
             /* 画像を常に天地左右の中央に配置 */
             backgroundPosition: "center center",
             /* 画像をタイル状に繰り返し表示しない */
@@ -227,8 +199,8 @@ var Page2 = /** @class */ (function (_super) {
         // ------------------------------------------------------------
         // 定数設定
         // ------------------------------------------------------------
-        if (_this.props.language === "Japanese") {
-            _this.consts = {
+        if (this.props.language === "Japanese") {
+            this.consts = {
                 timeStep: 100,
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
@@ -310,7 +282,7 @@ var Page2 = /** @class */ (function (_super) {
             };
         }
         else {
-            _this.consts = {
+            this.consts = {
                 timeStep: 100,
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
@@ -395,25 +367,24 @@ var Page2 = /** @class */ (function (_super) {
         // ------------------------------------------------------------
         // ステート設定
         // ------------------------------------------------------------
-        _this.state = {
-            screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * _this.UL }, _this.backgroundSetting),
+        this.state = {
+            screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * this.UL }, this.backgroundSetting),
             ninjaStat: {
                 left: true,
-                ninjaX: _this.ninja.posX * _this.UL,
-                ninjaY: _this.ninja.posY * _this.UL,
+                ninjaX: this.ninja.posX * this.UL,
+                ninjaY: this.ninja.posY * this.UL,
             }
         };
         //←ボタン押下判定
-        _this.lButton = false;
+        this.lButton = false;
         //→ボタン押下判定
-        _this.rButton = false;
+        this.rButton = false;
         //jumpボタン押下判定
-        _this.jButton = false;
+        this.jButton = false;
         //キーボード押下時イベントセット
-        _this.setKeyboardEvent(_this);
-        return _this;
+        this.setKeyboardEvent(this);
     }
-    Page2.prototype.checkTerminalPC = function () {
+    checkTerminalPC() {
         // ------------------------------------------------------------
         // (PC) or (スマホ/タブレット) 判定
         // ------------------------------------------------------------
@@ -425,12 +396,12 @@ var Page2 = /** @class */ (function (_super) {
             // PCの場合
             return true;
         }
-    };
+    }
     //---------------↓　resize　↓---------------
-    Page2.prototype.getWindowSize = function () {
-        var pageWidth, pageHeight;
-        var screenWidth = parseInt(window.innerWidth, 10);
-        var screenHeight = parseInt(window.innerHeight, 10);
+    getWindowSize() {
+        let pageWidth, pageHeight;
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
         if (screenWidth > screenHeight) {
             //横長
             pageHeight = screenHeight;
@@ -478,41 +449,40 @@ var Page2 = /** @class */ (function (_super) {
             }
         }
         return { pageWidth: pageWidth, pageHeight: pageHeight };
-    };
+    }
     //---------------↑　resize　↑---------------
-    Page2.prototype.onLoadPage = function () {
-        var _this = this;
+    onLoadPage() {
         //初回描画時のみ処理の登録を行う
         if (this.initFlag) {
             //タイムステップ毎に処理を呼び出す
-            this.timerId = setInterval(function () {
+            this.timerId = setInterval(() => {
                 //タイムステップごとの計算
                 /* ↓　物体速度・位置計算　↓ */
                 //忍者の画像の向き
-                var boolLeft = _this.state.ninjaStat.left;
+                let boolLeft = this.state.ninjaStat.left;
                 //ボタン押下判定
-                if (_this.lButton === false && _this.rButton === false) {
-                    _this.ninja.speedX = 0;
+                if (this.lButton === false && this.rButton === false) {
+                    this.ninja.speedX = 0;
                 }
                 else {
-                    if (_this.lButton === true) {
-                        _this.ninja.speedX = -6;
+                    if (this.lButton === true) {
+                        this.ninja.speedX = -6;
                         boolLeft = true; //画像左向き
                     }
-                    if (_this.rButton === true) {
-                        _this.ninja.speedX = 6;
+                    if (this.rButton === true) {
+                        this.ninja.speedX = 6;
                         boolLeft = false; //画像右向き
                     }
-                    if (_this.lButton === true && _this.rButton === true) {
+                    if (this.lButton === true && this.rButton === true) {
                         //右と左同時押しでハニワ生成
-                        if (_this.ninja.readScroll.indexOf(_this.ninja.game.consts.EARTH_SCROLL_TITLE) > 0) {
+                        if (this.ninja.readScroll.indexOf(this.ninja.game.consts.EARTH_SCROLL_TITLE) > 0) {
                             //地の書を既に読んでいる場合
-                            _this.objs.haniwa = {
+                            this.objs.haniwa = {
                                 size: 12,
-                                posX: _this.ninja.posX,
-                                posY: _this.ninja.posY,
+                                posX: this.ninja.posX,
+                                posY: this.ninja.posY,
                                 zIndex: 20,
-                                img: haniwa_png_1.default,
+                                img: imgHaniwa,
                                 onTouch: onTouchNothing,
                                 haniwa: true,
                             };
@@ -520,65 +490,65 @@ var Page2 = /** @class */ (function (_super) {
                     }
                 }
                 //前タイムステップでジャンプをした時のため、元に戻す
-                _this.closeScroll = false;
-                if (_this.jButton === true) {
-                    if (_this.ninja.speedY === 0) {
+                this.closeScroll = false;
+                if (this.jButton === true) {
+                    if (this.ninja.speedY === 0) {
                         //通常ジャンプ
-                        _this.ninja.speedY = -11;
+                        this.ninja.speedY = -11;
                         //ジャンプ時に巻物を閉じる
-                        _this.closeScroll = true;
+                        this.closeScroll = true;
                     }
-                    if (_this.ninja.readScroll.indexOf(_this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
+                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
                         //風の書を読んでいる
-                        if (_this.ninja.posY > 14) {
+                        if (this.ninja.posY > 14) {
                             //2段ジャンプ実行限界高度に達していない
-                            _this.ninja.speedY = -11;
+                            this.ninja.speedY = -11;
                         }
                     }
-                    _this.jButton = false;
+                    this.jButton = false;
                 }
-                if (_this.closeButton === true) {
+                if (this.closeButton === true) {
                     //巻物を閉じる（Enterキー等押下時）
-                    _this.closeScroll = true;
+                    this.closeScroll = true;
                 }
                 //重力加速度
-                _this.ninja.speedY += 2.1;
+                this.ninja.speedY += 2.1;
                 //落下速度限界
-                if (_this.ninja.speedY > 9) {
-                    _this.ninja.speedY = 9;
+                if (this.ninja.speedY > 9) {
+                    this.ninja.speedY = 9;
                 }
                 //位置計算
-                _this.ninja.posX += _this.ninja.speedX;
-                _this.ninja.posY += _this.ninja.speedY;
+                this.ninja.posX += this.ninja.speedX;
+                this.ninja.posY += this.ninja.speedY;
                 //オブジェクトとの接触判定
                 //忍者の上下左右の端の位置
-                var ninjaLeft = _this.ninja.posX;
-                var ninjaRight = ninjaLeft + _this.ninja.size;
-                var ninjaTop = _this.ninja.posY;
-                var ninjaFoot = ninjaTop + _this.ninja.size;
-                for (var key in _this.objs) {
+                let ninjaLeft = this.ninja.posX;
+                let ninjaRight = ninjaLeft + this.ninja.size;
+                let ninjaTop = this.ninja.posY;
+                let ninjaFoot = ninjaTop + this.ninja.size;
+                for (let key in this.objs) {
                     //途中でステージ遷移したら、関数を中止するためのフラグ
-                    var stageChangedFlag = "";
+                    let stageChangedFlag = "";
                     //オブジェクトの上下左右の端の位置
-                    var objLeft = _this.objs[key].posX;
-                    var objRight = objLeft + _this.objs[key].size;
-                    var objTop = _this.objs[key].posY;
-                    var objFoot = objTop + _this.objs[key].size;
+                    let objLeft = this.objs[key].posX;
+                    let objRight = objLeft + this.objs[key].size;
+                    let objTop = this.objs[key].posY;
+                    let objFoot = objTop + this.objs[key].size;
                     //忍者が上から
-                    if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, _this.ninja.size) === true) {
-                        stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "upper");
+                    if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
                     }
                     //忍者が右から
-                    if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, _this.ninja.size) === true) {
-                        stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "right");
+                    if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
                     }
                     //忍者が下から
-                    if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, _this.ninja.size) === true) {
-                        stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "lower");
+                    if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
                     }
                     //忍者が左から
-                    if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, _this.ninja.size) === true) {
-                        stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "left");
+                    if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
                     }
                     //ステージ遷移をしていたら、関数中止
                     if (stageChangedFlag && stageChangedFlag === "changed") {
@@ -587,24 +557,24 @@ var Page2 = /** @class */ (function (_super) {
                 }
                 /* ↑　物体速度・位置計算　↑ */
                 //ページサイズ取得（ウィンドウサイズが変更された時のため）
-                var pageSize = _this.getWindowSize();
+                let pageSize = this.getWindowSize();
                 //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
-                _this.UL = pageSize.pageHeight / 90;
+                this.UL = pageSize.pageHeight / 90;
                 //物体の位置などを更新し、再描画
-                _this.setState({
-                    screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * _this.UL }, _this.backgroundSetting),
+                this.setState({
+                    screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * this.UL }, this.backgroundSetting),
                     ninjaStat: {
                         left: boolLeft,
-                        ninjaX: _this.ninja.posX * _this.UL,
-                        ninjaY: _this.ninja.posY * _this.UL,
+                        ninjaX: this.ninja.posX * this.UL,
+                        ninjaY: this.ninja.posY * this.UL,
                     }
                 });
             }, this.consts.timeStep);
             //2回目以降の描画時はタイムステップごとの処理を重複して登録しないようにする
             this.initFlag = false;
         }
-    };
-    Page2.prototype.setKeyboardEvent = function (objGame) {
+    }
+    setKeyboardEvent(objGame) {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
@@ -615,8 +585,8 @@ var Page2 = /** @class */ (function (_super) {
             // 入力情報を取得
             // ------------------------------------------------------------
             // キーコード
-            var keyCode = e.keyCode;
-            var keyType;
+            let keyCode = e.keyCode;
+            let keyType;
             if (keyCode === 37) {
                 keyType = "left";
             }
@@ -641,8 +611,8 @@ var Page2 = /** @class */ (function (_super) {
             if (!e)
                 e = window.event; // レガシー
             // キーコード
-            var keyCode = e.keyCode;
-            var keyType;
+            let keyCode = e.keyCode;
+            let keyType;
             if (keyCode === 37) {
                 keyType = "left";
             }
@@ -660,9 +630,9 @@ var Page2 = /** @class */ (function (_super) {
             }
             objGame.onMouseUp(keyType);
         };
-    };
+    }
     //ボタン押下時処理
-    Page2.prototype.onClickButton = function (btnType) {
+    onClickButton(btnType) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = true;
@@ -679,9 +649,9 @@ var Page2 = /** @class */ (function (_super) {
             //closeキー押下判定（Enter、Delete等）
             this.closeButton = true;
         }
-    };
+    }
     //ボタン押下終了時処理
-    Page2.prototype.onMouseUp = function (btnType) {
+    onMouseUp(btnType) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = false;
@@ -694,16 +664,15 @@ var Page2 = /** @class */ (function (_super) {
             //closeキー押下判定（Enter、Delete等）
             this.closeButton = false;
         }
-    };
-    Page2.prototype.render = function () {
-        var _this = this;
+    }
+    render() {
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
             if (this.props.stage === 1) {
                 // ------------------------------------------------------------
                 // ステージ1（出発の宿）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { openFirstScroll: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { openFirstScroll: {
                         size: 10,
                         posX: 145,
                         posY: -20,
@@ -715,20 +684,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.FIRST_SCROLL_TITLE,
                         message: this.consts.FIRST_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, jumpInstruction: {
                         size: 150,
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -740,7 +709,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 100,
                         posY: 70,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.JUMP_INSTRUCTION_TITLE,
                     }, rock2: {
@@ -748,14 +717,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 65,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, kanban1Pic: {
                         size: 20,
                         posX: 7,
                         posY: 60,
                         zIndex: 10,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchNothing,
                     }, kanban1ArrowPic: {
                         size: 10,
@@ -763,7 +732,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 63,
                         boolLeft: true,
                         zIndex: 11,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     }, airScroll: {
                         size: 10,
@@ -771,7 +740,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 13,
                         boolLeft: true,
                         zIndex: 22,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.AIR_SCROLL_TITLE,
                     }, airScrollOpened: {
@@ -779,7 +748,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -812,18 +781,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = furuie5_jpg_1.default;
+                this.bgImg = furuie;
             }
             else if (this.props.stage === 2) {
                 // ------------------------------------------------------------
                 // ステージ2（鳥居がある町）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { shino: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { shino: {
                         size: 10,
                         posX: 120,
                         posY: 2,
                         zIndex: 27,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL2_TITLE,
                     }, shinoScroll: {
@@ -831,27 +800,27 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL2_TITLE,
                         message: this.consts.SHINO_SCROLL2_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, rock1: {
                         size: 17,
                         posX: 50,
                         posY: 63,
                         zIndex: 30,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, tree1Pic: {
                         size: 60,
                         posX: 120,
                         posY: 20,
                         zIndex: 15,
-                        img: tree1_png_1.default,
+                        img: imgTree1,
                         onTouch: onTouchNothing,
                     }, tree1Actual: {
                         size: 60,
@@ -863,7 +832,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 35,
                         posY: 3,
                         zIndex: 10,
-                        img: torii_png_1.default,
+                        img: imgTorii,
                         onTouch: onTouchNothing,
                     }, toriiActual: {
                         size: 120,
@@ -876,7 +845,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 75,
                         posY: 5,
                         zIndex: 30,
-                        img: frame_jpg_1.default,
+                        img: imgFrame,
                         onTouch: onTouchNothing,
                     }, toriiMessage1: {
                         size: 30,
@@ -920,13 +889,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = town1_jpg_1.default;
+                this.bgImg = town1;
             }
             else if (this.props.stage === 3) {
                 // ------------------------------------------------------------
                 // ステージ3（ポチの家）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rightGateWall: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rightGateWall: {
                         size: 300,
                         posX: 160,
                         posY: -200,
@@ -939,7 +908,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 74,
                         posY: 62,
                         zIndex: 20,
-                        img: fire1_png_1.default,
+                        img: imgfire1,
                         onTouch: onTouchFire,
                         jumpHeight: 25,
                     }, pochi: {
@@ -947,7 +916,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 50,
                         posY: 62,
                         zIndex: 20,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL_TITLE,
                     }, pochiScroll: {
@@ -955,20 +924,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL_TITLE,
                         message: this.consts.POCHI_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, butsudan: {
                         size: 40,
                         posX: 5,
                         posY: 32,
                         zIndex: 20,
-                        img: butsudan_png_1.default,
+                        img: imgButsudan,
                         onTouch: onTouchTree,
                     }, scrollButsudanIcon: {
                         size: 10,
@@ -976,7 +945,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 42,
                         boolLeft: true,
                         zIndex: 22,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.FIRE_SCROLL_TITLE,
                     }, butsudanScrollOpened: {
@@ -984,7 +953,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -996,7 +965,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 18,
                         posY: 22,
                         zIndex: 10,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchNothing,
                     }, kanban1ArrowPic: {
                         size: 7,
@@ -1004,7 +973,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 25,
                         boolLeft: true,
                         zIndex: 11,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     }, leftGateWall: {
                         size: 300,
@@ -1016,18 +985,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = ryokan1_jpg_1.default;
+                this.bgImg = ryokan1;
             }
             else if (this.props.stage === 4) {
                 // ------------------------------------------------------------
                 // ステージ4（看板がある河原）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kanban1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kanban1Pic: {
                         size: 20,
                         posX: 47,
                         posY: 60,
                         zIndex: 10,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.KAWARA_SCROLL_TITLE,
                     }, kanban1ArrowPic: {
@@ -1036,14 +1005,14 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 63,
                         boolLeft: true,
                         zIndex: 11,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     }, scrollFromKanban: {
                         size: 150,
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -1055,21 +1024,21 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 65,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, rock2: {
                         size: 20,
                         posX: 15,
                         posY: 63,
                         zIndex: 30,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, rock3Pic: {
                         size: 50,
                         posX: -25,
                         posY: 40,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock3Actual: {
                         size: 50,
@@ -1102,18 +1071,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = riverside_jpg_1.default;
+                this.bgImg = riverside1;
             }
             else if (this.props.stage === 5) {
                 // ------------------------------------------------------------
                 // ステージ5（シノがいる川）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rock1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rock1Pic: {
                         size: 50,
                         posX: 135,
                         posY: 40,
                         zIndex: 20,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 50,
@@ -1126,7 +1095,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 40,
                         zIndex: 15,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 50,
@@ -1139,7 +1108,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: -25,
                         posY: 40,
                         zIndex: 20,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock3Actual: {
                         size: 50,
@@ -1152,7 +1121,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 20,
                         posY: 29,
                         zIndex: 17,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL_TITLE,
                     }, shinoScroll: {
@@ -1160,14 +1129,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL_TITLE,
                         message: this.consts.SHINO_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, riverPic: {
                         size: 200,
                         posX: -20,
@@ -1199,18 +1168,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = river_jpg_1.default;
+                this.bgImg = river1;
             }
             else if (this.props.stage === 6) {
                 // ------------------------------------------------------------
                 // ステージ6（岩の下の水路）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { shino: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { shino: {
                         size: 10,
                         posX: 73,
                         posY: 5,
                         zIndex: 35,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL3_TITLE,
                     }, shinoScroll: {
@@ -1218,20 +1187,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL3_TITLE,
                         message: this.consts.SHINO_SCROLL3_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, rock1Pic: {
                         size: 50,
                         posX: 135,
                         posY: 40,
                         zIndex: 20,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 50,
@@ -1244,7 +1213,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: -5,
                         posY: -25,
                         zIndex: 29,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 90,
@@ -1257,7 +1226,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: -25,
                         posY: -25,
                         zIndex: 30,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock3Actual: {
                         size: 90,
@@ -1296,18 +1265,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = river2_jpg_1.default;
+                this.bgImg = river2;
             }
             else if (this.props.stage === 7) {
                 // ------------------------------------------------------------
                 // ステージ7（石像複数）
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kanban1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kanban1Pic: {
                         size: 20,
                         posX: 77,
                         posY: 60,
                         zIndex: 10,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHRINE_ENTRANCE_TITLE,
                     }, kanban1ArrowPic: {
@@ -1315,14 +1284,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 82,
                         posY: 63,
                         zIndex: 11,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     }, scrollFromKanban: {
                         size: 150,
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -1347,26 +1316,26 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = jizos_jpg_1.default;
+                this.bgImg = jizos;
             }
             else if (this.props.stage === 8) {
                 // ------------------------------------------------------------
                 // ステージ8 (狛犬)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { jizo1: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { jizo1: {
                         size: 14,
                         posX: 40,
                         posY: 62,
                         zIndex: 15,
                         boolLeft: true,
-                        img: jizo_png_1.default,
+                        img: imgJizo,
                         onTouch: onTouchJizo,
                     }, fire1: {
                         size: 13,
                         posX: 97,
                         posY: 6,
                         zIndex: 20,
-                        img: fire1_png_1.default,
+                        img: imgfire1,
                         fireContinueTime: 5,
                         onTouch: onTouchFire,
                         jumpHeight: 20,
@@ -1375,7 +1344,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 77,
                         posY: 62,
                         zIndex: 23,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL5_TITLE,
                     }, shinoScroll: {
@@ -1383,14 +1352,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL5_TITLE,
                         message: this.consts.SHINO_SCROLL5_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -1417,19 +1386,19 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = gardianDog_jpg_1.default;
+                this.bgImg = gardianDog;
             }
             else if (this.props.stage === 9) {
                 // ------------------------------------------------------------
                 // ステージ9 (神社)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rock1: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rock1: {
                         size: 60,
                         posX: 60,
                         posY: 35,
                         zIndex: 20,
                         boolLeft: true,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, jizo1: {
                         size: 14,
@@ -1437,14 +1406,14 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 24,
                         zIndex: 15,
                         boolLeft: true,
-                        img: jizo_png_1.default,
+                        img: imgJizo,
                         onTouch: onTouchJizo,
                     }, fire1: {
                         size: 13,
                         posX: 58,
                         posY: 17,
                         zIndex: 20,
-                        img: fire1_png_1.default,
+                        img: imgfire1,
                         fireContinueTime: 20,
                         onTouch: onTouchFire,
                         jumpHeight: 30,
@@ -1453,7 +1422,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 114,
                         posY: 13,
                         zIndex: 20,
-                        img: fire1_png_1.default,
+                        img: imgfire1,
                         fireContinueTime: 20,
                         onTouch: onTouchFire,
                         jumpHeight: 30,
@@ -1475,19 +1444,19 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = shrine_jpg_1.default;
+                this.bgImg = shrine;
             }
             else if (this.props.stage === 10) {
                 // ------------------------------------------------------------
                 // ステージ10 (空の岩)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), { waterScroll: {
+                this.objs = Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), { waterScroll: {
                         size: 10,
                         posX: 30,
                         posY: 12,
                         boolLeft: true,
                         zIndex: 18,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.WATER_SCROLL_TITLE,
                     }, waterScrollOpened: {
@@ -1495,7 +1464,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -1508,14 +1477,14 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 20,
                         zIndex: 20,
                         boolLeft: true,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, fire1: {
                         size: 15,
                         posX: 20,
                         posY: 45,
                         zIndex: 19,
-                        img: fireReverse_png_1.default,
+                        img: imgfireR,
                         onTouch: onTouchNothing,
                         jumpHeight: 25,
                     }, fire2: {
@@ -1523,7 +1492,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 35,
                         posY: 45,
                         zIndex: 19,
-                        img: fireReverse_png_1.default,
+                        img: imgfireR,
                         onTouch: onTouchNothing,
                         jumpHeight: 25,
                     }, bottomGate: {
@@ -1536,13 +1505,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = sky1_jpg_1.default;
+                this.bgImg = skyStone;
             }
             else if (this.props.stage === 11) {
                 // ------------------------------------------------------------
                 // ステージ11 (河原の城壁)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { riverPic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { riverPic: {
                         size: 200,
                         posX: -20,
                         posY: 71,
@@ -1567,13 +1536,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = castleRiver_jpg_1.default;
+                this.bgImg = castleRiver;
             }
             else if (this.props.stage === 12) {
                 // ------------------------------------------------------------
                 // ステージ12 (城壁の岩肌)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rightGateWall: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { rightGateWall: {
                         size: 300,
                         posX: 160,
                         posY: -200,
@@ -1591,18 +1560,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = castleWall_jpg_1.default;
+                this.bgImg = castleWall;
             }
             else if (this.props.stage === 13) {
                 // ------------------------------------------------------------
                 // ステージ13 (城)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { pochi: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { pochi: {
                         size: 10,
                         posX: 110,
                         posY: 62,
                         zIndex: 22,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL2_TITLE,
                     }, pochiScroll: {
@@ -1610,21 +1579,21 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL2_TITLE,
                         message: this.consts.POCHI_SCROLL2_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, earthScrollIcon: {
                         size: 10,
                         posX: 85,
                         posY: 46,
                         boolLeft: true,
                         zIndex: 22,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.EARTH_SCROLL_TITLE,
                     }, earthScrollOpened: {
@@ -1632,7 +1601,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -1644,7 +1613,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 70,
                         posY: 50,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 40,
@@ -1657,7 +1626,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 30,
                         posY: 62,
                         zIndex: 17,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL4_TITLE,
                     }, shinoScroll: {
@@ -1665,14 +1634,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL4_TITLE,
                         message: this.consts.SHINO_SCROLL4_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -1683,18 +1652,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = castle_jpg_1.default;
+                this.bgImg = castle;
             }
             else if (this.props.stage === 14) {
                 // ------------------------------------------------------------
                 // ステージ14 (天)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { toriiPic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { toriiPic: {
                         size: 120,
                         posX: 35,
                         posY: 3,
                         zIndex: 10,
-                        img: torii_png_1.default,
+                        img: imgTorii,
                         onTouch: onTouchNothing,
                     }, toriiActual: {
                         size: 120,
@@ -1707,7 +1676,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 75,
                         posY: 5,
                         zIndex: 30,
-                        img: frame_jpg_1.default,
+                        img: imgFrame,
                         onTouch: onTouchNothing,
                     }, toriiMessage: {
                         size: 30,
@@ -1722,7 +1691,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 88,
                         posY: 52,
                         zIndex: 17,
-                        img: kosuke_png_1.default,
+                        img: imgKosuke,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.KOSUKE_SCROLL_TITLE,
                     }, kosukeScroll: {
@@ -1730,7 +1699,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -1740,39 +1709,38 @@ var Page2 = /** @class */ (function (_super) {
                         finalMessage: true,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = heaven_png_1.default;
+                this.bgImg = heaven;
             }
             this.prevStage = this.props.stage;
             //localStorageに自動セーブ
-            var _a = this.ninja, game = _a.game, rest = __rest(_a, ["game"]);
-            var saveData = { ninja: rest, stage: this.props.stage };
+            const _a = this.ninja, { game } = _a, rest = __rest(_a, ["game"]);
+            const saveData = { ninja: rest, stage: this.props.stage };
             localStorage.setItem('saveData1', JSON.stringify(saveData));
             //背景画像の変更
-            this.backgroundSetting.backgroundImage = "url(" + this.bgImg + ")";
+            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
         return (React.createElement("div", { id: "Page2", style: this.pageStyle },
-            React.createElement("div", { id: "gameScreen", style: this.state.screenStyle, onLoad: function () { _this.onLoadPage(); } },
+            React.createElement("div", { id: "gameScreen", style: this.state.screenStyle, onLoad: () => { this.onLoadPage(); } },
                 React.createElement(ninja_1.NinjaChar, { imgAlt: "Running Ninja", width: this.ninja.size * this.UL, x: this.state.ninjaStat.ninjaX, y: this.state.ninjaStat.ninjaY, boolLeft: this.state.ninjaStat.left }),
                 React.createElement(RenderObjs, { game: this })),
             React.createElement("b", null,
                 React.createElement(RenderScreenBottom, { onClickButton: this.onClickButton.bind(this), onMouseUp: this.onMouseUp.bind(this), terminalPC: this.terminalPC, UL: this.UL, lang: this.props.language }))));
-    };
-    return Page2;
-}(React.Component));
-exports.Page2 = Page2;
+    }
+}
 exports.default = Page2;
+exports.Page2 = Page2;
 function RenderObjs(props) {
-    var objList = [];
-    for (var key in props.game.objs) {
+    let objList = [];
+    for (let key in props.game.objs) {
         objList.push(React.createElement(obj_1.Obj, { key: key, obj: props.game.objs[key], UL: props.game.UL, game: props.game }));
     }
     return React.createElement("span", null, objList);
 }
 function RenderScreenBottom(props) {
-    var UL = props.UL;
+    const UL = props.UL;
     //画面下部のボタンなどの表示の出し分け
     if (props.terminalPC) {
-        var styleDivPcMessage = {
+        let styleDivPcMessage = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -1783,7 +1751,7 @@ function RenderScreenBottom(props) {
             justifyContent: "center",
             alignItems: "center",
         };
-        var styleTextPcMessage = {
+        let styleTextPcMessage = {
             fontSize: "xx-large",
             color: "white",
         };
@@ -1802,9 +1770,9 @@ function RenderScreenBottom(props) {
     }
 }
 function RenderButtons(props) {
-    var UL = props.UL;
+    const UL = props.UL;
     //ボタンがあるテーブルのスタイル
-    var controllerStyle = {
+    let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,
@@ -1812,14 +1780,14 @@ function RenderButtons(props) {
         backgroundColor: "black",
     };
     //左右のボタンのスタイル
-    var sideButtonStyle = {
+    let sideButtonStyle = {
         width: 30 * UL,
         height: 15 * UL,
         fontSize: 4 * UL + "px",
         margin: "1px",
     };
     //ジャンプボタンのスタイル
-    var jumpButtonStyle = {
+    let jumpButtonStyle = {
         width: 100 * UL,
         height: 15 * UL,
         fontSize: 4 * UL,
@@ -1829,11 +1797,11 @@ function RenderButtons(props) {
         React.createElement("tbody", null,
             React.createElement("tr", null,
                 React.createElement("td", { align: "right" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("left"); }, onTouchStart: function () { props.onClickButton("left"); }, onMouseUp: function () { props.onMouseUp("left"); }, onMouseOut: function () { props.onMouseUp("left"); }, onTouchEnd: function () { props.onMouseUp("left"); } }, "＜")),
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("left"); }, onTouchStart: () => { props.onClickButton("left"); }, onMouseUp: () => { props.onMouseUp("left"); }, onMouseOut: () => { props.onMouseUp("left"); }, onTouchEnd: () => { props.onMouseUp("left"); } }, "＜")),
                 React.createElement("td", { align: "center" },
-                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("jump"); }, onTouchStart: function () { props.onClickButton("jump"); }, onMouseUp: function () { props.onMouseUp("jump"); }, onMouseOut: function () { props.onMouseUp("jump"); }, onTouchEnd: function () { props.onMouseUp("jump"); } }, "↑　jump　↑")),
+                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("jump"); }, onTouchStart: () => { props.onClickButton("jump"); }, onMouseUp: () => { props.onMouseUp("jump"); }, onMouseOut: () => { props.onMouseUp("jump"); }, onTouchEnd: () => { props.onMouseUp("jump"); } }, "↑　jump　↑")),
                 React.createElement("td", { align: "left" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("right"); }, onTouchStart: function () { props.onClickButton("right"); }, onMouseUp: function () { props.onMouseUp("right"); }, onMouseOut: function () { props.onMouseUp("right"); }, onTouchEnd: function () { props.onMouseUp("right"); } }, "＞"))))));
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("right"); }, onTouchStart: () => { props.onClickButton("right"); }, onMouseUp: () => { props.onMouseUp("right"); }, onMouseOut: () => { props.onMouseUp("right"); }, onTouchEnd: () => { props.onMouseUp("right"); } }, "＞"))))));
 }
 function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
     //コメントは忍者が右から来た想定
@@ -1875,8 +1843,8 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 function onTouchScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
-        var objs = ninja.game.objs;
-        for (var key in objs) {
+        let objs = ninja.game.objs;
+        for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
                 objs[key].visible = false;
@@ -2012,8 +1980,8 @@ function onTouchFire(ninja) {
 // 地蔵にタッチ
 //=======================================
 function onTouchJizo(ninja) {
-    var objs = ninja.game.objs;
-    for (var key in objs) {
+    let objs = ninja.game.objs;
+    for (let key in objs) {
         if (objs[key].fireContinueTime) {
             //fireContinueTimeを持っている要素を表示する
             objs[key].visible = true;

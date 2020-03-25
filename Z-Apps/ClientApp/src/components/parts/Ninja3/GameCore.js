@@ -6,9 +6,9 @@
 //------------------------------------------------------------
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWindowSize = function () {
-    var pageWidth, pageHeight;
-    var screenWidth = parseInt(window.innerWidth, 10);
-    var screenHeight = parseInt(window.innerHeight, 10);
+    let pageWidth, pageHeight;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
     if (screenWidth > screenHeight) {
         //横長
         pageHeight = screenHeight;
@@ -81,8 +81,8 @@ exports.setKeyboardEvent = function (objGame) {
         // 入力情報を取得
         // ------------------------------------------------------------
         // キーコード
-        var keyCode = e.keyCode;
-        var keyType;
+        let keyCode = e.keyCode;
+        let keyType;
         if (keyCode === 37) {
             keyType = "left";
         }
@@ -107,8 +107,8 @@ exports.setKeyboardEvent = function (objGame) {
         if (!e)
             e = window.event; // レガシー
         // キーコード
-        var keyCode = e.keyCode;
-        var keyType;
+        let keyCode = e.keyCode;
+        let keyType;
         if (keyCode === 37) {
             keyType = "left";
         }
@@ -165,7 +165,7 @@ exports.onMouseUp = function (btnType) {
 function getBgImg(bgImg) {
     return {
         /* 背景画像 */
-        backgroundImage: "url(" + bgImg + ")",
+        backgroundImage: `url(${bgImg})`,
         /* 画像を常に天地左右の中央に配置 */
         backgroundPosition: "center center",
         /* 画像をタイル状に繰り返し表示しない */

@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,61 +10,58 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var react_anchor_link_smooth_scroll_1 = __importDefault(require("react-anchor-link-smooth-scroll"));
+const React = __importStar(require("react"));
+const react_anchor_link_smooth_scroll_1 = __importDefault(require("react-anchor-link-smooth-scroll"));
 require("./PleaseScrollDown.css");
-var PleaseScrollDown = /** @class */ (function (_super) {
-    __extends(PleaseScrollDown, _super);
-    function PleaseScrollDown(props) {
-        var _this = _super.call(this, props) || this;
-        _this.judge = function () {
-            var _a = _this.props, screenHeight = _a.screenHeight, criteriaRef = _a.criteriaRef;
-            var elem = criteriaRef && criteriaRef.current;
+class PleaseScrollDown extends React.Component {
+    constructor(props) {
+        super(props);
+        this.judge = () => {
+            const { screenHeight, criteriaRef } = this.props;
+            const elem = criteriaRef && criteriaRef.current;
             if (!elem)
                 return;
-            var height = screenHeight || window.innerHeight;
-            var offsetY = elem.getBoundingClientRect().top;
-            var t_position = offsetY - height;
+            const height = screenHeight || window.innerHeight;
+            const offsetY = elem.getBoundingClientRect().top;
+            const t_position = offsetY - height;
             if (t_position >= 0) {
                 // 上側の時
-                _this.setState({
+                this.setState({
                     pleaseScrollDown: true,
                 });
             }
             else {
                 // 下側の時
-                _this.setState({
+                this.setState({
                     pleaseScrollDown: false,
                 });
             }
         };
-        _this.state = {
+        this.state = {
             pleaseScrollDown: false,
         };
-        window.addEventListener('scroll', _this.judge);
-        return _this;
+        window.addEventListener('scroll', this.judge);
     }
-    PleaseScrollDown.prototype.componentDidMount = function () {
-        var _this = this;
-        for (var i = 0; i < 5; i++) {
-            setTimeout(function () {
-                _this.judge();
+    componentDidMount() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.judge();
             }, i * 1000);
         }
-    };
-    PleaseScrollDown.prototype.componentDidUpdate = function (preciousProps) {
+    }
+    componentDidUpdate(preciousProps) {
         if (preciousProps.criteriaRef.current !== this.props.criteriaRef.current) {
             this.judge();
         }
-    };
-    PleaseScrollDown.prototype.componentWillUnmount = function () {
+    }
+    componentWillUnmount() {
         window.removeEventListener('scroll', this.judge);
-    };
-    PleaseScrollDown.prototype.render = function () {
-        var pleaseScrollDown = this.state.pleaseScrollDown;
-        var _a = this.props, screenWidth = _a.screenWidth, criteriaRef = _a.criteriaRef, targetId = _a.targetId;
-        var elem = criteriaRef && criteriaRef.current;
-        var width = screenWidth || window.innerWidth;
+    }
+    render() {
+        const { pleaseScrollDown } = this.state;
+        const { screenWidth, criteriaRef, targetId } = this.props;
+        const elem = criteriaRef && criteriaRef.current;
+        const width = screenWidth || window.innerWidth;
         if (!elem)
             return null;
         return (React.createElement("div", { className: "center" },
@@ -86,7 +70,7 @@ var PleaseScrollDown = /** @class */ (function (_super) {
                     bottom: 0,
                     left: 0,
                     zIndex: pleaseScrollDown ? 999999990 : 0,
-                    width: width + "px",
+                    width: `${width}px`,
                     height: "70px",
                     opacity: pleaseScrollDown ? 1.0 : 0,
                     transition: "all 2s ease",
@@ -96,8 +80,7 @@ var PleaseScrollDown = /** @class */ (function (_super) {
                 } },
                 React.createElement("span", { id: "pleaseScroll" },
                     React.createElement("span", null),
-                    React.createElement(react_anchor_link_smooth_scroll_1.default, { href: "#" + (targetId || (elem && elem.id)) }, "Scroll")))));
-    };
-    return PleaseScrollDown;
-}(React.Component));
+                    React.createElement(react_anchor_link_smooth_scroll_1.default, { href: `#${targetId || (elem && elem.id)}` }, "Scroll")))));
+    }
+}
 exports.default = PleaseScrollDown;

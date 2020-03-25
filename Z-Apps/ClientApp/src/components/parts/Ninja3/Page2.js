@@ -1,28 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -45,200 +21,198 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var ninja_1 = require("./objs/ninja/ninja"); //忍者オブジェクト（主人公）
-var obj_1 = require("./objs/obj"); //オブジェクト描画
-var Messages_1 = require("./Messages"); //メッセージ
-var Consts_1 = require("./Consts"); //定数
-var Messages_2 = require("./Messages"); //メッセージ
-var GameCore = __importStar(require("./GameCore")); //ゲームのコア関数
-var CommonFnc = __importStar(require("./CommonFnc")); //共通関数
+const React = __importStar(require("react"));
+const ninja_1 = require("./objs/ninja/ninja"); //忍者オブジェクト（主人公）
+const obj_1 = require("./objs/obj"); //オブジェクト描画
+const Messages_1 = require("./Messages"); //メッセージ
+const Consts_1 = require("./Consts"); //定数
+const Messages_2 = require("./Messages"); //メッセージ
+const GameCore = __importStar(require("./GameCore")); //ゲームのコア関数
+const CommonFnc = __importStar(require("./CommonFnc")); //共通関数
 //各ステージ情報
-var Stage01_1 = __importDefault(require("./stages/Stage01"));
-var Stage02_1 = __importDefault(require("./stages/Stage02"));
-var Stage03_1 = __importDefault(require("./stages/Stage03"));
-var Stage04_1 = __importDefault(require("./stages/Stage04"));
-var Stage05_1 = __importDefault(require("./stages/Stage05"));
-var Stage06_1 = __importDefault(require("./stages/Stage06"));
-var Stage07_1 = __importDefault(require("./stages/Stage07"));
-var Stage08_1 = __importDefault(require("./stages/Stage08"));
-var Stage09_1 = __importDefault(require("./stages/Stage09"));
-var Stage10_1 = __importDefault(require("./stages/Stage10"));
-var Stage11_1 = __importDefault(require("./stages/Stage11"));
-var Stage12_1 = __importDefault(require("./stages/Stage12"));
-var Stage13_1 = __importDefault(require("./stages/Stage13"));
-var Stage14_1 = __importDefault(require("./stages/Stage14"));
-var Stage15_1 = __importDefault(require("./stages/Stage15"));
-var Stage16_1 = __importDefault(require("./stages/Stage16"));
-var Stage17_1 = __importDefault(require("./stages/Stage17"));
-var Stage18_1 = __importDefault(require("./stages/Stage18"));
-var Stage19_1 = __importDefault(require("./stages/Stage19"));
-var Stage20_1 = __importDefault(require("./stages/Stage20"));
-var Stage21_1 = __importDefault(require("./stages/Stage21"));
-var Stage22_1 = __importDefault(require("./stages/Stage22"));
+const Stage01_1 = __importDefault(require("./stages/Stage01"));
+const Stage02_1 = __importDefault(require("./stages/Stage02"));
+const Stage03_1 = __importDefault(require("./stages/Stage03"));
+const Stage04_1 = __importDefault(require("./stages/Stage04"));
+const Stage05_1 = __importDefault(require("./stages/Stage05"));
+const Stage06_1 = __importDefault(require("./stages/Stage06"));
+const Stage07_1 = __importDefault(require("./stages/Stage07"));
+const Stage08_1 = __importDefault(require("./stages/Stage08"));
+const Stage09_1 = __importDefault(require("./stages/Stage09"));
+const Stage10_1 = __importDefault(require("./stages/Stage10"));
+const Stage11_1 = __importDefault(require("./stages/Stage11"));
+const Stage12_1 = __importDefault(require("./stages/Stage12"));
+const Stage13_1 = __importDefault(require("./stages/Stage13"));
+const Stage14_1 = __importDefault(require("./stages/Stage14"));
+const Stage15_1 = __importDefault(require("./stages/Stage15"));
+const Stage16_1 = __importDefault(require("./stages/Stage16"));
+const Stage17_1 = __importDefault(require("./stages/Stage17"));
+const Stage18_1 = __importDefault(require("./stages/Stage18"));
+const Stage19_1 = __importDefault(require("./stages/Stage19"));
+const Stage20_1 = __importDefault(require("./stages/Stage20"));
+const Stage21_1 = __importDefault(require("./stages/Stage21"));
+const Stage22_1 = __importDefault(require("./stages/Stage22"));
 //【Unit Length】このゲームの単位長さ
-var UL;
-var Page2 = /** @class */ (function (_super) {
-    __extends(Page2, _super);
-    function Page2(props) {
-        var _this = _super.call(this, props) || this;
+let UL;
+class Page2 extends React.Component {
+    constructor(props) {
+        super(props);
         //(PC) or (スマホ/タブレット) 判定
-        _this.terminalPC = GameCore.checkTerminalPC();
+        this.terminalPC = GameCore.checkTerminalPC();
         //GameCoreからimportした関数の設定
-        _this.getWindowSize = GameCore.getWindowSize;
-        _this.setKeyboardEvent = GameCore.setKeyboardEvent;
-        _this.onClickButton = GameCore.onClickButton.bind(_this);
-        _this.onMouseUp = GameCore.onMouseUp.bind(_this);
+        this.getWindowSize = GameCore.getWindowSize;
+        this.setKeyboardEvent = GameCore.setKeyboardEvent;
+        this.onClickButton = GameCore.onClickButton.bind(this);
+        this.onMouseUp = GameCore.onMouseUp.bind(this);
         //引数で受け取った関数と言語設定を、各import元ファイルから使えるように設定
         CommonFnc.setChangeStage(props.changeStage);
         Messages_1.setLang(props.language);
-        _this.lang = props.language;
+        this.lang = props.language;
         //前のステージ（ステージ変更判定に利用）
-        _this.prevStage = 0;
+        this.prevStage = 0;
         //画面の高さと幅を取得
-        var pageSize = _this.getWindowSize();
+        let pageSize = this.getWindowSize();
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
         UL = parseInt(pageSize.pageHeight, 10) / 90;
         //呼び出し元から受け取った忍者の初期値を設定
-        _this.ninja = _this.props.ninja;
-        _this.ninja.lang = _this.lang;
+        this.ninja = this.props.ninja;
+        this.ninja.lang = this.lang;
         //既読の巻物(ステージ遷移の度にリセット)
-        _this.readElementScroll = _this.props.readElementScroll;
+        this.readElementScroll = this.props.readElementScroll;
         //忍者オブジェクトに、ゲーム情報への参照を持たせる
         //（各関数からゲーム情報を参照・更新できるようにするため）
-        _this.ninja.game = _this;
+        this.ninja.game = this;
         //背景の初期設定
-        _this.backgroundSetting = GameCore.getBgImg(Stage01_1.default.bgImg);
+        this.backgroundSetting = GameCore.getBgImg(Stage01_1.default.bgImg);
         // ------------------------------------------------------------
         // ステート初期設定
         // ------------------------------------------------------------
-        _this.state = {
-            screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * UL }, _this.backgroundSetting),
+        this.state = {
+            screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * UL }, this.backgroundSetting),
             ninjaStat: {
                 left: true,
-                ninjaX: _this.ninja.posX * UL,
-                ninjaY: _this.ninja.posY * UL,
+                ninjaX: this.ninja.posX * UL,
+                ninjaY: this.ninja.posY * UL,
             }
         };
         //←ボタン押下判定　初期値
-        _this.lButton = false;
+        this.lButton = false;
         //→ボタン押下判定　初期値
-        _this.rButton = false;
+        this.rButton = false;
         //jumpボタン押下判定　初期値
-        _this.jButton = false;
+        this.jButton = false;
         //キーボード押下時イベントセット
-        _this.setKeyboardEvent(_this);
+        this.setKeyboardEvent(this);
         //タイムステップ毎に処理を呼び出す
-        _this.timerId = setInterval(function () {
+        this.timerId = setInterval(() => {
             //タイムステップごとの計算
             //空中では風の影響を受ける
-            if (_this.ninja.speedY !== 0)
-                _this.ninja.posX += _this.wind;
+            if (this.ninja.speedY !== 0)
+                this.ninja.posX += this.wind;
             /* ↓　物体速度・位置計算　↓ */
             //ボタン押下判定
-            if (_this.lButton === false && _this.rButton === false) {
-                _this.ninja.speedX = 0;
+            if (this.lButton === false && this.rButton === false) {
+                this.ninja.speedX = 0;
             }
             else {
-                if (_this.lButton === true) {
-                    _this.ninja.speedX = _this.ninja.inWater ? -3 : -6;
-                    _this.ninja.boolLeft = true; //画像左向き
+                if (this.lButton === true) {
+                    this.ninja.speedX = this.ninja.inWater ? -3 : -6;
+                    this.ninja.boolLeft = true; //画像左向き
                 }
-                else if (_this.rButton === true) {
-                    _this.ninja.speedX = _this.ninja.inWater ? 3 : 6;
-                    _this.ninja.boolLeft = false; //画像右向き
+                else if (this.rButton === true) {
+                    this.ninja.speedX = this.ninja.inWater ? 3 : 6;
+                    this.ninja.boolLeft = false; //画像右向き
                 }
             }
             //前タイムステップでジャンプをした時のため、元に戻す
-            _this.closeScroll = false;
-            if (_this.jButton === true) {
-                if (_this.ninja.speedY === 0) {
+            this.closeScroll = false;
+            if (this.jButton === true) {
+                if (this.ninja.speedY === 0) {
                     //通常ジャンプ
-                    _this.ninja.speedY = -11;
+                    this.ninja.speedY = -11;
                     //ジャンプ時に巻物を閉じる
-                    _this.closeScroll = true;
+                    this.closeScroll = true;
                 }
-                if (_this.ninja.inWater) {
+                if (this.ninja.inWater) {
                     //水中
-                    if (_this.ninja.posY > -10) {
+                    if (this.ninja.posY > -10) {
                         //2段ジャンプ実行限界高度に達していない
-                        _this.ninja.speedY = -7;
+                        this.ninja.speedY = -7;
                     }
                 }
-                _this.jButton = false;
+                this.jButton = false;
             }
-            if (_this.closeButton === true) {
+            if (this.closeButton === true) {
                 //巻物を閉じる（Enterキー等押下時）
-                _this.closeScroll = true;
+                this.closeScroll = true;
             }
             //重力加速度
-            _this.ninja.speedY += _this.ninja.inWater ? 1.1 * Consts_1.TIME_STEP : 2.1 * Consts_1.TIME_STEP;
+            this.ninja.speedY += this.ninja.inWater ? 1.1 * Consts_1.TIME_STEP : 2.1 * Consts_1.TIME_STEP;
             //落下速度限界
-            if (_this.ninja.inWater) {
+            if (this.ninja.inWater) {
                 //水中
-                if (_this.ninja.speedY > 2) {
-                    _this.ninja.speedY = 2;
+                if (this.ninja.speedY > 2) {
+                    this.ninja.speedY = 2;
                 }
             }
             else {
                 //陸上
-                if (_this.ninja.speedY > 10.5) {
-                    _this.ninja.speedY = 10.5;
+                if (this.ninja.speedY > 10.5) {
+                    this.ninja.speedY = 10.5;
                 }
             }
             //位置計算
-            _this.ninja.posX += _this.ninja.speedX * Consts_1.TIME_STEP;
-            _this.ninja.posY += _this.ninja.speedY * Consts_1.TIME_STEP;
+            this.ninja.posX += this.ninja.speedX * Consts_1.TIME_STEP;
+            this.ninja.posY += this.ninja.speedY * Consts_1.TIME_STEP;
             //オブジェクトとの接触判定
-            for (var key in _this.objs) {
+            for (let key in this.objs) {
                 //途中でステージ遷移したら、関数を中止するためのフラグ
-                var stageChangedFlag = "";
+                let stageChangedFlag = "";
                 //当たり判定と、相対位置の取得
-                var relativePos = CommonFnc.checkRelativity(_this.ninja, _this.objs[key]);
+                let relativePos = CommonFnc.checkRelativity(this.ninja, this.objs[key]);
                 //当たり判定結果確認
                 if (relativePos) {
                     //当たり時の処理を実行
-                    stageChangedFlag = _this.objs[key].onTouch(_this.ninja, relativePos);
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, relativePos);
                 }
                 //ステージ遷移をしていたら、関数中止
                 if (stageChangedFlag === "changed")
                     return;
                 //敵などが各タイムステップごとの処理を持っていれば、実行する
                 //（ステージ遷移はしない）
-                if (_this.objs[key].eachTime) {
-                    _this.objs[key].eachTime(_this.ninja, key);
+                if (this.objs[key].eachTime) {
+                    this.objs[key].eachTime(this.ninja, key);
                 }
             }
             /* ↑　物体速度・位置計算　↑ */
             //ページサイズ取得（ウィンドウサイズが変更された時のため）
-            var pageSize = _this.getWindowSize();
+            let pageSize = this.getWindowSize();
             //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
             UL = pageSize.pageHeight / 90;
             //物体の位置などを更新し、再描画
-            _this.setState({
-                screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * UL }, _this.backgroundSetting),
+            this.setState({
+                screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * UL }, this.backgroundSetting),
                 ninjaStat: {
-                    left: _this.ninja.boolLeft,
-                    ninjaX: _this.ninja.posX * UL,
-                    ninjaY: _this.ninja.posY * UL,
+                    left: this.ninja.boolLeft,
+                    ninjaX: this.ninja.posX * UL,
+                    ninjaY: this.ninja.posY * UL,
                 }
             });
         }, Consts_1.TIME_STEP * 100);
-        return _this;
     }
-    Page2.prototype.componentWillUnmount = function () {
+    componentWillUnmount() {
         //タイムステップ毎のループの終了
         clearInterval(this.timerId);
-    };
-    Page2.prototype.setStage = function (newStage) {
+    }
+    setStage(newStage) {
         //ステージのオブジェクトを設定
         this.objs = newStage.getObjs(this.ninja);
         //ステージの背景画像を設定
         this.bgImg = newStage.bgImg;
         //風 設定
         this.wind = newStage.windSpeed || 0;
-    };
-    Page2.prototype.render = function () {
+    }
+    render() {
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
             //忍者のFireBallCountを0に戻す
@@ -318,11 +292,11 @@ var Page2 = /** @class */ (function (_super) {
             //ステージ変更を検知するために、現在のステージを記憶
             this.prevStage = this.props.stage;
             //localStorageに自動セーブ
-            var _a = this.ninja, game = _a.game, rest = __rest(_a, ["game"]);
-            var saveData = { ninja: rest, stage: this.props.stage };
+            const _a = this.ninja, { game } = _a, rest = __rest(_a, ["game"]);
+            const saveData = { ninja: rest, stage: this.props.stage };
             localStorage.setItem('saveData3', JSON.stringify(saveData));
             //背景画像の変更
-            this.backgroundSetting.backgroundImage = "url(" + this.bgImg + ")";
+            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
         return (React.createElement("div", { id: "Page2", style: this.pageStyle },
             React.createElement("div", { id: "gameScreen", style: this.state.screenStyle },
@@ -330,14 +304,13 @@ var Page2 = /** @class */ (function (_super) {
                 React.createElement(RenderObjs, { game: this })),
             React.createElement("b", null,
                 React.createElement(RenderScreenBottom, { onClickButton: GameCore.onClickButton.bind(this), onMouseUp: GameCore.onMouseUp.bind(this), terminalPC: this.terminalPC }))));
-    };
-    return Page2;
-}(React.Component));
-exports.Page2 = Page2;
+    }
+}
 exports.default = Page2;
+exports.Page2 = Page2;
 function RenderObjs(props) {
-    var objList = [];
-    for (var key in props.game.objs) {
+    let objList = [];
+    for (let key in props.game.objs) {
         objList.push(React.createElement(obj_1.Obj, { key: key, obj: props.game.objs[key], UL: UL, game: props.game }));
     }
     return React.createElement("span", null, objList);
@@ -346,7 +319,7 @@ function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
     if (props.terminalPC) {
         //PCの場合、キーボード操作を促すメッセージ表示
-        var styleDivPcMessage = {
+        let styleDivPcMessage = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -357,7 +330,7 @@ function RenderScreenBottom(props) {
             justifyContent: "center",
             alignItems: "center",
         };
-        var styleTextPcMessage = {
+        let styleTextPcMessage = {
             fontSize: "xx-large",
             color: "white",
         };
@@ -371,7 +344,7 @@ function RenderScreenBottom(props) {
 }
 function RenderButtons(props) {
     //ボタンがあるテーブルのスタイル
-    var controllerStyle = {
+    let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,
@@ -379,14 +352,14 @@ function RenderButtons(props) {
         backgroundColor: "black",
     };
     //左右のボタンのスタイル
-    var sideButtonStyle = {
+    let sideButtonStyle = {
         width: 30 * UL,
         height: 15 * UL,
         fontSize: 4 * UL + "px",
         margin: "1px",
     };
     //ジャンプボタンのスタイル
-    var jumpButtonStyle = {
+    let jumpButtonStyle = {
         width: 100 * UL,
         height: 15 * UL,
         fontSize: 4 * UL,
@@ -396,9 +369,9 @@ function RenderButtons(props) {
         React.createElement("tbody", null,
             React.createElement("tr", null,
                 React.createElement("td", { align: "right" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("left"); }, onTouchStart: function () { props.onClickButton("left"); }, onMouseUp: function () { props.onMouseUp("left"); }, onMouseOut: function () { props.onMouseUp("left"); }, onTouchEnd: function () { props.onMouseUp("left"); } }, "＜")),
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("left"); }, onTouchStart: () => { props.onClickButton("left"); }, onMouseUp: () => { props.onMouseUp("left"); }, onMouseOut: () => { props.onMouseUp("left"); }, onTouchEnd: () => { props.onMouseUp("left"); } }, "＜")),
                 React.createElement("td", { align: "center" },
-                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("jump"); }, onTouchStart: function () { props.onClickButton("jump"); }, onMouseUp: function () { props.onMouseUp("jump"); }, onMouseOut: function () { props.onMouseUp("jump"); }, onTouchEnd: function () { props.onMouseUp("jump"); } }, "↑　jump　↑")),
+                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("jump"); }, onTouchStart: () => { props.onClickButton("jump"); }, onMouseUp: () => { props.onMouseUp("jump"); }, onMouseOut: () => { props.onMouseUp("jump"); }, onTouchEnd: () => { props.onMouseUp("jump"); } }, "↑　jump　↑")),
                 React.createElement("td", { align: "left" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("right"); }, onTouchStart: function () { props.onClickButton("right"); }, onMouseUp: function () { props.onMouseUp("right"); }, onMouseOut: function () { props.onMouseUp("right"); }, onTouchEnd: function () { props.onMouseUp("right"); } }, "＞"))))));
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("right"); }, onTouchStart: () => { props.onClickButton("right"); }, onMouseUp: () => { props.onMouseUp("right"); }, onMouseOut: () => { props.onMouseUp("right"); }, onTouchEnd: () => { props.onMouseUp("right"); } }, "＞"))))));
 }

@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,48 +10,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var ColorPalette = /** @class */ (function (_super) {
-    __extends(ColorPalette, _super);
-    function ColorPalette(props) {
-        var _this = _super.call(this, props) || this;
-        _this.consts = {
+const React = __importStar(require("react"));
+const FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+class ColorPalette extends React.Component {
+    constructor(props) {
+        super(props);
+        this.consts = {
             COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
             MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
             MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
         };
-        _this.state = {
+        this.state = {
             hue: 300,
             saturation: 90,
             lightness: 50,
         };
-        _this.onChangeHue = _this.onChangeHue.bind(_this);
-        _this.onClickHueBar = _this.onClickHueBar.bind(_this);
-        _this.onClickTable = _this.onClickTable.bind(_this);
-        _this.onClickCopy = _this.onClickCopy.bind(_this);
-        return _this;
+        this.onChangeHue = this.onChangeHue.bind(this);
+        this.onClickHueBar = this.onClickHueBar.bind(this);
+        this.onClickTable = this.onClickTable.bind(this);
+        this.onClickCopy = this.onClickCopy.bind(this);
     }
-    ColorPalette.prototype.onChangeHue = function (e) {
+    onChangeHue(e) {
         this.setState({
             hue: parseInt(e.target.value, 10),
         });
-    };
-    ColorPalette.prototype.onClickTable = function (h, s, l) {
+    }
+    onClickTable(h, s, l) {
         this.setState({
             hue: h,
             saturation: s,
             lightness: l,
         });
-    };
-    ColorPalette.prototype.onClickHueBar = function (h) {
+    }
+    onClickHueBar(h) {
         this.setState({
             hue: h,
         });
-    };
-    ColorPalette.prototype.onChangeHueText = function (e) {
-        var hue = e.target.value;
+    }
+    onChangeHueText(e) {
+        let hue = e.target.value;
         //空文字列を0に変換
         hue = hue === "" ? "0" : hue;
         //半角に変換
@@ -78,32 +63,31 @@ var ColorPalette = /** @class */ (function (_super) {
         this.setState({
             hue: hue,
         });
-    };
-    ColorPalette.prototype.onClickCopy = function () {
-        var strTarget = document.getElementById("color-code-to-copy").innerHTML;
+    }
+    onClickCopy() {
+        let strTarget = document.getElementById("color-code-to-copy").innerHTML;
         if (execCopy(strTarget)) {
             alert(this.consts.MSG_COPY_DONE);
         }
         else {
             alert(this.consts.MSG_COPY_ERR);
         }
-    };
-    ColorPalette.prototype.render = function () {
-        var _this = this;
+    }
+    render() {
         //現在stateに設定されている色を文字列で取得
-        var currentColor = changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness);
-        var styleTitle = {
+        let currentColor = changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness);
+        let styleTitle = {
             maxWidth: 600,
             marginTop: 20,
             marginBottom: 30,
             color: currentColor,
         };
-        var styleResultDisplay = {
+        let styleResultDisplay = {
             width: 30,
             height: 30,
             background: currentColor,
         };
-        var styleContents = {
+        let styleContents = {
             maxWidth: 400,
             marginTop: 10,
             marginBottom: 10,
@@ -141,7 +125,7 @@ var ColorPalette = /** @class */ (function (_super) {
                         } },
                         React.createElement("tbody", null,
                             React.createElement("tr", null, getHueBar(this.onClickHueBar)))),
-                    React.createElement("input", { type: "range", min: "0", max: "360", step: "1", value: this.state.hue, onChange: function (e) { _this.onChangeHue(e); }, style: {
+                    React.createElement("input", { type: "range", min: "0", max: "360", step: "1", value: this.state.hue, onChange: (e) => { this.onChangeHue(e); }, style: {
                             maxWidth: 400,
                             marginTop: 29,
                             height: 2,
@@ -159,22 +143,21 @@ var ColorPalette = /** @class */ (function (_super) {
                         React.createElement("tbody", null, getSlTable(this.state.hue, this.onClickTable, this.state))))),
             React.createElement("br", null),
             React.createElement(FaceBook_1.default, null)));
-    };
-    return ColorPalette;
-}(React.Component));
+    }
+}
 ;
 //--------------------------------------------------
 // HSLからCSS用の色指定を返す
 //--------------------------------------------------
 function changeHslToStyle(hue, saturation, lightness) {
-    return "hsl(" + hue + ", " + saturation + "%, " + lightness + "%)";
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 //--------------------------------------------------
 // HSLから背景色付きのtdを返す
 //--------------------------------------------------
 function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, state) {
-    var booLightness = false;
-    var booSaturation = false;
+    let booLightness = false;
+    let booSaturation = false;
     if (state) {
         booLightness = (lightness === state.lightness);
         booSaturation = (saturation === state.saturation);
@@ -182,24 +165,24 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
     if (booLightness || booSaturation) {
         if (booLightness && booSaturation) {
             //選択されたセルは反転した色にする
-            return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue + 180, 100, 60) } }));
+            return (React.createElement("td", { key: key, onClick: () => onClickTable(hue, saturation, lightness), style: { background: changeHslToStyle(hue + 180, 100, 60) } }));
         }
         else {
             //選択された位置から十字に色付けする
-            return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue + 180, 30, 30) } }));
+            return (React.createElement("td", { key: key, onClick: () => onClickTable(hue, saturation, lightness), style: { background: changeHslToStyle(hue + 180, 30, 30) } }));
         }
     }
     else {
         //選択されていない通常セル
-        return (React.createElement("td", { key: key, onClick: function () { return onClickTable(hue, saturation, lightness); }, style: { background: changeHslToStyle(hue, saturation, lightness) } }));
+        return (React.createElement("td", { key: key, onClick: () => onClickTable(hue, saturation, lightness), style: { background: changeHslToStyle(hue, saturation, lightness) } }));
     }
 }
 //--------------------------------------------------
 // 色相のグラデーションバーを作成
 //--------------------------------------------------
 function getHueBar(onClickTable) {
-    var tdList = [];
-    for (var hue = 0; hue <= 360; hue++) {
+    let tdList = [];
+    for (let hue = 0; hue <= 360; hue++) {
         tdList.push(getColoredTdFromHsl(hue, 90, 60, hue, onClickTable));
     }
     return tdList;
@@ -208,8 +191,8 @@ function getHueBar(onClickTable) {
 // 彩度・明度によるテーブルの1行を作成
 //--------------------------------------------------
 function getSlRow(hue, saturation, key, onClickTable, state) {
-    var tdList = [];
-    for (var lightness = 100; lightness >= 0; lightness--) {
+    let tdList = [];
+    for (let lightness = 100; lightness >= 0; lightness--) {
         tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
     }
     return React.createElement("tr", { key: key }, tdList);
@@ -218,8 +201,8 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
 // 彩度・明度によるテーブルを作成
 //--------------------------------------------------
 function getSlTable(hue, onClickTable, state) {
-    var trList = [];
-    for (var saturation = 100; saturation >= 0; saturation--) {
+    let trList = [];
+    for (let saturation = 100; saturation >= 0; saturation--) {
         trList.push(getSlRow(hue, saturation, saturation, onClickTable, state));
     }
     return trList;
@@ -228,7 +211,7 @@ function getSlTable(hue, onClickTable, state) {
 // HSL配列を受け取り、カラーコードを返す
 //--------------------------------------------------
 function changeHslToColorCode(h, s, l) {
-    var arrRGB = changeHslToRgb(h, s, l);
+    let arrRGB = changeHslToRgb(h, s, l);
     return "#" + arrRGB.map(function (value) {
         return ("0" + value.toString(16)).slice(-2);
     }).join("");
@@ -290,17 +273,17 @@ function changeHslToRgb(hue, saturation, lightness) {
 // カラーコードのコピー実行
 //--------------------------------------------------
 function execCopy(string) {
-    var tmp = document.createElement("div");
-    var pre = document.createElement('pre');
+    let tmp = document.createElement("div");
+    let pre = document.createElement('pre');
     pre.style.webkitUserSelect = 'auto';
     pre.style.userSelect = 'auto';
     tmp.appendChild(pre).textContent = string;
-    var s = tmp.style;
+    let s = tmp.style;
     s.position = 'fixed';
     s.right = '200%';
     document.body.appendChild(tmp);
     document.getSelection().selectAllChildren(tmp);
-    var result = document.execCommand("copy");
+    let result = document.execCommand("copy");
     document.body.removeChild(tmp);
     return result;
 }

@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,19 +10,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var Page1_1 = require("./parts/Ninja2/Page1");
-var Page2_1 = require("./parts/Ninja2/Page2");
-var functions_1 = require("./common/functions");
+const React = __importStar(require("react"));
+const Page1_1 = require("./parts/Ninja2/Page1");
+const Page2_1 = require("./parts/Ninja2/Page2");
+const functions_1 = require("./common/functions");
 require("../css/NinjaGame2.css");
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var NinjaGame = /** @class */ (function (_super) {
-    __extends(NinjaGame, _super);
-    function NinjaGame(props) {
-        var _this = _super.call(this, props) || this;
-        var ninja;
-        var stage;
-        var initialNinja = {
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+class NinjaGame extends React.Component {
+    constructor(props) {
+        super(props);
+        let ninja;
+        let stage;
+        const initialNinja = {
             size: 12,
             speedX: 0,
             speedY: 0,
@@ -45,9 +31,9 @@ var NinjaGame = /** @class */ (function (_super) {
             boolLeft: true,
         };
         //セーブデータ読み込み
-        var saveData = localStorage.getItem('saveData2');
+        const saveData = localStorage.getItem('saveData2');
         //セーブデータがあればそれを設定
-        var objSaveData = JSON.parse(saveData);
+        const objSaveData = JSON.parse(saveData);
         if (objSaveData) {
             ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
@@ -57,35 +43,33 @@ var NinjaGame = /** @class */ (function (_super) {
             stage = 1;
         }
         //urlパラメータ取得
-        var params = functions_1.getParams();
-        var lang = (!!params) ? params.l : "";
-        _this.state = {
+        const params = functions_1.getParams();
+        const lang = (!!params) ? params["l"] : "";
+        this.state = {
             language: lang,
             curPage: 1,
             stage: stage,
             //stage: 1,
             ninja: ninja,
         };
-        _this.readElementScroll = [];
-        return _this;
+        this.readElementScroll = [];
     }
-    NinjaGame.prototype.changePage = function (num, lang) {
+    changePage(num, lang) {
         this.setState({
             curPage: num,
             language: lang,
         });
-    };
-    NinjaGame.prototype.changeStage = function (num, ninja) {
+    }
+    changeStage(num, ninja) {
         this.readElementScroll = [];
         this.setState({
             stage: num,
             ninja: ninja,
             curPage: 2,
         });
-    };
-    NinjaGame.prototype.render = function () {
-        var _this = this;
-        var style = {
+    }
+    render() {
+        let style = {
             position: "fixed",
             top: 0,
             left: 0,
@@ -96,19 +80,18 @@ var NinjaGame = /** @class */ (function (_super) {
             userSelect: "none",
             touchCallout: "none",
         };
-        return (React.createElement("center", { id: "ninja-game", style: style },
+        return (React.createElement("div", { className: "center", id: "ninja-game", style: style },
             React.createElement(Helmet_1.default, { title: "Lingual Ninja Games - Castle Of The Maze", desc: "Japanese action game! Be a ninja, and defeat the enemy in the castle!" }),
-            React.createElement(Pages, { state: this.state, changePage: function (i, lang) { _this.changePage(i, lang); }, changeStage: function (i, j) { _this.changeStage(i, j); }, changeLanguage: function () { _this.changeLanguage(); }, readElementScroll: this.readElementScroll })));
-    };
-    return NinjaGame;
-}(React.Component));
+            React.createElement(Pages, { state: this.state, changePage: (i, lang) => { this.changePage(i, lang); }, changeStage: (i, j) => { this.changeStage(i, j); }, readElementScroll: this.readElementScroll })));
+    }
+}
 ;
 function Pages(props) {
     if (props.state.curPage === 2 || !!props.state.language) {
-        return (React.createElement(Page2_1.Page2, { changeStage: function (i, j) { props.changeStage(i, j); }, ninja: props.state.ninja, stage: props.state.stage, readElementScroll: props.readElementScroll, language: props.state.language }));
+        return (React.createElement(Page2_1.Page2, { changeStage: (i, j) => { props.changeStage(i, j); }, ninja: props.state.ninja, stage: props.state.stage, readElementScroll: props.readElementScroll, language: props.state.language }));
     }
     else if (props.state.curPage === 1) {
-        return (React.createElement(Page1_1.Page1, { changePage: function (i, lang) { props.changePage(i, lang); } }));
+        return (React.createElement(Page1_1.Page1, { changePage: (i, lang) => { props.changePage(i, lang); } }));
     }
 }
 exports.default = NinjaGame;

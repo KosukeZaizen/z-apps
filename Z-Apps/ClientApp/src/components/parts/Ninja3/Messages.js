@@ -6,7 +6,7 @@
 //------------------------------------------------------------
 Object.defineProperty(exports, "__esModule", { value: true });
 function setLang(lang) {
-    var jpMessages = {
+    const jpMessages = {
         //PCの場合、キーボードを使う旨のメッセージ
         PC_KEYBOARD: "PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。",
         //屋根の上でポチに触った時のメッセージ
@@ -105,7 +105,7 @@ function setLang(lang) {
             "その英雄は、どんな敵でも、一撃で踏みつけて倒すことができたそうな…\n" +
             "その秘術は、英雄の亡骸と一緒に墓に封印されているという話もあるが…",
     };
-    var enMessages = {
+    const enMessages = {
         //PCの場合、キーボードを使う旨のメッセージ
         PC_KEYBOARD: "Please use [←], [↑], and [→] keys to play!",
         //初期のポチのメッセージ

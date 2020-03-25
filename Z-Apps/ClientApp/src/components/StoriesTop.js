@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,46 +10,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var redux_1 = require("redux");
-var react_redux_1 = require("react-redux");
-var react_router_dom_1 = require("react-router-dom");
-var StoriesTopStore_1 = require("../store/StoriesTopStore");
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
-var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
-var GoogleAd_1 = __importDefault(require("./parts/GoogleAd"));
-var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
-var consts = __importStar(require("./common/consts"));
-var StoriesTop = /** @class */ (function (_super) {
-    __extends(StoriesTop, _super);
-    function StoriesTop(props) {
-        var _this = _super.call(this, props) || this;
-        _this.changeScreenSize = function () {
-            _this.setState({
+const React = __importStar(require("react"));
+const redux_1 = require("redux");
+const react_redux_1 = require("react-redux");
+const react_router_dom_1 = require("react-router-dom");
+const StoriesTopStore_1 = require("../store/StoriesTopStore");
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+const CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
+const FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+const GoogleAd_1 = __importDefault(require("./parts/GoogleAd"));
+const PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
+const consts = __importStar(require("./common/consts"));
+class StoriesTop extends React.Component {
+    constructor(props) {
+        super(props);
+        this.changeScreenSize = () => {
+            this.setState({
                 screenWidth: window.innerWidth
             });
         };
-        _this.state = {
+        this.state = {
             screenWidth: window.innerWidth,
         };
-        _this.props.loadAllStories();
-        var timer;
-        window.onresize = function () {
+        this.props.loadAllStories();
+        let timer;
+        window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
-            timer = setTimeout(function () {
-                _this.changeScreenSize();
+            timer = setTimeout(() => {
+                this.changeScreenSize();
             }, 100);
         };
-        _this.ref = React.createRef();
-        return _this;
+        this.ref = React.createRef();
     }
-    StoriesTop.prototype.render = function () {
-        var allStories = this.props.allStories;
-        var screenWidth = this.state.screenWidth;
-        var styleForAboutTitle = {
+    render() {
+        const { allStories } = this.props;
+        const { screenWidth } = this.state;
+        const styleForAboutTitle = {
             background: "#fee8b4",
             boxShadow: "0px 0px 0px 5px #fee8b4",
             border: "dashed 2px white",
@@ -96,9 +81,9 @@ var StoriesTop = /** @class */ (function (_super) {
                     :
                         React.createElement("div", { className: "center" },
                             React.createElement(CircularProgress_1.default, { key: "circle", size: "20%" })),
-                React.createElement("div", { id: "scrollTargetId", ref: this.ref }, allStories && allStories.map(function (s) {
-                    var nameForUrl = s.storyName;
-                    var nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                React.createElement("div", { id: "scrollTargetId", ref: this.ref }, allStories && allStories.map(s => {
+                    const nameForUrl = s.storyName;
+                    const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
                     return (React.createElement("div", { key: s.storyId, style: { padding: "10px", marginBottom: "10px", border: "5px double #333333" } }, screenWidth > 500 ?
                         React.createElement("table", null,
                             React.createElement("tbody", null,
@@ -109,17 +94,15 @@ var StoriesTop = /** @class */ (function (_super) {
                                                 React.createElement("b", null, nameToShow))))),
                                 React.createElement("tr", null,
                                     React.createElement("td", { style: { width: "50%" } },
-                                        React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
-                                            React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } }))),
+                                        React.createElement(react_router_dom_1.Link, { to: `/folktales/${nameForUrl}` },
+                                            React.createElement("img", { src: `${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`, width: "90%", alt: nameToShow, title: nameToShow, style: { marginLeft: "10px", marginBottom: "10px" } }))),
                                     React.createElement("td", { style: { textAlign: "left" } },
-                                        s.description.split("\\n").map(function (d, i) {
-                                            return React.createElement("span", { key: i, style: { color: "black" } },
-                                                d,
-                                                React.createElement("br", null));
-                                        }),
+                                        s.description.split("\\n").map((d, i) => React.createElement("span", { key: i, style: { color: "black" } },
+                                            d,
+                                            React.createElement("br", null))),
                                         React.createElement("div", { className: "center" },
                                             React.createElement("p", { style: { margin: "20px" } },
-                                                React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
+                                                React.createElement(react_router_dom_1.Link, { to: `/folktales/${nameForUrl}` },
                                                     "Read ",
                                                     nameToShow,
                                                     " >>")))))))
@@ -127,15 +110,13 @@ var StoriesTop = /** @class */ (function (_super) {
                             React.createElement("div", null,
                                 React.createElement("b", null,
                                     React.createElement("h2", { style: { color: "black", marginBottom: "20px" } }, nameToShow)),
-                                React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
-                                    React.createElement("img", { src: consts.BLOB_URL + "/folktalesImg/" + nameForUrl.split("--")[0] + ".png", width: "90%", alt: nameToShow, title: nameToShow })),
-                                React.createElement("div", { style: { textAlign: "left", margin: "10px" } }, s.description.split("\\n").map(function (d, i) {
-                                    return React.createElement("span", { key: i, style: { color: "black" } },
-                                        d,
-                                        React.createElement("br", null));
-                                })),
+                                React.createElement(react_router_dom_1.Link, { to: `/folktales/${nameForUrl}` },
+                                    React.createElement("img", { src: `${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`, width: "90%", alt: nameToShow, title: nameToShow })),
+                                React.createElement("div", { style: { textAlign: "left", margin: "10px" } }, s.description.split("\\n").map((d, i) => React.createElement("span", { key: i, style: { color: "black" } },
+                                    d,
+                                    React.createElement("br", null)))),
                                 React.createElement("p", null,
-                                    React.createElement(react_router_dom_1.Link, { to: "/folktales/" + nameForUrl },
+                                    React.createElement(react_router_dom_1.Link, { to: `/folktales/${nameForUrl}` },
                                         "Read ",
                                         nameToShow,
                                         " >>")))));
@@ -144,8 +125,7 @@ var StoriesTop = /** @class */ (function (_super) {
             React.createElement("br", null),
             React.createElement(GoogleAd_1.default, null),
             React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, screenWidth: screenWidth })));
-    };
-    return StoriesTop;
-}(React.Component));
+    }
+}
 ;
-exports.default = react_redux_1.connect(function (state) { return state["storiesTop"]; }, function (dispatch) { return redux_1.bindActionCreators(StoriesTopStore_1.actionCreators, dispatch); })(StoriesTop);
+exports.default = react_redux_1.connect(state => state["storiesTop"], dispatch => redux_1.bindActionCreators(StoriesTopStore_1.actionCreators, dispatch))(StoriesTop);

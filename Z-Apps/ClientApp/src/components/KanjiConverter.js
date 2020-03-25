@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,19 +10,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var redux_1 = require("redux");
-var react_redux_1 = require("react-redux");
-var KanjiConverter_1 = require("../store/KanjiConverter");
+const React = __importStar(require("react"));
+const redux_1 = require("redux");
+const react_redux_1 = require("react-redux");
+const KanjiConverter_1 = require("../store/KanjiConverter");
 require("../css/KanjiConverter.css");
-var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
-var objConst = {};
-var KanjiConverter = /** @class */ (function (_super) {
-    __extends(KanjiConverter, _super);
-    function KanjiConverter(props) {
-        var _this = _super.call(this, props) || this;
+const FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+const PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
+let objConst = {};
+class KanjiConverter extends React.Component {
+    constructor(props) {
+        super(props);
         objConst = {
             objTwoChars: { "きゃ": "kya", "きゅ": "kyu", "きょ": "kyo", "しゃ": "sha", "しゅ": "shu", "しょ": "sho", "ちゃ": "cha", "ちゅ": "chu", "ちょ": "cho", "にゃ": "nya", "にゅ": "nyu", "にょ": "nyo", "ひゃ": "hya", "ひゅ": "hyu", "ひょ": "hyo", "みゃ": "mya", "みゅ": "myu", "みょ": "myo", "りゃ": "rya", "りゅ": "ryu", "りょ": "ryo", "ぎゃ": "gya", "ぎゅ": "gyu", "ぎょ": "gyo", "じゃ": "ja", "じゅ": "ju", "じょ": "jo", "びゃ": "bya", "びゅ": "byu", "びょ": "byo", "ぴゃ": "pya", "ぴゅ": "pyu", "ぴょ": "pyo", "じぇ": "jie", "ちぇ": "chie", "てぃ": "tei", "でぃ": "dei", "でゅ": "deyu", "ふぁ": "fua", "ふぃ": "fui", "ふぇ": "fue", "ふぉ": "fuo", "ゔぁ": "bua", "ゔぃ": "bui", "ゔぇ": "bue", "ゔぉ": "buo" },
             objTwoChars_K: { "キャ": "kya", "キュ": "kyu", "キョ": "kyo", "シャ": "sha", "シュ": "shu", "ショ": "sho", "チャ": "cha", "チュ": "chu", "チョ": "cho", "ニャ": "nya", "ニュ": "nyu", "ニョ": "nyo", "ヒャ": "hya", "ヒュ": "hyu", "ヒョ": "hyo", "ミャ": "mya", "ミュ": "myu", "ミョ": "myo", "リャ": "rya", "リュ": "ryu", "リョ": "ryo", "ギャ": "gya", "ギュ": "gyu", "ギョ": "gyo", "ジャ": "ja", "ジュ": "ju", "ジョ": "jo", "ビャ": "bya", "ビュ": "byu", "ビョ": "byo", "ピャ": "pya", "ピュ": "pyu", "ピョ": "pyo", "ジェ": "jie", "チェ": "chie", "ティ": "tei", "ディ": "dei", "デュ": "deyu", "ファ": "fua", "フィ": "fui", "フェ": "fue", "フォ": "fuo", "ヴァ": "bua", "ヴィ": "bui", "ヴェ": "bue", "ヴォ": "buo" },
@@ -58,33 +44,32 @@ var KanjiConverter = /** @class */ (function (_super) {
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
             ioArea: []
         };
-        _this.result = "";
-        _this.textVal = "";
-        _this.state = {
+        this.result = "";
+        this.textVal = "";
+        this.state = {
             inputKanji: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
-        _this.setStateTextVal = _this.setStateTextVal.bind(_this);
-        _this.initText = _this.initText.bind(_this);
-        _this.onChangeKanji = _this.onChangeKanji.bind(_this);
-        _this.onClickConvert = _this.onClickConvert.bind(_this);
-        _this.ref = React.createRef();
-        return _this;
+        this.setStateTextVal = this.setStateTextVal.bind(this);
+        this.initText = this.initText.bind(this);
+        this.onChangeKanji = this.onChangeKanji.bind(this);
+        this.onClickConvert = this.onClickConvert.bind(this);
+        this.ref = React.createRef();
     }
-    KanjiConverter.prototype.initText = function () {
+    initText() {
         if (this.state.inputKanji === objConst.MSG_PROMPT) {
             this.setState({
                 inputKanji: "",
                 inputColor: "blackChar",
             });
         }
-    };
-    KanjiConverter.prototype.onChangeKanji = function (kanjiVal) {
+    }
+    onChangeKanji(kanjiVal) {
         this.setState({ inputKanji: kanjiVal.target.value });
-    };
+    }
     // State(textVal)を変更
-    KanjiConverter.prototype.setStateTextVal = function (textVal) {
-        var textVal_r = textVal;
+    setStateTextVal(textVal) {
+        let textVal_r = textVal;
         textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
         textVal_r = convertChars(textVal_r, objConst.objTwoChars);
         textVal_r = convertChars(textVal_r, objConst.objOneChar);
@@ -96,31 +81,31 @@ var KanjiConverter = /** @class */ (function (_super) {
         textVal_r = this.convertSmallTsu(textVal_r);
         textVal_r = convertChars(textVal_r, objConst.objLongSound);
         this.textVal = textVal_r;
-    };
-    KanjiConverter.prototype.convertSmallTsu = function (text) {
+    }
+    convertSmallTsu(text) {
         text = convertChars(text, { "っch": "tch", "ッch": "tch" });
-        var arrText = text.split("");
-        for (var index in arrText) {
+        let arrText = text.split("");
+        for (let index in arrText) {
             if (arrText[index] === "っ" || arrText[index] === "ッ") {
                 arrText[index] = arrText[Number(index) + 1] || "";
             }
         }
         return arrText.join("");
-    };
-    KanjiConverter.prototype.onScrollInput = function () {
+    }
+    onScrollInput() {
         getIoElement();
         objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
-    };
-    KanjiConverter.prototype.onClickConvert = function () {
+    }
+    onClickConvert() {
         if (this.state.inputKanji === objConst.MSG_PROMPT || this.state.inputKanji === "") {
             alert(objConst.MSG_TYPE_KANJI);
         }
         else {
             this.props.requestKanjiConvert(this.state.inputKanji);
         }
-    };
-    KanjiConverter.prototype.onClickCopy = function () {
-        var strTarget = getCopyTarget();
+    }
+    onClickCopy() {
+        let strTarget = getCopyTarget();
         if (strTarget.trim() === "") {
             alert(objConst.MSG_NO_COPY_TARGET);
         }
@@ -132,13 +117,10 @@ var KanjiConverter = /** @class */ (function (_super) {
                 alert(objConst.MSG_COPY_ERR);
             }
         }
-    };
+    }
     //ローマ字変換アプリの表示
-    KanjiConverter.prototype.render = function () {
-        var _this = this;
-        this.props.convertedWords.map(function (w) {
-            return _this.result = w.convertedWord;
-        });
+    render() {
+        this.props.convertedWords.map(w => this.result = w.convertedWord);
         this.result && this.setStateTextVal(this.result);
         return (React.createElement("div", { className: "kanji-converter center" },
             React.createElement(Helmet_1.default, { title: "Kanji Converter", desc: "A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!" }),
@@ -158,8 +140,8 @@ var KanjiConverter = /** @class */ (function (_super) {
                             React.createElement("div", { className: "center" }, "Kanji"))),
                     React.createElement("tr", null,
                         React.createElement("td", { className: "row" },
-                            React.createElement("textarea", { id: "inputKanji", onChange: function (e) { _this.onChangeKanji(e); }, className: this.state.inputColor, value: this.state.inputKanji, onFocus: function (e) { _this.initText(); }, maxLength: 250 }))))),
-            React.createElement("button", { id: "btnConvert", onClick: function (e) { _this.onClickConvert(); }, className: objConst.CONVERT_BUTTON }, objConst.CONVERT_BTN_LABEL),
+                            React.createElement("textarea", { id: "inputKanji", onChange: (e) => { this.onChangeKanji(e); }, className: this.state.inputColor, value: this.state.inputKanji, onFocus: (e) => { this.initText(); }, maxLength: 250 }))))),
+            React.createElement("button", { id: "btnConvert", onClick: (e) => { this.onClickConvert(); }, className: objConst.CONVERT_BUTTON }, objConst.CONVERT_BTN_LABEL),
             this.props.isLoading ? React.createElement("span", null, "Loading...") : [],
             React.createElement("table", { className: "result-table" },
                 React.createElement("tbody", null,
@@ -194,44 +176,32 @@ var KanjiConverter = /** @class */ (function (_super) {
                     React.createElement("a", { href: "https://developer.yahoo.co.jp/about" },
                         React.createElement("img", { src: "https://s.yimg.jp/images/yjdn/yjdn_attbtn1_125_17.gif", title: "Web\u30B5\u30FC\u30D3\u30B9 by Yahoo! JAPAN", alt: "Web Services by Yahoo! JAPAN", width: "125", height: "17", className: "yahoo" })))),
             React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" })));
-    };
-    return KanjiConverter;
-}(React.Component));
+    }
+}
 ;
 //入力エリアの定義（※props経由で親を参照できる）
-var ChildInput = /** @class */ (function (_super) {
-    __extends(ChildInput, _super);
-    function ChildInput() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ChildInput.prototype._onScroll = function () {
+class ChildInput extends React.Component {
+    _onScroll() {
         this.props.onScroll();
-    };
+    }
     //入力エリアの表示
-    ChildInput.prototype.render = function () {
-        var _this = this;
+    render() {
         return (React.createElement("div", { className: "t-area-center center" },
-            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onScroll: function () { _this._onScroll(); }, value: this.props.result })));
-    };
-    return ChildInput;
-}(React.Component));
+            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onScroll: () => { this._onScroll(); }, value: this.props.result })));
+    }
+}
 ;
 //ローマ字出力エリア
-var Child = /** @class */ (function (_super) {
-    __extends(Child, _super);
-    function Child() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Child.prototype.render = function () {
+class Child extends React.Component {
+    render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return React.createElement("p", { key: index, className: "line-wrap" },
                 line,
                 React.createElement("br", null));
         });
         return React.createElement("div", { id: "outputArea", className: "lines" }, lines);
-    };
-    return Child;
-}(React.Component));
+    }
+}
 ;
 function getIoElement() {
     if (objConst.ioArea.length < 2) {
@@ -240,8 +210,8 @@ function getIoElement() {
     }
 }
 function convertChars(text, obj) {
-    for (var key in obj) {
-        var arrText = text.split(key);
+    for (let key in obj) {
+        let arrText = text.split(key);
         text = arrText.join(obj[key]);
     }
     return text;
@@ -265,4 +235,4 @@ function execCopy(string) {
     document.body.removeChild(tmp);
     return result;
 }
-exports.default = react_redux_1.connect(function (state) { return state.kanjiConverter; }, function (dispatch) { return redux_1.bindActionCreators(KanjiConverter_1.actionCreators, dispatch); })(KanjiConverter);
+exports.default = react_redux_1.connect((state) => state.kanjiConverter, dispatch => redux_1.bindActionCreators(KanjiConverter_1.actionCreators, dispatch))(KanjiConverter);

@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -20,52 +7,50 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var Quiz2 = /** @class */ (function (_super) {
-    __extends(Quiz2, _super);
-    function Quiz2(props) {
-        var _this = _super.call(this, props) || this;
-        _this.consts = {
+const React = __importStar(require("react"));
+class Quiz2 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.consts = {
             ANSWER_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block active",
         };
-        _this.state = {
+        this.state = {
             gameCount: 0,
         };
-        _this.correct = 0;
-        _this.incorrectList = {};
-        _this.question = "";
-        _this.btn1Value = "";
-        _this.btn2Value = "";
-        _this.btn3Value = "";
-        _this.btn4Value = "";
-        _this.indexQ = 0;
-        _this.listAll = Object.assign({}, props.consts.KANA_LIST);
-        _this.listTmp = Object.assign({}, props.consts.KANA_LIST);
-        _this.initSet();
-        return _this;
+        this.correct = 0;
+        this.incorrectList = {};
+        this.question = "";
+        this.btn1Value = "";
+        this.btn2Value = "";
+        this.btn3Value = "";
+        this.btn4Value = "";
+        this.indexQ = 0;
+        this.listAll = Object.assign({}, props.consts.KANA_LIST);
+        this.listTmp = Object.assign({}, props.consts.KANA_LIST);
+        this.initSet();
     }
-    Quiz2.prototype.initSet = function () {
-        var aryKeys = Object.keys(this.listTmp);
+    initSet() {
+        let aryKeys = Object.keys(this.listTmp);
         this.indexQ = aryKeys[Math.floor(Math.random() * aryKeys.length)];
         this.question = this.listTmp[this.indexQ];
         delete this.listAll[this.indexQ];
         //ボタン値セット
-        for (var i = 0; i < 4; i++) {
-            var aryKeys_1 = Object.keys(this.listAll);
-            var index = aryKeys_1[Math.floor(Math.random() * aryKeys_1.length)];
-            var j = i + 1;
-            this["btn" + j + "Value"] = index;
+        for (let i = 0; i < 4; i++) {
+            let aryKeys = Object.keys(this.listAll);
+            let index = aryKeys[Math.floor(Math.random() * aryKeys.length)];
+            let j = i + 1;
+            this[`btn${j}Value`] = index;
             delete this.listAll[index];
         }
         //問題と一致するボタンの設置
-        var q = Math.floor(Math.random() * 4) + 1;
-        this["btn" + q + "Value"] = this.indexQ;
+        let q = Math.floor(Math.random() * 4) + 1;
+        this[`btn${q}Value`] = this.indexQ;
         this.listAll = Object.assign({}, this.props.consts.KANA_LIST);
-    };
-    Quiz2.prototype.onClickBtn = function (i) {
-        var maxGame = this.props.maxChar;
-        var question = this.question;
-        var answer = this["btn" + i + "Value"];
+    }
+    onClickBtn(i) {
+        let maxGame = this.props.maxChar;
+        let question = this.question;
+        let answer = this[`btn${i}Value`];
         if (question === this.listTmp[answer]) {
             this.correct += 1;
             alert('Correct!');
@@ -84,13 +69,12 @@ var Quiz2 = /** @class */ (function (_super) {
             this.initSet();
         }
         this.setState({ gameCount: this.state.gameCount + 1, });
-    };
-    Quiz2.prototype.render = function () {
-        var _this = this;
-        var correct = this.correct;
-        var incorrect = Object.keys(this.incorrectList).length || 0;
-        var currentGame = correct + incorrect + 1;
-        var maxGame = this.props.maxChar;
+    }
+    render() {
+        let correct = this.correct;
+        let incorrect = Object.keys(this.incorrectList).length || 0;
+        let currentGame = correct + incorrect + 1;
+        let maxGame = this.props.maxChar;
         return (React.createElement("div", { id: "disp2" },
             "Progress:\u00A0",
             currentGame,
@@ -116,16 +100,15 @@ var Quiz2 = /** @class */ (function (_super) {
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
                         React.createElement("td", null,
-                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(1); } }, this.btn1Value)),
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: () => this.onClickBtn(1) }, this.btn1Value)),
                         React.createElement("td", null,
-                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(2); } }, this.btn2Value))),
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: () => this.onClickBtn(2) }, this.btn2Value))),
                     React.createElement("tr", null,
                         React.createElement("td", null,
-                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(3); } }, this.btn3Value)),
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: () => this.onClickBtn(3) }, this.btn3Value)),
                         React.createElement("td", null,
-                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: function () { return _this.onClickBtn(4); } }, this.btn4Value)))))));
-    };
-    return Quiz2;
-}(React.Component));
-exports.Quiz2 = Quiz2;
+                            React.createElement("button", { className: this.consts.ANSWER_BUTTON_PRIMARY, onClick: () => this.onClickBtn(4) }, this.btn4Value)))))));
+    }
+}
 exports.default = Quiz2;
+exports.Quiz2 = Quiz2;

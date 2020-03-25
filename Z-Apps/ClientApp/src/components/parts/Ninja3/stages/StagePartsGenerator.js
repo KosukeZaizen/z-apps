@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -21,11 +10,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var ImportImgs_1 = __importDefault(require("../ImportImgs"));
-var OnTouch = __importStar(require("../OnTouch")); //タッチ関数
-var EachTime = __importStar(require("../EachTime")); //タイムステップごとの処理
-var Messages_1 = require("../Messages"); //メッセージモジュール
-var CommonFnc_1 = require("../CommonFnc"); //共通関数
+const ImportImgs_1 = __importDefault(require("../ImportImgs"));
+const OnTouch = __importStar(require("../OnTouch")); //タッチ関数
+const EachTime = __importStar(require("../EachTime")); //タイムステップごとの処理
+const Messages_1 = require("../Messages"); //メッセージモジュール
+const CommonFnc_1 = require("../CommonFnc"); //共通関数
 //------------------------------------------------------------
 //
 //　ステージに配置されるオブジェクトを生成するための関数群
@@ -33,8 +22,8 @@ var CommonFnc_1 = require("../CommonFnc"); //共通関数
 //------------------------------------------------------------
 //ブロック生成関数
 function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
-    var objResult = {};
-    for (var index in arrPos) {
+    let objResult = {};
+    for (let index in arrPos) {
         objResult["block" + index] = {
             size: size,
             posX: arrPos[index][0] * size,
@@ -50,8 +39,8 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
 exports.getBlocks = getBlocks;
 //氷ブロック生成関数
 function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity) {
-    var objResult = {};
-    for (var index in arrPos) {
+    let objResult = {};
+    for (let index in arrPos) {
         objResult["iceBlock" + index] = {
             size: size,
             posX: arrPos[index][0] * size,
@@ -83,25 +72,25 @@ exports.getOnePic = getOnePic;
 //矢印看板
 function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
     //看板に触れた時にメッセージを出したくない場合は、scrollNameにnullを渡す
-    var objResult = {};
+    let objResult = {};
     if (boolLeft) {
         //左向き矢印
-        objResult["Kanban" + scrollName] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
+        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
         if (scrollName) {
-            objResult = __assign(__assign({}, objResult), getSoroll(scrollName, 10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, true));
+            objResult = Object.assign(Object.assign({}, objResult), getSoroll(scrollName, 10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, true));
         }
         else {
-            objResult["Arrow" + scrollName] = getOnePic(10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, true);
+            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 4, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, true);
         }
     }
     else {
         //右向き矢印
-        objResult["Kanban" + scrollName] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
+        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, ImportImgs_1.default.Kanban1, zIndex - 1, OnTouch.toNothing);
         if (scrollName) {
-            objResult = __assign(__assign({}, objResult), getSoroll(scrollName, 10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, false));
+            objResult = Object.assign(Object.assign({}, objResult), getSoroll(scrollName, 10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, null, zIndex, false));
         }
         else {
-            objResult["Arrow" + scrollName] = getOnePic(10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, false);
+            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 5, posY + 3, ImportImgs_1.default.Arrow1, zIndex, OnTouch.toNothing, false);
         }
     }
     return objResult;
@@ -109,9 +98,9 @@ function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft) {
 exports.getArrowBoard = getArrowBoard;
 //飛ぶ岩　生成関数
 function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
-    var objResult = {};
+    let objResult = {};
     img = img || ImportImgs_1.default.Rock;
-    objResult["Rock" + name] = {
+    objResult[`Rock${name}`] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -119,10 +108,10 @@ function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
         img: img,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: "Fire" + name,
+        fireName: `Fire${name}`,
         maxHeight: maxHeight,
     };
-    objResult["Fire" + name] = {
+    objResult[`Fire${name}`] = {
         size: size,
         posX: posX,
         posY: posY + (size * 3 / 4),
@@ -137,8 +126,8 @@ function getFlyingRock(name, size, posX, posY, zIndex, maxHeight, img) {
 exports.getFlyingRock = getFlyingRock;
 //飛ぶ岩（右向き）　生成関数
 function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
-    var objResult = {};
-    objResult["Rock" + id] = {
+    let objResult = {};
+    objResult[`Rock${id}`] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -146,11 +135,11 @@ function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
         img: ImportImgs_1.default.RockRight,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: "Fire" + id,
+        fireName: `Fire${id}`,
         maxRight: maxRight,
         direction: "right",
     };
-    objResult["Fire" + id] = {
+    objResult[`Fire${id}`] = {
         size: size,
         posX: posX - (size * 3 / 4),
         posY: posY,
@@ -166,8 +155,8 @@ function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight) {
 exports.getFlyingRockRight = getFlyingRockRight;
 //飛ぶ岩（左向き）　生成関数
 function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
-    var objResult = {};
-    objResult["Rock" + id] = {
+    let objResult = {};
+    objResult[`Rock${id}`] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -175,12 +164,12 @@ function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
         img: ImportImgs_1.default.RockRight,
         onTouch: OnTouch.toFlyingRock,
         eachTime: EachTime.FlyingRock,
-        fireName: "Fire" + id,
+        fireName: `Fire${id}`,
         maxLeft: maxLeft,
         direction: "left",
         boolLeft: true,
     };
-    objResult["Fire" + id] = {
+    objResult[`Fire${id}`] = {
         size: size,
         posX: posX + (size * 3 / 4),
         posY: posY,
@@ -197,11 +186,11 @@ function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft) {
 exports.getFlyingRockLeft = getFlyingRockLeft;
 //凍ったオブジェクト　生成関数
 function getFrozenObj(name, size, posX, posY, img, zIndex, boolLeft) {
-    var objResult = {};
+    let objResult = {};
     zIndex = zIndex || 10;
     objResult[name] = getOnePic(size, posX, posY, img, zIndex, OnTouch.toNothing, boolLeft);
-    objResult[name + "Ice1"] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 5, OnTouch.toBlock, false, 0.8);
-    objResult[name + "Ice2"] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 40, OnTouch.toBlock, false, 0.5);
+    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 5, OnTouch.toBlock, false, 0.8);
+    objResult[`${name}Ice2`] = getOnePic(size, posX, posY, ImportImgs_1.default.Ice, 40, OnTouch.toBlock, false, 0.5);
     return objResult;
 }
 exports.getFrozenObj = getFrozenObj;
@@ -220,8 +209,8 @@ function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
 exports.getMessage = getMessage;
 //メッセージ表示　巻物
 function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, isFinal) {
-    var objResult = {};
-    objResult[name + "_ScrollOpener"] = {
+    let objResult = {};
+    objResult[`${name}_ScrollOpener`] = {
         size: size,
         posX: posX,
         posY: posY,
@@ -229,9 +218,9 @@ function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, is
         img: img,
         boolLeft: boolLeft,
         onTouch: OnTouch.toScrollOpener,
-        openTargetTitle: Messages_1.messages[name + "_SCROLL_TITLE"],
+        openTargetTitle: Messages_1.messages[`${name}_SCROLL_TITLE`],
     };
-    objResult[name + "_ScrollMessage"] = {
+    objResult[`${name}_ScrollMessage`] = {
         size: 150,
         posX: 5,
         posY: 5,
@@ -240,8 +229,8 @@ function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft, is
         scroll: true,
         visible: false,
         onTouch: OnTouch.toNothing,
-        title: Messages_1.messages[name + "_SCROLL_TITLE"],
-        message: Messages_1.messages[name + "_SCROLL_MESSAGE"],
+        title: Messages_1.messages[`${name}_SCROLL_TITLE`],
+        message: Messages_1.messages[`${name}_SCROLL_MESSAGE`],
         fontSize: 3,
         speakerImg: speakerImg,
         finalMessage: isFinal,
@@ -347,7 +336,7 @@ exports.getRightGate = getRightGate;
 //ステージ変更用ゲート（上）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
 function getTopGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
-    var posY = heightOfTheGate - 1000 || -1012;
+    const posY = heightOfTheGate - 1000 || -1012;
     return {
         size: 1000,
         posX: -420,
@@ -365,7 +354,7 @@ exports.getTopGate = getTopGate;
 //ステージ変更用ゲート（下）
 //引数にnextX, nextYを渡さなければ、自動的に位置が計算される
 function getBottomGate(next, heightOfTheGate, nextX, nextY, nextLeft) {
-    var posY = heightOfTheGate || 87;
+    const posY = heightOfTheGate || 87;
     return {
         size: 1000,
         posX: -420,
@@ -396,10 +385,10 @@ function getDangerousObj(size, posX, posY, img, zIndex, boolLeft) {
 exports.getDangerousObj = getDangerousObj;
 //雪 生成関数
 function getSnows(strength, zIndex, reverse) {
-    var objResult = {};
-    var eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
-    for (var i = 0; i <= 160 * strength; i++) {
-        for (var j = -10; j <= 75 * strength; j++) {
+    let objResult = {};
+    const eachTimeFunc = reverse ? EachTime.SnowR : EachTime.Snow;
+    for (let i = 0; i <= 160 * strength; i++) {
+        for (let j = -10; j <= 75 * strength; j++) {
             objResult["snowX" + i + "Y" + j] = {
                 size: 30,
                 posX: Math.floor(Math.random() * 161),
@@ -416,25 +405,6 @@ function getSnows(strength, zIndex, reverse) {
     return objResult;
 }
 exports.getSnows = getSnows;
-//鍵　生成関数
-function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-    var objResult = {};
-    if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
-        //まだ鍵を見付けていない場合のみ表示
-        objResult["key"] = {
-            size: 10,
-            posX: posX,
-            posY: posY,
-            zIndex: zIndex,
-            img: ImportImgs_1.default.imgKey,
-            onTouch: OnTouch.toScrollOpener,
-            openTargetTitle: openTargetTitle,
-            boolLeft: true,
-        };
-    }
-    return objResult;
-}
-exports.getKeys = getKeys;
 //画面外を黒くする要素
 function getObjOutOfScreen() {
     return {

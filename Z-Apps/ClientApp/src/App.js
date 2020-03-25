@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,45 +10,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var react_1 = require("react");
-var react_router_1 = require("react-router");
-var CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
-var Layout_1 = __importDefault(require("./components/parts/Layout"));
-var react_ga_1 = __importDefault(require("react-ga"));
-var react_router_scroll_memory_1 = __importDefault(require("react-router-scroll-memory"));
-var Home = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Home')); }); });
-var Terms = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Terms')); }); });
-var Developer = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Developer')); }); });
-var RomajiConverter = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/RomajiConverter')); }); });
-var KanjiConverter = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/KanjiConverter')); }); });
-var HiraganaQuiz = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/HiraganaQuiz')); }); });
-var KatakanaQuiz = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/KatakanaQuiz')); }); });
-var Stories = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Stories')); }); });
-var StoriesTop = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/StoriesTop')); }); });
-var StoriesEdit = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/StoriesEdit')); }); });
-var StoriesEditTop = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/StoriesEditTop')); }); });
-var NinjaTop = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/NinjaGameTop')); }); });
-var Ninja1 = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/NinjaGame')); }); });
-var Ninja2 = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/NinjaGame2')); }); });
-var Ninja3 = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/NinjaGame3')); }); });
-var GameOver = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/GameOver')); }); });
-var SiteMapEdit = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/SiteMapEdit')); }); });
-var ColorPalette = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/ColorPalette')); }); });
-var Boscobel = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/Boscobel')); }); });
-var TicTacToeGame = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/parts/3d/TicTacToeGame')); }); });
-var NotFound = react_1.lazy(function () { return Promise.resolve().then(function () { return __importStar(require('./components/404')); }); });
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    App.prototype.componentDidMount = function () {
-        var pathname = window.location.pathname;
+const React = __importStar(require("react"));
+const react_1 = require("react");
+const react_router_1 = require("react-router");
+const CircularProgress_1 = __importDefault(require("@material-ui/core/CircularProgress"));
+const Layout_1 = __importDefault(require("./components/parts/Layout"));
+const react_ga_1 = __importDefault(require("react-ga"));
+const react_router_scroll_memory_1 = __importDefault(require("react-router-scroll-memory"));
+const Home = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/Home'))));
+const Terms = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/Terms'))));
+const Developer = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/Developer'))));
+const RomajiConverter = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/RomajiConverter'))));
+const KanjiConverter = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/KanjiConverter'))));
+const HiraganaQuiz = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/HiraganaQuiz'))));
+const KatakanaQuiz = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/KatakanaQuiz'))));
+const Stories = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/Stories'))));
+const StoriesTop = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/StoriesTop'))));
+const StoriesEdit = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/StoriesEdit'))));
+const StoriesEditTop = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/StoriesEditTop'))));
+const NinjaTop = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/NinjaGameTop'))));
+const Ninja1 = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/NinjaGame'))));
+const Ninja2 = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/NinjaGame2'))));
+const Ninja3 = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/NinjaGame3'))));
+const GameOver = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/GameOver'))));
+const SiteMapEdit = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/SiteMapEdit'))));
+const ColorPalette = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/ColorPalette'))));
+const Boscobel = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/Boscobel'))));
+const TicTacToeGame = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/parts/3d/TicTacToeGame'))));
+const NotFound = react_1.lazy(() => Promise.resolve().then(() => __importStar(require('./components/404'))));
+class App extends React.Component {
+    componentDidMount() {
+        const { pathname } = window.location;
         react_ga_1.default.set({ page: pathname });
         react_ga_1.default.pageview(pathname);
-    };
-    App.prototype.render = function () {
+    }
+    render() {
         return (React.createElement(Layout_1.default, null,
             React.createElement(react_1.Suspense, { fallback: React.createElement(LoadingAnimation, { num: 1 }) },
                 React.createElement(react_router_scroll_memory_1.default, null),
@@ -88,37 +71,33 @@ var App = /** @class */ (function (_super) {
                     React.createElement(react_router_1.Route, { path: '/3d/tic-tac-toe-game', component: TicTacToeGame }),
                     React.createElement(react_router_1.Route, { path: '/not-found', component: NotFound }),
                     React.createElement(react_router_1.Route, { component: NotFoundRedirect })))));
-    };
-    return App;
-}(React.Component));
+    }
+}
 exports.default = App;
-function NotFoundRedirect(_a) {
-    var location = _a.location;
+function NotFoundRedirect({ location }) {
     waitAndRedirect("pageNotFoundRedirect");
     return (React.createElement("div", null,
         React.createElement(LoadingAnimation, { num: 1 })));
 }
 function waitAndRedirect(saveKey) {
-
     const savedErrTime = window.sessionStorage.getItem(saveKey);
     const intSavedTime = parseInt(savedErrTime);
-
     const now = new Date();
     const nowTime = now.getTime();
-
     if (intSavedTime && (nowTime - intSavedTime < 15000)) {
         setTimeout(() => {
             window.location.href = `/not-found?p=${window.location.pathname}`;
         }, 10000);
-    } else {
+    }
+    else {
         window.sessionStorage.setItem(saveKey, nowTime.toString());
         window.location.reload();
     }
     return;
 }
 function LoadingAnimation(props) {
-    var arr = [];
-    for (var i = 0; i < props.num; i++) {
+    let arr = [];
+    for (let i = 0; i < props.num; i++) {
         arr.push(React.createElement("span", { key: i },
             React.createElement("br", null)));
     }

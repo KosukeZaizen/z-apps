@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,15 +10,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
+const React = __importStar(require("react"));
 require("../css/RomajiConverter.css");
-var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var objConst = {};
-var RomajiConverter = /** @class */ (function (_super) {
-    __extends(RomajiConverter, _super);
-    function RomajiConverter(props) {
-        var _this = _super.call(this, props) || this;
+const FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+let objConst = {};
+class RomajiConverter extends React.Component {
+    constructor(props) {
+        super(props);
         objConst = {
             objTwoChars: { "きゃ": "kya", "きゅ": "kyu", "きょ": "kyo", "しゃ": "sha", "しゅ": "shu", "しょ": "sho", "ちゃ": "cha", "ちゅ": "chu", "ちょ": "cho", "にゃ": "nya", "にゅ": "nyu", "にょ": "nyo", "ひゃ": "hya", "ひゅ": "hyu", "ひょ": "hyo", "みゃ": "mya", "みゅ": "myu", "みょ": "myo", "りゃ": "rya", "りゅ": "ryu", "りょ": "ryo", "ぎゃ": "gya", "ぎゅ": "gyu", "ぎょ": "gyo", "じゃ": "ja", "じゅ": "ju", "じょ": "jo", "びゃ": "bya", "びゅ": "byu", "びょ": "byo", "ぴゃ": "pya", "ぴゅ": "pyu", "ぴょ": "pyo", "じぇ": "jie", "ちぇ": "chie", "てぃ": "tei", "でぃ": "dei", "でゅ": "deyu", "ふぁ": "fua", "ふぃ": "fui", "ふぇ": "fue", "ふぉ": "fuo", "ゔぁ": "bua", "ゔぃ": "bui", "ゔぇ": "bue", "ゔぉ": "buo" },
             objTwoChars_K: { "キャ": "kya", "キュ": "kyu", "キョ": "kyo", "シャ": "sha", "シュ": "shu", "ショ": "sho", "チャ": "cha", "チュ": "chu", "チョ": "cho", "ニャ": "nya", "ニュ": "nyu", "ニョ": "nyo", "ヒャ": "hya", "ヒュ": "hyu", "ヒョ": "hyo", "ミャ": "mya", "ミュ": "myu", "ミョ": "myo", "リャ": "rya", "リュ": "ryu", "リョ": "ryo", "ギャ": "gya", "ギュ": "gyu", "ギョ": "gyo", "ジャ": "ja", "ジュ": "ju", "ジョ": "jo", "ビャ": "bya", "ビュ": "byu", "ビョ": "byo", "ピャ": "pya", "ピュ": "pyu", "ピョ": "pyo", "ジェ": "jie", "チェ": "chie", "ティ": "tei", "ディ": "dei", "デュ": "deyu", "ファ": "fua", "フィ": "fui", "フェ": "fue", "フォ": "fuo", "ヴァ": "bua", "ヴィ": "bui", "ヴェ": "bue", "ヴォ": "buo" },
@@ -51,26 +37,25 @@ var RomajiConverter = /** @class */ (function (_super) {
             COPY_BUTTON: "btn btn-info btn-lg btn-block",
             ioArea: []
         };
-        _this.state = {
+        this.state = {
             textVal: "",
             prompt: objConst.MSG_PROMPT,
             inputColor: "redChar",
         };
-        _this.setStateTextVal = _this.setStateTextVal.bind(_this);
-        _this.initText = _this.initText.bind(_this);
-        return _this;
+        this.setStateTextVal = this.setStateTextVal.bind(this);
+        this.initText = this.initText.bind(this);
     }
-    RomajiConverter.prototype.initText = function () {
+    initText() {
         if (this.state.prompt === objConst.MSG_PROMPT) {
             this.setState({
                 prompt: "",
                 inputColor: "blackChar",
             });
         }
-    };
+    }
     // State(textVal)を変更
-    RomajiConverter.prototype.setStateTextVal = function (textVal) {
-        var textVal_r = textVal;
+    setStateTextVal(textVal) {
+        let textVal_r = textVal;
         textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
         textVal_r = convertChars(textVal_r, objConst.objTwoChars);
         textVal_r = convertChars(textVal_r, objConst.objOneChar);
@@ -85,23 +70,23 @@ var RomajiConverter = /** @class */ (function (_super) {
             textVal: textVal_r,
             prompt: textVal,
         });
-    };
-    RomajiConverter.prototype.convertSmallTsu = function (text) {
+    }
+    convertSmallTsu(text) {
         text = convertChars(text, { "っch": "tch", "ッch": "tch" });
-        var arrText = text.split("");
-        for (var index in arrText) {
+        let arrText = text.split("");
+        for (let index in arrText) {
             if (arrText[index] === "っ" || arrText[index] === "ッ") {
                 arrText[index] = arrText[Number(index) + 1] || "";
             }
         }
         return arrText.join("");
-    };
-    RomajiConverter.prototype.onScrollInput = function () {
+    }
+    onScrollInput() {
         getIoElement();
         objConst.ioArea[1].scrollTop = objConst.ioArea[0].scrollTop;
-    };
-    RomajiConverter.prototype.onClickCopy = function () {
-        var strTarget = getCopyTarget();
+    }
+    onClickCopy() {
+        let strTarget = getCopyTarget();
         if (strTarget.trim() === "") {
             alert(objConst.MSG_NO_COPY_TARGET);
         }
@@ -113,10 +98,9 @@ var RomajiConverter = /** @class */ (function (_super) {
                 alert(objConst.MSG_COPY_ERR);
             }
         }
-    };
+    }
     //ローマ字変換アプリの表示
-    RomajiConverter.prototype.render = function () {
-        var _this = this;
+    render() {
         return (React.createElement("div", { className: "romaji-converter center" },
             React.createElement(Helmet_1.default, { title: "Romaji Converter", desc: "A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!" }),
             React.createElement("h1", null,
@@ -141,7 +125,7 @@ var RomajiConverter = /** @class */ (function (_super) {
                             React.createElement("div", { className: "center" }, "Romaji"))),
                     React.createElement("tr", null,
                         React.createElement("td", { className: "row" },
-                            React.createElement(ChildInput, { inputColor: this.state.inputColor, prompt: this.state.prompt, onChange: function (e) { _this.setStateTextVal(e); }, onFocus: function (e) { _this.initText(); }, onScroll: this.onScrollInput })),
+                            React.createElement(ChildInput, { inputColor: this.state.inputColor, prompt: this.state.prompt, onChange: (e) => { this.setStateTextVal(e); }, onFocus: (e) => { this.initText(); }, onScroll: this.onScrollInput })),
                         React.createElement("td", { className: "tdOutput" },
                             React.createElement(Child, { textVal: this.state.textVal }))))),
             React.createElement("button", { id: "btnCopy", onClick: this.onClickCopy, className: objConst.COPY_BUTTON }, objConst.BTN_LABEL),
@@ -157,50 +141,38 @@ var RomajiConverter = /** @class */ (function (_super) {
             React.createElement("br", null),
             React.createElement("br", null),
             React.createElement(FaceBook_1.default, null)));
-    };
-    return RomajiConverter;
-}(React.Component));
+    }
+}
 ;
 //入力エリアの定義（※props経由で親を参照できる）
-var ChildInput = /** @class */ (function (_super) {
-    __extends(ChildInput, _super);
-    function ChildInput() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ChildInput.prototype._onChange = function (e) {
+class ChildInput extends React.Component {
+    _onChange(e) {
         this.props.onChange(e.target.value);
-    };
-    ChildInput.prototype._onFocus = function (e) {
+    }
+    _onFocus(e) {
         this.props.onFocus(e.target.value);
-    };
-    ChildInput.prototype._onScroll = function () {
+    }
+    _onScroll() {
         this.props.onScroll();
-    };
+    }
     //入力エリアの表示
-    ChildInput.prototype.render = function () {
-        var _this = this;
+    render() {
         return (React.createElement("div", { className: "t-area-center center" },
-            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onChange: function (e) { _this._onChange(e); }, onFocus: function (e) { _this._onFocus(e); }, onScroll: function () { _this._onScroll(); }, value: this.props.prompt })));
-    };
-    return ChildInput;
-}(React.Component));
+            React.createElement("textarea", { id: "inputArea", className: this.props.inputColor, onChange: (e) => { this._onChange(e); }, onFocus: (e) => { this._onFocus(e); }, onScroll: () => { this._onScroll(); }, value: this.props.prompt })));
+    }
+}
 ;
 //ローマ字出力エリア
-var Child = /** @class */ (function (_super) {
-    __extends(Child, _super);
-    function Child() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Child.prototype.render = function () {
+class Child extends React.Component {
+    render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
             return React.createElement("p", { key: index, className: "line-wrap" },
                 line,
                 React.createElement("br", null));
         });
         return React.createElement("div", { id: "outputArea", className: "lines" }, lines);
-    };
-    return Child;
-}(React.Component));
+    }
+}
 ;
 function getIoElement() {
     if (objConst.ioArea.length < 2) {
@@ -209,8 +181,8 @@ function getIoElement() {
     }
 }
 function convertChars(text, obj) {
-    for (var key in obj) {
-        var arrText = text.split(key);
+    for (let key in obj) {
+        let arrText = text.split(key);
         text = arrText.join(obj[key]);
     }
     return text;

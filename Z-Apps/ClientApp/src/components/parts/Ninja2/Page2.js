@@ -1,28 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -41,125 +17,121 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var ninja_1 = require("./objs/ninja/ninja");
-var obj_1 = require("./objs/obj");
+const React = __importStar(require("react"));
+const ninja_1 = require("./objs/ninja/ninja");
+const obj_1 = require("./objs/obj");
 //オブジェクト素材画像----------------
 //岩
-var rock_png_1 = __importDefault(require("./../Ninja/objs/rock.png"));
+const imgRock = require('./../Ninja/objs/rock.png');
 //岩（上下反転）
-var rockRiverse_png_1 = __importDefault(require("./../Ninja/objs/rockRiverse.png"));
+const imgRockR = require('./../Ninja/objs/rockRiverse.png');
 //ポチ
-var pochi_png_1 = __importDefault(require("./../Ninja/objs/pochi.png"));
+const imgPochi = require('./../Ninja/objs/pochi.png');
 //閉じている巻物
-var scrollObj_png_1 = __importDefault(require("./../Ninja/objs/scrollObj.png"));
+const imgScroll = require('./../Ninja/objs/scrollObj.png');
 //開いている巻物
-var scrollOpen_png_1 = __importDefault(require("./../Ninja/objs/scrollOpen.png"));
+const imgScrollOpen = require('./../Ninja/objs/scrollOpen.png');
 //シノ（先輩くのいち）
-var shino_png_1 = __importDefault(require("./../Ninja/objs/shino.png"));
+const imgShino = require('./../Ninja/objs/shino.png');
 //屋敷（屋根）
-var house_png_1 = __importDefault(require("./objs/house.png"));
+const imgHouse1 = require('./objs/house.png');
 //悪忍者
-var ninja_bad_png_1 = __importDefault(require("./objs/ninja_bad.png"));
+const imgBadNinja = require('./objs/ninja_bad.png');
 //鷲
-var washi_png_1 = __importDefault(require("./objs/washi.png"));
+const imgWashi = require('./objs/washi.png');
 //木箱
-var box_jpg_1 = __importDefault(require("./objs/box.jpg"));
+const imgBox1 = require('./objs/box.jpg');
 //レンガ
-var block_jpg_1 = __importDefault(require("./objs/block.jpg"));
+const imgBlock1 = require('./objs/block.jpg');
 //カニ
-var kani_png_1 = __importDefault(require("./objs/kani.png"));
+const imgKani = require('./objs/kani.png');
 //フグ
-var fugu_png_1 = __importDefault(require("./objs/fugu.png"));
+const imgFugu = require('./objs/fugu.png');
 //海藻
-var kaisou_png_1 = __importDefault(require("./objs/kaisou.png"));
+const imgKaisou = require('./objs/kaisou.png');
 //デカい魚
-var onikinme_png_1 = __importDefault(require("./objs/onikinme.png"));
+const imgKimme = require('./objs/onikinme.png');
 //FireBall
-var fireBallR_png_1 = __importDefault(require("./objs/fireBallR.png"));
+const imgFireBallR = require('./objs/fireBallR.png');
 //扉
-var tobira_jpg_1 = __importDefault(require("./objs/tobira.jpg"));
+const imgDoor = require('./objs/tobira.jpg');
 //木のブロック
-var woodenBox_jpg_1 = __importDefault(require("./objs/woodenBox.jpg"));
+const imgWoodenBlock = require('./objs/woodenBox.jpg');
 //鍵
-var kagi_png_1 = __importDefault(require("./objs/kagi.png"));
+const imgKey = require('./objs/kagi.png');
 //はしご
-var hashigo_wood_png_1 = __importDefault(require("./objs/hashigo_wood.png"));
+const imgHashigo = require('./objs/hashigo_wood.png');
 //一つ目
-var hitotsume_png_1 = __importDefault(require("./objs/hitotsume.png"));
+const imgOneEye = require('./objs/hitotsume.png');
 //青い火の玉
-var hinotama_png_1 = __importDefault(require("./objs/hinotama.png"));
+const imgBlueFire = require('./objs/hinotama.png');
 //鬼
-var oni_png_1 = __importDefault(require("./objs/oni.png"));
+const imgOni = require('./objs/oni.png');
 //ボス
-var badDog_png_1 = __importDefault(require("./objs/badDog.png"));
+const imgBoss = require('./objs/badDog.png');
 //コウモリ
-var bat_png_1 = __importDefault(require("./objs/bat.png"));
+const imgBat = require('./objs/bat.png');
 //看板
-var kanban1_png_1 = __importDefault(require("./../Ninja/objs/kanban1.png"));
+const imgKanban1 = require('./../Ninja/objs/kanban1.png');
 //看板の矢印
-var arrow1_png_1 = __importDefault(require("./../Ninja/objs/arrow1.png"));
+const imgArrow1 = require('./../Ninja/objs/arrow1.png');
 //鳥居
-var torii_png_1 = __importDefault(require("./../Ninja/objs/torii.png"));
+const imgTorii = require('./../Ninja/objs/torii.png');
 //背景画像//---------------------------
 //stage1
-var castle1_jpg_1 = __importDefault(require("./img/background/castle1.jpg"));
+const stage1 = require('./img/background/castle1.jpg');
 //stage2
-var whiteWall_jpg_1 = __importDefault(require("./img/background/whiteWall.jpg"));
+const stage2 = require('./img/background/whiteWall.jpg');
 //stage3
-var whiteWall2_jpg_1 = __importDefault(require("./img/background/whiteWall2.jpg"));
+const stage3 = require('./img/background/whiteWall2.jpg');
 //stage4
-var whiteWall3_jpg_1 = __importDefault(require("./img/background/whiteWall3.jpg"));
+const stage4 = require('./img/background/whiteWall3.jpg');
 //stage5
-var waterCastle_jpg_1 = __importDefault(require("./img/background/waterCastle.jpg"));
+const stage5 = require('./img/background/waterCastle.jpg');
 //stage6～8
-var rockWall_jpg_1 = __importDefault(require("./img/background/rockWall.jpg"));
+const inWater = require('./img/background/rockWall.jpg');
 //stage9
-var furo_jpg_1 = __importDefault(require("./img/background/furo.jpg"));
+const stage9 = require('./img/background/furo.jpg');
 //stage10
-var datsuiJo_jpg_1 = __importDefault(require("./img/background/datsuiJo.jpg"));
+const stage10 = require('./img/background/datsuiJo.jpg');
 //stage11～13
-var washitsu_jpg_1 = __importDefault(require("./img/background/washitsu.jpg"));
+const twoLayer = require('./img/background/washitsu.jpg');
 //stage14
-var wa1_jpg_1 = __importDefault(require("./img/background/wa1.jpg"));
+const stage14 = require('./img/background/wa1.jpg');
 //stage15
-var soto_jpg_1 = __importDefault(require("./img/background/soto.jpg"));
+const stage15 = require('./img/background/soto.jpg');
 //stage16
-var wa2_jpg_1 = __importDefault(require("./img/background/wa2.jpg"));
+const stage16 = require('./img/background/wa2.jpg');
 //stage17
-var wa3_jpg_1 = __importDefault(require("./img/background/wa3.jpg"));
+const stage17 = require('./img/background/wa3.jpg');
 //stage18
-var wa4_jpg_1 = __importDefault(require("./img/background/wa4.jpg"));
+const stage18 = require('./img/background/wa4.jpg');
 //stage19
-var boss_jpg_1 = __importDefault(require("./img/background/boss.jpg"));
+const stage19 = require('./img/background/boss.jpg');
 //stage19（クリア後）
-var afterBoss_jpg_1 = __importDefault(require("./img/background/afterBoss.jpg"));
+const stage19a = require('./img/background/afterBoss.jpg');
 //stage20
-var wa5_jpg_1 = __importDefault(require("./img/background/wa5.jpg"));
-var Page2 = /** @class */ (function (_super) {
-    __extends(Page2, _super);
-    function Page2(props) {
-        var _this = _super.call(this, props) || this;
+const stage20 = require('./img/background/wa5.jpg');
+class Page2 extends React.Component {
+    constructor(props) {
+        super(props);
         //(PC) or (スマホ/タブレット) 判定
-        _this.terminalPC = _this.checkTerminalPC();
+        this.terminalPC = this.checkTerminalPC();
         //ゲームオーバー画面に送信するための言語情報
-        _this.lang = props.language;
+        this.lang = props.language;
         //前のステージ（ステージ変更判定に利用）
-        _this.prevStage = 0;
+        this.prevStage = 0;
         //画面の高さと幅を取得
-        var pageSize = _this.getWindowSize();
+        let pageSize = this.getWindowSize();
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
-        _this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
         //前のステージから受け取った忍者の初期値を設定
-        _this.ninja = _this.props.ninja;
-        _this.readElementScroll = _this.props.readElementScroll;
-        _this.ninja.game = _this;
+        this.ninja = this.props.ninja;
+        this.readElementScroll = this.props.readElementScroll;
+        this.ninja.game = this;
         //画面外を黒くする要素
-        _this.objOutOfScreen = {
+        this.objOutOfScreen = {
             outOfScreenLeft: {
                 size: 300,
                 posX: -300,
@@ -190,7 +162,7 @@ var Page2 = /** @class */ (function (_super) {
             },
         };
         //全ステージ共通の壁（render内で設定）
-        _this.objWalls = {
+        this.objWalls = {
             leftWall: {
                 size: 300,
                 posX: -310,
@@ -207,7 +179,7 @@ var Page2 = /** @class */ (function (_super) {
             },
         };
         //床（必要な場合、render内で設定）
-        _this.objFloor = {
+        this.objFloor = {
             floor1: {
                 size: 200,
                 posX: -20,
@@ -238,9 +210,9 @@ var Page2 = /** @class */ (function (_super) {
             },
         };
         //背景の初期設定
-        _this.backgroundSetting = {
+        this.backgroundSetting = {
             /* 背景画像 */
-            backgroundImage: "url(" + castle1_jpg_1.default + ")",
+            backgroundImage: `url(${stage1})`,
             /* 画像を常に天地左右の中央に配置 */
             backgroundPosition: "center center",
             /* 画像をタイル状に繰り返し表示しない */
@@ -253,8 +225,8 @@ var Page2 = /** @class */ (function (_super) {
         // ------------------------------------------------------------
         // 定数設定
         // ------------------------------------------------------------
-        if (_this.props.language === "Japanese") {
-            _this.consts = {
+        if (this.props.language === "Japanese") {
+            this.consts = {
                 timeStep: 100,
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
@@ -319,7 +291,7 @@ var Page2 = /** @class */ (function (_super) {
             };
         }
         else {
-            _this.consts = {
+            this.consts = {
                 timeStep: 100,
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
@@ -387,153 +359,153 @@ var Page2 = /** @class */ (function (_super) {
         // ------------------------------------------------------------
         // ステート初期設定
         // ------------------------------------------------------------
-        _this.state = {
-            screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * _this.UL }, _this.backgroundSetting),
+        this.state = {
+            screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * this.UL }, this.backgroundSetting),
             ninjaStat: {
                 left: true,
-                ninjaX: _this.ninja.posX * _this.UL,
-                ninjaY: _this.ninja.posY * _this.UL,
+                ninjaX: this.ninja.posX * this.UL,
+                ninjaY: this.ninja.posY * this.UL,
             }
         };
         //←ボタン押下判定　初期値
-        _this.lButton = false;
+        this.lButton = false;
         //→ボタン押下判定　初期値
-        _this.rButton = false;
+        this.rButton = false;
         //jumpボタン押下判定　初期値
-        _this.jButton = false;
+        this.jButton = false;
         //キーボード押下時イベントセット
-        _this.setKeyboardEvent(_this);
+        this.setKeyboardEvent(this);
         //タイムステップ毎に処理を呼び出す
-        _this.timerId = setInterval(function () {
+        this.timerId = setInterval(() => {
             //タイムステップごとの計算
             /* ↓　物体速度・位置計算　↓ */
             //ボタン押下判定
-            if (_this.lButton === false && _this.rButton === false) {
-                _this.ninja.speedX = 0;
+            if (this.lButton === false && this.rButton === false) {
+                this.ninja.speedX = 0;
             }
             else {
-                if (_this.lButton === true && _this.rButton === true) {
+                if (this.lButton === true && this.rButton === true) {
                     //右と左同時押しでファイヤーボール
-                    if (_this.ninja.readScroll.indexOf(_this.ninja.game.consts.FIRE_SCROLL_TITLE) >= 0) {
+                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.FIRE_SCROLL_TITLE) >= 0) {
                         //火遁の書を既に読んでいる場合
-                        _this.objs["fireBall" + _this.ninja.fireBallCount] = {
+                        this.objs["fireBall" + this.ninja.fireBallCount] = {
                             size: 12,
-                            posX: _this.ninja.posX,
-                            posY: _this.ninja.posY,
-                            zIndex: 999 - _this.ninja.fireBallCount,
-                            img: fireBallR_png_1.default,
+                            posX: this.ninja.posX,
+                            posY: this.ninja.posY,
+                            zIndex: 999 - this.ninja.fireBallCount,
+                            img: imgFireBallR,
                             onTouch: onTouchNothing,
                             fireBall: true,
-                            boolLeft: _this.ninja.boolLeft,
+                            boolLeft: this.ninja.boolLeft,
                             eachTime: eachTimeFireBall,
                         };
-                        _this.ninja.fireBallCount++;
+                        this.ninja.fireBallCount++;
                     }
                 }
                 else {
-                    if (_this.lButton === true) {
-                        _this.ninja.speedX = _this.ninja.inWater ? -3 : -6;
-                        _this.ninja.boolLeft = true; //画像左向き
+                    if (this.lButton === true) {
+                        this.ninja.speedX = this.ninja.inWater ? -3 : -6;
+                        this.ninja.boolLeft = true; //画像左向き
                     }
-                    else if (_this.rButton === true) {
-                        _this.ninja.speedX = _this.ninja.inWater ? 3 : 6;
-                        _this.ninja.boolLeft = false; //画像右向き
+                    else if (this.rButton === true) {
+                        this.ninja.speedX = this.ninja.inWater ? 3 : 6;
+                        this.ninja.boolLeft = false; //画像右向き
                     }
                 }
             }
             //前タイムステップでジャンプをした時のため、元に戻す
-            _this.closeScroll = false;
-            if (_this.jButton === true) {
-                if (_this.ninja.speedY === 0) {
+            this.closeScroll = false;
+            if (this.jButton === true) {
+                if (this.ninja.speedY === 0) {
                     //通常ジャンプ
-                    _this.ninja.speedY = -11;
+                    this.ninja.speedY = -11;
                     //ジャンプ時に巻物を閉じる
-                    _this.closeScroll = true;
+                    this.closeScroll = true;
                 }
-                if (_this.ninja.inWater) {
+                if (this.ninja.inWater) {
                     //水中
-                    if (_this.ninja.posY > -10) {
+                    if (this.ninja.posY > -10) {
                         //2段ジャンプ実行限界高度に達していない
-                        _this.ninja.speedY = -7;
+                        this.ninja.speedY = -7;
                     }
                 }
-                _this.jButton = false;
+                this.jButton = false;
             }
-            if (_this.closeButton === true) {
+            if (this.closeButton === true) {
                 //巻物を閉じる（Enterキー等押下時）
-                _this.closeScroll = true;
+                this.closeScroll = true;
             }
             //重力加速度
-            _this.ninja.speedY += _this.ninja.inWater ? 1.1 : 2.1;
+            this.ninja.speedY += this.ninja.inWater ? 1.1 : 2.1;
             //落下速度限界
-            if (_this.ninja.inWater) {
+            if (this.ninja.inWater) {
                 //水中
-                if (_this.ninja.speedY > 2) {
-                    _this.ninja.speedY = 2;
+                if (this.ninja.speedY > 2) {
+                    this.ninja.speedY = 2;
                 }
             }
             else {
                 //陸上
-                if (_this.ninja.speedY > 9) {
-                    _this.ninja.speedY = 9;
+                if (this.ninja.speedY > 9) {
+                    this.ninja.speedY = 9;
                 }
             }
             //位置計算
-            _this.ninja.posX += _this.ninja.speedX;
-            _this.ninja.posY += _this.ninja.speedY;
+            this.ninja.posX += this.ninja.speedX;
+            this.ninja.posY += this.ninja.speedY;
             //オブジェクトとの接触判定
             //忍者の上下左右の端の位置
-            var ninjaLeft = _this.ninja.posX;
-            var ninjaRight = ninjaLeft + _this.ninja.size;
-            var ninjaTop = _this.ninja.posY;
-            var ninjaFoot = ninjaTop + _this.ninja.size;
-            for (var key in _this.objs) {
+            let ninjaLeft = this.ninja.posX;
+            let ninjaRight = ninjaLeft + this.ninja.size;
+            let ninjaTop = this.ninja.posY;
+            let ninjaFoot = ninjaTop + this.ninja.size;
+            for (let key in this.objs) {
                 //途中でステージ遷移したら、関数を中止するためのフラグ
-                var stageChangedFlag = "";
+                let stageChangedFlag = "";
                 //オブジェクトの上下左右の端の位置
-                var objLeft = _this.objs[key].posX;
-                var objRight = objLeft + _this.objs[key].size;
-                var objTop = _this.objs[key].posY;
-                var objFoot = objTop + _this.objs[key].size;
+                let objLeft = this.objs[key].posX;
+                let objRight = objLeft + this.objs[key].size;
+                let objTop = this.objs[key].posY;
+                let objFoot = objTop + this.objs[key].size;
                 //忍者が上から
-                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, _this.ninja.size) === true) {
+                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
                     //ステージ遷移をしていたら、関数中止
                     if (stageChangedFlag && stageChangedFlag === "changed") {
                         return;
                     }
-                    stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "upper");
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
                 }
                 //忍者が右から
-                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, _this.ninja.size) === true) {
+                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
                     //ステージ遷移をしていたら、関数中止
                     if (stageChangedFlag && stageChangedFlag === "changed") {
                         return;
                     }
-                    stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "right");
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
                 }
                 //忍者が下から
-                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, _this.ninja.size) === true) {
+                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
                     //ステージ遷移をしていたら、関数中止
                     if (stageChangedFlag && stageChangedFlag === "changed") {
                         return;
                     }
-                    stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "lower");
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
                 }
                 //忍者が左から
-                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, _this.ninja.size) === true) {
+                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
                     //ステージ遷移をしていたら、関数中止
                     if (stageChangedFlag && stageChangedFlag === "changed") {
                         return;
                     }
-                    stageChangedFlag = _this.objs[key].onTouch(_this.ninja, "left");
+                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
                 }
                 //ステージ遷移をしていたら、関数中止
                 if (stageChangedFlag && stageChangedFlag === "changed") {
                     return;
                 }
                 //各タイムステップごとの処理を持っていれば、実行する
-                if (_this.objs[key].eachTime) {
-                    _this.objs[key].eachTime(_this.ninja, key);
+                if (this.objs[key].eachTime) {
+                    this.objs[key].eachTime(this.ninja, key);
                 }
                 //ステージ遷移をしていたら、関数中止
                 if (stageChangedFlag && stageChangedFlag === "changed") {
@@ -542,22 +514,21 @@ var Page2 = /** @class */ (function (_super) {
             }
             /* ↑　物体速度・位置計算　↑ */
             //ページサイズ取得（ウィンドウサイズが変更された時のため）
-            var pageSize = _this.getWindowSize();
+            let pageSize = this.getWindowSize();
             //画面の高さを90等分した長さを、このゲームの「単位長さ」とする
-            _this.UL = pageSize.pageHeight / 90;
+            this.UL = pageSize.pageHeight / 90;
             //物体の位置などを更新し、再描画
-            _this.setState({
-                screenStyle: __assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * _this.UL }, _this.backgroundSetting),
+            this.setState({
+                screenStyle: Object.assign({ width: pageSize.pageWidth, height: pageSize.pageHeight - 15 * this.UL }, this.backgroundSetting),
                 ninjaStat: {
-                    left: _this.ninja.boolLeft,
-                    ninjaX: _this.ninja.posX * _this.UL,
-                    ninjaY: _this.ninja.posY * _this.UL,
+                    left: this.ninja.boolLeft,
+                    ninjaX: this.ninja.posX * this.UL,
+                    ninjaY: this.ninja.posY * this.UL,
                 }
             });
-        }, _this.consts.timeStep);
-        return _this;
+        }, this.consts.timeStep);
     }
-    Page2.prototype.checkTerminalPC = function () {
+    checkTerminalPC() {
         // ------------------------------------------------------------
         // (PC) or (スマホ/タブレット) 判定
         // ------------------------------------------------------------
@@ -569,12 +540,12 @@ var Page2 = /** @class */ (function (_super) {
             // PCの場合
             return true;
         }
-    };
+    }
     //---------------↓　resize　↓---------------
-    Page2.prototype.getWindowSize = function () {
-        var pageWidth, pageHeight;
-        var screenWidth = parseInt(window.innerWidth, 10);
-        var screenHeight = parseInt(window.innerHeight, 10);
+    getWindowSize() {
+        let pageWidth, pageHeight;
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
         if (screenWidth > screenHeight) {
             //横長
             pageHeight = screenHeight;
@@ -622,9 +593,9 @@ var Page2 = /** @class */ (function (_super) {
             }
         }
         return { pageWidth: pageWidth, pageHeight: pageHeight };
-    };
+    }
     //---------------↑　resize　↑---------------
-    Page2.prototype.setKeyboardEvent = function (objGame) {
+    setKeyboardEvent(objGame) {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
@@ -635,8 +606,8 @@ var Page2 = /** @class */ (function (_super) {
             // 入力情報を取得
             // ------------------------------------------------------------
             // キーコード
-            var keyCode = e.keyCode;
-            var keyType;
+            let keyCode = e.keyCode;
+            let keyType;
             if (keyCode === 37) {
                 keyType = "left";
             }
@@ -661,8 +632,8 @@ var Page2 = /** @class */ (function (_super) {
             if (!e)
                 e = window.event; // レガシー
             // キーコード
-            var keyCode = e.keyCode;
-            var keyType;
+            let keyCode = e.keyCode;
+            let keyType;
             if (keyCode === 37) {
                 keyType = "left";
             }
@@ -680,9 +651,9 @@ var Page2 = /** @class */ (function (_super) {
             }
             objGame.onMouseUp(keyType);
         };
-    };
+    }
     //ボタン押下時処理
-    Page2.prototype.onClickButton = function (btnType) {
+    onClickButton(btnType) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = true;
@@ -699,9 +670,9 @@ var Page2 = /** @class */ (function (_super) {
             //closeキー押下判定（Enter、Delete等）
             this.closeButton = true;
         }
-    };
+    }
     //ボタン押下終了時処理
-    Page2.prototype.onMouseUp = function (btnType) {
+    onMouseUp(btnType) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = false;
@@ -714,8 +685,8 @@ var Page2 = /** @class */ (function (_super) {
             //closeキー押下判定（Enter、Delete等）
             this.closeButton = false;
         }
-    };
-    Page2.prototype.render = function () {
+    }
+    render() {
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
             //忍者のFireBallCountを0に戻す
@@ -726,12 +697,12 @@ var Page2 = /** @class */ (function (_super) {
                 // ------------------------------------------------------------
                 // ステージ1 (出発地点　屋根の上)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), { house1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), { house1Pic: {
                         size: 60,
                         posX: 120,
                         posY: 55,
                         zIndex: 35,
-                        img: house_png_1.default,
+                        img: imgHouse1,
                         onTouch: onTouchNothing,
                     }, house1Actual: {
                         size: 60,
@@ -743,7 +714,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 55,
                         zIndex: 34,
-                        img: house_png_1.default,
+                        img: imgHouse1,
                         onTouch: onTouchNothing,
                     }, houseActual: {
                         size: 60,
@@ -755,7 +726,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 115,
                         posY: 53,
                         zIndex: 20,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL_TITLE,
                     }, pochiScroll: {
@@ -763,14 +734,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL_TITLE,
                         message: this.consts.POCHI_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, bottomGate: {
                         size: 300,
                         posX: -70,
@@ -781,13 +752,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = castle1_jpg_1.default;
+                this.bgImg = stage1;
             }
             else if (this.props.stage === 2) {
                 // ------------------------------------------------------------
                 // ステージ2 (ファイヤーボールの書)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { fireBallDummy: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { fireBallDummy: {
                         //FireBallの画像初期表示速度向上のためのダミー
                         size: 13,
                         posX: -100,
@@ -795,7 +766,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 20,
-                        img: fireBallR_png_1.default,
+                        img: imgFireBallR,
                         onTouch: onTouchNothing,
                     }, scrollFireBallIcon: {
                         size: 10,
@@ -803,7 +774,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 46,
                         boolLeft: true,
                         zIndex: 22,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.FIRE_SCROLL_TITLE,
                     }, fireBallScrollOpened: {
@@ -811,7 +782,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -823,7 +794,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 50,
                         zIndex: 20,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 40,
@@ -836,7 +807,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 30,
                         posY: 61,
                         zIndex: 17,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL_TITLE,
                     }, shinoScroll: {
@@ -844,14 +815,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL_TITLE,
                         message: this.consts.SHINO_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, topGate: {
                         size: 300,
                         posX: -70,
@@ -870,20 +841,20 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = whiteWall_jpg_1.default;
+                this.bgImg = stage2;
             }
             else if (this.props.stage === 3) {
                 // ------------------------------------------------------------
                 // ステージ3 (鷲と白壁)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { washi1: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { washi1: {
                         size: 11,
                         posX: 0,
                         posY: 0,
                         speedX: 2,
                         speedY: 1,
                         zIndex: 20,
-                        img: washi_png_1.default,
+                        img: imgWashi,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -894,7 +865,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 2,
                         speedY: 1,
                         zIndex: 20,
-                        img: washi_png_1.default,
+                        img: imgWashi,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -905,7 +876,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 2,
                         speedY: 1,
                         zIndex: 20,
-                        img: washi_png_1.default,
+                        img: imgWashi,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -916,7 +887,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 19,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -938,18 +909,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = whiteWall2_jpg_1.default;
+                this.bgImg = stage3;
             }
             else if (this.props.stage === 4) {
                 // ------------------------------------------------------------
                 // ステージ4 (岩に隠れた忍者たち)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), getHoleFloor(80, 130)), { rock1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), getHoleFloor(80, 130)), { rock1Pic: {
                         size: 40,
                         posX: 60,
                         posY: 50,
                         zIndex: 30,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 40,
@@ -962,7 +933,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 120,
                         posY: 60,
                         zIndex: 30,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 20,
@@ -985,7 +956,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 1,
                         speedY: 0,
                         zIndex: 19,
-                        img: ninja_bad_png_1.default,
+                        img: imgBadNinja,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -997,7 +968,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 2,
                         speedY: 0,
                         zIndex: 19,
-                        img: ninja_bad_png_1.default,
+                        img: imgBadNinja,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1009,7 +980,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 2.5,
                         speedY: 0,
                         zIndex: 19,
-                        img: ninja_bad_png_1.default,
+                        img: imgBadNinja,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1042,18 +1013,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = whiteWall3_jpg_1.default;
+                this.bgImg = stage4;
             }
             else if (this.props.stage === 5) {
                 // ------------------------------------------------------------
                 // ステージ5 (水辺の城)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), { rock1Pic: {
+                this.objs = Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), { rock1Pic: {
                         size: 100,
                         posX: 86,
                         posY: 67,
                         zIndex: 26,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 100,
@@ -1066,7 +1037,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 66,
                         posY: 67,
                         zIndex: 26,
-                        img: rockRiverse_png_1.default,
+                        img: imgRockR,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 100,
@@ -1079,7 +1050,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 87,
                         posY: 57,
                         zIndex: 20,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL2_TITLE,
                     }, pochiScroll: {
@@ -1087,14 +1058,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL2_TITLE,
                         message: this.consts.POCHI_SCROLL2_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, riverPic: {
                         size: 200,
                         posX: -20,
@@ -1123,26 +1094,26 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = waterCastle_jpg_1.default;
+                this.bgImg = stage5;
             }
             else if (this.props.stage === 6) {
                 this.ninja.inWater = true;
                 // ------------------------------------------------------------
                 // ステージ6 (水路１)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getKeys(this.ninja, 120, 20, 20, this.consts.KEY_SCROLL_TITLE)), { keyScroll: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getKeys(this.ninja, 120, 20, 20, this.consts.KEY_SCROLL_TITLE)), { keyScroll: {
                         size: 150,
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.KEY_SCROLL_TITLE,
                         message: this.consts.KEY_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: kagi_png_1.default,
+                        speakerImg: imgKey,
                     } }), getBlocks(10, [
                     [6, 0], [7, 0], [8, 0], [9, 0], [10, 0],
                     [6, 1], [7, 1], [8, 1], [9, 1], [10, 1],
@@ -1152,14 +1123,14 @@ var Page2 = /** @class */ (function (_super) {
                     [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [10, 5], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5],
                     [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6],
                     [1, 7], [0, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7],
-                ], onTouchBlock, block_jpg_1.default, 23)), { box1: {
+                ], onTouchBlock, imgBlock1, 23)), { box1: {
                         size: 17,
                         posX: 63,
                         posY: 33,
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1170,7 +1141,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1179,21 +1150,21 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 76,
                         posY: -82,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock2Pic: {
                         size: 100,
                         posX: 36,
                         posY: -82,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 100,
                         posX: 40,
                         posY: -90,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, riverPic: {
                         size: 200,
@@ -1223,14 +1194,14 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = rockWall_jpg_1.default;
+                this.bgImg = inWater;
             }
             else if (this.props.stage === 7) {
                 this.ninja.inWater = true;
                 // ------------------------------------------------------------
                 // ステージ7 (水路2)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [15, -1], [16, -1],
                     [15, 0], [16, 0],
                     [14, 1], [15, 1], [16, 1],
@@ -1238,14 +1209,14 @@ var Page2 = /** @class */ (function (_super) {
                     [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
                     [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [15, 4], [16, 4],
                     [-1, 5], [0, 5], [1, 5]
-                ], onTouchBlock, block_jpg_1.default, 23)), { kani1: {
+                ], onTouchBlock, imgBlock1, 23)), { kani1: {
                         size: 17,
                         posX: 80,
                         posY: 65,
                         speedX: 0.7,
                         speedY: 0,
                         zIndex: 20,
-                        img: kani_png_1.default,
+                        img: imgKani,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1256,7 +1227,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0.5,
                         speedY: 0.5,
                         zIndex: 24,
-                        img: fugu_png_1.default,
+                        img: imgFugu,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1267,7 +1238,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0.5,
                         speedY: 0.5,
                         zIndex: 24,
-                        img: fugu_png_1.default,
+                        img: imgFugu,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1276,49 +1247,49 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 61,
                         zIndex: 19,
-                        img: kaisou_png_1.default,
+                        img: imgKaisou,
                         onTouch: onTouchNothing,
                     }, kaisou2: {
                         size: 9,
                         posX: 112,
                         posY: 61,
                         zIndex: 19,
-                        img: kaisou_png_1.default,
+                        img: imgKaisou,
                         onTouch: onTouchNothing,
                     }, kaisou3: {
                         size: 9,
                         posX: 22,
                         posY: 16,
                         zIndex: 19,
-                        img: kaisou_png_1.default,
+                        img: imgKaisou,
                         onTouch: onTouchNothing,
                     }, rock1Pic: {
                         size: 100,
                         posX: -20,
                         posY: -82,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock1Actual: {
                         size: 100,
                         posX: -20,
                         posY: -90,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, rock2Pic: {
                         size: 100,
                         posX: 140,
                         posY: -82,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchNothing,
                     }, rock2Actual: {
                         size: 100,
                         posX: 140,
                         posY: -90,
                         zIndex: 26,
-                        img: rock_png_1.default,
+                        img: imgRock,
                         onTouch: onTouchBlock,
                     }, riverPic: {
                         size: 200,
@@ -1356,14 +1327,14 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = rockWall_jpg_1.default;
+                this.bgImg = inWater;
             }
             else if (this.props.stage === 8) {
                 this.ninja.inWater = true;
                 // ------------------------------------------------------------
                 // ステージ8 (水路3)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [-1, -2], [0, -2], [3, -2], [4, -2], [5, -2], [6, -2], [7, -2], [8, -2], [9, -2], [10, -2], [11, -2], [12, -2], [13, -2], [14, -2], [15, -2], [16, -2],
                     [-1, -1], [0, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                     [-1, 0], [0, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0],
@@ -1371,7 +1342,7 @@ var Page2 = /** @class */ (function (_super) {
                     [-1, 2], [0, 2],
                     [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [11.5, 3.5],
                     [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [8, 4], [9, 4], [10, 4], [11, 4],
-                ], onTouchBlock, block_jpg_1.default, 23)), { kimme1: {
+                ], onTouchBlock, imgBlock1, 23)), { kimme1: {
                         size: 130,
                         posX: 160,
                         xMin: 30,
@@ -1379,7 +1350,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 1,
                         speedY: 0,
                         zIndex: 30,
-                        img: onikinme_png_1.default,
+                        img: imgKimme,
                         onTouch: onTouchBlock,
                         nextX: 100,
                         nextY: 63,
@@ -1397,7 +1368,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0.7,
                         speedY: 0,
                         zIndex: 19,
-                        img: kani_png_1.default,
+                        img: imgKani,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1429,18 +1400,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = rockWall_jpg_1.default;
+                this.bgImg = inWater;
             }
             else if (this.props.stage === 9) {
                 // ------------------------------------------------------------
                 // ステージ9 (風呂場)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), getHoleFloor(0, 55)), { shino: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), getHoleFloor(0, 55)), { shino: {
                         size: 10,
                         posX: 80,
                         posY: 60,
                         zIndex: 17,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL2_TITLE,
                     }, shinoScroll: {
@@ -1448,20 +1419,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL2_TITLE,
                         message: this.consts.SHINO_SCROLL2_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, door1: {
                         size: 30,
                         posX: 145,
                         posY: 43,
                         zIndex: 23,
-                        img: tobira_jpg_1.default,
+                        img: imgDoor,
                         onTouch: onTouchLockedDoor,
                         nextX: 60,
                         nextY: 62,
@@ -1474,42 +1445,42 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 145,
                         posY: 13,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, block2: {
                         size: 33,
                         posX: 145,
                         posY: -17,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, block3: {
                         size: 33,
                         posX: 145,
                         posY: 73,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, block4: {
                         size: 33,
                         posX: 115,
                         posY: 73,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, block5: {
                         size: 33,
                         posX: 85,
                         posY: 73,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, block6: {
                         size: 33,
                         posX: 55,
                         posY: 73,
                         zIndex: 22,
-                        img: woodenBox_jpg_1.default,
+                        img: imgWoodenBlock,
                         onTouch: onTouchBlock,
                     }, rightGateWall: {
                         size: 300,
@@ -1532,15 +1503,15 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = furo_jpg_1.default;
+                this.bgImg = stage9;
             }
             else if (this.props.stage === 10) {
                 // ------------------------------------------------------------
                 // ステージ10 (脱衣所)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { enemy1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { enemy1: {
                         size: 13,
                         posX: 104,
                         xMax: 104,
@@ -1548,7 +1519,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 2,
                         speedY: 0,
                         zIndex: 19,
-                        img: ninja_bad_png_1.default,
+                        img: imgBadNinja,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1559,7 +1530,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1570,7 +1541,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1581,7 +1552,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1592,7 +1563,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1603,7 +1574,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1614,7 +1585,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1625,7 +1596,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1636,7 +1607,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1647,7 +1618,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1658,7 +1629,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 21,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1669,7 +1640,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 21,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1691,23 +1662,23 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = datsuiJo_jpg_1.default;
+                this.bgImg = stage10;
             }
             else if (this.props.stage === 11) {
                 // ------------------------------------------------------------
                 // ステージ11 (2層　１)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                     [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { enemy1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { enemy1: {
                         size: 13,
                         posX: 75,
                         posY: 60,
                         speedX: 0.7,
                         speedY: 0,
                         zIndex: 19,
-                        img: ninja_bad_png_1.default,
+                        img: imgBadNinja,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1718,7 +1689,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0.7,
                         speedY: 1,
                         zIndex: 31,
-                        img: bat_png_1.default,
+                        img: imgBat,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1740,23 +1711,23 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = washitsu_jpg_1.default;
+                this.bgImg = twoLayer;
             }
             else if (this.props.stage === 12) {
                 // ------------------------------------------------------------
                 // ステージ12 (2層　２)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [14, -1], [15, -1], [16, -1],
                     [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { oni1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { oni1: {
                         size: 19,
                         posX: 75,
                         posY: 57,
                         speedX: 0.7,
                         speedY: 0,
                         zIndex: 19,
-                        img: oni_png_1.default,
+                        img: imgOni,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1789,24 +1760,24 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = washitsu_jpg_1.default;
+                this.bgImg = twoLayer;
             }
             else if (this.props.stage === 13) {
                 // ------------------------------------------------------------
                 // ステージ13 (2層　３)
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
                     [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
                     [13, 7], [14, 7], [15, 7], [16, 7], [17, 7]
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { hitotsume1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { hitotsume1: {
                         size: 12,
                         posX: 110,
                         posY: 7,
                         speedX: 2,
                         speedY: 0,
                         zIndex: 19,
-                        img: hitotsume_png_1.default,
+                        img: imgOneEye,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
@@ -1839,13 +1810,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = washitsu_jpg_1.default;
+                this.bgImg = twoLayer;
             }
             else if (this.props.stage === 14) {
                 // ------------------------------------------------------------
                 // ステージ14
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), getBlocks(10, [
                     [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5], [13, -0.5], [14, -0.5],
                     [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
                     [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
@@ -1859,14 +1830,14 @@ var Page2 = /** @class */ (function (_super) {
                     [11.5, 2],
                     [6, 3], [9, 3],
                     [3, 5],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { hitotsume1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { hitotsume1: {
                         size: 12,
                         posX: 116,
                         posY: 8,
                         speedX: 2,
                         speedY: 0,
                         zIndex: 19,
-                        img: hitotsume_png_1.default,
+                        img: imgOneEye,
                         onTouch: onTouchEnemy,
                         enemy: true,
                         eachTime: eachTimeOneEye,
@@ -1894,20 +1865,20 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = wa1_jpg_1.default;
+                this.bgImg = stage14;
             }
             else if (this.props.stage === 15) {
                 // ------------------------------------------------------------
                 // ステージ15
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), { box1: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), { box1: {
                         size: 17,
                         posX: 106,
                         posY: 50,
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -1916,20 +1887,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.KEY3_SCROLL_TITLE,
                         message: this.consts.KEY3_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: kagi_png_1.default,
+                        speakerImg: imgKey,
                     }, house1Pic: {
                         size: 60,
                         posX: 120,
                         posY: 55,
                         zIndex: 35,
-                        img: house_png_1.default,
+                        img: imgHouse1,
                         onTouch: onTouchNothing,
                     }, house1Actual: {
                         size: 60,
@@ -1941,7 +1912,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 90,
                         posY: 55,
                         zIndex: 34,
-                        img: house_png_1.default,
+                        img: imgHouse1,
                         onTouch: onTouchNothing,
                     }, houseActual: {
                         size: 60,
@@ -1961,13 +1932,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = soto_jpg_1.default;
+                this.bgImg = stage15;
             }
             else if (this.props.stage === 16) {
                 // ------------------------------------------------------------
                 // ステージ16
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), getBlocks(10, [
                     [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
                     [2, 0],
                     [2, 1],
@@ -1978,14 +1949,14 @@ var Page2 = /** @class */ (function (_super) {
                     [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5],
                     [10, 6], [11, 6], [12, 6], [13, 6], [14, 6], [15, 6], [16, 6], [17, 6],
                     [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { oni1: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { oni1: {
                         size: 58,
                         posX: 70,
                         posY: 20,
                         speedX: 1.2,
                         speedY: 0,
                         zIndex: 30,
-                        img: oni_png_1.default,
+                        img: imgOni,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeKimme,
@@ -1994,14 +1965,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.KEY2_SCROLL_TITLE,
                         message: this.consts.KEY2_SCROLL_MESSAGE,
                         fontSize: 3,
-                        speakerImg: kagi_png_1.default,
+                        speakerImg: imgKey,
                     }, leftGateWall: {
                         size: 300,
                         posX: -300,
@@ -2012,13 +1983,13 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = wa2_jpg_1.default;
+                this.bgImg = stage16;
             }
             else if (this.props.stage === 17) {
                 // ------------------------------------------------------------
                 // ステージ17
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), getBlocks(10, [
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), getBlocks(10, [
                     [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5],
                     [1, 0.4], [2, 0.4], [3, 0.4], [4, 0.4], [5, 0.4], [6, 0.4], [7, 0.4],
                     [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0], [10, 0],
@@ -2031,12 +2002,12 @@ var Page2 = /** @class */ (function (_super) {
                     [-2, 7], [-1, 7], [0, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
                     [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [5, 3.7], [6, 3.7], [7, 3.7], [8, 3.7], [9, 3.7], [10, 3.7],
                     [4, 6],
-                ], onTouchBlock, woodenBox_jpg_1.default, 23)), { shino: {
+                ], onTouchBlock, imgWoodenBlock, 23)), { shino: {
                         size: 10,
                         posX: 15,
                         posY: 24,
                         zIndex: 17,
-                        img: shino_png_1.default,
+                        img: imgShino,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.SHINO_SCROLL3_TITLE,
                     }, shinoScroll: {
@@ -2044,14 +2015,14 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.SHINO_SCROLL3_TITLE,
                         message: this.consts.SHINO_SCROLL3_MESSAGE,
                         fontSize: 3,
-                        speakerImg: shino_png_1.default,
+                        speakerImg: imgShino,
                     }, 
                     //はしご
                     hashigoPic: {
@@ -2059,7 +2030,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 122,
                         posY: 4,
                         zIndex: 20,
-                        img: hashigo_wood_png_1.default,
+                        img: imgHashigo,
                         onTouch: onTouchNothing,
                     }, hashigo0: {
                         size: 10,
@@ -2092,7 +2063,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -2103,7 +2074,7 @@ var Page2 = /** @class */ (function (_super) {
                         speedX: 0,
                         speedY: 0,
                         zIndex: 22,
-                        img: box_jpg_1.default,
+                        img: imgBox1,
                         onTouch: onTouchBlock,
                         enemy: true,
                         eachTime: eachTimeEnemy,
@@ -2112,7 +2083,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 80,
                         posY: 49,
                         zIndex: 22,
-                        img: tobira_jpg_1.default,
+                        img: imgDoor,
                         onTouch: onTouchLockedDoor,
                         nextX: 60,
                         nextY: 62,
@@ -2125,7 +2096,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 60,
                         posY: 16,
                         zIndex: 22,
-                        img: tobira_jpg_1.default,
+                        img: imgDoor,
                         onTouch: onTouchLockedDoor,
                         nextX: 60,
                         nextY: 62,
@@ -2157,18 +2128,18 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = wa3_jpg_1.default;
+                this.bgImg = stage17;
             }
             else if (this.props.stage === 18) {
                 // ------------------------------------------------------------
                 // ステージ18
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { pochi: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { pochi: {
                         size: 10,
                         posX: 73,
                         posY: 62,
                         zIndex: 20,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL3_TITLE,
                     }, pochiScroll: {
@@ -2176,20 +2147,20 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL3_TITLE,
                         message: this.consts.POCHI_SCROLL3_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     }, kanban1Pic: {
                         size: 20,
                         posX: 130,
                         posY: 60,
                         zIndex: 10,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchNothing,
                     }, kanban1ArrowPic: {
                         size: 10,
@@ -2197,7 +2168,7 @@ var Page2 = /** @class */ (function (_super) {
                         posY: 63,
                         boolLeft: false,
                         zIndex: 11,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     }, rightGateWall: {
                         size: 300,
@@ -2209,20 +2180,20 @@ var Page2 = /** @class */ (function (_super) {
                         changeStage: this.props.changeStage,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = wa4_jpg_1.default;
+                this.bgImg = stage18;
             }
             else if (this.props.stage === 19) {
                 // ------------------------------------------------------------
                 // ステージ19
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { boss: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { boss: {
                         size: 12,
                         posX: 72,
                         posY: 4,
                         speedX: 2,
                         speedY: 0,
                         zIndex: 19,
-                        img: badDog_png_1.default,
+                        img: imgBoss,
                         onTouch: onTouchEnemy,
                         changeStage: this.props.changeStage,
                         enemy: true,
@@ -2232,7 +2203,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 17,
                         posY: 3,
                         zIndex: 0,
-                        img: torii_png_1.default,
+                        img: imgTorii,
                         onTouch: onTouchNothing,
                     }, toriiActual: {
                         size: 120,
@@ -2256,18 +2227,18 @@ var Page2 = /** @class */ (function (_super) {
                         onTouch: onTouchEnemy,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = boss_jpg_1.default;
+                this.bgImg = stage19;
             }
             else if (this.props.stage === 20) {
                 // ------------------------------------------------------------
                 // ステージ20
                 // ------------------------------------------------------------
-                this.objs = __assign(__assign(__assign(__assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kosuke: {
+                this.objs = Object.assign(Object.assign(Object.assign(Object.assign({}, this.objOutOfScreen), this.objWalls), this.objFloor), { kosuke: {
                         size: 10,
                         posX: 85,
                         posY: 65,
                         zIndex: 17,
-                        img: scrollObj_png_1.default,
+                        img: imgScroll,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.KOSUKE_SCROLL_TITLE,
                     }, kosukeScroll: {
@@ -2275,7 +2246,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
@@ -2288,7 +2259,7 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 53,
                         posY: 62,
                         zIndex: 20,
-                        img: pochi_png_1.default,
+                        img: imgPochi,
                         onTouch: onTouchScrollOpener,
                         openTargetTitle: this.consts.POCHI_SCROLL4_TITLE,
                     }, pochiScroll: {
@@ -2296,25 +2267,25 @@ var Page2 = /** @class */ (function (_super) {
                         posX: 5,
                         posY: 5,
                         zIndex: 1000,
-                        img: scrollOpen_png_1.default,
+                        img: imgScrollOpen,
                         scroll: true,
                         visible: false,
                         onTouch: onTouchNothing,
                         title: this.consts.POCHI_SCROLL4_TITLE,
                         message: this.consts.POCHI_SCROLL4_MESSAGE,
                         fontSize: 3,
-                        speakerImg: pochi_png_1.default,
+                        speakerImg: imgPochi,
                     } });
                 //ステージの背景画像を設定
-                this.bgImg = wa5_jpg_1.default;
+                this.bgImg = stage20;
             }
             this.prevStage = this.props.stage;
             //localStorageに自動セーブ
-            var _a = this.ninja, game = _a.game, rest = __rest(_a, ["game"]);
-            var saveData = { ninja: rest, stage: this.props.stage };
+            const _a = this.ninja, { game } = _a, rest = __rest(_a, ["game"]);
+            const saveData = { ninja: rest, stage: this.props.stage };
             localStorage.setItem('saveData2', JSON.stringify(saveData));
             //背景画像の変更
-            this.backgroundSetting.backgroundImage = "url(" + this.bgImg + ")";
+            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
         return (React.createElement("div", { id: "Page2", style: this.pageStyle },
             React.createElement("div", { id: "gameScreen", style: this.state.screenStyle },
@@ -2322,23 +2293,22 @@ var Page2 = /** @class */ (function (_super) {
                 React.createElement(RenderObjs, { game: this })),
             React.createElement("b", null,
                 React.createElement(RenderScreenBottom, { onClickButton: this.onClickButton.bind(this), onMouseUp: this.onMouseUp.bind(this), terminalPC: this.terminalPC, UL: this.UL, lang: this.props.language }))));
-    };
-    return Page2;
-}(React.Component));
-exports.Page2 = Page2;
+    }
+}
 exports.default = Page2;
+exports.Page2 = Page2;
 function RenderObjs(props) {
-    var objList = [];
-    for (var key in props.game.objs) {
+    let objList = [];
+    for (let key in props.game.objs) {
         objList.push(React.createElement(obj_1.Obj, { key: key, obj: props.game.objs[key], UL: props.game.UL, game: props.game }));
     }
     return React.createElement("span", null, objList);
 }
 function RenderScreenBottom(props) {
     //画面下部のボタンなどの表示の出し分け
-    var UL = props.UL;
+    const UL = props.UL;
     if (props.terminalPC) {
-        var styleDivPcMessage = {
+        let styleDivPcMessage = {
             position: "absolute",
             top: 75 * UL,
             width: 160 * UL,
@@ -2349,7 +2319,7 @@ function RenderScreenBottom(props) {
             justifyContent: "center",
             alignItems: "center",
         };
-        var styleTextPcMessage = {
+        let styleTextPcMessage = {
             fontSize: "xx-large",
             color: "white",
         };
@@ -2368,9 +2338,9 @@ function RenderScreenBottom(props) {
     }
 }
 function RenderButtons(props) {
-    var UL = props.UL;
+    const UL = props.UL;
     //ボタンがあるテーブルのスタイル
-    var controllerStyle = {
+    let controllerStyle = {
         position: "absolute",
         top: 75 * UL,
         width: 160 * UL,
@@ -2378,14 +2348,14 @@ function RenderButtons(props) {
         backgroundColor: "black",
     };
     //左右のボタンのスタイル
-    var sideButtonStyle = {
+    let sideButtonStyle = {
         width: 30 * UL,
         height: 15 * UL,
         fontSize: 4 * UL + "px",
         margin: "1px",
     };
     //ジャンプボタンのスタイル
-    var jumpButtonStyle = {
+    let jumpButtonStyle = {
         width: 100 * UL,
         height: 15 * UL,
         fontSize: 4 * UL,
@@ -2395,11 +2365,11 @@ function RenderButtons(props) {
         React.createElement("tbody", null,
             React.createElement("tr", null,
                 React.createElement("td", { align: "right" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("left"); }, onTouchStart: function () { props.onClickButton("left"); }, onMouseUp: function () { props.onMouseUp("left"); }, onMouseOut: function () { props.onMouseUp("left"); }, onTouchEnd: function () { props.onMouseUp("left"); } }, "＜")),
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("left"); }, onTouchStart: () => { props.onClickButton("left"); }, onMouseUp: () => { props.onMouseUp("left"); }, onMouseOut: () => { props.onMouseUp("left"); }, onTouchEnd: () => { props.onMouseUp("left"); } }, "＜")),
                 React.createElement("td", { align: "center" },
-                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("jump"); }, onTouchStart: function () { props.onClickButton("jump"); }, onMouseUp: function () { props.onMouseUp("jump"); }, onMouseOut: function () { props.onMouseUp("jump"); }, onTouchEnd: function () { props.onMouseUp("jump"); } }, "↑　jump　↑")),
+                    React.createElement("button", { style: jumpButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("jump"); }, onTouchStart: () => { props.onClickButton("jump"); }, onMouseUp: () => { props.onMouseUp("jump"); }, onMouseOut: () => { props.onMouseUp("jump"); }, onTouchEnd: () => { props.onMouseUp("jump"); } }, "↑　jump　↑")),
                 React.createElement("td", { align: "left" },
-                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: function () { props.onClickButton("right"); }, onTouchStart: function () { props.onClickButton("right"); }, onMouseUp: function () { props.onMouseUp("right"); }, onMouseOut: function () { props.onMouseUp("right"); }, onTouchEnd: function () { props.onMouseUp("right"); } }, "＞"))))));
+                    React.createElement("button", { style: sideButtonStyle, className: "btn btn-info btn-lg btn-block", onMouseDown: () => { props.onClickButton("right"); }, onTouchStart: () => { props.onClickButton("right"); }, onMouseUp: () => { props.onMouseUp("right"); }, onMouseOut: () => { props.onMouseUp("right"); }, onTouchEnd: () => { props.onMouseUp("right"); } }, "＞"))))));
 }
 function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
     //コメントは忍者が右から来た想定
@@ -2454,8 +2424,8 @@ function checkTouch(obj1, obj2) {
 }
 //ブロック生成関数
 function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
-    var objResult = {};
-    for (var index in arrPos) {
+    let objResult = {};
+    for (let index in arrPos) {
         objResult["objBlock" + index] = {
             size: size + 3,
             posX: arrPos[index][0] * size,
@@ -2469,7 +2439,7 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
 }
 //鍵　生成関数
 function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-    var objResult = {};
+    let objResult = {};
     if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
         //まだ鍵を見付けていない場合のみ表示
         objResult["key"] = {
@@ -2477,7 +2447,7 @@ function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
             posX: posX,
             posY: posY,
             zIndex: zIndex,
-            img: kagi_png_1.default,
+            img: imgKey,
             onTouch: onTouchScrollOpener,
             openTargetTitle: openTargetTitle,
             boolLeft: true,
@@ -2487,8 +2457,8 @@ function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
 }
 //穴が開いた床　生成関数
 function getHoleFloor(holeStart, holeEnd) {
-    var objResult = {};
-    for (var i = 0; i < 5; i++) {
+    let objResult = {};
+    for (let i = 0; i < 5; i++) {
         objResult["floorL" + i] = {
             size: 200,
             posX: holeStart - 200,
@@ -2517,8 +2487,8 @@ function getHoleFloor(holeStart, holeEnd) {
 function onTouchScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
-        var objs = ninja.game.objs;
-        for (var key in objs) {
+        let objs = ninja.game.objs;
+        for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
                 objs[key].visible = false;
@@ -2722,7 +2692,7 @@ function eachTimeEnemy(ninja, key) {
         else if (ninja.posY + (ninja.size / 2) <= this.posY) {
             this.posY += this.speedY * (-1);
         }
-        for (var i = 0; i <= ninja.fireBallCount; i++) {
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
@@ -2739,7 +2709,7 @@ function eachTimeEnemy(ninja, key) {
 function eachTimeOneEye(ninja, key) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
-        var day = new Date().getTime();
+        let day = new Date().getTime();
         //5回に1回火の玉生成
         var random1 = Math.floor(Math.random() * 6);
         var random2 = Math.floor(Math.random() * 6);
@@ -2753,7 +2723,7 @@ function eachTimeOneEye(ninja, key) {
                     speedX: random2 / 5,
                     speedY: random3 / 5,
                     zIndex: 5,
-                    img: hinotama_png_1.default,
+                    img: imgBlueFire,
                     onTouch: onTouchEnemy,
                     enemy: true,
                     eachTime: eachTimeEnemy,
@@ -2767,7 +2737,7 @@ function eachTimeOneEye(ninja, key) {
         else if (ninja.posY + (ninja.size / 2) <= this.posY) {
             this.posY += this.speedY * (-1);
         }
-        for (var i = 0; i <= ninja.fireBallCount; i++) {
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
@@ -2784,12 +2754,12 @@ function eachTimeOneEye(ninja, key) {
 function eachTimeBoss(ninja, key) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
-        var day = new Date().getTime();
+        let day = new Date().getTime();
         //5回に1回コウモリ生成
-        var random1 = Math.floor(Math.random() * 6);
-        var random2 = Math.floor(Math.random() * 6);
-        var random3 = Math.floor(Math.random() * 6);
-        var randomHalf = Math.floor(Math.random() * 3);
+        let random1 = Math.floor(Math.random() * 6);
+        let random2 = Math.floor(Math.random() * 6);
+        let random3 = Math.floor(Math.random() * 6);
+        let randomHalf = Math.floor(Math.random() * 3);
         if (random1 * random2 === 9 && randomHalf === 2) {
             ninja.game.objs["bat" + day] = {
                 size: 13,
@@ -2798,13 +2768,13 @@ function eachTimeBoss(ninja, key) {
                 speedX: random3 / 3,
                 speedY: random2 / 3,
                 zIndex: 5,
-                img: bat_png_1.default,
+                img: imgBat,
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeEnemy,
             };
         }
-        var random4 = Math.floor(Math.random() * 6);
+        let random4 = Math.floor(Math.random() * 6);
         //一つ目生成
         if (random1 * random2 * random3 * random4 === 27 && randomHalf === 2) {
             //3が3つと1ひとつ　⇒　右から
@@ -2816,7 +2786,7 @@ function eachTimeBoss(ninja, key) {
                 speedX: 0,
                 speedY: 0.5,
                 zIndex: 5,
-                img: hitotsume_png_1.default,
+                img: imgOneEye,
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
@@ -2832,13 +2802,13 @@ function eachTimeBoss(ninja, key) {
                 speedX: 0,
                 speedY: 0.5,
                 zIndex: 5,
-                img: hitotsume_png_1.default,
+                img: imgOneEye,
                 onTouch: onTouchEnemy,
                 enemy: true,
                 eachTime: eachTimeOneEye,
             };
         }
-        var random5 = Math.floor(Math.random() * 6);
+        let random5 = Math.floor(Math.random() * 6);
         if (random4 * random5 === 4 || random4 * random5 === 9 || random4 * random5 === 25) {
             //ボックス
             ninja.game.objs["box" + day] = {
@@ -2848,13 +2818,13 @@ function eachTimeBoss(ninja, key) {
                 speedX: 0,
                 speedY: 0,
                 zIndex: 22,
-                img: box_jpg_1.default,
+                img: imgBox1,
                 onTouch: onTouchBlock,
                 enemy: true,
                 eachTime: eachTimeEnemy,
             };
         }
-        for (var i = 0; i <= ninja.fireBallCount; i++) {
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
@@ -2872,7 +2842,7 @@ function eachTimeBoss(ninja, key) {
                         posX: 130,
                         posY: 60,
                         zIndex: 24,
-                        img: kanban1_png_1.default,
+                        img: imgKanban1,
                         onTouch: onTouchNothing,
                     };
                     ninja.game.objs["kanban1ArrowPic"] = {
@@ -2881,11 +2851,11 @@ function eachTimeBoss(ninja, key) {
                         posY: 63,
                         boolLeft: false,
                         zIndex: 24,
-                        img: arrow1_png_1.default,
+                        img: imgArrow1,
                         onTouch: onTouchNothing,
                     };
                     //背景変更
-                    ninja.game.backgroundSetting.backgroundImage = "url(" + afterBoss_jpg_1.default + ")";
+                    ninja.game.backgroundSetting.backgroundImage = `url(${stage19a})`;
                     //敵がFireBallに触れた場合
                     delete ninja.game.objs[key];
                 }
@@ -2945,7 +2915,7 @@ function eachTimeKimme(ninja, key) {
             //x最小値を超えている場合
             this.posX = this.xMin;
         }
-        for (var i = 0; i <= ninja.fireBallCount; i++) {
+        for (let i = 0; i <= ninja.fireBallCount; i++) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {

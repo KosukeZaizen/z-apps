@@ -7,9 +7,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var CommonFnc_1 = require("./CommonFnc");
-var consts = __importStar(require("./Consts")); //定数
-var Messages_1 = require("./Messages"); //メッセージモジュール
+const CommonFnc_1 = require("./CommonFnc");
+const consts = __importStar(require("./Consts")); //定数
+const Messages_1 = require("./Messages"); //メッセージモジュール
 //------------------------------------------------------------
 //
 //　　　　　オブジェクトタッチ時の関数
@@ -26,8 +26,8 @@ exports.toNothing = toNothing;
 function toScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
-        var objs = ninja.game.objs;
-        for (var key in objs) {
+        let objs = ninja.game.objs;
+        for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
                 objs[key].visible = false;

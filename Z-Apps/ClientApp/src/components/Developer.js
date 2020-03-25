@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,12 +10,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
+const React = __importStar(require("react"));
 require("../css/Developer.css");
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var FaceBook_1 = __importDefault(require("./parts/FaceBook"));
-var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
-var image = require('../img/KosukeZaizen.jpg');
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+const FaceBook_1 = __importDefault(require("./parts/FaceBook"));
+const PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
+const image = require('../img/KosukeZaizen.jpg');
 function SayHello() {
     return (React.createElement("p", null,
         React.createElement("b", null, "Hello! I'm Kosuke Zaizen!"),
@@ -42,14 +29,12 @@ function SayHello() {
         React.createElement("br", null),
         "I hope Lingual Ninja can help!"));
 }
-var Developer = /** @class */ (function (_super) {
-    __extends(Developer, _super);
-    function Developer(props) {
-        var _this = _super.call(this, props) || this;
-        _this.ref = React.createRef();
-        return _this;
+class Developer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.ref = React.createRef();
     }
-    Developer.prototype.render = function () {
+    render() {
         return (React.createElement("div", { className: "developer" },
             React.createElement(Helmet_1.default, { title: "Kosuke Zaizen", desc: "I am a Japanese software engineer. Lingual Ninja is a website for Japanese learners. I hope Lingual Ninja can help!" }),
             React.createElement("div", { className: "center" },
@@ -98,7 +83,6 @@ var Developer = /** @class */ (function (_super) {
                         React.createElement("br", null),
                         React.createElement(FaceBook_1.default, null))),
                 React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" }))));
-    };
-    return Developer;
-}(React.Component));
+    }
+}
 exports.default = Developer;

@@ -1,28 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -30,42 +6,36 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var logo_png_1 = __importDefault(require("./img/logo.png"));
-var Page1 = /** @class */ (function (_super) {
-    __extends(Page1, _super);
-    function Page1(props) {
-        var _this = _super.call(this, props) || this;
-        _this.consts = {
+const React = __importStar(require("react"));
+const logo = require('./img/logo.png');
+class Page1 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.consts = {
             BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
         };
-        _this.state = {
+        this.state = {
             topImage: true,
         };
-        return _this;
     }
-    Page1.prototype.hideTopImage = function () {
+    hideTopImage() {
         this.setState({ topImage: false, });
-    };
-    Page1.prototype.render = function () {
-        var _this = this;
-        var bottomMargin = {
+    }
+    render() {
+        const bottomMargin = {
             marginBottom: 10,
         };
-        var screenHeight = parseInt(window.innerHeight, 10);
+        const screenHeight = window.innerHeight;
         return (React.createElement("div", { id: "page1" },
-            React.createElement("span", { onClick: function () { _this.hideTopImage(); } },
+            React.createElement("span", { onClick: () => { this.hideTopImage(); } },
                 React.createElement(TopImage, { topImage: this.state.topImage })),
             React.createElement("h2", { style: { color: "black", marginBottom: 10, } }, "Which language do you prefer?"),
             screenHeight > 360 ?
                 React.createElement("span", null,
-                    React.createElement("span", { onClick: function () { _this.props.changePage(2, "English"); } },
+                    React.createElement("span", { onClick: () => { this.props.changePage(2, "English"); } },
                         React.createElement("button", { style: bottomMargin, className: this.consts.BTN_START_CLASS }, "English")),
-                    React.createElement("span", { onClick: function () { _this.props.changePage(2, "Japanese"); } },
+                    React.createElement("span", { onClick: () => { this.props.changePage(2, "Japanese"); } },
                         React.createElement("button", { className: this.consts.BTN_START_CLASS }, "日本語")))
                 :
                     React.createElement("span", null,
@@ -73,27 +43,26 @@ var Page1 = /** @class */ (function (_super) {
                             React.createElement("tbody", null,
                                 React.createElement("tr", null,
                                     React.createElement("td", { align: "center" },
-                                        React.createElement("span", { onClick: function () { _this.props.changePage(2, "English"); } },
-                                            React.createElement("button", { style: __assign(__assign({}, bottomMargin), { width: "80%" }), className: this.consts.BTN_START_CLASS }, "English"))),
+                                        React.createElement("span", { onClick: () => { this.props.changePage(2, "English"); } },
+                                            React.createElement("button", { style: Object.assign(Object.assign({}, bottomMargin), { width: "80%" }), className: this.consts.BTN_START_CLASS }, "English"))),
                                     React.createElement("td", { align: "center" },
-                                        React.createElement("span", { onClick: function () { _this.props.changePage(2, "Japanese"); } },
-                                            React.createElement("button", { style: __assign(__assign({}, bottomMargin), { width: "80%" }), className: this.consts.BTN_START_CLASS }, "日本語"))))))),
+                                        React.createElement("span", { onClick: () => { this.props.changePage(2, "Japanese"); } },
+                                            React.createElement("button", { style: Object.assign(Object.assign({}, bottomMargin), { width: "80%" }), className: this.consts.BTN_START_CLASS }, "日本語"))))))),
             React.createElement("br", null),
-            React.createElement("center", { style: { color: "black" } },
+            React.createElement("div", { className: "center", style: { color: "black" } },
                 "If you want to be a real Ninja, please check this:",
                 React.createElement("br", null),
                 React.createElement("a", { href: "https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html", target: "_blank", rel: "noopener noreferrer" }, "How to be a Ninja >>")),
             React.createElement("br", null),
             React.createElement("br", null)));
-    };
-    return Page1;
-}(React.Component));
-exports.Page1 = Page1;
+    }
+}
 exports.default = Page1;
+exports.Page1 = Page1;
 function TopImage(props) {
     if (props.topImage) {
         return React.createElement("h1", null,
-            React.createElement("img", { width: "100%", src: logo_png_1.default, alt: "Lingual Ninja Games - Frozen Nightmare" }));
+            React.createElement("img", { width: "100%", src: logo, alt: "Lingual Ninja Games - Frozen Nightmare" }));
     }
     else {
         return React.createElement("span", null);

@@ -10,15 +10,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
+const React = __importStar(require("react"));
 require("../css/Terms.css");
-var react_router_dom_1 = require("react-router-dom");
-var reactstrap_1 = require("reactstrap");
-var functions_1 = require("./common/functions");
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var img404 = require('../img/404.png');
-var NotFound = function (props) {
-    var params = functions_1.getParams();
+const react_router_dom_1 = require("react-router-dom");
+const reactstrap_1 = require("reactstrap");
+const functions_1 = require("./common/functions");
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+const img404 = require('../img/404.png');
+const NotFound = props => {
+    const params = functions_1.getParams();
     return (React.createElement("div", null,
         React.createElement(Helmet_1.default, { title: "404", noindex: true }),
         React.createElement("div", { className: "center" },

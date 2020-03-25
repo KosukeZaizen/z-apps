@@ -7,17 +7,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var react_helmet_1 = require("react-helmet");
-var GoogleAd_1 = require("./GoogleAd");
-var consts = __importStar(require("../common/consts"));
-var PageHeader = function (props) {
+const React = __importStar(require("react"));
+const react_helmet_1 = require("react-helmet");
+const GoogleAd_1 = require("./GoogleAd");
+const consts = __importStar(require("../common/consts"));
+const PageHeader = props => {
     if (GoogleAd_1.isGoogleAdsDisplayed && props.noindex) {
         // noindexのページにAdsenseの自動広告が引き継がれそうになった場合は、リロードして消す
         window.location.reload();
         return null;
     }
-    var topUrl = consts.TOP_URL;
+    const topUrl = consts.TOP_URL;
     return (React.createElement("div", { className: "application" },
         React.createElement(react_helmet_1.Helmet, null,
             props.title ?

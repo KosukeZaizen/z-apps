@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,19 +10,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(require("react"));
-var react_router_dom_1 = require("react-router-dom");
+const React = __importStar(require("react"));
+const react_router_dom_1 = require("react-router-dom");
 require("../css/Terms.css");
-var Helmet_1 = __importDefault(require("./parts/Helmet"));
-var PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
-var Terms = /** @class */ (function (_super) {
-    __extends(Terms, _super);
-    function Terms(props) {
-        var _this = _super.call(this, props) || this;
-        _this.ref = React.createRef();
-        return _this;
+const Helmet_1 = __importDefault(require("./parts/Helmet"));
+const PleaseScrollDown_1 = __importDefault(require("./parts/PleaseScrollDown"));
+class Terms extends React.Component {
+    constructor(props) {
+        super(props);
+        this.ref = React.createRef();
     }
-    Terms.prototype.render = function () {
+    render() {
         return (React.createElement("div", { className: "terms" },
             React.createElement(Helmet_1.default, { title: "Terms of Use", desc: "Lingual Ninja - The ownership of website and Responsibility" }),
             React.createElement("div", { className: "center" },
@@ -61,7 +46,6 @@ var Terms = /** @class */ (function (_super) {
                     React.createElement("br", null),
                     React.createElement("a", { href: "https://uni-browser.lingual-ninja.com/?pageId=4", target: "_blank", rel: "noopener noreferrer" }, "\u3000uni-browser >>")),
                 React.createElement(PleaseScrollDown_1.default, { criteriaRef: this.ref, targetId: "scrollTargetId" }))));
-    };
-    return Terms;
-}(React.Component));
+    }
+}
 exports.default = Terms;
