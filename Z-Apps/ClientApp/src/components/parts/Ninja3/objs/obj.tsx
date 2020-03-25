@@ -16,6 +16,8 @@ export default class Obj extends React.Component {
     }
 
     render() {
+        if(!this.props.obj) return <span></span>;
+
         let UL = this.props.UL;
         let img = this.props.obj.img;
 

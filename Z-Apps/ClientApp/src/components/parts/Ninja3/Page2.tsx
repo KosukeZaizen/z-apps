@@ -215,7 +215,7 @@ export default class Page2 extends React.Component {
 
                 //敵などが各タイムステップごとの処理を持っていれば、実行する
                 //（ステージ遷移はしない）
-                if (this.objs[key].eachTime) {
+                if (this.objs[key] && this.objs[key].eachTime) {
                     this.objs[key].eachTime(this.ninja, key);
                 }
             }
