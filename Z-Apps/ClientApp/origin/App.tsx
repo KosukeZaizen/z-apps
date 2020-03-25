@@ -92,7 +92,9 @@ function waitAndRedirect(saveKey) {
     const nowTime = now.getTime();
 
     if (intSavedTime && (nowTime - intSavedTime < 15000)) {
-        window.location.href = `/not-found?p=${window.location.pathname}`;
+        setTimeout(() => {
+            window.location.href = `/not-found?p=${window.location.pathname}`;
+        }, 10000);
     } else {
         window.sessionStorage.setItem(saveKey, nowTime.toString());
         window.location.reload();
