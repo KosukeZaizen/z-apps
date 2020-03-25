@@ -94,9 +94,11 @@ var App = /** @class */ (function (_super) {
 exports.default = App;
 function NotFoundRedirect(_a) {
     var location = _a.location;
+    setTimeout(() => {
+        document.location.href = `/not-found?p=${location.pathname}`;
+    }, 12000);
     return (React.createElement("div", null,
-        React.createElement(LoadingAnimation, { num: 1 }),
-        React.createElement(react_router_1.Redirect, { to: "/not-found?p=" + location.pathname })));
+        React.createElement(LoadingAnimation, { num: 1 })));
 }
 function LoadingAnimation(props) {
     var arr = [];
