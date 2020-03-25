@@ -20,7 +20,7 @@
     "react-router-scroll-memory": "^2.0.5",
     "react-scripts": "^3.4.1",
     "react-three-fiber": "^4.0.22",
-    "reactstrap": "^8.4.1",
+    "reactstrap": "^6.3.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.2",
