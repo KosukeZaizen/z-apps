@@ -1,5 +1,3 @@
-import * as privateConsts from './privateConsts';
-
 export function getParams() {
     let arg = {};
     const pair = window.location.search.substring(1).split('&');
