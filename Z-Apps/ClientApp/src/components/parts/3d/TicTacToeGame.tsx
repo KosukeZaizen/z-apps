@@ -154,6 +154,7 @@ export default class Boxes1 extends React.Component<{}, { chars, turn }> {
                         char={chars[x][y]}
                         setChar={this.setChar}
                         turn={turn}
+                        key={`x${x}y${y}`}
                     />);
             }
         }

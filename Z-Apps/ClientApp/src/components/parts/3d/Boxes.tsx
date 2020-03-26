@@ -71,6 +71,7 @@ export default class Boxes extends React.Component<{}, {
                         x={x}
                         y={y}
                         position={[x - 1, y - 1, 0]}
+                        key={`x${x}y${y}`}
                     />);
             }
         }

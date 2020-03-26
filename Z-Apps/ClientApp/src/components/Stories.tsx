@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { bindActionCreators, ActionCreator } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as storiesStore from '../store/StoriesStore';
@@ -11,7 +11,6 @@ import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import * as consts from './common/consts';
 import {storyDesc, sentence, word} from '../types/stories';
-import { IActionCreators } from '../store/StoriesEditStore';
 
 type Props = storiesStore.StoriesEditState & storiesStore.IActionCreators& {
     location:{pathname: string};

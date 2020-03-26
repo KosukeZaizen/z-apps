@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { AnyTxtRecord } from 'dns';
 
 export default class Obj extends React.Component {
     props: {

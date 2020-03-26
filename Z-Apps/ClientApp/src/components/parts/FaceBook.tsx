@@ -21,7 +21,6 @@ export default class FB extends React.Component {
                     style={{ border: "none", overflow: "hidden" }}
                     scrolling="yes"
                     frameBorder="0"
-                    allowTransparency={true}
                     allow="encrypted-media"
                 />
             </div>
