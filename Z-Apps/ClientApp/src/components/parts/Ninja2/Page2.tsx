@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NinjaChar } from './objs/ninja/ninja';
 import { Obj } from './objs/obj';
-import { AnyTxtRecord } from 'dns';
 
 
 //オブジェクト素材画像----------------
