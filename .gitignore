@@ -259,5 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-Z-Apps/ClientApp/src/components/common/privateConsts.js
+Z-Apps/ClientApp/src/components/common/privateConsts.ts
 Z-Apps/ClientApp/package-lock.json
