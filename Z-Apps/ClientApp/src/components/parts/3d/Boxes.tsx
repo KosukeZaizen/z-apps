@@ -57,7 +57,7 @@ export default class Boxes extends React.Component<{}, {
         }, 200);
     }
     
-    componentWillUnmount() {
+    UNSAFE_componentWillUnmount() {
         //タイムステップ毎のループの終了
         clearInterval(this.timerId);
     }

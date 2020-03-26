@@ -61,7 +61,7 @@ export default class Page2 extends React.Component {
     wind: any;
     pageStyle: any;
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = GameCore.checkTerminalPC();
