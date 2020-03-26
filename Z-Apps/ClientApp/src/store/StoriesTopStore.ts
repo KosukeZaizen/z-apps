@@ -1,5 +1,3 @@
-import { serverSideErrorProc } from '../components/common/functions';
-
 const receiveStoriesType = 'RECEIVE_STORIES';
 const initialState = { allStories: [] };
 

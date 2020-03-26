@@ -1,4 +1,4 @@
-import { serverSideErrorProc } from '../components/common/functions';
+import { reloadAndRedirect } from '../components/common/functions';
 import {storyDesc, sentence, word} from '../types/stories';
 
 const initializeType = 'INITIALIZE';
@@ -34,14 +34,14 @@ export const actionCreators:IActionCreators = {
             if (storyDesc) {
                 if (storyName !== storyDesc.storyName) {
                     if (!storyDesc.storyName) {
-                        serverSideErrorProc();
+                        reloadAndRedirect("db-access-error-time");
                     }else if (storyName.toLowerCase === storyDesc.storyName.toLowerCase) {
                         window.location.href = `/folktales/${storyDesc.storyName}`;
                     }
                     return;
                 }
             } else {
-                serverSideErrorProc();
+                reloadAndRedirect("db-access-error-time");
                 return;
             }
 

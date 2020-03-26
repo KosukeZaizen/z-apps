@@ -41,8 +41,7 @@ export async function sendPostNoJsonResult(objToSend, url) {
     return response;
 }
 
-export function serverSideErrorProc() {
-    const saveKey = "db-access-error-time";
+export function reloadAndRedirect(saveKey: string) {
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
     const intSavedTime = parseInt(savedErrTime);
@@ -51,7 +50,9 @@ export function serverSideErrorProc() {
     const nowTime = now.getTime();
 
     if (intSavedTime && (nowTime - intSavedTime < 15000)) {
-        window.location.href = `/not-found?p=${window.location.pathname}`;
+        setTimeout(() => {
+            window.location.href = `/not-found?p=${window.location.pathname}`;
+        }, 10000);
     } else {
         window.sessionStorage.setItem(saveKey, nowTime.toString());
         window.location.reload();

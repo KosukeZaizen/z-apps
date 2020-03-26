@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Layout from './components/parts/Layout';
+import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
 
@@ -74,32 +75,13 @@ export default class App extends React.Component {
 
 function NotFoundRedirect({ location }) {
     
-    waitAndRedirect("pageNotFoundRedirect");
+    commonFncs.reloadAndRedirect("pageNotFoundRedirect");
 
     return (
         <div>
             <LoadingAnimation num={1} />
         </div>
     );
-}
-
-function waitAndRedirect(saveKey) {
-
-    const savedErrTime = window.sessionStorage.getItem(saveKey);
-    const intSavedTime = parseInt(savedErrTime);
-
-    const now = new Date();
-    const nowTime = now.getTime();
-
-    if (intSavedTime && (nowTime - intSavedTime < 15000)) {
-        setTimeout(() => {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
-        }, 10000);
-    } else {
-        window.sessionStorage.setItem(saveKey, nowTime.toString());
-        window.location.reload();
-    }
-    return;
 }
 
 function LoadingAnimation(props) {
