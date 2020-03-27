@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { AnyTxtRecord } from 'dns';
 
 export default class Quiz2 extends React.Component<{
     consts: any;

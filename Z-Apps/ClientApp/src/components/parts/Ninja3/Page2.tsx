@@ -104,7 +104,7 @@ export default class Page2 extends React.Component {
         // ------------------------------------------------------------
         // ステート初期設定
         // ------------------------------------------------------------
-        this.state = {
+        this.setState({
             screenStyle: {
                 width: pageSize.pageWidth,
                 height: pageSize.pageHeight - 15 * UL,
@@ -115,7 +115,7 @@ export default class Page2 extends React.Component {
                 ninjaX: this.ninja.posX * UL,
                 ninjaY: this.ninja.posY * UL,
             }
-        };
+        });
 
         //←ボタン押下判定　初期値
         this.lButton = false;

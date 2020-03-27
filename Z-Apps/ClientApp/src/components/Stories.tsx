@@ -639,10 +639,6 @@ class PleaseScrollDown extends React.Component<{
     screenWidth: number; 
 }>
 {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { screenWidth, pleaseScrollDown } = this.props
 

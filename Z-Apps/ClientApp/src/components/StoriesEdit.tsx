@@ -6,7 +6,7 @@ import * as storiesEditStore from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as consts from './common/consts';
-import {storyDesc, sentence, word} from '../types/stories';
+import { sentence, word } from '../types/stories';
 
 
 type Props = storiesEditStore.StoriesEditState & storiesEditStore.IActionCreators;
@@ -54,7 +54,7 @@ class StoriesEdit extends React.Component<Props, State> {
         const importedSentences = this.state.importData.replace("\r", "").split("\n");
         const importedSentencesWithoutBlank = importedSentences.filter(s => s);
 
-        importedSentencesWithoutBlank.map((s, idx) => {
+        importedSentencesWithoutBlank.forEach((s, idx) => {
             addLine(idx, s);
         });
 
@@ -128,6 +128,7 @@ class StoriesEdit extends React.Component<Props, State> {
                             <img
                                 src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
                                 width="100px"
+                                alt={title}
                             />
                             :
                             null

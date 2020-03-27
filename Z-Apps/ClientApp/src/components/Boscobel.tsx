@@ -127,7 +127,7 @@ export default class Boscobel extends React.Component {
                         <h2>Background Image</h2>
                         <br />
                         Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }} />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png" style={{ width: "100%" }} alt="boscobel background" />
                         <br /><br />
                         Select a png file from your computer! (Only png is valid!)
                         <input type="file" name="background" onChange={(e) => this.handleChangeFile(e, this.consts.background)} />
@@ -145,7 +145,7 @@ export default class Boscobel extends React.Component {
                         <h2>Top Image</h2>
                         <br />
                         Current image:<br />
-                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }} />
+                        <img src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png" style={{ width: "100%" }} alt="boscobel top" />
                         <br /><br />
                         Select a png file from your computer! (Only png is valid!)
                         <input type="file" name="top" onChange={(e) => this.handleChangeFile(e, this.consts.top)} />
@@ -163,31 +163,3 @@ export default class Boscobel extends React.Component {
         );
     }
 };
-
-class Description extends React.Component {
-
-    props: {
-        desc: string,
-        handleChangeDesc: () => void,
-    }
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    render() {
-        return (
-            <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333", color: "#eb6905" }}>
-                <textarea
-                    rows={10}
-                    style={{ width: "100%", backgroundColor: "#1b181b", color: "#eb6905", border: "thin solid #594e46" }}
-                    value={this.props.desc}
-                    onChange={this.props.handleChangeDesc}
-                />
-            </div>
-        )
-    }
-}

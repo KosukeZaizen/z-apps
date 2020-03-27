@@ -7,10 +7,10 @@ import * as commonFnc from './common/functions';
 export default class SiteMapEdit extends React.Component<{
 
 },
-{
-    sitemap: { loc: string, lastmod: string }[];
-    token: string;
-}> {
+    {
+        sitemap: { loc: string, lastmod: string }[];
+        token: string;
+    }> {
 
     screenHeight: number;
 
@@ -57,18 +57,18 @@ export default class SiteMapEdit extends React.Component<{
         const s = this.state.sitemap.concat();
         s[i][item] = event.target.value.split(" ").join("");
 
-        this.setState({ sitemap:s });
+        this.setState({ sitemap: s });
     }
 
     addLine = (i) => {
         const s = this.state.sitemap.concat();
-        s.splice(i+1, 0, { loc: "", lastmod: "" });
+        s.splice(i + 1, 0, { loc: "", lastmod: "" });
 
         this.setState({ sitemap: s });
     }
 
     removeLine = (i) => {
-        const s = this.state.sitemap.filter((l,m) => m!=i);
+        const s = this.state.sitemap.filter((l, m) => m !== i);
         this.setState({ sitemap: s });
     }
 
@@ -94,7 +94,7 @@ export default class SiteMapEdit extends React.Component<{
 
     changeToken = (event) => {
         const token = event.target.value;
-        this.setState({token: token});
+        this.setState({ token: token });
         localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
     }
 
@@ -102,16 +102,16 @@ export default class SiteMapEdit extends React.Component<{
         try {
             if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0) return "The URL is strange.";
 
-            if (s.lastmod.length != 25) return "Length of lastmod need to be 25.";
+            if (s.lastmod.length !== 25) return "Length of lastmod need to be 25.";
 
             const dateAndTime = s.lastmod.split("T");
 
-            if (dateAndTime.length != 2) return "lastmod needs T";
+            if (dateAndTime.length !== 2) return "lastmod needs T";
 
             const date = dateAndTime[0];
             const time = dateAndTime[1];
 
-            if (date.length != 10) return "The length of the date part needs to be 10.";
+            if (date.length !== 10) return "The length of the date part needs to be 10.";
 
             const arrDate = date.split("-");
 
@@ -121,7 +121,7 @@ export default class SiteMapEdit extends React.Component<{
 
             const arrTime = time.split("+");
 
-            if (arrTime[1] != "09:00") return "lastmod needs +09:00";
+            if (arrTime[1] !== "09:00") return "lastmod needs +09:00";
 
             const arrTime2 = arrTime[0].split(":");
 
@@ -138,7 +138,7 @@ export default class SiteMapEdit extends React.Component<{
 
     render() {
         const { sitemap } = this.state;
-        const resultOfCheck = sitemap.filter(s => this.checkInput(s) != "").length === 0;
+        const resultOfCheck = sitemap.filter(s => this.checkInput(s) !== "").length === 0;
         return (
             <div className="center">
                 <Head
@@ -219,7 +219,7 @@ export default class SiteMapEdit extends React.Component<{
                         >
                             <b>Register</b>
                         </button>
-                        <span style={{color: "red"}}>
+                        <span style={{ color: "red" }}>
                             {resultOfCheck || "　error is occuring"}
                         </span>
                     </div>
@@ -229,14 +229,14 @@ export default class SiteMapEdit extends React.Component<{
     }
 };
 
-class SitemapInfo extends React.Component<{ 
-    s: { loc: string; lastmod: string; }; 
-    i: number; 
-    key: number; 
-    handleChangeSitemap: (event: any, i: any, item: any) => void; 
-    addLine: (i: any) => void; 
-    removeLine: (i: any) => void; 
-    checkInput: (s: any) => any; 
+class SitemapInfo extends React.Component<{
+    s: { loc: string; lastmod: string; };
+    i: number;
+    key: number;
+    handleChangeSitemap: (event: any, i: any, item: any) => void;
+    addLine: (i: any) => void;
+    removeLine: (i: any) => void;
+    checkInput: (s: any) => any;
 }> {
 
     constructor(props) {
@@ -254,7 +254,7 @@ class SitemapInfo extends React.Component<{
                 <table style={{ width: "100%" }}>
                     <tbody>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td style={{width:"20px"}}><b>loc:　</b></td>
+                            <td style={{ width: "20px" }}><b>loc:　</b></td>
                             <td><input
                                 type="text"
                                 value={s.loc}
@@ -263,7 +263,7 @@ class SitemapInfo extends React.Component<{
                             /></td>
                         </tr>
                         <tr style={{ backgroundColor: "black", color: "#757575" }}>
-                            <td style={{width:"20px"}}><b>lastmod:　</b></td>
+                            <td style={{ width: "20px" }}><b>lastmod:　</b></td>
                             <td><input
                                 type="text"
                                 value={s.lastmod}
