@@ -2,13 +2,10 @@
   "compilerOptions": {
     "target": "es6",
     "module": "esnext",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
+    "lib": ["es6", "dom", "es2015.promise"],
     "allowJs": true,
     "checkJs": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
