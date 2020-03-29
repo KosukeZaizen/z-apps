@@ -29,6 +29,7 @@ const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const Boscobel = lazy(() => import('./components/Boscobel'));
 const TicTacToeGame = lazy(() => import('./components/parts/3d/TicTacToeGame'));
 const Boxes = lazy(() => import('./components/parts/3d/Boxes'));
+const BoxesExample = lazy(() => import('./components/parts/3d/BoxesExample'));
 const NotFound = lazy(() => import('./components/404'));
 
 export default class App extends React.Component {
@@ -66,6 +67,7 @@ export default class App extends React.Component {
                         <Route path='/boscobel' component={Boscobel} />
                         <Route path='/3d/tic-tac-toe-game' component={TicTacToeGame} />
                         <Route path='/3d/boxes' component={Boxes} />
+                        <Route path='/3d/ex' component={BoxesExample} />
                         <Route path='/not-found' component={NotFound} />
                         <Route component={NotFoundRedirect} />
                     </Switch>
