@@ -65,7 +65,7 @@ export const actionCreators:IActionCreators = {
             dispatch({ type: receiveOtherStoriesType, otherStories });
 
         } catch (e) {
-            window.location.reload();
+            window.location.reload(true);
         }
     },
 };

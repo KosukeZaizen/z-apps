@@ -53,7 +53,7 @@ export function reloadAndRedirect(saveKey: string) {
         }, 10000);
     } else {
         window.sessionStorage.setItem(saveKey, nowTime.toString());
-        window.location.reload();
+        window.location.reload(true);
     }
     return;
 }

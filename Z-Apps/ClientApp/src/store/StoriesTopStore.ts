@@ -11,7 +11,7 @@ export const actionCreators = {
             dispatch({ type: receiveStoriesType, allStories });
 
         } catch (e) {
-            window.location.reload();
+            window.location.reload(true);
         }
     },
 };

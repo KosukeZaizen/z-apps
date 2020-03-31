@@ -85,7 +85,7 @@ export default class Boscobel extends React.Component {
                     } else {
                         alert("Success to upload!");
                         window.open('https://www.cafe-boscobel.com/');
-                        window.location.reload();
+                        window.location.reload(true);
                     }
                 } else {
                     alert("Failed to upload... Status:" + response.status);
