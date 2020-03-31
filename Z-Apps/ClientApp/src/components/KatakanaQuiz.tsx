@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { QuizCore } from './parts/KanaQuiz/KanaQuizCore';
 import './parts/KanaQuiz/KanaQuiz.css';
 import FB from './parts/FaceBook';
@@ -41,6 +42,7 @@ class KatakanaQuiz extends React.Component {
                 />
                 <br />
                 <FB />
+                <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                 <br />
                 <GoogleAd />
             </div>
