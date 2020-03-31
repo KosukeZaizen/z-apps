@@ -161,7 +161,7 @@ export const actionCreators = {
 
             const w = state.words.concat();
             const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
-            result && result.words && result.words.foreach(resultWord => {
+            result && result.words && result.words.forEach(resultWord => {
                 trimmedW.push(resultWord);
             })
             dispatch({ type: receiveWordsType, words: trimmedW });
@@ -207,7 +207,7 @@ export const actionCreators = {
 
                 const w = state.words.concat();
                 const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
-                result && result.words && result.words.foreach(resultWord => {
+                result && result.words && result.words.forEach(resultWord => {
                     trimmedW.push(resultWord);
                 })
                 dispatch({ type: receiveWordsType, words: trimmedW });
