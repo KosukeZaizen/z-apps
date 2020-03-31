@@ -43,7 +43,7 @@ class KatakanaQuiz extends React.Component {
                 <br />
                 <FB />
                 <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
-                <br />
+                <br /><br />
                 <GoogleAd />
             </div>
         );
