@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "",
+    "appService.defaultWebAppToDeploy": "/subscriptions/847fd013-d3ed-4a13-b7a7-342cc2291e1b/resourceGroups/NetworkWatcherRG/providers/Microsoft.Web/sites/Z-Apps20190306091011"
+}
