@@ -48,10 +48,12 @@ class HiraganaQuiz extends React.Component {
                 <QuizCore
                     consts={this.consts}
                 />
+                <div style={{fontSize: "x-large", margin: "20px"}}>
+                <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                </div>
                 <br />
                 <FB />
-                <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
-                <br /><br />
+                <br />
                 <GoogleAd />
             </div>
         );
