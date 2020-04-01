@@ -86,10 +86,9 @@ class Stories extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        this.changeScreenSize();
-
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
+                this.changeScreenSize();
                 this.judgeFooter();
             }, i * 1000);
         }
