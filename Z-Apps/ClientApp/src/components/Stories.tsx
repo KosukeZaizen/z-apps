@@ -29,7 +29,6 @@ type State = {
 };
 
 class Stories extends React.Component<Props, State> {
-    screenHeight: number;
     refSentences: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
@@ -46,8 +45,6 @@ class Stories extends React.Component<Props, State> {
             pleaseScrollDown: false,
             showFooterMenu: false,
         };
-
-        this.screenHeight = window.innerHeight;
 
         const saveData = localStorage.getItem("folktales-languages");
         const objSaveData = JSON.parse(saveData);
@@ -89,6 +86,8 @@ class Stories extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        this.changeScreenSize();
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 this.judgeFooter();
