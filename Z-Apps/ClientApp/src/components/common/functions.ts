@@ -40,6 +40,9 @@ export async function sendPostNoJsonResult(objToSend, url) {
 }
 
 export function reloadAndRedirect(saveKey: string) {
+    //初回はリロードし、時刻記録
+    //その後、10秒間リロード連打
+    //その後、10秒後に404ページにリダイレクト
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
     const intSavedTime = parseInt(savedErrTime);
@@ -48,10 +51,17 @@ export function reloadAndRedirect(saveKey: string) {
     const nowTime = now.getTime();
 
     if (intSavedTime && (nowTime - intSavedTime < 15000)) {
-        setTimeout(() => {
-            window.location.href = `/not-found?p=${window.location.pathname}`;
-        }, 10000);
+        if (nowTime - intSavedTime < 10000) {
+            console.log("reload");
+            window.location.reload(true);
+        } else {
+            console.log("redirect");
+            setTimeout(() => {
+                window.location.href = `/not-found?p=${window.location.pathname}`;
+            }, 10000);
+        }
     } else {
+        console.log("reload");
         window.sessionStorage.setItem(saveKey, nowTime.toString());
         window.location.reload(true);
     }
