@@ -583,7 +583,7 @@ class WordList extends React.Component<{
                                 className="btn btn-dark btn-xs"
                                 onClick={this.hideWordList}
                             >
-                                ▲　Hide word list
+                                ▲　Hide vocabulary list
                             </button>
                             :
                             <button
@@ -591,7 +591,7 @@ class WordList extends React.Component<{
                                 className="btn btn-dark btn-xs"
                                 onClick={this.showWordList}
                             >
-                                ▼　Show word list
+                                ▼　Show vocabulary list
                             </button>
                         :
                         null
