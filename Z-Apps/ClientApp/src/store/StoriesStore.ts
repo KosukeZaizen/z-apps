@@ -8,12 +8,11 @@ const receiveWordsType = 'RECEIVE_WORDS';
 const receiveOtherStoriesType = 'RECEIVE_OTHER_STORIES';
 const initialState = { storyDesc: [], sentences: [], words: [], otherStories: [] };
 
-export interface StoriesEditState {
+export interface StoriesState {
     storyDesc: storyDesc;
     sentences: sentence[];
     words: word[];
     token: string;
-    isTranslating: boolean;
 }
 
 export interface IActionCreators {

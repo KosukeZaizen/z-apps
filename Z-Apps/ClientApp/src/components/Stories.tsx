@@ -12,7 +12,7 @@ import FB from './parts/FaceBook';
 import * as consts from './common/consts';
 import {storyDesc, sentence, word} from '../types/stories';
 
-type Props = storiesStore.StoriesEditState & storiesStore.IActionCreators& {
+type Props = storiesStore.StoriesState & storiesStore.IActionCreators& {
     location:{pathname: string};
     otherStories: storyDesc[];
 };

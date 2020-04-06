@@ -13,6 +13,7 @@ using System;
 using Z_Apps.Models.SystemBase;
 using Z_Apps.Models.Stories;
 using Z_Apps.Models.StoriesEdit;
+using Z_Apps.Models.VocabList;
 
 namespace Z_Apps
 {
@@ -49,6 +50,7 @@ namespace Z_Apps
             services.AddSingleton(new SiteMapService(storageService, storageBackupService));
             services.AddSingleton(new StoriesService(con));
             services.AddSingleton(new StoriesEditService(con));
+            services.AddSingleton(new VocabQuizService(con));
 
             services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }

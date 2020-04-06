@@ -7,7 +7,6 @@ import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
 
-
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
 const Developer = lazy(() => import('./components/Developer'));
@@ -27,6 +26,7 @@ const GameOver = lazy(() => import('./components/GameOver'));
 const SiteMapEdit = lazy(() => import('./components/SiteMapEdit'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const Boscobel = lazy(() => import('./components/Boscobel'));
+const VocabQuiz = lazy(() => import('./components/VocabQuiz'));
 const TicTacToeGame = lazy(() => import('./components/parts/3d/TicTacToeGame'));
 const Boxes = lazy(() => import('./components/parts/3d/Boxes'));
 const BoxesExample = lazy(() => import('./components/parts/3d/BoxesExample'));
@@ -57,6 +57,7 @@ export default class App extends React.Component {
                         <Route exact path='/folktales/:storyName' component={Stories} />
                         <Route exact path='/folktalesEdit' component={StoriesEditTop} />
                         <Route exact path='/folktalesEdit/:storyName' component={StoriesEdit} />
+                        <Route exact path='/vocabulary-quiz/:genreName' component={VocabQuiz} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />
                         <Route path='/ninja2' component={Ninja2} />
