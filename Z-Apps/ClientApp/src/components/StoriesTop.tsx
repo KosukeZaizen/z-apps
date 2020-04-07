@@ -2,6 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { TReducers } from '../store/configureStore';
 import { actionCreators } from '../store/StoriesTopStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -203,6 +204,6 @@ class StoriesTop extends React.Component {
 };
 
 export default connect(
-    state => state["storiesTop"],
+    (state: TReducers) => state.storiesTop,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(StoriesTop);

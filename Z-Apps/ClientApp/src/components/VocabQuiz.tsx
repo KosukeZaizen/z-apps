@@ -2,7 +2,8 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as vocabStore from '../store/VocabStore';
+import { TReducers } from '../store/configureStore';
+import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import './parts/PleaseScrollDown.css';
@@ -81,6 +82,9 @@ class Stories extends React.Component<Props, State> {
 
     render() {
         const { vocabGenre, vocabList } = this.props;
+        console.log("vocabGenre render", vocabGenre);
+        console.log("vocabList render", vocabList);
+
         const { screenWidth, pleaseScrollDown } = this.state;
 
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
@@ -156,6 +160,6 @@ class Stories extends React.Component<Props, State> {
 
 
 export default connect(
-    (state: any) => state.stories,
+    (state: TReducers) => state.vocabQuiz,
     dispatch => bindActionCreators(vocabStore.actionCreators as any, dispatch)
 )(Stories);

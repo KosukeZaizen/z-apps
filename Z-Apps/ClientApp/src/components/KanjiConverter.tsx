@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { TReducers } from '../store/configureStore';
 import { actionCreators } from '../store/KanjiConverter';
 import '../css/KanjiConverter.css';
 import FB from './parts/FaceBook';
@@ -329,6 +330,6 @@ function execCopy(string) {
 }
 
 export default connect(
-    (state: any) => state.kanjiConverter,
+    (state: TReducers) => state.kanjiConverter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(KanjiConverter);

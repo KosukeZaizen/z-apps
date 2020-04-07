@@ -2,6 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { TReducers } from '../store/configureStore';
 import * as storiesStore from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -781,6 +782,6 @@ class FooterMenu extends React.Component<{
 }
 
 export default connect(
-    (state: any) => state.stories,
+    (state: TReducers) => state.stories,
     dispatch => bindActionCreators(storiesStore.actionCreators as any, dispatch)
 )(Stories);

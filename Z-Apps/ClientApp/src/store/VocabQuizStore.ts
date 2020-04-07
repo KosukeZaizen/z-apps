@@ -20,13 +20,8 @@ export const actionCreators: IActionCreators = {
             dispatch({ type: initializeType });
 
             const url1 = `api/VocabQuiz/GetQuizData/${genreName}`;
-            console.log("url1", url1);
-
             const response1 = await fetch(url1);
-            console.log("response", response1);
-            
             const genreAndVocab: { vocabGenre: vocabGenre; vocabList: vocab[]; } = await response1.json();
-            console.log("genreAndVocab", genreAndVocab);
 
             dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
 
@@ -36,7 +31,7 @@ export const actionCreators: IActionCreators = {
                     if (!vocabGenre.genreName) {
                         reloadAndRedirect_OneTimeReload("db-access-error-time");
                     } else if (genreName.toLowerCase === vocabGenre.genreName.toLowerCase) {
-                        window.location.href = `/folktales/${vocabGenre.genreName}`;
+                        window.location.href = `/vocabulary-quiz/${vocabGenre.genreName}`;
                     }
                     return;
                 }
@@ -45,8 +40,7 @@ export const actionCreators: IActionCreators = {
                 return;
             }
         } catch (e) {
-            console.log("error", e);
-            //window.location.reload(true);
+            window.location.reload(true);
         }
     },
 };
