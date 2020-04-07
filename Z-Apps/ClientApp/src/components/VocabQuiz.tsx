@@ -149,20 +149,29 @@ class Stories extends React.Component<Props, State> {
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
-                                <TableRow style={{backgroundColor:'papayawhip'}}>
+                                <TableRow style={{ backgroundColor: 'papayawhip' }}>
                                     <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {vocabList.map((v: vocab) => (
-                                    <TableRow key={v.vocabId}>
-                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center"></TableCell>
+                                {
+                                vocabList.length > 0 ?
+                                    vocabList.map((v: vocab) => (
+                                        <TableRow key={v.vocabId}>
+                                            <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                            <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                            <TableCell style={tableElementStyle} align="center"></TableCell>
+                                        </TableRow>
+                                    ))
+                                    :
+                                    <TableRow>
+                                        <TableCell style={tableElementStyle}></TableCell>
+                                        <TableCell style={tableElementStyle} align="center"><CircularProgress key="circle" size="20%" /></TableCell>
+                                        <TableCell style={tableElementStyle}></TableCell>
                                     </TableRow>
-                                ))}
+                                    }
                             </TableBody>
                         </Table>
                     </TableContainer>
