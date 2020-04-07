@@ -6,6 +6,7 @@ import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
@@ -31,6 +32,7 @@ type State = {
     screenWidth: number;
     screenHeight: number;
     pleaseScrollDown: boolean;
+    imgNumber: number;
 };
 
 class Stories extends React.Component<Props, State> {
@@ -48,6 +50,7 @@ class Stories extends React.Component<Props, State> {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
             pleaseScrollDown: false,
+            imgNumber: this.getImgNumber(),
         };
 
         let timer;
@@ -89,10 +92,19 @@ class Stories extends React.Component<Props, State> {
         });
     }
 
+    getImgNumber = () => {
+        const today = new Date();
+        const todayNumber = (today.getMonth() + today.getDate());
+        const mod = todayNumber % 27;
+        if(mod > 13) return 1;
+        if(mod > 5) return 2;
+        return 3;
+    }
+
     render() {
         const { vocabGenre: vocabGenre } = this.props;
         const vocabList: vocab[] = this.props.vocabList.sort((a, b) => a.order - b.order);
-        const { screenWidth } = this.state;
+        const { screenWidth, imgNumber } = this.state;
 
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
         const titleToShowUpper: string = genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ");
@@ -145,6 +157,32 @@ class Stories extends React.Component<Props, State> {
                     }}>
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
+                    <br />
+                    <div style={{ 
+                        display: "flex", 
+                        alignItems: "center",
+                        justifyContent: "center",
+                         }}>
+                        <div>
+                            <img
+                                src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${imgNumber}.png`}
+                                alt="ninja"
+                                style={{ 
+                                    width: screenWidth * 2 / 10, 
+                                    maxWidth: 140,
+                                    height: "auto"
+                                 }}
+                            />
+                        </div>
+                        <div className="chatting" style={{verticalAlign: "middle",}}>
+                            <div className="says" style={{
+                                width: screenWidth * 7 / 10,
+                                maxWidth: 490,
+                            }}>
+                                <p>Before starting the vocabulary quiz, please remember the vocabularies list below!</p>
+                            </div>
+                        </div>
+                    </div>
                     <br />
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
