@@ -231,7 +231,7 @@ class Stories extends React.Component<Props, State> {
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
-                        ＞
+                        {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                         <Link to="/folktales" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
                             <span itemProp="name">
@@ -240,7 +240,7 @@ class Stories extends React.Component<Props, State> {
                             <meta itemProp="position" content="2" />
                         </Link>
                         </span>
-                        ＞
+                        {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 {title}

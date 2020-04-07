@@ -80,7 +80,7 @@ class StoriesTop extends React.Component {
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
-                        ＞
+                        {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 Japanese Folktales

@@ -12,10 +12,10 @@ import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
-import {vocabGenre, vocab} from '../types/vocab';
+import { vocabGenre, vocab } from '../types/vocab';
 
 type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
-    location:{pathname: string};
+    location: { pathname: string };
 };
 type State = {
     genreName: string;
@@ -81,11 +81,9 @@ class Stories extends React.Component<Props, State> {
     }
 
     render() {
-        const { vocabGenre, vocabList } = this.props;
-        console.log("vocabGenre render", vocabGenre);
-        console.log("vocabList render", vocabList);
-
-        const { screenWidth, pleaseScrollDown } = this.state;
+        const { vocabGenre: vocabGenre } = this.props;
+        const vocabList: vocab[] = this.props.vocabList.sort((a, b) => a.order - b.order);
+        const { screenWidth } = this.state;
 
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
         const titleToShowUpper: string = genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ");
@@ -113,23 +111,23 @@ class Stories extends React.Component<Props, State> {
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                        <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="name">
-                                Home
+                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                <span itemProp="name">
+                                    Home
                             </span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
-                        ＞
+                        {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                        <Link to="/vocabulary-quiz" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="name">
-                                Japanese Vocabulary Quiz
+                            <Link to="/vocabulary-quiz" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                <span itemProp="name">
+                                    Japanese Vocabulary Quiz
                             </span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
+                                <meta itemProp="position" content="2" />
+                            </Link>
                         </span>
-                        ＞
+                        {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 {titleToShowUpper}
@@ -144,6 +142,16 @@ class Stories extends React.Component<Props, State> {
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
+                    <table>
+                        <tbody>
+                            <th>Hiragana</th><th>Meaning</th><th>Sound</th>
+                            {vocabList.map((v: vocab) => (
+                                <tr key={v.vocabId}>
+                                    <td>{v.hiragana}</td><td>{v.english}</td><td></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                     <br />
                     <FB />
                     <br />
