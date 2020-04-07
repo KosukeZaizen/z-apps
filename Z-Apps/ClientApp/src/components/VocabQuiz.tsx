@@ -14,6 +14,21 @@ import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
 import { vocabGenre, vocab } from '../types/vocab';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
+    },
+  });
+
 type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
     location: { pathname: string };
 };
@@ -88,18 +103,13 @@ class Stories extends React.Component<Props, State> {
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
         const titleToShowUpper: string = genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ");
         const titleToShowLower: string = genreName.split("_").join(" ");
-        const styleForAboutTitle: React.CSSProperties = {
-            fontSize: "large",
-            background: "#fee8b4",
-            boxShadow: "0px 0px 0px 5px #fee8b4",
-            border: "dashed 2px white",
-            padding: "0.2em 0.5em",
-            marginBottom: "10px",
+
+        const tableHeadStyle: React.CSSProperties = {
+            fontSize: "medium",
             fontWeight: "bold",
         };
-        const styleForStoryTitle: React.CSSProperties = {
-            fontSize: "x-large",
-            fontWeight: "bold",
+        const tableElementStyle: React.CSSProperties = {
+            fontSize: "medium",
         };
 
         return (
@@ -142,16 +152,26 @@ class Stories extends React.Component<Props, State> {
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
-                    <table>
-                        <tbody>
-                            <th>Hiragana</th><th>Meaning</th><th>Sound</th>
-                            {vocabList.map((v: vocab) => (
-                                <tr key={v.vocabId}>
-                                    <td>{v.hiragana}</td><td>{v.english}</td><td></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow style={{backgroundColor:'papayawhip'}}>
+                                    <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                    <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                                    <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {vocabList.map((v: vocab) => (
+                                    <TableRow key={v.vocabId}>
+                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center"></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                     <br />
                     <FB />
                     <br />
