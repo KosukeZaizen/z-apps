@@ -102,13 +102,27 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     render() {
-        const { vocabGenre: vocabGenre } = this.props;
+        const { vocabGenre, currentPage, changePage } = this.props;
         const vocabList: vocab[] = this.props.vocabList.sort((a, b) => a.order - b.order);
         const { screenWidth, imgNumber } = this.state;
 
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
         const titleToShowUpper: string = genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ");
         const titleToShowLower: string = genreName.split("_").join(" ");
+
+        let pageData: JSX.Element;
+        switch (currentPage) {
+            case 2:
+                pageData = <div>hello!</div>;
+                break;
+            default:
+                pageData = <Page1
+                    vocabList={vocabList}
+                    screenWidth={screenWidth}
+                    imgNumber={imgNumber}
+                    changePage={changePage}
+                />;
+        }
 
         return (
             <div className="center">
@@ -121,8 +135,8 @@ class VocabQuiz extends React.Component<Props, State> {
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 <span itemProp="name">
-                                    Home
-                            </span>
+                                    {"Home"}
+                                </span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
@@ -130,8 +144,8 @@ class VocabQuiz extends React.Component<Props, State> {
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <Link to="/vocabulary-quiz" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 <span itemProp="name">
-                                    Japanese Vocabulary Quiz
-                            </span>
+                                    {"Japanese Vocabulary Quiz"}
+                                </span>
                                 <meta itemProp="position" content="2" />
                             </Link>
                         </span>
@@ -150,11 +164,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
-                    <Page1
-                        vocabList={vocabList}
-                        screenWidth={screenWidth}
-                        imgNumber={imgNumber}
-                    />
+                    {pageData}
                     <br />
                     <FB />
                     <br />
@@ -170,7 +180,7 @@ class VocabQuiz extends React.Component<Props, State> {
 };
 
 function Page1(props) {
-    const { vocabList, screenWidth, imgNumber } = props;
+    const { vocabList, screenWidth, imgNumber, changePage } = props;
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -187,8 +197,17 @@ function Page1(props) {
                 imgNumber={imgNumber}
                 comment="Before starting the vocabulary quiz, please remember the vocabularies list below!"
             />
-            <br />
-            <div style={{ textAlign: "right" }}>Start the vocabulary quiz anyway >></div>
+            <div style={{
+                textAlign: "right"
+            }}>
+                <button
+                    onClick={() => changePage(2)}
+                    className="btn btn-primary"
+                    style={{ marginBottom: 10, marginTop: 10 }}
+                >
+                    {"Start the vocabulary quiz anyway >>"}
+                </button>
+            </div>
             <br />
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -222,7 +241,7 @@ function Page1(props) {
             <br />
             <button
                 id="btn10"
-                onClick={() => null}
+                onClick={() => changePage(2)}
                 className="btn btn-primary btn-lg btn-block"
             >
                 Start the Vocabulary Quiz

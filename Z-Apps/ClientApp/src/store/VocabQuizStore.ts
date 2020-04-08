@@ -3,15 +3,20 @@ import { vocabGenre, vocab } from '../types/vocab';
 
 const initializeType = 'INITIALIZE';
 const receiveGenreAndVocabType = 'RECEIVE_GENRE_AND_VOCAB';
-const initialState = { vocabGenre: null, vocabList: [] };
+const changePageType = 'CHANGE_PAGE';
+const initialState = { vocabGenre: null, vocabList: [], currentPage: 1 };
+
+type TPageNumber = 1 | 2 | 3;
 
 export interface IVocabQuizState {
     vocabGenre: vocabGenre;
     vocabList: vocab[];
+    currentPage: TPageNumber;
 }
 
 export interface IActionCreators {
     loadVocabs: (genreName: string) => void;
+    changePage: (nextPage: TPageNumber) => void;
 }
 
 export const actionCreators: IActionCreators = {
@@ -43,6 +48,9 @@ export const actionCreators: IActionCreators = {
             window.location.reload(true);
         }
     },
+    changePage: (nextPage) => async (dispatch, getState) => {
+        dispatch({ type: changePageType, nextPage });
+    }
 };
 
 export const reducer = (state, action) => {
@@ -57,6 +65,13 @@ export const reducer = (state, action) => {
             ...state,
             vocabGenre: action.genreAndVocab.vocabGenre,
             vocabList: action.genreAndVocab.vocabList,
+        };
+    }
+
+    if (action.type === changePageType) {
+        return {
+            ...state,
+            currentPage: action.nextPage,
         };
     }
 
