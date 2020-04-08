@@ -150,7 +150,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
-                    <Page1 
+                    <Page1
                         vocabList={vocabList}
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
@@ -170,7 +170,7 @@ class VocabQuiz extends React.Component<Props, State> {
 };
 
 function Page1(props) {
-    const {vocabList, screenWidth, imgNumber} = props;
+    const { vocabList, screenWidth, imgNumber } = props;
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -182,10 +182,69 @@ function Page1(props) {
 
     return (
         <>
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={imgNumber}
+                comment="Before starting the vocabulary quiz, please remember the vocabularies list below!"
+            />
+            <br />
+            <div style={{ textAlign: "right" }}>Start the vocabulary quiz anyway >></div>
+            <br />
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                            <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            vocabList.length > 0 ?
+                                vocabList.map((v: vocab) => (
+                                    <TableRow key={v.vocabId}>
+                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center"></TableCell>
+                                    </TableRow>
+                                ))
+                                :
+                                <TableRow>
+                                    <TableCell style={tableElementStyle}></TableCell>
+                                    <TableCell style={tableElementStyle} align="center"><CircularProgress key="circle" size="20%" /></TableCell>
+                                    <TableCell style={tableElementStyle}></TableCell>
+                                </TableRow>
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <br />
+            <button
+                id="btn10"
+                onClick={() => null}
+                className="btn btn-primary btn-lg btn-block"
+            >
+                Start the Vocabulary Quiz
+            </button>
+            <br />
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={(imgNumber - 1) || 3}
+                comment={imgNumber === 1 ? "Try your best!" : "Good luck!"}
+            />
+        </>
+    );
+}
+
+function CharacterComment(props) {
+    const { imgNumber, screenWidth, comment } = props;
+    return (
         <div style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            maxWidth: 450,
         }}>
             <div>
                 <img
@@ -193,7 +252,7 @@ function Page1(props) {
                     alt="ninja"
                     style={{
                         width: screenWidth * 2 / 10,
-                        maxWidth: 140,
+                        maxWidth: 120,
                         height: "auto"
                     }}
                 />
@@ -201,79 +260,12 @@ function Page1(props) {
             <div className="chatting" style={{ verticalAlign: "middle", }}>
                 <div className="says" style={{
                     width: screenWidth * 7 / 10,
-                    maxWidth: 490,
+                    maxWidth: 420,
                 }}>
-                    <p>Before starting the vocabulary quiz, please remember the vocabularies list below!</p>
+                    <p>{comment}</p>
                 </div>
             </div>
         </div>
-        <br />
-        <div style={{ textAlign: "right" }}>Start the vocabulary quiz anyway >></div>
-        <br />
-        <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                        <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                        <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                        <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {
-                        vocabList.length > 0 ?
-                            vocabList.map((v: vocab) => (
-                                <TableRow key={v.vocabId}>
-                                    <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center"></TableCell>
-                                </TableRow>
-                            ))
-                            :
-                            <TableRow>
-                                <TableCell style={tableElementStyle}></TableCell>
-                                <TableCell style={tableElementStyle} align="center"><CircularProgress key="circle" size="20%" /></TableCell>
-                                <TableCell style={tableElementStyle}></TableCell>
-                            </TableRow>
-                    }
-                </TableBody>
-            </Table>
-        </TableContainer>
-        <br />
-        <button
-            id="btn10"
-            onClick={() => null}
-            className="btn btn-primary btn-lg btn-block"
-        >
-            Start the Vocabulary Quiz >>
-    </button>
-        <br />
-        <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-        }}>
-            <div>
-                <img
-                    src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${(imgNumber - 1) || 3}.png`}
-                    alt="ninja"
-                    style={{
-                        width: screenWidth * 2 / 10,
-                        maxWidth: 140,
-                        height: "auto"
-                    }}
-                />
-            </div>
-            <div className="chatting" style={{ verticalAlign: "middle", }}>
-                <div className="says" style={{
-                    width: screenWidth * 7 / 10,
-                    maxWidth: 490,
-                }}>
-                    <p>{imgNumber === 1 ? "Try your best!" : "Good luck!"}</p>
-                </div>
-            </div>
-        </div>
-        </>
     );
 }
 
