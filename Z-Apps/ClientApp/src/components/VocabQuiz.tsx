@@ -184,6 +184,8 @@ class Stories extends React.Component<Props, State> {
                         </div>
                     </div>
                     <br />
+                    <div style={{textAlign: "right"}}>Start the vocabulary quiz anyway >></div>
+                    <br />
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -213,6 +215,40 @@ class Stories extends React.Component<Props, State> {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <br />
+                    <button
+                    id="btn10"
+                    onClick={() => null}
+                    className="btn btn-primary btn-lg btn-block"
+                >
+                       Start the Vocabulary Quiz >>
+                </button>
+                <br />
+                    <div style={{ 
+                        display: "flex", 
+                        alignItems: "center",
+                        justifyContent: "center",
+                         }}>
+                        <div>
+                            <img
+                                src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${(imgNumber - 1) || 3}.png`}
+                                alt="ninja"
+                                style={{ 
+                                    width: screenWidth * 2 / 10, 
+                                    maxWidth: 140,
+                                    height: "auto"
+                                 }}
+                            />
+                        </div>
+                        <div className="chatting" style={{verticalAlign: "middle",}}>
+                            <div className="says" style={{
+                                width: screenWidth * 7 / 10,
+                                maxWidth: 490,
+                            }}>
+                                <p>{imgNumber === 1 ? "Try your best!" : "Good luck!"}</p>
+                            </div>
+                        </div>
+                    </div>
                     <br />
                     <FB />
                     <br />
