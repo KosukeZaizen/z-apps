@@ -38,6 +38,8 @@ type State = {
 
 class VocabQuiz extends React.Component<Props, State> {
     refSentences: React.RefObject<HTMLDivElement>;
+    correctSound = new Audio();
+    incorrectSound = new Audio();
 
     constructor(props) {
         super(props);
@@ -74,6 +76,10 @@ class VocabQuiz extends React.Component<Props, State> {
                 this.changeScreenSize();
             }, i * 1000);
         }
+        this.correctSound.src = consts.BLOB_URL + "/appsPublic/sound/correctSound.mp3";
+        this.incorrectSound.src = consts.BLOB_URL + "/appsPublic/sound/incorrectSound.mp3";
+        this.correctSound.load;
+        this.incorrectSound.load;
     }
 
     componentDidUpdate(preciousProps) {
