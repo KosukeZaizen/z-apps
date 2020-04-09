@@ -300,9 +300,10 @@ type TPage2Props = {
 };
 function Page2(props: TPage2Props) {
     const { vocabList, screenWidth, imgNumber } = props;
-    const [progress, setProgress] = useState(0);
     const [correctIds, setCorrectIds] = useState([]);
     const [incorrectIds, setIncorrectIds] = useState([]);
+    const [vocabToShow, setVocabToShow] = useState(null);
+    const [mode, setMode] = useState(0);//0:quiz, 1:correct/2:incorrect
     const finishedIds: number[] = [...correctIds, ...incorrectIds];
 
     const vocabsForQuiz = vocabList.filter(v => !finishedIds.includes(v.vocabId))
@@ -315,9 +316,14 @@ function Page2(props: TPage2Props) {
     const vocabsOfChoice: vocab[] = [];
     const buttons = [
         <button
-            onClick={() => setProgress(progress + 1)}
+            key={3}
+            onClick={() => {
+                setVocabToShow(vocabToBeAsked);
+                setCorrectIds([...correctIds, vocabToBeAsked.vocabId]);
+                setMode(1);
+            }}
             className="btn btn-primary btn-lg btn-block"
-            style={{maxWidth: 300}}
+            style={{ maxWidth: 300 }}
         >
             {vocabToBeAsked.english}
         </button>
@@ -329,9 +335,14 @@ function Page2(props: TPage2Props) {
 
         buttons.push(
             <button
-                onClick={() => setProgress(progress + 1)}
+                key={i}
+                onClick={() => {
+                    setVocabToShow(vocabToBeAsked);
+                    setIncorrectIds([...incorrectIds, vocabToBeAsked.vocabId]);
+                    setMode(2);
+                }}
                 className="btn btn-primary btn-lg btn-block"
-                style={{maxWidth: 300}}
+                style={{ maxWidth: 300 }}
             >
                 {vocabToPush.english}
             </button>
@@ -340,8 +351,18 @@ function Page2(props: TPage2Props) {
         survivedVocabs = survivedVocabs.filter(v => !vocabsOfChoice.includes(v));
     }
 
-    return (
-        <div>
+    const tableHeadStyle: React.CSSProperties = {
+        fontSize: "medium",
+        fontWeight: "bold",
+    };
+    const tableElementStyle: React.CSSProperties = {
+        fontSize: "medium",
+    };
+
+    let content: JSX.Element;
+    if (mode === 0) {
+        //Quiz
+        content = <div>
             <CharacterComment
                 screenWidth={screenWidth}
                 imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
@@ -351,7 +372,51 @@ function Page2(props: TPage2Props) {
             {shuffle(buttons)}
             <br />
         </div>
-    );
+    } else {
+        //Correct/Incorrect
+        const rand = Math.floor(Math.random() * 3);
+        content = <div>
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
+                comment={mode === 1 ? ["Good!", "Nice!", "Excellent!"][rand]: "Oops!"}
+            />
+            {
+                mode === 1 ?
+                    <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "green" }}>{"Correct!"}</p>
+                    :
+                    <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "red" }}>{"Incorrect!"}</p>
+            }
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                            <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell style={tableElementStyle} align="center">{vocabToShow.hiragana}</TableCell>
+                            <TableCell style={tableElementStyle} align="center">{vocabToShow.english}</TableCell>
+                            <TableCell style={tableElementStyle} align="center"></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <br />
+            <button
+                onClick={() => setMode(0)}
+                className="btn btn-dark btn-lg btn-block"
+            >
+                {"Next"}
+            </button>
+            <br />
+        </div>
+    }
+
+    return content;
 }
 
 export default connect(
