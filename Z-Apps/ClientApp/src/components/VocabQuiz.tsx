@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
+import { shuffle } from './common/functions';
 import { vocab } from '../types/vocab';
 
 
@@ -113,7 +114,12 @@ class VocabQuiz extends React.Component<Props, State> {
         let pageData: JSX.Element;
         switch (currentPage) {
             case 2:
-                pageData = <div>hello!</div>;
+                pageData = <Page2 
+                    vocabList={vocabList}
+                    changePage={changePage}
+                    screenWidth={screenWidth}
+                    imgNumber={imgNumber}
+                />;
                 break;
             default:
                 pageData = <Page1
@@ -239,7 +245,6 @@ function Page1(props) {
             </TableContainer>
             <br />
             <button
-                id="btn10"
                 onClick={() => changePage(2)}
                 className="btn btn-primary btn-lg btn-block"
             >
@@ -283,6 +288,68 @@ function CharacterComment(props) {
                     <p>{comment}</p>
                 </div>
             </div>
+        </div>
+    );
+}
+
+type TPage2Props = {
+    vocabList: vocab[];
+    changePage: (nextPage: vocabStore.TPageNumber) => void;
+    screenWidth: number;
+    imgNumber: number;
+};
+function Page2(props: TPage2Props) {
+    const { vocabList, screenWidth, imgNumber } = props;
+    const [progress, setProgress] = useState(0);
+    const [correctIds, setCorrectIds] = useState([]);
+    const [incorrectIds, setIncorrectIds] = useState([]);
+    const finishedIds: number[] = [...correctIds, ...incorrectIds];
+
+    const vocabsForQuiz = vocabList.filter(v => !finishedIds.includes(v.vocabId))
+
+    const getRandItem = (vs: vocab[]) => vs[Math.floor(Math.random() * vs.length)];
+
+    const vocabToBeAsked = getRandItem(vocabsForQuiz);
+    let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
+
+    const vocabsOfChoice: vocab[] = [];
+    const buttons = [
+        <button
+            onClick={() => setProgress(progress + 1)}
+            className="btn btn-primary btn-lg btn-block"
+            style={{maxWidth: 300}}
+        >
+            {vocabToBeAsked.english}
+        </button>
+    ];
+
+    for (let i = 0; i < 3; i = (i + 1) | 0) {
+        const vocabToPush = getRandItem(survivedVocabs);
+        vocabsOfChoice.push(vocabToPush);
+
+        buttons.push(
+            <button
+                onClick={() => setProgress(progress + 1)}
+                className="btn btn-primary btn-lg btn-block"
+                style={{maxWidth: 300}}
+            >
+                {vocabToPush.english}
+            </button>
+        );
+
+        survivedVocabs = survivedVocabs.filter(v => !vocabsOfChoice.includes(v));
+    }
+
+    return (
+        <div>
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
+                comment="Choose the meaning of the word!"
+            />
+            <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
+            {shuffle(buttons)}
+            <br />
         </div>
     );
 }

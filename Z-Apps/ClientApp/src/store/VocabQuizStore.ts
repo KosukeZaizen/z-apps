@@ -6,7 +6,7 @@ const receiveGenreAndVocabType = 'RECEIVE_GENRE_AND_VOCAB';
 const changePageType = 'CHANGE_PAGE';
 const initialState = { vocabGenre: null, vocabList: [], currentPage: 1 };
 
-type TPageNumber = 1 | 2 | 3;
+export type TPageNumber = 1 | 2 | 3;
 
 export interface IVocabQuizState {
     vocabGenre: vocabGenre;
