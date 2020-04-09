@@ -16,7 +16,6 @@ import * as consts from './common/consts';
 import { shuffle } from './common/functions';
 import { vocab } from '../types/vocab';
 
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
