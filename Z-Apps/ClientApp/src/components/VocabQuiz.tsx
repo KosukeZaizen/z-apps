@@ -39,6 +39,7 @@ type State = {
 class VocabQuiz extends React.Component<Props, State> {
     refSentences: React.RefObject<HTMLDivElement>;
     correctSounds = [new Audio(), new Audio()];
+    vocabSounds: HTMLAudioElement[] = [];
 
     constructor(props) {
         super(props);
@@ -126,14 +127,23 @@ class VocabQuiz extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     correctSounds={this.correctSounds}
+                    vocabSounds={this.vocabSounds}
                 />;
                 break;
             default:
+                vocabList.length > 0 && vocabList.forEach(v => {
+                    if(!this.vocabSounds[v.vocabId]){
+                        this.vocabSounds[v.vocabId] = new Audio();
+                        this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+                        this.vocabSounds[v.vocabId].load();
+                    }
+                });
                 pageData = <Page1
                     vocabList={vocabList}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     changePage={changePage}
+                    vocabSounds={this.vocabSounds}
                 />;
         }
 
@@ -177,7 +187,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
-                    {pageData}
+                    {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <br />
                     <FB />
                     <br />
@@ -193,7 +203,7 @@ class VocabQuiz extends React.Component<Props, State> {
 };
 
 function Page1(props) {
-    const { vocabList, screenWidth, imgNumber, changePage } = props;
+    const { vocabList, screenWidth, imgNumber, changePage, vocabSounds } = props;
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -232,26 +242,20 @@ function Page1(props) {
                     </TableHead>
                     <TableBody>
                         {
-                            vocabList.length > 0 ?
-                                vocabList.map((v: vocab) => (
-                                    <TableRow key={v.vocabId}>
-                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">
-                                            <img
-                                                alt="sperker"
-                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                                                style={{ width: "60%", maxWidth: 30 }}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                                :
-                                <TableRow>
-                                    <TableCell style={tableElementStyle}></TableCell>
-                                    <TableCell style={tableElementStyle} align="center"><CircularProgress key="circle" size="20%" /></TableCell>
-                                    <TableCell style={tableElementStyle}></TableCell>
+                            vocabList.map((v: vocab) => (
+                                <TableRow key={v.vocabId}>
+                                    <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">
+                                        <img
+                                            alt="vocabluary sperker"
+                                            src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                            style={{ width: "60%", maxWidth: 30 }}
+                                            onClick={() => { vocabSounds[v.vocabId].play(); }}
+                                        />
+                                    </TableCell>
                                 </TableRow>
+                            ))
                         }
                     </TableBody>
                 </Table>
@@ -311,9 +315,10 @@ type TPage2Props = {
     screenWidth: number;
     imgNumber: number;
     correctSounds: HTMLAudioElement[];
+    vocabSounds: HTMLAudioElement[];
 };
 function Page2(props: TPage2Props) {
-    const { vocabList, screenWidth, imgNumber, correctSounds } = props;
+    const { vocabList, screenWidth, imgNumber, correctSounds, vocabSounds } = props;
     const [correctIds, setCorrectIds] = useState([]);
     const [incorrectIds, setIncorrectIds] = useState([]);
     const [vocabToShow, setVocabToShow] = useState(null);
@@ -327,6 +332,8 @@ function Page2(props: TPage2Props) {
     const vocabToBeAsked = getRandItem(vocabsForQuiz);
     let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
 
+    if(mode === 0) vocabSounds[vocabToBeAsked.vocabId].play();
+
     const vocabsOfChoice: vocab[] = [];
     const buttons = [
         <button
@@ -334,6 +341,8 @@ function Page2(props: TPage2Props) {
             onClick={() => {
                 setVocabToShow(vocabToBeAsked);
                 setCorrectIds([...correctIds, vocabToBeAsked.vocabId]);
+                vocabSounds[vocabToBeAsked.vocabId].pause();
+                vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
                 correctSounds[0].play();
                 setMode(1);
             }}
@@ -354,6 +363,8 @@ function Page2(props: TPage2Props) {
                 onClick={() => {
                     setVocabToShow(vocabToBeAsked);
                     setIncorrectIds([...incorrectIds, vocabToBeAsked.vocabId]);
+                    vocabSounds[vocabToBeAsked.vocabId].pause();
+                    vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
                     correctSounds[1].play();
                     setMode(2);
                 }}
@@ -416,14 +427,25 @@ function Page2(props: TPage2Props) {
                         <TableRow>
                             <TableCell style={tableElementStyle} align="center">{vocabToShow.hiragana}</TableCell>
                             <TableCell style={tableElementStyle} align="center">{vocabToShow.english}</TableCell>
-                            <TableCell style={tableElementStyle} align="center"></TableCell>
+                            <TableCell style={tableElementStyle} align="center">
+                                <img
+                                    alt="vocabluary sperker"
+                                    src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                    style={{ width: "60%", maxWidth: 30 }}
+                                    onClick={() => { vocabSounds[vocabToShow.vocabId].play(); }}
+                                />
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
             <br />
             <button
-                onClick={() => setMode(0)}
+                onClick={() => {
+                    vocabSounds[vocabToShow.vocabId].pause();
+                    vocabSounds[vocabToShow.vocabId].currentTime = 0;
+                    setMode(0);
+                }}
                 className="btn btn-dark btn-lg btn-block"
             >
                 {"Next"}
