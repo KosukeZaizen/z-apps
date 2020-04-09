@@ -87,10 +87,12 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-        });
+        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+            this.setState({
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+            });
+        }
     }
 
     getImgNumber = () => {
@@ -373,7 +375,7 @@ function Page2(props: TPage2Props) {
             <br />
         </div>
     } else {
-        //Correct/Incorrect
+        //Correct,Incorrect
         const rand = Math.floor(Math.random() * 3);
         content = <div>
             <CharacterComment
