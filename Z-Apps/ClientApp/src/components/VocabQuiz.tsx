@@ -203,12 +203,11 @@ function Page1(props) {
                 <button
                     onClick={() => changePage(2)}
                     className="btn btn-primary"
-                    style={{ marginBottom: 10, marginTop: 10 }}
+                    style={{ marginBottom: 25, marginTop: 20 }}
                 >
                     {"Start the vocabulary quiz anyway >>"}
                 </button>
             </div>
-            <br />
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
