@@ -170,7 +170,7 @@ class VocabQuiz extends React.Component<Props, State> {
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <h1 style={{
+                    <h1 id="h1title" style={{
                         margin: "25px",
                         lineHeight: screenWidth > 500 ? "45px" : "40px",
                     }}>
@@ -238,10 +238,10 @@ function Page1(props) {
                                         <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
                                         <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
                                         <TableCell style={tableElementStyle} align="center">
-                                            <img 
-                                            alt="sperker" 
-                                            src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"} 
-                                            style={{width: "60%", maxWidth: 30}}
+                                            <img
+                                                alt="sperker"
+                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                                style={{ width: "60%", maxWidth: 30 }}
                                             />
                                         </TableCell>
                                     </TableRow>

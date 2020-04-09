@@ -49,6 +49,7 @@ export const actionCreators: IActionCreators = {
         }
     },
     changePage: (nextPage) => async (dispatch, getState) => {
+        document.getElementById("h1title").scrollIntoView(true);
         dispatch({ type: changePageType, nextPage });
     }
 };
