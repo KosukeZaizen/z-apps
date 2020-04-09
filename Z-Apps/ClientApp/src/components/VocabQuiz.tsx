@@ -38,8 +38,7 @@ type State = {
 
 class VocabQuiz extends React.Component<Props, State> {
     refSentences: React.RefObject<HTMLDivElement>;
-    correctSound = new Audio();
-    incorrectSound = new Audio();
+    correctSounds = [new Audio(), new Audio()];
 
     constructor(props) {
         super(props);
@@ -76,10 +75,9 @@ class VocabQuiz extends React.Component<Props, State> {
                 this.changeScreenSize();
             }, i * 1000);
         }
-        this.correctSound.src = consts.BLOB_URL + "/appsPublic/sound/correctSound.mp3";
-        this.incorrectSound.src = consts.BLOB_URL + "/appsPublic/sound/incorrectSound.mp3";
-        this.correctSound.load;
-        this.incorrectSound.load;
+        this.correctSounds[0].src = consts.BLOB_URL + "/appsPublic/sound/correctSound.mp3";
+        this.correctSounds[1].src = consts.BLOB_URL + "/appsPublic/sound/incorrectSound.mp3";
+        this.correctSounds.forEach(s => s.load);
     }
 
     componentDidUpdate(preciousProps) {
@@ -127,6 +125,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     changePage={changePage}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
+                    correctSounds={this.correctSounds}
                 />;
                 break;
             default:
@@ -238,7 +237,13 @@ function Page1(props) {
                                     <TableRow key={v.vocabId}>
                                         <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
                                         <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center"></TableCell>
+                                        <TableCell style={tableElementStyle} align="center">
+                                            <img 
+                                            alt="sperker" 
+                                            src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"} 
+                                            style={{width: "60%", maxWidth: 30}}
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                 ))
                                 :
@@ -305,9 +310,10 @@ type TPage2Props = {
     changePage: (nextPage: vocabStore.TPageNumber) => void;
     screenWidth: number;
     imgNumber: number;
+    correctSounds: HTMLAudioElement[];
 };
 function Page2(props: TPage2Props) {
-    const { vocabList, screenWidth, imgNumber } = props;
+    const { vocabList, screenWidth, imgNumber, correctSounds } = props;
     const [correctIds, setCorrectIds] = useState([]);
     const [incorrectIds, setIncorrectIds] = useState([]);
     const [vocabToShow, setVocabToShow] = useState(null);
@@ -328,6 +334,7 @@ function Page2(props: TPage2Props) {
             onClick={() => {
                 setVocabToShow(vocabToBeAsked);
                 setCorrectIds([...correctIds, vocabToBeAsked.vocabId]);
+                correctSounds[0].play();
                 setMode(1);
             }}
             className="btn btn-primary btn-lg btn-block"
@@ -347,6 +354,7 @@ function Page2(props: TPage2Props) {
                 onClick={() => {
                     setVocabToShow(vocabToBeAsked);
                     setIncorrectIds([...incorrectIds, vocabToBeAsked.vocabId]);
+                    correctSounds[1].play();
                     setMode(2);
                 }}
                 className="btn btn-primary btn-lg btn-block"
