@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as consts from '../../common/consts';
 
-export default function CharacterComment(props) {
+type TProps = { imgNumber: number; screenWidth: number; comment: string; };
+export default function CharacterComment(props: TProps) {
     const { imgNumber, screenWidth, comment } = props;
     return (
         <div style={{

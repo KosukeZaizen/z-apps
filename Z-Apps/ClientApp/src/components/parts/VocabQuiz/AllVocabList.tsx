@@ -61,7 +61,7 @@ export default class AllVocabList extends React.Component<{}, {
                                         <TableCell style={{ ...tableElementStyle, fontWeight: "bold" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
                                         <TableCell style={tableElementStyle} align="center">{(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`) || "0") + " %"}</TableCell>
                                         <TableCell style={tableElementStyle} align="center">
-                                            <Link to={g.genreName}>Try the quiz >></Link>
+                                            <Link to={`/vocabulary-quiz/${g.genreName}`}>Try the quiz >></Link>
                                         </TableCell>
                                     </TableRow>
                                 ))

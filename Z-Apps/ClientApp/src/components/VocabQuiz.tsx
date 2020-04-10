@@ -211,7 +211,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     <GoogleAd />
                     <PleaseScrollDown
                         criteriaRef={this.ref}
-                        //screenWidth={screenWidth}
+                        screenWidth={screenWidth}
                         targetId="h1title"
                     />
                 </div>
@@ -504,7 +504,7 @@ function Page3(props: TPage3Props) {
                     <CharacterComment
                         screenWidth={screenWidth}
                         imgNumber={(imgNumber - 1) || 3}
-                        comment={comment + " You should remember the vocabularies below!"}
+                        comment={comment + " You should remember the vocabulary below!"}
                     />
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">

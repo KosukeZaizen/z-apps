@@ -14,6 +14,8 @@ const RomajiConverter = lazy(() => import('./components/RomajiConverter'));
 const KanjiConverter = lazy(() => import('./components/KanjiConverter'));
 const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
+const VocabQuiz = lazy(() => import('./components/VocabQuiz'));
+const VocabQuizTop = lazy(() => import('./components/VocabQuizTop'));
 const Stories = lazy(() => import('./components/Stories'));
 const StoriesTop = lazy(() => import('./components/StoriesTop'));
 const StoriesEdit = lazy(() => import('./components/StoriesEdit'));
@@ -26,7 +28,6 @@ const GameOver = lazy(() => import('./components/GameOver'));
 const SiteMapEdit = lazy(() => import('./components/SiteMapEdit'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
 const Boscobel = lazy(() => import('./components/Boscobel'));
-const VocabQuiz = lazy(() => import('./components/VocabQuiz'));
 const TicTacToeGame = lazy(() => import('./components/parts/3d/TicTacToeGame'));
 const Boxes = lazy(() => import('./components/parts/3d/Boxes'));
 const BoxesExample = lazy(() => import('./components/parts/3d/BoxesExample'));
@@ -53,11 +54,12 @@ export default class App extends React.Component {
                         <Route path='/romaji-converter' component={RomajiConverter} />
                         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
+                        <Route exact path='/vocabulary-quiz' component={VocabQuizTop} />
+                        <Route exact path='/vocabulary-quiz/:genreName' component={VocabQuiz} />
                         <Route exact path='/folktales' component={StoriesTop} />
                         <Route exact path='/folktales/:storyName' component={Stories} />
                         <Route exact path='/folktalesEdit' component={StoriesEditTop} />
                         <Route exact path='/folktalesEdit/:storyName' component={StoriesEdit} />
-                        <Route exact path='/vocabulary-quiz/:genreName' component={VocabQuiz} />
                         <Route path='/ninja' component={NinjaTop} />
                         <Route path='/ninja1' component={Ninja1} />
                         <Route path='/ninja2' component={Ninja2} />
