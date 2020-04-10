@@ -8,6 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
+import AllVocabList from './parts/VocabQuiz/AllVocabList';
+import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
@@ -289,38 +291,6 @@ function Page1(props) {
     );
 }
 
-function CharacterComment(props) {
-    const { imgNumber, screenWidth, comment } = props;
-    return (
-        <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            maxWidth: 450,
-        }}>
-            <div>
-                <img
-                    src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${imgNumber}.png`}
-                    alt="ninja"
-                    style={{
-                        width: screenWidth * 2 / 10,
-                        maxWidth: 120,
-                        height: "auto"
-                    }}
-                />
-            </div>
-            <div className="chatting" style={{ verticalAlign: "middle", }}>
-                <div className="says" style={{
-                    width: screenWidth * 7 / 10,
-                    maxWidth: 420,
-                }}>
-                    <p>{comment}</p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
 type TPage2Props = {
     vocabList: vocab[];
     changePage: (nextPage: vocabStore.TPageNumber) => void;
@@ -583,68 +553,7 @@ function Page3(props: TPage3Props) {
     );
 }
 
-class AllVocabList extends React.Component<{}, {
-    allGenres: vocabGenre[];
-}> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            allGenres: [],
-        };
-    }
-
-    componentDidMount() {
-        this.loadAllVocabs();
-    }
-
-    loadAllVocabs = async () => {
-        const url = `api/VocabQuiz/GetAllGenres`;
-        const res = await fetch(url);
-        res && this.setState({ allGenres: await res.json() });
-    }
-
-    render() {
-        const { allGenres } = this.state;
-
-        const tableHeadStyle: React.CSSProperties = {
-            fontSize: "medium",
-            fontWeight: "bold",
-        };
-        const tableElementStyle: React.CSSProperties = {
-            fontSize: "medium",
-        };
-
-        return (
-            <>
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                <TableCell style={tableHeadStyle} align="center">Genre</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Your score</TableCell>
-                                <TableCell style={tableHeadStyle}></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                allGenres.map((g: vocabGenre) => (
-                                    <TableRow key={g.genreId}>
-                                        <TableCell style={{ ...tableElementStyle, fontWeight: "bold" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`) || "0") + " %"}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">
-                                            <Link to={g.genreName}>Try the quiz >></Link>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </>
-        );
-    }
-}
 
 export default connect(
     (state: TReducers) => state.vocabQuiz,
