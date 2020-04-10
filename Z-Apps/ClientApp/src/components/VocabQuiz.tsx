@@ -196,6 +196,10 @@ class VocabQuiz extends React.Component<Props, State> {
                     </h1>
                     <br />
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
+                    <hr />
+                    <div style={{ fontSize: "x-large", margin: "20px" }}>
+                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                    </div>
                     <br />
                     <FB />
                     <br />
