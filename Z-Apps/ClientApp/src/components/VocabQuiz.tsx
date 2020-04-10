@@ -259,7 +259,7 @@ function Page1(props) {
                                             alt="vocabluary sperker"
                                             src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                             style={{ width: "60%", maxWidth: 30 }}
-                                            onClick={() => { vocabSounds[v.vocabId].play(); }}
+                                            onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -339,7 +339,7 @@ function Page2(props: TPage2Props) {
     const vocabToBeAsked = getRandItem(vocabsForQuiz);
     let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
 
-    if (mode === 0) vocabSounds[vocabToBeAsked.vocabId].play();
+    if (mode === 0) vocabSounds[vocabToBeAsked.vocabId] && vocabSounds[vocabToBeAsked.vocabId].play();
 
     const vocabsOfChoice: vocab[] = [];
     const buttons = [
@@ -348,9 +348,11 @@ function Page2(props: TPage2Props) {
             onClick={() => {
                 setVocabToShow(vocabToBeAsked);
                 setCorrectIds([...correctIds, vocabToBeAsked.vocabId]);
-                vocabSounds[vocabToBeAsked.vocabId].pause();
-                vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
-                correctSounds[0].play();
+                if (vocabSounds[vocabToBeAsked.vocabId] && correctSounds[0]) {
+                    vocabSounds[vocabToBeAsked.vocabId].pause();
+                    vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
+                    correctSounds[0].play();
+                }
                 setMode(1);
             }}
             className="btn btn-primary btn-lg btn-block"
@@ -370,9 +372,11 @@ function Page2(props: TPage2Props) {
                 onClick={() => {
                     setVocabToShow(vocabToBeAsked);
                     setIncorrectIds([...incorrectIds, vocabToBeAsked.vocabId]);
-                    vocabSounds[vocabToBeAsked.vocabId].pause();
-                    vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
-                    correctSounds[1].play();
+                    if (vocabSounds[vocabToBeAsked.vocabId] && correctSounds[1]) {
+                        vocabSounds[vocabToBeAsked.vocabId].pause();
+                        vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
+                        correctSounds[1].play();
+                    }
                     setMode(2);
                 }}
                 className="btn btn-primary btn-lg btn-block"
@@ -439,7 +443,7 @@ function Page2(props: TPage2Props) {
                                     alt="vocabluary sperker"
                                     src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                     style={{ width: "60%", maxWidth: 30 }}
-                                    onClick={() => { vocabSounds[vocabToShow.vocabId].play(); }}
+                                    onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
                                 />
                             </TableCell>
                         </TableRow>
@@ -543,7 +547,7 @@ function Page3(props: TPage3Props) {
                                                 alt="vocabluary sperker"
                                                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                 style={{ width: "60%", maxWidth: 30 }}
-                                                onClick={() => { vocabSounds[v.vocabId].play(); }}
+                                                onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
                                             />
                                         </TableCell>
                                     </TableRow>
