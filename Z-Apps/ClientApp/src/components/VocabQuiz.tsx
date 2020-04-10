@@ -130,15 +130,12 @@ class VocabQuiz extends React.Component<Props, State> {
                 />;
                 break;
             case 3:
-                pageData = <p>hello</p>
-                // pageData = <Page2
-                //     vocabList={vocabList}
-                //     changePage={changePage}
-                //     screenWidth={screenWidth}
-                //     imgNumber={imgNumber}
-                //     correctSounds={this.correctSounds}
-                //     vocabSounds={this.vocabSounds}
-                // />;
+                pageData = <Page3
+                    vocabList={vocabList}
+                    changePage={changePage}
+                    screenWidth={screenWidth}
+                    imgNumber={imgNumber}
+                />;
                 break;
             default:
                 vocabList.length > 0 && vocabList.forEach(v => {
@@ -228,7 +225,7 @@ function Page1(props) {
             <CharacterComment
                 screenWidth={screenWidth}
                 imgNumber={imgNumber}
-                comment="Before starting the vocabulary quiz, please remember the vocabularies list below!"
+                comment="Before starting the vocabulary quiz, please remember the vocabulary list below!"
             />
             <div style={{
                 textAlign: "right"
@@ -452,6 +449,17 @@ function Page2(props: TPage2Props) {
             <button
                 onClick={() => {
                     if(vocabsForQuiz.length <= 1){
+                        const cr = correctIds.length;
+                        const inc = incorrectIds.length;
+                        const percentage = Math.floor(100 * cr/(cr + inc));
+                        localStorage.setItem(
+                            `vocab-quiz-percentage-${vocabList[0].genreId}`,
+                            JSON.stringify(percentage)
+                        );
+                        localStorage.setItem(
+                            `vocab-quiz-incorrectIds-${vocabList[0].genreId}`,
+                            JSON.stringify(incorrectIds)
+                        );
                         changePage(3);
                         return;
                     }
@@ -468,6 +476,18 @@ function Page2(props: TPage2Props) {
     }
 
     return content;
+}
+
+type TPage3Props = {
+    vocabList: vocab[];
+    changePage: (nextPage: vocabStore.TPageNumber) => void;
+    screenWidth: number;
+    imgNumber: number;
+};
+function Page3(props: TPage3Props) {
+    return(
+        <>hello!!!!</>
+    );
 }
 
 export default connect(
