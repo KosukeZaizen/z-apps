@@ -141,11 +141,9 @@ class VocabQuiz extends React.Component<Props, State> {
                 break;
             default:
                 vocabList.length > 0 && vocabList.forEach(v => {
-                    if (!this.vocabSounds[v.vocabId]) {
-                        this.vocabSounds[v.vocabId] = new Audio();
-                        this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
-                        this.vocabSounds[v.vocabId].load();
-                    }
+                    this.vocabSounds[v.vocabId] = new Audio();
+                    this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+                    this.vocabSounds[v.vocabId].load();
                 });
                 pageData = <Page1
                     vocabList={vocabList}
@@ -202,6 +200,15 @@ class VocabQuiz extends React.Component<Props, State> {
                     <br />
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
+                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Genres</h2>
+                    <AllVocabList />
+                    <br />
+                    <CharacterComment
+                        screenWidth={screenWidth}
+                        imgNumber={imgNumber}
+                        comment="Try to get a perfect score on all the quizzes!"
+                    />
+                    <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
                         <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                     </div>
@@ -230,6 +237,8 @@ function Page1(props) {
     const tableElementStyle: React.CSSProperties = {
         fontSize: "medium",
     };
+
+    const incorrectIds: number[] = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabList[0].genreId}`)) || [];
 
     return (
         <>
@@ -262,8 +271,8 @@ function Page1(props) {
                         {
                             vocabList.map((v: vocab) => (
                                 <TableRow key={v.vocabId}>
-                                    <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                    <TableCell style={incorrectIds.includes(v.vocabId) ? {...tableElementStyle, color: "red", fontWeight: "bold"} : tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                    <TableCell style={incorrectIds.includes(v.vocabId) ? {...tableElementStyle, color: "red", fontWeight: "bold"} : tableElementStyle} align="center">{v.english}</TableCell>
                                     <TableCell style={tableElementStyle} align="center">
                                         <img
                                             alt="vocabluary sperker"
@@ -544,15 +553,6 @@ function Page3(props: TPage3Props) {
             >
                 Retry
             </button>
-            <hr /><br />
-            <h2 style={{ fontWeight: "bold" }}>Your Progress</h2>
-            <br />
-            <CharacterComment
-                screenWidth={screenWidth}
-                imgNumber={imgNumber}
-                comment="Try to get a perfect score on all the quizzes!"
-            />
-            <AllVocabList />
         </>
     );
 }

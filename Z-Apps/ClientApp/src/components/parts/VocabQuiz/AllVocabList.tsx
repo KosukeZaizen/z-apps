@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { vocabGenre, vocab } from '../../../types/vocab';
+import { vocabGenre } from '../../../types/vocab';
+import { reloadAndRedirect_OneTimeReload } from '../../common/functions';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class AllVocabList extends React.Component<{}, {
     allGenres: vocabGenre[];
@@ -27,9 +30,14 @@ export default class AllVocabList extends React.Component<{}, {
     }
 
     loadAllVocabs = async () => {
-        const url = `api/VocabQuiz/GetAllGenres`;
-        const res = await fetch(url);
-        res && this.setState({ allGenres: await res.json() });
+        try {
+            const url = `api/VocabQuiz/GetAllGenres`;
+            const res = await fetch(url);
+            res && this.setState({ allGenres: await res.json() });
+        } catch (e) {
+            console.log("e", e);
+            reloadAndRedirect_OneTimeReload("db-access-error-time");
+        }
     }
 
     render() {
@@ -44,7 +52,7 @@ export default class AllVocabList extends React.Component<{}, {
         };
 
         return (
-            <>
+            allGenres && allGenres.length > 0 ?
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -69,7 +77,8 @@ export default class AllVocabList extends React.Component<{}, {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </>
+                :
+                <CircularProgress key="circle" size="20%" />
         );
     }
 }
