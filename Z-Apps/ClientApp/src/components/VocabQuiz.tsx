@@ -120,7 +120,7 @@ class VocabQuiz extends React.Component<Props, State> {
         let pageData: JSX.Element;
         switch (currentPage) {
             case 2:
-                pageData = <Page2 
+                pageData = <Page2
                     vocabList={vocabList}
                     changePage={changePage}
                     screenWidth={screenWidth}
@@ -128,6 +128,17 @@ class VocabQuiz extends React.Component<Props, State> {
                     correctSounds={this.correctSounds}
                     vocabSounds={this.vocabSounds}
                 />;
+                break;
+            case 3:
+                pageData = <p>hello</p>
+                // pageData = <Page2
+                //     vocabList={vocabList}
+                //     changePage={changePage}
+                //     screenWidth={screenWidth}
+                //     imgNumber={imgNumber}
+                //     correctSounds={this.correctSounds}
+                //     vocabSounds={this.vocabSounds}
+                // />;
                 break;
             default:
                 vocabList.length > 0 && vocabList.forEach(v => {
@@ -317,7 +328,7 @@ type TPage2Props = {
     vocabSounds: HTMLAudioElement[];
 };
 function Page2(props: TPage2Props) {
-    const { vocabList, screenWidth, imgNumber, correctSounds, vocabSounds } = props;
+    const { vocabList, screenWidth, imgNumber, correctSounds, vocabSounds, changePage } = props;
     const [correctIds, setCorrectIds] = useState([]);
     const [incorrectIds, setIncorrectIds] = useState([]);
     const [vocabToShow, setVocabToShow] = useState(null);
@@ -327,7 +338,6 @@ function Page2(props: TPage2Props) {
     const vocabsForQuiz = vocabList.filter(v => !finishedIds.includes(v.vocabId))
 
     const getRandItem = (vs: vocab[]) => vs[Math.floor(Math.random() * vs.length)];
-
     const vocabToBeAsked = getRandItem(vocabsForQuiz);
     let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
 
@@ -441,6 +451,10 @@ function Page2(props: TPage2Props) {
             <br />
             <button
                 onClick={() => {
+                    if(vocabsForQuiz.length <= 1){
+                        changePage(3);
+                        return;
+                    }
                     vocabSounds[vocabToShow.vocabId].pause();
                     vocabSounds[vocabToShow.vocabId].currentTime = 0;
                     setMode(0);
