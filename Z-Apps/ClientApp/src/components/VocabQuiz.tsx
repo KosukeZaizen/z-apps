@@ -619,7 +619,7 @@ class AllVocabList extends React.Component<{}, {
                             <TableRow style={{ backgroundColor: 'papayawhip' }}>
                                 <TableCell style={tableHeadStyle} align="center">Genre</TableCell>
                                 <TableCell style={tableHeadStyle} align="center">Your score</TableCell>
-                                <TableCell style={tableHeadStyle} align="center"></TableCell>
+                                <TableCell style={tableHeadStyle}></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
