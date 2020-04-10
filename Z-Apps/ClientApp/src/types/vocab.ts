@@ -9,5 +9,5 @@ export type vocab = {
 export type vocabGenre = {
     genreId: number;
     genreName: string;
-    order: string;
+    order: number;
 };

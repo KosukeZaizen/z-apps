@@ -30,5 +30,33 @@ namespace Z_Apps.Models.VocabList
                 vocabList = vocabList
             };
         }
+
+        public List<GenreAndVocab> GetAllVocabs()
+        {
+            var resultGenreAndVocabs = new List<GenreAndVocab>();
+
+            var vocabGenres = vocabGenreManager.GetAllGenres();
+
+            foreach (var vocabGenre in vocabGenres)
+            {
+                IEnumerable<Vocab> vocabList = null;
+                if (vocabGenre != null)
+                {
+                    vocabList = vocabManager.GetVocabList(vocabGenre.genreId);
+                }
+
+                resultGenreAndVocabs.Add(
+                    new GenreAndVocab
+                    {
+                        vocabGenre = vocabGenre,
+                        vocabList = vocabList
+                    });
+            }
+            return resultGenreAndVocabs;
+        }
+
+        public IEnumerable<VocabGenre> GetAllGenres(){
+            return vocabGenreManager.GetAllGenres();
+        }
     }
 }

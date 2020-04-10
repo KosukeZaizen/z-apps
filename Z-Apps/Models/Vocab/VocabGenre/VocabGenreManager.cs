@@ -11,7 +11,7 @@ namespace Z_Apps.Models.VocabList
             Con = con;
         }
 
-        public IEnumerable<VocabGenre> GetAllGenre()
+        public IEnumerable<VocabGenre> GetAllGenres()
         {
             //SQL文作成
             string sql = "";

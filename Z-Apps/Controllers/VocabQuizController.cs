@@ -30,5 +30,17 @@ namespace Z_Apps.Controllers
             public VocabGenre vocabGenre;
             public IEnumerable<Vocab> vocabList;
         }
+
+        [HttpGet("[action]")]
+        public List<GenreAndVocab> GetAllVocabs()
+        {
+            return vocabQuizService.GetAllVocabs();
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<VocabGenre> GetAllGenres()
+        {
+            return vocabQuizService.GetAllGenres();
+        }
     }
 }

@@ -14,7 +14,7 @@ import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
 import { shuffle } from './common/functions';
-import { vocab } from '../types/vocab';
+import { vocabGenre, vocab } from '../types/vocab';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -468,8 +468,10 @@ function Page2(props: TPage2Props) {
                         changePage(3);
                         return;
                     }
-                    vocabSounds[vocabToShow.vocabId].pause();
-                    vocabSounds[vocabToShow.vocabId].currentTime = 0;
+                    if (vocabSounds[vocabToShow.vocabId]) {
+                        vocabSounds[vocabToShow.vocabId].pause();
+                        vocabSounds[vocabToShow.vocabId].currentTime = 0;
+                    }
                     setMode(0);
                 }}
                 className="btn btn-dark btn-lg btn-block"
@@ -521,52 +523,94 @@ function Page3(props: TPage3Props) {
             <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Your score is:</p>
             <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{percentage} %</p>
             {incorrectIds && incorrectIds.length > 0 &&
-            <>
-            <CharacterComment
-                screenWidth={screenWidth}
-                imgNumber={(imgNumber - 1) || 3}
-                comment={comment + " You should remember the vocabularies below!"}
-            />
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                vocabList.filter(v => incorrectIds.includes(v.vocabId)).map((v: vocab) => (
-                                    <TableRow key={v.vocabId}>
-                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">
-                                            <img
-                                                alt="vocabluary sperker"
-                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                                                style={{ width: "60%", maxWidth: 30 }}
-                                                onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                <>
+                    <CharacterComment
+                        screenWidth={screenWidth}
+                        imgNumber={(imgNumber - 1) || 3}
+                        comment={comment + " You should remember the vocabularies below!"}
+                    />
+                    <TableContainer component={Paper}>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                    <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                    <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                                    <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    vocabList.filter(v => incorrectIds.includes(v.vocabId)).map((v: vocab) => (
+                                        <TableRow key={v.vocabId}>
+                                            <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                            <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                            <TableCell style={tableElementStyle} align="center">
+                                                <img
+                                                    alt="vocabluary sperker"
+                                                    src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                                    style={{ width: "60%", maxWidth: 30 }}
+                                                    onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
+                                                />
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
                     </TableContainer>
                 </>
             }
             <br />
             <button
-                onClick={() => {changePage(2)}}
+                onClick={() => { changePage(2) }}
                 className="btn btn-primary btn-lg btn-block"
             >
                 Retry
             </button>
+            <hr /><br />
+            <h2 style={{ fontWeight: "bold" }}>Your Progress</h2>
+            <br />
+            <AllVocabList />
         </>
     );
+}
+
+class AllVocabList extends React.Component<{}, {
+    allGenres: vocabGenre[];
+}> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            allGenres: [],
+        };
+    }
+
+    componentDidMount() {
+        this.loadAllVocabs();
+    }
+
+    loadAllVocabs = async () => {
+        const url = `api/VocabQuiz/GetAllGenres`;
+        const res = await fetch(url);
+        res && this.setState({ allGenres: await res.json() });
+    }
+
+    render() {
+        const { allGenres } = this.state;
+        console.log(allGenres);
+        return (
+            <>
+                {allGenres.sort((a, b) => a.order - b.order).map(g => {
+                    return (
+                        <div key={g.genreId}>
+                            <h3>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h3>
+                        </div>
+                    );
+                })}
+            </>
+        );
+    }
 }
 
 export default connect(

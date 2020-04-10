@@ -4,7 +4,7 @@ import { vocabGenre, vocab } from '../types/vocab';
 const initializeType = 'INITIALIZE';
 const receiveGenreAndVocabType = 'RECEIVE_GENRE_AND_VOCAB';
 const changePageType = 'CHANGE_PAGE';
-const initialState = { vocabGenre: null, vocabList: [], currentPage: 1 };
+const initialState = { vocabGenre: null, vocabList: [], currentPage: 3 };
 
 export type TPageNumber = 1 | 2 | 3;
 
