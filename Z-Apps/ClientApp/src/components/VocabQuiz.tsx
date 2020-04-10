@@ -135,11 +135,12 @@ class VocabQuiz extends React.Component<Props, State> {
                     changePage={changePage}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
+                    vocabSounds={this.vocabSounds}
                 />;
                 break;
             default:
                 vocabList.length > 0 && vocabList.forEach(v => {
-                    if(!this.vocabSounds[v.vocabId]){
+                    if (!this.vocabSounds[v.vocabId]) {
                         this.vocabSounds[v.vocabId] = new Audio();
                         this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
                         this.vocabSounds[v.vocabId].load();
@@ -338,7 +339,7 @@ function Page2(props: TPage2Props) {
     const vocabToBeAsked = getRandItem(vocabsForQuiz);
     let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
 
-    if(mode === 0) vocabSounds[vocabToBeAsked.vocabId].play();
+    if (mode === 0) vocabSounds[vocabToBeAsked.vocabId].play();
 
     const vocabsOfChoice: vocab[] = [];
     const buttons = [
@@ -412,7 +413,7 @@ function Page2(props: TPage2Props) {
             <CharacterComment
                 screenWidth={screenWidth}
                 imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
-                comment={mode === 1 ? ["Good!", "Nice!", "Excellent!"][rand]: "Oops!"}
+                comment={mode === 1 ? ["Good!", "Nice!", "Excellent!"][rand] : "Oops!"}
             />
             {
                 mode === 1 ?
@@ -448,10 +449,10 @@ function Page2(props: TPage2Props) {
             <br />
             <button
                 onClick={() => {
-                    if(vocabsForQuiz.length <= 1){
+                    if (vocabsForQuiz.length <= 1) {
                         const cr = correctIds.length;
                         const inc = incorrectIds.length;
-                        const percentage = Math.floor(100 * cr/(cr + inc));
+                        const percentage = Math.floor(100 * cr / (cr + inc));
                         localStorage.setItem(
                             `vocab-quiz-percentage-${vocabList[0].genreId}`,
                             JSON.stringify(percentage)
@@ -483,10 +484,84 @@ type TPage3Props = {
     changePage: (nextPage: vocabStore.TPageNumber) => void;
     screenWidth: number;
     imgNumber: number;
+    vocabSounds: HTMLAudioElement[];
 };
 function Page3(props: TPage3Props) {
-    return(
-        <>hello!!!!</>
+    const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = props;
+    const percentage = Number(localStorage.getItem(`vocab-quiz-percentage-${vocabList[0].genreId}`));
+    const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabList[0].genreId}`));
+
+    let comment: string;
+    if (percentage === 100) {
+        comment = "Perfect!";
+    } else if (percentage > 80) {
+        comment = "Very good!";
+    } else if (percentage > 60) {
+        comment = "Good!";
+    } else if (percentage > 30) {
+        comment = "Nice try!";
+    } else {
+        comment = "I'm sorry!";
+    }
+
+    const tableHeadStyle: React.CSSProperties = {
+        fontSize: "medium",
+        fontWeight: "bold",
+    };
+    const tableElementStyle: React.CSSProperties = {
+        fontSize: "medium",
+    };
+
+    return (
+        <>
+            <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Your score is:</p>
+            <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{percentage} %</p>
+            {incorrectIds && incorrectIds.length > 0 &&
+            <>
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={(imgNumber - 1) || 3}
+                comment={comment + " You should remember the vocabularies below!"}
+            />
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                vocabList.filter(v => incorrectIds.includes(v.vocabId)).map((v: vocab) => (
+                                    <TableRow key={v.vocabId}>
+                                        <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">
+                                            <img
+                                                alt="vocabluary sperker"
+                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                                style={{ width: "60%", maxWidth: 30 }}
+                                                onClick={() => { vocabSounds[v.vocabId].play(); }}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                </>
+            }
+            <br />
+            <button
+                onClick={() => {changePage(2)}}
+                className="btn btn-primary btn-lg btn-block"
+            >
+                Retry
+            </button>
+        </>
     );
 }
 
