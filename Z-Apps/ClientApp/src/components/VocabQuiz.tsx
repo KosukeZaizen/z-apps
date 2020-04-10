@@ -481,7 +481,6 @@ function Page2(props: TPage2Props) {
             <br />
         </div>
     }
-
     return content;
 }
 
@@ -570,6 +569,11 @@ function Page3(props: TPage3Props) {
             <hr /><br />
             <h2 style={{ fontWeight: "bold" }}>Your Progress</h2>
             <br />
+            <CharacterComment
+                screenWidth={screenWidth}
+                imgNumber={imgNumber}
+                comment="Try to get a perfect score on all the quizzes!"
+            />
             <AllVocabList />
         </>
     );
@@ -598,16 +602,41 @@ class AllVocabList extends React.Component<{}, {
 
     render() {
         const { allGenres } = this.state;
-        console.log(allGenres);
+
+        const tableHeadStyle: React.CSSProperties = {
+            fontSize: "medium",
+            fontWeight: "bold",
+        };
+        const tableElementStyle: React.CSSProperties = {
+            fontSize: "medium",
+        };
+
         return (
             <>
-                {allGenres.sort((a, b) => a.order - b.order).map(g => {
-                    return (
-                        <div key={g.genreId}>
-                            <h3>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h3>
-                        </div>
-                    );
-                })}
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                <TableCell style={tableHeadStyle} align="center">Genre</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Your score</TableCell>
+                                <TableCell style={tableHeadStyle} align="center"></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                allGenres.map((g: vocabGenre) => (
+                                    <TableRow key={g.genreId}>
+                                        <TableCell style={{ ...tableElementStyle, fontWeight: "bold" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`) || "0") + " %"}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">
+                                            <Link to={g.genreName}>Try the quiz >></Link>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </>
         );
     }
