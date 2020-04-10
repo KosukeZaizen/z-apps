@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
 import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import AllVocabList from './parts/VocabQuiz/AllVocabList';
@@ -16,7 +15,7 @@ import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
 import { shuffle } from './common/functions';
-import { vocabGenre, vocab } from '../types/vocab';
+import { vocab } from '../types/vocab';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,9 +37,9 @@ type State = {
 };
 
 class VocabQuiz extends React.Component<Props, State> {
-    refSentences: React.RefObject<HTMLDivElement>;
     correctSounds = [new Audio(), new Audio()];
     vocabSounds: HTMLAudioElement[] = [];
+    ref: React.RefObject<HTMLHeadingElement>;
 
     constructor(props) {
         super(props);
@@ -68,7 +67,7 @@ class VocabQuiz extends React.Component<Props, State> {
             }, 100);
         };
 
-        this.refSentences = React.createRef();
+        this.ref = React.createRef();
     }
 
     componentDidMount() {
@@ -190,10 +189,14 @@ class VocabQuiz extends React.Component<Props, State> {
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <h1 id="h1title" style={{
-                        margin: "25px",
-                        lineHeight: screenWidth > 500 ? "45px" : "40px",
-                    }}>
+                    <h1
+                        id="h1title"
+                        style={{
+                            margin: "25px",
+                            lineHeight: screenWidth > 500 ? "45px" : "40px",
+                        }}
+                        ref={this.ref}
+                    >
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
@@ -206,10 +209,11 @@ class VocabQuiz extends React.Component<Props, State> {
                     <FB />
                     <br />
                     <GoogleAd />
-                    {/* <PleaseScrollDown
+                    <PleaseScrollDown
                         criteriaRef={this.ref}
-                        screenWidth={screenWidth}
-                    /> */}
+                        //screenWidth={screenWidth}
+                        targetId="h1title"
+                    />
                 </div>
             </div>
         );
