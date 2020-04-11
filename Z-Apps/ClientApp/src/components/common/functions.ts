@@ -1,3 +1,5 @@
+import * as consts from './consts';
+
 export function getParams() {
     let arg = {};
     const pair = window.location.search.substring(1).split('&');
@@ -37,6 +39,17 @@ export async function sendPostNoJsonResult(objToSend, url) {
     };
     const response = await fetch(url, { method, headers, body });
     return response;
+}
+
+export async function checkAppVersion() {
+    const url = 'api/Version/GetVersion';
+    fetch(url).then(res => {
+        res.json().then(v => {
+            if (Number(v) !== consts.APP_VERSION) {
+                window.location.reload(true);
+            }
+        })
+    });
 }
 
 export function reloadAndRedirect(saveKey: string) {

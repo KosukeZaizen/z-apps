@@ -11,7 +11,9 @@ import registerServiceWorker from './registerServiceWorker';
 //import { unregister } from './registerServiceWorker';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS } from './components/common/privateConsts';
+import { checkAppVersion } from './components/common/functions';
 
+checkAppVersion();
 ReactGA.initialize(GOOGLE_ANALYTICS);
 
 // Create browser history to use in the Redux store
@@ -19,8 +21,8 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const history = createBrowserHistory({ basename: baseUrl });
 
 history.listen(({ pathname }) => {
-    ReactGA.set({ page: pathname });
-    ReactGA.pageview(pathname);
+  ReactGA.set({ page: pathname });
+  ReactGA.pageview(pathname);
 });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
