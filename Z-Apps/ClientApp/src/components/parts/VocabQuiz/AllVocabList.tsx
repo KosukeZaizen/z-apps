@@ -16,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class AllVocabList extends React.Component<{
     excludeGenreId?: number;
+    criteriaRef?: React.RefObject<HTMLHeadingElement>
 }, {
     allGenres: vocabGenre[];
 }> {
@@ -37,14 +38,13 @@ export default class AllVocabList extends React.Component<{
             const res = await fetch(url);
             res && this.setState({ allGenres: await res.json() });
         } catch (e) {
-            console.log("e", e);
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     }
 
     render() {
         const { allGenres } = this.state;
-        const {excludeGenreId} = this.props;
+        const { excludeGenreId, criteriaRef } = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",
@@ -56,7 +56,7 @@ export default class AllVocabList extends React.Component<{
 
         return (
             allGenres && allGenres.length > 0 ?
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} ref={criteriaRef}>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow style={{ backgroundColor: 'papayawhip' }}>
@@ -72,7 +72,7 @@ export default class AllVocabList extends React.Component<{
                                     return (
                                         <TableRow key={g.genreId}>
                                             <TableCell style={{ ...tableElementStyle, fontWeight: "bold", color: percentage === 100 ? "green" : "black" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
-                                            <TableCell style={percentage === 100 ? {...tableElementStyle, fontWeight: "bold", color: "green"} : tableElementStyle} align="center">{percentage + " %"}</TableCell>
+                                            <TableCell style={percentage === 100 ? { ...tableElementStyle, fontWeight: "bold", color: "green" } : tableElementStyle} align="center">{percentage + " %"}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">
                                                 <Link to={`/vocabulary-quiz/${g.genreName}`}>
                                                     <button className="btn btn-primary">

@@ -142,8 +142,9 @@ class VocabQuiz extends React.Component<Props, State> {
             default:
                 vocabList.length > 0 && vocabList.forEach(v => {
                     this.vocabSounds[v.vocabId] = new Audio();
+                    this.vocabSounds[v.vocabId].preload = "none";
+                    this.vocabSounds[v.vocabId].autoplay = false;
                     this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
-                    this.vocabSounds[v.vocabId].load();
                 });
                 pageData = <Page1
                     vocabList={vocabList}
@@ -271,14 +272,11 @@ function Page1(props) {
                         {
                             vocabList.map((v: vocab) => (
                                 <TableRow key={v.vocabId}>
-                                    <TableCell style={incorrectIds.includes(v.vocabId) ? {...tableElementStyle, color: "red", fontWeight: "bold"} : tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                    <TableCell style={incorrectIds.includes(v.vocabId) ? {...tableElementStyle, color: "red", fontWeight: "bold"} : tableElementStyle} align="center">{v.english}</TableCell>
+                                    <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                    <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.english}</TableCell>
                                     <TableCell style={tableElementStyle} align="center">
-                                        <img
-                                            alt="vocabluary sperker"
-                                            src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                                            style={{ width: "60%", maxWidth: 30 }}
-                                            onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
+                                        <Speaker
+                                            vocabSound={vocabSounds[v.vocabId]}
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -304,51 +302,96 @@ function Page1(props) {
     );
 }
 
-type TPage2Props = {
+class Speaker extends React.Component<{
+    vocabSound: HTMLAudioElement;
+},{
+    showImg: boolean;
+}> {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            showImg: false,
+        };
+        
+        props.vocabSound.oncanplaythrough = () => {
+            this.setState({ showImg: true }); 
+        };
+        props.vocabSound.load();
+    }
+
+    render() {
+        const { showImg } = this.state;
+        const { vocabSound } = this.props;
+        return showImg ?
+            <img
+                alt="vocabluary sperker"
+                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                style={{ width: "60%", maxWidth: 30 }}
+                onClick={() => { vocabSound && vocabSound.play(); }}
+            />
+            :
+            <CircularProgress key="circle" size="20%" />
+    }
+}
+
+class Page2 extends React.Component<{
     vocabList: vocab[];
     changePage: (nextPage: vocabStore.TPageNumber) => void;
     screenWidth: number;
     imgNumber: number;
     correctSounds: HTMLAudioElement[];
     vocabSounds: HTMLAudioElement[];
-};
-function Page2(props: TPage2Props) {
-    try {
-        (document.activeElement as HTMLElement).blur();
-    } catch (e) {
+},{
+    correctIds: number[];
+    incorrectIds: number[];
+    vocabToShow: vocab;
+    mode: number;
+    buttons: JSX.Element[];
+    vocabToBeAsked: vocab;
+}> {
 
+    constructor(props){
+        super(props);
+
+        const {vocabList, vocabSounds} = props;
+        
+        const firstButtonsAndVocabs = this.makeButtons([], [], vocabList);
+
+        vocabSounds[firstButtonsAndVocabs.resultVocabToBeAsked.vocabId] && vocabSounds[firstButtonsAndVocabs.resultVocabToBeAsked.vocabId].play();
+
+        this.state = {
+            correctIds: [],
+            incorrectIds: [],
+            vocabToShow: null,
+            mode: 0,//0:quiz, 1:correct/2:incorrect
+            buttons: firstButtonsAndVocabs.resultButtons,
+            vocabToBeAsked: firstButtonsAndVocabs.resultVocabToBeAsked,
+        };
     }
 
-    const { vocabList, screenWidth, imgNumber, correctSounds, vocabSounds, changePage } = props;
-    const [correctIds, setCorrectIds] = useState([]);
-    const [incorrectIds, setIncorrectIds] = useState([]);
-    const [vocabToShow, setVocabToShow] = useState(null);
-    const [mode, setMode] = useState(0);//0:quiz, 1:correct/2:incorrect
-    const finishedIds: number[] = [...correctIds, ...incorrectIds];
-
-    const vocabsForQuiz = vocabList.filter(v => !finishedIds.includes(v.vocabId))
-
-    const makeButtons = () => {
+    makeButtons = (correctIds: number[], incorrectIds: number[], vocabsForQuiz: vocab[]) => {
+        const { vocabList, correctSounds, vocabSounds } = this.props;
 
         const getRandItem = (vs: vocab[]) => vs[Math.floor(Math.random() * vs.length)];
         const resultVocabToBeAsked = getRandItem(vocabsForQuiz);
-        let survivedVocabs = vocabList.filter(v => v.vocabId !== resultVocabToBeAsked.vocabId);
-
-        if(finishedIds.length === 0) vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+        let survivedVocabs = vocabList.filter(v => v && v.vocabId !== resultVocabToBeAsked.vocabId);
 
         const vocabsOfChoice: vocab[] = [];
         const resultButtons = [
             <button
                 key={3}
                 onClick={() => {
-                    setVocabToShow(resultVocabToBeAsked);
-                    setCorrectIds([...correctIds, resultVocabToBeAsked.vocabId]);
+                    this.setState({
+                        vocabToShow: resultVocabToBeAsked,
+                        correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
+                        mode: 1,
+                    });
                     if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[0]) {
                         vocabSounds[resultVocabToBeAsked.vocabId].pause();
                         vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
                         correctSounds[0].play();
                     }
-                    setMode(1);
                 }}
                 className="btn btn-primary btn-lg btn-block"
                 style={{ maxWidth: 300 }}
@@ -365,14 +408,16 @@ function Page2(props: TPage2Props) {
                 <button
                     key={i}
                     onClick={() => {
-                        setVocabToShow(resultVocabToBeAsked);
-                        setIncorrectIds([...incorrectIds, resultVocabToBeAsked.vocabId]);
+                        this.setState({
+                            vocabToShow: resultVocabToBeAsked,
+                            incorrectIds: [...[...incorrectIds, resultVocabToBeAsked.vocabId], resultVocabToBeAsked.vocabId],
+                            mode: 2,
+                        });
                         if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[1]) {
                             vocabSounds[resultVocabToBeAsked.vocabId].pause();
                             vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
                             correctSounds[1].play();
                         }
-                        setMode(2);
                     }}
                     className="btn btn-primary btn-lg btn-block"
                     style={{ maxWidth: 300 }}
@@ -383,109 +428,126 @@ function Page2(props: TPage2Props) {
 
             survivedVocabs = survivedVocabs.filter(v => !vocabsOfChoice.includes(v));
         }
-        return {resultButtons: shuffle(resultButtons), resultVocabToBeAsked};
+        return { resultButtons: shuffle(resultButtons), resultVocabToBeAsked };
     }
-    const firstButtonsAndVocabs = makeButtons();
-    const [buttons, setButtons] = useState(firstButtonsAndVocabs.resultButtons);
-    const [vocabToBeAsked, setVocabToBeAsked] = useState(firstButtonsAndVocabs.resultVocabToBeAsked);
 
-    const tableHeadStyle: React.CSSProperties = {
-        fontSize: "medium",
-        fontWeight: "bold",
-    };
-    const tableElementStyle: React.CSSProperties = {
-        fontSize: "medium",
-    };
+    render(){
+        setTimeout(() => {
+            try { (document.activeElement as HTMLElement).blur(); } catch (e) { }
+        }, 300);
 
-    let content: JSX.Element;
-    if (mode === 0) {
-        //Quiz
-        content = <div>
-            <CharacterComment
-                screenWidth={screenWidth}
-                imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
-                comment="Choose the meaning of the word!"
-            />
-            <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
-            {buttons}
-            <br />
-        </div>
-    } else {
-        //Correct,Incorrect
-        const rand = Math.floor(Math.random() * 3);
-        content = <div>
-            <CharacterComment
-                screenWidth={screenWidth}
-                imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
-                comment={mode === 1 ? ["Good!", "Nice!", "Excellent!"][rand] : "Oops!"}
-            />
-            {
-                mode === 1 ?
-                    <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "green" }}>{"Correct!"}</p>
-                    :
-                    <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "red" }}>{"Incorrect!"}</p>
-            }
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                            <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                            <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                            <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell style={tableElementStyle} align="center">{vocabToShow.hiragana}</TableCell>
-                            <TableCell style={tableElementStyle} align="center">{vocabToShow.english}</TableCell>
-                            <TableCell style={tableElementStyle} align="center">
-                                <img
-                                    alt="vocabluary sperker"
-                                    src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                                    style={{ width: "60%", maxWidth: 30 }}
-                                    onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
-                                />
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <br />
-            <button
-                onClick={() => {
-                    if (vocabsForQuiz.length <= 1) {
-                        const cr = correctIds.length;
-                        const inc = incorrectIds.length;
-                        const percentage = Math.floor(100 * cr / (cr + inc));
-                        localStorage.setItem(
-                            `vocab-quiz-percentage-${vocabList[0].genreId}`,
-                            JSON.stringify(percentage)
-                        );
-                        localStorage.setItem(
-                            `vocab-quiz-incorrectIds-${vocabList[0].genreId}`,
-                            JSON.stringify(incorrectIds)
-                        );
-                        changePage(3);
-                        return;
-                    }
-                    if (vocabSounds[vocabToShow.vocabId]) {
-                        vocabSounds[vocabToShow.vocabId].pause();
-                        vocabSounds[vocabToShow.vocabId].currentTime = 0;
-                    }
-                    const {resultButtons, resultVocabToBeAsked} = makeButtons();
-                    setButtons(resultButtons);
-                    setVocabToBeAsked(resultVocabToBeAsked);
-                    setMode(0);
-                    vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
-                }}
-                className="btn btn-dark btn-lg btn-block"
-            >
-                {"Next"}
-            </button>
-            <br />
-        </div>
+        const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = this.props;
+        const { correctIds, incorrectIds, vocabToShow, mode, buttons, vocabToBeAsked } = this.state;
+
+        const tableHeadStyle: React.CSSProperties = {
+            fontSize: "medium",
+            fontWeight: "bold",
+        };
+        const tableElementStyle: React.CSSProperties = {
+            fontSize: "medium",
+        };
+
+        let content: JSX.Element;
+        if (mode === 0) {
+            //Quiz
+            content = <div>
+                <CharacterComment
+                    screenWidth={screenWidth}
+                    imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
+                    comment="Choose the meaning of the word!"
+                />
+                <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
+                {buttons}
+                <br />
+            </div>
+        } else {
+            //Correct,Incorrect
+            const rand = Math.floor(Math.random() * 3);
+            content = <div>
+                <CharacterComment
+                    screenWidth={screenWidth}
+                    imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
+                    comment={mode === 1 ? ["Good!", "Nice!", "Excellent!"][rand] : "Oops!"}
+                />
+                {
+                    mode === 1 ?
+                        <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "green" }}>{"Correct!"}</p>
+                        :
+                        <p style={{ fontSize: "xx-large", fontWeight: "bold", color: "red" }}>{"Incorrect!"}</p>
+                }
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell style={tableElementStyle} align="center">{vocabToShow.hiragana}</TableCell>
+                                <TableCell style={tableElementStyle} align="center">{vocabToShow.english}</TableCell>
+                                <TableCell style={tableElementStyle} align="center">
+                                    {
+                                        vocabSounds[vocabToShow.vocabId] ?
+                                            <img
+                                                alt="vocabluary sperker"
+                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                                                style={{ width: "60%", maxWidth: 30 }}
+                                                onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
+                                            />
+                                            :
+                                            <CircularProgress key="circle" size="20%" />
+                                    }
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <br />
+                <button
+                    onClick={() => {
+                        const finishedIds: number[] = [...correctIds, ...incorrectIds];
+                        const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
+
+                        if (vocabsForQuiz.length <= 1) {
+                            const cr = correctIds.length;
+                            const inc = incorrectIds.length;
+                            const percentage = Math.floor(100 * cr / (cr + inc));
+                            localStorage.setItem(
+                                `vocab-quiz-percentage-${vocabList[0].genreId}`,
+                                JSON.stringify(percentage)
+                            );
+                            localStorage.setItem(
+                                `vocab-quiz-incorrectIds-${vocabList[0].genreId}`,
+                                JSON.stringify(incorrectIds)
+                            );
+                            changePage(3);
+                            return;
+                        }
+                        if (vocabSounds[vocabToShow.vocabId]) {
+                            vocabSounds[vocabToShow.vocabId].pause();
+                            vocabSounds[vocabToShow.vocabId].currentTime = 0;
+                        }
+                        const { resultButtons, resultVocabToBeAsked } = this.makeButtons(correctIds, incorrectIds, vocabsForQuiz);
+                        
+                        this.setState({ 
+                            mode: 0, 
+                            buttons: resultButtons,  
+                            vocabToBeAsked: resultVocabToBeAsked
+                        });
+                        vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+                    }}
+                    className="btn btn-dark btn-lg btn-block"
+                >
+                    {"Next"}
+                </button>
+                <br />
+            </div>
+        }
+        return content;
     }
-    return content;
 }
 
 type TPage3Props = {

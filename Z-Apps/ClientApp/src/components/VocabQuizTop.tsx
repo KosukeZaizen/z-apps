@@ -107,7 +107,6 @@ class VocabQuizTop extends React.Component<Props, State> {
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                             fontWeight: "bold",
                         }}
-                        ref={this.ref}
                     >
                         {"Japanese Vocabulary Quiz"}
                     </h1>
@@ -118,7 +117,9 @@ class VocabQuizTop extends React.Component<Props, State> {
                         comment="Try to get a perfect score on all the quizzes!"
                     />
                     <br />
-                    <AllVocabList />
+                    <AllVocabList
+                        criteriaRef={this.ref}
+                    />
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
                         <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
