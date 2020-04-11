@@ -40,8 +40,17 @@ export default class Home extends React.Component {
                         </Link>
                         <br />
 
-                        <Link to="/folktales">
+                        <Link to="/vocabulary-quiz">
                             <Card body inverse color="primary">
+                                <CardTitle>Japanese Vocabulary Quiz</CardTitle>
+                                <CardText>An app to learn basic Japanese vocabulary! Try to get a perfect score on all the quizzes!</CardText>
+                                <Button color="secondary">Try!</Button>
+                            </Card>
+                        </Link>
+                        <br />
+
+                        <Link to="/folktales">
+                            <Card body inverse color="success">
                                 <CardTitle>Japanese Folktales</CardTitle>
                                 <CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
                                 <Button color="secondary">Try!</Button>
@@ -50,7 +59,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/kanji-converter">
-                            <Card body inverse color="success">
+                            <Card body inverse color="danger">
                                 <CardTitle>Kanji Converter</CardTitle>
                                 <CardText>A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!</CardText>
                                 <Button color="secondary">Try!</Button>
@@ -59,7 +68,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/romaji-converter">
-                            <Card body inverse color="danger">
+                            <Card body inverse color="warning">
                                 <CardTitle>Romaji Converter</CardTitle>
                                 <CardText>A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!</CardText>
                                 <Button>Try!</Button>
@@ -68,19 +77,10 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/ninja">
-                            <Card body inverse color="warning">
+                            <Card body inverse color="info">
                                 <CardTitle>Lingual Ninja Game</CardTitle>
                                 <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
                                 <Button color="secondary">Play!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/color-code">
-                            <Card body inverse color="info">
-                                <CardTitle>Color Code Getter</CardTitle>
-                                <CardText>Get the Color Code of your favolite color!</CardText>
-                                <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>
 

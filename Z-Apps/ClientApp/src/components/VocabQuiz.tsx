@@ -158,7 +158,7 @@ class VocabQuiz extends React.Component<Props, State> {
             <div className="center">
                 <Head
                     title={"Japanese Vocabulary Quiz - " + titleToShowUpper}
-                    desc={"Free app to remember Japanese " + titleToShowLower + "vocabulary!"}
+                    desc={"Free app to remember Japanese " + titleToShowLower + "vocabulary! Try to get a perfect score on all the quizzes!"}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
@@ -201,7 +201,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Genres</h2>
-                    <AllVocabList />
+                    <AllVocabList excludeGenreId={vocabGenre && vocabGenre.genreId} />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}

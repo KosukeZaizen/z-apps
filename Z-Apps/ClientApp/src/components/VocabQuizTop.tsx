@@ -80,7 +80,7 @@ class VocabQuizTop extends React.Component<Props, State> {
             <div className="center">
                 <Head
                     title="Japanese Vocabulary Quiz"
-                    desc={"Free app to remember Japanese vocabulary!"}
+                    desc={"Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!"}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>

@@ -14,7 +14,9 @@ import Paper from '@material-ui/core/Paper';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default class AllVocabList extends React.Component<{}, {
+export default class AllVocabList extends React.Component<{
+    excludeGenreId?: number;
+}, {
     allGenres: vocabGenre[];
 }> {
 
@@ -42,6 +44,7 @@ export default class AllVocabList extends React.Component<{}, {
 
     render() {
         const { allGenres } = this.state;
+        const {excludeGenreId} = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",
@@ -64,15 +67,22 @@ export default class AllVocabList extends React.Component<{}, {
                         </TableHead>
                         <TableBody>
                             {
-                                allGenres.map((g: vocabGenre) => (
-                                    <TableRow key={g.genreId}>
-                                        <TableCell style={{ ...tableElementStyle, fontWeight: "bold" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`) || "0") + " %"}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">
-                                            <Link to={`/vocabulary-quiz/${g.genreName}`}>Try the quiz >></Link>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
+                                allGenres.filter(g => g.genreId !== excludeGenreId).map((g: vocabGenre) => {
+                                    const percentage = (Number(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`)) || 0);
+                                    return (
+                                        <TableRow key={g.genreId}>
+                                            <TableCell style={{ ...tableElementStyle, fontWeight: "bold", color: percentage === 100 ? "green" : "black" }} align="center">{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</TableCell>
+                                            <TableCell style={percentage === 100 ? {...tableElementStyle, fontWeight: "bold", color: "green"} : tableElementStyle} align="center">{percentage + " %"}</TableCell>
+                                            <TableCell style={tableElementStyle} align="center">
+                                                <Link to={`/vocabulary-quiz/${g.genreName}`}>
+                                                    <button className="btn btn-primary">
+                                                        {"Try the quiz"}
+                                                    </button>
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })
                             }
                         </TableBody>
                     </Table>
