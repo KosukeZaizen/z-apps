@@ -151,6 +151,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     imgNumber={imgNumber}
                     changePage={changePage}
                     vocabSounds={this.vocabSounds}
+                    criteriaRef={this.ref}
                 />;
         }
 
@@ -193,7 +194,6 @@ class VocabQuiz extends React.Component<Props, State> {
                             margin: "25px",
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                         }}
-                        ref={this.ref}
                     >
                         <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
                     </h1>
@@ -228,7 +228,7 @@ class VocabQuiz extends React.Component<Props, State> {
 };
 
 function Page1(props) {
-    const { vocabList, screenWidth, imgNumber, changePage, vocabSounds } = props;
+    const { vocabList, screenWidth, imgNumber, changePage, vocabSounds, criteriaRef } = props;
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -258,7 +258,7 @@ function Page1(props) {
                     {"Start the vocabulary quiz anyway >>"}
                 </button>
             </div>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} ref={criteriaRef}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow style={{ backgroundColor: 'papayawhip' }}>
