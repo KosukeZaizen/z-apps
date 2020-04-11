@@ -313,6 +313,12 @@ type TPage2Props = {
     vocabSounds: HTMLAudioElement[];
 };
 function Page2(props: TPage2Props) {
+    try {
+        (document.activeElement as HTMLElement).blur();
+    } catch (e) {
+
+    }
+
     const { vocabList, screenWidth, imgNumber, correctSounds, vocabSounds, changePage } = props;
     const [correctIds, setCorrectIds] = useState([]);
     const [incorrectIds, setIncorrectIds] = useState([]);
@@ -322,59 +328,66 @@ function Page2(props: TPage2Props) {
 
     const vocabsForQuiz = vocabList.filter(v => !finishedIds.includes(v.vocabId))
 
-    const getRandItem = (vs: vocab[]) => vs[Math.floor(Math.random() * vs.length)];
-    const vocabToBeAsked = getRandItem(vocabsForQuiz);
-    let survivedVocabs = vocabList.filter(v => v.vocabId !== vocabToBeAsked.vocabId);
+    const makeButtons = () => {
 
-    if (mode === 0) vocabSounds[vocabToBeAsked.vocabId] && vocabSounds[vocabToBeAsked.vocabId].play();
+        const getRandItem = (vs: vocab[]) => vs[Math.floor(Math.random() * vs.length)];
+        const resultVocabToBeAsked = getRandItem(vocabsForQuiz);
+        let survivedVocabs = vocabList.filter(v => v.vocabId !== resultVocabToBeAsked.vocabId);
 
-    const vocabsOfChoice: vocab[] = [];
-    const buttons = [
-        <button
-            key={3}
-            onClick={() => {
-                setVocabToShow(vocabToBeAsked);
-                setCorrectIds([...correctIds, vocabToBeAsked.vocabId]);
-                if (vocabSounds[vocabToBeAsked.vocabId] && correctSounds[0]) {
-                    vocabSounds[vocabToBeAsked.vocabId].pause();
-                    vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
-                    correctSounds[0].play();
-                }
-                setMode(1);
-            }}
-            className="btn btn-primary btn-lg btn-block"
-            style={{ maxWidth: 300 }}
-        >
-            {vocabToBeAsked.english}
-        </button>
-    ];
+        if(finishedIds.length === 0) vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
 
-    for (let i = 0; i < 3; i = (i + 1) | 0) {
-        const vocabToPush = getRandItem(survivedVocabs);
-        vocabsOfChoice.push(vocabToPush);
-
-        buttons.push(
+        const vocabsOfChoice: vocab[] = [];
+        const resultButtons = [
             <button
-                key={i}
+                key={3}
                 onClick={() => {
-                    setVocabToShow(vocabToBeAsked);
-                    setIncorrectIds([...incorrectIds, vocabToBeAsked.vocabId]);
-                    if (vocabSounds[vocabToBeAsked.vocabId] && correctSounds[1]) {
-                        vocabSounds[vocabToBeAsked.vocabId].pause();
-                        vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
-                        correctSounds[1].play();
+                    setVocabToShow(resultVocabToBeAsked);
+                    setCorrectIds([...correctIds, resultVocabToBeAsked.vocabId]);
+                    if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[0]) {
+                        vocabSounds[resultVocabToBeAsked.vocabId].pause();
+                        vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                        correctSounds[0].play();
                     }
-                    setMode(2);
+                    setMode(1);
                 }}
                 className="btn btn-primary btn-lg btn-block"
                 style={{ maxWidth: 300 }}
             >
-                {vocabToPush.english}
+                {resultVocabToBeAsked.english}
             </button>
-        );
+        ];
 
-        survivedVocabs = survivedVocabs.filter(v => !vocabsOfChoice.includes(v));
+        for (let i = 0; i < 3; i = (i + 1) | 0) {
+            const vocabToPush = getRandItem(survivedVocabs);
+            vocabsOfChoice.push(vocabToPush);
+
+            resultButtons.push(
+                <button
+                    key={i}
+                    onClick={() => {
+                        setVocabToShow(resultVocabToBeAsked);
+                        setIncorrectIds([...incorrectIds, resultVocabToBeAsked.vocabId]);
+                        if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[1]) {
+                            vocabSounds[resultVocabToBeAsked.vocabId].pause();
+                            vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                            correctSounds[1].play();
+                        }
+                        setMode(2);
+                    }}
+                    className="btn btn-primary btn-lg btn-block"
+                    style={{ maxWidth: 300 }}
+                >
+                    {vocabToPush.english}
+                </button>
+            );
+
+            survivedVocabs = survivedVocabs.filter(v => !vocabsOfChoice.includes(v));
+        }
+        return {resultButtons: shuffle(resultButtons), resultVocabToBeAsked};
     }
+    const firstButtonsAndVocabs = makeButtons();
+    const [buttons, setButtons] = useState(firstButtonsAndVocabs.resultButtons);
+    const [vocabToBeAsked, setVocabToBeAsked] = useState(firstButtonsAndVocabs.resultVocabToBeAsked);
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -394,7 +407,7 @@ function Page2(props: TPage2Props) {
                 comment="Choose the meaning of the word!"
             />
             <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
-            {shuffle(buttons)}
+            {buttons}
             <br />
         </div>
     } else {
@@ -459,7 +472,11 @@ function Page2(props: TPage2Props) {
                         vocabSounds[vocabToShow.vocabId].pause();
                         vocabSounds[vocabToShow.vocabId].currentTime = 0;
                     }
+                    const {resultButtons, resultVocabToBeAsked} = makeButtons();
+                    setButtons(resultButtons);
+                    setVocabToBeAsked(resultVocabToBeAsked);
                     setMode(0);
+                    vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
                 }}
                 className="btn btn-dark btn-lg btn-block"
             >
