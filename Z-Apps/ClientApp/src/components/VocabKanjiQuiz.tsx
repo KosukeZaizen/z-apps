@@ -7,7 +7,7 @@ import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
-import AllVocabList from './parts/VocabQuiz/AllVocabList';
+import AllKanjiList from './parts/VocabQuiz/AllKanjiList';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
@@ -159,8 +159,8 @@ class VocabQuiz extends React.Component<Props, State> {
         return (
             <div className="center">
                 <Head
-                    title={"Japanese Vocabulary Quiz - " + titleToShowUpper}
-                    desc={"Free app to remember Japanese " + titleToShowLower + " vocabulary! Try to get a perfect score on all the quizzes!"}
+                    title={"Japanese Kanji Quiz - " + titleToShowUpper}
+                    desc={"Free app to remember Kanji for " + titleToShowLower + "! Try to get a perfect score on all the quizzes!"}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
@@ -174,9 +174,9 @@ class VocabQuiz extends React.Component<Props, State> {
                         </span>
                         {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/vocabulary-quiz" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <Link to="/kanji-quiz" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
                                 <span itemProp="name">
-                                    {"Japanese Vocabulary Quiz"}
+                                    {"Kanji Quiz"}
                                 </span>
                                 <meta itemProp="position" content="2" />
                             </Link>
@@ -196,13 +196,13 @@ class VocabQuiz extends React.Component<Props, State> {
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                         }}
                     >
-                        <b>{"Japanese Vocabulary Quiz - " + titleToShowUpper}</b>
+                        <b>{"Japanese Kanji Quiz - " + titleToShowUpper}</b>
                     </h1>
                     <br />
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Genres</h2>
-                    <AllVocabList excludeGenreId={vocabGenre && vocabGenre.genreId} />
+                    <AllKanjiList excludeGenreId={vocabGenre && vocabGenre.genreId} />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}
@@ -239,14 +239,14 @@ function Page1(props) {
         fontSize: "medium",
     };
 
-    const incorrectIds: number[] = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabList[0].genreId}`)) || [];
+    const incorrectIds: number[] = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${vocabList[0].genreId}`)) || [];
 
     return (
         <>
             <CharacterComment
                 screenWidth={screenWidth}
                 imgNumber={imgNumber}
-                comment="Before starting the vocabulary quiz, please remember the vocabulary list below!"
+                comment="Before starting the Kanji quiz, please remember the Kanji list below!"
             />
             <div style={{
                 textAlign: "right"
@@ -263,6 +263,7 @@ function Page1(props) {
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                            <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
                             <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
                             <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
                             <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
@@ -272,6 +273,7 @@ function Page1(props) {
                         {
                             vocabList.map((v: vocab) => (
                                 <TableRow key={v.vocabId}>
+                                    <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
                                     <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
                                     <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.english}</TableCell>
                                     <TableCell style={tableElementStyle} align="center">
