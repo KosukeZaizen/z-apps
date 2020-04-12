@@ -14,9 +14,11 @@ const RomajiConverter = lazy(() => import('./components/RomajiConverter'));
 const KanjiConverter = lazy(() => import('./components/KanjiConverter'));
 const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
+const VocabList = lazy(() => import('./components/VocabList'));
 const VocabQuiz = lazy(() => import('./components/VocabQuiz'));
 const VocabQuizTop = lazy(() => import('./components/VocabQuizTop'));
 const VocabKanjiQuiz = lazy(() => import('./components/VocabKanjiQuiz'));
+const VocabKanjiQuizTop = lazy(() => import('./components/VocabKanjiQuizTop'));
 const Stories = lazy(() => import('./components/Stories'));
 const StoriesTop = lazy(() => import('./components/StoriesTop'));
 const StoriesEdit = lazy(() => import('./components/StoriesEdit'));
@@ -55,8 +57,10 @@ export default class App extends React.Component {
                         <Route path='/romaji-converter' component={RomajiConverter} />
                         <Route path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route path='/katakana-quiz' component={KatakanaQuiz} />
+                        <Route exact path='/vocabulary-list' component={VocabList} />
                         <Route exact path='/vocabulary-quiz' component={VocabQuizTop} />
                         <Route exact path='/vocabulary-quiz/:genreName' component={VocabQuiz} />
+                        <Route exact path='/kanji-quiz' component={VocabKanjiQuizTop} />
                         <Route exact path='/kanji-quiz/:genreName' component={VocabKanjiQuiz} />
                         <Route exact path='/folktales' component={StoriesTop} />
                         <Route exact path='/folktales/:storyName' component={Stories} />

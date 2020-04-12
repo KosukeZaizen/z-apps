@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import AllVocabList from './parts/VocabQuiz/AllVocabList';
+import AllKanjiList from './parts/VocabQuiz/AllKanjiList';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
@@ -201,8 +202,11 @@ class VocabQuiz extends React.Component<Props, State> {
                     <br />
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
-                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Genres</h2>
+                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Vocabulary Genres</h2>
                     <AllVocabList excludeGenreId={vocabGenre && vocabGenre.genreId} />
+                    <hr />
+                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Kanji Quiz</h2>
+                    <AllKanjiList />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}
@@ -325,7 +329,7 @@ class Speaker extends React.Component<{
         const { vocabSound } = this.props;
         return showImg ?
             <img
-                alt="vocabluary sperker"
+                alt="vocabluary speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                 style={{ width: "60%", maxWidth: 30 }}
                 onClick={() => { vocabSound && vocabSound.play(); }}
@@ -492,7 +496,7 @@ class Page2 extends React.Component<{
                                     {
                                         vocabSounds[vocabToShow.vocabId] ?
                                             <img
-                                                alt="vocabluary sperker"
+                                                alt="vocabluary speaker"
                                                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                 style={{ width: "60%", maxWidth: 30 }}
                                                 onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
@@ -511,7 +515,7 @@ class Page2 extends React.Component<{
                         const finishedIds: number[] = [...correctIds, ...incorrectIds];
                         const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
 
-                        if (vocabsForQuiz.length <= 1) {
+                        if (vocabsForQuiz.length <= 0) {
                             const cr = correctIds.length;
                             const inc = incorrectIds.length;
                             const percentage = Math.floor(100 * cr / (cr + inc));

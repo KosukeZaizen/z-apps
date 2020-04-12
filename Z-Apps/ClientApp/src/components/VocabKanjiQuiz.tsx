@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import AllKanjiList from './parts/VocabQuiz/AllKanjiList';
+import AllVocabList from './parts/VocabQuiz/AllVocabList';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
@@ -104,9 +105,9 @@ class VocabQuiz extends React.Component<Props, State> {
         const today = new Date();
         const todayNumber = (today.getMonth() + today.getDate());
         const mod = todayNumber % 27;
-        if (mod > 13) return 1;
+        if (mod > 13) return 3;
         if (mod > 5) return 2;
-        return 3;
+        return 1;
     }
 
     render() {
@@ -201,8 +202,11 @@ class VocabQuiz extends React.Component<Props, State> {
                     <br />
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
-                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Genres</h2>
+                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Kanji Genres</h2>
                     <AllKanjiList excludeGenreId={vocabGenre && vocabGenre.genreId} />
+                    <hr />
+                    <h2 style={{ fontWeight: "bold", margin: 20 }}>Vocabulary Quiz</h2>
+                    <AllVocabList />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}
@@ -256,7 +260,7 @@ function Page1(props) {
                     className="btn btn-primary"
                     style={{ marginBottom: 25, marginTop: 20 }}
                 >
-                    {"Start the vocabulary quiz anyway >>"}
+                    {"Start the Kanji quiz anyway >>"}
                 </button>
             </div>
             <TableContainer component={Paper} ref={criteriaRef}>
@@ -292,7 +296,7 @@ function Page1(props) {
                 onClick={() => changePage(2)}
                 className="btn btn-primary btn-lg btn-block"
             >
-                Start the Vocabulary Quiz
+                Start the Kanji Quiz
             </button>
             <br />
             <CharacterComment
@@ -327,7 +331,7 @@ class Speaker extends React.Component<{
         const { vocabSound } = this.props;
         return showImg ?
             <img
-                alt="vocabluary sperker"
+                alt="kanji speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                 style={{ width: "60%", maxWidth: 30 }}
                 onClick={() => { vocabSound && vocabSound.play(); }}
@@ -357,10 +361,7 @@ class Page2 extends React.Component<{
         super(props);
 
         const {vocabList, vocabSounds} = props;
-        
         const firstButtonsAndVocabs = this.makeButtons([], [], vocabList);
-
-        vocabSounds[firstButtonsAndVocabs.resultVocabToBeAsked.vocabId] && vocabSounds[firstButtonsAndVocabs.resultVocabToBeAsked.vocabId].play();
 
         this.state = {
             correctIds: [],
@@ -384,21 +385,27 @@ class Page2 extends React.Component<{
             <button
                 key={3}
                 onClick={() => {
+                    const sound = correctSounds[0];
+                    sound.onended = (e) => {
+                        vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+                        sound.onended = null;
+                    };
+                    sound.play();
+
                     this.setState({
                         vocabToShow: resultVocabToBeAsked,
                         correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
                         mode: 1,
                     });
-                    if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[0]) {
+                    if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                         vocabSounds[resultVocabToBeAsked.vocabId].pause();
                         vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
-                        correctSounds[0].play();
                     }
                 }}
                 className="btn btn-primary btn-lg btn-block"
                 style={{ maxWidth: 300 }}
             >
-                {resultVocabToBeAsked.english}
+                {resultVocabToBeAsked.hiragana}
             </button>
         ];
 
@@ -410,21 +417,27 @@ class Page2 extends React.Component<{
                 <button
                     key={i}
                     onClick={() => {
+                        const sound = correctSounds[1];
+                        sound.onended = (e) => {
+                            vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+                            sound.onended = null;
+                        };
+                        sound.play();
+
                         this.setState({
                             vocabToShow: resultVocabToBeAsked,
                             incorrectIds: [...[...incorrectIds, resultVocabToBeAsked.vocabId], resultVocabToBeAsked.vocabId],
                             mode: 2,
                         });
-                        if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[1]) {
+                        if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                             vocabSounds[resultVocabToBeAsked.vocabId].pause();
                             vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
-                            correctSounds[1].play();
                         }
                     }}
                     className="btn btn-primary btn-lg btn-block"
                     style={{ maxWidth: 300 }}
                 >
-                    {vocabToPush.english}
+                    {vocabToPush.hiragana}
                 </button>
             );
 
@@ -438,7 +451,7 @@ class Page2 extends React.Component<{
             try { (document.activeElement as HTMLElement).blur(); } catch (e) { }
         }, 300);
 
-        const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = this.props;
+        const { vocabList, screenWidth, imgNumber, vocabSounds, changePage, correctSounds } = this.props;
         const { correctIds, incorrectIds, vocabToShow, mode, buttons, vocabToBeAsked } = this.state;
 
         const tableHeadStyle: React.CSSProperties = {
@@ -456,11 +469,20 @@ class Page2 extends React.Component<{
                 <CharacterComment
                     screenWidth={screenWidth}
                     imgNumber={(((imgNumber - 1) || 3) - 1) | 3}
-                    comment="Choose the meaning of the word!"
+                    comment="Choose the Hiragana for the Kanji!"
                 />
-                <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
+                <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.kanji}</p>
                 {buttons}
                 <br />
+                <p
+                    style={{ color: "#007bff" }}
+                    onClick={() => {
+                        const sure = window.confirm("Your progress will not be saved.\nAre you sure you want to return?");
+                        if(sure){
+                            changePage(1);
+                        }
+                    }}
+                >Return to Kanji List >></p>
             </div>
         } else {
             //Correct,Incorrect
@@ -481,28 +503,16 @@ class Page2 extends React.Component<{
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
                                 <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
                                 <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
+                                <TableCell style={tableElementStyle} align="center">{vocabToShow.kanji}</TableCell>
                                 <TableCell style={tableElementStyle} align="center">{vocabToShow.hiragana}</TableCell>
                                 <TableCell style={tableElementStyle} align="center">{vocabToShow.english}</TableCell>
-                                <TableCell style={tableElementStyle} align="center">
-                                    {
-                                        vocabSounds[vocabToShow.vocabId] ?
-                                            <img
-                                                alt="vocabluary sperker"
-                                                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                                                style={{ width: "60%", maxWidth: 30 }}
-                                                onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
-                                            />
-                                            :
-                                            <CircularProgress key="circle" size="20%" />
-                                    }
-                                </TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
@@ -513,25 +523,35 @@ class Page2 extends React.Component<{
                         const finishedIds: number[] = [...correctIds, ...incorrectIds];
                         const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
 
-                        if (vocabsForQuiz.length <= 1) {
+                        if (vocabsForQuiz.length <= 0) {
                             const cr = correctIds.length;
                             const inc = incorrectIds.length;
                             const percentage = Math.floor(100 * cr / (cr + inc));
                             localStorage.setItem(
-                                `vocab-quiz-percentage-${vocabList[0].genreId}`,
+                                `kanji-quiz-percentage-${vocabList[0].genreId}`,
                                 JSON.stringify(percentage)
                             );
                             localStorage.setItem(
-                                `vocab-quiz-incorrectIds-${vocabList[0].genreId}`,
+                                `kanji-quiz-incorrectIds-${vocabList[0].genreId}`,
                                 JSON.stringify(incorrectIds)
                             );
+                            if (vocabSounds[vocabToBeAsked.vocabId]) {
+                                vocabSounds[vocabToBeAsked.vocabId].pause();
+                                vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
+                            }
                             changePage(3);
                             return;
                         }
+                        
+                        correctSounds.forEach(s => {
+                            s.pause();
+                            s.currentTime = 0;
+                        });
                         if (vocabSounds[vocabToShow.vocabId]) {
                             vocabSounds[vocabToShow.vocabId].pause();
                             vocabSounds[vocabToShow.vocabId].currentTime = 0;
                         }
+
                         const { resultButtons, resultVocabToBeAsked } = this.makeButtons(correctIds, incorrectIds, vocabsForQuiz);
                         
                         this.setState({ 
@@ -539,7 +559,6 @@ class Page2 extends React.Component<{
                             buttons: resultButtons,  
                             vocabToBeAsked: resultVocabToBeAsked
                         });
-                        vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
                     }}
                     className="btn btn-dark btn-lg btn-block"
                 >
@@ -561,8 +580,8 @@ type TPage3Props = {
 };
 function Page3(props: TPage3Props) {
     const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = props;
-    const percentage = Number(localStorage.getItem(`vocab-quiz-percentage-${vocabList[0].genreId}`));
-    const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabList[0].genreId}`));
+    const percentage = Number(localStorage.getItem(`kanji-quiz-percentage-${vocabList[0].genreId}`));
+    const incorrectIds = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${vocabList[0].genreId}`));
 
     let comment: string;
     if (percentage === 100) {
@@ -594,12 +613,13 @@ function Page3(props: TPage3Props) {
                     <CharacterComment
                         screenWidth={screenWidth}
                         imgNumber={(imgNumber - 1) || 3}
-                        comment={comment + " You should remember the vocabulary below!"}
+                        comment={comment + " You should remember the Kanji below!"}
                     />
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                    <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
@@ -609,11 +629,12 @@ function Page3(props: TPage3Props) {
                                 {
                                     vocabList.filter(v => incorrectIds.includes(v.vocabId)).map((v: vocab) => (
                                         <TableRow key={v.vocabId}>
+                                            <TableCell style={tableElementStyle} align="center">{v.kanji}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">
                                                 <img
-                                                    alt="vocabluary sperker"
+                                                    alt="kanji speaker"
                                                     src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                     style={{ width: "60%", maxWidth: 30 }}
                                                     onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}

@@ -48,7 +48,7 @@ export async function checkAppVersion() {
             if (Number(v) !== consts.APP_VERSION) {
                 window.location.reload(true);
             }
-        })
+        });
     });
 }
 
