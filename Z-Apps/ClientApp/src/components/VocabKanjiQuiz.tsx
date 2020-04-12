@@ -214,6 +214,13 @@ class VocabQuiz extends React.Component<Props, State> {
                         comment="Try to get a perfect score on all the quizzes!"
                     />
                     <hr />
+                    <Link to="/vocabulary-list">
+                        <button
+                            className="btn btn-primary btn-lg btn-block"
+                        >
+                            {"Checke All Vocabulary Lists"}
+                        </button>
+                    </Link>
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
                         <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                     </div>
