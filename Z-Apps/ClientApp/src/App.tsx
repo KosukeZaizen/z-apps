@@ -6,6 +6,7 @@ import Layout from './components/parts/Layout';
 import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
+import * as consts from './components/common/consts';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -86,9 +87,18 @@ export default class App extends React.Component {
     }
 }
 
-function NotFoundRedirect({ location }) {
-    
-    commonFncs.reloadAndRedirect("pageNotFoundRedirect");
+function NotFoundRedirect() {
+
+    const url = 'api/Version/GetVersion';
+    fetch(url).then(res => {
+        res.json().then(v => {
+            if (Number(v) !== consts.APP_VERSION) {
+                window.location.reload(true);
+            }else{
+                commonFncs.reloadAndRedirect_OneTimeReload("pageNotFoundRedirect");   
+            }
+        });
+    });
 
     return (
         <div>

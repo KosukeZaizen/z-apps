@@ -54,7 +54,7 @@ export async function checkAppVersion() {
 
 export function reloadAndRedirect(saveKey: string) {
     //初回はリロードし、時刻記録
-    //その後、3秒間リロード連打
+    //その後、10秒間リロード連打
     //その後、404ページにリダイレクト
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
@@ -64,7 +64,7 @@ export function reloadAndRedirect(saveKey: string) {
     const nowTime = now.getTime();
 
     if (intSavedTime && (nowTime - intSavedTime < 15000)) {
-        if (nowTime - intSavedTime < 3000) {
+        if (nowTime - intSavedTime < 10000) {
             window.location.reload(true);
         } else {
             window.location.href = `/not-found?p=${window.location.pathname}`;
