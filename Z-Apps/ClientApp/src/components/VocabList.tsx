@@ -231,7 +231,7 @@ class EachGenre extends React.Component<{ g: vocabGenre }> {
 
         return (
             <div>
-                <h2 id= {g.genreName} style={{ fontWeight: "bold", marginTop: "20px", marginBottom: "20px" }}>{"Japanese Vocabulary List for " + g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h2>
+                <h2 id={g.genreName} style={{ fontWeight: "bold", marginTop: "20px", marginBottom: "20px" }}>{"Japanese Vocabulary List for " + g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h2>
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -307,7 +307,7 @@ class VList extends React.Component<{ g: vocabGenre }, { vocabList: vocab[] }> {
         const url = `api/VocabQuiz/GetQuizData/${props.g.genreName}`;
         fetch(url).then(response => {
             response.json().then(obj => {
-                this.setState({ vocabList: obj.vocabList });
+                this.setState({ vocabList: obj.vocabList.sort((a, b) => a.order - b.order) });
             });
         });
     }
