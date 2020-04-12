@@ -7,8 +7,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-//import { unregister } from './registerServiceWorker';
+//import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS } from './components/common/privateConsts';
 import { checkAppVersion } from './components/common/functions';
@@ -39,5 +39,5 @@ ReactDOM.render(
   </Provider>,
   rootElement);
 
-registerServiceWorker();
-//unregister();
+//registerServiceWorker();
+unregister();
