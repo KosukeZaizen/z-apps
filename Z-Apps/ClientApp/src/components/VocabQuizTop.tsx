@@ -128,6 +128,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                             {"Checke All Vocabulary Lists"}
                         </button>
                     </Link>
+                    <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
                         <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                     </div>
