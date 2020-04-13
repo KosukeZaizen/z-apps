@@ -434,7 +434,7 @@ class Page2 extends React.Component<{
 
                         this.setState({
                             vocabToShow: resultVocabToBeAsked,
-                            incorrectIds: [...[...incorrectIds, resultVocabToBeAsked.vocabId], resultVocabToBeAsked.vocabId],
+                            incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
                             mode: 2,
                         });
                         if (vocabSounds[resultVocabToBeAsked.vocabId]) {
@@ -530,6 +530,9 @@ class Page2 extends React.Component<{
                     onClick={() => {
                         const finishedIds: number[] = [...correctIds, ...incorrectIds];
                         const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
+
+                        console.log("cor", correctIds.length);
+                        console.log("inc", incorrectIds.length);
 
                         if (vocabsForQuiz.length <= 0) {
                             const cr = correctIds.length;

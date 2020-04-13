@@ -422,7 +422,7 @@ class Page2 extends React.Component<{
                     onClick={() => {
                         this.setState({
                             vocabToShow: resultVocabToBeAsked,
-                            incorrectIds: [...[...incorrectIds, resultVocabToBeAsked.vocabId], resultVocabToBeAsked.vocabId],
+                            incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
                             mode: 2,
                         });
                         if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[1]) {
