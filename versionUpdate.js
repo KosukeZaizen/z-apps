@@ -12,11 +12,12 @@ const replaceVersion = (fileName, newNumber) => {
     const newContent = content.replace(previousNumber, newNumber);
 
     fs.writeFileSync(fileName, newContent);
+    console.log(newContent);
 
     return newNumber;
 }
 
-const tsFileName = "./src/version.ts";
-const csFileName = "./../../Z-Apps/Version.cs";
+const tsFileName = "./Z-Apps/ClientApp/src/version.ts";
+const csFileName = "./Z-Apps/Version.cs";
 
 replaceVersion(csFileName, replaceVersion(tsFileName));
