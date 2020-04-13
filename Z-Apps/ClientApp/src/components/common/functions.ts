@@ -1,4 +1,4 @@
-import * as consts from './consts';
+import {APP_VERSION} from './../../version';
 
 export function getParams() {
     let arg = {};
@@ -45,7 +45,7 @@ export async function checkAppVersion() {
     const url = 'api/Version/GetVersion';
     fetch(url).then(res => {
         res.json().then(v => {
-            if (Number(v) !== consts.APP_VERSION) {
+            if (Number(v) !== APP_VERSION) {
                 window.location.reload(true);
             }
         });

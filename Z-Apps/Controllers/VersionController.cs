@@ -8,7 +8,7 @@ namespace Z_Apps.Controllers
         [HttpGet("[action]")]
         public int GetVersion()
         {
-            return Util.Consts.APP_VERSION;
+            return Util.Version.APP_VERSION;
         }
     }
 }

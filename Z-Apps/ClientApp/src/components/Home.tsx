@@ -68,7 +68,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/folktales">
-                            <Card body inverse color="warning">
+                            <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                                 <CardTitle>Japanese Folktales</CardTitle>
                                 <CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
                                 <Button color="secondary">Try!</Button>
@@ -77,7 +77,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/kanji-converter">
-                            <Card body inverse color="info">
+                            <Card body inverse color="primary">
                                 <CardTitle>Kanji Converter</CardTitle>
                                 <CardText>A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!</CardText>
                                 <Button color="secondary">Try!</Button>
@@ -86,7 +86,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/romaji-converter">
-                            <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                            <Card body inverse color="success">
                                 <CardTitle>Romaji Converter</CardTitle>
                                 <CardText>A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!</CardText>
                                 <Button>Try!</Button>
@@ -95,7 +95,7 @@ export default class Home extends React.Component {
                         <br />
 
                         <Link to="/ninja">
-                            <Card body inverse color="primary">
+                            <Card body inverse color="danger">
                                 <CardTitle>Lingual Ninja Game</CardTitle>
                                 <CardText>Action game! Be a Ninja, and collect the scrolls in Japan!</CardText>
                                 <Button color="secondary">Play!</Button>

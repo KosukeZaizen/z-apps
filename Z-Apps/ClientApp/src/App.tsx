@@ -6,7 +6,7 @@ import Layout from './components/parts/Layout';
 import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
-import * as consts from './components/common/consts';
+import {APP_VERSION} from './version';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -92,7 +92,7 @@ function NotFoundRedirect() {
     const url = 'api/Version/GetVersion';
     fetch(url).then(res => {
         res.json().then(v => {
-            if (Number(v) !== consts.APP_VERSION) {
+            if (Number(v) !== APP_VERSION) {
                 window.location.reload(true);
             }else{
                 commonFncs.reloadAndRedirect_OneTimeReload("pageNotFoundRedirect");   
