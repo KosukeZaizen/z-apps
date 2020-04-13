@@ -93,7 +93,7 @@ class VocabList extends React.Component<Props, State> {
             <div className="center">
                 <Head
                     title="Japanese Vocabulary List"
-                    desc={"Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!"}
+                    desc={"Free app to learn Japanese vocabulary! Try to memorize all the vocabulary using the quizzes!"}
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
