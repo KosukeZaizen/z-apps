@@ -464,7 +464,6 @@ export const actionCreators = {
                     result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Register");
                     if (result) {
                         alert("Success to register!");
-                        commonFnc.sendPostNoJsonResult({ token }, "api/SystemBase/MakeDbBackupAsync");//make DB backup
                     } else {
                         alert("Failed to register...");
                     }
