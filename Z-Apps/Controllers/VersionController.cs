@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Z_Apps.Util;
 
 namespace Z_Apps.Controllers
 {
@@ -6,9 +9,15 @@ namespace Z_Apps.Controllers
     public class VersionController : Controller
     {
         [HttpGet("[action]")]
-        public int GetVersion()
+        public async Task<string> GetVersion()
         {
-            return Util.Version.APP_VERSION;
+            string resultTxt = "";
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync("https://" + HttpContext.Request.Host + "/version.txt");
+                resultTxt = await response.Content.ReadAsStringAsync();
+            }
+            return resultTxt.Trim();
         }
     }
 }

@@ -17,7 +17,8 @@ const replaceVersion = (fileName, newNumber) => {
     return newNumber;
 }
 
-const tsFileName = "./Z-Apps/ClientApp/src/version.ts";
-const csFileName = "./Z-Apps/Version.cs";
+const tsFileName = "./src/version.ts";
+const csFileName = "./public/version.txt";
 
-replaceVersion(csFileName, replaceVersion(tsFileName));
+fs.writeFileSync(csFileName, replaceVersion(tsFileName));
+
