@@ -196,7 +196,7 @@ class AllVocabList extends React.Component<{
                         </span>);
                     })
                         :
-                        <CircularProgress key="circle" size="20%" />}
+                        <CircularProgress key="circle" size="10%" />}
                 </span>
             </div>
             <hr />
@@ -329,35 +329,38 @@ class VList extends React.Component<{ g: vocabGenre }, { vocabList: vocab[] }> {
         const kanjiIncorrectIds: number[] = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`)) || [];
 
         return (
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                            <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
-                            <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                            <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                            <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            vocabList.map((v: vocab) => (
-                                <TableRow key={v.vocabId}>
-                                    <TableCell style={kanjiIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
-                                    <TableCell style={vocabIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">
-                                        <Speaker
-                                            v={v}
-                                            g={g}
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            vocabList.length > 0 ?
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                vocabList.map((v: vocab) => (
+                                    <TableRow key={v.vocabId}>
+                                        <TableCell style={kanjiIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
+                                        <TableCell style={vocabIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">
+                                            <Speaker
+                                                v={v}
+                                                g={g}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
+                <CircularProgress key="circle" size="20%" />
         );
     }
 }
