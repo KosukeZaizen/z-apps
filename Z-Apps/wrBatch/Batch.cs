@@ -9,7 +9,7 @@ namespace Z_Apps.wrBatch
     {
         public static async void runAsync()
         {
-            await Task.Delay(1000 * 60 * 3);//デプロイ直後は３分待機
+            await Task.Delay(1000 * 60 * 60 * 3);//デプロイ直後は３時間待機
 
             while (true)
             {

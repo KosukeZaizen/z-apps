@@ -32,7 +32,7 @@ class KatakanaQuiz extends React.Component {
 
     render() {
         return (
-            <div className="kana-quiz center" >
+            <div className="kana-quiz center">
                 <Head
                     title="Katakana Quiz"
                     desc="An app to remember Katakana! I hope this will help you to study!"
@@ -40,8 +40,21 @@ class KatakanaQuiz extends React.Component {
                 <QuizCore
                     consts={this.consts}
                 />
-                <div style={{fontSize: "x-large", margin: "20px"}}>
-                <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                <div style={{ maxWidth: "600px" }}>
+                    <hr />
+                    <br />
+                    <Link to="/vocabulary-list">
+                        <button
+                            className="btn btn-dark btn-lg btn-block"
+                        >
+                            {"Japanese Vocabulary List"}
+                        </button>
+                    </Link>
+                    <br />
+                    <hr />
+                </div>
+                <div style={{ fontSize: "x-large", margin: "20px" }}>
+                    <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                 </div>
                 <br />
                 <FB />
