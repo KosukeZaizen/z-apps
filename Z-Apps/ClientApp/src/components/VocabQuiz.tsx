@@ -393,17 +393,19 @@ class Page2 extends React.Component<{
         const resultButtons = [
             <button
                 key={3}
+                onFocus={() => null}
                 onClick={() => {
-                    this.setState({
-                        vocabToShow: resultVocabToBeAsked,
-                        correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
-                        mode: 1,
-                    });
                     if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                         vocabSounds[resultVocabToBeAsked.vocabId].pause();
                         vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
                     }
                     if(correctSounds[0]) correctSounds[0].play();
+
+                    this.setState({
+                        vocabToShow: resultVocabToBeAsked,
+                        correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
+                        mode: 1,
+                    });
                 }}
                 className="btn btn-primary btn-lg btn-block"
                 style={{ maxWidth: 300 }}
@@ -419,17 +421,19 @@ class Page2 extends React.Component<{
             resultButtons.push(
                 <button
                     key={i}
+                    onFocus={() => null}
                     onClick={() => {
-                        this.setState({
-                            vocabToShow: resultVocabToBeAsked,
-                            incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
-                            mode: 2,
-                        });
                         if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                             vocabSounds[resultVocabToBeAsked.vocabId].pause();
                             vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
                         }
                         if(correctSounds[1]) correctSounds[1].play();
+
+                        this.setState({
+                            vocabToShow: resultVocabToBeAsked,
+                            incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
+                            mode: 2,
+                        });
                     }}
                     className="btn btn-primary btn-lg btn-block"
                     style={{ maxWidth: 300 }}
@@ -444,10 +448,6 @@ class Page2 extends React.Component<{
     }
 
     render(){
-        setTimeout(() => {
-            try { (document.activeElement as HTMLElement).blur(); } catch (e) { }
-        }, 300);
-
         const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = this.props;
         const { correctIds, incorrectIds, vocabToShow, mode, buttons, vocabToBeAsked } = this.state;
 
