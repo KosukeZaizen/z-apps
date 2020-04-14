@@ -42,9 +42,11 @@ export async function sendPostNoJsonResult(objToSend, url) {
 }
 
 export async function checkAppVersion() {
-    const url = 'api/AppBase/GetVersion';
+    const url = 'api/SystemBase/GetVersion';
     fetch(url).then(res => {
         res.json().then(v => {
+            console.log("ClientVersion: " + APP_VERSION);
+            console.log("ServerVersion: " + v);
             if (Number(v) !== APP_VERSION) {
                 window.location.reload(true);
             }
