@@ -10,13 +10,6 @@ namespace Z_Apps.Controllers
     [Route("api/[controller]")]
     public class SystemBaseController : Controller
     {
-        private readonly IStorageBackupService storageBkService;
-        public SystemBaseController(DBCon con)
-        {
-            this.storageBkService = new StorageBackupService(con);
-        }
-
-
         [HttpGet("[action]")]
         public async Task<string> GetVersion()
         {
@@ -27,12 +20,6 @@ namespace Z_Apps.Controllers
                 resultTxt = await response.Content.ReadAsStringAsync();
             }
             return resultTxt.Trim();
-        }
-
-        [HttpPost("[action]")]
-        public async Task MakeDbBackupAsync()
-        {
-            bool x = await storageBkService.MakeBackup();
         }
     }
 }
