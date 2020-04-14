@@ -152,17 +152,18 @@ class VocabList extends React.Component<Props, State> {
     }
 };
 
+type TGenreAndVocabs = { vocabGenre: vocabGenre; vocabList: vocab[] }[];
 class AllVocabList extends React.Component<{
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
 }, {
-    allGenres: vocabGenre[];
+    genreAndVocabs: TGenreAndVocabs;
 }> {
 
     constructor(props) {
         super(props);
         this.state = {
-            allGenres: [],
+            genreAndVocabs: [],
         };
     }
 
@@ -172,27 +173,27 @@ class AllVocabList extends React.Component<{
 
     loadAllVocabs = async () => {
         try {
-            const url = `api/VocabQuiz/GetAllGenres`;
+            const url = `api/VocabQuiz/GetAllVocabs`;
             const res = await fetch(url);
-            res && this.setState({ allGenres: await res.json() });
+            res && this.setState({ genreAndVocabs: await res.json() });
         } catch (e) {
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     }
 
     render() {
-        const { allGenres } = this.state;
-        const { excludeGenreId, criteriaRef } = this.props;
+        const { genreAndVocabs } = this.state;
 
         return (<>
             <hr />
             <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
                 <span>
                     <b>{"Index"}</b><br />
-                    {allGenres && allGenres.length > 0 ? allGenres.map((g, idx) => {
+                    {genreAndVocabs && genreAndVocabs.length > 0 ? genreAndVocabs.map((gv, idx) => {
+                        const { vocabGenre: g } = gv;
                         return (<span key={g.genreId}>
                             <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                            {(idx !== (allGenres.length - 1)) && " / "}
+                            {(idx !== (genreAndVocabs.length - 1)) && " / "}
                         </span>);
                     })
                         :
@@ -200,11 +201,13 @@ class AllVocabList extends React.Component<{
                 </span>
             </div>
             <hr />
-            {allGenres && allGenres.length > 0 ? allGenres.map(g => {
+            {genreAndVocabs && genreAndVocabs.length > 0 ? genreAndVocabs.map(gv => {
+                const { vocabGenre: g, vocabList } = gv;
                 return (
                     <EachGenre
                         key={g.genreId}
                         g={g}
+                        vocabList={vocabList}
                     />
                 );
             })
@@ -214,10 +217,10 @@ class AllVocabList extends React.Component<{
     }
 }
 
-class EachGenre extends React.Component<{ g: vocabGenre }> {
+class EachGenre extends React.Component<{ g: vocabGenre; vocabList: vocab[] }> {
 
     render() {
-        const { g } = this.props;
+        const { g, vocabList } = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",
@@ -265,7 +268,10 @@ class EachGenre extends React.Component<{ g: vocabGenre }> {
                     </Table>
                 </TableContainer>
                 <br />
-                <VList g={g} />
+                <VList
+                    g={g}
+                    vocabList={vocabList}
+                />
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableBody>
@@ -294,28 +300,16 @@ class EachGenre extends React.Component<{ g: vocabGenre }> {
     }
 }
 
-class VList extends React.Component<{ g: vocabGenre }, { vocabList: vocab[] }> {
+class VList extends React.Component<{ g: vocabGenre; vocabList: vocab[] }, { vocabList: vocab[] }> {
     vocabSounds: HTMLAudioElement[] = [];
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            vocabList: [],
-        };
-
-        const url = `api/VocabQuiz/GetQuizData/${props.g.genreName}`;
-        fetch(url).then(response => {
-            response.json().then(obj => {
-                this.setState({ vocabList: obj.vocabList.sort((a, b) => a.order - b.order) });
-            });
-        });
     }
 
     render() {
 
-        const { g } = this.props;
-        const { vocabList } = this.state;
+        const { g, vocabList } = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",

@@ -45,6 +45,8 @@ export async function checkAppVersion() {
     const url = 'version.txt';
     fetch(url).then(res => {
         res.json().then(v => {
+            console.log("ClientVersion: " + APP_VERSION);
+            console.log("ServerVersion: " + v);
             if (Number(v) !== APP_VERSION) {
                 window.location.reload(true);
             }
