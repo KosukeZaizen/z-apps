@@ -399,11 +399,11 @@ class Page2 extends React.Component<{
                         correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
                         mode: 1,
                     });
-                    if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[0]) {
+                    if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                         vocabSounds[resultVocabToBeAsked.vocabId].pause();
                         vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
-                        correctSounds[0].play();
                     }
+                    if(correctSounds[0]) correctSounds[0].play();
                 }}
                 className="btn btn-primary btn-lg btn-block"
                 style={{ maxWidth: 300 }}
@@ -425,11 +425,11 @@ class Page2 extends React.Component<{
                             incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
                             mode: 2,
                         });
-                        if (vocabSounds[resultVocabToBeAsked.vocabId] && correctSounds[1]) {
+                        if (vocabSounds[resultVocabToBeAsked.vocabId]) {
                             vocabSounds[resultVocabToBeAsked.vocabId].pause();
                             vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
-                            correctSounds[1].play();
                         }
+                        if(correctSounds[1]) correctSounds[1].play();
                     }}
                     className="btn btn-primary btn-lg btn-block"
                     style={{ maxWidth: 300 }}
