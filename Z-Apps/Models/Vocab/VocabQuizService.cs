@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using static Z_Apps.Controllers.VocabQuizController;
-using System.Linq;
 
 namespace Z_Apps.Models.VocabList
 {
