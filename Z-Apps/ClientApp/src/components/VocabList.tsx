@@ -152,18 +152,20 @@ class VocabList extends React.Component<Props, State> {
     }
 };
 
-type TGenreAndVocabs = { vocabGenre: vocabGenre; vocabList: vocab[] }[];
+
 class AllVocabList extends React.Component<{
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
 }, {
-    genreAndVocabs: TGenreAndVocabs;
+    vocabGenres: vocabGenre[];
+    vocabLists: vocab[]
 }> {
 
     constructor(props) {
         super(props);
         this.state = {
-            genreAndVocabs: [],
+            vocabGenres: [],
+            vocabLists: [],
         };
     }
 
@@ -173,27 +175,32 @@ class AllVocabList extends React.Component<{
 
     loadAllVocabs = async () => {
         try {
-            const url = `api/VocabQuiz/GetAllVocabs`;
-            const res = await fetch(url);
-            res && this.setState({ genreAndVocabs: await res.json() });
+            const url1 = `api/VocabQuiz/GetAllGenres`;
+            fetch(url1).then(async (res) => {
+                res && this.setState({ vocabGenres: await res.json() });
+            });
+
+            const url2 = `api/VocabQuiz/GetAllVocabs`;
+            fetch(url2).then(async (res) => {
+                res && this.setState({ vocabLists: await res.json() });
+            });
         } catch (e) {
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     }
 
     render() {
-        const { genreAndVocabs } = this.state;
+        const { vocabGenres, vocabLists } = this.state;
 
         return (<>
             <hr />
             <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
                 <span>
                     <b>{"Index"}</b><br />
-                    {genreAndVocabs && genreAndVocabs.length > 0 ? genreAndVocabs.map((gv, idx) => {
-                        const { vocabGenre: g } = gv;
+                    {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
                         return (<span key={g.genreId}>
                             <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                            {(idx !== (genreAndVocabs.length - 1)) && " / "}
+                            {(idx !== (vocabGenres.length - 1)) && " / "}
                         </span>);
                     })
                         :
@@ -201,8 +208,8 @@ class AllVocabList extends React.Component<{
                 </span>
             </div>
             <hr />
-            {genreAndVocabs && genreAndVocabs.length > 0 ? genreAndVocabs.map(gv => {
-                const { vocabGenre: g, vocabList } = gv;
+            {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
+                const vocabList = this.state.vocabLists.filter(vl => vl.genreId === g.genreId);
                 return (
                     <EachGenre
                         key={g.genreId}
@@ -323,7 +330,7 @@ class VList extends React.Component<{ g: vocabGenre; vocabList: vocab[] }, { voc
         const kanjiIncorrectIds: number[] = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`)) || [];
 
         return (
-            vocabList.length > 0 ?
+            vocabList && vocabList.length > 0 ?
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>

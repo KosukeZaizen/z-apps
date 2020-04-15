@@ -32,7 +32,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]")]
-        public List<GenreAndVocab> GetAllVocabs()
+        public IEnumerable<Vocab> GetAllVocabs()
         {
             return vocabQuizService.GetAllVocabs();
         }
