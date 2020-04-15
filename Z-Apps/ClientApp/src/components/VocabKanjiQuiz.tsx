@@ -531,8 +531,16 @@ class Page2 extends React.Component<{
                         const finishedIds: number[] = [...correctIds, ...incorrectIds];
                         const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
 
-                        console.log("cor", correctIds.length);
-                        console.log("inc", incorrectIds.length);
+                        correctSounds.forEach(s => {
+                            s.pause();
+                            s.currentTime = 0;
+                        });
+                        const stopSound = (v) => {
+                            if (vocabSounds[v.vocabId]) {
+                                vocabSounds[v.vocabId].pause();
+                                vocabSounds[v.vocabId].currentTime = 0;
+                            }
+                        };
 
                         if (vocabsForQuiz.length <= 0) {
                             const cr = correctIds.length;
@@ -546,22 +554,13 @@ class Page2 extends React.Component<{
                                 `kanji-quiz-incorrectIds-${vocabList[0].genreId}`,
                                 JSON.stringify(incorrectIds)
                             );
-                            if (vocabSounds[vocabToBeAsked.vocabId]) {
-                                vocabSounds[vocabToBeAsked.vocabId].pause();
-                                vocabSounds[vocabToBeAsked.vocabId].currentTime = 0;
-                            }
+
+                            stopSound(vocabToBeAsked);
                             changePage(3);
                             return;
                         }
-                        
-                        correctSounds.forEach(s => {
-                            s.pause();
-                            s.currentTime = 0;
-                        });
-                        if (vocabSounds[vocabToShow.vocabId]) {
-                            vocabSounds[vocabToShow.vocabId].pause();
-                            vocabSounds[vocabToShow.vocabId].currentTime = 0;
-                        }
+
+                        stopSound(vocabToShow);
 
                         const { resultButtons, resultVocabToBeAsked } = this.makeButtons(correctIds, incorrectIds, vocabsForQuiz);
                         
