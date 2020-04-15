@@ -11,6 +11,31 @@ namespace Z_Apps.Models.VocabList
             Con = con;
         }
 
+        public IEnumerable<Vocab> GetAllVocabLists()
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "select * from tblVocabList";
+            sql += " order by genreId, [order];";
+
+            var vocabs = Con.ExecuteSelect(sql, null);
+
+            var resultVocabList = new List<Vocab>();
+            foreach (var dicSentence in vocabs)
+            {
+                var vocab = new Vocab();
+                vocab.genreId = (int)dicSentence["genreId"];
+                vocab.vocabId = (int)dicSentence["vocabId"];
+                vocab.kanji = (string)dicSentence["kanji"];
+                vocab.hiragana = (string)dicSentence["hiragana"];
+                vocab.english = (string)dicSentence["english"];
+                vocab.order = (int)dicSentence["order"];
+
+                resultVocabList.Add(vocab);
+            }
+            return resultVocabList;
+        }
+
         public IEnumerable<Vocab> GetVocabList(int genreId)
         {
             //SQL文作成

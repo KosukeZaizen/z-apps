@@ -31,28 +31,10 @@ namespace Z_Apps.Models.VocabList
             };
         }
 
-        public List<GenreAndVocab> GetAllVocabs()
+        public IEnumerable<Vocab> GetAllVocabs()
         {
             var resultGenreAndVocabs = new List<GenreAndVocab>();
-
-            var vocabGenres = vocabGenreManager.GetAllGenres();
-
-            foreach (var vocabGenre in vocabGenres)
-            {
-                IEnumerable<Vocab> vocabList = null;
-                if (vocabGenre != null)
-                {
-                    vocabList = vocabManager.GetVocabList(vocabGenre.genreId);
-                }
-
-                resultGenreAndVocabs.Add(
-                    new GenreAndVocab
-                    {
-                        vocabGenre = vocabGenre,
-                        vocabList = vocabList
-                    });
-            }
-            return resultGenreAndVocabs;
+            return vocabManager.GetAllVocabLists();
         }
 
         public IEnumerable<VocabGenre> GetAllGenres(){
