@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using static Z_Apps.Controllers.VocabQuizController;
+using System.Linq;
 
 namespace Z_Apps.Models.VocabList
 {
@@ -36,20 +37,15 @@ namespace Z_Apps.Models.VocabList
             var resultGenreAndVocabs = new List<GenreAndVocab>();
 
             var vocabGenres = vocabGenreManager.GetAllGenres();
+            var vocabLists = vocabManager.GetAllVocabLists();
 
             foreach (var vocabGenre in vocabGenres)
             {
-                IEnumerable<Vocab> vocabList = null;
-                if (vocabGenre != null)
-                {
-                    vocabList = vocabManager.GetVocabList(vocabGenre.genreId);
-                }
-
                 resultGenreAndVocabs.Add(
                     new GenreAndVocab
                     {
                         vocabGenre = vocabGenre,
-                        vocabList = vocabList
+                        vocabList = vocabLists.Where(v => v.genreId == vocabGenre.genreId)
                     });
             }
             return resultGenreAndVocabs;
