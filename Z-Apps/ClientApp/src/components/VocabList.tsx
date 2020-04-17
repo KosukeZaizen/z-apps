@@ -74,10 +74,12 @@ class VocabList extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-        });
+        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+            this.setState({
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+            });
+        }
     }
 
     getImgNumber = () => {
@@ -289,7 +291,6 @@ class VList extends React.Component<{ g: vocabGenre; vocabList: vocab[] }, { voc
     vocabSounds: HTMLAudioElement[] = [];
 
     render() {
-
         const { g, vocabList } = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
@@ -347,6 +348,7 @@ class Speaker extends React.Component<{
     showImg: boolean;
 }> {
     vocabSound: HTMLAudioElement;
+    didUnmount: boolean;
 
     constructor(props) {
         super(props);
@@ -363,9 +365,14 @@ class Speaker extends React.Component<{
         this.vocabSound.src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${g.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
 
         this.vocabSound.oncanplaythrough = () => {
-            this.setState({ showImg: true });
+            if(!this.didUnmount) this.setState({ showImg: true });
         };
         this.vocabSound.load();
+        this.didUnmount = false;
+    }
+
+    componentWillUnmount(){
+        this.didUnmount = true;
     }
 
     render() {

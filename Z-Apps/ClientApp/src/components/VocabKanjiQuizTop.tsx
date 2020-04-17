@@ -61,10 +61,12 @@ class VocabQuizTop extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-        });
+        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+            this.setState({
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+            });
+        }
     }
 
     getImgNumber = () => {
