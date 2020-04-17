@@ -88,6 +88,7 @@ class VocabList extends React.Component<Props, State> {
     }
 
     render() {
+        const { loadAllGenres, allGenres } = this.props;
         const { screenWidth, imgNumber } = this.state;
         return (
             <div className="center">
@@ -131,6 +132,8 @@ class VocabList extends React.Component<Props, State> {
                         comment="Try to get a perfect score on all the quizzes!"
                     />
                     <AllVocabList
+                        allGenres={allGenres}
+                        loadAllGenres={loadAllGenres}
                         criteriaRef={this.ref}
                     />
                     <hr />
@@ -154,17 +157,17 @@ class VocabList extends React.Component<Props, State> {
 
 
 class AllVocabList extends React.Component<{
+    loadAllGenres: () => void;
+    allGenres: vocabGenre[];
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
 }, {
-    vocabGenres: vocabGenre[];
     vocabLists: vocab[]
 }> {
 
     constructor(props) {
         super(props);
         this.state = {
-            vocabGenres: [],
             vocabLists: [],
         };
     }
@@ -175,10 +178,7 @@ class AllVocabList extends React.Component<{
 
     loadAllVocabs = async () => {
         try {
-            const url1 = `api/VocabQuiz/GetAllGenres`;
-            fetch(url1).then(async (res) => {
-                res && this.setState({ vocabGenres: await res.json() });
-            });
+            this.props.loadAllGenres();
 
             const url2 = `api/VocabQuiz/GetAllVocabs`;
             fetch(url2).then(async (res) => {
@@ -190,7 +190,7 @@ class AllVocabList extends React.Component<{
     }
 
     render() {
-        const { vocabGenres, vocabLists } = this.state;
+        const { allGenres: vocabGenres } = this.props;
 
         return (<>
             <hr />
