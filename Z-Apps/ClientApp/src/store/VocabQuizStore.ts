@@ -54,6 +54,8 @@ export const actionCreators: IActionCreators = {
     },
     loadVocabs: (genreName) => async (dispatch, getState) => {
         try {
+            dispatch({ type: changePageType, nextPage: 1 });
+
             const loadVocabsFromDB = async () => {
                 const currentGenreName = window.location.pathname.split("/").filter(a => a).pop().split("#").pop();
 
