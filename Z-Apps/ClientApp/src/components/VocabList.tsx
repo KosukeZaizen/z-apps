@@ -13,7 +13,6 @@ import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import { vocabGenre, vocab } from '../types/vocab';
-import { reloadAndRedirect_OneTimeReload } from './common/functions';
 import * as consts from './common/consts';
 
 import Table from '@material-ui/core/Table';
@@ -41,6 +40,9 @@ class VocabList extends React.Component<Props, State> {
 
     constructor(props) {
         super(props);
+
+        props.loadAllGenres();
+        props.loadAllVocabs();
 
         this.state = {
             screenWidth: window.innerWidth,
@@ -88,7 +90,7 @@ class VocabList extends React.Component<Props, State> {
     }
 
     render() {
-        const { loadAllGenres, allGenres } = this.props;
+        const { allVocabs, allGenres } = this.props;
         const { screenWidth, imgNumber } = this.state;
         return (
             <div className="center">
@@ -132,8 +134,8 @@ class VocabList extends React.Component<Props, State> {
                         comment="Try to get a perfect score on all the quizzes!"
                     />
                     <AllVocabList
+                        allVocabs={allVocabs}
                         allGenres={allGenres}
-                        loadAllGenres={loadAllGenres}
                         criteriaRef={this.ref}
                     />
                     <hr />
@@ -157,37 +159,11 @@ class VocabList extends React.Component<Props, State> {
 
 
 class AllVocabList extends React.Component<{
-    loadAllGenres: () => void;
     allGenres: vocabGenre[];
+    allVocabs: vocab[];
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
-}, {
-    vocabLists: vocab[]
 }> {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            vocabLists: [],
-        };
-    }
-
-    componentDidMount() {
-        this.loadAllVocabs();
-    }
-
-    loadAllVocabs = async () => {
-        try {
-            this.props.loadAllGenres();
-
-            const url2 = `api/VocabQuiz/GetAllVocabs`;
-            fetch(url2).then(async (res) => {
-                res && this.setState({ vocabLists: await res.json() });
-            });
-        } catch (e) {
-            reloadAndRedirect_OneTimeReload("db-access-error-time");
-        }
-    }
 
     render() {
         const { allGenres: vocabGenres } = this.props;
@@ -216,7 +192,7 @@ class AllVocabList extends React.Component<{
             </div>
             <hr />
             {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
-                const vocabList = this.state.vocabLists.filter(vl => vl.genreId === g.genreId);
+                const vocabList = this.props.allVocabs.filter(vl => vl.genreId === g.genreId);
                 return (
                     <EachGenre
                         key={g.genreId}

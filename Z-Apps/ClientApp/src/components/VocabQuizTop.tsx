@@ -29,7 +29,7 @@ class VocabQuizTop extends React.Component<Props, State> {
     constructor(props) {
         super(props);
 
-        this.props.loadAllGenres();
+        props.loadAllGenres();
 
         this.state = {
             screenWidth: window.innerWidth,

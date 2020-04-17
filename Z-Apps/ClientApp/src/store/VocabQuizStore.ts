@@ -4,13 +4,21 @@ import { vocabGenre, vocab } from '../types/vocab';
 const initializeType = 'INITIALIZE';
 const receiveGenreAndVocabType = 'RECEIVE_GENRE_AND_VOCAB';
 const receiveAllGenresType = 'RECEIVE_ALL_GENRES';
+const receiveAllVocabsType = 'RECEIVE_ALL_VOCABS';
 const changePageType = 'CHANGE_PAGE';
-const initialState = { vocabGenre: null, allGenres: [], vocabList: [], currentPage: 1 };
+const initialState = { 
+    vocabGenre: null, //specific page
+    vocabList: [], //specific page
+    allGenres: [], //general
+    allVocabs: [], //general
+    currentPage: 1 
+};
 
 export type TPageNumber = 1 | 2 | 3;
 
 export interface IVocabQuizState {
     allGenres: vocabGenre[];
+    allVocabs: vocab[];
     vocabGenre: vocabGenre;
     vocabList: vocab[];
     currentPage: TPageNumber;
@@ -20,12 +28,13 @@ export interface IActionCreators {
     loadVocabs: (genreName: string) => void;
     changePage: (nextPage: TPageNumber) => void;
     loadAllGenres: () => void;
+    loadAllVocabs: () => void;
 }
 
 export const actionCreators: IActionCreators = {
     loadAllGenres: () => async (dispatch, getState) => {
-        const state = getState();
-        if(state.vocabQuiz.allGenres?.length > 0) return;
+        // const state = getState();
+        // if(state.vocabQuiz.allGenres?.length > 0) return;
 
         try {
             const url = `api/VocabQuiz/GetAllGenres`;
@@ -37,13 +46,24 @@ export const actionCreators: IActionCreators = {
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     },
+    loadAllVocabs: () => async (dispatch, getState) => {
+        try {
+            const url = `api/VocabQuiz/GetAllVocabs`;
+            fetch(url).then(async (res) => {
+                const allVocabs = await res.json();
+                dispatch({ type: receiveAllVocabsType, allVocabs });
+            });
+        } catch (e) {
+            reloadAndRedirect_OneTimeReload("db-access-error-time");
+        }
+    },
     loadVocabs: (genreName) => async (dispatch, getState) => {
         try {
             dispatch({ type: initializeType });
 
-            const url1 = `api/VocabQuiz/GetQuizData/${genreName}`;
-            const response1 = await fetch(url1);
-            const genreAndVocab: { vocabGenre: vocabGenre; vocabList: vocab[]; } = await response1.json();
+            const url = `api/VocabQuiz/GetQuizData/${genreName}`;
+            const response = await fetch(url);
+            const genreAndVocab: { vocabGenre: vocabGenre; vocabList: vocab[]; } = await response.json();
 
             dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
 
@@ -90,6 +110,13 @@ export const reducer = (state, action) => {
         return {
             ...state,
             allGenres: action.allGenres,
+        };
+    }
+
+    if (action.type === receiveAllVocabsType) {
+        return {
+            ...state,
+            allVocabs: action.allVocabs,
         };
     }
 
