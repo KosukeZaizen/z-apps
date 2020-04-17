@@ -145,6 +145,7 @@ class VocabQuiz extends React.Component<Props, State> {
                 />;
                 break;
             default:
+                this.vocabSounds = [];
                 vocabList.length > 0 && vocabList.forEach(v => {
                     this.vocabSounds[v.vocabId] = new Audio();
                     this.vocabSounds[v.vocabId].preload = "none";
