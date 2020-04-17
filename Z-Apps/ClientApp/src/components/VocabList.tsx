@@ -199,14 +199,15 @@ class AllVocabList extends React.Component<{
                 {
                     vocabGenres && vocabGenres.length > 0 ?
                         <ul style={{ display: "inline" }}>
-                            {vocabGenres.map((g, idx) => {
-                                return (
-                                    <li key={g.genreId} style={{ display: "inline" }}>
-                                        <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                                        {(idx !== (vocabGenres.length - 1)) && " / "}
-                                    </li>
-                                );
-                            })
+                            {
+                                vocabGenres.map((g, idx) => {
+                                    return (
+                                        <li key={g.genreId} style={{ display: "inline" }}>
+                                            <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
+                                            {(idx !== (vocabGenres.length - 1)) && " / "}
+                                        </li>
+                                    );
+                                })
                             }
                         </ul>
                         :
