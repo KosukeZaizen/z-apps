@@ -47,8 +47,8 @@ class VocabQuiz extends React.Component<Props, State> {
 
         const { params } = props.match;
         const genreName = params.genreName.toString().split("#")[0];
-        this.props.loadVocabs(genreName);
-        this.props.loadAllGenres();
+        props.loadVocabs(genreName);
+        props.loadAllGenres();
 
         this.state = {
             genreName: genreName,
@@ -90,6 +90,7 @@ class VocabQuiz extends React.Component<Props, State> {
                 genreName: genreName,
             });
             this.props.loadVocabs(genreName);
+            this.props.loadAllGenres();
         }
     }
 
