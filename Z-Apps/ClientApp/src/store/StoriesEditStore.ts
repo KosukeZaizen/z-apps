@@ -1,5 +1,5 @@
 import * as commonFnc from '../components/common/functions';
-import {storyDesc, sentence, word} from '../types/stories';
+import { storyDesc, sentence, word } from '../types/stories';
 
 const receiveStoryType = 'RECEIVE_STORY';
 const receiveSentencesType = 'RECEIVE_SENTENCES';
@@ -16,17 +16,17 @@ export interface StoriesEditState {
     isTranslating: boolean;
 }
 
-const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, token:"", };
+const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, token: "", };
 
 export interface IActionCreators {
-    loadStory: (storyName: string)=>void;
-    loadSentences: (storyId: number)=>void;
-    loadWords: (storyId: number)=>void;
-    setInitialToken: ()=>void;
-    addLine: (idx: number, s: string)=>void;
-    removeBlankLine: ()=>void;
-    translateAllSentences: (saveWidhoutConfirmation: ()=>void)=>void;
-    saveWidhoutConfirmation: ()=>void;
+    loadStory: (storyName: string) => void;
+    loadSentences: (storyId: number) => void;
+    loadWords: (storyId: number) => void;
+    setInitialToken: () => void;
+    addLine: (idx: number, s: string) => void;
+    removeBlankLine: () => void;
+    translateAllSentences: (saveWidhoutConfirmation: () => void) => void;
+    saveWidhoutConfirmation: () => void;
     handleChangeDesc: () => void;
     handleChangeSentence: () => void;
     handleChangeWord: () => void;
@@ -366,18 +366,18 @@ export const actionCreators = {
     },
 
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
-            if (window.confirm('Are you sure that you want to remove this word?')) {
-                const state = getState().storiesEdit;
-                const w = state.words.concat()
-                    .filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber))
-                    .map(word => {
-                        if (word.lineNumber === lineNumber && word.wordNumber > wordNumber) {
-                            word.wordNumber--;
-                        }
-                        return word;
-                    });
+        if (window.confirm('Are you sure that you want to remove this word?')) {
+            const state = getState().storiesEdit;
+            const w = state.words.concat()
+                .filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber))
+                .map(word => {
+                    if (word.lineNumber === lineNumber && word.wordNumber > wordNumber) {
+                        word.wordNumber--;
+                    }
+                    return word;
+                });
             dispatch({ type: receiveWordsType, words: w });
-            }
+        }
     },
 
     mergeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
@@ -416,7 +416,7 @@ export const actionCreators = {
         try {
             if (window.confirm('Are you sure that you want to save?')) {
                 const { storyDesc, sentences, words, token } = getState().storiesEdit;
-                localStorage.setItem("folktales-register-token", JSON.stringify({token}));
+                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
 
                 const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
 

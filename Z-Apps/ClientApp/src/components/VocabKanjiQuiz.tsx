@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -47,7 +47,7 @@ class VocabQuiz extends React.Component<Props, State> {
 
         const { params } = props.match;
         const genreName = params.genreName.toString().split("#")[0];
-        
+
         props.loadVocabs(genreName);
         props.loadAllGenres();
         setTimeout(props.loadAllVocabs, 15000);
@@ -328,20 +328,26 @@ function Page1(props) {
 
 class Speaker extends React.Component<{
     vocabSound: HTMLAudioElement;
-},{
+}, {
     showImg: boolean;
 }> {
+    didUnmount: boolean;
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             showImg: false,
         };
-        
+        this.didUnmount = false;
+
         props.vocabSound.oncanplaythrough = () => {
-            this.setState({ showImg: true }); 
+            if (!this.didUnmount) this.setState({ showImg: true });
         };
         props.vocabSound.load();
+    }
+
+    componentWillUnmount() {
+        this.didUnmount = true;
     }
 
     render() {
@@ -366,7 +372,7 @@ class Page2 extends React.Component<{
     imgNumber: number;
     correctSounds: HTMLAudioElement[];
     vocabSounds: HTMLAudioElement[];
-},{
+}, {
     correctIds: number[];
     incorrectIds: number[];
     vocabToShow: vocab;
@@ -375,10 +381,10 @@ class Page2 extends React.Component<{
     vocabToBeAsked: vocab;
 }> {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        const {vocabList, vocabSounds} = props;
+        const { vocabList } = props;
         const firstButtonsAndVocabs = this.makeButtons([], [], vocabList);
 
         this.state = {
@@ -403,21 +409,25 @@ class Page2 extends React.Component<{
             <button
                 key={3}
                 onClick={() => {
-                    const sound = correctSounds[0];
-                    sound.onended = (e) => {
-                        vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
-                        sound.onended = null;
-                    };
-                    sound.play();
+                    try {
+                        const sound = correctSounds[0];
+                        sound.onended = (e) => {
+                            vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+                            sound.onended = null;
+                        };
+                        sound.play();
 
-                    this.setState({
-                        vocabToShow: resultVocabToBeAsked,
-                        correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
-                        mode: 1,
-                    });
-                    if (vocabSounds[resultVocabToBeAsked.vocabId]) {
-                        vocabSounds[resultVocabToBeAsked.vocabId].pause();
-                        vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                        this.setState({
+                            vocabToShow: resultVocabToBeAsked,
+                            correctIds: [...correctIds, resultVocabToBeAsked.vocabId],
+                            mode: 1,
+                        });
+                        if (vocabSounds[resultVocabToBeAsked.vocabId]) {
+                            vocabSounds[resultVocabToBeAsked.vocabId].pause();
+                            vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                        }
+                    } catch (e) {
+                        //
                     }
                 }}
                 className="btn btn-primary btn-lg btn-block"
@@ -435,21 +445,25 @@ class Page2 extends React.Component<{
                 <button
                     key={i}
                     onClick={() => {
-                        const sound = correctSounds[1];
-                        sound.onended = (e) => {
-                            vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
-                            sound.onended = null;
-                        };
-                        sound.play();
+                        try {
+                            const sound = correctSounds[1];
+                            sound.onended = (e) => {
+                                vocabSounds[resultVocabToBeAsked.vocabId] && vocabSounds[resultVocabToBeAsked.vocabId].play();
+                                sound.onended = null;
+                            };
+                            sound.play();
 
-                        this.setState({
-                            vocabToShow: resultVocabToBeAsked,
-                            incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
-                            mode: 2,
-                        });
-                        if (vocabSounds[resultVocabToBeAsked.vocabId]) {
-                            vocabSounds[resultVocabToBeAsked.vocabId].pause();
-                            vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                            this.setState({
+                                vocabToShow: resultVocabToBeAsked,
+                                incorrectIds: [...incorrectIds, resultVocabToBeAsked.vocabId],
+                                mode: 2,
+                            });
+                            if (vocabSounds[resultVocabToBeAsked.vocabId]) {
+                                vocabSounds[resultVocabToBeAsked.vocabId].pause();
+                                vocabSounds[resultVocabToBeAsked.vocabId].currentTime = 0;
+                            }
+                        } catch (e) {
+                            //
                         }
                     }}
                     className="btn btn-primary btn-lg btn-block"
@@ -464,7 +478,7 @@ class Page2 extends React.Component<{
         return { resultButtons: shuffle(resultButtons), resultVocabToBeAsked };
     }
 
-    render(){
+    render() {
         setTimeout(() => {
             try { (document.activeElement as HTMLElement).blur(); } catch (e) { }
         }, 300);
@@ -496,7 +510,7 @@ class Page2 extends React.Component<{
                     style={{ color: "#007bff" }}
                     onClick={() => {
                         const sure = window.confirm("Your progress will not be saved.\nAre you sure you want to return?");
-                        if(sure){
+                        if (sure) {
                             changePage(1);
                         }
                     }}
@@ -539,7 +553,7 @@ class Page2 extends React.Component<{
                 <button
                     onClick={() => {
                         const finishedIds: number[] = [...correctIds, ...incorrectIds];
-                        const vocabsForQuiz = vocabList.filter(v => !( finishedIds && finishedIds.includes(v.vocabId)));
+                        const vocabsForQuiz = vocabList.filter(v => !(finishedIds && finishedIds.includes(v.vocabId)));
 
                         correctSounds.forEach(s => {
                             s.pause();
@@ -573,10 +587,10 @@ class Page2 extends React.Component<{
                         stopSound(vocabToShow);
 
                         const { resultButtons, resultVocabToBeAsked } = this.makeButtons(correctIds, incorrectIds, vocabsForQuiz);
-                        
-                        this.setState({ 
-                            mode: 0, 
-                            buttons: resultButtons,  
+
+                        this.setState({
+                            mode: 0,
+                            buttons: resultButtons,
                             vocabToBeAsked: resultVocabToBeAsked
                         });
                     }}

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
 import * as storiesEditStore from '../store/StoriesEditStore';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';

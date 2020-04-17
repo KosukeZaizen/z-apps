@@ -288,10 +288,6 @@ class EachGenre extends React.Component<{ g: vocabGenre; vocabList: vocab[] }> {
 class VList extends React.Component<{ g: vocabGenre; vocabList: vocab[] }, { vocabList: vocab[] }> {
     vocabSounds: HTMLAudioElement[] = [];
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
 
         const { g, vocabList } = this.props;

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { vocabGenre } from '../../../types/vocab';
-import { reloadAndRedirect_OneTimeReload } from '../../common/functions';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
