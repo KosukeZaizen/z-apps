@@ -195,17 +195,23 @@ class AllVocabList extends React.Component<{
         return (<>
             <hr />
             <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
-                <span>
-                    <b>{"Index"}</b><br />
-                    {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
-                        return (<span key={g.genreId}>
-                            <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                            {(idx !== (vocabGenres.length - 1)) && " / "}
-                        </span>);
-                    })
+                <b>{"Index"}</b><br />
+                {
+                    vocabGenres && vocabGenres.length > 0 ?
+                        <ul style={{ display: "inline" }}>
+                            {vocabGenres.map((g, idx) => {
+                                return (
+                                    <li key={g.genreId} style={{ display: "inline" }}>
+                                        <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
+                                        {(idx !== (vocabGenres.length - 1)) && " / "}
+                                    </li>
+                                );
+                            })
+                            }
+                        </ul>
                         :
-                        <CircularProgress key="circle" size="10%" />}
-                </span>
+                        <CircularProgress key="circle" size="10%" />
+                }
             </div>
             <hr />
             {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
