@@ -173,19 +173,14 @@ class AllVocabList extends React.Component<{
             <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
                 <b>{"Index"}</b><br />
                 {
-                    vocabGenres && vocabGenres.length > 0 ?
-                        <ul style={{ display: "inline" }}>
-                            {
-                                vocabGenres.map((g, idx) => {
-                                    return (
-                                        <li key={g.genreId} style={{ display: "inline" }}>
-                                            <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                                            {(idx !== (vocabGenres.length - 1)) && " / "}
-                                        </li>
-                                    );
-                                })
-                            }
-                        </ul>
+                    vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
+                        return (
+                            <span key={g.genreId}>
+                                <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
+                                {(idx !== (vocabGenres.length - 1)) && " / "}
+                            </span>
+                        );
+                    })
                         :
                         <CircularProgress key="circle" size="10%" />
                 }
