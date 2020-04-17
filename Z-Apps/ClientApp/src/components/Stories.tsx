@@ -37,7 +37,6 @@ class Stories extends React.Component<Props, State> {
 
         const { params } = props.match;
         const storyName = params.storyName.toString().split("#")[0];
-        this.props.loadStory(storyName);
 
         this.state = {
             storyName: storyName,
@@ -87,10 +86,14 @@ class Stories extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        this.props.loadStory(this.state.storyName);
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
-                this.changeScreenSize();
-                this.judgeFooter();
+                if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+                    this.changeScreenSize();
+                    this.judgeFooter();
+                }
             }, i * 1000);
         }
     }

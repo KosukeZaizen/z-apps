@@ -48,10 +48,6 @@ class VocabQuiz extends React.Component<Props, State> {
         const { params } = props.match;
         const genreName = params.genreName.toString().split("#")[0];
 
-        props.loadVocabs(genreName);
-        props.loadAllGenres();
-        setTimeout(props.loadAllVocabs, 15000);
-
         this.state = {
             genreName: genreName,
             screenWidth: window.innerWidth,
@@ -75,6 +71,12 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        const { loadVocabs, loadAllGenres, loadAllVocabs } = this.props;
+        const { genreName } = this.state;
+        loadVocabs(genreName);
+        loadAllGenres();
+        setTimeout(loadAllVocabs, 15000);
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 this.changeScreenSize();
