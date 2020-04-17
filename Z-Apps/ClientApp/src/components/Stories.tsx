@@ -90,10 +90,8 @@ class Stories extends React.Component<Props, State> {
 
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
-                if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
-                    this.changeScreenSize();
-                    this.judgeFooter();
-                }
+                this.changeScreenSize();
+                this.judgeFooter();
             }, i * 1000);
         }
     }
@@ -109,10 +107,12 @@ class Stories extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-        });
+        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+            this.setState({
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+            });
+        }
     }
 
     judgeFooter = () => {
