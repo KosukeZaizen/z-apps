@@ -29,6 +29,8 @@ class VocabQuizTop extends React.Component<Props, State> {
     constructor(props) {
         super(props);
 
+        this.props.loadAllGenres();
+
         this.state = {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -75,6 +77,7 @@ class VocabQuizTop extends React.Component<Props, State> {
     }
 
     render() {
+        const { allGenres } = this.props;
         const { screenWidth, imgNumber } = this.state;
         return (
             <div className="center">
@@ -118,6 +121,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                     />
                     <br />
                     <AllKanjiList
+                        allGenres={allGenres}
                         criteriaRef={this.ref}
                     />
                     <hr />

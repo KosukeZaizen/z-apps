@@ -48,6 +48,7 @@ class VocabQuiz extends React.Component<Props, State> {
         const { params } = props.match;
         const genreName = params.genreName.toString().split("#")[0];
         this.props.loadVocabs(genreName);
+        this.props.loadAllGenres();
 
         this.state = {
             genreName: genreName,
@@ -111,7 +112,7 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     render() {
-        const { vocabGenre, currentPage, changePage } = this.props;
+        const { vocabGenre, currentPage, changePage, allGenres } = this.props;
         const vocabList: vocab[] = this.props.vocabList.sort((a, b) => a.order - b.order);
         const { screenWidth, imgNumber } = this.state;
 
@@ -206,7 +207,9 @@ class VocabQuiz extends React.Component<Props, State> {
                     <AllVocabList excludeGenreId={vocabGenre && vocabGenre.genreId} />
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Kanji Quiz</h2>
-                    <AllKanjiList />
+                    <AllKanjiList
+                        allGenres={allGenres}
+                    />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}
