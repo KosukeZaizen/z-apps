@@ -210,7 +210,9 @@ class VocabQuiz extends React.Component<Props, State> {
                     />
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Vocabulary Quiz</h2>
-                    <AllVocabList />
+                    <AllVocabList
+                        allGenres={allGenres}
+                    />
                     <br />
                     <CharacterComment
                         screenWidth={screenWidth}

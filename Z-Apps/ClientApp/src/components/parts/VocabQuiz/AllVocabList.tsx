@@ -15,11 +15,10 @@ import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class AllVocabList extends React.Component<{
+    allGenres: vocabGenre[];
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
-}, {
-    allGenres: vocabGenre[];
-}> {
+}>{
 
     constructor(props) {
         super(props);
@@ -28,23 +27,8 @@ export default class AllVocabList extends React.Component<{
         };
     }
 
-    componentDidMount() {
-        this.loadAllVocabs();
-    }
-
-    loadAllVocabs = async () => {
-        try {
-            const url = `api/VocabQuiz/GetAllGenres`;
-            const res = await fetch(url);
-            res && this.setState({ allGenres: await res.json() });
-        } catch (e) {
-            reloadAndRedirect_OneTimeReload("db-access-error-time");
-        }
-    }
-
     render() {
-        const { allGenres } = this.state;
-        const { excludeGenreId, criteriaRef } = this.props;
+        const { excludeGenreId, criteriaRef, allGenres } = this.props;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",

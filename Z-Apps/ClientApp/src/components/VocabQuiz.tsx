@@ -204,7 +204,10 @@ class VocabQuiz extends React.Component<Props, State> {
                     {vocabList && vocabList.length > 0 ? pageData : <CircularProgress key="circle" size="20%" />}
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Other Vocabulary Genres</h2>
-                    <AllVocabList excludeGenreId={vocabGenre && vocabGenre.genreId} />
+                    <AllVocabList
+                        allGenres={allGenres}
+                        excludeGenreId={vocabGenre && vocabGenre.genreId}
+                    />
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>Kanji Quiz</h2>
                     <AllKanjiList
