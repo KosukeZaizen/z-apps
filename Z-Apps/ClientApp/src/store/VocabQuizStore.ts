@@ -1,5 +1,7 @@
-import { reloadAndRedirect_OneTimeReload } from '../components/common/functions';
+import { reloadAndRedirect_OneTimeReload, loadLocalStorageOrDB } from '../components/common/functions';
 import { vocabGenre, vocab } from '../types/vocab';
+
+const fileName = "VocabQuizStore";
 
 const initializeType = 'INITIALIZE';
 const receiveGenreAndVocabType = 'RECEIVE_GENRE_AND_VOCAB';
@@ -33,54 +35,65 @@ export interface IActionCreators {
 
 export const actionCreators: IActionCreators = {
     loadAllGenres: () => async (dispatch, getState) => {
-        // const state = getState();
-        // if(state.vocabQuiz.allGenres?.length > 0) return;
-
-        try {
-            const url = `api/VocabQuiz/GetAllGenres`;
-            const res = await fetch(url);
-            const allGenres = await res.json();
-
-            dispatch({ type: receiveAllGenresType, allGenres });
-        } catch (e) {
-            reloadAndRedirect_OneTimeReload("db-access-error-time");
-        }
+        loadLocalStorageOrDB(
+            `api/VocabQuiz/GetAllGenres`,
+            receiveAllGenresType,
+            "allGenres",
+            fileName,
+            dispatch
+        );
     },
     loadAllVocabs: () => async (dispatch, getState) => {
-        try {
-            const url = `api/VocabQuiz/GetAllVocabs`;
-            fetch(url).then(async (res) => {
-                const allVocabs = await res.json();
-                dispatch({ type: receiveAllVocabsType, allVocabs });
-            });
-        } catch (e) {
-            reloadAndRedirect_OneTimeReload("db-access-error-time");
-        }
+        loadLocalStorageOrDB(
+            `api/VocabQuiz/GetAllVocabs`,
+            receiveAllVocabsType,
+            "allVocabs",
+            fileName,
+            dispatch
+        );
     },
     loadVocabs: (genreName) => async (dispatch, getState) => {
         try {
-            dispatch({ type: initializeType });
+            const loadVocabsFromDB = async () => {
+                const currentGenreName = window.location.pathname.split("/").filter(a => a).pop().split("#").pop();
 
-            const url = `api/VocabQuiz/GetQuizData/${genreName}`;
-            const response = await fetch(url);
-            const genreAndVocab: { vocabGenre: vocabGenre; vocabList: vocab[]; } = await response.json();
+                const url = `api/VocabQuiz/GetQuizData/${currentGenreName}`;
+                const response = await fetch(url);
+                const genreAndVocab: { vocabGenre: vocabGenre; vocabList: vocab[]; } = await response.json();
 
-            dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
+                dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
 
-            const { vocabGenre } = genreAndVocab;
-            if (vocabGenre) {
-                if (genreName !== vocabGenre.genreName) {
-                    if (!vocabGenre.genreName) {
-                        reloadAndRedirect_OneTimeReload("db-access-error-time");
-                    } else if (genreName.toLowerCase === vocabGenre.genreName.toLowerCase) {
-                        window.location.href = `/vocabulary-quiz/${vocabGenre.genreName}`;
+                const { vocabGenre } = genreAndVocab;
+                if (vocabGenre) {
+                    if (currentGenreName !== vocabGenre.genreName) {
+                        if (!vocabGenre.genreName) {
+                            reloadAndRedirect_OneTimeReload("db-access-error-time");
+                        } else if (currentGenreName.toLowerCase === vocabGenre.genreName.toLowerCase) {
+                            window.location.href = `/vocabulary-quiz/${vocabGenre.genreName}`;
+                        }
+                        return;
                     }
+                } else {
+                    reloadAndRedirect_OneTimeReload("db-access-error-time");
                     return;
                 }
-            } else {
-                reloadAndRedirect_OneTimeReload("db-access-error-time");
-                return;
             }
+
+            const savedAllGenres: vocabGenre[] = JSON.parse(window.sessionStorage.getItem(fileName + "allGenres"));
+            const savedAllVocabs: vocab[] = JSON.parse(window.sessionStorage.getItem(fileName + "allVocabs"));
+
+            const genre = savedAllGenres?.filter(g => g.genreName === genreName)?.pop();
+            const vocabs = savedAllVocabs?.filter(v => v.genreId === genre.genreId);
+
+            if (vocabs?.length > 0) {
+                const genreAndVocab = { vocabGenre: genre, vocabList: vocabs };
+                dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
+                setTimeout(loadVocabsFromDB, 10000);
+            } else {
+                loadVocabsFromDB();
+            }
+
+
         } catch (e) {
             window.location.reload(true);
         }
@@ -90,6 +103,8 @@ export const actionCreators: IActionCreators = {
         dispatch({ type: changePageType, nextPage });
     }
 };
+
+
 
 export const reducer = (state, action) => {
     state = state || initialState;

@@ -1,4 +1,4 @@
-import {APP_VERSION} from './../../version';
+import { APP_VERSION } from './../../version';
 
 export function getParams() {
     let arg = {};
@@ -100,16 +100,50 @@ export function reloadAndRedirect_OneTimeReload(saveKey: string) {
     return;
 }
 
+//localStorageかDBからデータを取得し、reduxのstoreを更新
+export function loadLocalStorageOrDB(url: string, type: string, stateName: string, fileName: string, dispatch) {
+    const saveKey = fileName + stateName;
+
+    const loadData = async (url: string, type: string, stateName: string) => {
+        const res = await fetch(url);
+        const objResult = await res.json();
+
+        window.sessionStorage.setItem(saveKey, JSON.stringify(objResult));
+
+        const action = { type };
+        action[stateName] = objResult;
+        dispatch(action);
+    }
+
+    try {
+        const savedObject = JSON.parse(window.sessionStorage.getItem(saveKey));
+
+        if (savedObject) {
+            const action = { type };
+            action[stateName] = savedObject;
+            dispatch(action);
+
+            setTimeout(() => { 
+                loadData(url, type, stateName); 
+            }, 10000);
+        } else {
+            loadData(url, type, stateName);
+        }
+    } catch (e) {
+        reloadAndRedirect_OneTimeReload("db-access-error-time");
+    }
+}
+
 //配列シャッフル
 export function shuffle(array: any[]) {
     let n = array.length, t, i;
-  
+
     while (n) {
-      i = Math.floor(Math.random() * n--);
-      t = array[n];
-      array[n] = array[i];
-      array[i] = t;
+        i = Math.floor(Math.random() * n--);
+        t = array[n];
+        array[n] = array[i];
+        array[i] = t;
     }
-  
+
     return array;
-  }
+}

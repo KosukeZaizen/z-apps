@@ -192,7 +192,7 @@ class AllVocabList extends React.Component<{
             </div>
             <hr />
             {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
-                const vocabList = this.props.allVocabs.filter(vl => vl.genreId === g.genreId);
+                const vocabList = this.props.allVocabs?.filter(vl => vl.genreId === g.genreId);
                 return (
                     <EachGenre
                         key={g.genreId}

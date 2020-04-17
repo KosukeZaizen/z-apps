@@ -46,10 +46,11 @@ class VocabQuiz extends React.Component<Props, State> {
         super(props);
 
         const { params } = props.match;
-        const genreName = params.genreName.toString().split("#")[0];
+        const genreName: string = params.genreName.toString().split("#")[0];
 
         props.loadVocabs(genreName);
         props.loadAllGenres();
+        setTimeout(props.loadAllVocabs, 15000);
 
         this.state = {
             genreName: genreName,
@@ -86,7 +87,7 @@ class VocabQuiz extends React.Component<Props, State> {
 
     componentDidUpdate(preciousProps) {
         if (preciousProps.location !== this.props.location) {
-            const genreName = this.props.location.pathname.split("/").filter(a => a).pop();
+            const genreName = this.props.location.pathname.split("/").filter(a => a).pop().split("#").pop();
             this.setState({
                 genreName: genreName,
             });
