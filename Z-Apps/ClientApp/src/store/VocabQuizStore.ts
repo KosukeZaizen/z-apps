@@ -81,8 +81,8 @@ export const actionCreators: IActionCreators = {
                 }
             }
 
-            const savedAllGenres: vocabGenre[] = JSON.parse(window.sessionStorage.getItem(fileName + "allGenres"));
-            const savedAllVocabs: vocab[] = JSON.parse(window.sessionStorage.getItem(fileName + "allVocabs"));
+            const savedAllGenres: vocabGenre[] = JSON.parse(window.localStorage.getItem(fileName + "allGenres"));
+            const savedAllVocabs: vocab[] = JSON.parse(window.localStorage.getItem(fileName + "allVocabs"));
 
             const genre = savedAllGenres?.filter(g => g.genreName === genreName)?.pop();
             const vocabs = savedAllVocabs?.filter(v => v.genreId === genre.genreId);

@@ -16,7 +16,7 @@ import FB from './parts/FaceBook';
 import { FBShareBtn, TwitterShareBtn } from './parts/SnsShareButton';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
-import { shuffle } from './common/functions';
+import { shuffle, sendClientOpeLog } from './common/functions';
 import { vocab, vocabGenre } from '../types/vocab';
 
 import Table from '@material-ui/core/Table';
@@ -623,6 +623,8 @@ function Page3(props: TPage3Props) {
     const { vocabList, screenWidth, imgNumber, vocabSounds, changePage, vocabGenre, titleToShowUpper } = props;
     const percentage = Number(localStorage.getItem(`kanji-quiz-percentage-${vocabGenre.genreId}`));
     const incorrectIds = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`));
+
+    sendClientOpeLog("finish kanji quiz", `percentage: ${percentage}%`);
 
     let comment: string;
     if (percentage === 100) {

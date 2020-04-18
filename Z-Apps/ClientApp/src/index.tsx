@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
+import * as commonFncs from './components/common/functions';
 //import registerServiceWorker from './registerServiceWorker';
 import { unregister } from './registerServiceWorker';
 import ReactGA from 'react-ga';
@@ -21,8 +22,11 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const history = createBrowserHistory({ basename: baseUrl });
 
 history.listen(({ pathname }) => {
-  ReactGA.set({ page: pathname });
-  ReactGA.pageview(pathname);
+  setTimeout(() => {
+    ReactGA.set({ page: pathname });
+    ReactGA.pageview(pathname);
+    commonFncs.sendClientOpeLog("change page");
+  }, 1000);
 });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.

@@ -41,10 +41,41 @@ export async function sendPostNoJsonResult(objToSend, url) {
     return response;
 }
 
+export async function sendPostNoJsonResultWithoutAwait(objToSend, url) {
+    const method = "POST";
+    const body = JSON.stringify(objToSend);
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    fetch(url, { method, headers, body });
+}
+
+export function sendClientOpeLog(operationName: string, parameters: string = "") {
+    const saveKey = "userId";
+    let userId = JSON.parse(window.localStorage.getItem(saveKey));
+
+    if (!userId) {
+        const nowDate = new Date();
+        const rand = Math.floor(Math.random() * 10000);
+
+        userId = `${nowDate.getFullYear()}/${nowDate.getMonth() + 1}/${nowDate.getDate()}-${nowDate.getHours()}:${nowDate.getMinutes()}:${nowDate.getSeconds()}-${rand}`;
+        window.localStorage.setItem(saveKey, JSON.stringify(userId));
+    }
+
+    const log = {
+        url: window.location.href,
+        operationName,
+        userId,
+        parameters,
+    };
+    sendPostNoJsonResultWithoutAwait(log, "api/SystemBase/RegisterLog");
+}
+
 export async function checkAppVersion() {
     const url = 'version.txt';
     fetch(url).then(res => {
         res.json().then(v => {
+            sendClientOpeLog("check version", `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${navigator.userAgent}`);
             console.log("ClientVersion: " + APP_VERSION);
             console.log("ServerVersion: " + v);
             if (Number(v) !== APP_VERSION) {
@@ -108,7 +139,7 @@ export function loadLocalStorageOrDB(url: string, type: string, stateName: strin
         const res = await fetch(url);
         const objResult = await res.json();
 
-        window.sessionStorage.setItem(saveKey, JSON.stringify(objResult));
+        window.localStorage.setItem(saveKey, JSON.stringify(objResult));
 
         const action = { type };
         action[stateName] = objResult;
@@ -116,15 +147,15 @@ export function loadLocalStorageOrDB(url: string, type: string, stateName: strin
     }
 
     try {
-        const savedObject = JSON.parse(window.sessionStorage.getItem(saveKey));
+        const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
 
         if (savedObject) {
             const action = { type };
             action[stateName] = savedObject;
             dispatch(action);
 
-            setTimeout(() => { 
-                loadData(url, type, stateName); 
+            setTimeout(() => {
+                loadData(url, type, stateName);
             }, 10000);
         } else {
             loadData(url, type, stateName);
