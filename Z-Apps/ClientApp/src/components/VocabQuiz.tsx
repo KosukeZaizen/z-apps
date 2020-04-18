@@ -13,10 +13,11 @@ import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
+import { FBShareBtn, TwitterShareBtn } from './parts/SnsShareButton';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
 import { shuffle } from './common/functions';
-import { vocab } from '../types/vocab';
+import { vocab, vocabGenre } from '../types/vocab';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -144,6 +145,8 @@ class VocabQuiz extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     vocabSounds={this.vocabSounds}
+                    vocabGenre={vocabGenre}
+                    titleToShowUpper={titleToShowUpper}
                 />;
                 break;
             default:
@@ -594,11 +597,13 @@ type TPage3Props = {
     screenWidth: number;
     imgNumber: number;
     vocabSounds: HTMLAudioElement[];
+    vocabGenre: vocabGenre;
+    titleToShowUpper: string;
 };
 function Page3(props: TPage3Props) {
-    const { vocabList, screenWidth, imgNumber, vocabSounds, changePage } = props;
-    const percentage = Number(localStorage.getItem(`vocab-quiz-percentage-${vocabList[0].genreId}`));
-    const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabList[0].genreId}`));
+    const { vocabList, screenWidth, imgNumber, vocabSounds, changePage, vocabGenre, titleToShowUpper } = props;
+    const percentage = Number(localStorage.getItem(`vocab-quiz-percentage-${vocabGenre.genreId}`));
+    const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabGenre.genreId}`));
 
     let comment: string;
     if (percentage === 100) {
@@ -620,11 +625,27 @@ function Page3(props: TPage3Props) {
     const tableElementStyle: React.CSSProperties = {
         fontSize: "medium",
     };
+    const shareButtonStyle: React.CSSProperties = {
+        width: "200px",
+        margin: "5px"
+    }
 
     return (
         <>
             <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Your score is:</p>
             <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{percentage} %</p>
+            <FBShareBtn 
+                urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
+                style={shareButtonStyle}
+            />
+            <br />
+            <TwitterShareBtn 
+                urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
+                textToShare={`I got ${percentage}％ on the Japanese vocabulary quiz for ${titleToShowUpper}!`}
+                style={shareButtonStyle}
+            /> 
+            <br />
+            <br />
             {incorrectIds && incorrectIds.length > 0 &&
                 <>
                     <CharacterComment
@@ -673,8 +694,6 @@ function Page3(props: TPage3Props) {
         </>
     );
 }
-
-
 
 export default connect(
     (state: TReducers) => state.vocabQuiz,
