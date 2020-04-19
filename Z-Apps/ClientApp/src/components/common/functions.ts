@@ -75,10 +75,11 @@ export async function checkAppVersion() {
     const url = 'version.txt';
     fetch(url).then(res => {
         res.json().then(v => {
-            sendClientOpeLog("check version", `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${navigator.userAgent}`);
+            const userAgent = navigator.userAgent;
+            sendClientOpeLog("check version", `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${userAgent}`);
             console.log("ClientVersion: " + APP_VERSION);
             console.log("ServerVersion: " + v);
-            if (Number(v) !== APP_VERSION) {
+            if (Number(v) !== APP_VERSION && !userAgent.includes("Googlebot")) {
                 window.location.reload(true);
             }
         });

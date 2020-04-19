@@ -15,6 +15,7 @@ using Z_Apps.Models.SystemBase;
 using Z_Apps.Models.Stories;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.VocabList;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Z_Apps
 {
@@ -73,6 +74,10 @@ namespace Z_Apps
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            var options = new RewriteOptions().AddRedirect("(.*)/$", "$1");
+            app.UseRewriter(options);
+
 
             app.Use(async (context, next) =>
             {

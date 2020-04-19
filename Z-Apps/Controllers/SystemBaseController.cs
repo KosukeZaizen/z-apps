@@ -1,25 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Models.SystemBase;
-using Z_Apps.Util;
-using System;
+using System.Collections.Generic;
 
 namespace Z_Apps.Controllers
 {
     [Route("api/[controller]")]
     public class SystemBaseController : Controller
     {
-        private ClientOpeLogManager clientOpeLogManager;
+        private ClientLogService clientLogService;
         public SystemBaseController(DBCon con)
         {
-            clientOpeLogManager = new ClientOpeLogManager(con);
+            clientLogService = new ClientLogService(con);
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<ClientOpeLog> GetOneWeekLogs()
+        {
+            return clientLogService.GetOneWeekLogs();
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Client> GetAllClients()
+        {
+            return clientLogService.GetAllClients();
         }
 
         [HttpPost("[action]")]
         public void RegisterLog([FromBody] ClientOpeLog log)
         {
-            log.time = DateTime.Now;
-            var result = clientOpeLogManager.InsertLog(log);
+            clientLogService.RegisterLog(log);
         }
     }
 }
