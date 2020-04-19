@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -624,7 +624,12 @@ function Page3(props: TPage3Props) {
     const percentage = Number(localStorage.getItem(`kanji-quiz-percentage-${vocabGenre.genreId}`));
     const incorrectIds = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`));
 
-    sendClientOpeLog("finish kanji quiz", `percentage: ${percentage}%`);
+    const [didSendOpeLog, setDidSendOpeLog] = useState(false);
+    setTimeout(() => { 
+        if(!window.location.href.includes(vocabGenre.genreName)) return;
+        didSendOpeLog || sendClientOpeLog("finish kanji quiz", `percentage: ${percentage}%`);
+        setDidSendOpeLog(true);
+    }, 1000);
 
     let comment: string;
     if (percentage === 100) {

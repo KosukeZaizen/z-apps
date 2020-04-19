@@ -84,8 +84,8 @@ export const actionCreators: IActionCreators = {
             const savedAllGenres: vocabGenre[] = JSON.parse(window.localStorage.getItem(fileName + "allGenres"));
             const savedAllVocabs: vocab[] = JSON.parse(window.localStorage.getItem(fileName + "allVocabs"));
 
-            const genre = savedAllGenres?.filter(g => g.genreName === genreName)?.pop();
-            const vocabs = savedAllVocabs?.filter(v => v.genreId === genre.genreId);
+            const genre = savedAllGenres?.filter(g => g?.genreName === genreName)?.pop();
+            const vocabs = savedAllVocabs?.filter(v => v?.genreId === genre?.genreId);
 
             if (vocabs?.length > 0) {
                 const genreAndVocab = { vocabGenre: genre, vocabList: vocabs };
@@ -94,10 +94,8 @@ export const actionCreators: IActionCreators = {
             } else {
                 loadVocabsFromDB();
             }
-
-
         } catch (e) {
-            window.location.reload(true);
+            //
         }
     },
     changePage: (nextPage) => async (dispatch, getState) => {

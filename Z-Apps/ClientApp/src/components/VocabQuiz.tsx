@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -414,7 +414,6 @@ class Page2 extends React.Component<{
         const resultButtons = [
             <button
                 key={3}
-                onFocus={() => null}
                 onClick={() => {
                     try {
                         if (vocabSounds[resultVocabToBeAsked.vocabId]) {
@@ -446,7 +445,6 @@ class Page2 extends React.Component<{
             resultButtons.push(
                 <button
                     key={i}
-                    onFocus={() => null}
                     onClick={() => {
                         try {
                             if (vocabSounds[resultVocabToBeAsked.vocabId]) {
@@ -605,7 +603,12 @@ function Page3(props: TPage3Props) {
     const percentage = Number(localStorage.getItem(`vocab-quiz-percentage-${vocabGenre.genreId}`));
     const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabGenre.genreId}`));
 
-    sendClientOpeLog("finish vocab quiz", `percentage: ${percentage}%`);
+    const [didSendOpeLog, setDidSendOpeLog] = useState(false);
+    setTimeout(() => { 
+        if(!window.location.href.includes(vocabGenre.genreName)) return;
+        didSendOpeLog || sendClientOpeLog("finish vocab quiz", `percentage: ${percentage}%`);
+        setDidSendOpeLog(true);
+    }, 1000);
 
     let comment: string;
     if (percentage === 100) {
@@ -672,7 +675,7 @@ function Page3(props: TPage3Props) {
                                             <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">
                                                 <img
-                                                    alt="vocabluary sperker"
+                                                    alt="vocabluary speaker"
                                                     src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                     style={{ width: "60%", maxWidth: 30 }}
                                                     onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}

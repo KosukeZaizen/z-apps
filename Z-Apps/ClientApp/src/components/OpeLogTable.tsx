@@ -79,8 +79,17 @@ export default class OpeLogTable extends React.Component<{},
                             </tr>
                             {
                                 userIds.map(id => {
-                                    const idOrName = allClients?.filter(c => id === c.userId)?.pop()?.userName || id.split(":").pop();
                                     const logs = clientOpeLogs?.filter(l => l.userId === id);
+
+                                    let idOrName;
+                                    if(logs.some(l => l.parameters.includes("Googlebot"))){
+                                        idOrName = "Google Bot";
+                                    }else if(logs.some(l => l.parameters.includes("facebookexternalhit"))){
+                                        idOrName = "Facebook Bot";
+                                    }else{
+                                        idOrName = allClients?.filter(c => id === c.userId)?.pop()?.userName || id.split(":").pop();
+                                    }
+
                                     return (
                                         <tr key={id} style={tableStyle}>
                                             <td><button onClick={() => {
