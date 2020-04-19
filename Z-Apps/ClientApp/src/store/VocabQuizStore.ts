@@ -87,7 +87,7 @@ export const actionCreators: IActionCreators = {
             const genre = savedAllGenres?.filter(g => g?.genreName === genreName)?.pop();
             const vocabs = savedAllVocabs?.filter(v => v?.genreId === genre?.genreId);
 
-            if (vocabs?.length > 0) {
+            if (vocabs?.length > 0 && !navigator.userAgent.includes("Googlebot")) {
                 const genreAndVocab = { vocabGenre: genre, vocabList: vocabs };
                 dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
                 setTimeout(loadVocabsFromDB, 10000);

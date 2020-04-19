@@ -41,9 +41,6 @@ class VocabList extends React.Component<Props, State> {
     constructor(props) {
         super(props);
 
-        props.loadAllGenres();
-        props.loadAllVocabs();
-
         this.state = {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -66,6 +63,9 @@ class VocabList extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        this.props.loadAllGenres();
+        this.props.loadAllVocabs();
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 this.changeScreenSize();

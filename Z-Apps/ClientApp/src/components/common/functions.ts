@@ -157,7 +157,7 @@ export function loadLocalStorageOrDB(url: string, type: string, stateName: strin
     try {
         const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
 
-        if (savedObject) {
+        if (savedObject && !navigator.userAgent.includes("Googlebot")) {
             const action = { type };
             action[stateName] = savedObject;
             dispatch(action);
