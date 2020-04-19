@@ -16,9 +16,9 @@ namespace Z_Apps.Models.SystemBase
             clientManager = new ClientManager(con);
         }
 
-        public IEnumerable<ClientOpeLog> GetOneWeekLogs()
+        public IEnumerable<ClientOpeLog> Get100DaysLogs()
         {
-            return clientOpeLogManager.GetOneWeekLogs();
+            return clientOpeLogManager.Get100DaysLogs();
         }
 
         public IEnumerable<Client> GetAllClients()

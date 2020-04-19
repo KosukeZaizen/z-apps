@@ -14,6 +14,7 @@ namespace Z_Apps.wrBatch
             while (true)
             {
                 MakeDbBackupAsync();
+                DeleteOldOpeLog();
                 await Task.Delay(1000 * 60* 60 * 24);//１日待機
             }
         }
@@ -22,6 +23,12 @@ namespace Z_Apps.wrBatch
         {
             var storageBkService = new StorageBackupService(new DBCon());
             await storageBkService.MakeBackup();
+        }
+
+        private static void DeleteOldOpeLog()
+        {
+            var service = new ClientOpeLogManager(new DBCon());
+            service.DeleteOldLogs();
         }
     }
 }

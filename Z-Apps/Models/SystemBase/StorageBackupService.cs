@@ -58,28 +58,31 @@ namespace Z_Apps.Models.SystemBase
 
             foreach (string tableName in tableNames)
             {
-                StringBuilder sb = new StringBuilder();
-                var records = dbUtil.GetAllDataFromOneTable(tableName);
-
-                foreach (string key in records[0].Keys)
+                if (tableName != "tblClientOpeLog")
                 {
-                    sb.Append(key);
-                    sb.Append("\t");
-                }
-                sb.Append("\n");
+                    StringBuilder sb = new StringBuilder();
+                    var records = dbUtil.GetAllDataFromOneTable(tableName);
 
-                foreach (var record in records)
-                {
                     foreach (string key in records[0].Keys)
                     {
-                        sb.Append(record[key].ToString());
+                        sb.Append(key);
                         sb.Append("\t");
                     }
                     sb.Append("\n");
-                }
 
-                DateTime dt = DateTime.Now;
-                await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+                    foreach (var record in records)
+                    {
+                        foreach (string key in records[0].Keys)
+                        {
+                            sb.Append(record[key].ToString());
+                            sb.Append("\t");
+                        }
+                        sb.Append("\n");
+                    }
+
+                    DateTime dt = DateTime.Now;
+                    await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+                }
             }
 
             return true;

@@ -79,8 +79,15 @@ export async function checkAppVersion() {
             sendClientOpeLog("check version", `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${userAgent}`);
             console.log("ClientVersion: " + APP_VERSION);
             console.log("ServerVersion: " + v);
+
             if (Number(v) !== APP_VERSION && !userAgent.includes("Googlebot")) {
-                window.location.reload(true);
+                const saveKey = "AppVersionCheckErrorCount";
+                const errCount: number = Number(sessionStorage.getItem(saveKey)) || 0;
+
+                if (errCount <= 5) {
+                    window.sessionStorage.setItem(saveKey, (errCount + 1).toString());
+                    window.location.reload(true);
+                }
             }
         });
     });

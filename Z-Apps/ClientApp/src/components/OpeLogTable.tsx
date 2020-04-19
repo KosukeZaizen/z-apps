@@ -49,7 +49,7 @@ export default class OpeLogTable extends React.Component<{},
                 });
             });
 
-            fetch(`api/SystemBase/GetOneWeekLogs`).then(res => {
+            fetch(`api/SystemBase/Get100DaysLogs`).then(res => {
                 res.json().then(clientOpeLogs => {
                     this.setState({ clientOpeLogs });
                 });

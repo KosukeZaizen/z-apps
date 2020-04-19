@@ -33,17 +33,17 @@ namespace Z_Apps.Models.SystemBase
             return true;
         }
 
-        public IEnumerable<ClientOpeLog> GetOneWeekLogs()
+        public IEnumerable<ClientOpeLog> Get100DaysLogs()
         {
             //SQL文作成
             string sql = $@"
- SELECT TOP (10000) time
+ SELECT time
       ,url
       ,operationName
       ,userId
       ,parameters
   FROM tblClientOpeLog
-  where time > CONVERT(date, getdate()-7)
+  where time > CONVERT(date, getdate()-100)
   and not url like '%localhost%'
   order by time desc
 ";
@@ -63,6 +63,17 @@ namespace Z_Apps.Models.SystemBase
                 result.Add(record);
             }
             return result;
+        }
+
+        public void DeleteOldLogs()
+        {
+            //SQL文作成
+            string sql = $@"
+delete from tblClientOpeLog
+  where time < CONVERT(date, getdate()-100)
+            ";
+
+            Con.ExecuteUpdate(sql, null);
         }
     }
 }
