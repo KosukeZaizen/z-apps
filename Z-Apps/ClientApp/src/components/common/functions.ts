@@ -76,7 +76,7 @@ export async function checkAppVersion() {
     fetch(url).then(res => {
         res.json().then(v => {
             const userAgent = navigator.userAgent;
-            sendClientOpeLog("check version", `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${userAgent}`);
+            sendClientOpeLog(`Came from ${document.referrer}`, `ClientVersion:${APP_VERSION} ServerVersion:${v} UserAgent:${userAgent}`);
             console.log("ClientVersion: " + APP_VERSION);
             console.log("ServerVersion: " + v);
 
