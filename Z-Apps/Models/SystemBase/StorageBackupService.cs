@@ -16,7 +16,7 @@ namespace Z_Apps.Models.SystemBase
         Task<bool> MakeBackup();
     }
 
-    public class StorageBackupService: IStorageBackupService
+    public class StorageBackupService : IStorageBackupService
     {
         private readonly CloudBlobContainer container;
         private readonly DBCon con;
@@ -53,36 +53,64 @@ namespace Z_Apps.Models.SystemBase
 
         public async Task<bool> MakeBackup()
         {
-            var dbUtil = new DB_Util(con);
-            var tableNames = dbUtil.GetAllTableNames();
-
-            foreach (string tableName in tableNames)
+            try
             {
-                if (tableName != "tblClientOpeLog")
+                var dbUtil = new DB_Util(con);
+                var tableNames = dbUtil.GetAllTableNames();
+
+                foreach (string tableName in tableNames)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    var records = dbUtil.GetAllDataFromOneTable(tableName);
-
-                    foreach (string key in records[0].Keys)
+                    try
                     {
-                        sb.Append(key);
-                        sb.Append("\t");
-                    }
-                    sb.Append("\n");
-
-                    foreach (var record in records)
-                    {
-                        foreach (string key in records[0].Keys)
+                        if (tableName != "tblClientOpeLog")
                         {
-                            sb.Append(record[key].ToString());
-                            sb.Append("\t");
-                        }
-                        sb.Append("\n");
-                    }
+                            StringBuilder sb = new StringBuilder();
+                            var records = dbUtil.GetAllDataFromOneTable(tableName);
 
-                    DateTime dt = DateTime.Now;
-                    await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+                            foreach (string key in records[0].Keys)
+                            {
+                                sb.Append(key);
+                                sb.Append("\t");
+                            }
+                            sb.Append("\n");
+
+                            foreach (var record in records)
+                            {
+                                foreach (string key in records[0].Keys)
+                                {
+                                    sb.Append(record[key].ToString());
+                                    sb.Append("\t");
+                                }
+                                sb.Append("\n");
+                            }
+
+                            DateTime dt = DateTime.Now;
+                            await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var logService = new ClientLogService(con);
+                        logService.RegisterLog(new ClientOpeLog()
+                        {
+                            url = "wrBatch",
+                            operationName = tableName + " backup error",
+                            userId = "wrBatch",
+                            parameters = "Message: " + ex.Message + " StackTrace: " + ex.StackTrace
+                        });
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                var logService = new ClientLogService(con);
+                logService.RegisterLog(new ClientOpeLog()
+                {
+                    url = "wrBatch",
+                    operationName = "error while making DB backup",
+                    userId = "wrBatch",
+                    parameters = "Message: " + ex.Message + " StackTrace: " + ex.StackTrace
+                });
             }
 
             return true;

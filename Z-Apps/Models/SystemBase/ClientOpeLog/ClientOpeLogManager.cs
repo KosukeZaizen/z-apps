@@ -7,10 +7,10 @@ namespace Z_Apps.Models.SystemBase
     public class ClientOpeLogManager
     {
         private const int logRemainingDays = 1000;
-        private readonly DBCon Con;
+        private readonly DBCon con;
         public ClientOpeLogManager(DBCon con)
         {
-            Con = con;
+            this.con = con;
         }
 
         public bool InsertLog(ClientOpeLog log)
@@ -19,7 +19,7 @@ namespace Z_Apps.Models.SystemBase
             string sql = "insert into tblClientOpeLog(time, url, operationName, userId, parameters) ";
             sql += " values (@time, @url, @operationName, @userId, @parameters) ";
 
-            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+            bool result = con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
                     { "@time", new object[2] { SqlDbType.DateTime, log.time } },
                     { "@url", new object[2] { SqlDbType.VarChar, log.url } },
                     { "@operationName", new object[2] { SqlDbType.VarChar, log.operationName } },
@@ -49,7 +49,7 @@ namespace Z_Apps.Models.SystemBase
   order by time desc
 ";
 
-            var dics = Con.ExecuteSelect(sql, null);
+            var dics = con.ExecuteSelect(sql, null);
 
             var result = new List<ClientOpeLog>();
             foreach (var dic in dics)
@@ -68,14 +68,78 @@ namespace Z_Apps.Models.SystemBase
 
         public void DeleteOldLogs()
         {
-            //SQL文作成
-            string sql = $@"
+            var logService = new ClientLogService(con);
+            try
+            {
+                //SQL文作成
+                string sql = $@"
 delete from tblClientOpeLog
   where time < CONVERT(date, getdate()-{logRemainingDays})
   or url like '%localhost%'
             ";
 
-            Con.ExecuteUpdate(sql, null);
+                con.ExecuteUpdate(sql, null);
+
+                logService.RegisterLog(new ClientOpeLog()
+                {
+                    url = "wrBatch",
+                    operationName = "finish to delete old OpeLog",
+                    userId = "wrBatch"
+                });
+            }
+            catch (Exception ex)
+            {
+                logService.RegisterLog(new ClientOpeLog()
+                {
+                    url = "wrBatch",
+                    operationName = " DeleteOldLogs error",
+                    userId = "wrBatch",
+                    parameters = "Message: " + ex.Message + " StackTrace: " + ex.StackTrace
+                });
+            }
         }
+
+        public void DeleteAdminLogs()
+        {
+            var logService = new ClientLogService(con);
+            try
+            {
+                var clientManager = new ClientManager(con);
+                var allClients = clientManager.GetAllClients();
+
+                foreach (var client in allClients)
+                {
+                    if (client.isAdmin == true)
+                    {
+                        string sql = $@"
+delete from tblClientOpeLog
+  where userId like @userId
+  ";
+
+                        con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                            { "@userId", new object[2] { SqlDbType.VarChar, client.userId } },
+                        });
+                    }
+                }
+                
+                logService.RegisterLog(new ClientOpeLog()
+                {
+                    url = "wrBatch",
+                    operationName = "finish to delete Admin OpeLog",
+                    userId = "wrBatch"
+                });
+            }
+            catch (Exception ex)
+            {
+                logService.RegisterLog(new ClientOpeLog()
+                {
+                    url = "wrBatch",
+                    operationName = " DeleteOldLogs error",
+                    userId = "wrBatch",
+                    parameters = "Message: " + ex.Message + " StackTrace: " + ex.StackTrace
+                });
+            }
+        }
+
     }
 }
