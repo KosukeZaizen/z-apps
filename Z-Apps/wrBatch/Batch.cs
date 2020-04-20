@@ -21,14 +21,34 @@ namespace Z_Apps.wrBatch
 
         private static async void MakeDbBackupAsync()
         {
-            var storageBkService = new StorageBackupService(new DBCon());
+            var con = new DBCon();
+            var logService = new ClientLogService(con);
+
+            var storageBkService = new StorageBackupService(con);
             await storageBkService.MakeBackup();
+
+            logService.RegisterLog(new ClientOpeLog()
+            {
+                url = "wrBatch",
+                operationName = "finish to make DB backup",
+                userId = "wrBatch"
+            });
         }
 
         private static void DeleteOldOpeLog()
         {
-            var service = new ClientOpeLogManager(new DBCon());
+            var con = new DBCon();
+            var logService = new ClientLogService(con);
+
+            var service = new ClientOpeLogManager(con);
             service.DeleteOldLogs();
+
+            logService.RegisterLog(new ClientOpeLog()
+            {
+                url = "wrBatch",
+                operationName = "finish to delete old OpeLog",
+                userId = "wrBatch"
+            });
         }
     }
 }

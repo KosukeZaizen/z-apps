@@ -235,6 +235,15 @@ namespace Z_Apps
                                     "<body>Content for SNS bot</body>";
                         }
                         logger.LogWarning(resultHTML);
+
+                        var clientLogService = new ClientLogService(con);
+                        clientLogService.RegisterLog(new ClientOpeLog()
+                        {
+                            url = url,
+                            operationName = "get OGP setting",
+                            userId = "Facebook Bot"
+                        });
+
                         await context.Response.WriteAsync(resultHTML);
                     }
                 }

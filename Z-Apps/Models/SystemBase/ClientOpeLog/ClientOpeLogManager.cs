@@ -6,6 +6,7 @@ namespace Z_Apps.Models.SystemBase
 {
     public class ClientOpeLogManager
     {
+        private const int logRemainingDays = 1000;
         private readonly DBCon Con;
         public ClientOpeLogManager(DBCon con)
         {
@@ -33,7 +34,7 @@ namespace Z_Apps.Models.SystemBase
             return true;
         }
 
-        public IEnumerable<ClientOpeLog> Get100DaysLogs()
+        public IEnumerable<ClientOpeLog> GetOpeLogs()
         {
             //SQL文作成
             string sql = $@"
@@ -43,7 +44,7 @@ namespace Z_Apps.Models.SystemBase
       ,userId
       ,parameters
   FROM tblClientOpeLog
-  where time > CONVERT(date, getdate()-100)
+  where time > CONVERT(date, getdate()-{logRemainingDays})
   and not url like '%localhost%'
   order by time desc
 ";
@@ -70,7 +71,8 @@ namespace Z_Apps.Models.SystemBase
             //SQL文作成
             string sql = $@"
 delete from tblClientOpeLog
-  where time < CONVERT(date, getdate()-100)
+  where time < CONVERT(date, getdate()-{logRemainingDays})
+  or url like '%localhost%'
             ";
 
             Con.ExecuteUpdate(sql, null);

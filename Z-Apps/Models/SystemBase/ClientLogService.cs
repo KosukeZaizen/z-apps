@@ -16,9 +16,9 @@ namespace Z_Apps.Models.SystemBase
             clientManager = new ClientManager(con);
         }
 
-        public IEnumerable<ClientOpeLog> Get100DaysLogs()
+        public IEnumerable<ClientOpeLog> GetOpeLogs()
         {
-            return clientOpeLogManager.Get100DaysLogs();
+            return clientOpeLogManager.GetOpeLogs();
         }
 
         public IEnumerable<Client> GetAllClients()
@@ -30,6 +30,8 @@ namespace Z_Apps.Models.SystemBase
         {
             TimeZoneInfo jstZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
             log.time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, jstZoneInfo);
+
+            if (log.parameters == null) { log.parameters = ""; }
 
             clientOpeLogManager.InsertLog(log);
         }

@@ -15,9 +15,9 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<ClientOpeLog> Get100DaysLogs()
+        public IEnumerable<ClientOpeLog> GetOpeLogs()
         {
-            return clientLogService.Get100DaysLogs();
+            return clientLogService.GetOpeLogs();
         }
 
         [HttpGet("[action]")]
