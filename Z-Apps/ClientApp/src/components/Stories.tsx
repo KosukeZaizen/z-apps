@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
+import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import * as storiesStore from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -405,7 +406,16 @@ class Stories extends React.Component<Props, State> {
                     >
                         All folktales >>
                     </Link>
-                    <br /><br />
+                    <br />
+                    <hr />
+                    <Link to="/vocabulary-list">
+                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                            <CardTitle>Japanese Vocabulary List</CardTitle>
+                            <CardText>Japanese Vocabulary List!<br />Try to memorize all the vocabulary using the quizzes!</CardText>
+                            <Button color="secondary">Try!</Button>
+                        </Card>
+                    </Link>
+                    <hr />
                     <FB />
                     <br />
                     <GoogleAd />

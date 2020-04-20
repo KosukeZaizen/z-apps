@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
 import { actionCreators } from '../store/StoriesTopStore';
+import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FB from './parts/FaceBook';
@@ -190,6 +191,15 @@ class StoriesTop extends React.Component {
                             )
                         }
                     </div>
+                    <hr />
+                    <Link to="/vocabulary-list">
+                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                            <CardTitle>Japanese Vocabulary List</CardTitle>
+                            <CardText>Japanese Vocabulary List!<br />Try to memorize all the vocabulary using the quizzes!</CardText>
+                            <Button color="secondary">Try!</Button>
+                        </Card>
+                    </Link>
+                    <hr />
                 </div>
                 <FB />
                 <br />
