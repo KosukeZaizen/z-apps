@@ -9,13 +9,13 @@ namespace Z_Apps.wrBatch
     {
         public static async void runAsync()
         {
-            await Task.Delay(1000 * 60 * 2);//デプロイ直後２分待機
+            await Task.Delay(1000 * 60 * 60 * 5);//デプロイ後５時間待機
 
             while (true)
             {
                 MakeDbBackupAsync();
                 DeleteOpeLogs();
-                await Task.Delay(1000 * 60* 60 * 24);//１日待機
+                await Task.Delay(1000 * 60 * 60 * 24);//１日待機
             }
         }
 
