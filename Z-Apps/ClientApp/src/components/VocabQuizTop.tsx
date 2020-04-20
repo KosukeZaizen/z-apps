@@ -29,8 +29,6 @@ class VocabQuizTop extends React.Component<Props, State> {
     constructor(props) {
         super(props);
 
-        props.loadAllGenres();
-
         this.state = {
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
@@ -53,6 +51,8 @@ class VocabQuizTop extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        this.props.loadAllGenres();
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 this.changeScreenSize();
