@@ -498,6 +498,16 @@ class Page2 extends React.Component<{
                 <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{vocabToBeAsked.hiragana}</p>
                 {buttons}
                 <br />
+                <p
+                    style={{ color: "#007bff" }}
+                    onClick={() => {
+                        const sure = window.confirm("Your progress will not be saved.\nAre you sure you want to return?");
+                        if (sure) {
+                            changePage(1);
+                        }
+                    }}
+                >Return to the vocabulary list >></p>
+                <br />
             </div>
         } else {
             //Correct,Incorrect

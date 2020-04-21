@@ -65,7 +65,7 @@ namespace Z_Apps.Models
         public bool ExecuteUpdate(string sql, Dictionary<string, object[]> dicParams)
         {
             using (var connection = new SqlConnection(PrivateConsts.CONNECTION_STRING))
-            using (var command = new SqlCommand(sql, connection))
+            using (var command = new SqlCommand("SET ANSI_WARNINGS OFF; " + sql, connection))
             {
                 try
                 {

@@ -143,31 +143,28 @@ export function reloadAndRedirect_OneTimeReload(saveKey: string) {
 export function loadLocalStorageOrDB(url: string, type: string, stateName: string, fileName: string, dispatch) {
     const saveKey = fileName + stateName;
 
-    const loadData = async (url: string, type: string, stateName: string) => {
-        const res = await fetch(url);
-        const objResult = await res.json();
+    const loadData = (url: string, type: string, stateName: string) => {
+        fetch(url).then(res => {
+            res.json().then(objResult => {
 
-        window.localStorage.setItem(saveKey, JSON.stringify(objResult));
+                const action = { type };
+                action[stateName] = objResult;
+                dispatch(action);
 
-        const action = { type };
-        action[stateName] = objResult;
-        dispatch(action);
+                window.localStorage.setItem(saveKey, JSON.stringify(objResult));
+            });
+        });
     }
 
     try {
         const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
 
-        if (savedObject && !navigator.userAgent.includes("Googlebot")) {
+        if (savedObject) {
             const action = { type };
             action[stateName] = savedObject;
             dispatch(action);
-
-            setTimeout(() => {
-                loadData(url, type, stateName);
-            }, 10000);
-        } else {
-            loadData(url, type, stateName);
         }
+        loadData(url, type, stateName);
     } catch (e) {
         reloadAndRedirect_OneTimeReload("db-access-error-time");
     }
