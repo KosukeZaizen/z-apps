@@ -520,6 +520,7 @@ class Page2 extends React.Component<{
                         }
                     }}
                 >Return to Kanji List >></p>
+                <br />
             </div>
         } else {
             //Correct,Incorrect
