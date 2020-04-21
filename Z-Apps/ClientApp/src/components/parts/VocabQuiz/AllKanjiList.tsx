@@ -59,7 +59,7 @@ export default class AllKanjiList extends React.Component<{
                                             <TableCell style={tableElementStyle} align="center">
                                                 <Link to={`/kanji-quiz/${g.genreName}`}>
                                                     <button className="btn btn-primary">
-                                                        {"Try the quiz"}
+                                                        {"Try Kanji Quiz"}
                                                     </button>
                                                 </Link>
                                             </TableCell>

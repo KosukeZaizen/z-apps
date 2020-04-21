@@ -59,7 +59,7 @@ export default class AllVocabList extends React.Component<{
                                             <TableCell style={tableElementStyle} align="center">
                                                 <Link to={`/vocabulary-quiz/${g.genreName}`}>
                                                     <button className="btn btn-primary">
-                                                        {"Try the quiz"}
+                                                        {"Try Vocab Quiz"}
                                                     </button>
                                                 </Link>
                                             </TableCell>
