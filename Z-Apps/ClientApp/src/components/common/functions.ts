@@ -146,11 +146,12 @@ export function loadLocalStorageOrDB(url: string, type: string, stateName: strin
     const loadData = (url: string, type: string, stateName: string) => {
         fetch(url).then(res => {
             res.json().then(objResult => {
-                window.localStorage.setItem(saveKey, JSON.stringify(objResult));
 
                 const action = { type };
                 action[stateName] = objResult;
                 dispatch(action);
+
+                window.localStorage.setItem(saveKey, JSON.stringify(objResult));
             });
         });
     }
