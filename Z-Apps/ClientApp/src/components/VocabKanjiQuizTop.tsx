@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
-import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import AllKanjiList from './parts/VocabQuiz/AllKanjiList';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';

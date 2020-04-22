@@ -1,28 +1,20 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
-import * as vocabStore from '../store/VocabQuizStore';
-import './parts/PleaseScrollDown.css';
-import AllVocabList from './parts/VocabQuiz/AllVocabList';
-import CharacterComment from './parts/VocabQuiz/CharacterComment';
-import Head from './parts/Helmet';
-import GoogleAd from './parts/GoogleAd';
+import './parts/KanaQuiz/KanaQuiz.css';
 import FB from './parts/FaceBook';
+import GoogleAd from './parts/GoogleAd';
+import Head from './parts/Helmet';
+import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import PleaseScrollDown from './parts/PleaseScrollDown';
+import { Button } from 'reactstrap';
 
-type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
-    location: { pathname: string };
-};
-type State = {
+type TState = {
     screenWidth: number;
     screenHeight: number;
     pleaseScrollDown: boolean;
     imgNumber: number;
 };
-
-class VocabQuizTop extends React.Component<Props, State> {
+class HiraganaAndKatakana extends React.Component<{}, TState> {
     ref: React.RefObject<HTMLHeadingElement>;
 
     constructor(props) {
@@ -49,16 +41,6 @@ class VocabQuizTop extends React.Component<Props, State> {
         this.ref = React.createRef();
     }
 
-    componentDidMount() {
-        this.props.loadAllGenres();
-
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                this.changeScreenSize();
-            }, i * 1000);
-        }
-    }
-
     changeScreenSize = () => {
         if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
             this.setState({
@@ -72,21 +54,21 @@ class VocabQuizTop extends React.Component<Props, State> {
         const today = new Date();
         const todayNumber = (today.getMonth() + today.getDate());
         const mod = todayNumber % 27;
-        if (mod > 13) return 2;
-        if (mod > 5) return 3;
-        return 1;
+        if (mod > 20) return 1;
+        if (mod > 8) return 2;
+        return 3;
     }
 
     render() {
-        const { allGenres } = this.props;
         const { screenWidth, imgNumber } = this.state;
+
         return (
-            <div className="center">
+            <div className="kana-quiz center">
                 <Head
-                    title="Japanese Vocabulary Quiz"
-                    desc={"Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!"}
+                    title="Hiragana / Katakana Quiz"
+                    desc="Free app to remember Japanese Hiragana and Katakana characters! Try to get a perfect score on all the quizzes!"
                 />
-                <div style={{ maxWidth: 700 }}>
+                <div style={{ maxWidth: "700px" }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
@@ -99,7 +81,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                         {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                {"Japanese Vocabulary Quiz"}
+                                {"Hiragana and Katakana"}
                             </span>
                             <meta itemProp="position" content="2" />
                         </span>
@@ -108,51 +90,67 @@ class VocabQuizTop extends React.Component<Props, State> {
                         id="h1title"
                         style={{
                             margin: "25px",
-                            lineHeight: screenWidth > 500 ? "45px" : "40px",
+                            lineHeight: "45px",
                             fontWeight: "bold",
                         }}
                     >
-                        {"Japanese Vocabulary Quiz"}
+                        {"Hiragana and Katakana"}
                     </h1>
                     <br />
                     <CharacterComment
                         imgNumber={imgNumber}
                         screenWidth={screenWidth}
-                        comment="Try to get a perfect score on all the quizzes!"
+                        comment={["Free app to remember Japanese Hiragana and Katakana characters!", <br />, "Try to get a perfect score on all the quizzes!"]}
                     />
                     <br />
-                    <AllVocabList
-                        allGenres={allGenres}
-                        criteriaRef={this.ref}
-                    />
+
+                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                        <h2 ref={this.ref}>Hiragana Quiz</h2>
+                        <div style={{ margin: "10px" }}>Hiragana is the most basic type of character in Japanese language!<br />Let's test your memory of Hiragana!</div>
+                        <Link to="/hiragana-quiz">
+                            <Button style={{ margin: 5 }} color="primary">Hiragana Quiz</Button>
+                        </Link>
+                        <a href="https://www.lingual-ninja.com/2018/07/hiragana-list.html">
+                            <Button style={{ margin: 5 }} color="primary">Hiragana Chart</Button>
+                        </a>
+                    </div>
                     <hr />
+                    
+                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
+                        <h2>Katakana Quiz</h2>
+                        <div style={{ margin: "10px" }}>Katakana is almost same as Hiragana!<br />Try to get a perfect score!</div>
+                        <Link to="/katakana-quiz">
+                            <Button style={{ margin: 5 }} color="success">Katakana Quiz</Button>
+                        </Link>
+                        <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
+                            <Button style={{ margin: 5 }} color="success">Katakana Chart</Button>
+                        </a>
+                    </div>
+                    <hr />
+
                     <Link to="/vocabulary-list">
                         <button
-                            className="btn btn-primary btn-lg btn-block"
+                            className="btn btn-dark btn-lg btn-block"
                         >
-                            {"Checke All Vocabulary Lists"}
+                            {"Japanese Vocabulary List"}
                         </button>
                     </Link>
                     <hr />
-                    <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
-                    </div>
-                    <br />
-                    <FB />
-                    <br />
-                    <GoogleAd />
-                    <PleaseScrollDown
+                </div>
+                <div style={{ fontSize: "x-large", margin: "20px" }}>
+                    <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                </div>
+                <br />
+                <FB />
+                <br />
+                <GoogleAd />
+                <PleaseScrollDown
                         criteriaRef={this.ref}
                         screenWidth={screenWidth}
                         targetId="h1title"
                     />
-                </div>
             </div>
         );
     }
-};
-
-export default connect(
-    (state: TReducers) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators as any, dispatch)
-)(VocabQuizTop);
+}
+export default HiraganaAndKatakana;

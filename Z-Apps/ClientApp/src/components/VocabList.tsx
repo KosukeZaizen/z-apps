@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
-import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';
 import Head from './parts/Helmet';
