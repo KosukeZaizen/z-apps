@@ -118,7 +118,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                     
                     <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                         <h2>Katakana Quiz</h2>
-                        <div style={{ margin: "10px" }}>Katakana is almost same as Hiragana!<br />Try to get a perfect score!</div>
+                        <div style={{ margin: "10px" }}>Katakana is similar to Hiragana!<br />Try to get a perfect score!</div>
                         <Link to="/katakana-quiz">
                             <Button style={{ margin: 5 }} color="success">Katakana Quiz</Button>
                         </Link>
