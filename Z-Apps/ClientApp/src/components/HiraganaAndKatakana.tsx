@@ -106,7 +106,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
 
                     <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                         <h2 ref={this.ref}>Hiragana Quiz</h2>
-                        <div style={{ margin: "10px" }}>Hiragana is the most basic type of character in Japanese language!<br />Let's test your memory of Hiragana!</div>
+                        <div style={{ margin: "10px" }}>Hiragana is the most basic character in the Japanese language!<br />Let's test your memory of Hiragana!</div>
                         <Link to="/hiragana-quiz">
                             <Button style={{ margin: 5 }} color="primary">Hiragana Quiz</Button>
                         </Link>
