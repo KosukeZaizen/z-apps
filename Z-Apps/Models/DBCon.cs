@@ -43,7 +43,8 @@ namespace Z_Apps.Models
                         var record = new Dictionary<string, Object>();
                         for (int i = 0; i < sdr.FieldCount; i++)
                         {
-                            record.Add(sdr.GetName(i), sdr.GetValue(i));
+                            var value = sdr.GetValue(i);
+                            record.Add(sdr.GetName(i), DBNull.Value.Equals(value) ? null : value);
                         }
                         records.Add(record);
                     }

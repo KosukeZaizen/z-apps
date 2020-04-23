@@ -2,6 +2,7 @@ export type storyDesc = {
     storyId: number;
     storyName: string;
     description: string;
+    order?: number;
 };
 export type sentence = {
     lineNumber: number;

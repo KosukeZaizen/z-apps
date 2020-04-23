@@ -11,16 +11,13 @@ import FB from './parts/FaceBook';
 import GoogleAd from './parts/GoogleAd';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
+import { storyDesc } from '../types/stories';
 
 class StoriesTop extends React.Component {
     ref: React.RefObject<HTMLDivElement>;
     props: {
         loadAllStories: () => void,
-        allStories: {
-            storyName: string,
-            storyId: number,
-            description: string,
-        }[],
+        allStories: storyDesc[],
     };
     state: {screenWidth: number};
 
@@ -110,7 +107,7 @@ class StoriesTop extends React.Component {
                     }
                     <div id="scrollTargetId" ref={this.ref}>
                         {
-                            allStories && allStories.map(s => {
+                            allStories && allStories.sort((a, b) => a.order - b.order).map(s => {
                                 const nameForUrl = s.storyName;
                                 const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
 

@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Z_Apps.Models.Stories.Stories
 {
@@ -33,6 +29,7 @@ namespace Z_Apps.Models.Stories.Stories
                 story.StoryId = (int)dicStory["StoryId"];
                 story.StoryName = (string)dicStory["StoryName"];
                 story.Description = (string)dicStory["Description"];
+                story.Order = (int?)dicStory["Order"];
 
                 resultStories.Add(story);
             }
