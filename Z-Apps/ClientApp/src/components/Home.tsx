@@ -33,8 +33,8 @@ export default class Home extends React.Component {
                     <div ref={this.ref} id="scrollTargetId">
                         <Link to="/hiragana-katakana">
                             <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
-                                <CardTitle>Hiragana / Katakana Quiz</CardTitle>
-                                <CardText>An app to remember Hiragana and Katakana! I hope this will help you to study.</CardText>
+                                <CardTitle>Hiragana / Katakana</CardTitle>
+                                <CardText>An app to remember Hiragana and Katakana! Let's test your memory of Hiragana and Katakana!</CardText>
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>

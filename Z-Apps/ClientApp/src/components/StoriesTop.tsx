@@ -107,7 +107,15 @@ class StoriesTop extends React.Component {
                     }
                     <div id="scrollTargetId" ref={this.ref}>
                         {
-                            allStories && allStories.sort((a, b) => a.order - b.order).map(s => {
+                            allStories && allStories.sort((a, b) => {
+                                if (!a.order) {
+                                    return 1;
+                                }else if (!b.order) {
+                                    return -1;
+                                } else {
+                                    return (a.order - b.order);
+                                }
+                            }).map(s => {
                                 const nameForUrl = s.storyName;
                                 const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
 
