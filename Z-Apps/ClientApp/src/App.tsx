@@ -13,6 +13,7 @@ const Terms = lazy(() => import('./components/Terms'));
 const Developer = lazy(() => import('./components/Developer'));
 const RomajiConverter = lazy(() => import('./components/RomajiConverter'));
 const KanjiConverter = lazy(() => import('./components/KanjiConverter'));
+const HiraganaAndKatakana = lazy(() => import('./components/HiraganaAndKatakana'));
 const HiraganaQuiz = lazy(() => import('./components/HiraganaQuiz'));
 const KatakanaQuiz = lazy(() => import('./components/KatakanaQuiz'));
 const VocabList = lazy(() => import('./components/VocabList'));
@@ -57,6 +58,7 @@ export default class App extends React.Component {
                         <Route sensitive path='/developer' component={Developer} />
                         <Route sensitive path='/kanji-converter' component={KanjiConverter} />
                         <Route sensitive path='/romaji-converter' component={RomajiConverter} />
+                        <Route sensitive path='/hiragana-katakana' component={HiraganaAndKatakana} />
                         <Route sensitive path='/hiragana-quiz' component={HiraganaQuiz} />
                         <Route sensitive path='/katakana-quiz' component={KatakanaQuiz} />
                         <Route sensitive exact path='/vocabulary-list' component={VocabList} />

@@ -12,7 +12,7 @@ class NavigationItems extends React.Component {
 
     render() {
         let objLinks = {
-            "Hiragana / Katakana Quiz": "/hiragana-quiz",
+            "Hiragana / Katakana": "/hiragana-katakana",
             "Vocabulary List": "/vocabulary-list",
             "Vocabulary Quiz": "/vocabulary-quiz",
             "Kanji Quiz": "/kanji-quiz",

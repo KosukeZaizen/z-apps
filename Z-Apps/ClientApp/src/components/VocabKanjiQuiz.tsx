@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import '../css/VocabQuiz.css';
 import './parts/PleaseScrollDown.css';
 import AllKanjiList from './parts/VocabQuiz/AllKanjiList';
 import AllVocabList from './parts/VocabQuiz/AllVocabList';

@@ -37,6 +37,33 @@ class KatakanaQuiz extends React.Component {
                     title="Katakana Quiz"
                     desc="An app to remember Katakana! I hope this will help you to study!"
                 />
+                <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left", maxWidth: "600px" }}>
+                    <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                        <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="name">
+                                {"Home"}
+                            </span>
+                        </Link>
+                        <meta itemProp="position" content="1" />
+                    </span>
+                    {" > "}
+                    <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                        <Link to="/hiragana-katakana" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            <span itemProp="name">
+                                {"Hiragana and Katakana"}
+                            </span>
+                            <meta itemProp="position" content="2" />
+                        </Link>
+                    </span>
+                    {" > "}
+                    <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
+                        <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                            {"Katakana Quiz"}
+                        </span>
+                        <meta itemProp="position" content="3" />
+                    </span>
+                </div>
+                <hr style={{ maxWidth: "600px" }} />
                 <QuizCore
                     consts={this.consts}
                 />
