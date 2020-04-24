@@ -114,7 +114,7 @@ namespace Z_Apps
                                 "<meta property='og:type' content='website'>" + Environment.NewLine +
                                 "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
                                 "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
-                                "<meta property='og:description' content='Applications to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
+                                "<meta property='og:description' content='Free app to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
                                 "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
                                 "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                 "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
@@ -227,7 +227,7 @@ namespace Z_Apps
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='og:description' content='Applications to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Free app to learn Japanese! You can study Japanese from Japanese folktales!'>" + Environment.NewLine +
                                     "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
                                     "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
