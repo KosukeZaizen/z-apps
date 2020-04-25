@@ -6,7 +6,7 @@ namespace Z_Apps.Models.SystemBase
 {
     public class ClientOpeLogManager
     {
-        private const int logRemainingDays = 400;
+        private const int logRemainingDays = 1000;
         private readonly DBCon con;
         public ClientOpeLogManager(DBCon con)
         {
