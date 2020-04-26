@@ -72,7 +72,7 @@ export function sendClientOpeLog(operationName: string, parameters: string = "")
 }
 
 export async function checkAppVersion() {
-    const url = 'version.txt';
+    const url = `version.txt?v=${new Date().getDate()}`;
     fetch(url).then(res => {
         res.json().then(v => {
             const userAgent = navigator.userAgent;
@@ -159,7 +159,7 @@ export function loadLocalStorageOrDB(url: string, type: string, stateName: strin
     try {
         const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
 
-        if (savedObject) {
+        if (savedObject && !navigator.userAgent.includes("Googlebot")) {
             const action = { type };
             action[stateName] = savedObject;
             dispatch(action);

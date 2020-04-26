@@ -36,7 +36,7 @@ export interface IActionCreators {
 export const actionCreators: IActionCreators = {
     loadAllGenres: () => (dispatch, getState) => {
         loadLocalStorageOrDB(
-            `api/VocabQuiz/GetAllGenres`,
+            `api/VocabQuiz/GetAllGenres?v=${new Date().getDate()}`,
             receiveAllGenresType,
             "allGenres",
             fileName,
@@ -45,7 +45,7 @@ export const actionCreators: IActionCreators = {
     },
     loadAllVocabs: () => (dispatch, getState) => {
         loadLocalStorageOrDB(
-            `api/VocabQuiz/GetAllVocabs`,
+            `api/VocabQuiz/GetAllVocabs?v=${new Date().getDate()}`,
             receiveAllVocabsType,
             "allVocabs",
             fileName,
@@ -88,7 +88,7 @@ export const actionCreators: IActionCreators = {
             const genre = savedAllGenres?.filter(g => g?.genreName === genreName)?.pop();
             const vocabs = savedAllVocabs?.filter(v => v?.genreId === genre?.genreId);
 
-            if (vocabs?.length > 0) {
+            if (vocabs?.length > 0 && !navigator.userAgent.includes("Googlebot")) {
                 const genreAndVocab = { vocabGenre: genre, vocabList: vocabs };
                 dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
             }
