@@ -4,7 +4,7 @@ const initialState = { allStories: [] };
 export const actionCreators = {
     loadAllStories: () => async (dispatch) => {
         try {
-            const url = `api/Stories/GetAllStories`;
+            const url = `api/Stories/GetAllStories?v=${new Date().getDate()}`;
             const response = await fetch(url);
             const allStories = await response.json();
 
