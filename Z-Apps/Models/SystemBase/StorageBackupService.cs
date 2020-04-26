@@ -67,7 +67,7 @@ namespace Z_Apps.Models.SystemBase
                             StringBuilder sb = new StringBuilder();
                             var records = dbUtil.GetAllDataFromOneTable(tableName);
 
-                            foreach (string key in records[0].Keys)
+                            foreach (string key in records[0]?.Keys)
                             {
                                 sb.Append(key);
                                 sb.Append("\t");
@@ -76,9 +76,9 @@ namespace Z_Apps.Models.SystemBase
 
                             foreach (var record in records)
                             {
-                                foreach (string key in records[0].Keys)
+                                foreach (string key in records[0]?.Keys)
                                 {
-                                    sb.Append(record[key].ToString());
+                                    sb.Append(record[key]?.ToString());
                                     sb.Append("\t");
                                 }
                                 sb.Append("\n");

@@ -217,9 +217,9 @@ class ChildInput extends React.Component<{
 
 
 //ローマ字出力エリア
-class Child extends React.Component<{ 
+class Child extends React.Component<{
     textVal: string;
- }> {
+}> {
 
     render() {
         var lines = this.props.textVal.split('\n').map(function (line, index) {
