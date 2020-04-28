@@ -39,7 +39,7 @@ export const TwitterShareBtn = (props: TTWProps) => {
 
     return (
         <a
-            href={`https://twitter.com/share?url=${urlToShare}&text=${textToShare}\n`}
+            href={`https://twitter.com/share?url=${urlToShare}&text=${textToShare}&hashtags=LingualNinja,Japanese,nihongo`}
             rel="nofollow"
             target="_blank"
         >
