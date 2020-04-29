@@ -130,7 +130,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                         <button
                             className="btn btn-primary btn-lg btn-block"
                         >
-                            {"Checke All Vocabulary Lists"}
+                            {"Check All Vocabulary Lists"}
                         </button>
                     </Link>
                     <hr />

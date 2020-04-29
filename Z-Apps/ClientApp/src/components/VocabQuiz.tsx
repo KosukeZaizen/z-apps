@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Card, Button, CardTitle } from 'reactstrap';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -232,7 +233,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         <button
                             className="btn btn-primary btn-lg btn-block"
                         >
-                            {"Checke All Vocabulary Lists"}
+                            {"Check All Vocabulary Lists"}
                         </button>
                     </Link>
                     <hr />
@@ -357,7 +358,7 @@ class Speaker extends React.Component<{
         const { vocabSound } = this.props;
         return showImg ?
             <img
-                alt="vocabluary speaker"
+                alt="vocabulary speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                 style={{ width: "60%", maxWidth: 30 }}
                 onClick={() => { vocabSound && vocabSound.play(); }}
@@ -540,7 +541,7 @@ class Page2 extends React.Component<{
                                     {
                                         vocabSounds[vocabToShow.vocabId] ?
                                             <img
-                                                alt="vocabluary speaker"
+                                                alt="vocabulary speaker"
                                                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                 style={{ width: "60%", maxWidth: 30 }}
                                                 onClick={() => { vocabSounds[vocabToShow.vocabId] && vocabSounds[vocabToShow.vocabId].play(); }}
@@ -613,8 +614,8 @@ function Page3(props: TPage3Props) {
     const incorrectIds = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${vocabGenre.genreId}`));
 
     const [didSendOpeLog, setDidSendOpeLog] = useState(false);
-    setTimeout(() => { 
-        if(!window.location.href.includes(vocabGenre.genreName)) return;
+    setTimeout(() => {
+        if (!window.location.href.includes(vocabGenre.genreName)) return;
         didSendOpeLog || sendClientOpeLog("finish vocab quiz", `percentage: ${percentage}%`);
         setDidSendOpeLog(true);
     }, 1000);
@@ -648,16 +649,16 @@ function Page3(props: TPage3Props) {
         <>
             <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Your score is:</p>
             <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{percentage} %</p>
-            <FBShareBtn 
+            <FBShareBtn
                 urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
                 style={shareButtonStyle}
             />
             <br />
-            <TwitterShareBtn 
+            <TwitterShareBtn
                 urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
                 textToShare={`I got ${percentage}％ on the Japanese vocabulary quiz for ${titleToShowUpper}!`}
                 style={shareButtonStyle}
-            /> 
+            />
             <br />
             <br />
             {incorrectIds && incorrectIds.length > 0 &&
@@ -684,7 +685,7 @@ function Page3(props: TPage3Props) {
                                             <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">
                                                 <img
-                                                    alt="vocabluary speaker"
+                                                    alt="vocabulary speaker"
                                                     src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                                                     style={{ width: "60%", maxWidth: 30 }}
                                                     onClick={() => { vocabSounds[v.vocabId] && vocabSounds[v.vocabId].play(); }}
@@ -703,8 +704,15 @@ function Page3(props: TPage3Props) {
                 onClick={() => { changePage(2) }}
                 className="btn btn-primary btn-lg btn-block"
             >
-                Retry
+                {"Retry"}
             </button>
+            <hr />
+            <Link to={`/kanji-quiz/${vocabGenre.genreName}`}>
+                <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                    <CardTitle>Learn Kanji characters for {titleToShowUpper}</CardTitle>
+                    <Button color="secondary">Try Kanji Quiz</Button>
+                </Card>
+            </Link>
         </>
     );
 }

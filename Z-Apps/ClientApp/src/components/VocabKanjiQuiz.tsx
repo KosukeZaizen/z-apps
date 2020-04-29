@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Card, Button, CardTitle } from 'reactstrap';
 import { TReducers } from '../store/configureStore';
 import * as vocabStore from '../store/VocabQuizStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -232,7 +233,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         <button
                             className="btn btn-primary btn-lg btn-block"
                         >
-                            {"Checke All Vocabulary Lists"}
+                            {"Check All Vocabulary Lists"}
                         </button>
                     </Link>
                     <hr />
@@ -717,13 +718,18 @@ function Page3(props: TPage3Props) {
                 onClick={() => { changePage(2) }}
                 className="btn btn-primary btn-lg btn-block"
             >
-                Retry
+                {"Retry"}
             </button>
+            <hr />
+            <Link to={`/vocabulary-quiz/${vocabGenre.genreName}`}>
+                <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                    <CardTitle>Learn the meaning of the vocabulary for {titleToShowUpper}</CardTitle>
+                    <Button color="secondary">Try Vocab Quiz</Button>
+                </Card>
+            </Link>
         </>
     );
 }
-
-
 
 export default connect(
     (state: TReducers) => state.vocabQuiz,
