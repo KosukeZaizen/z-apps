@@ -200,7 +200,7 @@ class StoriesTop extends React.Component {
                     <Link to="/vocabulary-list">
                         <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                             <CardTitle>Japanese Vocabulary List</CardTitle>
-                            <CardText>Japanese Vocabulary List!<br />Try to memorize all the vocabulary using the quizzes!</CardText>
+                            <CardText>Basic Japanese Vocabulary List!<br />Try to memorize all the vocabulary by using the quizzes!</CardText>
                             <Button color="secondary">Try!</Button>
                         </Card>
                     </Link>
