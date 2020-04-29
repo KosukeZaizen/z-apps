@@ -45,7 +45,7 @@ export default class Boscobel extends React.Component {
         const file = target.files.item(0);
         if (imageType === this.consts.background) {
             this.setState({ background: file });
-        } else if (imageType === this.consts.top){
+        } else if (imageType === this.consts.top) {
             this.setState({ top: file });
         }
     }
@@ -105,7 +105,7 @@ export default class Boscobel extends React.Component {
                 />
                 <div style={{ width: "100%", height: "100%", backgroundColor: "#1b181b", position: "fixed", top: 0, right: 0, zIndex: -1 }}>
                 </div>
-                <div style={{ maxWidth: 1000, color:"white" }}>
+                <div style={{ maxWidth: 1000, color: "white" }}>
                     <h1 style={{
                         margin: "30px",
                         lineHeight: "30px",
@@ -119,7 +119,7 @@ export default class Boscobel extends React.Component {
                         type="text"
                         onChange={this.handleChangePW}
                         value={this.state.pw}
-                        style={{color: "black"}}
+                        style={{ color: "black" }}
                     />
                     <br />
                     <br />

@@ -19,7 +19,7 @@ class StoriesTop extends React.Component {
         loadAllStories: () => void,
         allStories: storyDesc[],
     };
-    state: {screenWidth: number};
+    state: { screenWidth: number };
 
     constructor(props) {
         super(props);
@@ -42,7 +42,7 @@ class StoriesTop extends React.Component {
         this.ref = React.createRef();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.loadAllStories();
     }
 
@@ -110,7 +110,7 @@ class StoriesTop extends React.Component {
                             allStories && allStories.sort((a, b) => {
                                 if (!a.order) {
                                     return 1;
-                                }else if (!b.order) {
+                                } else if (!b.order) {
                                     return -1;
                                 } else {
                                     return (a.order - b.order);
@@ -135,7 +135,7 @@ class StoriesTop extends React.Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style={{width:"50%"}}>
+                                                            <td style={{ width: "50%" }}>
                                                                 <Link to={`/folktales/${nameForUrl}`}>
                                                                     <img
                                                                         src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
@@ -146,7 +146,7 @@ class StoriesTop extends React.Component {
                                                                     />
                                                                 </Link>
                                                             </td>
-                                                            <td style={{textAlign: "left"}}>
+                                                            <td style={{ textAlign: "left" }}>
                                                                 {
                                                                     s.description.split("\\n").map((d, i) =>
                                                                         <span key={i} style={{ color: "black" }}>

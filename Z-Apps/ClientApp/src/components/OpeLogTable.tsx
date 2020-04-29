@@ -64,7 +64,7 @@ export default class OpeLogTable extends React.Component<{},
         const { page, clientOpeLogs, allClients, userId } = this.state;
         const userIds = clientOpeLogs.map(log => log.userId).filter((x, i, self) => self.indexOf(x) === i);
 
-        const tableStyle= { width: "100%", border: "1px solid gray" };
+        const tableStyle = { width: "100%", border: "1px solid gray" };
 
         let content;
         if (page === 1) {
@@ -82,11 +82,11 @@ export default class OpeLogTable extends React.Component<{},
                                     const logs = clientOpeLogs?.filter(l => l.userId === id);
 
                                     let idOrName;
-                                    if(logs.some(l => l.parameters.includes("Googlebot"))){
+                                    if (logs.some(l => l.parameters.includes("Googlebot"))) {
                                         idOrName = "Google Bot";
-                                    }else if(logs.some(l => l.parameters.includes("facebookexternalhit"))){
+                                    } else if (logs.some(l => l.parameters.includes("facebookexternalhit"))) {
                                         idOrName = "Facebook Bot";
-                                    }else{
+                                    } else {
                                         idOrName = allClients?.filter(c => id === c.userId)?.pop()?.userName || id.split(":").pop();
                                     }
 
@@ -115,32 +115,32 @@ export default class OpeLogTable extends React.Component<{},
         } else if (page === 2) {
             const idOrName = allClients?.filter(c => userId === c.userId)?.pop()?.userName || userId.split(":").pop();
             content = <>
-            <h2>{idOrName}</h2>
-            <br />
-            <button style={{color: "black"}} onClick={() => this.setState({page: 1})}>return</button>
-            <br />
-            <table style={{width: "200px", border: "1px solid white", borderColor: "white"}}>
-                <tbody>
-                    <tr>
-                        <th>time</th>
-                        <th>operation</th>
-                        <th>url</th>
-                        <th>param</th>
-                    </tr>
-                    {
-                        clientOpeLogs?.filter(log => log.userId === userId).map(log => {
-                            return (
-                                <tr key={log.time.toString()}>
-                                    <td style={tableStyle}>{log.time.toString().substr(5).split(".")[0].replace("T", " ")}</td>
-                                    <td style={tableStyle}>{log.operationName}</td>
-                                    <td style={tableStyle}>{log.url.replace("https://z-apps.lingual-ninja.com","").split("/").join("/\n").split("_").join("_\n")}</td>
-                                    <td style={tableStyle}>{log.parameters}</td>
-                                </tr>
-                            );
-                        })
-                    }
-                </tbody>
-            </table>
+                <h2>{idOrName}</h2>
+                <br />
+                <button style={{ color: "black" }} onClick={() => this.setState({ page: 1 })}>return</button>
+                <br />
+                <table style={{ width: "200px", border: "1px solid white", borderColor: "white" }}>
+                    <tbody>
+                        <tr>
+                            <th>time</th>
+                            <th>operation</th>
+                            <th>url</th>
+                            <th>param</th>
+                        </tr>
+                        {
+                            clientOpeLogs?.filter(log => log.userId === userId).map(log => {
+                                return (
+                                    <tr key={log.time.toString()}>
+                                        <td style={tableStyle}>{log.time.toString().substr(5).split(".")[0].replace("T", " ")}</td>
+                                        <td style={tableStyle}>{log.operationName}</td>
+                                        <td style={tableStyle}>{log.url.replace("https://z-apps.lingual-ninja.com", "").split("/").join("/\n").split("_").join("_\n")}</td>
+                                        <td style={tableStyle}>{log.parameters}</td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
             </>;
         }
 

@@ -5,9 +5,9 @@ import Head from './parts/Helmet';
 import { isGoogleAdsDisplayed } from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 
-const logo1 =require('./parts/Ninja/img/logo.png');
-const logo2 =require('./parts/Ninja2/img/logo.png');
-const logo3 =require('./parts/Ninja3/img/logo.png');
+const logo1 = require('./parts/Ninja/img/logo.png');
+const logo2 = require('./parts/Ninja2/img/logo.png');
+const logo3 = require('./parts/Ninja3/img/logo.png');
 
 const NinjaGameTop = () => {
 

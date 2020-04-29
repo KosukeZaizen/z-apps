@@ -115,7 +115,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                         </a>
                     </div>
                     <hr />
-                    
+
                     <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
                         <h2>Katakana</h2>
                         <div style={{ margin: "10px" }}>Katakana is similar to Hiragana!<br />Try to get a perfect score!</div>
@@ -145,10 +145,10 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                 <br />
                 <GoogleAd />
                 <PleaseScrollDown
-                        criteriaRef={this.ref}
-                        screenWidth={screenWidth}
-                        targetId="h1title"
-                    />
+                    criteriaRef={this.ref}
+                    screenWidth={screenWidth}
+                    targetId="h1title"
+                />
             </div>
         );
     }

@@ -625,8 +625,8 @@ function Page3(props: TPage3Props) {
     const incorrectIds = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`));
 
     const [didSendOpeLog, setDidSendOpeLog] = useState(false);
-    setTimeout(() => { 
-        if(!window.location.href.includes(vocabGenre.genreName)) return;
+    setTimeout(() => {
+        if (!window.location.href.includes(vocabGenre.genreName)) return;
         didSendOpeLog || sendClientOpeLog("finish kanji quiz", `percentage: ${percentage}%`);
         setDidSendOpeLog(true);
     }, 1000);
@@ -660,16 +660,16 @@ function Page3(props: TPage3Props) {
         <>
             <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Your score is:</p>
             <p style={{ fontSize: "xx-large", fontWeight: "bold" }}>{percentage} %</p>
-            <FBShareBtn 
+            <FBShareBtn
                 urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
                 style={shareButtonStyle}
             />
             <br />
-            <TwitterShareBtn 
+            <TwitterShareBtn
                 urlToShare={"https://z-apps.lingual-ninja.com/vocabulary-quiz/" + vocabGenre.genreName}
                 textToShare={`I got ${percentage}％ on the Japanese Kanji Quiz for ${titleToShowUpper}!`}
                 style={shareButtonStyle}
-            /> 
+            />
             <br />
             <br />
             {incorrectIds && incorrectIds.length > 0 &&

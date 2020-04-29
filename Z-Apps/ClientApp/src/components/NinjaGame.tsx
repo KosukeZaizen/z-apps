@@ -99,7 +99,7 @@ function Pages(props) {
     if (props.state.curPage === 1) {
         return (
             <Page1
-                changePage={(i,lang) => { props.changePage(i,lang) }}
+                changePage={(i, lang) => { props.changePage(i, lang) }}
             />
         );
     } else if (props.state.curPage === 2) {

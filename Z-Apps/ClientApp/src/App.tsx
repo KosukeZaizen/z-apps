@@ -6,7 +6,7 @@ import Layout from './components/parts/Layout';
 import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
-import {APP_VERSION} from './version';
+import { APP_VERSION } from './version';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -98,8 +98,8 @@ function NotFoundRedirect() {
         res.json().then(v => {
             if (Number(v) !== APP_VERSION) {
                 window.location.reload(true);
-            }else{
-                commonFncs.reloadAndRedirect_OneTimeReload("pageNotFoundRedirect");   
+            } else {
+                commonFncs.reloadAndRedirect_OneTimeReload("pageNotFoundRedirect");
             }
         });
     });

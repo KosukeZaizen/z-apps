@@ -12,10 +12,10 @@ import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import * as consts from './common/consts';
-import {storyDesc, sentence, word} from '../types/stories';
+import { storyDesc, sentence, word } from '../types/stories';
 
-type Props = storiesStore.StoriesState & storiesStore.IActionCreators& {
-    location:{pathname: string};
+type Props = storiesStore.StoriesState & storiesStore.IActionCreators & {
+    location: { pathname: string };
     otherStories: storyDesc[];
 };
 type State = {
@@ -228,21 +228,21 @@ class Stories extends React.Component<Props, State> {
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                        <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="name">
-                                Home
-                            </span>
+                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                <span itemProp="name">
+                                    {"Home"}
+                                </span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
                         {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                        <Link to="/folktales" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            <span itemProp="name">
-                                Japanese Folktales
-                            </span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
+                            <Link to="/folktales" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                                <span itemProp="name">
+                                    {"Japanese Folktales"}
+                                </span>
+                                <meta itemProp="position" content="2" />
+                            </Link>
                         </span>
                         {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
@@ -340,7 +340,7 @@ class Stories extends React.Component<Props, State> {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style={{width:"50%"}}>
+                                                        <td style={{ width: "50%" }}>
                                                             <Link to={`/folktales/${nameForUrl}`}>
                                                                 <img
                                                                     src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
@@ -351,7 +351,7 @@ class Stories extends React.Component<Props, State> {
                                                                 />
                                                             </Link>
                                                         </td>
-                                                        <td style={{textAlign: "left"}}>
+                                                        <td style={{ textAlign: "left" }}>
                                                             {
                                                                 s.description.split("\\n").map((d, i) =>
                                                                     <span key={i} style={{ color: "black" }}>
@@ -442,87 +442,82 @@ type SentencesProps = {
     langState: State;
     audioFolder: string;
 };
-type SentencesState = {
+function Sentences(props: SentencesProps) {
 
-};
-class Sentences extends React.Component<SentencesProps, SentencesState> {
+    const { storyId, sentences, words, langState, audioFolder } = props;
+    const isLoading = !sentences || sentences.length <= 0;
 
-    render() {
-        const { storyId, sentences, words, langState, audioFolder } = this.props;
-        const isLoading = !sentences || sentences.length <= 0;
-
-        return (
-            <div style={{ textAlign: "left" }}>
-                {
-                    isLoading ?
-                        <div className="center">
-                            <CircularProgress key="circle" size="20%" />
-                        </div>
-                        :
-                        sentences && sentences.map(s =>
-                            <span key={s.lineNumber}>
-                                <table style={{ width: "100%" }}>
-                                    <tbody>
-                                        {
-                                            langState.kanji ?
-                                                <tr style={{ backgroundColor: "#fff0f2" }}>
-                                                    <td><b>Ｋ:　</b></td>
-                                                    <td>{s.kanji}</td>
-                                                </tr>
-                                                :
-                                                null
-                                        }
-                                        {
-                                            langState.hiragana ?
-                                                <tr style={{ backgroundColor: "#ffffe0" }}>
-                                                    <td><b>Ｈ:　</b></td>
-                                                    <td>{s.hiragana}</td>
-                                                </tr>
-                                                :
-                                                null
-                                        }
-                                        {
-                                            langState.romaji ?
-                                                <tr style={{ backgroundColor: "#f0fff2" }}>
-                                                    <td><b>Ｒ:　</b></td>
-                                                    <td>{s.romaji}</td>
-                                                </tr>
-                                                :
-                                                null
-                                        }
-                                        {
-                                            langState.english ?
-                                                <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                                    <td><b>Ｅ:　</b></td>
-                                                    <td>{s.english}</td>
-                                                </tr>
-                                                :
-                                                null
-                                        }
-                                    </tbody>
-                                </table>
-                                <AudioContol
-                                    s={s}
-                                    audioFolder={audioFolder}
-                                />
-                                <WordList
-                                    words={words}
-                                    s={s}
-                                    storyId={storyId}
-                                />
-                                <hr />
-                            </span>
-                        )
-                }
-            </div>
-        );
-    }
+    return (
+        <div style={{ textAlign: "left" }}>
+            {
+                isLoading ?
+                    <div className="center">
+                        <CircularProgress key="circle" size="20%" />
+                    </div>
+                    :
+                    sentences && sentences.map(s =>
+                        <span key={s.lineNumber}>
+                            <table style={{ width: "100%" }}>
+                                <tbody>
+                                    {
+                                        langState.kanji ?
+                                            <tr style={{ backgroundColor: "#fff0f2" }}>
+                                                <td><b>Ｋ:　</b></td>
+                                                <td>{s.kanji}</td>
+                                            </tr>
+                                            :
+                                            null
+                                    }
+                                    {
+                                        langState.hiragana ?
+                                            <tr style={{ backgroundColor: "#ffffe0" }}>
+                                                <td><b>Ｈ:　</b></td>
+                                                <td>{s.hiragana}</td>
+                                            </tr>
+                                            :
+                                            null
+                                    }
+                                    {
+                                        langState.romaji ?
+                                            <tr style={{ backgroundColor: "#f0fff2" }}>
+                                                <td><b>Ｒ:　</b></td>
+                                                <td>{s.romaji}</td>
+                                            </tr>
+                                            :
+                                            null
+                                    }
+                                    {
+                                        langState.english ?
+                                            <tr style={{ backgroundColor: "#f0f8ff" }}>
+                                                <td><b>Ｅ:　</b></td>
+                                                <td>{s.english}</td>
+                                            </tr>
+                                            :
+                                            null
+                                    }
+                                </tbody>
+                            </table>
+                            <AudioContol
+                                s={s}
+                                audioFolder={audioFolder}
+                            />
+                            <WordList
+                                words={words}
+                                s={s}
+                                storyId={storyId}
+                            />
+                            <hr />
+                        </span>
+                    )
+            }
+        </div>
+    );
 };
 
 class AudioContol extends React.Component {
-    props:{ s: sentence; audioFolder: string; };
+    props: { s: sentence; audioFolder: string; };
     refAudio: React.RefObject<HTMLAudioElement>;
-    state: {showControl: boolean};
+    state: { showControl: boolean };
 
     constructor(props) {
         super(props);
@@ -559,14 +554,14 @@ class AudioContol extends React.Component {
     }
 }
 
-class WordList extends React.Component<{ 
-    words: word[]; 
-    s: sentence; 
-    storyId: number; 
+class WordList extends React.Component<{
+    words: word[];
+    s: sentence;
+    storyId: number;
 },
-{
-    showWordList: boolean;
-}> {
+    {
+        showWordList: boolean;
+    }> {
 
     constructor(props) {
         super(props);
@@ -646,48 +641,47 @@ class WordList extends React.Component<{
     }
 }
 
-class PleaseScrollDown extends React.Component<{ 
-    pleaseScrollDown: boolean; 
-    screenWidth: number; 
-}>
-{
-    render() {
-        const { screenWidth, pleaseScrollDown } = this.props
+type TPleaseScrollDown = {
+    pleaseScrollDown: boolean;
+    screenWidth: number;
+};
+function PleaseScrollDown(props: TPleaseScrollDown) {
 
-        return (
-            <div style={{
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                zIndex: pleaseScrollDown ? 999999990 : 0,
-                width: `${screenWidth}px`,
-                height: "70px",
-                opacity: pleaseScrollDown ? 1.0 : 0,
-                transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
-                fontSize: "x-large",
-                backgroundColor: "#EEEEEE",
-                borderRadius: "30px 30px 0px 0px",
-            }}>
-                <span
-                    id="pleaseScroll"
-                >
-                    <span></span>
-                    <AnchorLink href='#aboutFolktale'>Scroll</AnchorLink>
-                </span>
-            </div>
-        )
-    }
+    const { screenWidth, pleaseScrollDown } = props;
+
+    return (
+        <div style={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            zIndex: pleaseScrollDown ? 999999990 : 0,
+            width: `${screenWidth}px`,
+            height: "70px",
+            opacity: pleaseScrollDown ? 1.0 : 0,
+            transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
+            fontSize: "x-large",
+            backgroundColor: "#EEEEEE",
+            borderRadius: "30px 30px 0px 0px",
+        }}>
+            <span
+                id="pleaseScroll"
+            >
+                <span></span>
+                <AnchorLink href='#aboutFolktale'>Scroll</AnchorLink>
+            </span>
+        </div>
+    )
 }
 
-class FooterMenu extends React.Component<{ 
-    onClickLangBtn: (btnType: any) => void; 
-    langState: Readonly<State>; 
-    screenWidth: number; 
-    showFooterMenu: boolean; 
+class FooterMenu extends React.Component<{
+    onClickLangBtn: (btnType: any) => void;
+    langState: Readonly<State>;
+    screenWidth: number;
+    showFooterMenu: boolean;
 },
-{
-    showLangMenu: boolean;
-}> {
+    {
+        showLangMenu: boolean;
+    }> {
 
     constructor(props) {
         super(props);
@@ -730,7 +724,7 @@ class FooterMenu extends React.Component<{
                     border: "1px solid gray",
                 }}>
                     <tbody>
-                        <tr style={{width:"100%"}} onClick={this.showLangMenu}>
+                        <tr style={{ width: "100%" }} onClick={this.showLangMenu}>
                             <td colSpan={4} style={{ padding: 3 }}>
                                 {
                                     showLangMenu ?

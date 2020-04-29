@@ -159,185 +159,181 @@ class VocabList extends React.Component<Props, State> {
 };
 
 
-class AllVocabList extends React.Component<{
+type TAllVocabListProps = {
     allGenres: vocabGenre[];
     allVocabs: vocab[];
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>
-}> {
+};
+function AllVocabList(props: TAllVocabListProps) {
 
-    render() {
-        const { allGenres: vocabGenres } = this.props;
+    const { allGenres: vocabGenres, allVocabs } = props;
 
-        return (<>
-            <hr />
-            <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
-                <b>{"Index"}</b><br />
-                {
-                    vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
-                        return (
-                            <span key={g.genreId}>
-                                <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
-                                {(idx !== (vocabGenres.length - 1)) && " / "}
-                            </span>
-                        );
-                    })
-                        :
-                        <CircularProgress key="circle" size="10%" />
-                }
-            </div>
-            <hr />
-            {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
-                const vocabList = this.props.allVocabs?.filter(vl => vl.genreId === g.genreId);
-                return (
-                    <EachGenre
-                        key={g.genreId}
-                        g={g}
-                        vocabList={vocabList}
-                    />
-                );
-            })
-                :
-                <CircularProgress key="circle" size="20%" />}
-        </>);
-    }
-}
-
-class EachGenre extends React.Component<{ g: vocabGenre; vocabList: vocab[] }> {
-
-    render() {
-        const { g, vocabList } = this.props;
-
-        const tableHeadStyle: React.CSSProperties = {
-            fontSize: "medium",
-            fontWeight: "bold",
-        };
-        const tableElementStyle: React.CSSProperties = {
-            fontSize: "medium",
-        };
-        const vocabPercentage = (Number(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`)) || 0);
-        const kanjiPercentage = (Number(localStorage.getItem(`kanji-quiz-percentage-${g.genreId}`)) || 0);
-
-        return (
-            <div>
-                <h2 id={g.genreName} style={{ fontWeight: "bold", marginTop: "20px", marginBottom: "20px" }}>{"Japanese Vocabulary List for " + g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h2>
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                <TableCell style={tableHeadStyle} align="center">Your Vocabulary Score</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Your Kanji Score</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell style={vocabPercentage === 100 ? { ...tableElementStyle, fontWeight: "bold", color: "green" } : tableElementStyle} align="center">{vocabPercentage + " %"}</TableCell>
-                                <TableCell style={kanjiPercentage === 100 ? { ...tableElementStyle, fontWeight: "bold", color: "green" } : tableElementStyle} align="center">{kanjiPercentage + " %"}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell style={tableElementStyle} align="center">
-                                    <Link to={`/vocabulary-quiz/${g.genreName}`}>
-                                        <button className="btn btn-primary">
-                                            {"Try the Vocab Quiz"}
-                                        </button>
-                                    </Link>
-                                </TableCell>
-                                <TableCell style={tableElementStyle} align="center">
-                                    <Link to={`/kanji-quiz/${g.genreName}`}>
-                                        <button className="btn btn-primary">
-                                            {"Try the Kanji Quiz"}
-                                        </button>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <br />
-                <VList
+    return (<>
+        <hr />
+        <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
+            <b>{"Index"}</b><br />
+            {
+                vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
+                    return (
+                        <span key={g.genreId}>
+                            <AnchorLink href={`#${g.genreName}`}>{g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</AnchorLink>
+                            {(idx !== (vocabGenres.length - 1)) && " / "}
+                        </span>
+                    );
+                })
+                    :
+                    <CircularProgress key="circle" size="10%" />
+            }
+        </div>
+        <hr />
+        {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
+            const vocabList = allVocabs?.filter(vl => vl.genreId === g.genreId);
+            return (
+                <EachGenre
+                    key={g.genreId}
                     g={g}
                     vocabList={vocabList}
                 />
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell style={tableElementStyle} align="center">
-                                    <Link to={`/vocabulary-quiz/${g.genreName}`}>
-                                        <button className="btn btn-primary">
-                                            {"Try the Vocab Quiz"}
-                                        </button>
-                                    </Link>
-                                </TableCell>
-                                <TableCell style={tableElementStyle} align="center">
-                                    <Link to={`/kanji-quiz/${g.genreName}`}>
-                                        <button className="btn btn-primary">
-                                            {"Try the Kanji Quiz"}
-                                        </button>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <br />
-            </div>
-        );
-    }
+            );
+        })
+            :
+            <CircularProgress key="circle" size="20%" />}
+    </>);
 }
 
-class VList extends React.Component<{ g: vocabGenre; vocabList: vocab[] }, { vocabList: vocab[] }> {
-    vocabSounds: HTMLAudioElement[] = [];
+type TEachGenreProps = { g: vocabGenre; vocabList: vocab[] };
+function EachGenre(props: TEachGenreProps) {
 
-    render() {
-        const { g, vocabList } = this.props;
+    const { g, vocabList } = props;
 
-        const tableHeadStyle: React.CSSProperties = {
-            fontSize: "medium",
-            fontWeight: "bold",
-        };
-        const tableElementStyle: React.CSSProperties = {
-            fontSize: "medium",
-        };
+    const tableHeadStyle: React.CSSProperties = {
+        fontSize: "medium",
+        fontWeight: "bold",
+    };
+    const tableElementStyle: React.CSSProperties = {
+        fontSize: "medium",
+    };
+    const vocabPercentage = (Number(localStorage.getItem(`vocab-quiz-percentage-${g.genreId}`)) || 0);
+    const kanjiPercentage = (Number(localStorage.getItem(`kanji-quiz-percentage-${g.genreId}`)) || 0);
 
-        const vocabIncorrectIds: number[] = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${g.genreId}`)) || [];
-        const kanjiIncorrectIds: number[] = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`)) || [];
+    return (
+        <div>
+            <h2 id={g.genreName} style={{ fontWeight: "bold", marginTop: "20px", marginBottom: "20px" }}>{"Japanese Vocabulary List for " + g.genreName.split("_").map(t => t && (t[0].toUpperCase() + t.substr(1))).join(" ")}</h2>
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                            <TableCell style={tableHeadStyle} align="center">Your Vocabulary Score</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Your Kanji Score</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell style={vocabPercentage === 100 ? { ...tableElementStyle, fontWeight: "bold", color: "green" } : tableElementStyle} align="center">{vocabPercentage + " %"}</TableCell>
+                            <TableCell style={kanjiPercentage === 100 ? { ...tableElementStyle, fontWeight: "bold", color: "green" } : tableElementStyle} align="center">{kanjiPercentage + " %"}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell style={tableElementStyle} align="center">
+                                <Link to={`/vocabulary-quiz/${g.genreName}`}>
+                                    <button className="btn btn-primary">
+                                        {"Try the Vocab Quiz"}
+                                    </button>
+                                </Link>
+                            </TableCell>
+                            <TableCell style={tableElementStyle} align="center">
+                                <Link to={`/kanji-quiz/${g.genreName}`}>
+                                    <button className="btn btn-primary">
+                                        {"Try the Kanji Quiz"}
+                                    </button>
+                                </Link>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <br />
+            <VList
+                g={g}
+                vocabList={vocabList}
+            />
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableBody>
+                        <TableRow>
+                            <TableCell style={tableElementStyle} align="center">
+                                <Link to={`/vocabulary-quiz/${g.genreName}`}>
+                                    <button className="btn btn-primary">
+                                        {"Try the Vocab Quiz"}
+                                    </button>
+                                </Link>
+                            </TableCell>
+                            <TableCell style={tableElementStyle} align="center">
+                                <Link to={`/kanji-quiz/${g.genreName}`}>
+                                    <button className="btn btn-primary">
+                                        {"Try the Kanji Quiz"}
+                                    </button>
+                                </Link>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <br />
+        </div>
+    );
+}
 
-        return (
-            vocabList && vocabList.length > 0 ?
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
-                                <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                vocabList.map((v: vocab) => (
-                                    <TableRow key={v.vocabId}>
-                                        <TableCell style={kanjiIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
-                                        <TableCell style={vocabIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">
-                                            <Speaker
-                                                v={v}
-                                                g={g}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                :
-                <CircularProgress key="circle" size="20%" />
-        );
-    }
+type TVListProps = { g: vocabGenre; vocabList: vocab[] };
+function VList(props: TVListProps) {
+
+    const { g, vocabList } = props;
+
+    const tableHeadStyle: React.CSSProperties = {
+        fontSize: "medium",
+        fontWeight: "bold",
+    };
+    const tableElementStyle: React.CSSProperties = {
+        fontSize: "medium",
+    };
+
+    const vocabIncorrectIds: number[] = JSON.parse(localStorage.getItem(`vocab-quiz-incorrectIds-${g.genreId}`)) || [];
+    const kanjiIncorrectIds: number[] = JSON.parse(localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`)) || [];
+
+    return (
+        vocabList && vocabList.length > 0 ?
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                            <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
+                            <TableCell style={tableHeadStyle} align="center">Sound</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            vocabList.map((v: vocab) => (
+                                <TableRow key={v.vocabId}>
+                                    <TableCell style={kanjiIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
+                                    <TableCell style={vocabIncorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">
+                                        <Speaker
+                                            v={v}
+                                            g={g}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            :
+            <CircularProgress key="circle" size="20%" />
+    );
 }
 
 class Speaker extends React.Component<{
@@ -364,13 +360,13 @@ class Speaker extends React.Component<{
         this.vocabSound.src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${g.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
 
         this.vocabSound.oncanplaythrough = () => {
-            if(!this.didUnmount) this.setState({ showImg: true });
+            if (!this.didUnmount) this.setState({ showImg: true });
         };
         this.vocabSound.load();
         this.didUnmount = false;
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.didUnmount = true;
     }
 

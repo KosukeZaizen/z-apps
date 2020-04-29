@@ -1,5 +1,5 @@
 import { reloadAndRedirect_OneTimeReload } from '../components/common/functions';
-import {storyDesc, sentence, word} from '../types/stories';
+import { storyDesc, sentence, word } from '../types/stories';
 
 const initializeType = 'INITIALIZE';
 const receiveStoryType = 'RECEIVE_STORY';
@@ -16,10 +16,10 @@ export interface StoriesState {
 }
 
 export interface IActionCreators {
-    loadStory: (storyName: string)=>void;
+    loadStory: (storyName: string) => void;
 }
 
-export const actionCreators:IActionCreators = {
+export const actionCreators: IActionCreators = {
     loadStory: (storyName) => async (dispatch, getState) => {
         try {
             dispatch({ type: initializeType });
@@ -34,7 +34,7 @@ export const actionCreators:IActionCreators = {
                 if (storyName !== storyDesc.storyName) {
                     if (!storyDesc.storyName) {
                         reloadAndRedirect_OneTimeReload("db-access-error-time");
-                    }else if (storyName.toLowerCase === storyDesc.storyName.toLowerCase) {
+                    } else if (storyName.toLowerCase === storyDesc.storyName.toLowerCase) {
                         window.location.href = `/folktales/${storyDesc.storyName}`;
                     }
                     return;

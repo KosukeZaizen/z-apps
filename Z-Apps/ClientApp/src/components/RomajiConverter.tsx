@@ -8,11 +8,11 @@ let objConst: any = {};
 class RomajiConverter extends React.Component<{
 
 },
-{
-    prompt: string;
-    textVal: string; 
-    inputColor: string;
-}> {
+    {
+        prompt: string;
+        textVal: string;
+        inputColor: string;
+    }> {
 
     constructor(props) {
         super(props);
@@ -137,10 +137,10 @@ class RomajiConverter extends React.Component<{
                     <tbody>
                         <tr>
                             <th>
-                            <div className="center">Hiragana<br />or<br />Katakana</div>
+                                <div className="center">Hiragana<br />or<br />Katakana</div>
                             </th>
                             <th>
-                            <div className="center">Romaji</div>
+                                <div className="center">Romaji</div>
                             </th>
                         </tr>
                         <tr>
@@ -179,11 +179,11 @@ class RomajiConverter extends React.Component<{
 
 //入力エリアの定義（※props経由で親を参照できる）
 class ChildInput extends React.Component<{
-    inputColor: string; 
-        prompt: string; 
-        onChange: (e: any) => void; 
-        onFocus: (e: any) => void; 
-        onScroll: () => void;
+    inputColor: string;
+    prompt: string;
+    onChange: (e: any) => void;
+    onFocus: (e: any) => void;
+    onScroll: () => void;
 }> {
 
     _onChange(e) {
