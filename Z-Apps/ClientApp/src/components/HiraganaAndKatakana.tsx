@@ -41,6 +41,14 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
         this.ref = React.createRef();
     }
 
+    componentDidMount() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.changeScreenSize();
+            }, i * 1000);
+        }
+    }
+
     changeScreenSize = () => {
         if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
             this.setState({
