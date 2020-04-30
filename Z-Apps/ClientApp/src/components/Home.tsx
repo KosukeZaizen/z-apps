@@ -5,16 +5,55 @@ import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import FB from './parts/FaceBook';
 import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
+import CharacterComment from './parts/VocabQuiz/CharacterComment';
 
-export default class Home extends React.Component {
+export default class Home extends React.Component<{}, {
+    screenWidth: number;
+    imgNumber: 1 | 2 | 3;
+}> {
     ref: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            screenWidth: window.innerWidth,
+            imgNumber: this.getImgNumber(),
+        };
+
+        let timer;
+        window.onresize = () => {
+            if (timer > 0) {
+                clearTimeout(timer);
+            }
+
+            timer = setTimeout(() => {
+                this.changeScreenSize();
+            }, 100);
+        };
+
         this.ref = React.createRef();
     }
 
+    changeScreenSize = () => {
+        if (this.state.screenWidth !== window.innerWidth) {
+            this.setState({
+                screenWidth: window.innerWidth,
+            });
+        }
+    }
+
+    getImgNumber = () => {
+        const today = new Date();
+        const todayNumber = (today.getMonth() + today.getDate());
+        const mod = todayNumber % 27;
+        if (mod > 35) return 3;
+        if (mod > 30) return 2;
+        return 1;
+    }
+
     render() {
+        const { screenWidth, imgNumber } = this.state;
         return (
             <div className="home">
                 <Head
@@ -24,12 +63,16 @@ export default class Home extends React.Component {
                 />
                 <div style={{ textAlign: "center" }}>
                     <h1>Welcome to<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>Lingual Ninja!</h1>
-                    <div className="initial-message">
-                        <p className="no-margin">Applications to learn Japanese,<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                            made by <Link to="/developer">Kosuke Zaizen</Link>.</p>
-                        <p className="no-margin">I hope you enjoy!</p>
-                    </div>
-
+                    <CharacterComment
+                        screenWidth={screenWidth}
+                        imgNumber={imgNumber}
+                        comment={[
+                            <p>Applications to learn Japanese,{screenWidth < 800 ? <br /> : " "}
+                                made by <Link to="/developer">Kosuke Zaizen</Link>.</p>,
+                            <p>I hope you enjoy!</p>
+                        ]}
+                    />
+                    <br />
                     <div ref={this.ref} id="scrollTargetId">
                         <Link to="/hiragana-katakana">
                             <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>

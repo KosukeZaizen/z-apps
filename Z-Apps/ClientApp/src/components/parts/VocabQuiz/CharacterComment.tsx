@@ -11,6 +11,7 @@ export default function CharacterComment(props: TProps) {
             alignItems: "center",
             justifyContent: "center",
             maxWidth: 450,
+            margin: "auto",
         }}>
             <div>
                 <img
