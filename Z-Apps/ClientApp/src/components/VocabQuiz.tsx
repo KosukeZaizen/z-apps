@@ -33,7 +33,6 @@ type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
 type State = {
     genreName: string;
     screenWidth: number;
-    screenHeight: number;
     pleaseScrollDown: boolean;
     imgNumber: number;
 };
@@ -52,7 +51,6 @@ class VocabQuiz extends React.Component<Props, State> {
         this.state = {
             genreName: genreName,
             screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
             pleaseScrollDown: false,
             imgNumber: this.getImgNumber(),
         };
@@ -100,10 +98,9 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+        if (this.state.screenWidth !== window.innerWidth) {
             this.setState({
                 screenWidth: window.innerWidth,
-                screenHeight: window.innerHeight,
             });
         }
     }
@@ -338,15 +335,22 @@ class Speaker extends React.Component<{
 
     constructor(props) {
         super(props);
+
         this.state = {
             showImg: false,
         };
         this.didUnmount = false;
+    }
 
-        props.vocabSound.oncanplaythrough = () => {
+    componentDidMount = () => {
+        setTimeout(this.loadSound, 200);
+    }
+
+    loadSound = () => {
+        this.props.vocabSound.oncanplaythrough = () => {
             if (!this.didUnmount) this.setState({ showImg: true });
         };
-        props.vocabSound.load();
+        this.props.vocabSound.load();
     }
 
     componentWillUnmount() {
