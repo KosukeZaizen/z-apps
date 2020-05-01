@@ -68,7 +68,7 @@ export default class Home extends React.Component<{}, {
                         imgNumber={imgNumber}
                         comment={[
                             <span key="1">Applications to learn Japanese,{screenWidth < 800 ? <br /> : " "}
-                                made by <Link to="/developer">Kosuke Zaizen</Link>.</span>,
+                                made by <Link to="/developer">Kosuke Zaizen</Link>.<br /></span>,
                             <span key="2">I hope you enjoy!</span>
                         ]}
                     />
