@@ -132,6 +132,7 @@ class VocabList extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         comment="Try to get a perfect score on all the quizzes!"
                     />
+                    <span id="indexOfVocabLists"></span>
                     <AllVocabList
                         allVocabs={allVocabs}
                         allGenres={allGenres}
@@ -225,6 +226,8 @@ class ReturnToIndex extends React.Component<TReturnToIndexProps, TReturnToIndexS
         const { showReturnToIndex } = this.state;
         return (
             <div style={{
+                display: "flex",
+                alignItems: "center",
                 position: "fixed",
                 bottom: 0,
                 left: 0,
@@ -235,7 +238,6 @@ class ReturnToIndex extends React.Component<TReturnToIndexProps, TReturnToIndexS
                 transition: "all 2s ease",
                 fontSize: "large",
                 backgroundColor: "#EEEEEE",
-                paddingTop: "8px",
             }}>
                 <AnchorLink href={`#indexOfVocabLists`}>
                     {"▲ Return to the index ▲"}
@@ -260,7 +262,7 @@ function AllVocabList(props: TAllVocabListProps) {
     return (<>
         <hr />
         <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }} ref={criteriaRef}>
-            <b id="indexOfVocabLists">{"Index"}</b><br />
+            <b>{"Index"}</b><br />
             {
                 vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
                     return (
