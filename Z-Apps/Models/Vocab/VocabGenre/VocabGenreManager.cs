@@ -21,13 +21,14 @@ namespace Z_Apps.Models.VocabList
             //List<Dictionary<string, Object>>型で取得
             var genres = Con.ExecuteSelect(sql, null);
 
+            var order = 1;
             var resultGenres = new List<VocabGenre>();
             foreach (var dicGenre in genres)
             {
                 var genre = new VocabGenre();
                 genre.genreId = (int)dicGenre["genreId"];
                 genre.genreName = (string)dicGenre["genreName"];
-                genre.order = (int)dicGenre["order"];
+                genre.order = order++;
 
                 resultGenres.Add(genre);
             }
