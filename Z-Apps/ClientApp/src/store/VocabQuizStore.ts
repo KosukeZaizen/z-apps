@@ -1,5 +1,6 @@
 import { reloadAndRedirect_OneTimeReload, loadLocalStorageOrDB } from '../components/common/functions';
 import { vocabGenre, vocab } from '../types/vocab';
+import * as consts from '../components/common/consts';
 
 const fileName = "VocabQuizStore";
 
@@ -11,6 +12,7 @@ const changePageType = 'CHANGE_PAGE';
 const initialState = {
     vocabGenre: null, //specific page
     vocabList: [], //specific page
+    vocabSounds: [], //specific page
     allGenres: [], //general
     allVocabs: [], //general
     currentPage: 1
@@ -23,6 +25,7 @@ export interface IVocabQuizState {
     allVocabs: vocab[];
     vocabGenre: vocabGenre;
     vocabList: vocab[];
+    vocabSounds: HTMLAudioElement[];
     currentPage: TPageNumber;
 }
 
@@ -54,7 +57,12 @@ export const actionCreators: IActionCreators = {
     },
     loadVocabs: (genreName) => (dispatch, getState) => {
         try {
-            dispatch({ type: changePageType, nextPage: initialState.currentPage });
+            dispatch({
+                type: changePageType,
+                nextPage: initialState.currentPage,
+                vocabList: initialState.vocabList,
+                vocabSounds: initialState.vocabSounds
+            });
 
             const loadVocabsFromDB = () => {
                 const currentGenreName = window.location.pathname.split("/").filter(a => a).pop().split("#").pop();
@@ -113,10 +121,20 @@ export const reducer = (state, action) => {
     }
 
     if (action.type === receiveGenreAndVocabType) {
+        const {vocabGenre, vocabList} = action.genreAndVocab;
+        const vocabSounds = [];
+
+        vocabList.length > 0 && vocabList.forEach(v => {
+            vocabSounds[v.vocabId] = new Audio();
+            vocabSounds[v.vocabId].preload = "none";
+            vocabSounds[v.vocabId].autoplay = false;
+            vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+        });
         return {
             ...state,
-            vocabGenre: action.genreAndVocab.vocabGenre,
-            vocabList: action.genreAndVocab.vocabList,
+            vocabGenre,
+            vocabList,
+            vocabSounds,
         };
     }
 

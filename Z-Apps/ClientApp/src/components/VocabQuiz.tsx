@@ -39,7 +39,6 @@ type State = {
 
 class VocabQuiz extends React.Component<Props, State> {
     correctSounds = [new Audio(), new Audio()];
-    vocabSounds: HTMLAudioElement[] = [];
     ref: React.RefObject<HTMLHeadingElement>;
 
     constructor(props) {
@@ -131,7 +130,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     correctSounds={this.correctSounds}
-                    vocabSounds={this.vocabSounds}
+                    vocabSounds={vocabSounds}
                 />;
                 break;
             case 3:
@@ -140,25 +139,18 @@ class VocabQuiz extends React.Component<Props, State> {
                     changePage={changePage}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
-                    vocabSounds={this.vocabSounds}
+                    vocabSounds={vocabSounds}
                     vocabGenre={vocabGenre}
                     titleToShowUpper={titleToShowUpper}
                 />;
                 break;
             default:
-                this.vocabSounds = [];
-                vocabList.length > 0 && vocabList.forEach(v => {
-                    this.vocabSounds[v.vocabId] = new Audio();
-                    this.vocabSounds[v.vocabId].preload = "none";
-                    this.vocabSounds[v.vocabId].autoplay = false;
-                    this.vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
-                });
                 pageData = <Page1
                     vocabList={vocabList}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     changePage={changePage}
-                    vocabSounds={this.vocabSounds}
+                    vocabSounds={vocabSounds}
                     criteriaRef={this.ref}
                 />;
         }
