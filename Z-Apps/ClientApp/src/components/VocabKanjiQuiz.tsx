@@ -294,6 +294,7 @@ function Page1(props) {
                                     <TableCell style={tableElementStyle} align="center">
                                         <Speaker
                                             vocabSound={vocabSounds[v.vocabId]}
+                                            vocabId={v.vocabId}
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -321,6 +322,7 @@ function Page1(props) {
 
 class Speaker extends React.Component<{
     vocabSound: HTMLAudioElement;
+    vocabId: number;
 }, {
     showImg: boolean;
 }> {
@@ -334,8 +336,11 @@ class Speaker extends React.Component<{
         this.didUnmount = false;
     }
 
-    componentDidMount = () => {
-        setTimeout(this.loadSound, 200);
+    componentDidUpdate(previous) {
+        if (previous.vocabSound !== this.props.vocabSound) {
+            this.setState({ showImg: false });
+            setTimeout(this.loadSound, 2000 + (300 * this.props.vocabId));
+        }
     }
 
     loadSound = () => {
