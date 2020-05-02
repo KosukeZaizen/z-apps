@@ -35,6 +35,14 @@ export default class Home extends React.Component<{}, {
         this.ref = React.createRef();
     }
 
+    componentDidMount() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.changeScreenSize();
+            }, i * 1000);
+        }
+    }
+
     changeScreenSize = () => {
         if (this.state.screenWidth !== window.innerWidth) {
             this.setState({
