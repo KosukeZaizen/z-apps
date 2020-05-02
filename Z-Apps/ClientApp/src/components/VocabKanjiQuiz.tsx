@@ -115,8 +115,7 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 
     render() {
-        const { vocabGenre, currentPage, changePage, allGenres } = this.props;
-        const vocabList: vocab[] = this.props.vocabList.sort((a, b) => a.order - b.order);
+        const { vocabGenre, currentPage, changePage, allGenres, vocabList } = this.props;
         const { screenWidth, imgNumber } = this.state;
 
         const genreName: string = (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
