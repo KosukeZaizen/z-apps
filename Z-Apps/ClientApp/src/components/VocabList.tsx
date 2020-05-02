@@ -354,7 +354,7 @@ class Speaker extends React.Component<{
 
     componentDidMount = () => {
         const { v, g } = this.props;
-        setTimeout(this.loadSound, (3000 * g.order) + (100 * v.order));
+        setTimeout(this.loadSound, 5000 + (3000 * g.order) + (100 * v.order));
     }
 
     loadSound = () => {
