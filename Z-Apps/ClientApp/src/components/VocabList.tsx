@@ -34,7 +34,8 @@ type State = {
 };
 
 class VocabList extends React.Component<Props, State> {
-    ref: React.RefObject<HTMLHeadingElement>;
+    refForScroll: React.RefObject<HTMLHeadingElement>;
+    refForReturnToIndex: React.RefObject<HTMLHeadingElement>;
 
     constructor(props) {
         super(props);
@@ -56,7 +57,8 @@ class VocabList extends React.Component<Props, State> {
             }, 100);
         };
 
-        this.ref = React.createRef();
+        this.refForScroll = React.createRef();
+        this.refForReturnToIndex = React.createRef();
     }
 
     componentDidMount() {
@@ -121,7 +123,6 @@ class VocabList extends React.Component<Props, State> {
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                             fontWeight: "bold",
                         }}
-                        ref={this.ref}
                     >
                         {"Japanese Vocabulary List"}
                     </h1>
@@ -134,7 +135,8 @@ class VocabList extends React.Component<Props, State> {
                     <AllVocabList
                         allVocabs={allVocabs}
                         allGenres={allGenres}
-                        criteriaRef={this.ref}
+                        criteriaRef={this.refForScroll}
+                        refForReturnToIndex={this.refForReturnToIndex}
                     />
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
@@ -145,9 +147,13 @@ class VocabList extends React.Component<Props, State> {
                     <br />
                     <GoogleAd />
                     <PleaseScrollDown
-                        criteriaRef={this.ref}
+                        criteriaRef={this.refForScroll}
                         screenWidth={screenWidth}
                         targetId="h1title"
+                    />
+                    <ReturnToIndex
+                        screenWidth={screenWidth}
+                        refForReturnToIndex={this.refForReturnToIndex}
                     />
                 </div>
             </div>
@@ -155,21 +161,106 @@ class VocabList extends React.Component<Props, State> {
     }
 };
 
+type TReturnToIndexProps = {
+    screenWidth: number;
+    refForReturnToIndex: React.RefObject<HTMLElement>;
+};
+type TReturnToIndexState = {
+    showReturnToIndex: boolean;
+};
+class ReturnToIndex extends React.Component<TReturnToIndexProps, TReturnToIndexState> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showReturnToIndex: false,
+        }
+
+        window.addEventListener('scroll', this.judge);
+    }
+
+    componentDidMount() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                this.judge();
+            }, i * 1000);
+        }
+    }
+
+    componentDidUpdate(preciousProps) {
+        if (preciousProps.refForReturnToIndex?.current !== this.props.refForReturnToIndex?.current) {
+            this.judge();
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.judge);
+    }
+
+    judge = () => {
+        const { refForReturnToIndex: refForReturnToIndex } = this.props;
+        const elem = refForReturnToIndex && refForReturnToIndex.current;
+        if (!elem) return;
+
+        const height = window.innerHeight;
+
+        const offsetY = elem.getBoundingClientRect().top;
+        const t_position = offsetY - height;
+
+        if (t_position >= 0) {
+            // 上側の時
+            this.setState({
+                showReturnToIndex: false,
+            });
+        } else {
+            // 下側の時
+            this.setState({
+                showReturnToIndex: true,
+            });
+        }
+    }
+
+    render() {
+        const { screenWidth } = this.props;
+        const { showReturnToIndex } = this.state;
+        return (
+            <div style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                zIndex: showReturnToIndex ? 99999900 : 0,
+                width: `${screenWidth}px`,
+                height: "50px",
+                opacity: showReturnToIndex ? 1.0 : 0,
+                transition: "all 2s ease",
+                fontSize: "large",
+                backgroundColor: "#EEEEEE",
+                paddingTop: "8px",
+            }}>
+                <AnchorLink href={`#indexOfVocabLists`}>
+                    {"▲ Return to the index ▲"}
+                </AnchorLink>
+            </div>
+        );
+    }
+}
+
 
 type TAllVocabListProps = {
     allGenres: vocabGenre[];
     allVocabs: vocab[];
     excludeGenreId?: number;
-    criteriaRef?: React.RefObject<HTMLHeadingElement>
+    criteriaRef?: React.RefObject<HTMLHeadingElement>;
+    refForReturnToIndex?: React.RefObject<HTMLHeadingElement>;
 };
 function AllVocabList(props: TAllVocabListProps) {
 
-    const { allGenres: vocabGenres, allVocabs } = props;
+    const { allGenres: vocabGenres, allVocabs, criteriaRef, refForReturnToIndex } = props;
 
     return (<>
         <hr />
-        <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }}>
-            <b>{"Index"}</b><br />
+        <div style={{ border: "5px double #333333", margin: "10px", padding: "10px" }} ref={criteriaRef}>
+            <b id="indexOfVocabLists">{"Index"}</b><br />
             {
                 vocabGenres && vocabGenres.length > 0 ? vocabGenres.map((g, idx) => {
                     return (
@@ -184,6 +275,7 @@ function AllVocabList(props: TAllVocabListProps) {
             }
         </div>
         <hr />
+        <span ref={refForReturnToIndex}></span>
         {vocabGenres && vocabGenres.length > 0 ? vocabGenres.map(g => {
             const vocabList = allVocabs?.filter(vl => vl.genreId === g.genreId);
             return (
