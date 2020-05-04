@@ -17,7 +17,7 @@ import { FBShareBtn, TwitterShareBtn } from './parts/SnsShareButton';
 import PleaseScrollDown from './parts/PleaseScrollDown';
 import * as consts from './common/consts';
 import { shuffle, sendClientOpeLog } from './common/functions';
-import { vocab, vocabGenre } from '../types/vocab';
+import { vocab, vocabGenre, sound } from '../types/vocab';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -130,7 +130,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
                     correctSounds={this.correctSounds}
-                    vocabSounds={vocabSounds}
+                    vocabSounds={vocabSounds?.map(a => a.audio)}
                 />;
                 break;
             case 3:
@@ -139,7 +139,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     changePage={changePage}
                     screenWidth={screenWidth}
                     imgNumber={imgNumber}
-                    vocabSounds={vocabSounds}
+                    vocabSounds={vocabSounds?.map(a => a.audio)}
                     vocabGenre={vocabGenre}
                     titleToShowUpper={titleToShowUpper}
                 />;
@@ -243,7 +243,15 @@ class VocabQuiz extends React.Component<Props, State> {
     }
 };
 
-function Page1(props) {
+type TPage1Props = {
+    vocabList: vocab[];
+    screenWidth: number;
+    imgNumber: number;
+    changePage: (nextPage: number) => void;
+    vocabSounds: sound[];
+    criteriaRef: React.RefObject<HTMLHeadingElement>;
+};
+function Page1(props: TPage1Props) {
     const { vocabList, screenWidth, imgNumber, changePage, vocabSounds, criteriaRef } = props;
 
     const tableHeadStyle: React.CSSProperties = {
@@ -321,7 +329,7 @@ function Page1(props) {
 }
 
 class Speaker extends React.Component<{
-    vocabSound: HTMLAudioElement;
+    vocabSound: sound;
     vocabId: number;
 }, {
     showImg: boolean;
@@ -331,7 +339,7 @@ class Speaker extends React.Component<{
     constructor(props) {
         super(props);
         this.state = {
-            showImg: false,
+            showImg: props.vocabSound.playable,
         };
         this.didUnmount = false;
     }
@@ -341,17 +349,19 @@ class Speaker extends React.Component<{
     }
 
     componentDidUpdate(previous) {
-        if (previous.vocabSound !== this.props.vocabSound) {
+        if (previous.vocabSound.audio !== this.props.vocabSound.audio) {
             this.setState({ showImg: false });
             setTimeout(this.loadSound, 2000 + (300 * this.props.vocabId));
         }
     }
 
     loadSound = () => {
-        this.props.vocabSound.oncanplaythrough = () => {
+        const {vocabSound} = this.props;
+        vocabSound.audio.oncanplaythrough = () => {
             if (!this.didUnmount) this.setState({ showImg: true });
+            vocabSound.playable = true;
         };
-        this.props.vocabSound.load();
+        vocabSound.audio.load();
     }
 
     componentWillUnmount() {
@@ -366,7 +376,7 @@ class Speaker extends React.Component<{
                 alt="kanji speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
                 style={{ width: "60%", maxWidth: 30 }}
-                onClick={() => { vocabSound && vocabSound.play(); }}
+                onClick={() => { vocabSound?.audio?.play(); }}
             />
             :
             <CircularProgress key="circle" size="20%" />

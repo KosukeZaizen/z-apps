@@ -1,5 +1,5 @@
 import { reloadAndRedirect_OneTimeReload, loadLocalStorageOrDB } from '../components/common/functions';
-import { vocabGenre, vocab } from '../types/vocab';
+import { vocabGenre, vocab, sound } from '../types/vocab';
 import * as consts from '../components/common/consts';
 
 const fileName = "VocabQuizStore";
@@ -15,7 +15,7 @@ const initialState = {
     vocabSounds: [], //specific page
     allGenres: [], //general
     allVocabs: [], //general
-    currentPage: 1
+    currentPage: 3,
 };
 
 export type TPageNumber = 1 | 2 | 3;
@@ -25,7 +25,7 @@ export interface IVocabQuizState {
     allVocabs: vocab[];
     vocabGenre: vocabGenre;
     vocabList: vocab[];
-    vocabSounds: HTMLAudioElement[];
+    vocabSounds: sound[];
     currentPage: TPageNumber;
 }
 
@@ -121,14 +121,15 @@ export const reducer = (state, action) => {
     }
 
     if (action.type === receiveGenreAndVocabType) {
-        const {vocabGenre, vocabList} = action.genreAndVocab;
+        const { vocabGenre, vocabList } = action.genreAndVocab;
         const vocabSounds = [];
 
         vocabList.length > 0 && vocabList.forEach(v => {
-            vocabSounds[v.vocabId] = new Audio();
-            vocabSounds[v.vocabId].preload = "none";
-            vocabSounds[v.vocabId].autoplay = false;
-            vocabSounds[v.vocabId].src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+            const audio = new Audio();
+            audio.preload = "none";
+            audio.autoplay = false;
+            audio.src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+            vocabSounds[v.vocabId] = { audio, playable: false };
         });
         return {
             ...state,

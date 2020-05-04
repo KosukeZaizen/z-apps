@@ -11,3 +11,8 @@ export type vocabGenre = {
     genreName: string;
     order: number;
 };
+
+export type sound = {
+    audio: HTMLAudioElement,
+    playable: boolean
+};
