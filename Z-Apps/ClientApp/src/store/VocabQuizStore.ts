@@ -57,12 +57,7 @@ export const actionCreators: IActionCreators = {
     },
     loadVocabs: (genreName) => (dispatch, getState) => {
         try {
-            dispatch({
-                type: changePageType,
-                nextPage: initialState.currentPage,
-                vocabList: initialState.vocabList,
-                vocabSounds: initialState.vocabSounds
-            });
+            dispatch({ type: initializeType });
 
             const loadVocabsFromDB = () => {
                 const currentGenreName = window.location.pathname.split("/").filter(a => a).pop().split("#").pop();
@@ -117,7 +112,8 @@ export const reducer = (state, action) => {
     state = state || initialState;
 
     if (action.type === initializeType) {
-        return initialState;
+        const { allGenres, allVocabs, ...rest } = initialState;
+        return rest;
     }
 
     if (action.type === receiveGenreAndVocabType) {
