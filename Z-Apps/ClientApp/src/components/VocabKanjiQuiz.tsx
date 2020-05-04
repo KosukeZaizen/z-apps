@@ -356,7 +356,7 @@ class Speaker extends React.Component<{
     }
 
     loadSound = () => {
-        const {vocabSound} = this.props;
+        const { vocabSound } = this.props;
         vocabSound.audio.oncanplaythrough = () => {
             if (!this.didUnmount) this.setState({ showImg: true });
             vocabSound.playable = true;
@@ -688,15 +688,23 @@ function Page3(props: TPage3Props) {
             <br />
             {incorrectIds && incorrectIds.length > 0 &&
                 <>
-                    <CharacterComment
-                        screenWidth={screenWidth}
-                        imgNumber={(imgNumber - 1) || 3}
-                        comment={comment + " You should remember the Kanji below!"}
-                    />
-                    <TableContainer component={Paper}>
-                        <Table aria-label="simple table">
-                            <TableHead>
-                                <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                <CharacterComment
+                    screenWidth={screenWidth}
+                    imgNumber={(imgNumber - 1) || 3}
+                    comment={[<span>{comment}<br /> You should remember the <span style={{ fontWeight: "bold", color: "red" }}>red Kanji</span> below!</span>]}
+                />
+                <br />
+                <button
+                    onClick={() => { changePage(2) }}
+                    className="btn btn-primary btn-block"
+                >
+                    {"Retry"}
+                </button>
+                <br />
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: 'papayawhip' }}>
                                     <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
                                     <TableCell style={tableHeadStyle} align="center">Meaning</TableCell>
@@ -705,11 +713,11 @@ function Page3(props: TPage3Props) {
                             </TableHead>
                             <TableBody>
                                 {
-                                    vocabList.filter(v => incorrectIds.includes(v.vocabId)).map((v: vocab) => (
+                                    vocabList.sort((v1, v2) => incorrectIds.includes(v1.vocabId) === incorrectIds.includes(v2.vocabId) ? 0 : incorrectIds.includes(v1.vocabId) ? -1 : 1).map((v: vocab) => (
                                         <TableRow key={v.vocabId}>
-                                            <TableCell style={tableElementStyle} align="center">{v.kanji}</TableCell>
-                                            <TableCell style={tableElementStyle} align="center">{v.hiragana}</TableCell>
-                                            <TableCell style={tableElementStyle} align="center">{v.english}</TableCell>
+                                            <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.kanji}</TableCell>
+                                            <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.hiragana}</TableCell>
+                                            <TableCell style={incorrectIds.includes(v.vocabId) ? { ...tableElementStyle, color: "red", fontWeight: "bold" } : tableElementStyle} align="center">{v.english}</TableCell>
                                             <TableCell style={tableElementStyle} align="center">
                                                 <img
                                                     alt="kanji speaker"

@@ -15,7 +15,7 @@ const initialState = {
     vocabSounds: [], //specific page
     allGenres: [], //general
     allVocabs: [], //general
-    currentPage: 3,
+    currentPage: 1,
 };
 
 export type TPageNumber = 1 | 2 | 3;
