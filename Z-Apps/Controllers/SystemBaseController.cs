@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Models.SystemBase;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Z_Apps.Controllers
 {
@@ -9,9 +10,11 @@ namespace Z_Apps.Controllers
     public class SystemBaseController : Controller
     {
         private ClientLogService clientLogService;
+        private VersionService versionService;
         public SystemBaseController(DBCon con)
         {
             clientLogService = new ClientLogService(con);
+            versionService = new VersionService();
         }
 
         [HttpGet("[action]")]
@@ -30,6 +33,12 @@ namespace Z_Apps.Controllers
         public void RegisterLog([FromBody] ClientOpeLog log)
         {
             clientLogService.RegisterLog(log);
+        }
+
+        [HttpGet("[action]/{dummyParam?}")]
+        public async Task<string> GetVersion()
+        {
+            return await versionService.GetVersion();
         }
     }
 }

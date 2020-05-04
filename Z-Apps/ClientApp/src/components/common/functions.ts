@@ -72,7 +72,7 @@ export function sendClientOpeLog(operationName: string, parameters: string = "")
 }
 
 export async function checkAppVersion() {
-    const url = `version.txt?v=${new Date().getDate()}`;
+    const url = `api/SystemBase/GetVersion/V${new Date().getMilliseconds()}`;
     fetch(url).then(res => {
         res.json().then(v => {
             const userAgent = navigator.userAgent;
