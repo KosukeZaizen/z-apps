@@ -48,10 +48,10 @@ class VocabQuiz extends React.Component<Props, State> {
         const genreName = params.genreName.toString().split("#")[0];
 
         this.state = {
-            genreName: genreName,
+            genreName,
             screenWidth: window.innerWidth,
             pleaseScrollDown: false,
-            imgNumber: this.getImgNumber(),
+            imgNumber: this.getImgNumber(genreName?.length),
         };
 
         let timer;
@@ -89,7 +89,8 @@ class VocabQuiz extends React.Component<Props, State> {
         if (preciousProps.location !== this.props.location) {
             const genreName = this.props.location.pathname.split("/").filter(a => a).pop().split("#").pop();
             this.setState({
-                genreName: genreName,
+                genreName,
+                imgNumber: this.getImgNumber(genreName?.length),
             });
             this.props.loadVocabs(genreName);
             this.props.loadAllGenres();
@@ -104,13 +105,13 @@ class VocabQuiz extends React.Component<Props, State> {
         }
     }
 
-    getImgNumber = () => {
+    getImgNumber = (num: number = 0) => {
         const today = new Date();
-        const todayNumber = (today.getMonth() + today.getDate());
+        const todayNumber = (today.getMonth() + today.getDate() + num);
         const mod = todayNumber % 27;
         if (mod > 13) return 3;
-        if (mod > 5) return 2;
-        return 1;
+        if (mod > 5) return 1;
+        return 2;
     }
 
     render() {
