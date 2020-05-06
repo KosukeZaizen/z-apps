@@ -119,9 +119,8 @@ export function reloadAndRedirect(saveKey: string) {
 
 export function reloadAndRedirect_OneTimeReload(saveKey: string) {
     //★広告表示等のため、リロード連打がまずい場合はこちらを使う
-    //初回はリロードし、時刻記録
-    //その後、1回だけリロード
-    //その後、その後、404ページにリダイレクト
+    //初回は時刻を記録し、1回だけリロード
+    //その後、404ページにリダイレクト
     //存在してはいけないページがIndexされないため、２回目は即時リダイレクトを行う
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
