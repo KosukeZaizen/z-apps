@@ -1,1 +1,1 @@
-export const APP_VERSION: number = 96;
+export const APP_VERSION: number = 97;

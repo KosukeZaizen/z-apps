@@ -11,6 +11,7 @@ import Head from './parts/Helmet';
 import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
 import PleaseScrollDown from './parts/PleaseScrollDown';
+import { Card, Button, CardTitle } from 'reactstrap';
 
 type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
     location: { pathname: string };
@@ -132,6 +133,15 @@ class VocabQuizTop extends React.Component<Props, State> {
                         >
                             {"Check All Vocabulary Lists"}
                         </button>
+                    </Link>
+                    <hr />
+                    <Link to={`/kanji-quiz`}>
+                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                            <CardTitle>Japanese Kanji Quiz</CardTitle>
+                            <p>Free app to learn Japanese Kanji characters!<br />
+                            Try to get a perfect score on all the quizzes!</p>
+                            <Button color="secondary">Try Kanji Quiz</Button>
+                        </Card>
                     </Link>
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
