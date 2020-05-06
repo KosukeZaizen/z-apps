@@ -2,7 +2,7 @@ import * as React from 'react';
 import './css/CharacterComment.css';
 import * as consts from '../../common/consts';
 
-type TProps = { imgNumber: number; screenWidth: number; comment: string | (string | JSX.Element)[]; };
+type TProps = { imgNumber: number; screenWidth: number; comment: string | JSX.Element; };
 export default function CharacterComment(props: TProps) {
     const { imgNumber, screenWidth, comment } = props;
     return (
@@ -29,7 +29,7 @@ export default function CharacterComment(props: TProps) {
                     width: screenWidth * 7 / 10,
                     maxWidth: 420,
                 }}>
-                    <p>{comment}</p>
+                    {comment}
                 </div>
             </div>
         </div>

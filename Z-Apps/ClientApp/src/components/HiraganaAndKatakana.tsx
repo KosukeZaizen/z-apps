@@ -108,7 +108,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                     <CharacterComment
                         imgNumber={imgNumber}
                         screenWidth={screenWidth}
-                        comment={["Free app to remember Japanese Hiragana and Katakana characters!", <br />, "Try to get a perfect score on all the quizzes!"]}
+                        comment={<p>Free app to remember Japanese Hiragana and Katakana characters!<br />Try to get a perfect score on all the quizzes!</p>}
                     />
                     <br />
 

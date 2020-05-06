@@ -692,7 +692,7 @@ function Page3(props: TPage3Props) {
                 <CharacterComment
                     screenWidth={screenWidth}
                     imgNumber={(imgNumber - 1) || 3}
-                    comment={[<span>{comment}<br /> You should remember the <span style={{ fontWeight: "bold", color: "red" }}>red Kanji</span> below!</span>]}
+                    comment={<p>{comment}<br />You should remember the <span style={{ fontWeight: "bold", color: "red" }}>red Kanji</span> below!</p>}
                 />
                 <br />
                 <button

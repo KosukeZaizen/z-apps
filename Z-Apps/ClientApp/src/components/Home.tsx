@@ -74,11 +74,13 @@ export default class Home extends React.Component<{}, {
                     <CharacterComment
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
-                        comment={[
-                            <span key="1">Applications to learn Japanese,{screenWidth < 800 ? <br /> : " "}
-                                made by <Link to="/developer">Kosuke Zaizen</Link>.<br /></span>,
-                            <span key="2">I hope you enjoy!</span>
-                        ]}
+                        comment={
+                            <p>
+                                Applications to learn Japanese,{screenWidth < 800 ? <br /> : " "}
+                                made by <Link to="/developer">Kosuke Zaizen</Link>.<br />
+                                I hope you enjoy!
+                            </p>
+                        }
                     />
                     <br />
                     <div ref={this.ref} id="scrollTargetId">
