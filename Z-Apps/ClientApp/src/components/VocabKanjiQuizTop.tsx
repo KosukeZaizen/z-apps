@@ -118,7 +118,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                     <CharacterComment
                         imgNumber={imgNumber}
                         screenWidth={screenWidth}
-                        comment="Try to get a perfect score on all the quizzes!"
+                        comment={<p>Free app to learn Japanese Kanji!<br />Try to get a perfect score on all the quizzes!</p>}
                     />
                     <br />
                     <AllKanjiList

@@ -76,7 +76,7 @@ export default class Home extends React.Component<{}, {
                         imgNumber={imgNumber}
                         comment={
                             <p>
-                                Applications to learn Japanese,{screenWidth < 800 ? <br /> : " "}
+                                Free app to learn Japanese,{screenWidth < 800 ? <br /> : " "}
                                 made by <Link to="/developer">Kosuke Zaizen</Link>.<br />
                                 I hope you enjoy!
                             </p>
