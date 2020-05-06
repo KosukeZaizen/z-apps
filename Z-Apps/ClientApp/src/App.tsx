@@ -93,7 +93,7 @@ export default class App extends React.Component {
 
 function NotFoundRedirect() {
 
-    const url = 'version.txt';
+    const url = `api/SystemBase/GetVersion/V${new Date().getMilliseconds()}`;
     fetch(url).then(res => {
         res.json().then(v => {
             if (Number(v) !== APP_VERSION) {
