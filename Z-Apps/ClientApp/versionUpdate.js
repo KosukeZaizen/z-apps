@@ -8,7 +8,7 @@ const replaceVersion = (fileName, newNumber) => {
     const previousNumber = targetLine.split("=")[1].replace(" ", "");
     if (!newNumber) newNumber = Number(previousNumber) + 1;
 
-    if (newNumber > 10000) newNumber = 1;
+    if (newNumber > 1000) newNumber = 1;
     const newContent = content.replace(previousNumber, newNumber);
 
     fs.writeFileSync(fileName, newContent);
