@@ -345,13 +345,13 @@ class Speaker extends React.Component<{
     }
 
     componentDidMount() {
-        setTimeout(this.loadSound, 2000 + (300 * this.props.vocabId));
+        setTimeout(this.loadSound, this.props.vocabId);
     }
 
     componentDidUpdate(previous) {
         if (previous.vocabSound.audio !== this.props.vocabSound.audio) {
             this.setState({ showImg: false });
-            setTimeout(this.loadSound, 2000 + (300 * this.props.vocabId));
+            setTimeout(this.loadSound);
         }
     }
 
