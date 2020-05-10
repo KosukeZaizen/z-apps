@@ -95,7 +95,7 @@ namespace Z_Apps
                 else if (ua.StartsWith("facebookexternalhit"))
                 {
                     logger.LogWarning("SNS bot");
-                    
+
                     if (url == null)
                     {
                         await next.Invoke();
@@ -146,12 +146,12 @@ namespace Z_Apps
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
-                        else if(url.Contains("vocabulary-quiz"))
+                        else if (url.Contains("vocabulary-quiz"))
                         {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
                             string title = (lastElem == "vocabulary-quiz") ?
-                                "Japanese Vocabulary Quiz" : 
+                                "Japanese Vocabulary Quiz" :
                                 "Japanese Vocabulary Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
 
                             resultHTML = "" +
@@ -170,12 +170,12 @@ namespace Z_Apps
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
-                        else if(url.Contains("kanji-quiz"))
+                        else if (url.Contains("kanji-quiz"))
                         {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
                             string title = (lastElem == "kanji-quiz") ?
-                                "Kanji Quiz" : 
+                                "Kanji Quiz" :
                                 "Kanji Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
 
                             resultHTML = "" +
@@ -194,7 +194,7 @@ namespace Z_Apps
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
-                        else if(url.Contains("vocabulary-list"))
+                        else if (url.Contains("vocabulary-list"))
                         {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
