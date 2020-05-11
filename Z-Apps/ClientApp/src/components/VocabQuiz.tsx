@@ -276,7 +276,12 @@ function Page1(props: TPage1Props) {
                 textAlign: "right"
             }}>
                 <button
-                    onClick={() => changePage(2)}
+                    onClick={() => {
+                        changePage(2);
+                        setTimeout(() => {
+                            sendClientOpeLog("start quiz");
+                        }, 1000);
+                    }}
                     className="btn btn-primary"
                     style={{ marginBottom: 25, marginTop: 20 }}
                 >
@@ -312,7 +317,12 @@ function Page1(props: TPage1Props) {
             </TableContainer>
             <br />
             <button
-                onClick={() => changePage(2)}
+                onClick={() => {
+                    changePage(2);
+                    setTimeout(() => {
+                        sendClientOpeLog("start quiz");
+                    }, 1000);
+                }}
                 className="btn btn-primary btn-lg btn-block"
             >
                 Start the Vocabulary Quiz
