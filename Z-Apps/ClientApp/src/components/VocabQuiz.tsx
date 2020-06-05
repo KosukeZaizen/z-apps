@@ -85,8 +85,8 @@ class VocabQuiz extends React.Component<Props, State> {
         this.correctSounds.forEach(s => s.load);
     }
 
-    componentDidUpdate(preciousProps) {
-        if (preciousProps.location !== this.props.location) {
+    componentDidUpdate(previousProps) {
+        if (previousProps.location !== this.props.location) {
             const genreName = this.props.location.pathname.split("/").filter(a => a).pop().split("#").pop();
             this.setState({
                 genreName,
