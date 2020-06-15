@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <p id="ball" style="position: absolute; font-size: xx-large;">●</p>
+    <script>
+        const ball = document.getElementById("ball");
+        const initialValues = {
+            posY: 0,
+            speedY: 50,
+        };
+        let posY = initialValues.posY;
+        let speedY = initialValues.speedY;
+
+        setInterval(async () => {
+            posY = posY + speedY;
+            ball.style.top = posY;
+
+            if (speedY) {
+                speedY = Math.floor(speedY * (99 / 100));
+            } else {
+                await sleepAsync(2000);
+                posY = initialValues.posY;
+                speedY = initialValues.speedY;
+            }
+        }, 50);
+
+        async function sleepAsync(time) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, time)
+            });
+        }
+    </script>
+</body>
+
+</html>
