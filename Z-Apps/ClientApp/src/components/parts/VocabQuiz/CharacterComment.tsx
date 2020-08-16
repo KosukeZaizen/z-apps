@@ -8,7 +8,7 @@ export default function CharacterComment(props: TProps) {
     return (
         <div style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: screenWidth > 450 ? "center" : "top",
             justifyContent: "center",
             maxWidth: 450,
             margin: "auto",

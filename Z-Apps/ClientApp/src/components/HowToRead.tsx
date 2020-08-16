@@ -19,6 +19,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CharacterComment from './parts/VocabQuiz/CharacterComment';
 
 
 type Props = storiesStore.StoriesState & storiesStore.IActionCreators & {
@@ -30,6 +31,7 @@ type State = {
     romaji: string;
     screenWidth: number;
     screenHeight: number;
+    imgNumber: number;
 };
 
 class HowToRead extends React.Component<Props, State> {
@@ -47,6 +49,7 @@ class HowToRead extends React.Component<Props, State> {
             romaji: "",
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
+            imgNumber: this.getImgNumber(word?.length),
         };
 
         let timer;
@@ -77,7 +80,7 @@ class HowToRead extends React.Component<Props, State> {
             const word = parser.parseFromString(xml, "text/xml");
 
             const getInnerHTML = (type: string) =>
-                Array.prototype.map.call(word?.getElementsByTagName(type), w => w?.innerHTML)?.join(" ");
+                Array.prototype.map.call(word?.getElementsByTagName(type), (w: HTMLElement) => w?.innerHTML)?.join(" ");
 
             const furigana = getInnerHTML("Furigana");
             const romaji = getInnerHTML("Roman");
@@ -111,8 +114,17 @@ class HowToRead extends React.Component<Props, State> {
         }
     }
 
+    getImgNumber = (num: number = 0) => {
+        const today = new Date();
+        const todayNumber = (today.getMonth() + today.getDate() + num);
+        const mod = todayNumber % 27;
+        if (mod > 13) return 1;
+        if (mod > 5) return 2;
+        return 3;
+    }
+
     render() {
-        const { screenWidth, furigana, romaji, word } = this.state;
+        const { screenWidth, furigana, romaji, word, imgNumber } = this.state;
 
         const title = `How to read ${word} in the alphabet and hiragana`;
 
@@ -178,14 +190,37 @@ class HowToRead extends React.Component<Props, State> {
                             <TableBody>
                                 <TableRow>
                                     <TableCell style={tableElementStyle} align="center">{word}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{furigana}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{romaji}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                    <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
                     </TableContainer>
                     <br />
-                    <p>How to read {word} is "{furigana}" in Hiragana, and "{romaji}" in the alphabet(Romaji)!</p>
+                    <CharacterComment
+                        screenWidth={screenWidth}
+                        imgNumber={imgNumber}
+                        comment={
+                            <p>
+                                How to read <span
+                                    style={{
+                                        fontWeight: "bold",
+                                        display: "inline-block"
+                                    }}
+                                >{word}</span> is <span
+                                    style={{
+                                        fontWeight: "bold",
+                                        display: "inline-block"
+                                    }}
+                                >"{furigana}"</span> in Hiragana, and <span
+                                    style={{
+                                        fontWeight: "bold",
+                                        display: "inline-block"
+                                    }}
+                                >"{romaji}"</span> in the alphabet(Romaji)!
+                                </p>
+                        }
+                    />
                     <p></p>
                     <br />
                     <hr />
