@@ -4,8 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Linq;
 using Z_Apps.Util;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -49,11 +52,67 @@ namespace Z_Apps.Models.SystemBase
             {
                 var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
+
+                var domain = "https://z-apps.lingual-ninja.com/how-to-read-japanese";
+                var lstSitemap = new List<Dictionary<string, string>>();
+
+                //top page
+                var dic1 = new Dictionary<string, string>();
+                dic1["loc"] = domain;
+                lstSitemap.Add(dic1);
+
+                //word page
+                IEnumerable<string> allWord = await GetAllWords();
+                foreach (string word in allWord)
+                {
+                    if (!word.Contains("+"))
+                    {
+                        var dicWordId = new Dictionary<string, string>();
+                        dicWordId["loc"] = domain + "/" + HttpUtility.UrlEncode(word, Encoding.UTF8);
+                        lstSitemap.Add(dicWordId);
+                    }
+                }
+
+                string partialXML = GetWikiSitemap(lstSitemap);
+
+                resultXML = resultXML.Replace("</urlset>", partialXML + "</urlset>");
             }
             return resultXML;
         }
 
-            public async Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
+        private async Task<IEnumerable<string>> GetAllWords()
+        {
+            string result = "";
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
+                result = await response.Content.ReadAsStringAsync();
+            }
+            return result.Replace("\"", "").Replace("[", "").Replace("]", "").Split(",");
+        }
+
+        private string GetWikiSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var item in sitemapItems)
+            {
+                sb.Append("  <url>");
+                sb.Append("\n");
+
+                sb.Append("    <loc>");
+                sb.Append(item["loc"]);
+                sb.Append("</loc>");
+                sb.Append("\n");
+
+                sb.Append("  </url>");
+                sb.Append("\n");
+            }
+
+            return sb.ToString();
+        }
+
+        public async Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
         {
             //backup
             var previousXML = await GetSiteMapText();

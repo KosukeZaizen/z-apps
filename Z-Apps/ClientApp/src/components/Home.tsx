@@ -154,6 +154,15 @@ export default class Home extends React.Component<{}, {
                                 <Button color="secondary">Play!</Button>
                             </Card>
                         </Link>
+                        <br />
+
+                        <Link to="/how-to-read-japanese">
+                            <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                                <CardTitle>How to read Japanese</CardTitle>
+                                <CardText>An app to learn how to read Japanese!</CardText>
+                                <Button color="secondary">Try!</Button>
+                            </Card>
+                        </Link>
 
                     </div>
                 </div>
