@@ -56,10 +56,10 @@ namespace Z_Apps.Models.SystemBase
                 var domain = "https://z-apps.lingual-ninja.com/how-to-read-japanese";
                 var lstSitemap = new List<Dictionary<string, string>>();
 
-                //top page
-                var dic1 = new Dictionary<string, string>();
-                dic1["loc"] = domain;
-                lstSitemap.Add(dic1);
+                //top page (noindexのためコメントアウト)
+                //var dic1 = new Dictionary<string, string>();
+                //dic1["loc"] = domain;
+                //lstSitemap.Add(dic1);
 
                 //word page
                 IEnumerable<string> allWord = await GetAllWords();

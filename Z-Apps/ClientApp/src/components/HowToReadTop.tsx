@@ -49,13 +49,23 @@ class HowToReadTop extends React.Component {
     componentDidMount() {
         const getData = async () => {
 
-            const url = `api/Wiki/GetAllWords`;
+            const url = `api/Wiki/GetAllWords?num=1000`;
             const response = await fetch(url);
             const words = await response.json();
 
             this.setState({
                 words: words.sort().reverse()
             });
+
+            setTimeout(async () => {
+                const url = `api/Wiki/GetAllWords?num=0`;
+                const response = await fetch(url);
+                const words = await response.json();
+
+                this.setState({
+                    words: words.sort().reverse()
+                });
+            }, 1000);
         }
         getData();
     }
@@ -80,6 +90,7 @@ class HowToReadTop extends React.Component {
                 <Head
                     title="How to read Japanese"
                     desc="Free web site to learn how to read Japanese! You can learn a lot of Japanese words from this page!"
+                    noindex
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>

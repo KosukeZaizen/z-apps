@@ -11,12 +11,20 @@ namespace Z_Apps.Controllers
     public class WikiController : Controller
     {
         [HttpGet("[action]")]
-        public async Task<string> GetAllWords()
+        public async Task<string> GetAllWords(int num)
         {
             string result = "";
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetPartialKanjiWords?num=1000");
+                HttpResponseMessage response;
+                if (num == 0)
+                {
+                    response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
+                }
+                else
+                {
+                    response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetPartialKanjiWords?num=" + num);
+                }
                 result = await response.Content.ReadAsStringAsync();
             }
             return result;
