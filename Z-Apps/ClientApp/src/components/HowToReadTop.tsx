@@ -54,7 +54,7 @@ class HowToReadTop extends React.Component {
             const words = await response.json();
 
             this.setState({
-                words: words.filter(w => !w.includes("+")).sort().reverse()
+                words: words.sort().reverse()
             });
         }
         getData();

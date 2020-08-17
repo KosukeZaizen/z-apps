@@ -65,12 +65,10 @@ namespace Z_Apps.Models.SystemBase
                 IEnumerable<string> allWord = await GetAllWords();
                 foreach (string word in allWord)
                 {
-                    if (!word.Contains("+"))
-                    {
-                        var dicWordId = new Dictionary<string, string>();
-                        dicWordId["loc"] = domain + "/" + HttpUtility.UrlEncode(word, Encoding.UTF8);
-                        lstSitemap.Add(dicWordId);
-                    }
+                    var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                    var dicWordId = new Dictionary<string, string>();
+                    dicWordId["loc"] = domain + "/" + encodedWord;
+                    lstSitemap.Add(dicWordId);
                 }
 
                 string partialXML = GetWikiSitemap(lstSitemap);

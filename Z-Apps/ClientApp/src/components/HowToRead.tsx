@@ -41,7 +41,21 @@ class HowToRead extends React.Component<Props, State> {
         super(props);
 
         const { params } = props.match;
-        const word = params.word?.toString()?.split("#")[0] || "";
+        const originalWord = params.word?.toString()?.split("#")[0] || "";
+
+        const encodedWord = originalWord.split(",").join("%2C");
+        if (originalWord !== encodedWord) {
+            //If the comma was not encoded, use encoded URL to prevent the duplication of the pages
+            window.location.href = `/category/${encodedWord}`;
+        }
+
+        if (window.location.pathname.split("#")[0].includes("%27")) {
+            //基本的にはエンコードされたURLを正とするが、react-routerの仕様上、
+            //「%27」のみは「'」を正とする。
+            window.location.href = window.location.pathname.split("%27").join("'");
+        }
+
+        const word = decodeURIComponent(originalWord);
 
         this.state = {
             word,
@@ -80,7 +94,14 @@ class HowToRead extends React.Component<Props, State> {
             const word = parser.parseFromString(xml, "text/xml");
 
             const getInnerHTML = (type: string) =>
-                Array.prototype.map.call(word?.getElementsByTagName(type), (w: HTMLElement) => w?.innerHTML)?.join(" ");
+                Array.prototype.map.call(word?.getElementsByTagName("Word"), (w: HTMLElement) => {
+                    const forType = w?.getElementsByTagName(type);
+                    if (forType?.length <= 0) {
+                        return w?.getElementsByTagName("Surface")[0]?.innerHTML;
+                    } else {
+                        return forType[0]?.innerHTML;
+                    }
+                })?.join(" ").split("<![CDATA[ ]]>").join(" ");
 
             const furigana = getInnerHTML("Furigana");
             const romaji = getInnerHTML("Roman");
@@ -100,7 +121,7 @@ class HowToRead extends React.Component<Props, State> {
         if (preciousProps.location !== this.props.location) {
             const word = this.props.location.pathname.split("/").filter(a => a).pop();
             this.setState({
-                word: word,
+                word: decodeURIComponent(word),
             });
         }
     }
@@ -201,6 +222,8 @@ class HowToRead extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
                         comment={
+                            furigana &&
+                            romaji ?
                             <p>
                                 How to read <span
                                     style={{
@@ -219,6 +242,8 @@ class HowToRead extends React.Component<Props, State> {
                                     }}
                                 >"{romaji}"</span> in the alphabet(Romaji)!
                                 </p>
+                                :
+                                <CircularProgress key="circle" size="20%" />
                         }
                     />
                     <p></p>
