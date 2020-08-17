@@ -1,26 +1,14 @@
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
-import { actionCreators } from '../store/StoriesTopStore';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FB from './parts/FaceBook';
-import GoogleAd from './parts/GoogleAd';
-import PleaseScrollDown from './parts/PleaseScrollDown';
-import * as consts from './common/consts';
-import { storyDesc } from '../types/stories';
 
 class HowToReadTop extends React.Component {
     ref: React.RefObject<HTMLDivElement>;
-    props: {
-        loadAllStories: () => void,
-        allStories: storyDesc[],
-    };
+    props: {};
     state: {
-        screenWidth: number;
         words: string[];
     };
 
@@ -28,19 +16,7 @@ class HowToReadTop extends React.Component {
         super(props);
 
         this.state = {
-            screenWidth: window.innerWidth,
             words: [],
-        };
-
-        let timer;
-        window.onresize = () => {
-            if (timer > 0) {
-                clearTimeout(timer);
-            }
-
-            timer = setTimeout(() => {
-                this.changeScreenSize();
-            }, 100);
         };
 
         this.ref = React.createRef();
@@ -70,14 +46,7 @@ class HowToReadTop extends React.Component {
         getData();
     }
 
-    changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth
-        });
-    }
-
     render() {
-        const { screenWidth } = this.state;
         const styleForAboutTitle = {
             background: "#fee8b4",
             boxShadow: "0px 0px 0px 5px #fee8b4",
@@ -143,17 +112,9 @@ class HowToReadTop extends React.Component {
                     <hr />
                 </div>
                 <FB />
-                <br />
-                <PleaseScrollDown
-                    criteriaRef={this.ref}
-                    screenWidth={screenWidth}
-                />
             </div>
         );
     }
 };
 
-export default connect(
-    (state: TReducers) => state.storiesTop,
-    dispatch => bindActionCreators(actionCreators, dispatch)
-)(HowToReadTop);
+export default HowToReadTop;

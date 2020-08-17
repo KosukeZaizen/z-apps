@@ -4,14 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TReducers } from '../store/configureStore';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
-import * as storiesStore from '../store/StoriesStore';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import './parts/PleaseScrollDown.css';
 import Head from './parts/Helmet';
-import GoogleAd from './parts/GoogleAd';
 import FB from './parts/FaceBook';
-import * as consts from './common/consts';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -22,7 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import CharacterComment from './parts/VocabQuiz/CharacterComment';
 
 
-type Props = storiesStore.StoriesState & storiesStore.IActionCreators & {
+type Props = {
     location: { pathname: string };
 };
 type State = {
@@ -200,25 +196,6 @@ class HowToRead extends React.Component<Props, State> {
                             <b>{title}</b>
                         </h1>
                         <br />
-                        <TableContainer component={Paper}>
-                            <Table aria-label="simple table">
-                                <TableHead>
-                                    <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                        <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
-                                        <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                                        <TableCell style={tableHeadStyle} align="center">Alphabet (Romaji)</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell style={tableElementStyle} align="center">{word}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <br />
                         <CharacterComment
                             screenWidth={screenWidth}
                             imgNumber={imgNumber}
@@ -247,6 +224,25 @@ class HowToRead extends React.Component<Props, State> {
                                     <CircularProgress key="circle" size="20%" />
                             }
                         />
+                        <br />
+                        <TableContainer component={Paper}>
+                            <Table aria-label="simple table">
+                                <TableHead>
+                                    <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                        <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
+                                        <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                        <TableCell style={tableHeadStyle} align="center">Alphabet (Romaji)</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell style={tableElementStyle} align="center">{word}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </article>
                     <br />
                     <hr />
@@ -259,14 +255,10 @@ class HowToRead extends React.Component<Props, State> {
                     </Link>
                     <hr />
                     <FB />
-                    <br />
                 </div>
             </div>
         );
     }
 };
 
-export default connect(
-    (state: TReducers) => state.stories,
-    dispatch => bindActionCreators(storiesStore.actionCreators as any, dispatch)
-)(HowToRead);
+export default HowToRead;

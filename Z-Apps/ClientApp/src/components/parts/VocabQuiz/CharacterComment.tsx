@@ -8,8 +8,7 @@ export default function CharacterComment(props: TProps) {
     return (
         <div style={{
             display: "flex",
-            alignItems: screenWidth > 450 ? "center" : "top",
-            justifyContent: "center",
+            //justifyContent: "center",
             maxWidth: 450,
             margin: "auto",
         }}>
@@ -20,13 +19,18 @@ export default function CharacterComment(props: TProps) {
                     style={{
                         width: screenWidth * 2 / 10,
                         maxWidth: 120,
-                        height: "auto"
+                        height: "auto",
+                        verticalAlign: "top",
                     }}
                 />
             </div>
-            <div className="chatting" style={{ verticalAlign: "middle", }}>
+            <div className="chatting" style={{
+                height: "auto",
+                display: "flex",
+                alignItems: "center",
+            }}>
                 <div className="says" style={{
-                    width: screenWidth * 7 / 10,
+                    width: (screenWidth * 7 / 10) - 15,
                     maxWidth: 420,
                 }}>
                     {comment}
