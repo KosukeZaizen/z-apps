@@ -77,7 +77,7 @@ class HowToRead extends React.Component<Props, State> {
             }, 100);
         };
     }
-    
+
     componentDidMount() {
         const getData = async () => {
 
@@ -192,61 +192,62 @@ class HowToRead extends React.Component<Props, State> {
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <h1 style={{
-                        margin: "25px",
-                        lineHeight: screenWidth > 500 ? "45px" : "35px",
-                    }}>
-                        <b>{title}</b>
-                    </h1>
-                    <br />
-                    <TableContainer component={Paper}>
-                        <Table aria-label="simple table">
-                            <TableHead>
-                                <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                    <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
-                                    <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                                    <TableCell style={tableHeadStyle} align="center">Alphabet (Romaji)</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell style={tableElementStyle} align="center">{word}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
-                                    <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <br />
-                    <CharacterComment
-                        screenWidth={screenWidth}
-                        imgNumber={imgNumber}
-                        comment={
-                            furigana &&
-                            romaji ?
-                            <p>
-                                How to read <span
-                                    style={{
-                                        fontWeight: "bold",
-                                        display: "inline-block"
-                                    }}
-                                >{word}</span> is <span
-                                    style={{
-                                        fontWeight: "bold",
-                                        display: "inline-block"
-                                    }}
-                                >"{furigana}"</span> in Hiragana, and <span
-                                    style={{
-                                        fontWeight: "bold",
-                                        display: "inline-block"
-                                    }}
-                                >"{romaji}"</span> in the alphabet(Romaji)!
+                    <article>
+                        <h1 style={{
+                            margin: "25px",
+                            lineHeight: screenWidth > 500 ? "45px" : "35px",
+                        }}>
+                            <b>{title}</b>
+                        </h1>
+                        <br />
+                        <TableContainer component={Paper}>
+                            <Table aria-label="simple table">
+                                <TableHead>
+                                    <TableRow style={{ backgroundColor: 'papayawhip' }}>
+                                        <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
+                                        <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
+                                        <TableCell style={tableHeadStyle} align="center">Alphabet (Romaji)</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell style={tableElementStyle} align="center">{word}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                        <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <br />
+                        <CharacterComment
+                            screenWidth={screenWidth}
+                            imgNumber={imgNumber}
+                            comment={
+                                furigana &&
+                                    romaji ?
+                                    <p>
+                                        How to read <span
+                                            style={{
+                                                fontWeight: "bold",
+                                                display: "inline-block"
+                                            }}
+                                        >{word}</span> is <span
+                                            style={{
+                                                fontWeight: "bold",
+                                                display: "inline-block"
+                                            }}
+                                        >"{furigana}"</span> in Hiragana, and <span
+                                            style={{
+                                                fontWeight: "bold",
+                                                display: "inline-block"
+                                            }}
+                                        >"{romaji}"</span> in the alphabet(Romaji)!
                                 </p>
-                                :
-                                <CircularProgress key="circle" size="20%" />
-                        }
-                    />
-                    <p></p>
+                                    :
+                                    <CircularProgress key="circle" size="20%" />
+                            }
+                        />
+                    </article>
                     <br />
                     <hr />
                     <Link to="/vocabulary-list">
