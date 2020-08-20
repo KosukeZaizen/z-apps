@@ -84,19 +84,19 @@ export default class Home extends React.Component<{}, {
                     />
                     <br />
                     <div ref={this.ref} id="scrollTargetId">
-                        <Link to="/hiragana-katakana">
+                        <Link to="/folktales">
                             <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
-                                <CardTitle>Hiragana / Katakana</CardTitle>
-                                <CardText>An app to remember Hiragana and Katakana! Let's test your memory of Hiragana and Katakana!</CardText>
+                                <CardTitle>Japanese Folktales</CardTitle>
+                                <CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>
                         <br />
 
-                        <Link to="/vocabulary-list">
+                        <Link to="/hiragana-katakana">
                             <Card body inverse color="primary">
-                                <CardTitle>Japanese Vocabulary List</CardTitle>
-                                <CardText>Basic Japanese Vocabulary List! Try to memorize all the vocabulary by using the quizzes!</CardText>
+                                <CardTitle>Hiragana / Katakana</CardTitle>
+                                <CardText>An app to remember Hiragana and Katakana! Let's test your memory of Hiragana and Katakana!</CardText>
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>
@@ -120,10 +120,10 @@ export default class Home extends React.Component<{}, {
                         </Link>
                         <br />
 
-                        <Link to="/folktales">
+                        <Link to="/vocabulary-list">
                             <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
-                                <CardTitle>Japanese Folktales</CardTitle>
-                                <CardText>An app to learn Japanese from folktales. You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!</CardText>
+                                <CardTitle>Japanese Vocabulary List</CardTitle>
+                                <CardText>Basic Japanese Vocabulary List! Try to memorize all the vocabulary by using the quizzes!</CardText>
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>

@@ -7,11 +7,10 @@ import './NavMenu.css';
 function NavigationItems(props: { closeToggle: () => void }) {
 
     let objLinks = {
+        "Japanese Folktales": "/folktales",
         "Hiragana / Katakana": "/hiragana-katakana",
-        "Vocabulary List": "/vocabulary-list",
         "Vocabulary Quiz": "/vocabulary-quiz",
         "Kanji Quiz": "/kanji-quiz",
-        "Japanese Folktales": "/folktales",
         "Action Games": "/ninja",
     };
     let linkList = [];

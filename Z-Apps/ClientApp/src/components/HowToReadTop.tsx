@@ -102,6 +102,10 @@ class HowToReadTop extends React.Component {
                             : <CircularProgress key="circle" size="20%" />
                     }
                     <hr />
+                    <div style={{ fontSize: "x-large", margin: "20px" }}>
+                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                    </div>
+                    <hr />
                     <Link to="/vocabulary-list">
                         <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                             <CardTitle>Japanese Vocabulary List</CardTitle>

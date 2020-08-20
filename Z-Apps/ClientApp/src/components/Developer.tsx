@@ -64,16 +64,16 @@ export default class Developer extends React.Component {
                         <br />
                         <div className="center">
                             <p className="no-margin">
-                                To contact me, please write a message<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                                using the link below:</p><br />
-                            <b><a href="https://uni-browser.lingual-ninja.com/?pageId=4" target="_blank" rel="noopener noreferrer">Contact uni-browser >></a></b>
+                                I am writing a blog for people<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
+                                studying Japanese!:</p><br />
+                            <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
 
                             <br /><br /><br />
                             <p className="no-margin">
-                                Also, I am writing a blog for people<span className='hidden-xs'> </span><span className='visible-xs'><br /></span>
-                                studying Japanese:</p><br />
-                            <b><a href="https://www.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">Lingual Ninja! >></a></b>
-                            <br /><br />
+                                Also, this is my Japanese blog!:</p><br />
+                            <b><a href="https://web.lingual-ninja.com/" target="_blank" rel="noopener noreferrer">IT / Web技術 >></a></b>
+
+                            <br /><br /><hr />
                             <FB />
                         </div>
                     </div>
