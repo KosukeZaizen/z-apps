@@ -51,7 +51,7 @@ class HowToRead extends React.Component<Props, State> {
             window.location.href = window.location.pathname.split("%27").join("'");
         }
 
-        const word = decodeURIComponent(originalWord);
+        const word = decodeURIComponent(originalWord)?.split("?")?.join("")?.split("&")?.join("");
 
         this.state = {
             word,
