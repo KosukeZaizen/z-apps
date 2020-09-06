@@ -31,16 +31,16 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<string> GetEnglishWord(string word)
+        public async Task<object> GetEnglishWord(string word)
         {
-            string result = "";
+            string wordId = "";
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/CheckIfTheWordIsIncluded?word=" + word);
-                result = await response.Content.ReadAsStringAsync();
+                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordId?word=" + word);
+                wordId = await response.Content.ReadAsStringAsync();
             }
 
-            if (result == "true")
+            if (wordId.Length > 0)
             {
                 string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
@@ -64,12 +64,12 @@ namespace Z_Apps.Controllers
                 wc.Dispose();
 
                 //受信したデータを表示する
-                return enc.GetString(resData);
+                return new { xml = enc.GetString(resData), wordId };
             }
             else
             {
-                return "";
+                return new { xml = "", wordId = "" };
             }
-       }
+        }
     }
 }

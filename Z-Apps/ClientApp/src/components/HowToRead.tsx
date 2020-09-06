@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Head from './parts/Helmet';
@@ -23,6 +20,7 @@ type Props = {
 };
 type State = {
     word: string;
+    wordId: string;
     furigana: string;
     romaji: string;
     screenWidth: number;
@@ -55,6 +53,7 @@ class HowToRead extends React.Component<Props, State> {
 
         this.state = {
             word,
+            wordId: "",
             furigana: "",
             romaji: "",
             screenWidth: window.innerWidth,
@@ -76,33 +75,39 @@ class HowToRead extends React.Component<Props, State> {
 
     componentDidMount() {
         const getData = async () => {
+            try {
+                const url = `api/Wiki/GetEnglishWord?word=${this.state.word}`;
+                const response = await fetch(url);
+                console.log("response", response);
+                const { xml, wordId } = await response.json();
 
-            const url = `api/Wiki/GetEnglishWord?word=${this.state.word}`;
-            const response = await fetch(url);
-            const xml = await response.text();
 
-            if (!xml) {
+                if (!xml) {
+                    window.location.href = `/not-found?p=${window.location.pathname}`;
+                    return;
+                }
+
+                const parser = new DOMParser();
+                const word = parser.parseFromString(xml, "text/xml");
+
+                const getInnerHTML = (type: string) =>
+                    Array.prototype.map.call(word?.getElementsByTagName("Word"), (w: HTMLElement) => {
+                        const forType = w?.getElementsByTagName(type);
+                        if (forType?.length <= 0) {
+                            return w?.getElementsByTagName("Surface")[0]?.innerHTML;
+                        } else {
+                            return forType[0]?.innerHTML;
+                        }
+                    })?.join(" ").split("<![CDATA[ ]]>").join(" ");
+
+                const furigana = getInnerHTML("Furigana");
+                const romaji = getInnerHTML("Roman");
+
+                this.setState({ furigana, romaji, wordId });
+
+            } catch (ex) {
                 window.location.href = `/not-found?p=${window.location.pathname}`;
-                return;
             }
-
-            const parser = new DOMParser();
-            const word = parser.parseFromString(xml, "text/xml");
-
-            const getInnerHTML = (type: string) =>
-                Array.prototype.map.call(word?.getElementsByTagName("Word"), (w: HTMLElement) => {
-                    const forType = w?.getElementsByTagName(type);
-                    if (forType?.length <= 0) {
-                        return w?.getElementsByTagName("Surface")[0]?.innerHTML;
-                    } else {
-                        return forType[0]?.innerHTML;
-                    }
-                })?.join(" ").split("<![CDATA[ ]]>").join(" ");
-
-            const furigana = getInnerHTML("Furigana");
-            const romaji = getInnerHTML("Roman");
-
-            this.setState({ furigana, romaji });
         }
         getData();
 
@@ -141,7 +146,7 @@ class HowToRead extends React.Component<Props, State> {
     }
 
     render() {
-        const { screenWidth, furigana, romaji, word, imgNumber } = this.state;
+        const { screenWidth, furigana, romaji, word, wordId, imgNumber } = this.state;
 
         const title = `How to read ${word} in the alphabet and hiragana`;
 
@@ -188,7 +193,11 @@ class HowToRead extends React.Component<Props, State> {
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <article>
+                    <article
+                        style={{
+                            borderBottom: "1px solid gainsboro"
+                        }}
+                    >
                         <h1 style={{
                             margin: "25px",
                             lineHeight: screenWidth > 500 ? "45px" : "35px",
@@ -243,11 +252,25 @@ class HowToRead extends React.Component<Props, State> {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <a
+                            href={"https://wiki-jp.lingual-ninja.com/word/" + wordId}
+                            style={{ padding: 32 }}
+                        >
+                            <button
+                                className="btn btn-dark btn-lg btn-block"
+                            >
+                                Click here to check Japanese website<br />to learn the meaning of {word.length > 6 ? <span><br />{word}</span> : word}
+                            </button>
+                        </a>
                     </article>
-                    <div style={{ fontSize: "x-large", margin: "20px" }}>
+                    <div style={{
+                        fontSize: "x-large",
+                        margin: "20px 0",
+                        borderBottom: "1px solid gainsboro",
+                        paddingBottom: 20,
+                    }}>
                         <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
                     </div>
-                    <hr />
                     <Link to="/vocabulary-list">
                         <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                             <CardTitle>Japanese Vocabulary List</CardTitle>
