@@ -255,9 +255,12 @@ class HowToRead extends React.Component<Props, State> {
                         <a
                             href={"https://wiki-jp.lingual-ninja.com/word/" + wordId}
                             style={{ padding: 32 }}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <button
                                 className="btn btn-dark btn-lg btn-block"
+                                style={{ whiteSpace: "pre-wrap", }}
                             >
                                 Click here to check Japanese website<br />to learn the meaning of {word.length > 6 ? <span><br />{word}</span> : word}
                             </button>
