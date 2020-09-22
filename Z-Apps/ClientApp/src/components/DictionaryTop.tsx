@@ -5,7 +5,7 @@ import Head from './parts/Helmet';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FB from './parts/FaceBook';
 
-class HowToReadTop extends React.Component {
+class DictionaryTop extends React.Component {
     ref: React.RefObject<HTMLDivElement>;
     props: {};
     state: {
@@ -57,8 +57,8 @@ class HowToReadTop extends React.Component {
         return (
             <div className="center">
                 <Head
-                    title="How to read Japanese"
-                    desc="Free website to learn how to read Japanese! You can learn a lot of Japanese words from this page!"
+                    title="Japanese dictionary"
+                    desc="Free website to learn the meanings of Japanese words! You can learn a lot of Japanese words from this page!"
                     noindex
                 />
                 <div style={{ maxWidth: 700 }}>
@@ -74,7 +74,7 @@ class HowToReadTop extends React.Component {
                         {" > "}
                         <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
                             <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                How to read Japanese
+                                Japanese dictionary
                             </span>
                             <meta itemProp="position" content="2" />
                         </span>
@@ -83,10 +83,10 @@ class HowToReadTop extends React.Component {
                         margin: "30px",
                         lineHeight: "40px",
                     }}>
-                        <b>How to read Japanese</b>
+                        <b>Japanese dictionary</b>
                     </h1>
                     <p style={styleForAboutTitle}>
-                        Free website to learn how to read Japanese!<br />
+                        Free website to learn the meaning of Japanese words!<br />
                         You can learn a lot of Japanese words from this page!
                     </p>
                     <br />
@@ -94,7 +94,7 @@ class HowToReadTop extends React.Component {
                         this.state.words.length > 0
                             ? this.state.words.map(w =>
                                 <div key={w}>
-                                    <a href={"how-to-read-japanese/" + encodeURIComponent(w)}>
+                                    <a href={"dictionary/" + encodeURIComponent(w)}>
                                         {w}
                                     </a>
                                 </div>
@@ -121,4 +121,4 @@ class HowToReadTop extends React.Component {
     }
 };
 
-export default HowToReadTop;
+export default DictionaryTop;

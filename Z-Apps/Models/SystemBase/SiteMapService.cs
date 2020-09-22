@@ -53,7 +53,10 @@ namespace Z_Apps.Models.SystemBase
                 var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
 
-                var domain = "https://z-apps.lingual-ninja.com/how-to-read-japanese";
+                var domains = new List<string>();
+                domains.Add("https://z-apps.lingual-ninja.com/how-to-read-japanese");
+                domains.Add("https://z-apps.lingual-ninja.com/dictionary");
+
                 var lstSitemap = new List<Dictionary<string, string>>();
 
                 //top page (noindexのためコメントアウト)
@@ -61,14 +64,16 @@ namespace Z_Apps.Models.SystemBase
                 //dic1["loc"] = domain;
                 //lstSitemap.Add(dic1);
 
-                //word page
-                IEnumerable<string> allWord = await GetAllWords();
-                foreach (string word in allWord)
+                foreach (string domain in domains)
                 {
-                    var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
-                    var dicWordId = new Dictionary<string, string>();
-                    dicWordId["loc"] = domain + "/" + encodedWord;
-                    lstSitemap.Add(dicWordId);
+                    IEnumerable<string> allWord = await GetAllWords();
+                    foreach (string word in allWord)
+                    {
+                        var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                        var dicWordId = new Dictionary<string, string>();
+                        dicWordId["loc"] = domain + "/" + encodedWord;
+                        lstSitemap.Add(dicWordId);
+                    }
                 }
 
                 string partialXML = GetWikiSitemap(lstSitemap);

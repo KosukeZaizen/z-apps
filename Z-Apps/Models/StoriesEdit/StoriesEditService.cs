@@ -235,7 +235,7 @@ namespace Z_Apps.Models.StoriesEdit
         }
 
 
-        private async Task<string> MakeEnglish(string kanji)
+        public async Task<string> MakeEnglish(string kanji)
         {
             string url = @"https://script.google.com/macros/s/AKfycbzIEz24LNM-m92y6elzl8DCoG-uZi-HhDZ5ARQKPtMyll9w6V4/exec?text="
                 + kanji + @"&source=ja&target=en";
