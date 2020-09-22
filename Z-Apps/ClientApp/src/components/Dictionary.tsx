@@ -105,8 +105,8 @@ class Dictionary extends React.Component<Props, State> {
                         }
                     })?.join(" ").split("<![CDATA[ ]]>").join(" ");
 
-                const furigana = getInnerHTML("Furigana")?.split(" ")?.join("");
-                const romaji = getInnerHTML("Roman")?.split(" ")?.join("");
+                const furigana = getInnerHTML("Furigana");
+                const romaji = getInnerHTML("Roman");
 
                 this.setState({ furigana, romaji, wordId, translatedWord, snippet });
 
@@ -155,9 +155,8 @@ class Dictionary extends React.Component<Props, State> {
     getStories = async () => {
         //other stories
         const url = `api/Stories/GetOtherStories/${this.state.wordId}`;
-        const response4 = await fetch(url);
-        const otherStories = await response4.json();
-        console.log("stories", otherStories);
+        const response = await fetch(url);
+        const otherStories = await response.json();
         this.setState({ otherStories });
     }
 

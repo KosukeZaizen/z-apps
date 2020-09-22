@@ -105,7 +105,11 @@ namespace Z_Apps.Controllers
                     //英語に翻訳
                     w.snippet = (await storyEdit.MakeEnglish(
                         w.snippet
-                            .Replace("<bold>", "").Replace("</bold>", "")
+                            .Replace("<bold>", "")
+                            .Replace("</bold>", "")
+                            .Replace("#", "")
+                            .Replace("?", "")
+                            .Replace("&", "")
                         )
                     )
                     .Replace("<bold>", "").Replace("</bold>", "");
@@ -140,7 +144,10 @@ namespace Z_Apps.Controllers
                     xml = enc.GetString(resData),
                     w?.wordId,
                     w?.snippet,
-                    translatedWord = await storyEdit.MakeEnglish(word)
+                    translatedWord = await storyEdit.MakeEnglish(word
+                            .Replace("#", "")
+                            .Replace("?", "")
+                            .Replace("&", ""))
                 };
             }
             else
