@@ -59,13 +59,13 @@ namespace Z_Apps.Models.SystemBase
 
                 var lstSitemap = new List<Dictionary<string, string>>();
 
-                //top page (noindexのためコメントアウト)
-                //var dic1 = new Dictionary<string, string>();
-                //dic1["loc"] = domain;
-                //lstSitemap.Add(dic1);
-
                 foreach (string domain in domains)
                 {
+                    //top page (noindexのためコメントアウト)
+                    //var dic1 = new Dictionary<string, string>();
+                    //dic1["loc"] = domain;
+                    //lstSitemap.Add(dic1);
+
                     IEnumerable<string> allWord = await GetAllWords();
                     foreach (string word in allWord)
                     {
