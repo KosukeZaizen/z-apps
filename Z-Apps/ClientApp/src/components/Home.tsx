@@ -159,7 +159,7 @@ export default class Home extends React.Component<{}, {
                         <Link to="/dictionary">
                             <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
                                 <CardTitle>Japanese Dictionary</CardTitle>
-                                <CardText>An app to learn the meanings of Japanese words!</CardText>
+                                <CardText>An app to learn the meaning of Japanese words!</CardText>
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>

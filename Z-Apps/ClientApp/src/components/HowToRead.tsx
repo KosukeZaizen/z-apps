@@ -252,6 +252,14 @@ class HowToRead extends React.Component<Props, State> {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <div style={{
+                            fontSize: "x-large",
+                            margin: "20px 0",
+                            borderBottom: "1px solid gainsboro",
+                            paddingBottom: 20,
+                        }}>
+                            <Link to={"/dictionary/" + word}>Check the meaning of {word} >></Link>
+                        </div>
                         <a
                             href={"https://wiki-jp.lingual-ninja.com/word/" + wordId}
                             style={{ padding: 32 }}
