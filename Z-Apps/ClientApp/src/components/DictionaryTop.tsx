@@ -58,7 +58,7 @@ class DictionaryTop extends React.Component {
             <div className="center">
                 <Head
                     title="Japanese dictionary"
-                    desc="Free website to learn the meanings of Japanese words! You can learn a lot of Japanese words from this page!"
+                    desc="Free website to learn the meaning of Japanese words! You can learn a lot of Japanese words from this page!"
                     noindex
                 />
                 <div style={{ maxWidth: 700 }}>
