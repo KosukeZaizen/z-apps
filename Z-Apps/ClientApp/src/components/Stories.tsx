@@ -362,7 +362,7 @@ class Stories extends React.Component<Props, State> {
                                                             }
                                                             <div className="center">
                                                                 <p style={{ margin: "20px" }}>
-                                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                                    <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -392,7 +392,7 @@ class Stories extends React.Component<Props, State> {
                                                     }
                                                 </div>
                                                 <p>
-                                                    <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                    <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                 </p>
                                             </div>
                                     }
@@ -405,7 +405,7 @@ class Stories extends React.Component<Props, State> {
                         to="/folktales"
                         style={{ fontSize: "x-large" }}
                     >
-                        All folktales >>
+                        {"All folktales >>"}
                     </Link>
                     <br />
                     <hr />
