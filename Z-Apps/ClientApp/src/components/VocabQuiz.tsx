@@ -227,7 +227,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     </Link>
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                        <Link to="/folktales">{"Learn Japanese from Japanese folktales >>"}</Link>
                     </div>
                     <br />
                     <FB />
@@ -531,7 +531,7 @@ class Page2 extends React.Component<{
                             changePage(1);
                         }
                     }}
-                >Return to the vocabulary list >></p>
+                >{"Return to the vocabulary list >>"}</p>
                 <br />
             </div>
         } else {

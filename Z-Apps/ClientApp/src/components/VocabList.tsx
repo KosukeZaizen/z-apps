@@ -141,7 +141,7 @@ class VocabList extends React.Component<Props, State> {
                     />
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                        <Link to="/folktales">{"Learn Japanese from Japanese folktales >>"}</Link>
                     </div>
                     <br />
                     <FB />
