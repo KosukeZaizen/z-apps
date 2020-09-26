@@ -13,6 +13,10 @@ import { unregister } from './registerServiceWorker';
 import ReactGA from 'react-ga';
 import { GOOGLE_ANALYTICS } from './components/common/privateConsts';
 import { checkAppVersion } from './components/common/functions';
+import { siteUrl, azureUrl } from './components/common/consts';
+
+//AzureUrlから通常のURLへリダイレクト
+if (window.location.href.includes(azureUrl)) window.location.href = window.location.href.replace(azureUrl, siteUrl);
 
 checkAppVersion();
 ReactGA.initialize(GOOGLE_ANALYTICS);

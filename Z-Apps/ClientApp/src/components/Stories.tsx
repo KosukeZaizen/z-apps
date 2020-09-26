@@ -311,6 +311,7 @@ class Stories extends React.Component<Props, State> {
                                 </div>
                         }
                     </div>
+                    <GoogleAd />
                     {
                         otherStories && otherStories.length > 0 ?
                             <div style={{ textAlign: "left", marginTop: "30px", marginBottom: "20px" }}>
