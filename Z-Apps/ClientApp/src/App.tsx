@@ -7,6 +7,7 @@ import * as commonFncs from './components/common/functions';
 import ReactGA from 'react-ga';
 import ScrollMemory from 'react-router-scroll-memory';
 import { APP_VERSION } from './version';
+import WelcomeAnimation from './components/parts/WelcomeAnimation';
 
 const Home = lazy(() => import('./components/Home'));
 const Terms = lazy(() => import('./components/Terms'));
@@ -94,6 +95,7 @@ export default class App extends React.Component {
                         <Route component={NotFoundRedirect} />
                     </Switch>
                 </Suspense>
+                <WelcomeAnimation />
             </Layout>
         );
     }
