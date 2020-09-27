@@ -53,27 +53,22 @@ namespace Z_Apps.Models.SystemBase
                 var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
 
-                var domains = new List<string>();
-                domains.Add("https://z-apps.lingual-ninja.com/how-to-read-japanese");
-                domains.Add("https://z-apps.lingual-ninja.com/dictionary");
-
                 var lstSitemap = new List<Dictionary<string, string>>();
 
-                foreach (string domain in domains)
-                {
-                    //top page (noindexのためコメントアウト)
-                    //var dic1 = new Dictionary<string, string>();
-                    //dic1["loc"] = domain;
-                    //lstSitemap.Add(dic1);
+                var domain = "https://z-apps.lingual-ninja.com/dictionary";
 
-                    IEnumerable<string> allWord = await GetAllWords();
-                    foreach (string word in allWord)
-                    {
-                        var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
-                        var dicWordId = new Dictionary<string, string>();
-                        dicWordId["loc"] = domain + "/" + encodedWord;
-                        lstSitemap.Add(dicWordId);
-                    }
+                //top page (noindexのためコメントアウト)
+                //var dic1 = new Dictionary<string, string>();
+                //dic1["loc"] = domain;
+                //lstSitemap.Add(dic1);
+
+                IEnumerable<string> allWord = await GetAllWords();
+                foreach (string word in allWord)
+                {
+                    var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                    var dicWordId = new Dictionary<string, string>();
+                    dicWordId["loc"] = domain + "/" + encodedWord;
+                    lstSitemap.Add(dicWordId);
                 }
 
                 string partialXML = GetWikiSitemap(lstSitemap);
@@ -121,7 +116,6 @@ namespace Z_Apps.Models.SystemBase
             var previousXML = await GetSiteMapText();
             DateTime dt = DateTime.Now;
             await storageBkService.UploadAndOverwriteFileAsync(previousXML, "lingual-storage-bk/sitemap/" + dt.ToString("yyyy-MM") + "-sitemap.xml");
-
 
             //register new sitemap
             StringBuilder sb = new StringBuilder();

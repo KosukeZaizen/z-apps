@@ -163,15 +163,6 @@ export default class Home extends React.Component<{}, {
                                 <Button color="secondary">Try!</Button>
                             </Card>
                         </Link>
-                        <br />
-
-                        <Link to="/how-to-read-japanese">
-                            <Card body inverse color="primary">
-                                <CardTitle>How to read Japanese</CardTitle>
-                                <CardText>An app to learn how to read Japanese!</CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
 
                     </div>
                 </div>

@@ -33,8 +33,6 @@ const Ninja3 = lazy(() => import('./components/NinjaGame3'));
 const GameOver = lazy(() => import('./components/GameOver'));
 const Dictionary = lazy(() => import('./components/Dictionary'));
 const DictionaryTop = lazy(() => import('./components/DictionaryTop'));
-const HowToRead = lazy(() => import('./components/HowToRead'));
-const HowToReadTop = lazy(() => import('./components/HowToReadTop'));
 const SiteMapEdit = lazy(() => import('./components/SiteMapEdit'));
 const OpeLogTable = lazy(() => import('./components/OpeLogTable'));
 const ColorPalette = lazy(() => import('./components/ColorPalette'));
@@ -82,8 +80,6 @@ export default class App extends React.Component {
                         <Route sensitive path='/game-over' component={GameOver} />
                         <Route sensitive exact path='/dictionary' component={DictionaryTop} />
                         <Route sensitive exact path='/dictionary/:word' component={Dictionary} />
-                        <Route sensitive exact path='/how-to-read-japanese' component={HowToReadTop} />
-                        <Route sensitive exact path='/how-to-read-japanese/:word' component={HowToRead} />
                         <Route sensitive path='/sitemapEdit' component={SiteMapEdit} />
                         <Route sensitive path='/opeLogTable' component={OpeLogTable} />
                         <Route sensitive path='/color-code' component={ColorPalette} />
