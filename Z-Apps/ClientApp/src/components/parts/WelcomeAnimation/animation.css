@@ -1,0 +1,44 @@
+.ninja{
+    animation: ninjaSlide 5s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes ninjaSlide {
+    0% {
+      transform: translateX(2000px);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-2000px);
+      }
+  }
+
+  .shuriken{
+    animation: shurikenSlide 5s forwards;
+  }
+
+  @keyframes shurikenSlide {
+    0% {
+      transform: translate(-3000px, 1500px) rotate(0deg);
+    }
+    50% {
+      transform: translate(0, 0)  rotate(2000deg);
+    }
+    100% {
+        transform: translate(1000px, -500px) rotate(4000deg);
+      }
+  }
+
+  .screen{
+    animation: screenAnime 1s 3.3s forwards;
+  }
+
+  @keyframes screenAnime {
+    0% {
+      opacity: 1;
+    }
+    100% {
+        opacity: 0;
+      }
+  }
