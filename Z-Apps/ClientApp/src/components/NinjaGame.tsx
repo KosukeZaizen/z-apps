@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Page1 } from './parts/Ninja/Page1';
-import { Page2 } from './parts/Ninja/Page2';
 import '../css/NinjaGame.css';
 import Head from './parts/Helmet';
+import { Page1 } from './parts/Ninja/Page1';
+import { Page2 } from './parts/Ninja/Page2';
 
 class NinjaGame extends React.Component {
     readElementScroll: any[];

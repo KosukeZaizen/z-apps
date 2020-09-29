@@ -1,18 +1,18 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button, Card, CardText, CardTitle } from 'reactstrap';
+import { bindActionCreators } from 'redux';
 import { TReducers } from '../store/configureStore';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import * as storiesStore from '../store/StoriesStore';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import './parts/PleaseScrollDown.css';
-import Head from './parts/Helmet';
-import GoogleAd from './parts/GoogleAd';
-import FB from './parts/FaceBook';
+import { sentence, storyDesc, word } from '../types/stories';
 import * as consts from './common/consts';
-import { storyDesc, sentence, word } from '../types/stories';
+import FB from './parts/FaceBook';
+import GoogleAd from './parts/GoogleAd';
+import Head from './parts/Helmet';
+import './parts/PleaseScrollDown.css';
 
 type Props = storiesStore.StoriesState & storiesStore.IActionCreators & {
     location: { pathname: string };
