@@ -1,19 +1,18 @@
 import React from "react";
 import Head from "../Helmet";
 
-export default class Boxes1 extends React.Component<
-    {
-        title: string;
-        desc: string;
-    },
-    {
-        width: number;
-        height: number;
-    }
-> {
+interface Props {
+    title: string;
+    desc: string;
+}
+interface State {
+    width: number;
+    height: number;
+}
+export default class Boxes1 extends React.Component<Props, State> {
     timerId: NodeJS.Timeout;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {

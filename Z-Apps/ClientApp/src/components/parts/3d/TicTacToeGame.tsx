@@ -2,9 +2,19 @@ import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import Frame from "./Frame";
 
-function Box(props) {
-    const { x, y, setChar, char } = props;
-
+function Box({
+    x,
+    y,
+    setChar,
+    char,
+}: {
+    x: number;
+    y: number;
+    position: number[];
+    setChar: Function;
+    turn: boolean;
+    char: string;
+}) {
     const [rotationX, setRotationX] = useState(0);
     const [rotationY, setRotationY] = useState(0);
 
@@ -72,8 +82,11 @@ function Box(props) {
     );
 }
 
-export default class Boxes1 extends React.Component<{}, { chars; turn }> {
-    constructor(props) {
+export default class Boxes1 extends React.Component<
+    {},
+    { chars: string[][]; turn: boolean }
+> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             chars: this.getInitialChars(),
@@ -87,7 +100,7 @@ export default class Boxes1 extends React.Component<{}, { chars; turn }> {
         ["", "", ""],
     ];
 
-    calculateWinner = s => {
+    calculateWinner = (s: string[][]) => {
         const squares = s.flat();
         const lines = [
             [0, 1, 2],

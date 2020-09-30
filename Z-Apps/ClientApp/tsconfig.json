@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es6",
         "module": "esnext",
-        "lib": ["es6", "dom", "es2015.promise"],
+        "lib": ["es6", "dom", "es2015.promise", "es2019"],
         "allowJs": true,
         "checkJs": true,
         "jsx": "preserve",

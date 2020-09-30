@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "react-three-fiber";
 import * as THREE from "three";
 import Head from "../Helmet";
 
-function Box(props) {
+function Box(props: { x: number; y: number; position: number[] }) {
     const { x, y } = props;
 
     const [rotationX, setRotationX] = useState(0);
@@ -40,7 +40,7 @@ export default class Boxes extends React.Component<
 > {
     timerId: NodeJS.Timeout;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             width: window.innerWidth,
