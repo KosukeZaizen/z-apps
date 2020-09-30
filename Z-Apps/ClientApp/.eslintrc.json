@@ -1,56 +1,24 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:prettier/recommended",
-        "plugin:react/recommended",
-        "prettier/react",
-        "prettier/@typescript-eslint"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module",
-        "project": "./tsconfig.eslint.json"
-    },
-    "plugins": [
-        "prettier",
-        "@typescript-eslint/eslint-plugin",
-        "react"
-    ],
-    "rules": {
-        "prettier/prettier": "error",
-        "quotes": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/restrict-template-expressions": [
-            "error",
-            {
-                "allowNumber": true,
-                "allowBoolean": true
-            }
-        ]
-    },
-    "settings": {
-        "react": {
-            "createClass": "createReactClass", // Regex for Component Factory to use,
-            // default to "createReactClass"
-            "pragma": "React", // Pragma to use, default to "React"
-            "version": "16.13" // React version. "detect" automatically picks the version you have installed.
-            // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-            // default to latest and warns if missing
-        }
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "plugins": ["react", "prettier"],
+  "parserOptions": {
+    "version": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }
