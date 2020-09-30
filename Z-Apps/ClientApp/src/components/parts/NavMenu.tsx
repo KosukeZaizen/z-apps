@@ -1,11 +1,17 @@
-import * as React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import './NavMenu.css';
+import "bootstrap/dist/css/bootstrap.css";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import {
+    Collapse,
+    Container,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavLink,
+} from "reactstrap";
+import "./NavMenu.css";
 
 function NavigationItems(props: { closeToggle: () => void }) {
-
     let objLinks = {
         "Japanese Folktales": "/folktales",
         "Hiragana / Katakana": "/hiragana-katakana",
@@ -27,19 +33,15 @@ function NavigationItems(props: { closeToggle: () => void }) {
         );
     }
     return (
-        <ul
-            className="navbar-nav flex-grow"
-            onClick={props.closeToggle}
-        >
+        <ul className="navbar-nav flex-grow" onClick={props.closeToggle}>
             {linkList}
         </ul>
     );
 }
 
 export default class NavMenu extends React.Component {
-
     state: {
-        isOpen: boolean,
+        isOpen: boolean;
     };
 
     constructor(props) {
@@ -48,27 +50,43 @@ export default class NavMenu extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.closeToggle = this.closeToggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
         };
     }
     toggle() {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
         });
     }
     closeToggle() {
         this.setState({
-            isOpen: false
+            isOpen: false,
         });
     }
     render() {
         return (
             <header>
-                <Navbar variant="pills" className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3">
+                <Navbar
+                    variant="pills"
+                    className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3"
+                >
                     <Container>
-                        <NavbarBrand tag={Link} to="/"><b onClick={this.closeToggle} className="z-apps-title text-light"><span style={{ whiteSpace: "nowrap" }}>Lingual Ninja</span></b></NavbarBrand>
+                        <NavbarBrand tag={Link} to="/">
+                            <b
+                                onClick={this.closeToggle}
+                                className="z-apps-title text-light"
+                            >
+                                <span style={{ whiteSpace: "nowrap" }}>
+                                    Lingual Ninja
+                                </span>
+                            </b>
+                        </NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />
-                        <Collapse className="d-md-inline-flex flex-md-row-reverse" isOpen={this.state.isOpen} navbar>
+                        <Collapse
+                            className="d-md-inline-flex flex-md-row-reverse"
+                            isOpen={this.state.isOpen}
+                            navbar
+                        >
                             <NavigationItems closeToggle={this.closeToggle} />
                         </Collapse>
                     </Container>

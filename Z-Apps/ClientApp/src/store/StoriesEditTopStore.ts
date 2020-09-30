@@ -1,15 +1,14 @@
-const receiveStoriesType = 'RECEIVE_STORIES';
+const receiveStoriesType = "RECEIVE_STORIES";
 const initialState = { allStories: [] };
 
 export const actionCreators = {
-    loadAllStories: () => async (dispatch) => {
+    loadAllStories: () => async dispatch => {
         try {
             const url = `api/StoriesEdit/GetAllStories`;
             const response = await fetch(url);
             const allStories = await response.json();
 
             dispatch({ type: receiveStoriesType, allStories });
-
         } catch (e) {
             window.location.href = `/not-found?p=${window.location.pathname}`;
             return;

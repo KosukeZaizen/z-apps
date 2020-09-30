@@ -5,11 +5,10 @@
 //------------------------------------------------------------
 
 export function setLang(lang) {
-
     const jpMessages = {
-
         //PCの場合、キーボードを使う旨のメッセージ
-        PC_KEYBOARD: "PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。",
+        PC_KEYBOARD:
+            "PCでは、キーボードの「←」「↑」「→」キーで操作をしてください。",
 
         //屋根の上でポチに触った時のメッセージ
         POCHI_SCROLL_TITLE: "拙者の屋敷に参るがよい",
@@ -110,8 +109,7 @@ export function setLang(lang) {
         //キノコ村入り口　看板
         SIGN2_SCROLL_TITLE: "ようこそ、キノコ村へ",
         SIGN2_SCROLL_MESSAGE:
-            "この先、キノコ村。\n" +
-            "村の奥には、英雄墓地があります。",
+            "この先、キノコ村。\n" + "村の奥には、英雄墓地があります。",
 
         //英雄墓地　看板
         SIGN3_SCROLL_TITLE: "伝説の英雄　ここに眠る",
@@ -122,8 +120,7 @@ export function setLang(lang) {
 
         //仙人の家の前　看板
         SIGN4_SCROLL_TITLE: "仙人の家",
-        SIGN4_SCROLL_MESSAGE:
-            "左に進むと、天候を操る仙人の家",
+        SIGN4_SCROLL_MESSAGE: "左に進むと、天候を操る仙人の家",
 
         //修行僧
         MONK_SCROLL_TITLE: "私はキノコ村の修行僧です",
@@ -148,7 +145,6 @@ export function setLang(lang) {
     };
 
     const enMessages = {
-
         //PCの場合、キーボードを使う旨のメッセージ
         PC_KEYBOARD: "Please use [←], [↑], and [→] keys to play!",
 
@@ -262,8 +258,7 @@ export function setLang(lang) {
 
         //仙人の家の前　看板
         SIGN4_SCROLL_TITLE: "The hermit's house",
-        SIGN4_SCROLL_MESSAGE:
-            "If you go left, there is the hermit's house.",
+        SIGN4_SCROLL_MESSAGE: "If you go left, there is the hermit's house.",
 
         //修行僧
         MONK_SCROLL_TITLE: "I am a monk from the village",

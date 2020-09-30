@@ -1,15 +1,16 @@
-//ステージの部品作成用関数群の読み込み
-import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
-import Imgs from '../ImportImgs';
+import Imgs from "../ImportImgs";
+//ステージの部品作成用関数群の読み込み
+import * as StageParts from "./StagePartsGenerator";
+
 //背景画像
-const bgImg1 = require('../img/background/snow4.jpg');
-const bgImg2 = require('../img/background/snow4-2.jpg');
+const bgImg1 = require("../img/background/snow4.jpg");
+const bgImg2 = require("../img/background/snow4-2.jpg");
 
 const Stage: any = {};
 
-Stage.getObjs = (ninja) => {
-    Stage.windSpeed = (ninja.snow) ? -3.2 : 0;//風速
+Stage.getObjs = ninja => {
+    Stage.windSpeed = ninja.snow ? -3.2 : 0; //風速
 
     let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
@@ -60,9 +61,17 @@ Stage.getObjs = (ninja) => {
             oni2: StageParts.getEnemy(20, 55, 56, Imgs.Oni, 100, 0.35, 0),
             oni3: StageParts.getEnemy(13, 45, 63, Imgs.Oni, 100, 0.5, 0),
 
-            obake2: StageParts.getEnemy(30, 65, -20, Imgs.Obake2, 100, 0.4, 0.4),
+            obake2: StageParts.getEnemy(
+                30,
+                65,
+                -20,
+                Imgs.Obake2,
+                100,
+                0.4,
+                0.4
+            ),
         };
     }
     return returnObjs;
-}
+};
 export default Stage;

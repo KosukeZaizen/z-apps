@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import * as Consts from '../Consts'
+import * as React from "react";
+import { Link } from "react-router-dom";
+import * as Consts from "../Consts";
 
 export default class Obj extends React.Component {
     props: any;
@@ -16,7 +16,7 @@ export default class Obj extends React.Component {
     }
 
     render() {
-        if(!this.props.obj) return <span></span>;
+        if (!this.props.obj) return <span></span>;
 
         let UL = this.props.UL;
         let img = this.props.obj.img;
@@ -45,7 +45,7 @@ export default class Obj extends React.Component {
                 let styleTexts: any = {
                     position: "absolute",
                     left: posX,
-                    top: posY + (size * 9 / 100),
+                    top: posY + (size * 9) / 100,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: size,
@@ -54,23 +54,23 @@ export default class Obj extends React.Component {
 
                 let h1Style: any = {
                     margin: size / 50,
-                    fontSize: fontSize * 3 / 2,
+                    fontSize: (fontSize * 3) / 2,
                 };
 
                 let btnWidth = size / 3;
                 let styleBtnClose: any = {
                     position: "absolute",
                     left: posX + size / 3,
-                    top: posY + size * 3 / 10,
+                    top: posY + (size * 3) / 10,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: btnWidth,
                 };
 
                 let arrlines = message.split("\n");
-                const listlines = arrlines.map((line, index) =>
+                const listlines = arrlines.map((line, index) => (
                     <p key={index}>{line}</p>
-                );
+                ));
 
                 return (
                     <div>
@@ -88,7 +88,9 @@ export default class Obj extends React.Component {
                         <CloseElement
                             className={"btn btn-dark btn-lg btn-block"}
                             style={styleBtnClose}
-                            onClick={() => { this.onClickOkButtonInScroll() }}
+                            onClick={() => {
+                                this.onClickOkButtonInScroll();
+                            }}
                             styleBtnClose={styleBtnClose}
                             obj={this.props.obj}
                             game={this.props.game}
@@ -106,7 +108,6 @@ export default class Obj extends React.Component {
                 //visible falseの場合、巻物を表示しない
                 return <div></div>;
             }
-
         } else if (img) {
             //imgという引数を受け取っている場合、画像要素を生成
             let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
@@ -125,14 +126,7 @@ export default class Obj extends React.Component {
                 zIndex: zIndex,
                 opacity: opacity,
             };
-            return (
-                <img
-                    src={img}
-                    width={size}
-                    style={style}
-                    alt={"object"}
-                />
-            );
+            return <img src={img} width={size} style={style} alt={"object"} />;
         } else if (this.props.obj.divType) {
             //水や、画面の外を黒くするためのdiv要素
             //divTypeの中の文字列がそのままclass名になり、CSSが効く
@@ -149,12 +143,7 @@ export default class Obj extends React.Component {
                 width: size,
                 height: size,
             };
-            return (
-                <div
-                    style={style} className={this.props.obj.divType}
-                >
-                </div>
-            );
+            return <div style={style} className={this.props.obj.divType}></div>;
         } else {
             //該当の引数を受け取っていない場合、div要素を生成
             let size = this.props.obj.size * UL;
@@ -173,15 +162,9 @@ export default class Obj extends React.Component {
                 fontSize: fontSize,
                 color: fontColor,
                 width: size,
-                textAlign: "left"
+                textAlign: "left",
             };
-            return (
-                <div
-                    style={style}
-                >
-                    {message}
-                </div>
-            );
+            return <div style={style}>{message}</div>;
         }
     }
 }
@@ -201,16 +184,9 @@ function SpeakerImage(props) {
             left: posX,
             top: posY,
             zIndex: zIndex,
-        }
+        };
 
-        return (
-            <img
-                src={img}
-                width={size}
-                alt={"object"}
-                style={style}
-            />
-        );
+        return <img src={img} width={size} alt={"object"} style={style} />;
     } else {
         return <div></div>;
     }
@@ -224,7 +200,7 @@ function CloseElement(props) {
         const saveData = {
             ninja: null,
             stage: 1,
-        }
+        };
         localStorage.setItem(Consts.SAVE_NAME, JSON.stringify(saveData));
 
         //タイムステップ毎のループの終了
@@ -251,7 +227,9 @@ function CloseElement(props) {
             <button
                 className={"btn btn-dark btn-lg btn-block"}
                 style={props.styleBtnClose}
-                onClick={() => { props.onClick() }}
+                onClick={() => {
+                    props.onClick();
+                }}
             >
                 {"Close"}
             </button>

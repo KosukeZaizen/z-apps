@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
 export default class Obj extends React.Component {
     props: {
         obj: any;
         game: any;
         UL: any;
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -45,7 +45,7 @@ export default class Obj extends React.Component {
                 let styleTexts: any = {
                     position: "absolute",
                     left: posX,
-                    top: posY + (size * 9 / 100),
+                    top: posY + (size * 9) / 100,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: size,
@@ -54,23 +54,23 @@ export default class Obj extends React.Component {
 
                 let h1Style: any = {
                     margin: size / 50,
-                    fontSize: fontSize * 3 / 2,
+                    fontSize: (fontSize * 3) / 2,
                 };
 
                 let btnWidth = size / 3;
                 let styleBtnClose: any = {
                     position: "absolute",
                     left: posX + size / 3,
-                    top: posY + size * 3 / 10,
+                    top: posY + (size * 3) / 10,
                     zIndex: zIndex + 1,
                     fontSize: fontSize,
                     width: btnWidth,
                 };
 
                 let arrlines = message.split("\n");
-                const listlines = arrlines.map((line, index) =>
+                const listlines = arrlines.map((line, index) => (
                     <p key={index}>{line}</p>
-                );
+                ));
 
                 return (
                     <div>
@@ -88,7 +88,9 @@ export default class Obj extends React.Component {
                         <CloseElement
                             className={"btn btn-dark btn-lg btn-block"}
                             style={styleBtnClose}
-                            onClick={() => { this.onClickOkButtonInScroll() }}
+                            onClick={() => {
+                                this.onClickOkButtonInScroll();
+                            }}
                             styleBtnClose={styleBtnClose}
                             obj={this.props.obj}
                             game={this.props.game}
@@ -106,7 +108,6 @@ export default class Obj extends React.Component {
                 //visible falseの場合、巻物を表示しない
                 return <div></div>;
             }
-
         } else if (img) {
             //imgという引数を受け取っている場合、画像要素を生成
 
@@ -120,12 +121,18 @@ export default class Obj extends React.Component {
                     if (!this.props.obj.fireContinueCount) {
                         //初回のためカウントが無ければ、初期値を代入
                         this.props.obj.fireContinueCount = fireContinueTime;
-
                     } else if (this.props.obj.fireContinueCount <= 1) {
                         //カウント終了時
-                        if (this.props.game.objs.haniwa
-                            && (this.props.game.objs.haniwa.posX - this.props.game.objs.jizo1.posX) ** 2 < 100
-                            && (this.props.game.objs.haniwa.posY - this.props.game.objs.jizo1.posY) ** 2 < 100
+                        if (
+                            this.props.game.objs.haniwa &&
+                            (this.props.game.objs.haniwa.posX -
+                                this.props.game.objs.jizo1.posX) **
+                                2 <
+                                100 &&
+                            (this.props.game.objs.haniwa.posY -
+                                this.props.game.objs.jizo1.posY) **
+                                2 <
+                                100
                         ) {
                             this.props.obj.visible = true;
                             this.props.obj.fireContinueCount = fireContinueTime;
@@ -133,13 +140,14 @@ export default class Obj extends React.Component {
                             this.props.obj.visible = false;
                             this.props.obj.fireContinueCount = fireContinueTime;
                         }
-
                     } else {
                         //カウント中
                         this.props.obj.fireContinueCount -= 1;
                     }
 
-                    let rotateLeft = this.props.obj.boolLeft ? "scale(-1, 1)" : "";
+                    let rotateLeft = this.props.obj.boolLeft
+                        ? "scale(-1, 1)"
+                        : "";
                     let img = this.props.obj.img;
                     let size = this.props.obj.size * UL;
                     let posX = this.props.obj.posX * UL;
@@ -206,12 +214,7 @@ export default class Obj extends React.Component {
                 width: size,
                 height: size,
             };
-            return (
-                <div
-                    style={style} className={this.props.obj.divType}
-                >
-                </div>
-            );
+            return <div style={style} className={this.props.obj.divType}></div>;
         } else {
             //該当の引数を受け取っていない場合、div要素を生成
             let size = this.props.obj.size * UL;
@@ -228,15 +231,9 @@ export default class Obj extends React.Component {
                 zIndex: zIndex,
                 fontSize: fontSize,
                 width: size,
-                textAlign: "left"
+                textAlign: "left",
             };
-            return (
-                <div
-                    style={style}
-                >
-                    {message}
-                </div>
-            );
+            return <div style={style}>{message}</div>;
         }
     }
 }
@@ -256,7 +253,7 @@ function SpeakerImage(props) {
             left: posX,
             top: posY,
             zIndex: zIndex,
-        }
+        };
 
         return (
             <img
@@ -277,8 +274,8 @@ function CloseElement(props) {
         const saveData = {
             ninja: null,
             stage: 1,
-        }
-        localStorage.setItem('saveData1', JSON.stringify(saveData));
+        };
+        localStorage.setItem("saveData1", JSON.stringify(saveData));
 
         //タイムステップ毎のループの終了
         clearInterval(props.game.timerId);
@@ -305,7 +302,9 @@ function CloseElement(props) {
             <button
                 className={"btn btn-dark btn-lg btn-block"}
                 style={props.styleBtnClose}
-                onClick={() => { props.onClick() }}
+                onClick={() => {
+                    props.onClick();
+                }}
             >
                 {"Close"}
             </button>

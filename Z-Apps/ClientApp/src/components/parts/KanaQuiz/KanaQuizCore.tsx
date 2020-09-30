@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { Quiz1 } from './KanaQuiz1';
-import { Quiz2 } from './KanaQuiz2';
-import { Quiz3 } from './KanaQuiz3';
+import * as React from "react";
+import { Quiz1 } from "./KanaQuiz1";
+import { Quiz2 } from "./KanaQuiz2";
+import { Quiz3 } from "./KanaQuiz3";
 
-
-export default class QuizCore extends React.Component<{
-    consts: any;
-},
-{
-    pageNum: number;
-    maxChar: number;
-    score: 0;
-    incorrectList: string;
-}> {
-
+export default class QuizCore extends React.Component<
+    {
+        consts: any;
+    },
+    {
+        pageNum: number;
+        maxChar: number;
+        score: 0;
+        incorrectList: string;
+    }
+> {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,19 +25,19 @@ export default class QuizCore extends React.Component<{
     }
 
     setScore(num) {
-        this.setState({ score: num, });
+        this.setState({ score: num });
     }
 
     setIncorrectList(obj) {
-        this.setState({ incorrectList: obj, });
+        this.setState({ incorrectList: obj });
     }
 
     changePage(num) {
-        this.setState({ pageNum: num, });
+        this.setState({ pageNum: num });
     }
 
     setMaxChar(num) {
-        this.setState({ maxChar: num, });
+        this.setState({ maxChar: num });
     }
 
     render() {
@@ -45,8 +45,8 @@ export default class QuizCore extends React.Component<{
             return (
                 <Quiz1
                     consts={this.props.consts}
-                    changePage={(i) => this.changePage(i)}
-                    setMaxChar={(i) => this.setMaxChar(i)}
+                    changePage={i => this.changePage(i)}
+                    setMaxChar={i => this.setMaxChar(i)}
                 />
             );
         } else if (this.state.pageNum === 2) {
@@ -54,16 +54,16 @@ export default class QuizCore extends React.Component<{
                 <Quiz2
                     consts={this.props.consts}
                     maxChar={this.state.maxChar}
-                    changePage={(i) => this.changePage(i)}
-                    setIncorrectList={(obj) => this.setIncorrectList(obj)}
-                    setScore={(i) => this.setScore(i)}
+                    changePage={i => this.changePage(i)}
+                    setIncorrectList={obj => this.setIncorrectList(obj)}
+                    setScore={i => this.setScore(i)}
                 />
             );
         } else if (this.state.pageNum === 3) {
             return (
                 <Quiz3
                     consts={this.props.consts}
-                    changePage={(i) => this.changePage(i)}
+                    changePage={i => this.changePage(i)}
                     maxChar={this.state.maxChar}
                     score={this.state.score}
                     incorrectList={this.state.incorrectList}

@@ -1,20 +1,19 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Head from './parts/Helmet';
-import FB from './parts/FaceBook';
-
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import CharacterComment from './parts/VocabQuiz/CharacterComment';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Card, CardText, CardTitle } from 'reactstrap';
 import { storyDesc } from '../types/stories';
 import * as consts from './common/consts';
+import FB from './parts/FaceBook';
+import Head from './parts/Helmet';
+import CharacterComment from './parts/VocabQuiz/CharacterComment';
+
 
 type Props = {
     location: { pathname: string };
@@ -260,12 +259,12 @@ class Dictionary extends React.Component<Props, State> {
                                             href={"https://wiki-jp.lingual-ninja.com/word/" + wordId}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                        >Japanese website >></a><br />
+                                        >{"Japanese website >>"}</a><br />
                                         This information originally came from <a
                                             href={"https://ja.wikipedia.org/wiki/" + word}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                        >Japanese wikipedia >></a></p>
+                                        >{"Japanese wikipedia >>"}</a></p>
                                     </section>
                                     <br />
                                     <section style={{
@@ -346,7 +345,7 @@ class Dictionary extends React.Component<Props, State> {
                                                                                 }
                                                                                 <div className="center">
                                                                                     <p style={{ margin: "20px" }}>
-                                                                                        <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                                                     </p>
                                                                                 </div>
                                                                             </td>
@@ -376,7 +375,7 @@ class Dictionary extends React.Component<Props, State> {
                                                                         }
                                                                     </div>
                                                                     <p>
-                                                                        <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                                     </p>
                                                                 </div>
                                                         }

@@ -1,24 +1,23 @@
-import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
-import { actionCreators } from '../store/StoriesEditTopStore';
-import Head from './parts/Helmet';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as consts from './common/consts';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import * as React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { TReducers } from "../store/configureStore";
+import { actionCreators } from "../store/StoriesEditTopStore";
+import * as consts from "./common/consts";
+import Head from "./parts/Helmet";
 
 class StoriesTop extends React.Component {
-
     props: {
-        loadAllStories: () => void,
+        loadAllStories: () => void;
         allStories: {
-            storyName: string,
-            storyId: number,
-            description: string,
-        }[],
+            storyName: string;
+            storyId: number;
+            description: string;
+        }[];
     };
-    state: {screenWidth: number};
+    state: { screenWidth: number };
 
     constructor(props) {
         super(props);
@@ -41,7 +40,7 @@ class StoriesTop extends React.Component {
         alert("edit");
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.loadAllStories();
     }
 
@@ -49,124 +48,197 @@ class StoriesTop extends React.Component {
         this.setState({
             screenWidth: window.innerWidth,
         });
-    }
+    };
 
     render() {
         const allStories = this.props.allStories;
         const { screenWidth } = this.state;
         return (
             <div className="center">
-                <Head
-                    title="Japanese Folktales"
-                    noindex={true}
-                />
+                <Head title="Japanese Folktales" noindex={true} />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" style={{textAlign:"left"}}>
-                        <Link to="/" style={{ marginRight: "5px", marginLeft: "5px"}}>
-                            <span>
-                                Home
-                            </span>
+                    <div className="breadcrumbs" style={{ textAlign: "left" }}>
+                        <Link
+                            to="/"
+                            style={{ marginRight: "5px", marginLeft: "5px" }}
+                        >
+                            <span>Home</span>
                         </Link>
                         ＞
                         <span style={{ marginRight: "5px", marginLeft: "5px" }}>
                             Japanese Folktales
                         </span>
                     </div>
-                    <h1 style={{
-                        margin: "30px",
-                        lineHeight: "40px",
-                    }}>
+                    <h1
+                        style={{
+                            margin: "30px",
+                            lineHeight: "40px",
+                        }}
+                    >
                         <b>Japanese Folktales</b>
                     </h1>
                     <br />
-                    {
-                        allStories && allStories.length > 0 ?
-                            null
-                            :
-                            <div className="center">
-                                <CircularProgress key="circle" size="20%" />
-                            </div>
-                    }
-                    {
-                        allStories && allStories.map(s => {
+                    {allStories && allStories.length > 0 ? null : (
+                        <div className="center">
+                            <CircularProgress key="circle" size="20%" />
+                        </div>
+                    )}
+                    {allStories &&
+                        allStories.map(s => {
                             const nameForUrl = s.storyName;
-                            const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                            const nameToShow = s.storyName
+                                .split("--")
+                                .join(" - ")
+                                .split("_")
+                                .join(" ");
 
                             return (
-                                <a key={s.storyId} href={`/folktalesEdit/${nameForUrl}`}>
-                                    <div style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                        {
-                                            screenWidth > 500 ?
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td colSpan={2}>
-                                                                <div className="center">
-                                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                        <b>{nameToShow}</b>
-                                                                    </h2>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style={{width:"50%"}}>
-                                                                <img
-                                                                    src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
-                                                                    width="90%"
-                                                                    alt={nameToShow}
-                                                                    title={nameToShow}
-                                                                    style={{ marginLeft: "10px", marginBottom: "10px" }}
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                {
-                                                                    s.description.split("\\n").map((d, i) =>
-                                                                        <span key={i} style={{ color: "black" }}>
-                                                                            {d}<br />
-                                                                        </span>
-                                                                    )
+                                <a
+                                    key={s.storyId}
+                                    href={`/folktalesEdit/${nameForUrl}`}
+                                >
+                                    <div
+                                        style={{
+                                            padding: "10px",
+                                            marginBottom: "10px",
+                                            border: "5px double #333333",
+                                        }}
+                                    >
+                                        {screenWidth > 500 ? (
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colSpan={2}>
+                                                            <div className="center">
+                                                                <h2
+                                                                    style={{
+                                                                        color:
+                                                                            "black",
+                                                                        marginBottom:
+                                                                            "20px",
+                                                                    }}
+                                                                >
+                                                                    <b>
+                                                                        {
+                                                                            nameToShow
+                                                                        }
+                                                                    </b>
+                                                                </h2>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            style={{
+                                                                width: "50%",
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={`${
+                                                                    consts.BLOB_URL
+                                                                }/folktalesImg/${
+                                                                    nameForUrl.split(
+                                                                        "--"
+                                                                    )[0]
+                                                                }.png`}
+                                                                width="90%"
+                                                                alt={nameToShow}
+                                                                title={
+                                                                    nameToShow
                                                                 }
-                                                                <div className="center">
-                                                                    <p style={{ margin: "20px" }}>Read {nameToShow} >></p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                :
-                                                <div>
-                                                    <b>
-                                                        <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
-                                                    </b>
-                                                    <img
-                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
-                                                        width="90%"
-                                                        alt={nameToShow}
-                                                        title={nameToShow}
-                                                    />
-                                                    <div style={{ textAlign: "left", margin: "10px" }}>
-                                                        {
-                                                            s.description.split("\\n").map((d, i) =>
-                                                                <span key={i} style={{ color: "black" }}>
-                                                                    {d}<br />
-                                                                </span>
-                                                            )
-                                                        }
-                                                    </div>
-                                                    <p>Read {nameToShow} >></p>
+                                                                style={{
+                                                                    marginLeft:
+                                                                        "10px",
+                                                                    marginBottom:
+                                                                        "10px",
+                                                                }}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            {s.description
+                                                                .split("\\n")
+                                                                .map((d, i) => (
+                                                                    <span
+                                                                        key={i}
+                                                                        style={{
+                                                                            color:
+                                                                                "black",
+                                                                        }}
+                                                                    >
+                                                                        {d}
+                                                                        <br />
+                                                                    </span>
+                                                                ))}
+                                                            <div className="center">
+                                                                <p
+                                                                    style={{
+                                                                        margin:
+                                                                            "20px",
+                                                                    }}
+                                                                >{`Read ${nameToShow} >>`}</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <div>
+                                                <b>
+                                                    <h2
+                                                        style={{
+                                                            color: "black",
+                                                            marginBottom:
+                                                                "20px",
+                                                        }}
+                                                    >
+                                                        {nameToShow}
+                                                    </h2>
+                                                </b>
+                                                <img
+                                                    src={`${
+                                                        consts.BLOB_URL
+                                                    }/folktalesImg/${
+                                                        nameForUrl.split(
+                                                            "--"
+                                                        )[0]
+                                                    }.png`}
+                                                    width="90%"
+                                                    alt={nameToShow}
+                                                    title={nameToShow}
+                                                />
+                                                <div
+                                                    style={{
+                                                        textAlign: "left",
+                                                        margin: "10px",
+                                                    }}
+                                                >
+                                                    {s.description
+                                                        .split("\\n")
+                                                        .map((d, i) => (
+                                                            <span
+                                                                key={i}
+                                                                style={{
+                                                                    color:
+                                                                        "black",
+                                                                }}
+                                                            >
+                                                                {d}
+                                                                <br />
+                                                            </span>
+                                                        ))}
                                                 </div>
-                                        }
+                                                <p>{`Read ${nameToShow} >>`}</p>
+                                            </div>
+                                        )}
                                     </div>
                                 </a>
                             );
-                        }
-                        )
-                    }
+                        })}
                 </div>
             </div>
         );
     }
-};
+}
 
 export default connect(
     (state: TReducers) => state.storiesTop,

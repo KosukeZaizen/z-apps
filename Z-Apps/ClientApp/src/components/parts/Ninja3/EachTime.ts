@@ -1,7 +1,6 @@
-import { TIME_STEP } from './Consts'
-import Imgs from './ImportImgs';
-import * as OnTouch from './OnTouch';//タッチ関数
-
+import { TIME_STEP } from "./Consts";
+import Imgs from "./ImportImgs";
+import * as OnTouch from "./OnTouch"; //タッチ関数
 
 //------------------------------------------------------------
 //
@@ -14,7 +13,6 @@ import * as OnTouch from './OnTouch';//タッチ関数
 //=======================================
 export function Enemy(ninja, key) {
     if (this && this.enemy) {
-
         //敵の行動可能域計算
         if (this.xMax && this.posX > this.xMax) {
             //x最大値を超えている場合
@@ -37,22 +35,22 @@ export function Enemy(ninja, key) {
 
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
-            if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
+            if (ninja.posX >= this.posX + this.size - ninja.size / 2) {
                 this.posX += this.speedX * TIME_STEP;
                 this.boolLeft = false;
-            } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-                this.posX += this.speedX * (-1) * TIME_STEP;
+            } else if (ninja.posX + ninja.size / 2 <= this.posX) {
+                this.posX += this.speedX * -1 * TIME_STEP;
                 this.boolLeft = true;
             } else {
-                this.posX += ninja.posX < this.posX ? -1 * TIME_STEP : 0
-                this.posX += ninja.posX > this.posX ? 1 * TIME_STEP : 0
+                this.posX += ninja.posX < this.posX ? -1 * TIME_STEP : 0;
+                this.posX += ninja.posX > this.posX ? 1 * TIME_STEP : 0;
             }
         }
         //Y軸について、忍者を追いかける
-        if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
+        if (ninja.posY >= this.posY + this.size - ninja.size / 2) {
             this.posY += this.speedY * TIME_STEP;
-        } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
-            this.posY += this.speedY * (-1) * TIME_STEP;
+        } else if (ninja.posY + ninja.size / 2 <= this.posY) {
+            this.posY += this.speedY * -1 * TIME_STEP;
         }
 
         if (this.isDead) {
@@ -67,7 +65,6 @@ export function Enemy(ninja, key) {
 //=======================================
 export function OneEye(ninja, key) {
     if (this && this.enemy) {
-
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
 
@@ -104,7 +101,6 @@ export function OneEye(ninja, key) {
 //=======================================
 export function Boss(ninja, key) {
     if (this && this.enemy) {
-
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
 
@@ -185,7 +181,6 @@ export function FlyingRock(ninja, key) {
 // 雪　タイムステップ毎
 //=======================================
 export function Snow(ninja) {
-
     //雪の位置更新
     this.posY += 1;
     this.posX += ninja.game.wind;
@@ -205,7 +200,6 @@ export function Snow(ninja) {
 // 【逆向き】雪　タイムステップ毎
 //=======================================
 export function SnowR(ninja) {
-
     //雪の位置更新
     this.posY += -2;
 

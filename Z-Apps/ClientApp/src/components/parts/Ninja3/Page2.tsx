@@ -1,37 +1,33 @@
-import * as React from 'react';
-
-import { NinjaChar } from './objs/ninja/ninja';//忍者オブジェクト（主人公）
-import { Obj } from './objs/obj';//オブジェクト描画
-import { setLang } from './Messages';//メッセージ
-import { TIME_STEP } from './Consts'//定数
-import { messages } from './Messages';//メッセージ
-
-import * as GameCore from './GameCore';//ゲームのコア関数
-import * as CommonFnc from './CommonFnc'//共通関数
-
+import * as React from "react";
+import * as CommonFnc from "./CommonFnc"; //共通関数
+import { TIME_STEP } from "./Consts"; //定数
+import * as GameCore from "./GameCore"; //ゲームのコア関数
+import { messages, setLang } from "./Messages"; //メッセージ
+import { NinjaChar } from "./objs/ninja/ninja"; //忍者オブジェクト（主人公）
+import { Obj } from "./objs/obj"; //オブジェクト描画
 //各ステージ情報
-import Stage1 from './stages/Stage01';
-import Stage2 from './stages/Stage02';
-import Stage3 from './stages/Stage03';
-import Stage4 from './stages/Stage04';
-import Stage5 from './stages/Stage05';
-import Stage6 from './stages/Stage06';
-import Stage7 from './stages/Stage07';
-import Stage8 from './stages/Stage08';
-import Stage9 from './stages/Stage09';
-import Stage10 from './stages/Stage10';
-import Stage11 from './stages/Stage11';
-import Stage12 from './stages/Stage12';
-import Stage13 from './stages/Stage13';
-import Stage14 from './stages/Stage14';
-import Stage15 from './stages/Stage15';
-import Stage16 from './stages/Stage16';
-import Stage17 from './stages/Stage17';
-import Stage18 from './stages/Stage18';
-import Stage19 from './stages/Stage19';
-import Stage20 from './stages/Stage20';
-import Stage21 from './stages/Stage21';
-import Stage22 from './stages/Stage22';
+import Stage1 from "./stages/Stage01";
+import Stage2 from "./stages/Stage02";
+import Stage3 from "./stages/Stage03";
+import Stage4 from "./stages/Stage04";
+import Stage5 from "./stages/Stage05";
+import Stage6 from "./stages/Stage06";
+import Stage7 from "./stages/Stage07";
+import Stage8 from "./stages/Stage08";
+import Stage9 from "./stages/Stage09";
+import Stage10 from "./stages/Stage10";
+import Stage11 from "./stages/Stage11";
+import Stage12 from "./stages/Stage12";
+import Stage13 from "./stages/Stage13";
+import Stage14 from "./stages/Stage14";
+import Stage15 from "./stages/Stage15";
+import Stage16 from "./stages/Stage16";
+import Stage17 from "./stages/Stage17";
+import Stage18 from "./stages/Stage18";
+import Stage19 from "./stages/Stage19";
+import Stage20 from "./stages/Stage20";
+import Stage21 from "./stages/Stage21";
+import Stage22 from "./stages/Stage22";
 
 //【Unit Length】このゲームの単位長さ
 let UL;
@@ -41,7 +37,7 @@ export default class Page2 extends React.Component {
     state: any;
 
     terminalPC: boolean;
-    getWindowSize: () => { pageWidth: any; pageHeight: any; };
+    getWindowSize: () => { pageWidth: any; pageHeight: any };
     setKeyboardEvent: (objGame: any) => void;
     onClickButton: any;
     onMouseUp: any;
@@ -49,7 +45,13 @@ export default class Page2 extends React.Component {
     prevStage: number;
     ninja: any;
     readElementScroll: any;
-    backgroundSetting: { backgroundImage: string; backgroundPosition: string; backgroundRepeat: string; backgroundSize: string; backgroundColor: string; };
+    backgroundSetting: {
+        backgroundImage: string;
+        backgroundPosition: string;
+        backgroundRepeat: string;
+        backgroundSize: string;
+        backgroundColor: string;
+    };
     lButton: boolean;
     rButton: boolean;
     jButton: boolean;
@@ -62,7 +64,6 @@ export default class Page2 extends React.Component {
     pageStyle: any;
 
     UNSAFE_componentWillMount() {
-
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = GameCore.checkTerminalPC();
 
@@ -100,7 +101,6 @@ export default class Page2 extends React.Component {
         //背景の初期設定
         this.backgroundSetting = GameCore.getBgImg(Stage1.bgImg);
 
-
         // ------------------------------------------------------------
         // ステート初期設定
         // ------------------------------------------------------------
@@ -114,7 +114,7 @@ export default class Page2 extends React.Component {
                 left: true,
                 ninjaX: this.ninja.posX * UL,
                 ninjaY: this.ninja.posY * UL,
-            }
+            },
         });
 
         //←ボタン押下判定　初期値
@@ -142,10 +142,10 @@ export default class Page2 extends React.Component {
             } else {
                 if (this.lButton === true) {
                     this.ninja.speedX = this.ninja.inWater ? -3 : -6;
-                    this.ninja.boolLeft = true;//画像左向き
+                    this.ninja.boolLeft = true; //画像左向き
                 } else if (this.rButton === true) {
                     this.ninja.speedX = this.ninja.inWater ? 3 : 6;
-                    this.ninja.boolLeft = false;//画像右向き
+                    this.ninja.boolLeft = false; //画像右向き
                 }
             }
 
@@ -176,7 +176,9 @@ export default class Page2 extends React.Component {
             }
 
             //重力加速度
-            this.ninja.speedY += this.ninja.inWater ? 1.1 * TIME_STEP : 2.1 * TIME_STEP;
+            this.ninja.speedY += this.ninja.inWater
+                ? 1.1 * TIME_STEP
+                : 2.1 * TIME_STEP;
 
             //落下速度限界
             if (this.ninja.inWater) {
@@ -197,17 +199,22 @@ export default class Page2 extends React.Component {
 
             //オブジェクトとの接触判定
             for (let key in this.objs) {
-
                 //途中でステージ遷移したら、関数を中止するためのフラグ
                 let stageChangedFlag = "";
 
                 //当たり判定と、相対位置の取得
-                let relativePos = CommonFnc.checkRelativity(this.ninja, this.objs[key]);
+                let relativePos = CommonFnc.checkRelativity(
+                    this.ninja,
+                    this.objs[key]
+                );
 
                 //当たり判定結果確認
                 if (relativePos) {
                     //当たり時の処理を実行
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, relativePos);
+                    stageChangedFlag = this.objs[key].onTouch(
+                        this.ninja,
+                        relativePos
+                    );
                 }
 
                 //ステージ遷移をしていたら、関数中止
@@ -220,7 +227,6 @@ export default class Page2 extends React.Component {
                 }
             }
             /* ↑　物体速度・位置計算　↑ */
-
 
             //ページサイズ取得（ウィンドウサイズが変更された時のため）
             let pageSize = this.getWindowSize();
@@ -239,9 +245,9 @@ export default class Page2 extends React.Component {
                     left: this.ninja.boolLeft,
                     ninjaX: this.ninja.posX * UL,
                     ninjaY: this.ninja.posY * UL,
-                }
+                },
             });
-        }, TIME_STEP*100);
+        }, TIME_STEP * 100);
     }
 
     componentWillUnmount() {
@@ -259,7 +265,6 @@ export default class Page2 extends React.Component {
     }
 
     render() {
-
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
 
@@ -269,108 +274,63 @@ export default class Page2 extends React.Component {
             //水中判定を一旦falseとする（水中の場合は、各ステージにてtrueを代入）
             this.ninja.inWater = false;
 
-
             //------------------------------------------------------------
             // 各ステージの設定読み込み
             //------------------------------------------------------------
             if (this.props.stage === 1) {
-
                 this.setStage(Stage1);
-
             } else if (this.props.stage === 2) {
-
                 this.setStage(Stage2);
-
             } else if (this.props.stage === 3) {
-
                 this.setStage(Stage3);
-
             } else if (this.props.stage === 4) {
-
                 this.setStage(Stage4);
-
             } else if (this.props.stage === 5) {
-
                 this.setStage(Stage5);
-
             } else if (this.props.stage === 6) {
-
                 this.setStage(Stage6);
-
             } else if (this.props.stage === 7) {
-
                 this.setStage(Stage7);
-
             } else if (this.props.stage === 8) {
-
                 this.setStage(Stage8);
-
             } else if (this.props.stage === 9) {
-
                 this.setStage(Stage9);
-
             } else if (this.props.stage === 10) {
-
                 this.setStage(Stage10);
-
             } else if (this.props.stage === 11) {
-
                 this.setStage(Stage11);
-
             } else if (this.props.stage === 12) {
-
                 this.setStage(Stage12);
-
             } else if (this.props.stage === 13) {
-
                 this.setStage(Stage13);
-
             } else if (this.props.stage === 14) {
-
                 this.setStage(Stage14);
-
             } else if (this.props.stage === 15) {
-
                 this.setStage(Stage15);
-
             } else if (this.props.stage === 16) {
-
                 this.setStage(Stage16);
-
             } else if (this.props.stage === 17) {
-
                 this.setStage(Stage17);
-
             } else if (this.props.stage === 18) {
-
                 this.setStage(Stage18);
-
             } else if (this.props.stage === 19) {
-
                 this.setStage(Stage19);
-
             } else if (this.props.stage === 20) {
-
                 this.setStage(Stage20);
-
             } else if (this.props.stage === 21) {
-
                 this.setStage(Stage21);
-
             } else if (this.props.stage === 22) {
-
                 this.setStage(Stage22);
-
             }
             //------------------------------------------------------------
 
             //ステージ変更を検知するために、現在のステージを記憶
-            this.prevStage = this.props.stage;  
+            this.prevStage = this.props.stage;
 
             //localStorageに自動セーブ
             const { game, ...rest } = this.ninja;
-            const saveData = {ninja: rest, stage: this.props.stage}
-            localStorage.setItem('saveData3', JSON.stringify(saveData));
+            const saveData = { ninja: rest, stage: this.props.stage };
+            localStorage.setItem("saveData3", JSON.stringify(saveData));
 
             //背景画像の変更
             this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
@@ -378,10 +338,7 @@ export default class Page2 extends React.Component {
 
         return (
             <div id="Page2" style={this.pageStyle}>
-                <div
-                    id="gameScreen"
-                    style={this.state.screenStyle}
-                >
+                <div id="gameScreen" style={this.state.screenStyle}>
                     <NinjaChar
                         imgAlt="Running Ninja"
                         width={this.ninja.size * UL}
@@ -440,9 +397,7 @@ function RenderScreenBottom(props) {
         };
         return (
             <div style={styleDivPcMessage}>
-                <span style={styleTextPcMessage}>
-                    {messages.PC_KEYBOARD}
-                </span>
+                <span style={styleTextPcMessage}>{messages.PC_KEYBOARD}</span>
             </div>
         );
     } else {
@@ -457,7 +412,6 @@ function RenderScreenBottom(props) {
 }
 
 function RenderButtons(props) {
-
     //ボタンがあるテーブルのスタイル
     let controllerStyle: any = {
         position: "absolute",
@@ -489,11 +443,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("left") }}
-                            onTouchStart={() => { props.onClickButton("left") }}
-                            onMouseUp={() => { props.onMouseUp("left") }}
-                            onMouseOut={() => { props.onMouseUp("left") }}
-                            onTouchEnd={() => { props.onMouseUp("left") }}
+                            onMouseDown={() => {
+                                props.onClickButton("left");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("left");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("left");
+                            }}
                         >
                             {"＜"}
                         </button>
@@ -502,11 +466,21 @@ function RenderButtons(props) {
                         <button
                             style={jumpButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("jump") }}
-                            onTouchStart={() => { props.onClickButton("jump") }}
-                            onMouseUp={() => { props.onMouseUp("jump") }}
-                            onMouseOut={() => { props.onMouseUp("jump") }}
-                            onTouchEnd={() => { props.onMouseUp("jump") }}
+                            onMouseDown={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("jump");
+                            }}
                         >
                             {"↑　jump　↑"}
                         </button>
@@ -515,11 +489,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("right") }}
-                            onTouchStart={() => { props.onClickButton("right") }}
-                            onMouseUp={() => { props.onMouseUp("right") }}
-                            onMouseOut={() => { props.onMouseUp("right") }}
-                            onTouchEnd={() => { props.onMouseUp("right") }}
+                            onMouseDown={() => {
+                                props.onClickButton("right");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("right");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("right");
+                            }}
                         >
                             {"＞"}
                         </button>

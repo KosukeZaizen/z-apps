@@ -1,5 +1,5 @@
-const requestKanjiConverterType = 'REQUEST_KANJI_CONVERTER';
-const receiveKanjiConverterType = 'RECEIVE_KANJI_CONVERTER';
+const requestKanjiConverterType = "REQUEST_KANJI_CONVERTER";
+const receiveKanjiConverterType = "RECEIVE_KANJI_CONVERTER";
 const initialState = { convertedWords: [], isLoading: false };
 
 export const actionCreators = {
@@ -16,7 +16,7 @@ export const actionCreators = {
         const convertedWords = await response.json();
 
         dispatch({ type: receiveKanjiConverterType, kanjis, convertedWords });
-    }
+    },
 };
 
 export const reducer = (state, action) => {
@@ -26,7 +26,7 @@ export const reducer = (state, action) => {
         return {
             ...state,
             kanjis: action.kanjis,
-            isLoading: true
+            isLoading: true,
         };
     }
 
@@ -35,7 +35,7 @@ export const reducer = (state, action) => {
             ...state,
             kanjis: action.kanjis,
             convertedWords: action.convertedWords,
-            isLoading: false
+            isLoading: false,
         };
     }
 

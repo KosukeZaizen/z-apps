@@ -1,77 +1,74 @@
-import * as React from 'react';
-import { NinjaChar } from './objs/ninja/ninja';
-import { Obj } from './objs/obj';
-
+import * as React from "react";
+import { NinjaChar } from "./objs/ninja/ninja";
+import { Obj } from "./objs/obj";
 
 //オブジェクト素材画像----------------
 
 //岩
-const imgRock = require('./objs/rock.png');
+const imgRock = require("./objs/rock.png");
 //岩（上下反転）
-const imgRockR = require('./objs/rockRiverse.png');
+const imgRockR = require("./objs/rockRiverse.png");
 //木
-const imgTree1 = require('./objs/tree1.png');
+const imgTree1 = require("./objs/tree1.png");
 //看板
-const imgKanban1 = require('./objs/kanban1.png');
+const imgKanban1 = require("./objs/kanban1.png");
 //看板の矢印
-const imgArrow1 = require('./objs/arrow1.png');
+const imgArrow1 = require("./objs/arrow1.png");
 //鳥居
-const imgTorii = require('./objs/torii.png');
+const imgTorii = require("./objs/torii.png");
 //Welcomeのフレーム
-const imgFrame = require('./objs/frame.jpg');
+const imgFrame = require("./objs/frame.jpg");
 //火
-const imgfire1 = require('./objs/fire1.png');
+const imgfire1 = require("./objs/fire1.png");
 //火（上下反転）
-const imgfireR = require('./objs/fireReverse.png');
+const imgfireR = require("./objs/fireReverse.png");
 //ポチ
-const imgPochi = require('./objs/pochi.png');
+const imgPochi = require("./objs/pochi.png");
 //閉じている巻物
-const imgScroll = require('./objs/scrollObj.png');
+const imgScroll = require("./objs/scrollObj.png");
 //開いている巻物
-const imgScrollOpen = require('./objs/scrollOpen.png');
+const imgScrollOpen = require("./objs/scrollOpen.png");
 //仏壇
-const imgButsudan = require('./objs/butsudan.png');
+const imgButsudan = require("./objs/butsudan.png");
 //シノ（先輩くのいち）
-const imgShino = require('./objs/shino.png');
+const imgShino = require("./objs/shino.png");
 //地蔵
-const imgJizo = require('./objs/jizo.png');
+const imgJizo = require("./objs/jizo.png");
 //ハニワ
-const imgHaniwa = require('./objs/haniwa.png');
+const imgHaniwa = require("./objs/haniwa.png");
 //コウスケ
-const imgKosuke = require('./objs/kosuke.png');
-
+const imgKosuke = require("./objs/kosuke.png");
 
 //背景画像//---------------------------
 
 //stage1
-const furuie = require('./img/background/furuie5.jpg');
+const furuie = require("./img/background/furuie5.jpg");
 //stage2
-const town1 = require('./img/background/town1.jpg');
+const town1 = require("./img/background/town1.jpg");
 //stage3
-const ryokan1 = require('./img/background/ryokan1.jpg');
+const ryokan1 = require("./img/background/ryokan1.jpg");
 //stage4
-const riverside1 = require('./img/background/riverside.jpg');
+const riverside1 = require("./img/background/riverside.jpg");
 //stage5
-const river1 = require('./img/background/river.jpg');
+const river1 = require("./img/background/river.jpg");
 //stage6
-const river2 = require('./img/background/river2.jpg');
+const river2 = require("./img/background/river2.jpg");
 //stage7
-const jizos = require('./img/background/jizos.jpg');
+const jizos = require("./img/background/jizos.jpg");
 //stage8
-const gardianDog = require('./img/background/gardianDog.jpg');
+const gardianDog = require("./img/background/gardianDog.jpg");
 //stage9
-const shrine = require('./img/background/shrine.jpg');
+const shrine = require("./img/background/shrine.jpg");
 //stage10
-const skyStone = require('./img/background/sky1.jpg');
+const skyStone = require("./img/background/sky1.jpg");
 //stage11
-const castleRiver = require('./img/background/castleRiver.jpg');
+const castleRiver = require("./img/background/castleRiver.jpg");
 //stage12
-const castleWall = require('./img/background/castleWall.jpg');
+const castleWall = require("./img/background/castleWall.jpg");
 //stage13
-const castle = require('./img/background/castle.jpg');
+const castle = require("./img/background/castle.jpg");
 //stage14
-const heaven = require('./img/background/heaven.png');
-
+const heaven = require("./img/background/heaven.png");
 
 export default class Page2 extends React.Component {
     props: any;
@@ -82,10 +79,59 @@ export default class Page2 extends React.Component {
     prevStage: number;
     UL: number;
     ninja: any;
-    objWalls: { leftWall: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; rightWall: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; };
+    objWalls: {
+        leftWall: {
+            size: number;
+            posX: number;
+            posY: number;
+            zIndex: number;
+            onTouch: (ninja: any, from: any) => void;
+        };
+        rightWall: {
+            size: number;
+            posX: number;
+            posY: number;
+            zIndex: number;
+            onTouch: (ninja: any, from: any) => void;
+        };
+    };
     readElementScroll: any;
-    objOutOfScreen: { outOfScreenLeft: { size: number; posX: number; posY: number; onTouch: () => void; divType: string; }; outOfScreenRight: { size: number; posX: number; posY: number; onTouch: () => void; divType: string; }; outOfScreenTop: any; outOfScreenBottom: any; };
-    objFloor: { floor1: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; floor2: { size: number; posX: number; posY: number; zIndex: number; onTouch: (ninja: any, from: any) => void; }; floor3: any; floor4: any; };
+    objOutOfScreen: {
+        outOfScreenLeft: {
+            size: number;
+            posX: number;
+            posY: number;
+            onTouch: () => void;
+            divType: string;
+        };
+        outOfScreenRight: {
+            size: number;
+            posX: number;
+            posY: number;
+            onTouch: () => void;
+            divType: string;
+        };
+        outOfScreenTop: any;
+        outOfScreenBottom: any;
+    };
+    objFloor: {
+        floor1: {
+            size: number;
+            posX: number;
+            posY: number;
+            zIndex: number;
+            onTouch: (ninja: any, from: any) => void;
+        };
+        floor2: {
+            size: number;
+            posX: number;
+            posY: number;
+            zIndex: number;
+            onTouch: (ninja: any, from: any) => void;
+        };
+        floor3: any;
+        floor4: any;
+    };
     backgroundSetting: {
         /* 背景画像 */
         backgroundImage: string;
@@ -110,7 +156,6 @@ export default class Page2 extends React.Component {
     bgImg: any;
 
     UNSAFE_componentWillMount() {
-
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = this.checkTerminalPC();
 
@@ -133,7 +178,6 @@ export default class Page2 extends React.Component {
         this.readElementScroll = this.props.readElementScroll;
 
         this.ninja.game = this;
-
 
         //画面外を黒くする要素
         this.objOutOfScreen = {
@@ -245,7 +289,6 @@ export default class Page2 extends React.Component {
 
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
-
 
                 //スタートと同時に表示される巻物
                 FIRST_SCROLL_TITLE: "拙者の屋敷に参るがよい",
@@ -360,7 +403,6 @@ export default class Page2 extends React.Component {
 
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
-
 
                 //スタートと同時に表示される巻物
                 FIRST_SCROLL_TITLE: "Come to my house!",
@@ -485,7 +527,7 @@ export default class Page2 extends React.Component {
                 left: true,
                 ninjaX: this.ninja.posX * this.UL,
                 ninjaY: this.ninja.posY * this.UL,
-            }
+            },
         });
 
         //←ボタン押下判定
@@ -521,12 +563,12 @@ export default class Page2 extends React.Component {
         if (screenWidth > screenHeight) {
             //横長
             pageHeight = screenHeight;
-            pageWidth = pageHeight * 16 / 9;
+            pageWidth = (pageHeight * 16) / 9;
 
             if (pageWidth > screenWidth) {
                 //横がはみ出たら(正方形に近い画面)
                 pageWidth = screenWidth;
-                pageHeight = pageWidth * 9 / 16;
+                pageHeight = (pageWidth * 9) / 16;
 
                 this.pageStyle = {
                     //ページの余白設定
@@ -537,18 +579,18 @@ export default class Page2 extends React.Component {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
-                    left: (screenWidth - pageWidth) / 2
+                    left: (screenWidth - pageWidth) / 2,
                 };
             }
         } else {
             //縦長
-            pageHeight = screenWidth * 9 / 10;
-            pageWidth = pageHeight * 16 / 9;
+            pageHeight = (screenWidth * 9) / 10;
+            pageWidth = (pageHeight * 16) / 9;
 
-            if (pageWidth > screenHeight * 9 / 10) {
+            if (pageWidth > (screenHeight * 9) / 10) {
                 //横がはみ出そうだったら(正方形に近い画面)
-                pageWidth = screenHeight * 9 / 10;
-                pageHeight = pageWidth * 9 / 16;
+                pageWidth = (screenHeight * 9) / 10;
+                pageHeight = (pageWidth * 9) / 16;
 
                 this.pageStyle = {
                     //ページの余白設定
@@ -560,7 +602,7 @@ export default class Page2 extends React.Component {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
-                    left: screenWidth * 95 / 100,
+                    left: (screenWidth * 95) / 100,
                     top: (screenHeight - pageWidth) / 2,
                 };
             }
@@ -570,14 +612,12 @@ export default class Page2 extends React.Component {
     }
     //---------------↑　resize　↑---------------
 
-
     onLoadPage() {
         //初回描画時のみ処理の登録を行う
         if (this.initFlag) {
             //タイムステップ毎に処理を呼び出す
             this.timerId = setInterval(() => {
                 //タイムステップごとの計算
-
 
                 /* ↓　物体速度・位置計算　↓ */
 
@@ -590,15 +630,19 @@ export default class Page2 extends React.Component {
                 } else {
                     if (this.lButton === true) {
                         this.ninja.speedX = -6;
-                        boolLeft = true;//画像左向き
+                        boolLeft = true; //画像左向き
                     }
                     if (this.rButton === true) {
                         this.ninja.speedX = 6;
-                        boolLeft = false;//画像右向き
+                        boolLeft = false; //画像右向き
                     }
                     if (this.lButton === true && this.rButton === true) {
                         //右と左同時押しでハニワ生成
-                        if (this.ninja.readScroll.indexOf(this.ninja.game.consts.EARTH_SCROLL_TITLE) > 0) {
+                        if (
+                            this.ninja.readScroll.indexOf(
+                                this.ninja.game.consts.EARTH_SCROLL_TITLE
+                            ) > 0
+                        ) {
                             //地の書を既に読んでいる場合
                             this.objs.haniwa = {
                                 size: 12,
@@ -608,7 +652,7 @@ export default class Page2 extends React.Component {
                                 img: imgHaniwa,
                                 onTouch: onTouchNothing,
                                 haniwa: true,
-                            }
+                            };
                         }
                     }
                 }
@@ -624,7 +668,11 @@ export default class Page2 extends React.Component {
                         //ジャンプ時に巻物を閉じる
                         this.closeScroll = true;
                     }
-                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.AIR_SCROLL_TITLE) > 0) {
+                    if (
+                        this.ninja.readScroll.indexOf(
+                            this.ninja.game.consts.AIR_SCROLL_TITLE
+                        ) > 0
+                    ) {
                         //風の書を読んでいる
                         if (this.ninja.posY > 14) {
                             //2段ジャンプ実行限界高度に達していない
@@ -651,7 +699,6 @@ export default class Page2 extends React.Component {
                 this.ninja.posX += this.ninja.speedX;
                 this.ninja.posY += this.ninja.speedY;
 
-
                 //オブジェクトとの接触判定
 
                 //忍者の上下左右の端の位置
@@ -661,7 +708,6 @@ export default class Page2 extends React.Component {
                 let ninjaFoot = ninjaTop + this.ninja.size;
 
                 for (let key in this.objs) {
-
                     //途中でステージ遷移したら、関数を中止するためのフラグ
                     let stageChangedFlag = "";
 
@@ -672,27 +718,84 @@ export default class Page2 extends React.Component {
                     let objFoot = objTop + this.objs[key].size;
 
                     //忍者が上から
-                    if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
+                    if (
+                        checkRelativityLeftAndTop(
+                            ninjaTop,
+                            objTop,
+                            objLeft,
+                            objRight,
+                            ninjaFoot,
+                            ninjaLeft,
+                            ninjaRight,
+                            this.ninja.size
+                        ) === true
+                    ) {
+                        stageChangedFlag = this.objs[key].onTouch(
+                            this.ninja,
+                            "upper"
+                        );
                     }
                     //忍者が右から
-                    if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
+                    if (
+                        checkRelativityRightAndFoot(
+                            objRight,
+                            ninjaRight,
+                            objTop,
+                            objFoot,
+                            ninjaLeft,
+                            ninjaTop,
+                            ninjaFoot,
+                            this.ninja.size
+                        ) === true
+                    ) {
+                        stageChangedFlag = this.objs[key].onTouch(
+                            this.ninja,
+                            "right"
+                        );
                     }
                     //忍者が下から
-                    if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
+                    if (
+                        checkRelativityRightAndFoot(
+                            objFoot,
+                            ninjaFoot,
+                            objLeft,
+                            objRight,
+                            ninjaTop,
+                            ninjaLeft,
+                            ninjaRight,
+                            this.ninja.size
+                        ) === true
+                    ) {
+                        stageChangedFlag = this.objs[key].onTouch(
+                            this.ninja,
+                            "lower"
+                        );
                     }
                     //忍者が左から
-                    if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
-                        stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
+                    if (
+                        checkRelativityLeftAndTop(
+                            ninjaLeft,
+                            objLeft,
+                            objTop,
+                            objFoot,
+                            ninjaRight,
+                            ninjaTop,
+                            ninjaFoot,
+                            this.ninja.size
+                        ) === true
+                    ) {
+                        stageChangedFlag = this.objs[key].onTouch(
+                            this.ninja,
+                            "left"
+                        );
                     }
 
                     //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
+                    if (stageChangedFlag && stageChangedFlag === "changed") {
+                        return;
+                    }
                 }
                 /* ↑　物体速度・位置計算　↑ */
-
 
                 //ページサイズ取得（ウィンドウサイズが変更された時のため）
                 let pageSize = this.getWindowSize();
@@ -711,7 +814,7 @@ export default class Page2 extends React.Component {
                         left: boolLeft,
                         ninjaX: this.ninja.posX * this.UL,
                         ninjaY: this.ninja.posY * this.UL,
-                    }
+                    },
                 });
             }, this.consts.timeStep);
 
@@ -741,7 +844,12 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
-            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            } else if (
+                keyCode === 13 ||
+                keyCode === 8 ||
+                keyCode === 46 ||
+                keyCode === 27
+            ) {
                 keyType = "close";
             }
             objGame.onClickButton(keyType);
@@ -764,7 +872,12 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
-            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            } else if (
+                keyCode === 13 ||
+                keyCode === 8 ||
+                keyCode === 46 ||
+                keyCode === 27
+            ) {
                 keyType = "close";
             }
             objGame.onMouseUp(keyType);
@@ -802,12 +915,10 @@ export default class Page2 extends React.Component {
     }
 
     render() {
-
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
 
             if (this.props.stage === 1) {
-
                 // ------------------------------------------------------------
                 // ステージ1（出発の宿）
                 // ------------------------------------------------------------
@@ -935,12 +1046,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = furuie;
-
             } else if (this.props.stage === 2) {
-
                 // ------------------------------------------------------------
                 // ステージ2（鳥居がある町）
                 // ------------------------------------------------------------
@@ -1062,12 +1171,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = town1;
-
             } else if (this.props.stage === 3) {
-
                 // ------------------------------------------------------------
                 // ステージ3（ポチの家）
                 // ------------------------------------------------------------
@@ -1174,12 +1281,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = ryokan1;
-
             } else if (this.props.stage === 4) {
-
                 // ------------------------------------------------------------
                 // ステージ4（看板がある河原）
                 // ------------------------------------------------------------
@@ -1276,12 +1381,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = riverside1;
-
             } else if (this.props.stage === 5) {
-
                 // ------------------------------------------------------------
                 // ステージ5（シノがいる川）
                 // ------------------------------------------------------------
@@ -1391,12 +1494,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = river1;
             } else if (this.props.stage === 6) {
-
                 // ------------------------------------------------------------
                 // ステージ6（岩の下の水路）
                 // ------------------------------------------------------------
@@ -1506,11 +1607,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = river2;
             } else if (this.props.stage === 7) {
-
                 // ------------------------------------------------------------
                 // ステージ7（石像複数）
                 // ------------------------------------------------------------
@@ -1567,11 +1667,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = jizos;
             } else if (this.props.stage === 8) {
-
                 // ------------------------------------------------------------
                 // ステージ8 (狛犬)
                 // ------------------------------------------------------------
@@ -1595,7 +1694,7 @@ export default class Page2 extends React.Component {
                         posY: 6,
                         zIndex: 20,
                         img: imgfire1,
-                        fireContinueTime: 5,//0.5秒
+                        fireContinueTime: 5, //0.5秒
                         onTouch: onTouchFire,
                         jumpHeight: 20,
                     },
@@ -1649,11 +1748,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateTopOrBottom,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = gardianDog;
             } else if (this.props.stage === 9) {
-
                 // ------------------------------------------------------------
                 // ステージ9 (神社)
                 // ------------------------------------------------------------
@@ -1686,7 +1784,7 @@ export default class Page2 extends React.Component {
                         posY: 17,
                         zIndex: 20,
                         img: imgfire1,
-                        fireContinueTime: 20,//2秒
+                        fireContinueTime: 20, //2秒
                         onTouch: onTouchFire,
                         jumpHeight: 30,
                     },
@@ -1696,7 +1794,7 @@ export default class Page2 extends React.Component {
                         posY: 13,
                         zIndex: 20,
                         img: imgfire1,
-                        fireContinueTime: 20,//2秒
+                        fireContinueTime: 20, //2秒
                         onTouch: onTouchFire,
                         jumpHeight: 30,
                     },
@@ -1718,11 +1816,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateTopOrBottom,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = shrine;
             } else if (this.props.stage === 10) {
-
                 // ------------------------------------------------------------
                 // ステージ10 (空の岩)
                 // ------------------------------------------------------------
@@ -1789,12 +1886,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateTopOrBottom,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = skyStone;
-
             } else if (this.props.stage === 11) {
-
                 // ------------------------------------------------------------
                 // ステージ11 (河原の城壁)
                 // ------------------------------------------------------------
@@ -1829,12 +1924,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = castleRiver;
-
             } else if (this.props.stage === 12) {
-
                 // ------------------------------------------------------------
                 // ステージ12 (城壁の岩肌)
                 // ------------------------------------------------------------
@@ -1861,12 +1954,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = castleWall;
-
             } else if (this.props.stage === 13) {
-
                 // ------------------------------------------------------------
                 // ステージ13 (城)
                 // ------------------------------------------------------------
@@ -1968,11 +2059,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = castle;
             } else if (this.props.stage === 14) {
-
                 // ------------------------------------------------------------
                 // ステージ14 (天)
                 // ------------------------------------------------------------
@@ -2036,8 +2126,7 @@ export default class Page2 extends React.Component {
                         fontSize: 3,
                         finalMessage: true,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = heaven;
             }
@@ -2046,20 +2135,21 @@ export default class Page2 extends React.Component {
 
             //localStorageに自動セーブ
             const { game, ...rest } = this.ninja;
-            const saveData = { ninja: rest, stage: this.props.stage }
-            localStorage.setItem('saveData1', JSON.stringify(saveData));
+            const saveData = { ninja: rest, stage: this.props.stage };
+            localStorage.setItem("saveData1", JSON.stringify(saveData));
 
             //背景画像の変更
             this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
         }
-
 
         return (
             <div id="Page2" style={this.pageStyle}>
                 <div
                     id="gameScreen"
                     style={this.state.screenStyle}
-                    onLoad={() => { this.onLoadPage() }}
+                    onLoad={() => {
+                        this.onLoadPage();
+                    }}
                 >
                     <NinjaChar
                         imgAlt="Running Ninja"
@@ -2104,7 +2194,6 @@ function RenderScreenBottom(props) {
 
     //画面下部のボタンなどの表示の出し分け
     if (props.terminalPC) {
-
         let styleDivPcMessage: any = {
             position: "absolute",
             top: 75 * UL,
@@ -2183,11 +2272,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("left") }}
-                            onTouchStart={() => { props.onClickButton("left") }}
-                            onMouseUp={() => { props.onMouseUp("left") }}
-                            onMouseOut={() => { props.onMouseUp("left") }}
-                            onTouchEnd={() => { props.onMouseUp("left") }}
+                            onMouseDown={() => {
+                                props.onClickButton("left");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("left");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("left");
+                            }}
                         >
                             {"＜"}
                         </button>
@@ -2196,11 +2295,21 @@ function RenderButtons(props) {
                         <button
                             style={jumpButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("jump") }}
-                            onTouchStart={() => { props.onClickButton("jump") }}
-                            onMouseUp={() => { props.onMouseUp("jump") }}
-                            onMouseOut={() => { props.onMouseUp("jump") }}
-                            onTouchEnd={() => { props.onMouseUp("jump") }}
+                            onMouseDown={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("jump");
+                            }}
                         >
                             {"↑　jump　↑"}
                         </button>
@@ -2209,11 +2318,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("right") }}
-                            onTouchStart={() => { props.onClickButton("right") }}
-                            onMouseUp={() => { props.onMouseUp("right") }}
-                            onMouseOut={() => { props.onMouseUp("right") }}
-                            onTouchEnd={() => { props.onMouseUp("right") }}
+                            onMouseDown={() => {
+                                props.onClickButton("right");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("right");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("right");
+                            }}
                         >
                             {"＞"}
                         </button>
@@ -2224,15 +2343,24 @@ function RenderButtons(props) {
     );
 }
 
-function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
+function checkRelativityRightAndFoot(
+    objRight,
+    ninjaRight,
+    objTop,
+    objFoot,
+    ninjaLeft,
+    ninjaTop,
+    ninjaFoot,
+    ninjaSize
+) {
     //コメントは忍者が右から来た想定
     if (objRight > ninjaLeft) {
         //忍者が右から
         if (objRight < ninjaRight) {
             //忍者の右端がオブジェクトの右端を左向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
+            if (objTop < ninjaFoot - (ninjaSize * 7) / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
+                if (objFoot > ninjaTop + (ninjaSize * 7) / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }
@@ -2241,15 +2369,24 @@ function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninj
     }
     return false;
 }
-function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, ninjaSize) {
+function checkRelativityLeftAndTop(
+    ninjaLeft,
+    objLeft,
+    objTop,
+    objFoot,
+    ninjaRight,
+    ninjaTop,
+    ninjaFoot,
+    ninjaSize
+) {
     //コメントは忍者が左から来た想定
     if (objLeft < ninjaRight) {
         //忍者が左から
         if (objLeft > ninjaLeft) {
             //忍者の左端がオブジェクトの左端を右向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
+            if (objTop < ninjaFoot - (ninjaSize * 7) / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
+                if (objFoot > ninjaTop + (ninjaSize * 7) / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }
@@ -2266,7 +2403,7 @@ function onTouchScrollOpener(ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
-    let objs = ninja.game.objs;
+        let objs = ninja.game.objs;
         for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
@@ -2290,17 +2427,14 @@ function onTouchBlock(ninja, from) {
         //上から
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
-
     } else if (from === "right") {
         //右から
         ninja.posX = this.posX + this.size;
         ninja.speedX = 0;
-
     } else if (from === "lower") {
         //下から
         ninja.posY = this.posY + this.size;
         ninja.speedY = 0;
-
     } else if (from === "left") {
         //左から
         ninja.posX = this.posX - ninja.size;
@@ -2316,7 +2450,6 @@ function onTouchTree(ninja, from) {
         //上から
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
-
     }
 }
 
@@ -2336,8 +2469,7 @@ function onTouchRiverToRight(ninja) {
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-function onTouchNothing() {
-}
+function onTouchNothing() {}
 
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
@@ -2348,7 +2480,6 @@ function onTouchGateWall(ninja, from) {
         ninja.posX += 160 - ninja.size;
         ninja.speedX = 0;
         ninja.speedY = 0;
-
     } else {
         //左から
         ninja.posX = 0;
@@ -2380,13 +2511,11 @@ function onTouchGateWallStage11(ninja, from) {
 // 別ステージへのゲートのタッチ関数（上下）
 //=======================================
 function onTouchGateTopOrBottom(ninja, from) {
-
     if (from === "upper") {
         //上から
         ninja.posY = 0;
         ninja.speedX = 0;
         ninja.speedY = 0;
-
     } else if (from === "lower") {
         //下から
         ninja.posY += 70 - ninja.size;
@@ -2408,7 +2537,7 @@ function onTouchFire(ninja) {
     }
     if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
         //火の書を読んでいればジャンプする
-        ninja.speedY = this.jumpHeight * (-1);
+        ninja.speedY = this.jumpHeight * -1;
     }
 }
 
@@ -2416,7 +2545,6 @@ function onTouchFire(ninja) {
 // 地蔵にタッチ
 //=======================================
 function onTouchJizo(ninja) {
-
     let objs = ninja.game.objs;
     for (let key in objs) {
         if (objs[key].fireContinueTime) {

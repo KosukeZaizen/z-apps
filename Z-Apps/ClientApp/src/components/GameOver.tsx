@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { getParams } from './common/functions';
-import Head from './parts/Helmet';
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { getParams } from "./common/functions";
+import Head from "./parts/Helmet";
 
 class GameOver extends React.Component {
-
     consts: {
-        BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
-    }
+        BTN_START_CLASS: "btn btn-primary btn-lg btn-block";
+    };
 
     render() {
         this.consts = {
@@ -37,13 +36,10 @@ class GameOver extends React.Component {
 
         return (
             <div className="center">
-                <Head
-                    title="Game Over"
-                    noindex={true}
-                />
-                <h2 style={bottomMargin} >{title}</h2>
+                <Head title="Game Over" noindex={true} />
+                <h2 style={bottomMargin}>{title}</h2>
                 <Link to={gameUrl}>
-                    <button className={this.consts.BTN_START_CLASS} >
+                    <button className={this.consts.BTN_START_CLASS}>
                         {msgButton}
                     </button>
                 </Link>

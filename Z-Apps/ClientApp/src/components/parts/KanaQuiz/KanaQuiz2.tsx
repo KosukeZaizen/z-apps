@@ -1,14 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 
-export default class Quiz2 extends React.Component<{
-    consts: any;
-    maxChar: number;
-    changePage: any;
-    setScore: any;
-    setIncorrectList: any;
-},{
-    gameCount: number;
-}> {
+export default class Quiz2 extends React.Component<
+    {
+        consts: any;
+        maxChar: number;
+        changePage: any;
+        setScore: any;
+        setIncorrectList: any;
+    },
+    {
+        gameCount: number;
+    }
+> {
     consts: {
         ANSWER_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block active";
     };
@@ -78,13 +81,18 @@ export default class Quiz2 extends React.Component<{
 
         if (question === this.listTmp[answer]) {
             this.correct += 1;
-            alert('Correct!');
+            alert("Correct!");
         } else {
             this.incorrectList[this.indexQ] = question;
-            alert('Incorrect!\n\nCorrect answer:\n    ' + question + ' -> ' + this.indexQ);
+            alert(
+                "Incorrect!\n\nCorrect answer:\n    " +
+                    question +
+                    " -> " +
+                    this.indexQ
+            );
         }
 
-        if (this.correct + Object.keys(this.incorrectList).length  === maxGame ) {
+        if (this.correct + Object.keys(this.incorrectList).length === maxGame) {
             this.props.changePage(3);
             this.props.setScore(this.correct);
             this.props.setIncorrectList(this.incorrectList);
@@ -92,11 +100,10 @@ export default class Quiz2 extends React.Component<{
             delete this.listTmp[this.indexQ];
             this.initSet();
         }
-        this.setState({ gameCount: this.state.gameCount + 1,});
+        this.setState({ gameCount: this.state.gameCount + 1 });
     }
 
     render() {
-
         let correct = this.correct;
         let incorrect = Object.keys(this.incorrectList).length || 0;
         let currentGame = correct + incorrect + 1;
@@ -105,29 +112,30 @@ export default class Quiz2 extends React.Component<{
         return (
             <div id="disp2">
                 Progress:&nbsp;
-                    {currentGame}/{maxGame}
+                {currentGame}/{maxGame}
                 <br />
-
                 Correct:&nbsp;
-                    {correct}
-                &nbsp;&nbsp;&nbsp;
-                Incorrect:&nbsp;
-                    {incorrect}
+                {correct}
+                &nbsp;&nbsp;&nbsp; Incorrect:&nbsp;
+                {incorrect}
                 <br />
                 <br />
-
-                Question:<br />
+                Question:
+                <br />
                 <b className="question">{this.question}</b>
                 <br />
                 <br />
-
-                Which is the correct Romaji for the {this.props.consts.KANA_TYPE} character above?<br />
+                Which is the correct Romaji for the{" "}
+                {this.props.consts.KANA_TYPE} character above?
+                <br />
                 <table>
                     <tbody>
                         <tr>
                             <td>
                                 <button
-                                    className={this.consts.ANSWER_BUTTON_PRIMARY}
+                                    className={
+                                        this.consts.ANSWER_BUTTON_PRIMARY
+                                    }
                                     onClick={() => this.onClickBtn(1)}
                                 >
                                     {this.btn1Value}
@@ -135,7 +143,9 @@ export default class Quiz2 extends React.Component<{
                             </td>
                             <td>
                                 <button
-                                    className={this.consts.ANSWER_BUTTON_PRIMARY}
+                                    className={
+                                        this.consts.ANSWER_BUTTON_PRIMARY
+                                    }
                                     onClick={() => this.onClickBtn(2)}
                                 >
                                     {this.btn2Value}
@@ -145,7 +155,9 @@ export default class Quiz2 extends React.Component<{
                         <tr>
                             <td>
                                 <button
-                                    className={this.consts.ANSWER_BUTTON_PRIMARY}
+                                    className={
+                                        this.consts.ANSWER_BUTTON_PRIMARY
+                                    }
                                     onClick={() => this.onClickBtn(3)}
                                 >
                                     {this.btn3Value}
@@ -153,7 +165,9 @@ export default class Quiz2 extends React.Component<{
                             </td>
                             <td>
                                 <button
-                                    className={this.consts.ANSWER_BUTTON_PRIMARY}
+                                    className={
+                                        this.consts.ANSWER_BUTTON_PRIMARY
+                                    }
                                     onClick={() => this.onClickBtn(4)}
                                 >
                                     {this.btn4Value}
@@ -163,7 +177,6 @@ export default class Quiz2 extends React.Component<{
                     </tbody>
                 </table>
             </div>
-
         );
     }
 }

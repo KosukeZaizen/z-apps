@@ -13,6 +13,6 @@ export type vocabGenre = {
 };
 
 export type sound = {
-    audio: HTMLAudioElement,
-    playable: boolean
+    audio: HTMLAudioElement;
+    playable: boolean;
 };

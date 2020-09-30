@@ -1,17 +1,16 @@
-//ステージの部品作成用関数群の読み込み
-import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
-import Imgs from '../ImportImgs';
+import Imgs from "../ImportImgs";
+//ステージの部品作成用関数群の読み込み
+import * as StageParts from "./StagePartsGenerator";
 //背景画像
-const bgImg = require('../img/background/tengumura5.jpg');
+const bgImg = require("../img/background/tengumura5.jpg");
 
 const Stage: any = {};
 
 //墓場への階段
-Stage.getObjs = (ninja) => {
-
+Stage.getObjs = ninja => {
     Stage.bgImg = bgImg;
-    Stage.windSpeed = (ninja.snow) ? 1 : 0;//風速
+    Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 
     let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
@@ -29,14 +28,14 @@ Stage.getObjs = (ninja) => {
         returnObjs = {
             ...returnObjs,
             ...StageParts.getSnows(0.1, 30),
-        }
+        };
     } else {
         //雪がやんだ
         returnObjs = {
             ...returnObjs,
             obake1: StageParts.getEnemy(13, 65, 50, Imgs.Obake2, 100, 0.5, 0.5),
-        }
+        };
     }
     return returnObjs;
-}
+};
 export default Stage;

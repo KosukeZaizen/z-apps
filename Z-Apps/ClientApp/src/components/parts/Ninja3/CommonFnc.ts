@@ -4,10 +4,8 @@
 //
 //------------------------------------------------------------
 
-
 //当たり判定
 export function checkTouch(obj1, obj2) {
-
     if (obj1 && obj2) {
         //オブジェクトが存在する場合
 
@@ -34,8 +32,14 @@ export function checkRelativity(obj1, obj2) {
         //かすっている
 
         //中心座標計算
-        let obj1_center = [obj1.posX + (obj1.size / 2), obj1.posY + (obj1.size / 2)];
-        let obj2_center = [obj2.posX + (obj2.size / 2), obj2.posY + (obj2.size / 2)];
+        let obj1_center = [
+            obj1.posX + obj1.size / 2,
+            obj1.posY + obj1.size / 2,
+        ];
+        let obj2_center = [
+            obj2.posX + obj2.size / 2,
+            obj2.posY + obj2.size / 2,
+        ];
 
         //2オブジェクトの中心間の差を計算
         let dX = obj2_center[0] - obj1_center[0];
@@ -44,7 +48,7 @@ export function checkRelativity(obj1, obj2) {
         //0除算除外
         if (dX === 0) {
             //2つの物体のx座標が一致
-            return (dY > 0) ? "upper" : "lower";
+            return dY > 0 ? "upper" : "lower";
         }
 
         //傾き
@@ -52,9 +56,9 @@ export function checkRelativity(obj1, obj2) {
 
         //傾きから相対位置判定
         if (1 > a && a > -1) {
-            return (dX > 0) ? "left" : "right";
+            return dX > 0 ? "left" : "right";
         } else {
-            return (dY > 0) ? "upper" : "lower";
+            return dY > 0 ? "upper" : "lower";
         }
     }
     return false;

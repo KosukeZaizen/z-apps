@@ -1,9 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 
-const runningNinja =require('./ninja_hashiru.png');
+const runningNinja = require("./ninja_hashiru.png");
 
 function NinjaChar(props) {
-
     let left = props.boolLeft ? "" : "scale(-1, 1)";
 
     let style: any = {

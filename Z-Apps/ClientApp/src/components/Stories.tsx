@@ -1,23 +1,24 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as React from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardText, CardTitle } from 'reactstrap';
-import { bindActionCreators } from 'redux';
-import { TReducers } from '../store/configureStore';
-import * as storiesStore from '../store/StoriesStore';
-import { sentence, storyDesc, word } from '../types/stories';
-import * as consts from './common/consts';
-import FB from './parts/FaceBook';
-import GoogleAd from './parts/GoogleAd';
-import Head from './parts/Helmet';
-import './parts/PleaseScrollDown.css';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import * as React from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button, Card, CardText, CardTitle } from "reactstrap";
+import { bindActionCreators } from "redux";
+import { TReducers } from "../store/configureStore";
+import * as storiesStore from "../store/StoriesStore";
+import { sentence, storyDesc, word } from "../types/stories";
+import * as consts from "./common/consts";
+import FB from "./parts/FaceBook";
+import GoogleAd from "./parts/GoogleAd";
+import Head from "./parts/Helmet";
+import "./parts/PleaseScrollDown.css";
 
-type Props = storiesStore.StoriesState & storiesStore.IActionCreators & {
-    location: { pathname: string };
-    otherStories: storyDesc[];
-};
+type Props = storiesStore.StoriesState &
+    storiesStore.IActionCreators & {
+        location: { pathname: string };
+        otherStories: storyDesc[];
+    };
 type State = {
     storyName: string;
     screenWidth: number;
@@ -53,9 +54,11 @@ class Stories extends React.Component<Props, State> {
             this.state = {
                 ...this.state,
                 kanji: objSaveData.kanji == null ? true : objSaveData.kanji,
-                hiragana: objSaveData.hiragana == null ? true : objSaveData.hiragana,
+                hiragana:
+                    objSaveData.hiragana == null ? true : objSaveData.hiragana,
                 romaji: objSaveData.romaji == null ? false : objSaveData.romaji,
-                english: objSaveData.english == null ? true : objSaveData.english,
+                english:
+                    objSaveData.english == null ? true : objSaveData.english,
             };
         } else {
             this.state = {
@@ -78,12 +81,12 @@ class Stories extends React.Component<Props, State> {
             }, 100);
         };
 
-        window.addEventListener('scroll', this.judgeFooter);
+        window.addEventListener("scroll", this.judgeFooter);
         this.refSentences = React.createRef();
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.judgeFooter);
+        window.removeEventListener("scroll", this.judgeFooter);
     }
 
     componentDidMount() {
@@ -99,7 +102,10 @@ class Stories extends React.Component<Props, State> {
 
     componentDidUpdate(preciousProps) {
         if (preciousProps.location !== this.props.location) {
-            const storyName = this.props.location.pathname.split("/").filter(a => a).pop();
+            const storyName = this.props.location.pathname
+                .split("/")
+                .filter(a => a)
+                .pop();
             this.setState({
                 storyName: storyName,
             });
@@ -108,13 +114,16 @@ class Stories extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+        if (
+            this.state.screenWidth !== window.innerWidth ||
+            this.state.screenHeight !== window.innerHeight
+        ) {
             this.setState({
                 screenWidth: window.innerWidth,
                 screenHeight: window.innerHeight,
             });
         }
-    }
+    };
 
     judgeFooter = () => {
         if (!this.refSentences) return;
@@ -131,28 +140,26 @@ class Stories extends React.Component<Props, State> {
             // sentencesよりも上側の時
             this.setState({
                 pleaseScrollDown: true,
-                showFooterMenu: false
+                showFooterMenu: false,
             });
-        } else if (-screenHeight > (t_position + t_height)) {
+        } else if (-screenHeight > t_position + t_height) {
             // sentencesよりも下側の時
             this.setState({
                 pleaseScrollDown: false,
-                showFooterMenu: false
+                showFooterMenu: false,
             });
         } else {
             // sentencesが画面内
             this.setState({
                 pleaseScrollDown: false,
-                showFooterMenu: true
+                showFooterMenu: true,
             });
         }
-    }
+    };
 
-    onClickLangBtn = (btnType) => {
-
+    onClickLangBtn = btnType => {
         let saveData;
         switch (btnType) {
-
             case "kanji":
                 saveData = {
                     kanji: !this.state.kanji,
@@ -160,7 +167,7 @@ class Stories extends React.Component<Props, State> {
                     romaji: this.state.romaji,
                     english: this.state.english,
                 };
-                this.setState({ kanji: !this.state.kanji, });
+                this.setState({ kanji: !this.state.kanji });
                 break;
 
             case "hiragana":
@@ -170,7 +177,7 @@ class Stories extends React.Component<Props, State> {
                     romaji: this.state.romaji,
                     english: this.state.english,
                 };
-                this.setState({ hiragana: !this.state.hiragana, });
+                this.setState({ hiragana: !this.state.hiragana });
                 break;
 
             case "romaji":
@@ -180,7 +187,7 @@ class Stories extends React.Component<Props, State> {
                     romaji: !this.state.romaji,
                     english: this.state.english,
                 };
-                this.setState({ romaji: !this.state.romaji, });
+                this.setState({ romaji: !this.state.romaji });
                 break;
 
             case "english":
@@ -190,17 +197,18 @@ class Stories extends React.Component<Props, State> {
                     romaji: this.state.romaji,
                     english: !this.state.english,
                 };
-                this.setState({ english: !this.state.english, });
+                this.setState({ english: !this.state.english });
                 break;
 
             default:
         }
 
         localStorage.setItem("folktales-languages", JSON.stringify(saveData));
-    }
+    };
 
     render() {
-        const storyName = this.props.storyDesc.storyName || this.state.storyName || "";
+        const storyName =
+            this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const titleOfAbout = storyName.split("--")[0].split("_").join(" ");
         const styleForAboutTitle: React.CSSProperties = {
@@ -222,22 +230,52 @@ class Stories extends React.Component<Props, State> {
             <div className="center">
                 <Head
                     title={title + " Story | Japanese Folktales"}
-                    desc={storyDesc.description && storyDesc.description.split("\\n").join(" ")}
-                    img={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
+                    desc={
+                        storyDesc.description &&
+                        storyDesc.description.split("\\n").join(" ")
+                    }
+                    img={`${consts.BLOB_URL}/folktalesImg/${
+                        storyName.split("--")[0]
+                    }.png`}
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                <span itemProp="name">
-                                    {"Home"}
-                                </span>
+                    <div
+                        className="breadcrumbs"
+                        itemScope
+                        itemType="https://schema.org/BreadcrumbList"
+                        style={{ textAlign: "left" }}
+                    >
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
+                                <span itemProp="name">{"Home"}</span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/folktales" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/folktales"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 <span itemProp="name">
                                     {"Japanese Folktales"}
                                 </span>
@@ -245,174 +283,284 @@ class Stories extends React.Component<Props, State> {
                             </Link>
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <span
+                                itemProp="name"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 {title}
                             </span>
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <h1 style={{
-                        margin: "25px",
-                        lineHeight: screenWidth > 500 ? "45px" : "35px",
-                    }}>
+                    <h1
+                        style={{
+                            margin: "25px",
+                            lineHeight: screenWidth > 500 ? "45px" : "35px",
+                        }}
+                    >
                         <b>{title}</b>
                     </h1>
                     <br />
-                    {
-                        this.state.storyName ?
-                            <img
-                                src={`${consts.BLOB_URL}/folktalesImg/${storyName.split("--")[0]}.png`}
-                                width="90%"
-                                alt={title}
-                                title={title}
-                            />
-                            :
-                            null
-                    }
+                    {this.state.storyName ? (
+                        <img
+                            src={`${consts.BLOB_URL}/folktalesImg/${
+                                storyName.split("--")[0]
+                            }.png`}
+                            width="90%"
+                            alt={title}
+                            title={title}
+                        />
+                    ) : null}
                     <br />
                     <br />
-                    {
-                        storyDesc.description ?
-                            <div
-                                style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}
-                                id="aboutFolktale"
-                            >
-                                <h2 style={styleForAboutTitle}>About {titleOfAbout}</h2>
-                                {
-                                    storyDesc.description.split("\\n").map((d, i) =>
-                                        <span key={i}>
-                                            {d}<br />
-                                        </span>
-                                    )
-                                }
-                            </div>
-                            :
-                            null
-                    }
+                    {storyDesc.description ? (
+                        <div
+                            style={{
+                                padding: "10px",
+                                marginBottom: "10px",
+                                border: "5px double #333333",
+                            }}
+                            id="aboutFolktale"
+                        >
+                            <h2 style={styleForAboutTitle}>
+                                About {titleOfAbout}
+                            </h2>
+                            {storyDesc.description.split("\\n").map((d, i) => (
+                                <span key={i}>
+                                    {d}
+                                    <br />
+                                </span>
+                            ))}
+                        </div>
+                    ) : null}
                     <br />
                     <div ref={this.refSentences}>
-                        {
-                            storyDesc.storyId ?
-                                <div>
-                                    <span style={{ textAlign: "left" }}><h2 style={styleForStoryTitle}>{title + " Story"}</h2></span>
-                                    <br />
-                                    <Sentences
-                                        storyId={storyDesc.storyId}
-                                        sentences={sentences}
-                                        words={words}
-                                        langState={this.state}
-                                        audioFolder={storyName && storyName.split("--")[0]}
-                                    />
-                                </div>
-                                :
-                                <div className="center">
-                                    <CircularProgress key="circle" size="20%" />
-                                </div>
-                        }
+                        {storyDesc.storyId ? (
+                            <div>
+                                <span style={{ textAlign: "left" }}>
+                                    <h2 style={styleForStoryTitle}>
+                                        {title + " Story"}
+                                    </h2>
+                                </span>
+                                <br />
+                                <Sentences
+                                    storyId={storyDesc.storyId}
+                                    sentences={sentences}
+                                    words={words}
+                                    langState={this.state}
+                                    audioFolder={
+                                        storyName && storyName.split("--")[0]
+                                    }
+                                />
+                            </div>
+                        ) : (
+                            <div className="center">
+                                <CircularProgress key="circle" size="20%" />
+                            </div>
+                        )}
                     </div>
                     <GoogleAd />
-                    {
-                        otherStories && otherStories.length > 0 ?
-                            <div style={{ textAlign: "left", marginTop: "30px", marginBottom: "20px" }}>
-                                <h2 style={styleForStoryTitle}>More folktales</h2>
-                            </div>
-                            :
-                            null
-                    }
-                    {
-                        otherStories && otherStories.map(s => {
+                    {otherStories && otherStories.length > 0 ? (
+                        <div
+                            style={{
+                                textAlign: "left",
+                                marginTop: "30px",
+                                marginBottom: "20px",
+                            }}
+                        >
+                            <h2 style={styleForStoryTitle}>More folktales</h2>
+                        </div>
+                    ) : null}
+                    {otherStories &&
+                        otherStories.map(s => {
                             const nameForUrl = s.storyName;
-                            const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                            const nameToShow = s.storyName
+                                .split("--")
+                                .join(" - ")
+                                .split("_")
+                                .join(" ");
 
                             return (
-                                <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                    {
-                                        screenWidth > 500 ?
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colSpan={2}>
-                                                            <div className="center">
-                                                                <h3 style={{ color: "black", marginBottom: "20px" }}>
-                                                                    <b>{nameToShow}</b>
-                                                                </h3>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style={{ width: "50%" }}>
-                                                            <Link to={`/folktales/${nameForUrl}`}>
-                                                                <img
-                                                                    src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
-                                                                    width="90%"
-                                                                    alt={nameToShow}
-                                                                    title={nameToShow}
-                                                                    style={{ marginLeft: "10px", marginBottom: "10px" }}
-                                                                />
-                                                            </Link>
-                                                        </td>
-                                                        <td style={{ textAlign: "left" }}>
-                                                            {
-                                                                s.description.split("\\n").map((d, i) =>
-                                                                    <span key={i} style={{ color: "black" }}>
-                                                                        {d}<br />
-                                                                    </span>
-                                                                )
-                                                            }
-                                                            <div className="center">
-                                                                <p style={{ margin: "20px" }}>
-                                                                    <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
-                                                                </p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            :
-                                            <div>
-                                                <b>
-                                                    <h3 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h3>
-                                                </b>
-                                                <Link to={`/folktales/${nameForUrl}`}>
-                                                    <img
-                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
-                                                        width="90%"
-                                                        alt={nameToShow}
-                                                        title={nameToShow}
-                                                    />
-                                                </Link>
-                                                <div style={{ textAlign: "left", margin: "10px" }}>
-                                                    {
-                                                        s.description.split("\\n").map((d, i) =>
-                                                            <span key={i} style={{ color: "black" }}>
-                                                                {d}<br />
-                                                            </span>
-                                                        )
-                                                    }
-                                                </div>
-                                                <p>
-                                                    <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
-                                                </p>
+                                <div
+                                    key={s.storyId}
+                                    style={{
+                                        padding: "10px",
+                                        marginBottom: "10px",
+                                        border: "5px double #333333",
+                                    }}
+                                >
+                                    {screenWidth > 500 ? (
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td colSpan={2}>
+                                                        <div className="center">
+                                                            <h3
+                                                                style={{
+                                                                    color:
+                                                                        "black",
+                                                                    marginBottom:
+                                                                        "20px",
+                                                                }}
+                                                            >
+                                                                <b>
+                                                                    {nameToShow}
+                                                                </b>
+                                                            </h3>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style={{ width: "50%" }}
+                                                    >
+                                                        <Link
+                                                            to={`/folktales/${nameForUrl}`}
+                                                        >
+                                                            <img
+                                                                src={`${
+                                                                    consts.BLOB_URL
+                                                                }/folktalesImg/${
+                                                                    nameForUrl.split(
+                                                                        "--"
+                                                                    )[0]
+                                                                }.png`}
+                                                                width="90%"
+                                                                alt={nameToShow}
+                                                                title={
+                                                                    nameToShow
+                                                                }
+                                                                style={{
+                                                                    marginLeft:
+                                                                        "10px",
+                                                                    marginBottom:
+                                                                        "10px",
+                                                                }}
+                                                            />
+                                                        </Link>
+                                                    </td>
+                                                    <td
+                                                        style={{
+                                                            textAlign: "left",
+                                                        }}
+                                                    >
+                                                        {s.description
+                                                            .split("\\n")
+                                                            .map((d, i) => (
+                                                                <span
+                                                                    key={i}
+                                                                    style={{
+                                                                        color:
+                                                                            "black",
+                                                                    }}
+                                                                >
+                                                                    {d}
+                                                                    <br />
+                                                                </span>
+                                                            ))}
+                                                        <div className="center">
+                                                            <p
+                                                                style={{
+                                                                    margin:
+                                                                        "20px",
+                                                                }}
+                                                            >
+                                                                <Link
+                                                                    to={`/folktales/${nameForUrl}`}
+                                                                >{`Read ${nameToShow} >>`}</Link>
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <div>
+                                            <b>
+                                                <h3
+                                                    style={{
+                                                        color: "black",
+                                                        marginBottom: "20px",
+                                                    }}
+                                                >
+                                                    {nameToShow}
+                                                </h3>
+                                            </b>
+                                            <Link
+                                                to={`/folktales/${nameForUrl}`}
+                                            >
+                                                <img
+                                                    src={`${
+                                                        consts.BLOB_URL
+                                                    }/folktalesImg/${
+                                                        nameForUrl.split(
+                                                            "--"
+                                                        )[0]
+                                                    }.png`}
+                                                    width="90%"
+                                                    alt={nameToShow}
+                                                    title={nameToShow}
+                                                />
+                                            </Link>
+                                            <div
+                                                style={{
+                                                    textAlign: "left",
+                                                    margin: "10px",
+                                                }}
+                                            >
+                                                {s.description
+                                                    .split("\\n")
+                                                    .map((d, i) => (
+                                                        <span
+                                                            key={i}
+                                                            style={{
+                                                                color: "black",
+                                                            }}
+                                                        >
+                                                            {d}
+                                                            <br />
+                                                        </span>
+                                                    ))}
                                             </div>
-                                    }
+                                            <p>
+                                                <Link
+                                                    to={`/folktales/${nameForUrl}`}
+                                                >{`Read ${nameToShow} >>`}</Link>
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             );
-                        }
-                        )
-                    }
-                    <Link
-                        to="/folktales"
-                        style={{ fontSize: "x-large" }}
-                    >
+                        })}
+                    <Link to="/folktales" style={{ fontSize: "x-large" }}>
                         {"All folktales >>"}
                     </Link>
                     <br />
                     <hr />
                     <Link to="/vocabulary-list">
-                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                        <Card
+                            body
+                            style={{
+                                backgroundColor: "#333",
+                                borderColor: "#333",
+                                color: "white",
+                            }}
+                        >
                             <CardTitle>Japanese Vocabulary List</CardTitle>
-                            <CardText>Basic Japanese Vocabulary List!<br />Try to memorize all the vocabulary by using the quizzes!</CardText>
+                            <CardText>
+                                Basic Japanese Vocabulary List!
+                                <br />
+                                Try to memorize all the vocabulary by using the
+                                quizzes!
+                            </CardText>
                             <Button color="secondary">Try!</Button>
                         </Card>
                     </Link>
@@ -434,7 +582,7 @@ class Stories extends React.Component<Props, State> {
             </div>
         );
     }
-};
+}
 
 type SentencesProps = {
     storyId: number;
@@ -444,79 +592,67 @@ type SentencesProps = {
     audioFolder: string;
 };
 function Sentences(props: SentencesProps) {
-
     const { storyId, sentences, words, langState, audioFolder } = props;
     const isLoading = !sentences || sentences.length <= 0;
 
     return (
         <div style={{ textAlign: "left" }}>
-            {
-                isLoading ?
-                    <div className="center">
-                        <CircularProgress key="circle" size="20%" />
-                    </div>
-                    :
-                    sentences && sentences.map(s =>
-                        <span key={s.lineNumber}>
-                            <table style={{ width: "100%" }}>
-                                <tbody>
-                                    {
-                                        langState.kanji ?
-                                            <tr style={{ backgroundColor: "#fff0f2" }}>
-                                                <td><b>Ｋ:　</b></td>
-                                                <td>{s.kanji}</td>
-                                            </tr>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        langState.hiragana ?
-                                            <tr style={{ backgroundColor: "#ffffe0" }}>
-                                                <td><b>Ｈ:　</b></td>
-                                                <td>{s.hiragana}</td>
-                                            </tr>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        langState.romaji ?
-                                            <tr style={{ backgroundColor: "#f0fff2" }}>
-                                                <td><b>Ｒ:　</b></td>
-                                                <td>{s.romaji}</td>
-                                            </tr>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        langState.english ?
-                                            <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                                <td><b>Ｅ:　</b></td>
-                                                <td>{s.english}</td>
-                                            </tr>
-                                            :
-                                            null
-                                    }
-                                </tbody>
-                            </table>
-                            <AudioContol
-                                s={s}
-                                audioFolder={audioFolder}
-                            />
-                            <WordList
-                                words={words}
-                                s={s}
-                                storyId={storyId}
-                            />
-                            <hr />
-                        </span>
-                    )
-            }
+            {isLoading ? (
+                <div className="center">
+                    <CircularProgress key="circle" size="20%" />
+                </div>
+            ) : (
+                sentences &&
+                sentences.map(s => (
+                    <span key={s.lineNumber}>
+                        <table style={{ width: "100%" }}>
+                            <tbody>
+                                {langState.kanji ? (
+                                    <tr style={{ backgroundColor: "#fff0f2" }}>
+                                        <td>
+                                            <b>Ｋ:　</b>
+                                        </td>
+                                        <td>{s.kanji}</td>
+                                    </tr>
+                                ) : null}
+                                {langState.hiragana ? (
+                                    <tr style={{ backgroundColor: "#ffffe0" }}>
+                                        <td>
+                                            <b>Ｈ:　</b>
+                                        </td>
+                                        <td>{s.hiragana}</td>
+                                    </tr>
+                                ) : null}
+                                {langState.romaji ? (
+                                    <tr style={{ backgroundColor: "#f0fff2" }}>
+                                        <td>
+                                            <b>Ｒ:　</b>
+                                        </td>
+                                        <td>{s.romaji}</td>
+                                    </tr>
+                                ) : null}
+                                {langState.english ? (
+                                    <tr style={{ backgroundColor: "#f0f8ff" }}>
+                                        <td>
+                                            <b>Ｅ:　</b>
+                                        </td>
+                                        <td>{s.english}</td>
+                                    </tr>
+                                ) : null}
+                            </tbody>
+                        </table>
+                        <AudioContol s={s} audioFolder={audioFolder} />
+                        <WordList words={words} s={s} storyId={storyId} />
+                        <hr />
+                    </span>
+                ))
+            )}
         </div>
     );
-};
+}
 
 class AudioContol extends React.Component {
-    props: { s: sentence; audioFolder: string; };
+    props: { s: sentence; audioFolder: string };
     refAudio: React.RefObject<HTMLAudioElement>;
     state: { showControl: boolean };
 
@@ -524,7 +660,7 @@ class AudioContol extends React.Component {
         super(props);
 
         this.state = {
-            showControl: false
+            showControl: false,
         };
 
         this.refAudio = React.createRef();
@@ -555,90 +691,115 @@ class AudioContol extends React.Component {
     }
 }
 
-class WordList extends React.Component<{
-    words: word[];
-    s: sentence;
-    storyId: number;
-},
+class WordList extends React.Component<
+    {
+        words: word[];
+        s: sentence;
+        storyId: number;
+    },
     {
         showWordList: boolean;
-    }> {
-
+    }
+> {
     constructor(props) {
         super(props);
 
         this.state = {
-            showWordList: false
+            showWordList: false,
         };
     }
 
     showWordList = () => {
         this.setState({ showWordList: true });
-    }
+    };
 
     hideWordList = () => {
         this.setState({ showWordList: false });
-    }
+    };
 
     render() {
         return (
             <span>
-                {
-                    this.props.words && this.props.words.filter(w =>
-                        w.lineNumber === this.props.s.lineNumber
-                    ).length > 0 ?
-                        this.state.showWordList ?
-                            <button
-                                style={{ marginTop: 5, marginBottom: 2, height: 28, paddingTop: 0, color: "white" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.hideWordList}
-                            >
-                                ▲　Hide vocabulary list
-                            </button>
-                            :
-                            <button
-                                style={{ marginTop: 5, height: 28, paddingTop: 0, color: "white" }}
-                                className="btn btn-dark btn-xs"
-                                onClick={this.showWordList}
-                            >
-                                ▼　Show vocabulary list
-                            </button>
-                        :
-                        null
-                }
+                {this.props.words &&
+                this.props.words.filter(
+                    w => w.lineNumber === this.props.s.lineNumber
+                ).length > 0 ? (
+                    this.state.showWordList ? (
+                        <button
+                            style={{
+                                marginTop: 5,
+                                marginBottom: 2,
+                                height: 28,
+                                paddingTop: 0,
+                                color: "white",
+                            }}
+                            className="btn btn-dark btn-xs"
+                            onClick={this.hideWordList}
+                        >
+                            ▲　Hide vocabulary list
+                        </button>
+                    ) : (
+                        <button
+                            style={{
+                                marginTop: 5,
+                                height: 28,
+                                paddingTop: 0,
+                                color: "white",
+                            }}
+                            className="btn btn-dark btn-xs"
+                            onClick={this.showWordList}
+                        >
+                            ▼　Show vocabulary list
+                        </button>
+                    )
+                ) : null}
                 <div>
-                    {
-                        this.state.showWordList ?
-                            <div className="center" style={{ backgroundColor: "#f8f7f8" }}>
-                                <table>
-                                    <tbody>
-                                        {
-                                            this.props.words && this.props.words.filter(w =>
-                                                w.lineNumber === this.props.s.lineNumber
-                                            ).map(w =>
-                                                <tr key={w.wordNumber}>
-                                                    <td style={{ minWidth: 100, border: "1px solid" }}>
-                                                        {w.kanji}<br />
-                                                        {
-                                                            w.hiragana ?
-                                                                `(${w.hiragana})`
-                                                                :
-                                                                null
-                                                        }
-                                                    </td>
-                                                    <td style={{ paddingLeft: 3, paddingRight: 3, border: "1px solid" }}>{w.english}</td>
-                                                </tr>
+                    {this.state.showWordList ? (
+                        <div
+                            className="center"
+                            style={{ backgroundColor: "#f8f7f8" }}
+                        >
+                            <table>
+                                <tbody>
+                                    {this.props.words &&
+                                        this.props.words
+                                            .filter(
+                                                w =>
+                                                    w.lineNumber ===
+                                                    this.props.s.lineNumber
                                             )
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            :
-                            null
-                    }
+                                            .map(w => (
+                                                <tr key={w.wordNumber}>
+                                                    <td
+                                                        style={{
+                                                            minWidth: 100,
+                                                            border: "1px solid",
+                                                        }}
+                                                    >
+                                                        {w.kanji}
+                                                        <br />
+                                                        {w.hiragana
+                                                            ? `(${w.hiragana})`
+                                                            : null}
+                                                    </td>
+                                                    <td
+                                                        style={{
+                                                            paddingLeft: 3,
+                                                            paddingRight: 3,
+                                                            border: "1px solid",
+                                                        }}
+                                                    >
+                                                        {w.english}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : null}
                 </div>
             </span>
-        )
+        );
     }
 }
 
@@ -647,43 +808,43 @@ type TPleaseScrollDown = {
     screenWidth: number;
 };
 function PleaseScrollDown(props: TPleaseScrollDown) {
-
     const { screenWidth, pleaseScrollDown } = props;
 
     return (
-        <div style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            zIndex: pleaseScrollDown ? 999999990 : 0,
-            width: `${screenWidth}px`,
-            height: "70px",
-            opacity: pleaseScrollDown ? 1.0 : 0,
-            transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
-            fontSize: "x-large",
-            backgroundColor: "#EEEEEE",
-            borderRadius: "30px 30px 0px 0px",
-        }}>
-            <span
-                id="pleaseScroll"
-            >
+        <div
+            style={{
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                zIndex: pleaseScrollDown ? 999999990 : 0,
+                width: `${screenWidth}px`,
+                height: "70px",
+                opacity: pleaseScrollDown ? 1.0 : 0,
+                transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
+                fontSize: "x-large",
+                backgroundColor: "#EEEEEE",
+                borderRadius: "30px 30px 0px 0px",
+            }}
+        >
+            <span id="pleaseScroll">
                 <span></span>
-                <AnchorLink href='#aboutFolktale'>Scroll</AnchorLink>
+                <AnchorLink href="#aboutFolktale">Scroll</AnchorLink>
             </span>
         </div>
-    )
+    );
 }
 
-class FooterMenu extends React.Component<{
-    onClickLangBtn: (btnType: any) => void;
-    langState: Readonly<State>;
-    screenWidth: number;
-    showFooterMenu: boolean;
-},
+class FooterMenu extends React.Component<
+    {
+        onClickLangBtn: (btnType: any) => void;
+        langState: Readonly<State>;
+        screenWidth: number;
+        showFooterMenu: boolean;
+    },
     {
         showLangMenu: boolean;
-    }> {
-
+    }
+> {
     constructor(props) {
         super(props);
 
@@ -693,99 +854,143 @@ class FooterMenu extends React.Component<{
     }
 
     showLangMenu = () => {
-        this.setState({ showLangMenu: !this.state.showLangMenu })
-    }
+        this.setState({ showLangMenu: !this.state.showLangMenu });
+    };
 
     render() {
         const { showLangMenu } = this.state;
-        const { screenWidth, langState, showFooterMenu } = this.props
-        const tableWidth = (screenWidth > 730) ? 730 : screenWidth;
-        const buttonWidth = (tableWidth / 4) - 4;
-        const tableLeft = (screenWidth > 730) ? (screenWidth - tableWidth) / 2 - 10 : (screenWidth - tableWidth) / 2;
+        const { screenWidth, langState, showFooterMenu } = this.props;
+        const tableWidth = screenWidth > 730 ? 730 : screenWidth;
+        const buttonWidth = tableWidth / 4 - 4;
+        const tableLeft =
+            screenWidth > 730
+                ? (screenWidth - tableWidth) / 2 - 10
+                : (screenWidth - tableWidth) / 2;
         const tdStyle = { width: `${buttonWidth}px` };
 
         return (
-            <div style={{
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                zIndex: showFooterMenu ? 999999999 : 0,
-                width: `${screenWidth}px`,
-                height: "50px",
-                backgroundColor: "white",
-                opacity: showFooterMenu ? 1.0 : 0,
-                transition: showFooterMenu ? "all 2s ease" : "all 2s ease",
-            }}>
-                <table style={{
+            <div
+                style={{
                     position: "fixed",
-                    bottom: 3,
-                    left: `${tableLeft}px`,
-                    width: tableWidth,
-                    backgroundColor: "#e7e9e7",
-                    border: "1px solid gray",
-                }}>
+                    bottom: 0,
+                    left: 0,
+                    zIndex: showFooterMenu ? 999999999 : 0,
+                    width: `${screenWidth}px`,
+                    height: "50px",
+                    backgroundColor: "white",
+                    opacity: showFooterMenu ? 1.0 : 0,
+                    transition: showFooterMenu ? "all 2s ease" : "all 2s ease",
+                }}
+            >
+                <table
+                    style={{
+                        position: "fixed",
+                        bottom: 3,
+                        left: `${tableLeft}px`,
+                        width: tableWidth,
+                        backgroundColor: "#e7e9e7",
+                        border: "1px solid gray",
+                    }}
+                >
                     <tbody>
-                        <tr style={{ width: "100%" }} onClick={this.showLangMenu}>
+                        <tr
+                            style={{ width: "100%" }}
+                            onClick={this.showLangMenu}
+                        >
                             <td colSpan={4} style={{ padding: 3 }}>
-                                {
-                                    showLangMenu ?
-                                        <div className="center">
-                                            ▼ Select the languages to read ▼
-                                        </div>
-                                        :
-                                        <div className="center">
-                                            ▲ Show language menu ▲
-                                        </div>
-                                }
+                                {showLangMenu ? (
+                                    <div className="center">
+                                        ▼ Select the languages to read ▼
+                                    </div>
+                                ) : (
+                                    <div className="center">
+                                        ▲ Show language menu ▲
+                                    </div>
+                                )}
                             </td>
                         </tr>
-                        {
-                            showLangMenu ?
-                                <tr>
-                                    <td style={tdStyle}>
-                                        <button
-                                            className="btn btn-danger"
-                                            style={{ width: "100%", fontSize: "small", opacity: !langState.kanji ? 0.3 : 1 }}
-                                            onClick={() => this.props.onClickLangBtn("kanji")}
-                                        >
-                                            <b style={{ fontSize: "x-large" }}>K</b>anji
-                                </button>
-                                    </td>
-                                    <td style={tdStyle}>
-                                        <button
-                                            className="btn btn-warning"
-                                            style={{ width: "100%", fontSize: "small", color: "white", backgroundColor: "#d9c402", opacity: !langState.hiragana ? 0.3 : 1 }}
-                                            onClick={() => this.props.onClickLangBtn("hiragana")}
-                                        >
-                                            <b style={{ fontSize: "x-large" }}>H</b>iragana
-                                </button>
-                                    </td>
-                                    <td style={tdStyle}>
-                                        <button
-                                            className="btn btn-success"
-                                            style={{ width: "100%", fontSize: "small", opacity: !langState.romaji ? 0.3 : 1 }}
-                                            onClick={() => this.props.onClickLangBtn("romaji")}
-                                        >
-                                            <b style={{ fontSize: "x-large" }}>R</b>omaji
-                                </button>
-                                    </td>
-                                    <td style={tdStyle}>
-                                        <button
-                                            className="btn btn-primary"
-                                            style={{ width: "100%", fontSize: "small", opacity: !langState.english ? 0.3 : 1 }}
-                                            onClick={() => this.props.onClickLangBtn("english")}
-                                        >
-                                            <b style={{ fontSize: "x-large" }}>E</b>nglish
-                                </button>
-                                    </td>
-                                </tr>
-                                :
-                                null
-                        }
+                        {showLangMenu ? (
+                            <tr>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-danger"
+                                        style={{
+                                            width: "100%",
+                                            fontSize: "small",
+                                            opacity: !langState.kanji ? 0.3 : 1,
+                                        }}
+                                        onClick={() =>
+                                            this.props.onClickLangBtn("kanji")
+                                        }
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>K</b>
+                                        anji
+                                    </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-warning"
+                                        style={{
+                                            width: "100%",
+                                            fontSize: "small",
+                                            color: "white",
+                                            backgroundColor: "#d9c402",
+                                            opacity: !langState.hiragana
+                                                ? 0.3
+                                                : 1,
+                                        }}
+                                        onClick={() =>
+                                            this.props.onClickLangBtn(
+                                                "hiragana"
+                                            )
+                                        }
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>H</b>
+                                        iragana
+                                    </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-success"
+                                        style={{
+                                            width: "100%",
+                                            fontSize: "small",
+                                            opacity: !langState.romaji
+                                                ? 0.3
+                                                : 1,
+                                        }}
+                                        onClick={() =>
+                                            this.props.onClickLangBtn("romaji")
+                                        }
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>R</b>
+                                        omaji
+                                    </button>
+                                </td>
+                                <td style={tdStyle}>
+                                    <button
+                                        className="btn btn-primary"
+                                        style={{
+                                            width: "100%",
+                                            fontSize: "small",
+                                            opacity: !langState.english
+                                                ? 0.3
+                                                : 1,
+                                        }}
+                                        onClick={() =>
+                                            this.props.onClickLangBtn("english")
+                                        }
+                                    >
+                                        <b style={{ fontSize: "x-large" }}>E</b>
+                                        nglish
+                                    </button>
+                                </td>
+                            </tr>
+                        ) : null}
                     </tbody>
                 </table>
             </div>
-        )
+        );
     }
 }
 

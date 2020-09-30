@@ -1,9 +1,8 @@
-import * as React from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import './PleaseScrollDown.css';
+import * as React from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import "./PleaseScrollDown.css";
 
 export default class PleaseScrollDown extends React.Component {
-
     props: {
         criteriaRef: React.RefObject<HTMLElement>;
         screenHeight?: number;
@@ -13,15 +12,15 @@ export default class PleaseScrollDown extends React.Component {
 
     state: {
         pleaseScrollDown: boolean;
-    }
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             pleaseScrollDown: false,
-        }
+        };
 
-        window.addEventListener('scroll', this.judge);
+        window.addEventListener("scroll", this.judge);
     }
 
     componentDidMount() {
@@ -33,13 +32,15 @@ export default class PleaseScrollDown extends React.Component {
     }
 
     componentDidUpdate(preciousProps) {
-        if (preciousProps.criteriaRef.current !== this.props.criteriaRef.current) {
+        if (
+            preciousProps.criteriaRef.current !== this.props.criteriaRef.current
+        ) {
             this.judge();
         }
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.judge);
+        window.removeEventListener("scroll", this.judge);
     }
 
     judge = () => {
@@ -63,7 +64,7 @@ export default class PleaseScrollDown extends React.Component {
                 pleaseScrollDown: false,
             });
         }
-    }
+    };
 
     render() {
         const { pleaseScrollDown } = this.state;
@@ -74,27 +75,29 @@ export default class PleaseScrollDown extends React.Component {
 
         return (
             <div className="center">
-                <div style={{
-                    position: "fixed",
-                    bottom: 0,
-                    left: 0,
-                    zIndex: pleaseScrollDown ? 999999990 : 0,
-                    width: `${width}px`,
-                    height: "70px",
-                    opacity: pleaseScrollDown ? 1.0 : 0,
-                    transition: "all 2s ease",
-                    fontSize: "x-large",
-                    backgroundColor: "#EEEEEE",
-                    borderRadius: "30px 30px 0px 0px",
-                }}>
-                    <span
-                        id="pleaseScroll"
-                    >
+                <div
+                    style={{
+                        position: "fixed",
+                        bottom: 0,
+                        left: 0,
+                        zIndex: pleaseScrollDown ? 999999990 : 0,
+                        width: `${width}px`,
+                        height: "70px",
+                        opacity: pleaseScrollDown ? 1.0 : 0,
+                        transition: "all 2s ease",
+                        fontSize: "x-large",
+                        backgroundColor: "#EEEEEE",
+                        borderRadius: "30px 30px 0px 0px",
+                    }}
+                >
+                    <span id="pleaseScroll">
                         <span></span>
-                        <AnchorLink href={`#${targetId || (elem && elem.id)}`}>Scroll</AnchorLink>
+                        <AnchorLink href={`#${targetId || (elem && elem.id)}`}>
+                            Scroll
+                        </AnchorLink>
                     </span>
                 </div>
             </div>
-        )
+        );
     }
 }

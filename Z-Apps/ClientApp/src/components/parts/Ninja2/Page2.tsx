@@ -1,105 +1,102 @@
-import * as React from 'react';
-import { NinjaChar } from './objs/ninja/ninja';
-import { Obj } from './objs/obj';
-
+import * as React from "react";
+import { NinjaChar } from "./objs/ninja/ninja";
+import { Obj } from "./objs/obj";
 
 //オブジェクト素材画像----------------
 
 //岩
-const imgRock = require('./../Ninja/objs/rock.png');
+const imgRock = require("./../Ninja/objs/rock.png");
 //岩（上下反転）
-const imgRockR = require('./../Ninja/objs/rockRiverse.png');
+const imgRockR = require("./../Ninja/objs/rockRiverse.png");
 //ポチ
-const imgPochi = require('./../Ninja/objs/pochi.png');
+const imgPochi = require("./../Ninja/objs/pochi.png");
 //閉じている巻物
-const imgScroll = require('./../Ninja/objs/scrollObj.png');
+const imgScroll = require("./../Ninja/objs/scrollObj.png");
 //開いている巻物
-const imgScrollOpen = require('./../Ninja/objs/scrollOpen.png');
+const imgScrollOpen = require("./../Ninja/objs/scrollOpen.png");
 //シノ（先輩くのいち）
-const imgShino = require('./../Ninja/objs/shino.png');
+const imgShino = require("./../Ninja/objs/shino.png");
 //屋敷（屋根）
-const imgHouse1 = require('./objs/house.png');
+const imgHouse1 = require("./objs/house.png");
 //悪忍者
-const imgBadNinja = require('./objs/ninja_bad.png');
+const imgBadNinja = require("./objs/ninja_bad.png");
 //鷲
-const imgWashi = require('./objs/washi.png');
+const imgWashi = require("./objs/washi.png");
 //木箱
-const imgBox1 = require('./objs/box.jpg');
+const imgBox1 = require("./objs/box.jpg");
 //レンガ
-const imgBlock1 = require('./objs/block.jpg');
+const imgBlock1 = require("./objs/block.jpg");
 //カニ
-const imgKani = require('./objs/kani.png');
+const imgKani = require("./objs/kani.png");
 //フグ
-const imgFugu = require('./objs/fugu.png');
+const imgFugu = require("./objs/fugu.png");
 //海藻
-const imgKaisou = require('./objs/kaisou.png');
+const imgKaisou = require("./objs/kaisou.png");
 //デカい魚
-const imgKimme = require('./objs/onikinme.png');
+const imgKimme = require("./objs/onikinme.png");
 //FireBall
-const imgFireBallR = require('./objs/fireBallR.png');
+const imgFireBallR = require("./objs/fireBallR.png");
 //扉
-const imgDoor = require('./objs/tobira.jpg');
+const imgDoor = require("./objs/tobira.jpg");
 //木のブロック
-const imgWoodenBlock = require('./objs/woodenBox.jpg');
+const imgWoodenBlock = require("./objs/woodenBox.jpg");
 //鍵
-const imgKey = require('./objs/kagi.png');
+const imgKey = require("./objs/kagi.png");
 //はしご
-const imgHashigo = require('./objs/hashigo_wood.png');
+const imgHashigo = require("./objs/hashigo_wood.png");
 //一つ目
-const imgOneEye = require('./objs/hitotsume.png');
+const imgOneEye = require("./objs/hitotsume.png");
 //青い火の玉
-const imgBlueFire = require('./objs/hinotama.png');
+const imgBlueFire = require("./objs/hinotama.png");
 //鬼
-const imgOni = require('./objs/oni.png');
+const imgOni = require("./objs/oni.png");
 //ボス
-const imgBoss = require('./objs/badDog.png');
+const imgBoss = require("./objs/badDog.png");
 //コウモリ
-const imgBat = require('./objs/bat.png');
+const imgBat = require("./objs/bat.png");
 //看板
-const imgKanban1 = require('./../Ninja/objs/kanban1.png');
+const imgKanban1 = require("./../Ninja/objs/kanban1.png");
 //看板の矢印
-const imgArrow1 = require('./../Ninja/objs/arrow1.png');
+const imgArrow1 = require("./../Ninja/objs/arrow1.png");
 //鳥居
-const imgTorii = require('./../Ninja/objs/torii.png');
-
+const imgTorii = require("./../Ninja/objs/torii.png");
 
 //背景画像//---------------------------
 
 //stage1
-const stage1 = require('./img/background/castle1.jpg');
+const stage1 = require("./img/background/castle1.jpg");
 //stage2
-const stage2 = require('./img/background/whiteWall.jpg');
+const stage2 = require("./img/background/whiteWall.jpg");
 //stage3
-const stage3 = require('./img/background/whiteWall2.jpg');
+const stage3 = require("./img/background/whiteWall2.jpg");
 //stage4
-const stage4 = require('./img/background/whiteWall3.jpg');
+const stage4 = require("./img/background/whiteWall3.jpg");
 //stage5
-const stage5 = require('./img/background/waterCastle.jpg');
+const stage5 = require("./img/background/waterCastle.jpg");
 //stage6～8
-const inWater = require('./img/background/rockWall.jpg');
+const inWater = require("./img/background/rockWall.jpg");
 //stage9
-const stage9 = require('./img/background/furo.jpg');
+const stage9 = require("./img/background/furo.jpg");
 //stage10
-const stage10 = require('./img/background/datsuiJo.jpg');
+const stage10 = require("./img/background/datsuiJo.jpg");
 //stage11～13
-const twoLayer = require('./img/background/washitsu.jpg');
+const twoLayer = require("./img/background/washitsu.jpg");
 //stage14
-const stage14 = require('./img/background/wa1.jpg');
+const stage14 = require("./img/background/wa1.jpg");
 //stage15
-const stage15 = require('./img/background/soto.jpg');
+const stage15 = require("./img/background/soto.jpg");
 //stage16
-const stage16 = require('./img/background/wa2.jpg');
+const stage16 = require("./img/background/wa2.jpg");
 //stage17
-const stage17 = require('./img/background/wa3.jpg');
+const stage17 = require("./img/background/wa3.jpg");
 //stage18
-const stage18 = require('./img/background/wa4.jpg');
+const stage18 = require("./img/background/wa4.jpg");
 //stage19
-const stage19 = require('./img/background/boss.jpg');
+const stage19 = require("./img/background/boss.jpg");
 //stage19（クリア後）
-const stage19a = require('./img/background/afterBoss.jpg');
+const stage19a = require("./img/background/afterBoss.jpg");
 //stage20
-const stage20 = require('./img/background/wa5.jpg');
-
+const stage20 = require("./img/background/wa5.jpg");
 
 export default class Page2 extends React.Component {
     props: any;
@@ -127,7 +124,6 @@ export default class Page2 extends React.Component {
     bgImg: any;
 
     UNSAFE_componentWillMount() {
-
         //(PC) or (スマホ/タブレット) 判定
         this.terminalPC = this.checkTerminalPC();
 
@@ -149,7 +145,6 @@ export default class Page2 extends React.Component {
         this.readElementScroll = this.props.readElementScroll;
 
         this.ninja.game = this;
-
 
         //画面外を黒くする要素
         this.objOutOfScreen = {
@@ -343,14 +338,12 @@ export default class Page2 extends React.Component {
                     "これで君も立派な忍者だ！\n" +
                     "次の章では、雪山の村を救おう！",
             };
-
         } else {
             this.consts = {
                 timeStep: 100,
 
                 //操作ボタン
                 BUTTON: "btn btn-info btn-lg btn-block",
-
 
                 //屋根の上でポチに触った時のメッセージ
                 POCHI_SCROLL_TITLE: "Sneak into the enemy's castle!",
@@ -450,7 +443,7 @@ export default class Page2 extends React.Component {
                 left: true,
                 ninjaX: this.ninja.posX * this.UL,
                 ninjaY: this.ninja.posY * this.UL,
-            }
+            },
         });
 
         //←ボタン押下判定　初期値
@@ -467,7 +460,6 @@ export default class Page2 extends React.Component {
         this.timerId = setInterval(() => {
             //タイムステップごとの計算
 
-
             /* ↓　物体速度・位置計算　↓ */
 
             //ボタン押下判定
@@ -475,9 +467,12 @@ export default class Page2 extends React.Component {
                 this.ninja.speedX = 0;
             } else {
                 if (this.lButton === true && this.rButton === true) {
-
                     //右と左同時押しでファイヤーボール
-                    if (this.ninja.readScroll.indexOf(this.ninja.game.consts.FIRE_SCROLL_TITLE) >= 0) {
+                    if (
+                        this.ninja.readScroll.indexOf(
+                            this.ninja.game.consts.FIRE_SCROLL_TITLE
+                        ) >= 0
+                    ) {
                         //火遁の書を既に読んでいる場合
 
                         this.objs["fireBall" + this.ninja.fireBallCount] = {
@@ -490,16 +485,16 @@ export default class Page2 extends React.Component {
                             fireBall: true,
                             boolLeft: this.ninja.boolLeft,
                             eachTime: eachTimeFireBall,
-                        }
+                        };
                         this.ninja.fireBallCount++;
                     }
                 } else {
                     if (this.lButton === true) {
                         this.ninja.speedX = this.ninja.inWater ? -3 : -6;
-                        this.ninja.boolLeft = true;//画像左向き
+                        this.ninja.boolLeft = true; //画像左向き
                     } else if (this.rButton === true) {
                         this.ninja.speedX = this.ninja.inWater ? 3 : 6;
-                        this.ninja.boolLeft = false;//画像右向き
+                        this.ninja.boolLeft = false; //画像右向き
                     }
                 }
             }
@@ -550,7 +545,6 @@ export default class Page2 extends React.Component {
             this.ninja.posX += this.ninja.speedX;
             this.ninja.posY += this.ninja.speedY;
 
-
             //オブジェクトとの接触判定
 
             //忍者の上下左右の端の位置
@@ -560,7 +554,6 @@ export default class Page2 extends React.Component {
             let ninjaFoot = ninjaTop + this.ninja.size;
 
             for (let key in this.objs) {
-
                 //途中でステージ遷移したら、関数を中止するためのフラグ
                 let stageChangedFlag = "";
 
@@ -571,32 +564,98 @@ export default class Page2 extends React.Component {
                 let objFoot = objTop + this.objs[key].size;
 
                 //忍者が上から
-                if (checkRelativityLeftAndTop(ninjaTop, objTop, objLeft, objRight, ninjaFoot, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                if (
+                    checkRelativityLeftAndTop(
+                        ninjaTop,
+                        objTop,
+                        objLeft,
+                        objRight,
+                        ninjaFoot,
+                        ninjaLeft,
+                        ninjaRight,
+                        this.ninja.size
+                    ) === true
+                ) {
                     //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "upper");
+                    if (stageChangedFlag && stageChangedFlag === "changed") {
+                        return;
+                    }
+                    stageChangedFlag = this.objs[key].onTouch(
+                        this.ninja,
+                        "upper"
+                    );
                 }
                 //忍者が右から
-                if (checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                if (
+                    checkRelativityRightAndFoot(
+                        objRight,
+                        ninjaRight,
+                        objTop,
+                        objFoot,
+                        ninjaLeft,
+                        ninjaTop,
+                        ninjaFoot,
+                        this.ninja.size
+                    ) === true
+                ) {
                     //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "right");
+                    if (stageChangedFlag && stageChangedFlag === "changed") {
+                        return;
+                    }
+                    stageChangedFlag = this.objs[key].onTouch(
+                        this.ninja,
+                        "right"
+                    );
                 }
                 //忍者が下から
-                if (checkRelativityRightAndFoot(objFoot, ninjaFoot, objLeft, objRight, ninjaTop, ninjaLeft, ninjaRight, this.ninja.size) === true) {
+                if (
+                    checkRelativityRightAndFoot(
+                        objFoot,
+                        ninjaFoot,
+                        objLeft,
+                        objRight,
+                        ninjaTop,
+                        ninjaLeft,
+                        ninjaRight,
+                        this.ninja.size
+                    ) === true
+                ) {
                     //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "lower");
+                    if (stageChangedFlag && stageChangedFlag === "changed") {
+                        return;
+                    }
+                    stageChangedFlag = this.objs[key].onTouch(
+                        this.ninja,
+                        "lower"
+                    );
                 }
                 //忍者が左から
-                if (checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, this.ninja.size) === true) {
+                if (
+                    checkRelativityLeftAndTop(
+                        ninjaLeft,
+                        objLeft,
+                        objTop,
+                        objFoot,
+                        ninjaRight,
+                        ninjaTop,
+                        ninjaFoot,
+                        this.ninja.size
+                    ) === true
+                ) {
                     //ステージ遷移をしていたら、関数中止
-                    if (stageChangedFlag && stageChangedFlag === "changed") { return; }
-                    stageChangedFlag = this.objs[key].onTouch(this.ninja, "left");
+                    if (stageChangedFlag && stageChangedFlag === "changed") {
+                        return;
+                    }
+                    stageChangedFlag = this.objs[key].onTouch(
+                        this.ninja,
+                        "left"
+                    );
                 }
 
                 //ステージ遷移をしていたら、関数中止
-                if (stageChangedFlag && stageChangedFlag === "changed") { return; }
+                if (stageChangedFlag && stageChangedFlag === "changed") {
+                    return;
+                }
 
                 //各タイムステップごとの処理を持っていれば、実行する
                 if (this.objs[key].eachTime) {
@@ -604,10 +663,11 @@ export default class Page2 extends React.Component {
                 }
 
                 //ステージ遷移をしていたら、関数中止
-                if (stageChangedFlag && stageChangedFlag === "changed") { return; }
+                if (stageChangedFlag && stageChangedFlag === "changed") {
+                    return;
+                }
             }
             /* ↑　物体速度・位置計算　↑ */
-
 
             //ページサイズ取得（ウィンドウサイズが変更された時のため）
             let pageSize = this.getWindowSize();
@@ -626,7 +686,7 @@ export default class Page2 extends React.Component {
                     left: this.ninja.boolLeft,
                     ninjaX: this.ninja.posX * this.UL,
                     ninjaY: this.ninja.posY * this.UL,
-                }
+                },
             });
         }, this.consts.timeStep);
     }
@@ -653,12 +713,12 @@ export default class Page2 extends React.Component {
         if (screenWidth > screenHeight) {
             //横長
             pageHeight = screenHeight;
-            pageWidth = pageHeight * 16 / 9;
+            pageWidth = (pageHeight * 16) / 9;
 
             if (pageWidth > screenWidth) {
                 //横がはみ出たら(正方形に近い画面)
                 pageWidth = screenWidth;
-                pageHeight = pageWidth * 9 / 16;
+                pageHeight = (pageWidth * 9) / 16;
 
                 this.pageStyle = {
                     //ページの余白設定
@@ -669,18 +729,18 @@ export default class Page2 extends React.Component {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
-                    left: (screenWidth - pageWidth) / 2
+                    left: (screenWidth - pageWidth) / 2,
                 };
             }
         } else {
             //縦長
-            pageHeight = screenWidth * 9 / 10;
-            pageWidth = pageHeight * 16 / 9;
+            pageHeight = (screenWidth * 9) / 10;
+            pageWidth = (pageHeight * 16) / 9;
 
-            if (pageWidth > screenHeight * 9 / 10) {
+            if (pageWidth > (screenHeight * 9) / 10) {
                 //横がはみ出そうだったら(正方形に近い画面)
-                pageWidth = screenHeight * 9 / 10;
-                pageHeight = pageWidth * 9 / 16;
+                pageWidth = (screenHeight * 9) / 10;
+                pageHeight = (pageWidth * 9) / 16;
 
                 this.pageStyle = {
                     //ページの余白設定
@@ -692,7 +752,7 @@ export default class Page2 extends React.Component {
                 this.pageStyle = {
                     //ページの余白設定
                     position: "absolute",
-                    left: screenWidth * 95 / 100,
+                    left: (screenWidth * 95) / 100,
                     top: (screenHeight - pageWidth) / 2,
                 };
             }
@@ -701,7 +761,6 @@ export default class Page2 extends React.Component {
         return { pageWidth: pageWidth, pageHeight: pageHeight };
     }
     //---------------↑　resize　↑---------------
-
 
     setKeyboardEvent(objGame) {
         // ------------------------------------------------------------
@@ -724,7 +783,12 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
-            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            } else if (
+                keyCode === 13 ||
+                keyCode === 8 ||
+                keyCode === 46 ||
+                keyCode === 27
+            ) {
                 keyType = "close";
             }
             objGame.onClickButton(keyType);
@@ -747,7 +811,12 @@ export default class Page2 extends React.Component {
                 keyType = "jump";
             } else if (keyCode === 32) {
                 keyType = "jump";
-            } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+            } else if (
+                keyCode === 13 ||
+                keyCode === 8 ||
+                keyCode === 46 ||
+                keyCode === 27
+            ) {
                 keyType = "close";
             }
             objGame.onMouseUp(keyType);
@@ -785,7 +854,6 @@ export default class Page2 extends React.Component {
     }
 
     render() {
-
         if (this.prevStage !== this.props.stage) {
             //ステージ変更時のみ1回実行
 
@@ -795,9 +863,7 @@ export default class Page2 extends React.Component {
             //水中判定を一旦falseとする（水中の場合は、各ステージにて代入）
             this.ninja.inWater = false;
 
-
             if (this.props.stage === 1) {
-
                 // ------------------------------------------------------------
                 // ステージ1 (出発地点　屋根の上)
                 // ------------------------------------------------------------
@@ -868,12 +934,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateTop1,
                         changeStage: this.props.changeStage,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage1;
             } else if (this.props.stage === 2) {
-
                 // ------------------------------------------------------------
                 // ステージ2 (ファイヤーボールの書)
                 // ------------------------------------------------------------
@@ -972,11 +1036,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage2;
             } else if (this.props.stage === 3) {
-
                 // ------------------------------------------------------------
                 // ステージ3 (鷲と白壁)
                 // ------------------------------------------------------------
@@ -1053,11 +1116,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage3;
             } else if (this.props.stage === 4) {
-
                 // ------------------------------------------------------------
                 // ステージ4 (岩に隠れた忍者たち)
                 // ------------------------------------------------------------
@@ -1177,11 +1239,10 @@ export default class Page2 extends React.Component {
                         nextLeft: true,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage4;
             } else if (this.props.stage === 5) {
-
                 // ------------------------------------------------------------
                 // ステージ5 (水辺の城)
                 // ------------------------------------------------------------
@@ -1273,13 +1334,11 @@ export default class Page2 extends React.Component {
                         nextLeft: false,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage5;
             } else if (this.props.stage === 6) {
-
                 this.ninja.inWater = true;
-
 
                 // ------------------------------------------------------------
                 // ステージ6 (水路１)
@@ -1289,7 +1348,13 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
 
-                    ...getKeys(this.ninja, 120, 20, 20, this.consts.KEY_SCROLL_TITLE),
+                    ...getKeys(
+                        this.ninja,
+                        120,
+                        20,
+                        20,
+                        this.consts.KEY_SCROLL_TITLE
+                    ),
 
                     keyScroll: {
                         size: 150,
@@ -1307,16 +1372,70 @@ export default class Page2 extends React.Component {
                     },
 
                     //レンガのブロック
-                    ...getBlocks(10, [
-                        [6, 0], [7, 0], [8, 0], [9, 0], [10, 0],
-                        [6, 1], [7, 1], [8, 1], [9, 1], [10, 1],
-                        [6, 2], [7, 2], [8, 2], [9, 2], [10, 2],
-                        [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
-                        [10, 4], [11, 4], [12, 4], [13, 4], [14, 4], [15, 4], [16, 4],
-                        [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [10, 5], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5],
-                        [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], [7, 6],
-                        [1, 7], [0, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7],
-                    ], onTouchBlock, imgBlock1, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [6, 0],
+                            [7, 0],
+                            [8, 0],
+                            [9, 0],
+                            [10, 0],
+                            [6, 1],
+                            [7, 1],
+                            [8, 1],
+                            [9, 1],
+                            [10, 1],
+                            [6, 2],
+                            [7, 2],
+                            [8, 2],
+                            [9, 2],
+                            [10, 2],
+                            [10, 3],
+                            [11, 3],
+                            [12, 3],
+                            [13, 3],
+                            [14, 3],
+                            [15, 3],
+                            [16, 3],
+                            [10, 4],
+                            [11, 4],
+                            [12, 4],
+                            [13, 4],
+                            [14, 4],
+                            [15, 4],
+                            [16, 4],
+                            [2, 5],
+                            [3, 5],
+                            [4, 5],
+                            [5, 5],
+                            [6, 5],
+                            [7, 5],
+                            [10, 5],
+                            [11, 5],
+                            [12, 5],
+                            [13, 5],
+                            [14, 5],
+                            [15, 5],
+                            [16, 5],
+                            [2, 6],
+                            [3, 6],
+                            [4, 6],
+                            [5, 6],
+                            [6, 6],
+                            [7, 6],
+                            [1, 7],
+                            [0, 7],
+                            [2, 7],
+                            [3, 7],
+                            [4, 7],
+                            [5, 7],
+                            [6, 7],
+                            [7, 7],
+                        ],
+                        onTouchBlock,
+                        imgBlock1,
+                        23
+                    ),
 
                     box1: {
                         size: 17,
@@ -1397,11 +1516,10 @@ export default class Page2 extends React.Component {
                         nextLeft: false,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = inWater;
             } else if (this.props.stage === 7) {
-
                 this.ninja.inWater = true;
 
                 // ------------------------------------------------------------
@@ -1413,15 +1531,58 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
 
                     //レンガのブロック
-                    ...getBlocks(10, [
-                        [15, -1], [16, -1],
-                        [15, 0], [16, 0],
-                        [14, 1], [15, 1], [16, 1],
-                        [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                        [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
-                        [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [15, 4], [16, 4],
-                        [-1, 5], [0, 5], [1, 5]
-                    ], onTouchBlock, imgBlock1, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [15, -1],
+                            [16, -1],
+                            [15, 0],
+                            [16, 0],
+                            [14, 1],
+                            [15, 1],
+                            [16, 1],
+                            [12, 2],
+                            [13, 2],
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                            [-1, 3],
+                            [0, 3],
+                            [1, 3],
+                            [2, 3],
+                            [3, 3],
+                            [4, 3],
+                            [5, 3],
+                            [6, 3],
+                            [7, 3],
+                            [8, 3],
+                            [9, 3],
+                            [10, 3],
+                            [11, 3],
+                            [12, 3],
+                            [13, 3],
+                            [14, 3],
+                            [15, 3],
+                            [16, 3],
+                            [-1, 4],
+                            [0, 4],
+                            [1, 4],
+                            [2, 4],
+                            [3, 4],
+                            [4, 4],
+                            [5, 4],
+                            [6, 4],
+                            [7, 4],
+                            [15, 4],
+                            [16, 4],
+                            [-1, 5],
+                            [0, 5],
+                            [1, 5],
+                        ],
+                        onTouchBlock,
+                        imgBlock1,
+                        23
+                    ),
 
                     kani1: {
                         size: 17,
@@ -1555,11 +1716,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = inWater;
             } else if (this.props.stage === 8) {
-
                 this.ninja.inWater = true;
 
                 // ------------------------------------------------------------
@@ -1571,15 +1731,93 @@ export default class Page2 extends React.Component {
                     ...this.objFloor,
 
                     //レンガのブロック
-                    ...getBlocks(10, [
-                        [-1, -2], [0, -2], [3, -2], [4, -2], [5, -2], [6, -2], [7, -2], [8, -2], [9, -2], [10, -2], [11, -2], [12, -2], [13, -2], [14, -2], [15, -2], [16, -2],
-                        [-1, -1], [0, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
-                        [-1, 0], [0, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0], [13, 0], [14, 0], [15, 0], [16, 0],
-                        [-1, 1], [0, 1],
-                        [-1, 2], [0, 2],
-                        [-1, 3], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3], [11.5, 3.5],
-                        [-1, 4], [0, 4], [1, 4], [2, 4], [3, 4], [4, 4], [5, 4], [6, 4], [7, 4], [8, 4], [9, 4], [10, 4], [11, 4],
-                    ], onTouchBlock, imgBlock1, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [-1, -2],
+                            [0, -2],
+                            [3, -2],
+                            [4, -2],
+                            [5, -2],
+                            [6, -2],
+                            [7, -2],
+                            [8, -2],
+                            [9, -2],
+                            [10, -2],
+                            [11, -2],
+                            [12, -2],
+                            [13, -2],
+                            [14, -2],
+                            [15, -2],
+                            [16, -2],
+                            [-1, -1],
+                            [0, -1],
+                            [3, -1],
+                            [4, -1],
+                            [5, -1],
+                            [6, -1],
+                            [7, -1],
+                            [8, -1],
+                            [9, -1],
+                            [10, -1],
+                            [11, -1],
+                            [12, -1],
+                            [13, -1],
+                            [14, -1],
+                            [15, -1],
+                            [16, -1],
+                            [-1, 0],
+                            [0, 0],
+                            [3, 0],
+                            [4, 0],
+                            [5, 0],
+                            [6, 0],
+                            [7, 0],
+                            [8, 0],
+                            [9, 0],
+                            [10, 0],
+                            [11, 0],
+                            [12, 0],
+                            [13, 0],
+                            [14, 0],
+                            [15, 0],
+                            [16, 0],
+                            [-1, 1],
+                            [0, 1],
+                            [-1, 2],
+                            [0, 2],
+                            [-1, 3],
+                            [0, 3],
+                            [1, 3],
+                            [2, 3],
+                            [3, 3],
+                            [4, 3],
+                            [5, 3],
+                            [6, 3],
+                            [7, 3],
+                            [8, 3],
+                            [9, 3],
+                            [10, 3],
+                            [11, 3],
+                            [11.5, 3.5],
+                            [-1, 4],
+                            [0, 4],
+                            [1, 4],
+                            [2, 4],
+                            [3, 4],
+                            [4, 4],
+                            [5, 4],
+                            [6, 4],
+                            [7, 4],
+                            [8, 4],
+                            [9, 4],
+                            [10, 4],
+                            [11, 4],
+                        ],
+                        onTouchBlock,
+                        imgBlock1,
+                        23
+                    ),
 
                     kimme1: {
                         size: 130,
@@ -1643,11 +1881,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = inWater;
             } else if (this.props.stage === 9) {
-
                 // ------------------------------------------------------------
                 // ステージ9 (風呂場)
                 // ------------------------------------------------------------
@@ -1765,11 +2002,10 @@ export default class Page2 extends React.Component {
                         nextLeft: false,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage9;
             } else if (this.props.stage === 10) {
-
                 // ------------------------------------------------------------
                 // ステージ10 (脱衣所)
                 // ------------------------------------------------------------
@@ -1778,9 +2014,19 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
-                        [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [12, 2],
+                            [13, 2],
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     enemy1: {
                         size: 13,
@@ -1947,11 +2193,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage10;
             } else if (this.props.stage === 11) {
-
                 // ------------------------------------------------------------
                 // ステージ11 (2層　１)
                 // ------------------------------------------------------------
@@ -1960,10 +2205,51 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [-2, -1],
+                            [-1, -1],
+                            [0, -1],
+                            [1, -1],
+                            [2, -1],
+                            [3, -1],
+                            [4, -1],
+                            [5, -1],
+                            [6, -1],
+                            [7, -1],
+                            [8, -1],
+                            [9, -1],
+                            [10, -1],
+                            [11, -1],
+                            [12, -1],
+                            [13, -1],
+                            [14, -1],
+                            [15, -1],
+                            [16, -1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [1, 2],
+                            [2, 2],
+                            [3, 2],
+                            [4, 2],
+                            [5, 2],
+                            [6, 2],
+                            [8, 2],
+                            [9, 2],
+                            [10, 2],
+                            [11, 2],
+                            [12, 2],
+                            [13, 2],
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     enemy1: {
                         size: 13,
@@ -2009,12 +2295,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
             } else if (this.props.stage === 12) {
-
                 // ------------------------------------------------------------
                 // ステージ12 (2層　２)
                 // ------------------------------------------------------------
@@ -2023,10 +2307,50 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [7, -1], [8, -1], [9, -1], [10, -1], [11, -1], [14, -1], [15, -1], [16, -1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [-2, -1],
+                            [-1, -1],
+                            [0, -1],
+                            [1, -1],
+                            [2, -1],
+                            [3, -1],
+                            [4, -1],
+                            [5, -1],
+                            [6, -1],
+                            [7, -1],
+                            [8, -1],
+                            [9, -1],
+                            [10, -1],
+                            [11, -1],
+                            [14, -1],
+                            [15, -1],
+                            [16, -1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [1, 2],
+                            [2, 2],
+                            [3, 2],
+                            [4, 2],
+                            [5, 2],
+                            [6, 2],
+                            [7, 2],
+                            [8, 2],
+                            [9, 2],
+                            [10, 2],
+                            [11, 2],
+                            [12, 2],
+                            [13, 2],
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     oni1: {
                         size: 19,
@@ -2071,11 +2395,10 @@ export default class Page2 extends React.Component {
                         next: 14,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
             } else if (this.props.stage === 13) {
-
                 // ------------------------------------------------------------
                 // ステージ13 (2層　３)
                 // ------------------------------------------------------------
@@ -2084,11 +2407,54 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [3, -1], [4, -1], [5, -1], [6, -1], [9, -1], [10, -1], [11, -1], [12, -1], [13, -1], [14, -1], [15, -1], [16, -1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [14, 2], [15, 2], [16, 2],
-                        [13, 7], [14, 7], [15, 7], [16, 7], [17, 7]
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                    ...getBlocks(
+                        10,
+                        [
+                            [-2, -1],
+                            [-1, -1],
+                            [0, -1],
+                            [1, -1],
+                            [2, -1],
+                            [3, -1],
+                            [4, -1],
+                            [5, -1],
+                            [6, -1],
+                            [9, -1],
+                            [10, -1],
+                            [11, -1],
+                            [12, -1],
+                            [13, -1],
+                            [14, -1],
+                            [15, -1],
+                            [16, -1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [1, 2],
+                            [2, 2],
+                            [3, 2],
+                            [4, 2],
+                            [6, 2],
+                            [7, 2],
+                            [8, 2],
+                            [9, 2],
+                            [10, 2],
+                            [11, 2],
+                            [12, 2],
+                            [13, 2],
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                            [13, 7],
+                            [14, 7],
+                            [15, 7],
+                            [16, 7],
+                            [17, 7],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     hitotsume1: {
                         size: 12,
@@ -2102,7 +2468,6 @@ export default class Page2 extends React.Component {
                         enemy: true,
                         eachTime: eachTimeOneEye,
                     },
-
 
                     rightGateWall: {
                         size: 300,
@@ -2134,11 +2499,10 @@ export default class Page2 extends React.Component {
                         next: 17,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = twoLayer;
             } else if (this.props.stage === 14) {
-
                 // ------------------------------------------------------------
                 // ステージ14
                 // ------------------------------------------------------------
@@ -2147,22 +2511,84 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
 
                     //ブロック
-                    ...getBlocks(10, [
-                        [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5], [13, -0.5], [14, -0.5],
-                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
-                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0],
-                        [-2, 1], [-1, 1], [0, 1], [15, 1], [16, 1],
-                        [-2, 2], [-1, 2], [0, 2], [15, 2], [16, 2],
-                        [-2, 3], [-1, 3], [0, 3], [15, 3], [16, 3],
-                        [-2, 4], [-1, 4], [0, 4], [15, 4], [16, 4],
-                        [15, 5], [16, 5],
-                        [15, 6], [16, 6],
-                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
+                    ...getBlocks(
+                        10,
+                        [
+                            [1, -0.5],
+                            [2, -0.5],
+                            [3, -0.5],
+                            [4, -0.5],
+                            [5, -0.5],
+                            [6, -0.5],
+                            [7, -0.5],
+                            [8, -0.5],
+                            [9, -0.5],
+                            [10, -0.5],
+                            [13, -0.5],
+                            [14, -0.5],
+                            [-2, 0],
+                            [-1, 0],
+                            [0, 0],
+                            [15, 0],
+                            [16, 0],
+                            [-2, 0],
+                            [-1, 0],
+                            [0, 0],
+                            [15, 0],
+                            [16, 0],
+                            [-2, 1],
+                            [-1, 1],
+                            [0, 1],
+                            [15, 1],
+                            [16, 1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [15, 2],
+                            [16, 2],
+                            [-2, 3],
+                            [-1, 3],
+                            [0, 3],
+                            [15, 3],
+                            [16, 3],
+                            [-2, 4],
+                            [-1, 4],
+                            [0, 4],
+                            [15, 4],
+                            [16, 4],
+                            [15, 5],
+                            [16, 5],
+                            [15, 6],
+                            [16, 6],
+                            [-2, 7],
+                            [-1, 7],
+                            [0, 7],
+                            [1, 7],
+                            [2, 7],
+                            [3, 7],
+                            [4, 7],
+                            [5, 7],
+                            [6, 7],
+                            [7, 7],
+                            [8, 7],
+                            [9, 7],
+                            [10, 7],
+                            [11, 7],
+                            [12, 7],
+                            [13, 7],
+                            [14, 7],
+                            [15, 7],
+                            [16, 7],
 
-                        [11.5, 2],
-                        [6, 3], [9, 3],
-                        [3, 5],
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                            [11.5, 2],
+                            [6, 3],
+                            [9, 3],
+                            [3, 5],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     hitotsume1: {
                         size: 12,
@@ -2201,11 +2627,10 @@ export default class Page2 extends React.Component {
                         nextLeft: true,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage14;
             } else if (this.props.stage === 15) {
-
                 // ------------------------------------------------------------
                 // ステージ15
                 // ------------------------------------------------------------
@@ -2226,7 +2651,13 @@ export default class Page2 extends React.Component {
                         eachTime: eachTimeEnemy,
                     },
 
-                    ...getKeys(this.ninja, 107, 57, 20, this.consts.KEY3_SCROLL_TITLE),
+                    ...getKeys(
+                        this.ninja,
+                        107,
+                        57,
+                        20,
+                        this.consts.KEY3_SCROLL_TITLE
+                    ),
                     keyScroll: {
                         size: 150,
                         posX: 5,
@@ -2284,11 +2715,10 @@ export default class Page2 extends React.Component {
                         nextLeft: true,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage15;
             } else if (this.props.stage === 16) {
-
                 // ------------------------------------------------------------
                 // ステージ16
                 // ------------------------------------------------------------
@@ -2297,19 +2727,77 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
                     ...this.objFloor,
                     //ブロック
-                    ...getBlocks(10, [
-                        [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1],
-                        [2, 0],
-                        [2, 1],
-                        [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2],
+                    ...getBlocks(
+                        10,
+                        [
+                            [-2, -1],
+                            [-1, -1],
+                            [0, -1],
+                            [1, -1],
+                            [2, -1],
+                            [2, 0],
+                            [2, 1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [1, 2],
+                            [2, 2],
 
-                        [14, 2], [15, 2], [16, 2], [17, 2],
-                        [13, 3], [14, 3], [15, 3], [16, 3], [17, 3],
-                        [12, 4], [13, 4], [14, 4], [15, 4], [16, 4], [17, 4],
-                        [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5],
-                        [10, 6], [11, 6], [12, 6], [13, 6], [14, 6], [15, 6], [16, 6], [17, 6],
-                        [-2, 7], [-1, 7], [0, 7], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7], [17, 7],
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                            [14, 2],
+                            [15, 2],
+                            [16, 2],
+                            [17, 2],
+                            [13, 3],
+                            [14, 3],
+                            [15, 3],
+                            [16, 3],
+                            [17, 3],
+                            [12, 4],
+                            [13, 4],
+                            [14, 4],
+                            [15, 4],
+                            [16, 4],
+                            [17, 4],
+                            [11, 5],
+                            [12, 5],
+                            [13, 5],
+                            [14, 5],
+                            [15, 5],
+                            [16, 5],
+                            [17, 5],
+                            [10, 6],
+                            [11, 6],
+                            [12, 6],
+                            [13, 6],
+                            [14, 6],
+                            [15, 6],
+                            [16, 6],
+                            [17, 6],
+                            [-2, 7],
+                            [-1, 7],
+                            [0, 7],
+                            [1, 7],
+                            [2, 7],
+                            [3, 7],
+                            [4, 7],
+                            [5, 7],
+                            [6, 7],
+                            [7, 7],
+                            [8, 7],
+                            [9, 7],
+                            [10, 7],
+                            [11, 7],
+                            [12, 7],
+                            [13, 7],
+                            [14, 7],
+                            [15, 7],
+                            [16, 7],
+                            [17, 7],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     oni1: {
                         size: 58,
@@ -2324,7 +2812,13 @@ export default class Page2 extends React.Component {
                         eachTime: eachTimeKimme,
                     },
 
-                    ...getKeys(this.ninja, 147, 10, 20, this.consts.KEY2_SCROLL_TITLE),
+                    ...getKeys(
+                        this.ninja,
+                        147,
+                        10,
+                        20,
+                        this.consts.KEY2_SCROLL_TITLE
+                    ),
                     keyScroll: {
                         size: 150,
                         posX: 5,
@@ -2349,12 +2843,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage16;
             } else if (this.props.stage === 17) {
-
                 // ------------------------------------------------------------
                 // ステージ17
                 // ------------------------------------------------------------
@@ -2363,23 +2855,101 @@ export default class Page2 extends React.Component {
                     ...this.objWalls,
 
                     //ブロック
-                    ...getBlocks(10, [
-                        [1, -0.5], [2, -0.5], [3, -0.5], [4, -0.5], [5, -0.5], [6, -0.5], [7, -0.5], [8, -0.5], [9, -0.5], [10, -0.5],
-                        [1, 0.4], [2, 0.4], [3, 0.4], [4, 0.4], [5, 0.4], [6, 0.4], [7, 0.4],
-                        [-2, 0], [-1, 0], [0, 0], [15, 0], [16, 0], [10, 0],
-                        [-2, 1], [-1, 1], [0, 1], [15, 1], [16, 1], [10, 1],
-                        [-2, 2], [-1, 2], [0, 2], [15, 2], [16, 2], [10, 2],
-                        [-2, 3], [-1, 3], [0, 3], [15, 3], [16, 3], [10, 3],
-                        [-2, 4], [-1, 4], [0, 4], [15, 4], [16, 4],
-                        [-2, 5], [-1, 5], [0, 5], [15, 5], [16, 5],
-                        [-2, 6], [-1, 6], [0, 6], [15, 6], [16, 6],
-                        [-2, 7], [-1, 7], [0, 7], [3, 7], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [11, 7], [12, 7], [13, 7], [14, 7], [15, 7], [16, 7],
+                    ...getBlocks(
+                        10,
+                        [
+                            [1, -0.5],
+                            [2, -0.5],
+                            [3, -0.5],
+                            [4, -0.5],
+                            [5, -0.5],
+                            [6, -0.5],
+                            [7, -0.5],
+                            [8, -0.5],
+                            [9, -0.5],
+                            [10, -0.5],
+                            [1, 0.4],
+                            [2, 0.4],
+                            [3, 0.4],
+                            [4, 0.4],
+                            [5, 0.4],
+                            [6, 0.4],
+                            [7, 0.4],
+                            [-2, 0],
+                            [-1, 0],
+                            [0, 0],
+                            [15, 0],
+                            [16, 0],
+                            [10, 0],
+                            [-2, 1],
+                            [-1, 1],
+                            [0, 1],
+                            [15, 1],
+                            [16, 1],
+                            [10, 1],
+                            [-2, 2],
+                            [-1, 2],
+                            [0, 2],
+                            [15, 2],
+                            [16, 2],
+                            [10, 2],
+                            [-2, 3],
+                            [-1, 3],
+                            [0, 3],
+                            [15, 3],
+                            [16, 3],
+                            [10, 3],
+                            [-2, 4],
+                            [-1, 4],
+                            [0, 4],
+                            [15, 4],
+                            [16, 4],
+                            [-2, 5],
+                            [-1, 5],
+                            [0, 5],
+                            [15, 5],
+                            [16, 5],
+                            [-2, 6],
+                            [-1, 6],
+                            [0, 6],
+                            [15, 6],
+                            [16, 6],
+                            [-2, 7],
+                            [-1, 7],
+                            [0, 7],
+                            [3, 7],
+                            [4, 7],
+                            [5, 7],
+                            [6, 7],
+                            [7, 7],
+                            [8, 7],
+                            [9, 7],
+                            [10, 7],
+                            [11, 7],
+                            [12, 7],
+                            [13, 7],
+                            [14, 7],
+                            [15, 7],
+                            [16, 7],
 
-                        [-2, 3.7], [-1, 3.7], [0, 3.7], [1, 3.7], [2, 3.7], [5, 3.7], [6, 3.7], [7, 3.7], [8, 3.7], [9, 3.7], [10, 3.7],
+                            [-2, 3.7],
+                            [-1, 3.7],
+                            [0, 3.7],
+                            [1, 3.7],
+                            [2, 3.7],
+                            [5, 3.7],
+                            [6, 3.7],
+                            [7, 3.7],
+                            [8, 3.7],
+                            [9, 3.7],
+                            [10, 3.7],
 
-                        [4, 6],
-
-                    ], onTouchBlock, imgWoodenBlock, 23),
+                            [4, 6],
+                        ],
+                        onTouchBlock,
+                        imgWoodenBlock,
+                        23
+                    ),
 
                     shino: {
                         size: 10,
@@ -2520,11 +3090,10 @@ export default class Page2 extends React.Component {
                         next: 18,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage17;
             } else if (this.props.stage === 18) {
-
                 // ------------------------------------------------------------
                 // ステージ18
                 // ------------------------------------------------------------
@@ -2575,7 +3144,6 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchNothing,
                     },
 
-
                     rightGateWall: {
                         size: 300,
                         posX: 160,
@@ -2585,11 +3153,10 @@ export default class Page2 extends React.Component {
                         onTouch: onTouchGateWall,
                         changeStage: this.props.changeStage,
                     },
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage18;
             } else if (this.props.stage === 19) {
-
                 // ------------------------------------------------------------
                 // ステージ19
                 // ------------------------------------------------------------
@@ -2643,12 +3210,10 @@ export default class Page2 extends React.Component {
                         zIndex: 30,
                         onTouch: onTouchEnemy,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage19;
             } else if (this.props.stage === 20) {
-
                 // ------------------------------------------------------------
                 // ステージ20
                 // ------------------------------------------------------------
@@ -2704,8 +3269,7 @@ export default class Page2 extends React.Component {
                         fontSize: 3,
                         speakerImg: imgPochi,
                     },
-
-                }
+                };
                 //ステージの背景画像を設定
                 this.bgImg = stage20;
             }
@@ -2714,8 +3278,8 @@ export default class Page2 extends React.Component {
 
             //localStorageに自動セーブ
             const { game, ...rest } = this.ninja;
-            const saveData = { ninja: rest, stage: this.props.stage }
-            localStorage.setItem('saveData2', JSON.stringify(saveData));
+            const saveData = { ninja: rest, stage: this.props.stage };
+            localStorage.setItem("saveData2", JSON.stringify(saveData));
 
             //背景画像の変更
             this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
@@ -2723,10 +3287,7 @@ export default class Page2 extends React.Component {
 
         return (
             <div id="Page2" style={this.pageStyle}>
-                <div
-                    id="gameScreen"
-                    style={this.state.screenStyle}
-                >
+                <div id="gameScreen" style={this.state.screenStyle}>
                     <NinjaChar
                         imgAlt="Running Ninja"
                         width={this.ninja.size * this.UL}
@@ -2771,7 +3332,6 @@ function RenderScreenBottom(props) {
     const UL = props.UL;
 
     if (props.terminalPC) {
-
         let styleDivPcMessage: any = {
             position: "absolute",
             top: 75 * UL,
@@ -2850,11 +3410,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("left") }}
-                            onTouchStart={() => { props.onClickButton("left") }}
-                            onMouseUp={() => { props.onMouseUp("left") }}
-                            onMouseOut={() => { props.onMouseUp("left") }}
-                            onTouchEnd={() => { props.onMouseUp("left") }}
+                            onMouseDown={() => {
+                                props.onClickButton("left");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("left");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("left");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("left");
+                            }}
                         >
                             {"＜"}
                         </button>
@@ -2863,11 +3433,21 @@ function RenderButtons(props) {
                         <button
                             style={jumpButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("jump") }}
-                            onTouchStart={() => { props.onClickButton("jump") }}
-                            onMouseUp={() => { props.onMouseUp("jump") }}
-                            onMouseOut={() => { props.onMouseUp("jump") }}
-                            onTouchEnd={() => { props.onMouseUp("jump") }}
+                            onMouseDown={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("jump");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("jump");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("jump");
+                            }}
                         >
                             {"↑　jump　↑"}
                         </button>
@@ -2876,11 +3456,21 @@ function RenderButtons(props) {
                         <button
                             style={sideButtonStyle}
                             className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => { props.onClickButton("right") }}
-                            onTouchStart={() => { props.onClickButton("right") }}
-                            onMouseUp={() => { props.onMouseUp("right") }}
-                            onMouseOut={() => { props.onMouseUp("right") }}
-                            onTouchEnd={() => { props.onMouseUp("right") }}
+                            onMouseDown={() => {
+                                props.onClickButton("right");
+                            }}
+                            onTouchStart={() => {
+                                props.onClickButton("right");
+                            }}
+                            onMouseUp={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onMouseOut={() => {
+                                props.onMouseUp("right");
+                            }}
+                            onTouchEnd={() => {
+                                props.onMouseUp("right");
+                            }}
                         >
                             {"＞"}
                         </button>
@@ -2891,15 +3481,24 @@ function RenderButtons(props) {
     );
 }
 
-function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninjaLeft, ninjaTop, ninjaFoot, ninjaSize) {
+function checkRelativityRightAndFoot(
+    objRight,
+    ninjaRight,
+    objTop,
+    objFoot,
+    ninjaLeft,
+    ninjaTop,
+    ninjaFoot,
+    ninjaSize
+) {
     //コメントは忍者が右から来た想定
     if (objRight > ninjaLeft) {
         //忍者が右から
         if (objRight < ninjaRight) {
             //忍者の右端がオブジェクトの右端を左向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
+            if (objTop < ninjaFoot - (ninjaSize * 7) / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
+                if (objFoot > ninjaTop + (ninjaSize * 7) / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }
@@ -2908,15 +3507,24 @@ function checkRelativityRightAndFoot(objRight, ninjaRight, objTop, objFoot, ninj
     }
     return false;
 }
-function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRight, ninjaTop, ninjaFoot, ninjaSize) {
+function checkRelativityLeftAndTop(
+    ninjaLeft,
+    objLeft,
+    objTop,
+    objFoot,
+    ninjaRight,
+    ninjaTop,
+    ninjaFoot,
+    ninjaSize
+) {
     //コメントは忍者が左から来た想定
     if (objLeft < ninjaRight) {
         //忍者が左から
         if (objLeft > ninjaLeft) {
             //忍者の左端がオブジェクトの左端を右向きに超えてはいない
-            if (objTop < ninjaFoot - ninjaSize * 7 / 12) {
+            if (objTop < ninjaFoot - (ninjaSize * 7) / 12) {
                 //オブジェクトの上をまたいでいない
-                if (objFoot > ninjaTop + ninjaSize * 7 / 12) {
+                if (objFoot > ninjaTop + (ninjaSize * 7) / 12) {
                     //オブジェクトの下をくぐっていない
                     return true;
                 }
@@ -2928,7 +3536,6 @@ function checkRelativityLeftAndTop(ninjaLeft, objLeft, objTop, objFoot, ninjaRig
 
 //当たり判定
 function checkTouch(obj1, obj2) {
-
     if (obj1 && obj2) {
         //オブジェクトが存在する場合
 
@@ -2949,7 +3556,6 @@ function checkTouch(obj1, obj2) {
 
 //ブロック生成関数
 function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
-
     let objResult = {};
 
     for (let index in arrPos) {
@@ -2967,7 +3573,6 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
 
 //鍵　生成関数
 function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-
     let objResult = {};
 
     if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
@@ -2988,7 +3593,6 @@ function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
 
 //穴が開いた床　生成関数
 function getHoleFloor(holeStart, holeEnd) {
-
     let objResult = {};
 
     for (let i = 0; i < 5; i++) {
@@ -3048,17 +3652,14 @@ function onTouchBlock(ninja, from) {
         //上から
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
-
     } else if (from === "right") {
         //右から
         ninja.posX = this.posX + this.size;
         ninja.speedX = 0;
-
     } else if (from === "lower") {
         //下から
         ninja.posY = this.posY + this.size;
         ninja.speedY = 0;
-
     } else if (from === "left") {
         //左から
         ninja.posX = this.posX - ninja.size;
@@ -3074,7 +3675,6 @@ function onTouchTree(ninja, from) {
         //上から
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
-
     }
 }
 
@@ -3088,17 +3688,14 @@ function onTouchLockedDoor(ninja, from) {
             //上から
             ninja.posY = this.posY - ninja.size;
             ninja.speedY = 0;
-
         } else if (from === "right") {
             //右から
             ninja.posX = this.posX + this.size;
             ninja.speedX = 0;
-
         } else if (from === "lower") {
             //下から
             ninja.posY = this.posY + this.size;
             ninja.speedY = 0;
-
         } else if (from === "left") {
             //左から
             ninja.posX = this.posX - ninja.size;
@@ -3112,7 +3709,7 @@ function onTouchLockedDoor(ninja, from) {
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-function onTouchNothing() { }
+function onTouchNothing() {}
 
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
@@ -3123,7 +3720,6 @@ function onTouchGateWall(ninja, from) {
         ninja.posX += 160 - ninja.size;
         ninja.speedX = 0;
         ninja.speedY = 0;
-
     } else {
         //左から
         ninja.posX = 0;
@@ -3139,7 +3735,6 @@ function onTouchGateWall(ninja, from) {
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
 function onTouchGateTop1(ninja, from) {
-
     if (from === "upper") {
         //上から
         ninja.posX = 145;
@@ -3156,7 +3751,6 @@ function onTouchGateTop1(ninja, from) {
 // 別ステージへのゲートのタッチ関数（stage2等から上へ飛ばされる）
 //=======================================
 function onTouchGateTop2(ninja, from) {
-
     //下から
     ninja.posX = 145;
     ninja.posY = -100;
@@ -3172,7 +3766,6 @@ function onTouchGateTop2(ninja, from) {
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
 function onTouchStageChangeCommon(ninja, from) {
-
     ninja.posX = this.nextX;
     ninja.posY = this.nextY;
     ninja.boolLeft = this.nextLeft;
@@ -3194,7 +3787,6 @@ function onTouchEnemy(ninja) {
     }
 }
 
-
 //------------------------------------------------------------
 //
 //　　　　　タイムステップごとの関数
@@ -3206,7 +3798,6 @@ function onTouchEnemy(ninja) {
 //=======================================
 function eachTimeEnemy(ninja, key) {
     if (this && this.enemy) {
-
         //敵の行動可能域計算
         if (this.xMax && this.posX > this.xMax) {
             //x最大値を超えている場合
@@ -3229,22 +3820,22 @@ function eachTimeEnemy(ninja, key) {
 
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
-            if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
+            if (ninja.posX >= this.posX + this.size - ninja.size / 2) {
                 this.posX += this.speedX;
                 this.boolLeft = false;
-            } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-                this.posX += this.speedX * (-1);
+            } else if (ninja.posX + ninja.size / 2 <= this.posX) {
+                this.posX += this.speedX * -1;
                 this.boolLeft = true;
             } else {
-                this.posX += ninja.posX < this.posX ? -1 : 0
-                this.posX += ninja.posX > this.posX ? 1 : 0
+                this.posX += ninja.posX < this.posX ? -1 : 0;
+                this.posX += ninja.posX > this.posX ? 1 : 0;
             }
         }
         //Y軸について、忍者を追いかける
-        if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
+        if (ninja.posY >= this.posY + this.size - ninja.size / 2) {
             this.posY += this.speedY;
-        } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
-            this.posY += this.speedY * (-1);
+        } else if (ninja.posY + ninja.size / 2 <= this.posY) {
+            this.posY += this.speedY * -1;
         }
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
@@ -3265,7 +3856,6 @@ function eachTimeEnemy(ninja, key) {
 //=======================================
 function eachTimeOneEye(ninja, key) {
     if (this && this.enemy) {
-
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
 
@@ -3291,10 +3881,10 @@ function eachTimeOneEye(ninja, key) {
         }
 
         //Y軸について、忍者を追いかける
-        if (ninja.posY >= this.posY + this.size - (ninja.size / 2)) {
+        if (ninja.posY >= this.posY + this.size - ninja.size / 2) {
             this.posY += this.speedY;
-        } else if (ninja.posY + (ninja.size / 2) <= this.posY) {
-            this.posY += this.speedY * (-1);
+        } else if (ninja.posY + ninja.size / 2 <= this.posY) {
+            this.posY += this.speedY * -1;
         }
 
         for (let i = 0; i <= ninja.fireBallCount; i++) {
@@ -3315,7 +3905,6 @@ function eachTimeOneEye(ninja, key) {
 //=======================================
 function eachTimeBoss(ninja, key) {
     if (this && this.enemy) {
-
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
 
@@ -3378,12 +3967,16 @@ function eachTimeBoss(ninja, key) {
 
         let random5 = Math.floor(Math.random() * 6);
 
-        if (random4 * random5 === 4 || random4 * random5 === 9 || random4 * random5 === 25) {
+        if (
+            random4 * random5 === 4 ||
+            random4 * random5 === 9 ||
+            random4 * random5 === 25
+        ) {
             //ボックス
             ninja.game.objs["box" + day] = {
                 size: 5 * random1,
-                posX: (32 * random2) - (5 * random1),
-                posY: (11 * random3) - (5 * random1) + 40,
+                posX: 32 * random2 - 5 * random1,
+                posY: 11 * random3 - 5 * random1 + 40,
                 speedX: 0,
                 speedY: 0,
                 zIndex: 22,
@@ -3399,7 +3992,6 @@ function eachTimeBoss(ninja, key) {
                 //まだ消えていないFireBallについて
 
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
-
                     ninja.game.objs["rightGateWall"] = {
                         size: 300,
                         posX: 160,
@@ -3467,18 +4059,17 @@ function eachTimeFireBall(ninja, key) {
 //=======================================
 function eachTimeKimme(ninja, key) {
     if (this && this.enemy) {
-
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
-            if (ninja.posX >= this.posX + this.size - (ninja.size / 2)) {
+            if (ninja.posX >= this.posX + this.size - ninja.size / 2) {
                 this.posX += this.speedX;
                 this.boolLeft = false;
-            } else if (ninja.posX + (ninja.size / 2) <= this.posX) {
-                this.posX += this.speedX * (-1);
+            } else if (ninja.posX + ninja.size / 2 <= this.posX) {
+                this.posX += this.speedX * -1;
                 this.boolLeft = true;
             } else {
-                this.posX += ninja.posX < this.posX ? -1 : 0
-                this.posX += ninja.posX > this.posX ? 1 : 0
+                this.posX += ninja.posX < this.posX ? -1 : 0;
+                this.posX += ninja.posX > this.posX ? 1 : 0;
             }
         }
 

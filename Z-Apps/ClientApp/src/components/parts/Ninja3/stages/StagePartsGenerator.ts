@@ -1,8 +1,8 @@
-import Imgs from '../ImportImgs';
-import * as OnTouch from '../OnTouch';//タッチ関数
-import * as EachTime from '../EachTime';//タイムステップごとの処理
-import { messages } from '../Messages';//メッセージモジュール
-import { changeStage } from '../CommonFnc'//共通関数
+import { changeStage } from "../CommonFnc"; //共通関数
+import * as EachTime from "../EachTime"; //タイムステップごとの処理
+import Imgs from "../ImportImgs";
+import { messages } from "../Messages"; //メッセージモジュール
+import * as OnTouch from "../OnTouch"; //タッチ関数
 
 //------------------------------------------------------------
 //
@@ -29,7 +29,14 @@ export function getBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity?) {
 }
 
 //氷ブロック生成関数
-export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity?) {
+export function getIceBlocks(
+    size,
+    arrPos,
+    onTouch,
+    imgBlock,
+    zIndex,
+    opacity?
+) {
     let objResult = {};
 
     for (let index in arrPos) {
@@ -48,7 +55,16 @@ export function getIceBlocks(size, arrPos, onTouch, imgBlock, zIndex, opacity?) 
 }
 
 //画像　生成関数
-export function getOnePic(size, posX, posY, img, zIndex, onTouch, boolLeft?, opacity?) {
+export function getOnePic(
+    size,
+    posX,
+    posY,
+    img,
+    zIndex,
+    onTouch,
+    boolLeft?,
+    opacity?
+) {
     return {
         size: size,
         posX: posX,
@@ -67,32 +83,88 @@ export function getArrowBoard(scrollName, posX, posY, zIndex, boolLeft?) {
     let objResult = {};
     if (boolLeft) {
         //左向き矢印
-        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex-1, OnTouch.toNothing);
+        objResult[`Kanban${scrollName}`] = getOnePic(
+            20,
+            posX,
+            posY,
+            Imgs.Kanban1,
+            zIndex - 1,
+            OnTouch.toNothing
+        );
         if (scrollName) {
             objResult = {
                 ...objResult,
-                ...getSoroll(scrollName, 10, posX+4, posY+3, Imgs.Arrow1, null, zIndex, true)
+                ...getSoroll(
+                    scrollName,
+                    10,
+                    posX + 4,
+                    posY + 3,
+                    Imgs.Arrow1,
+                    null,
+                    zIndex,
+                    true
+                ),
             };
         } else {
-            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 4, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, true);
+            objResult[`Arrow${scrollName}`] = getOnePic(
+                10,
+                posX + 4,
+                posY + 3,
+                Imgs.Arrow1,
+                zIndex,
+                OnTouch.toNothing,
+                true
+            );
         }
     } else {
         //右向き矢印
-        objResult[`Kanban${scrollName}`] = getOnePic(20, posX, posY, Imgs.Kanban1, zIndex - 1, OnTouch.toNothing);
+        objResult[`Kanban${scrollName}`] = getOnePic(
+            20,
+            posX,
+            posY,
+            Imgs.Kanban1,
+            zIndex - 1,
+            OnTouch.toNothing
+        );
         if (scrollName) {
             objResult = {
                 ...objResult,
-                ...getSoroll(scrollName, 10, posX + 5, posY + 3, Imgs.Arrow1, null, zIndex, false)
+                ...getSoroll(
+                    scrollName,
+                    10,
+                    posX + 5,
+                    posY + 3,
+                    Imgs.Arrow1,
+                    null,
+                    zIndex,
+                    false
+                ),
             };
         } else {
-            objResult[`Arrow${scrollName}`] = getOnePic(10, posX + 5, posY + 3, Imgs.Arrow1, zIndex, OnTouch.toNothing, false);
+            objResult[`Arrow${scrollName}`] = getOnePic(
+                10,
+                posX + 5,
+                posY + 3,
+                Imgs.Arrow1,
+                zIndex,
+                OnTouch.toNothing,
+                false
+            );
         }
     }
     return objResult;
 }
 
 //飛ぶ岩　生成関数
-export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight?, img?) {
+export function getFlyingRock(
+    name,
+    size,
+    posX,
+    posY,
+    zIndex,
+    maxHeight?,
+    img?
+) {
     let objResult = {};
     img = img || Imgs.Rock;
 
@@ -110,7 +182,7 @@ export function getFlyingRock(name, size, posX, posY, zIndex, maxHeight?, img?) 
     objResult[`Fire${name}`] = {
         size: size,
         posX: posX,
-        posY: posY + (size * 3 / 4),
+        posY: posY + (size * 3) / 4,
         zIndex: zIndex - 1,
         img: Imgs.FireR,
         onTouch: OnTouch.toNothing,
@@ -137,7 +209,7 @@ export function getFlyingRockRight(id, size, posX, posY, zIndex, maxRight?) {
     };
     objResult[`Fire${id}`] = {
         size: size,
-        posX: posX - (size * 3 / 4),
+        posX: posX - (size * 3) / 4,
         posY: posY,
         zIndex: zIndex - 1,
         img: Imgs.FireRight,
@@ -163,11 +235,11 @@ export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft?) {
         fireName: `Fire${id}`,
         maxLeft: maxLeft,
         direction: "left",
-        boolLeft:true,
+        boolLeft: true,
     };
     objResult[`Fire${id}`] = {
         size: size,
-        posX: posX + (size * 3 / 4),
+        posX: posX + (size * 3) / 4,
         posY: posY,
         zIndex: zIndex - 1,
         img: Imgs.FireRight,
@@ -184,14 +256,48 @@ export function getFlyingRockLeft(id, size, posX, posY, zIndex, maxLeft?) {
 export function getFrozenObj(name, size, posX, posY, img, zIndex?, boolLeft?) {
     let objResult = {};
     zIndex = zIndex || 10;
-    objResult[name] = getOnePic(size, posX, posY, img, zIndex, OnTouch.toNothing, boolLeft);
-    objResult[`${name}Ice1`] = getOnePic(size, posX, posY, Imgs.Ice, 5, OnTouch.toBlock, false, 0.8);
-    objResult[`${name}Ice2`] = getOnePic(size, posX, posY, Imgs.Ice, 40, OnTouch.toBlock, false, 0.5);
+    objResult[name] = getOnePic(
+        size,
+        posX,
+        posY,
+        img,
+        zIndex,
+        OnTouch.toNothing,
+        boolLeft
+    );
+    objResult[`${name}Ice1`] = getOnePic(
+        size,
+        posX,
+        posY,
+        Imgs.Ice,
+        5,
+        OnTouch.toBlock,
+        false,
+        0.8
+    );
+    objResult[`${name}Ice2`] = getOnePic(
+        size,
+        posX,
+        posY,
+        Imgs.Ice,
+        40,
+        OnTouch.toBlock,
+        false,
+        0.5
+    );
     return objResult;
 }
 
 //文字列要素　生成関数
-export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch) {
+export function getMessage(
+    size,
+    posX,
+    posY,
+    message,
+    fontSize,
+    zIndex,
+    onTouch
+) {
     return {
         size: size,
         posX: posX,
@@ -204,7 +310,17 @@ export function getMessage(size, posX, posY, message, fontSize, zIndex, onTouch)
 }
 
 //メッセージ表示　巻物
-export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolLeft?, isFinal?) {
+export function getSoroll(
+    name,
+    size,
+    posX,
+    posY,
+    img,
+    speakerImg,
+    zIndex,
+    boolLeft?,
+    isFinal?
+) {
     let objResult = {};
 
     objResult[`${name}_ScrollOpener`] = {
@@ -236,7 +352,17 @@ export function getSoroll(name, size, posX, posY, img, speakerImg, zIndex, boolL
 }
 
 //ステージ変更用ドア
-export function getDoor(size, posX, posY, img, zIndex, next, nextX, nextY, nextLeft) {
+export function getDoor(
+    size,
+    posX,
+    posY,
+    img,
+    zIndex,
+    next,
+    nextX,
+    nextY,
+    nextLeft
+) {
     return {
         size: size,
         posX: posX,
@@ -402,7 +528,6 @@ export function getSnows(strength, zIndex?, reverse?) {
     }
     return objResult;
 }
-
 
 //画面外を黒くする要素
 export function getObjOutOfScreen() {

@@ -19,8 +19,9 @@ namespace Z_Apps.Controllers
         [HttpPost("[action]")]
         public async Task<Object> Upload(IFormFile file, string shop, string pw, string fileName)
         {
-            if (pw != PrivateConsts.BOSCOBEL_PW) {
-                return new { result = "ng", errMessage = "Error! Invalid password!"};
+            if (pw != PrivateConsts.BOSCOBEL_PW)
+            {
+                return new { result = "ng", errMessage = "Error! Invalid password!" };
             }
 
             var formFile = file;

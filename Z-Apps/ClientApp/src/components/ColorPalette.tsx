@@ -1,28 +1,29 @@
-import * as React from 'react';
-import FB from './parts/FaceBook';
-import Head from './parts/Helmet';
+import * as React from "react";
+import FB from "./parts/FaceBook";
+import Head from "./parts/Helmet";
 
 class ColorPalette extends React.Component {
-
     consts: {
-        COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
-        MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
-        MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
+        COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm";
+        MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!";
+        MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.";
     };
 
     state: {
-        hue: number,
-        saturation: number,
-        lightness: number,
-    }
+        hue: number;
+        saturation: number;
+        lightness: number;
+    };
 
     constructor(props) {
         super(props);
 
         this.consts = {
             COPY_BUTTON_PRIMARY: "btn btn-primary btn-sm",
-            MSG_COPY_DONE: "Copy completed!\r\nYou can paste the Color Code anywhere!",
-            MSG_COPY_ERR: "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
+            MSG_COPY_DONE:
+                "Copy completed!\r\nYou can paste the Color Code anywhere!",
+            MSG_COPY_ERR:
+                "Sorry!\r\nYou can not use the copy function with this web browser.\r\nPlease copy it manually.",
         };
 
         this.state = {
@@ -69,7 +70,7 @@ class ColorPalette extends React.Component {
         });
 
         //数字以外除去
-        hue = (hue).replace(/[^0-9]/g, '');
+        hue = hue.replace(/[^0-9]/g, "");
 
         //数値型に変換
         hue = parseInt(hue, 10);
@@ -84,8 +85,7 @@ class ColorPalette extends React.Component {
 
         if (execCopy(strTarget)) {
             alert(this.consts.MSG_COPY_DONE);
-        }
-        else {
+        } else {
             alert(this.consts.MSG_COPY_ERR);
         }
     }
@@ -93,7 +93,9 @@ class ColorPalette extends React.Component {
     render() {
         //現在stateに設定されている色を文字列で取得
         let currentColor = changeHslToColorCode(
-            this.state.hue, this.state.saturation, this.state.lightness
+            this.state.hue,
+            this.state.saturation,
+            this.state.lightness
         );
 
         let styleTitle = {
@@ -121,12 +123,20 @@ class ColorPalette extends React.Component {
                 />
                 <h1 style={styleTitle}>Color Code Getter</h1>
                 <div style={styleContents}>
-                    <div style={{ padding: 10, marginBottom: 10, border: "5px double #333333", }}>
+                    <div
+                        style={{
+                            padding: 10,
+                            marginBottom: 10,
+                            border: "5px double #333333",
+                        }}
+                    >
                         <table>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <label style={{ margin: 4, }}>Current color: </label>
+                                        <label style={{ margin: 4 }}>
+                                            Current color:{" "}
+                                        </label>
                                     </td>
                                     <td>
                                         <div style={styleResultDisplay}></div>
@@ -134,12 +144,18 @@ class ColorPalette extends React.Component {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label style={{ margin: 4, }}>Color code: </label>
+                                        <label style={{ margin: 4 }}>
+                                            Color code:{" "}
+                                        </label>
                                     </td>
                                     <td>
-                                        <label style={{ margin: 4, }}>
+                                        <label style={{ margin: 4 }}>
                                             <span id="color-code-to-copy">
-                                                {changeHslToColorCode(this.state.hue, this.state.saturation, this.state.lightness)}
+                                                {changeHslToColorCode(
+                                                    this.state.hue,
+                                                    this.state.saturation,
+                                                    this.state.lightness
+                                                )}
                                             </span>
                                         </label>
                                     </td>
@@ -152,24 +168,25 @@ class ColorPalette extends React.Component {
                             style={{ margin: 5 }}
                         >
                             Click here to copy the Color Code!
-                </button>
+                        </button>
                     </div>
                     <br />
-                    <label>Click your favorite color!</label><br />
-                    <div style={{ position: "relative", }}>
+                    <label>Click your favorite color!</label>
+                    <br />
+                    <div style={{ position: "relative" }}>
                         {/* 色相グラデーションバー */}
-                        <table style={{
-                            maxWidth: 400,
-                            height: 30,
-                            width: "100%",
-                            tableLayout: "fixed",
-                            zIndex: 100,
-                            marginBottom: 30,
-                        }}>
+                        <table
+                            style={{
+                                maxWidth: 400,
+                                height: 30,
+                                width: "100%",
+                                tableLayout: "fixed",
+                                zIndex: 100,
+                                marginBottom: 30,
+                            }}
+                        >
                             <tbody>
-                                <tr>
-                                    {getHueBar(this.onClickHueBar)}
-                                </tr>
+                                <tr>{getHueBar(this.onClickHueBar)}</tr>
                             </tbody>
                         </table>
                         {/* 色相調節レバー */}
@@ -179,7 +196,9 @@ class ColorPalette extends React.Component {
                             max="360"
                             step="1"
                             value={this.state.hue}
-                            onChange={(e) => { this.onChangeHue(e) }}
+                            onChange={e => {
+                                this.onChangeHue(e);
+                            }}
                             style={{
                                 maxWidth: 400,
                                 marginTop: 29,
@@ -192,24 +211,31 @@ class ColorPalette extends React.Component {
                     </div>
                     {/* 2次元テーブル */}
                     <div id="wrapper">
-                        <table style={{
-                            maxWidth: 300,
-                            height: 280,
-                            width: "100%",
-                            tableLayout: "fixed",
-                        }} className="content">
+                        <table
+                            style={{
+                                maxWidth: 300,
+                                height: 280,
+                                width: "100%",
+                                tableLayout: "fixed",
+                            }}
+                            className="content"
+                        >
                             <tbody>
-                                {getSlTable(this.state.hue, this.onClickTable, this.state)}
+                                {getSlTable(
+                                    this.state.hue,
+                                    this.onClickTable,
+                                    this.state
+                                )}
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <br />
                 <FB />
-            </div >
-        )
+            </div>
+        );
     }
-};
+}
 
 //--------------------------------------------------
 // HSLからCSS用の色指定を返す
@@ -221,14 +247,20 @@ function changeHslToStyle(hue, saturation, lightness) {
 //--------------------------------------------------
 // HSLから背景色付きのtdを返す
 //--------------------------------------------------
-function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, state?) {
-
+function getColoredTdFromHsl(
+    hue,
+    saturation,
+    lightness,
+    key,
+    onClickTable,
+    state?
+) {
     let booLightness = false;
     let booSaturation = false;
 
     if (state) {
-        booLightness = (lightness === state.lightness);
-        booSaturation = (saturation === state.saturation);
+        booLightness = lightness === state.lightness;
+        booSaturation = saturation === state.saturation;
     }
 
     if (booLightness || booSaturation) {
@@ -239,10 +271,8 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
                     key={key}
                     onClick={() => onClickTable(hue, saturation, lightness)}
                     style={{ background: changeHslToStyle(hue + 180, 100, 60) }}
-                >
-                </td>
-            )
-
+                ></td>
+            );
         } else {
             //選択された位置から十字に色付けする
             return (
@@ -250,9 +280,8 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
                     key={key}
                     onClick={() => onClickTable(hue, saturation, lightness)}
                     style={{ background: changeHslToStyle(hue + 180, 30, 30) }}
-                >
-                </td>
-            )
+                ></td>
+            );
         }
     } else {
         //選択されていない通常セル
@@ -260,9 +289,10 @@ function getColoredTdFromHsl(hue, saturation, lightness, key, onClickTable, stat
             <td
                 key={key}
                 onClick={() => onClickTable(hue, saturation, lightness)}
-                style={{ background: changeHslToStyle(hue, saturation, lightness) }}
-            >
-            </td>
+                style={{
+                    background: changeHslToStyle(hue, saturation, lightness),
+                }}
+            ></td>
         );
     }
 }
@@ -285,7 +315,16 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
     let tdList = [];
 
     for (let lightness = 100; lightness >= 0; lightness--) {
-        tdList.push(getColoredTdFromHsl(hue, saturation, lightness, lightness, onClickTable, state));
+        tdList.push(
+            getColoredTdFromHsl(
+                hue,
+                saturation,
+                lightness,
+                lightness,
+                onClickTable,
+                state
+            )
+        );
     }
     return <tr key={key}>{tdList}</tr>;
 }
@@ -307,9 +346,14 @@ function getSlTable(hue, onClickTable, state) {
 function changeHslToColorCode(h, s, l) {
     let arrRGB = changeHslToRgb(h, s, l);
 
-    return "#" + arrRGB.map(function (value) {
-        return ("0" + value.toString(16)).slice(-2);
-    }).join("");
+    return (
+        "#" +
+        arrRGB
+            .map(function (value) {
+                return ("0" + value.toString(16)).slice(-2);
+            })
+            .join("")
+    );
 }
 
 //--------------------------------------------------
@@ -318,7 +362,14 @@ function changeHslToColorCode(h, s, l) {
 function changeHslToRgb(hue, saturation, lightness) {
     var result = null;
 
-    if (((hue || hue === 0) && hue <= 360) && ((saturation || saturation === 0) && saturation <= 100) && ((lightness || lightness === 0) && lightness <= 100)) {
+    if (
+        (hue || hue === 0) &&
+        hue <= 360 &&
+        (saturation || saturation === 0) &&
+        saturation <= 100 &&
+        (lightness || lightness === 0) &&
+        lightness <= 100
+    ) {
         var red = 0,
             green = 0,
             blue = 0,
@@ -370,7 +421,7 @@ function changeHslToRgb(hue, saturation, lightness) {
         result = [
             Math.round(red * 255).toString(16),
             Math.round(green * 255).toString(16),
-            Math.round(blue * 255).toString(16)
+            Math.round(blue * 255).toString(16),
         ];
     }
     return result;
@@ -380,18 +431,17 @@ function changeHslToRgb(hue, saturation, lightness) {
 // カラーコードのコピー実行
 //--------------------------------------------------
 function execCopy(string) {
-
     let tmp = document.createElement("div");
-    let pre = document.createElement('pre');
+    let pre = document.createElement("pre");
 
-    pre.style.webkitUserSelect = 'auto';
-    pre.style.userSelect = 'auto';
+    pre.style.webkitUserSelect = "auto";
+    pre.style.userSelect = "auto";
 
     tmp.appendChild(pre).textContent = string;
 
     let s = tmp.style;
-    s.position = 'fixed';
-    s.right = '200%';
+    s.position = "fixed";
+    s.right = "200%";
 
     document.body.appendChild(tmp);
     document.getSelection().selectAllChildren(tmp);

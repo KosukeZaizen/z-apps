@@ -1,15 +1,14 @@
-const receiveStoriesType = 'RECEIVE_STORIES';
+const receiveStoriesType = "RECEIVE_STORIES";
 const initialState = { allStories: [] };
 
 export const actionCreators = {
-    loadAllStories: () => async (dispatch) => {
+    loadAllStories: () => async dispatch => {
         try {
             const url = `api/Stories/GetAllStories?v=${new Date().getDate()}`;
             const response = await fetch(url);
             const allStories = await response.json();
 
             dispatch({ type: receiveStoriesType, allStories });
-
         } catch (e) {
             window.location.reload(true);
         }

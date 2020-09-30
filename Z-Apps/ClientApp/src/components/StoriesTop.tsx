@@ -1,17 +1,17 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button, Card, CardText, CardTitle } from 'reactstrap';
+import { bindActionCreators } from 'redux';
 import { TReducers } from '../store/configureStore';
 import { actionCreators } from '../store/StoriesTopStore';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
-import Head from './parts/Helmet';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { storyDesc } from '../types/stories';
+import * as consts from './common/consts';
 import FB from './parts/FaceBook';
 import GoogleAd from './parts/GoogleAd';
+import Head from './parts/Helmet';
 import PleaseScrollDown from './parts/PleaseScrollDown';
-import * as consts from './common/consts';
-import { storyDesc } from '../types/stories';
 
 class StoriesTop extends React.Component {
     ref: React.RefObject<HTMLDivElement>;
@@ -156,7 +156,7 @@ class StoriesTop extends React.Component {
                                                                 }
                                                                 <div className="center">
                                                                     <p style={{ margin: "20px" }}>
-                                                                        <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                                     </p>
                                                                 </div>
                                                             </td>
@@ -186,7 +186,7 @@ class StoriesTop extends React.Component {
                                                         }
                                                     </div>
                                                     <p>
-                                                        <Link to={`/folktales/${nameForUrl}`}>Read {nameToShow} >></Link>
+                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
                                                     </p>
                                                 </div>
                                         }

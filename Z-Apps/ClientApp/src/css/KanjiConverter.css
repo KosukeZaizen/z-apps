@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
@@ -56,11 +58,11 @@
 
 .kanji-converter th {
     padding: 5px 5px 7px;
-    color: #FFF;
-    border: 1px solid #729CC6;
-    background: linear-gradient(#3377BB,#255788);
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
-    text-shadow: -1px -1px 2px rgba(0,0,0,0.7);
+    color: #fff;
+    border: 1px solid #729cc6;
+    background: linear-gradient(#3377bb, #255788);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+    text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.7);
     text-align: center;
 }
 
@@ -109,7 +111,6 @@
     line-height: 10px;
 }
 
-
 .kanji-converter #inputKanji {
     max-width: 400px;
 }
@@ -129,6 +130,6 @@
     border: solid 1px #b3b3b3;
     border-top: solid 1px #717171;
     border-bottom: solid 1px #e0e0e0;
-    box-shadow: 0 1px 2px rgba(100, 100, 100, 0.3)inset;
+    box-shadow: 0 1px 2px rgba(100, 100, 100, 0.3) inset;
     max-width: 450px;
 }

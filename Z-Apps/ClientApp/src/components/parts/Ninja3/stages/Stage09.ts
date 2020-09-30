@@ -1,34 +1,65 @@
-//ステージの部品作成用関数群の読み込み
-import * as StageParts from './StagePartsGenerator';
 //各オブジェクト用画像の読み込み
-import Imgs from '../ImportImgs';
+import Imgs from "../ImportImgs";
 //タッチ関数の読み込み
-import * as OnTouch from '../OnTouch';
+import * as OnTouch from "../OnTouch";
+//ステージの部品作成用関数群の読み込み
+import * as StageParts from "./StagePartsGenerator";
 //背景画像
-const bgImg = require('../img/background/snow5.jpg');
+const bgImg = require("../img/background/snow5.jpg");
 
 const Stage: any = {};
 
 //仙人の家（外）
-Stage.getObjs = (ninja) => {
-
+Stage.getObjs = ninja => {
     Stage.bgImg = bgImg;
-    Stage.windSpeed = (ninja.snow) ? 0 : 0;//風速
+    Stage.windSpeed = ninja.snow ? 0 : 0; //風速
 
     let returnObjs: any = {
         ...StageParts.getObjOutOfScreen(),
         ...StageParts.getObjWalls(),
         ...StageParts.getObjFloor(),
 
-        ice: StageParts.getOnePic(16, 71, 12, Imgs.IceStone, 15, OnTouch.toNothing),
+        ice: StageParts.getOnePic(
+            16,
+            71,
+            12,
+            Imgs.IceStone,
+            15,
+            OnTouch.toNothing
+        ),
 
-        toriiFramePic: StageParts.getOnePic(15, 72, 45, Imgs.Frame, 20, OnTouch.toNothing),
-        toriiMessage1: StageParts.getMessage(20, 77, 46, "仙", 5, 22, OnTouch.toNothing),
+        toriiFramePic: StageParts.getOnePic(
+            15,
+            72,
+            45,
+            Imgs.Frame,
+            20,
+            OnTouch.toNothing
+        ),
+        toriiMessage1: StageParts.getMessage(
+            20,
+            77,
+            46,
+            "仙",
+            5,
+            22,
+            OnTouch.toNothing
+        ),
 
         jizo1: StageParts.getOnePic(12, 50, 64, Imgs.Jizo, 20, OnTouch.toBlock),
         jizo2: StageParts.getOnePic(12, 96, 64, Imgs.Jizo, 20, OnTouch.toBlock),
-        
-        door: StageParts.getDoor(15, 72, 60, Imgs.DarkDoor, 10, 16, 135, 63, true),
+
+        door: StageParts.getDoor(
+            15,
+            72,
+            60,
+            Imgs.DarkDoor,
+            10,
+            16,
+            135,
+            63,
+            true
+        ),
 
         rightGate: StageParts.getRightGate(10),
         leftGate: StageParts.getLeftGate(8, null, null, -9),
@@ -59,5 +90,5 @@ Stage.getObjs = (ninja) => {
         };
     }
     return returnObjs;
-}
+};
 export default Stage;

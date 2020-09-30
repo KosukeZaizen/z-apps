@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Page1 } from './parts/Ninja3/Page1';
-import { Page2 } from './parts/Ninja3/Page2';
-import * as Consts from './parts/Ninja3/Consts'
-import { getParams } from './common/functions';
-import '../css/NinjaGame2.css';//CSSは2のもの
-import Head from './parts/Helmet';
+import * as React from "react";
+import "../css/NinjaGame2.css"; //CSSは2のもの
+import { getParams } from "./common/functions";
+import Head from "./parts/Helmet";
+import * as Consts from "./parts/Ninja3/Consts";
+import { Page1 } from "./parts/Ninja3/Page1";
+import { Page2 } from "./parts/Ninja3/Page2";
 
 class NinjaGame extends React.Component {
     readElementScroll: any[];
@@ -47,7 +47,7 @@ class NinjaGame extends React.Component {
         } else {
             //urlパラメータ取得
             const params = getParams();
-            lang = (params) ? params["l"] : "";
+            lang = params ? params["l"] : "";
         }
 
         //デバッグ用★
@@ -105,20 +105,26 @@ class NinjaGame extends React.Component {
                 />
                 <Pages
                     state={this.state}
-                    changePage={(i, lang) => { this.changePage(i, lang) }}
-                    changeStage={(i, j) => { this.changeStage(i, j) }}
+                    changePage={(i, lang) => {
+                        this.changePage(i, lang);
+                    }}
+                    changeStage={(i, j) => {
+                        this.changeStage(i, j);
+                    }}
                     readElementScroll={this.readElementScroll}
                 />
             </div>
-        )
+        );
     }
-};
+}
 
 function Pages(props) {
     if (props.state.curPage === 2 || props.state.language) {
         return (
             <Page2
-                changeStage={(i, j) => { props.changeStage(i, j) }}
+                changeStage={(i, j) => {
+                    props.changeStage(i, j);
+                }}
                 ninja={props.state.ninja}
                 stage={props.state.stage}
                 readElementScroll={props.readElementScroll}
@@ -128,7 +134,9 @@ function Pages(props) {
     } else if (props.state.curPage === 1) {
         return (
             <Page1
-                changePage={(i, lang) => { props.changePage(i, lang) }}
+                changePage={(i, lang) => {
+                    props.changePage(i, lang);
+                }}
             />
         );
     }

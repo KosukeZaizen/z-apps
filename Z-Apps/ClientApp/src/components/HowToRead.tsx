@@ -1,19 +1,17 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Head from './parts/Helmet';
-import FB from './parts/FaceBook';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import CharacterComment from './parts/VocabQuiz/CharacterComment';
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { Button, Card, CardText, CardTitle } from "reactstrap";
+import FB from "./parts/FaceBook";
+import Head from "./parts/Helmet";
+import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type Props = {
     location: { pathname: string };
@@ -46,10 +44,16 @@ class HowToRead extends React.Component<Props, State> {
         if (window.location.pathname.split("#")[0].includes("%27")) {
             //基本的にはエンコードされたURLを正とするが、react-routerの仕様上、
             //「%27」のみは「'」を正とする。
-            window.location.href = window.location.pathname.split("%27").join("'");
+            window.location.href = window.location.pathname
+                .split("%27")
+                .join("'");
         }
 
-        const word = decodeURIComponent(originalWord)?.split("?")?.join("")?.split("&")?.join("");
+        const word = decodeURIComponent(originalWord)
+            ?.split("?")
+            ?.join("")
+            ?.split("&")
+            ?.join("");
 
         this.state = {
             word,
@@ -81,7 +85,6 @@ class HowToRead extends React.Component<Props, State> {
                 console.log("response", response);
                 const { xml, wordId } = await response.json();
 
-
                 if (!xml) {
                     window.location.href = `/not-found?p=${window.location.pathname}`;
                     return;
@@ -91,24 +94,31 @@ class HowToRead extends React.Component<Props, State> {
                 const word = parser.parseFromString(xml, "text/xml");
 
                 const getInnerHTML = (type: string) =>
-                    Array.prototype.map.call(word?.getElementsByTagName("Word"), (w: HTMLElement) => {
-                        const forType = w?.getElementsByTagName(type);
-                        if (forType?.length <= 0) {
-                            return w?.getElementsByTagName("Surface")[0]?.innerHTML;
-                        } else {
-                            return forType[0]?.innerHTML;
-                        }
-                    })?.join(" ").split("<![CDATA[ ]]>").join(" ");
+                    Array.prototype.map
+                        .call(
+                            word?.getElementsByTagName("Word"),
+                            (w: HTMLElement) => {
+                                const forType = w?.getElementsByTagName(type);
+                                if (forType?.length <= 0) {
+                                    return w?.getElementsByTagName("Surface")[0]
+                                        ?.innerHTML;
+                                } else {
+                                    return forType[0]?.innerHTML;
+                                }
+                            }
+                        )
+                        ?.join(" ")
+                        .split("<![CDATA[ ]]>")
+                        .join(" ");
 
                 const furigana = getInnerHTML("Furigana");
                 const romaji = getInnerHTML("Roman");
 
                 this.setState({ furigana, romaji, wordId });
-
             } catch (ex) {
                 window.location.href = `/not-found?p=${window.location.pathname}`;
             }
-        }
+        };
         getData();
 
         for (let i = 0; i < 5; i++) {
@@ -120,7 +130,10 @@ class HowToRead extends React.Component<Props, State> {
 
     componentDidUpdate(preciousProps) {
         if (preciousProps.location !== this.props.location) {
-            const word = this.props.location.pathname.split("/").filter(a => a).pop();
+            const word = this.props.location.pathname
+                .split("/")
+                .filter(a => a)
+                .pop();
             this.setState({
                 word: decodeURIComponent(word),
             });
@@ -128,29 +141,41 @@ class HowToRead extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+        if (
+            this.state.screenWidth !== window.innerWidth ||
+            this.state.screenHeight !== window.innerHeight
+        ) {
             this.setState({
                 screenWidth: window.innerWidth,
                 screenHeight: window.innerHeight,
             });
         }
-    }
+    };
 
     getImgNumber = (num: number = 0) => {
         const today = new Date();
-        const todayNumber = (today.getMonth() + today.getDate() + num);
+        const todayNumber = today.getMonth() + today.getDate() + num;
         const mod = todayNumber % 27;
         if (mod > 13) return 1;
         if (mod > 5) return 2;
         return 3;
-    }
+    };
 
     render() {
-        const { screenWidth, furigana, romaji, word, wordId, imgNumber } = this.state;
+        const {
+            screenWidth,
+            furigana,
+            romaji,
+            word,
+            wordId,
+            imgNumber,
+        } = this.state;
 
         const title = `How to read ${word} in the alphabet and hiragana`;
 
-        const desc = word && `How to read the Japanese word, ${word}, in the alphabet(Romaji) and Hiragana!`;
+        const desc =
+            word &&
+            `How to read the Japanese word, ${word}, in the alphabet(Romaji) and Hiragana!`;
 
         const tableHeadStyle: React.CSSProperties = {
             fontSize: "medium",
@@ -162,23 +187,45 @@ class HowToRead extends React.Component<Props, State> {
 
         return (
             <div className="center">
-                <Head
-                    title={title}
-                    desc={desc}
-                />
+                <Head title={title} desc={desc} />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                <span itemProp="name">
-                                    {"Home"}
-                                </span>
+                    <div
+                        className="breadcrumbs"
+                        itemScope
+                        itemType="https://schema.org/BreadcrumbList"
+                        style={{ textAlign: "left" }}
+                    >
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
+                                <span itemProp="name">{"Home"}</span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/how-to-read-japanese" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/how-to-read-japanese"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 <span itemProp="name">
                                     {"How to read Japanese"}
                                 </span>
@@ -186,8 +233,18 @@ class HowToRead extends React.Component<Props, State> {
                             </Link>
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <span
+                                itemProp="name"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 {title}
                             </span>
                             <meta itemProp="position" content="3" />
@@ -195,13 +252,15 @@ class HowToRead extends React.Component<Props, State> {
                     </div>
                     <article
                         style={{
-                            borderBottom: "1px solid gainsboro"
+                            borderBottom: "1px solid gainsboro",
                         }}
                     >
-                        <h1 style={{
-                            margin: "25px",
-                            lineHeight: screenWidth > 500 ? "45px" : "35px",
-                        }}>
+                        <h1
+                            style={{
+                                margin: "25px",
+                                lineHeight: screenWidth > 500 ? "45px" : "35px",
+                            }}
+                        >
                             <b>{title}</b>
                         </h1>
                         <br />
@@ -209,83 +268,172 @@ class HowToRead extends React.Component<Props, State> {
                             screenWidth={screenWidth}
                             imgNumber={imgNumber}
                             comment={
-                                furigana &&
-                                    romaji ?
+                                furigana && romaji ? (
                                     <p>
-                                        How to read <span
+                                        How to read{" "}
+                                        <span
                                             style={{
                                                 fontWeight: "bold",
-                                                display: "inline-block"
+                                                display: "inline-block",
                                             }}
-                                        >{word}</span> is <span
+                                        >
+                                            {word}
+                                        </span>{" "}
+                                        is{" "}
+                                        <span
                                             style={{
                                                 fontWeight: "bold",
-                                                display: "inline-block"
+                                                display: "inline-block",
                                             }}
-                                        >"{furigana}"</span> in Hiragana, and <span
+                                        >
+                                            "{furigana}"
+                                        </span>{" "}
+                                        in Hiragana, and{" "}
+                                        <span
                                             style={{
                                                 fontWeight: "bold",
-                                                display: "inline-block"
+                                                display: "inline-block",
                                             }}
-                                        >"{romaji}"</span> in the alphabet(Romaji)!
-                                </p>
-                                    :
+                                        >
+                                            "{romaji}"
+                                        </span>{" "}
+                                        in the alphabet(Romaji)!
+                                    </p>
+                                ) : (
                                     <CircularProgress key="circle" size="20%" />
+                                )
                             }
                         />
                         <br />
                         <TableContainer component={Paper}>
                             <Table aria-label="simple table">
                                 <TableHead>
-                                    <TableRow style={{ backgroundColor: 'papayawhip' }}>
-                                        <TableCell style={tableHeadStyle} align="center">Kanji</TableCell>
-                                        <TableCell style={tableHeadStyle} align="center">Hiragana</TableCell>
-                                        <TableCell style={tableHeadStyle} align="center">Alphabet (Romaji)</TableCell>
+                                    <TableRow
+                                        style={{
+                                            backgroundColor: "papayawhip",
+                                        }}
+                                    >
+                                        <TableCell
+                                            style={tableHeadStyle}
+                                            align="center"
+                                        >
+                                            Kanji
+                                        </TableCell>
+                                        <TableCell
+                                            style={tableHeadStyle}
+                                            align="center"
+                                        >
+                                            Hiragana
+                                        </TableCell>
+                                        <TableCell
+                                            style={tableHeadStyle}
+                                            align="center"
+                                        >
+                                            Alphabet (Romaji)
+                                        </TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell style={tableElementStyle} align="center">{word}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{furigana || <CircularProgress key="circle" size="30px" />}</TableCell>
-                                        <TableCell style={tableElementStyle} align="center">{romaji || <CircularProgress key="circle" size="30px" />}</TableCell>
+                                        <TableCell
+                                            style={tableElementStyle}
+                                            align="center"
+                                        >
+                                            {word}
+                                        </TableCell>
+                                        <TableCell
+                                            style={tableElementStyle}
+                                            align="center"
+                                        >
+                                            {furigana || (
+                                                <CircularProgress
+                                                    key="circle"
+                                                    size="30px"
+                                                />
+                                            )}
+                                        </TableCell>
+                                        <TableCell
+                                            style={tableElementStyle}
+                                            align="center"
+                                        >
+                                            {romaji || (
+                                                <CircularProgress
+                                                    key="circle"
+                                                    size="30px"
+                                                />
+                                            )}
+                                        </TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        <div style={{
-                            fontSize: "x-large",
-                            margin: "20px 0",
-                            borderBottom: "1px solid gainsboro",
-                            paddingBottom: 20,
-                        }}>
-                            <Link to={"/dictionary/" + word}>Check the meaning of {word} >></Link>
+                        <div
+                            style={{
+                                fontSize: "x-large",
+                                margin: "20px 0",
+                                borderBottom: "1px solid gainsboro",
+                                paddingBottom: 20,
+                            }}
+                        >
+                            <Link to={"/dictionary/" + word}>
+                                {"Check the meaning of {word} >>"}
+                            </Link>
                         </div>
                         <a
-                            href={"https://wiki-jp.lingual-ninja.com/word/" + wordId}
+                            href={
+                                "https://wiki-jp.lingual-ninja.com/word/" +
+                                wordId
+                            }
                             style={{ padding: 32 }}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             <button
                                 className="btn btn-dark btn-lg btn-block"
-                                style={{ whiteSpace: "pre-wrap", }}
+                                style={{ whiteSpace: "pre-wrap" }}
                             >
-                                Click here to check Japanese website<br />to learn the meaning of {word.length > 6 ? <span><br />{word}</span> : word}
+                                Click here to check Japanese website
+                                <br />
+                                to learn the meaning of{" "}
+                                {word.length > 6 ? (
+                                    <span>
+                                        <br />
+                                        {word}
+                                    </span>
+                                ) : (
+                                    word
+                                )}
                             </button>
                         </a>
                     </article>
-                    <div style={{
-                        fontSize: "x-large",
-                        margin: "20px 0",
-                        borderBottom: "1px solid gainsboro",
-                        paddingBottom: 20,
-                    }}>
-                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                    <div
+                        style={{
+                            fontSize: "x-large",
+                            margin: "20px 0",
+                            borderBottom: "1px solid gainsboro",
+                            paddingBottom: 20,
+                        }}
+                    >
+                        <Link to="/folktales">
+                            {"Learn Japanese from Japanese folktales >>"}
+                        </Link>
                     </div>
                     <Link to="/vocabulary-list">
-                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                        <Card
+                            body
+                            style={{
+                                backgroundColor: "#333",
+                                borderColor: "#333",
+                                color: "white",
+                            }}
+                        >
                             <CardTitle>Japanese Vocabulary List</CardTitle>
-                            <CardText>Basic Japanese Vocabulary List!<br />Try to memorize all the vocabulary by using the quizzes!</CardText>
+                            <CardText>
+                                Basic Japanese Vocabulary List!
+                                <br />
+                                Try to memorize all the vocabulary by using the
+                                quizzes!
+                            </CardText>
                             <Button color="secondary">Try!</Button>
                         </Card>
                     </Link>
@@ -295,6 +443,6 @@ class HowToRead extends React.Component<Props, State> {
             </div>
         );
     }
-};
+}
 
 export default HowToRead;

@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import PleaseScrollDown from '../PleaseScrollDown';
+import * as React from "react";
+import { Link } from "react-router-dom";
+import PleaseScrollDown from "../PleaseScrollDown";
 
 export default class Quiz1 extends React.Component<{
-    consts: { 
+    consts: {
         KANA_TYPE: string;
         OTHER_KANA_TYPE: string;
     };
-     changePage: (i: any) => void; 
-     setMaxChar: (i: any) => void;
+    changePage: (i: any) => void;
+    setMaxChar: (i: any) => void;
 }> {
     consts: {
         START_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block";
         START_BUTTON_SUCCESS: "btn btn-success btn-lg btn-block";
         START_BUTTON_DANGER: "btn btn-danger btn-lg btn-block";
         START_BUTTON_DARK: "btn btn-dark btn-lg btn-block";
-    }
+    };
     ref: React.RefObject<HTMLButtonElement>;
 
     constructor(props) {
@@ -43,7 +43,8 @@ export default class Quiz1 extends React.Component<{
             <div id="disp1">
                 <h1>{this.props.consts.KANA_TYPE} Quiz!</h1>
                 <p>
-                    Please bookmark this page to remember all {this.props.consts.KANA_TYPE} characters!
+                    Please bookmark this page to remember all{" "}
+                    {this.props.consts.KANA_TYPE} characters!
                 </p>
                 <br />
                 <button
@@ -75,7 +76,13 @@ export default class Quiz1 extends React.Component<{
                 <br />
                 <hr />
                 <br />
-                <Link to={"/" + this.props.consts.OTHER_KANA_TYPE.toLowerCase() + "-quiz"}>
+                <Link
+                    to={
+                        "/" +
+                        this.props.consts.OTHER_KANA_TYPE.toLowerCase() +
+                        "-quiz"
+                    }
+                >
                     <button
                         id="btnOther"
                         onClick={() => "start(102)"}
@@ -85,10 +92,7 @@ export default class Quiz1 extends React.Component<{
                     </button>
                 </Link>
                 <br />
-                <PleaseScrollDown
-                    criteriaRef={this.ref}
-                    targetId="disp1"
-                />
+                <PleaseScrollDown criteriaRef={this.ref} targetId="disp1" />
             </div>
         );
     }

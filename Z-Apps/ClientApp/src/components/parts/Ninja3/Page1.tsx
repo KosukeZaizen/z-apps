@@ -1,6 +1,5 @@
-import * as React from 'react';
-const logo = require('./img/logo.png');
-
+import * as React from "react";
+const logo = require("./img/logo.png");
 
 export default class Page1 extends React.Component {
     props: any;
@@ -18,7 +17,7 @@ export default class Page1 extends React.Component {
     }
 
     hideTopImage() {
-        this.setState({ topImage: false, });
+        this.setState({ topImage: false });
     }
 
     render() {
@@ -28,69 +27,105 @@ export default class Page1 extends React.Component {
         const screenHeight = window.innerHeight;
         return (
             <div id="page1">
-                <span onClick={() => { this.hideTopImage() }}>
+                <span
+                    onClick={() => {
+                        this.hideTopImage();
+                    }}
+                >
                     <TopImage topImage={this.state.topImage} />
                 </span>
-                <h2 style={{ color: "black", marginBottom: 10, }} >Which language do you prefer?</h2>
-                {
-                    screenHeight > 360 ?
-                        <span>
-                            <span onClick={() => { this.props.changePage(2, "English") }}>
-                                <button
-                                    style={bottomMargin}
-                                    className={this.consts.BTN_START_CLASS}
-                                >
-                                    {"English"}
-                                </button>
-                            </span>
-                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
-                                <button
-                                    className={this.consts.BTN_START_CLASS}
-                                >
-                                    {"日本語"}
-                                </button>
-                            </span>
+                <h2 style={{ color: "black", marginBottom: 10 }}>
+                    Which language do you prefer?
+                </h2>
+                {screenHeight > 360 ? (
+                    <span>
+                        <span
+                            onClick={() => {
+                                this.props.changePage(2, "English");
+                            }}
+                        >
+                            <button
+                                style={bottomMargin}
+                                className={this.consts.BTN_START_CLASS}
+                            >
+                                {"English"}
+                            </button>
                         </span>
-                        :
-                        <span>
-                            <table style={{ width: "100%" }}>
-                                <tbody>
-                                    <tr>
-                                        <td align="center">
-                                            <span onClick={() => { this.props.changePage(2, "English") }}>
-                                                <button
-                                                    style={{ ...bottomMargin, width: "80%" }}
-                                                    className={this.consts.BTN_START_CLASS}
-                                                >
-                                                    {"English"}
-                                                </button>
-                                            </span>
-                                        </td>
-                                        <td align="center">
-                                            <span onClick={() => { this.props.changePage(2, "Japanese") }}>
-                                                <button
-                                                    style={{ ...bottomMargin, width: "80%" }}
-                                                    className={this.consts.BTN_START_CLASS}
-                                                >
-                                                    {"日本語"}
-                                                </button>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <span
+                            onClick={() => {
+                                this.props.changePage(2, "Japanese");
+                            }}
+                        >
+                            <button className={this.consts.BTN_START_CLASS}>
+                                {"日本語"}
+                            </button>
                         </span>
-                }
+                    </span>
+                ) : (
+                    <span>
+                        <table style={{ width: "100%" }}>
+                            <tbody>
+                                <tr>
+                                    <td align="center">
+                                        <span
+                                            onClick={() => {
+                                                this.props.changePage(
+                                                    2,
+                                                    "English"
+                                                );
+                                            }}
+                                        >
+                                            <button
+                                                style={{
+                                                    ...bottomMargin,
+                                                    width: "80%",
+                                                }}
+                                                className={
+                                                    this.consts.BTN_START_CLASS
+                                                }
+                                            >
+                                                {"English"}
+                                            </button>
+                                        </span>
+                                    </td>
+                                    <td align="center">
+                                        <span
+                                            onClick={() => {
+                                                this.props.changePage(
+                                                    2,
+                                                    "Japanese"
+                                                );
+                                            }}
+                                        >
+                                            <button
+                                                style={{
+                                                    ...bottomMargin,
+                                                    width: "80%",
+                                                }}
+                                                className={
+                                                    this.consts.BTN_START_CLASS
+                                                }
+                                            >
+                                                {"日本語"}
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </span>
+                )}
                 <br />
                 <div className="center" style={{ color: "black" }}>
-                    If you want to be a real Ninja, please check this:<br />
+                    If you want to be a real Ninja, please check this:
+                    <br />
                     <a
                         href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        How to be a Ninja >>
-                        </a>
+                        {"How to be a Ninja >>"}
+                    </a>
                 </div>
                 <br />
                 <br />
@@ -101,7 +136,15 @@ export default class Page1 extends React.Component {
 
 function TopImage(props) {
     if (props.topImage) {
-        return <h1><img width="100%" src={logo} alt="Lingual Ninja Games - Frozen Nightmare" /></h1>;
+        return (
+            <h1>
+                <img
+                    width="100%"
+                    src={logo}
+                    alt="Lingual Ninja Games - Frozen Nightmare"
+                />
+            </h1>
+        );
     } else {
         return <span></span>;
     }

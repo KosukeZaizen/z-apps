@@ -4,7 +4,6 @@
 //
 //------------------------------------------------------------
 
-
 export const getWindowSize = function () {
     let pageWidth, pageHeight;
     let screenWidth = window.innerWidth;
@@ -13,12 +12,12 @@ export const getWindowSize = function () {
     if (screenWidth > screenHeight) {
         //横長
         pageHeight = screenHeight;
-        pageWidth = pageHeight * 16 / 9;
+        pageWidth = (pageHeight * 16) / 9;
 
         if (pageWidth > screenWidth) {
             //横がはみ出たら(正方形に近い画面)
             pageWidth = screenWidth;
-            pageHeight = pageWidth * 9 / 16;
+            pageHeight = (pageWidth * 9) / 16;
 
             this.pageStyle = {
                 //ページの余白設定
@@ -29,18 +28,18 @@ export const getWindowSize = function () {
             this.pageStyle = {
                 //ページの余白設定
                 position: "absolute",
-                left: (screenWidth - pageWidth) / 2
+                left: (screenWidth - pageWidth) / 2,
             };
         }
     } else {
         //縦長
-        pageHeight = screenWidth * 9 / 10;
-        pageWidth = pageHeight * 16 / 9;
+        pageHeight = (screenWidth * 9) / 10;
+        pageWidth = (pageHeight * 16) / 9;
 
-        if (pageWidth > screenHeight * 9 / 10) {
+        if (pageWidth > (screenHeight * 9) / 10) {
             //横がはみ出そうだったら(正方形に近い画面)
-            pageWidth = screenHeight * 9 / 10;
-            pageHeight = pageWidth * 9 / 16;
+            pageWidth = (screenHeight * 9) / 10;
+            pageHeight = (pageWidth * 9) / 16;
 
             this.pageStyle = {
                 //ページの余白設定
@@ -52,15 +51,14 @@ export const getWindowSize = function () {
             this.pageStyle = {
                 //ページの余白設定
                 position: "absolute",
-                left: screenWidth * 95 / 100,
+                left: (screenWidth * 95) / 100,
                 top: (screenHeight - pageWidth) / 2,
             };
         }
     }
 
     return { pageWidth: pageWidth, pageHeight: pageHeight };
-}
-
+};
 
 export const checkTerminalPC = function () {
     // ------------------------------------------------------------
@@ -73,8 +71,7 @@ export const checkTerminalPC = function () {
         // PCの場合
         return true;
     }
-}
-
+};
 
 export const setKeyboardEvent = function (objGame) {
     // ------------------------------------------------------------
@@ -97,7 +94,12 @@ export const setKeyboardEvent = function (objGame) {
             keyType = "jump";
         } else if (keyCode === 32) {
             keyType = "jump";
-        } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+        } else if (
+            keyCode === 13 ||
+            keyCode === 8 ||
+            keyCode === 46 ||
+            keyCode === 27
+        ) {
             keyType = "close";
         }
         objGame.onClickButton(keyType);
@@ -120,13 +122,17 @@ export const setKeyboardEvent = function (objGame) {
             keyType = "jump";
         } else if (keyCode === 32) {
             keyType = "jump";
-        } else if (keyCode === 13 || keyCode === 8 || keyCode === 46 || keyCode === 27) {
+        } else if (
+            keyCode === 13 ||
+            keyCode === 8 ||
+            keyCode === 46 ||
+            keyCode === 27
+        ) {
             keyType = "close";
         }
         objGame.onMouseUp(keyType);
     };
-}
-
+};
 
 //ボタン押下時処理
 export const onClickButton = function (btnType) {
@@ -143,7 +149,7 @@ export const onClickButton = function (btnType) {
         //closeキー押下判定（Enter、Delete等）
         this.closeButton = true;
     }
-}
+};
 //ボタン押下終了時処理
 export const onMouseUp = function (btnType) {
     if (btnType === "left") {
@@ -156,11 +162,10 @@ export const onMouseUp = function (btnType) {
         //closeキー押下判定（Enter、Delete等）
         this.closeButton = false;
     }
-}
+};
 
 //背景の設定
 export function getBgImg(bgImg) {
-
     return {
         /* 背景画像 */
         backgroundImage: `url(${bgImg})`,

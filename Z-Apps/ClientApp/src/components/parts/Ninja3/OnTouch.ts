@@ -1,6 +1,6 @@
-import { changeStage } from './CommonFnc'
-import * as consts from './Consts'//定数
-import { messages } from './Messages';//メッセージモジュール
+import { changeStage } from "./CommonFnc";
+import * as consts from "./Consts"; //定数
+import { messages } from "./Messages"; //メッセージモジュール
 
 //------------------------------------------------------------
 //
@@ -11,7 +11,7 @@ import { messages } from './Messages';//メッセージモジュール
 //=======================================
 // 何も起こらないタッチ関数
 //=======================================
-export function toNothing() { }
+export function toNothing() {}
 
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
@@ -138,7 +138,11 @@ export function toFlyingRock(ninja, from) {
                     //右向き
                     this.isFlying = true;
                     ninja.game.objs[this.fireName].isFlying = true;
-                    if (Math.abs((this.posX+this.size) - (ninja.posX+ninja.size)) < 3) {
+                    if (
+                        Math.abs(
+                            this.posX + this.size - (ninja.posX + ninja.size)
+                        ) < 3
+                    ) {
                         ninja.boolLeft = true;
                         ninja.posX -= 3 * consts.TIME_STEP;
                     }
@@ -164,7 +168,6 @@ export function toFlyingRock(ninja, from) {
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
 export function toStageChangeCommon(ninja, from) {
-
     // X
     if (this.nextX != null) {
         ninja.posX = this.nextX;
@@ -207,7 +210,8 @@ export function toEnemy(ninja) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト
-        window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
+        window.location.href =
+            "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
     }
 }
 
@@ -215,7 +219,6 @@ export function toEnemy(ninja) {
 // 倒せる敵に触ってゲームオーバー
 //=======================================
 export function toMortalEnemy(ninja, from) {
-
     if (ninja.readScroll.indexOf(messages.HUMITSUKE_SCROLL_TITLE) >= 0) {
         //踏みつけの書を読んでいる
         if (from === "upper") {
@@ -230,7 +233,8 @@ export function toMortalEnemy(ninja, from) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト
-        window.location.href = "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
+        window.location.href =
+            "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
     }
 }
 

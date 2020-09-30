@@ -1,12 +1,12 @@
-import * as commonFnc from '../components/common/functions';
-import { storyDesc, sentence, word } from '../types/stories';
+import * as commonFnc from "../components/common/functions";
+import { sentence, storyDesc, word } from "../types/stories";
 
-const receiveStoryType = 'RECEIVE_STORY';
-const receiveSentencesType = 'RECEIVE_SENTENCES';
-const receiveWordsType = 'RECEIVE_WORDS';
-const changeTokenType = 'CHANGTE_TOKEN';
-const beginTranslationType = 'BEGIN_TRANSLATION';
-const finishTranslationType = 'FINISH_TRANSLATION';
+const receiveStoryType = "RECEIVE_STORY";
+const receiveSentencesType = "RECEIVE_SENTENCES";
+const receiveWordsType = "RECEIVE_WORDS";
+const changeTokenType = "CHANGTE_TOKEN";
+const beginTranslationType = "BEGIN_TRANSLATION";
+const finishTranslationType = "FINISH_TRANSLATION";
 
 export interface StoriesEditState {
     storyDesc: storyDesc;
@@ -16,7 +16,13 @@ export interface StoriesEditState {
     isTranslating: boolean;
 }
 
-const initialState = { storyDesc: {}, sentences: [], words: [], isTranslating: false, token: "", };
+const initialState = {
+    storyDesc: {},
+    sentences: [],
+    words: [],
+    isTranslating: false,
+    token: "",
+};
 
 export interface IActionCreators {
     loadStory: (storyName: string) => void;
@@ -43,90 +49,92 @@ export interface IActionCreators {
 }
 
 export const actionCreators = {
-    loadStory: (storyName) => async (dispatch, getState) => {
+    loadStory: storyName => async (dispatch, getState) => {
         try {
             const url = `api/StoriesEdit/GetPageData/${storyName}`;
             const response = await fetch(url);
             const storyDesc = await response.json();
 
-            const unescapeHTML = (html) => {
+            const unescapeHTML = html => {
                 const escapeEl = document.createElement("textarea");
                 escapeEl.innerHTML = html;
                 return escapeEl.textContent;
-            }
+            };
 
-            storyDesc.description = unescapeHTML(storyDesc.description.split("\\n").join("&#13;&#10;"));
+            storyDesc.description = unescapeHTML(
+                storyDesc.description.split("\\n").join("&#13;&#10;")
+            );
             dispatch({ type: receiveStoryType, storyDesc });
-
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
 
-    loadSentences: (storyId) => async (dispatch, getState) => {
+    loadSentences: storyId => async (dispatch, getState) => {
         try {
             const url = `api/StoriesEdit/GetSentences/${storyId}`;
             const response = await fetch(url);
             let sentences = await response.json();
 
             if (!sentences || sentences.length <= 0) {
-                sentences = [{
-                    storyId,
-                    lineNumber: 1,
-                    kanji: "",
-                    hiragana: "",
-                    romaji: "",
-                    english: "",
-                }];
+                sentences = [
+                    {
+                        storyId,
+                        lineNumber: 1,
+                        kanji: "",
+                        hiragana: "",
+                        romaji: "",
+                        english: "",
+                    },
+                ];
             }
 
             dispatch({ type: receiveSentencesType, sentences });
-
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
 
-    loadWords: (storyId) => async (dispatch, getState) => {
+    loadWords: storyId => async (dispatch, getState) => {
         try {
             const url = `api/StoriesEdit/GetWords/${storyId}`;
             const response = await fetch(url);
             let words = await response.json();
 
             if (!words || words.length <= 0) {
-                words = [{
-                    storyId,
-                    lineNumber: 1,
-                    wordNumber: 1,
-                    kanji: "",
-                    hiragana: "",
-                    english: "",
-                }];
+                words = [
+                    {
+                        storyId,
+                        lineNumber: 1,
+                        wordNumber: 1,
+                        kanji: "",
+                        hiragana: "",
+                        english: "",
+                    },
+                ];
             }
 
             dispatch({ type: receiveWordsType, words });
-
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
         }
     },
 
-    handleChangeDesc: (event) => (dispatch, getState) => {
+    handleChangeDesc: event => (dispatch, getState) => {
         const sd = Object.assign({}, getState().storiesEdit.storyDesc);
         sd.description = event.target.value;
         dispatch({ type: receiveStoryType, storyDesc: sd });
     },
 
-    handleChangeToken: (event) => (dispatch, getState) => {
+    handleChangeToken: event => (dispatch, getState) => {
         const token = event.target.value;
         dispatch({ type: changeTokenType, token });
     },
 
     setInitialToken: () => (dispatch, getState) => {
-
         //セーブデータがあればそれを設定
         const saveData = localStorage.getItem("folktales-register-token");
         const objSaveData = JSON.parse(saveData);
@@ -140,15 +148,17 @@ export const actionCreators = {
         dispatch({ type: changeTokenType, token });
     },
 
-    translate: (sentence) => async (dispatch, getState) => {
+    translate: sentence => async (dispatch, getState) => {
         try {
             if (!sentence.kanji || sentence.kanji.length <= 0) return;
 
             dispatch({ type: beginTranslationType });
 
             const state = getState().storiesEdit;
-            const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
-
+            const result = await commonFnc.sendPost(
+                sentence,
+                "api/StoriesEdit/Translate"
+            );
 
             const s = state.sentences.concat();
             for (let key in s) {
@@ -158,14 +168,16 @@ export const actionCreators = {
             }
             dispatch({ type: receiveSentencesType, sentences: s });
 
-
             const w = state.words.concat();
-            const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
-            result && result.words && result.words.forEach(resultWord => {
-                trimmedW.push(resultWord);
-            })
+            const trimmedW = w.filter(
+                a => a.lineNumber !== sentence.lineNumber
+            );
+            result &&
+                result.words &&
+                result.words.forEach(resultWord => {
+                    trimmedW.push(resultWord);
+                });
             dispatch({ type: receiveWordsType, words: trimmedW });
-
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             console.log("error at translate", e);
@@ -174,7 +186,10 @@ export const actionCreators = {
         dispatch({ type: finishTranslationType });
     },
 
-    translateAllSentences: (saveWidhoutConfirmation) => async (dispatch, getState) => {
+    translateAllSentences: saveWidhoutConfirmation => async (
+        dispatch,
+        getState
+    ) => {
         console.log("start import");
         dispatch({ type: beginTranslationType });
 
@@ -193,8 +208,10 @@ export const actionCreators = {
                 dispatch({ type: beginTranslationType });
 
                 const state = getState().storiesEdit;
-                const result = await commonFnc.sendPost(sentence, "api/StoriesEdit/Translate");
-
+                const result = await commonFnc.sendPost(
+                    sentence,
+                    "api/StoriesEdit/Translate"
+                );
 
                 const s = state.sentences.concat();
                 for (let key in s) {
@@ -204,14 +221,16 @@ export const actionCreators = {
                 }
                 dispatch({ type: receiveSentencesType, sentences: s });
 
-
                 const w = state.words.concat();
-                const trimmedW = w.filter(a => a.lineNumber !== sentence.lineNumber);
-                result && result.words && result.words.forEach(resultWord => {
-                    trimmedW.push(resultWord);
-                })
+                const trimmedW = w.filter(
+                    a => a.lineNumber !== sentence.lineNumber
+                );
+                result &&
+                    result.words &&
+                    result.words.forEach(resultWord => {
+                        trimmedW.push(resultWord);
+                    });
                 dispatch({ type: receiveWordsType, words: trimmedW });
-
             } catch (e) {
                 //window.location.href = `/not-found?p=${window.location.pathname}`;
                 console.log("error at translate", e);
@@ -224,18 +243,26 @@ export const actionCreators = {
         saveWidhoutConfirmation();
     },
 
-    translateWord: (pWord) => async (dispatch, getState) => {
+    translateWord: pWord => async (dispatch, getState) => {
         try {
             if (!pWord.kanji || pWord.kanji.length <= 0) return;
 
             const state = getState().storiesEdit;
-            const result = await commonFnc.sendPost(pWord, "api/StoriesEdit/TranslateWord");
+            const result = await commonFnc.sendPost(
+                pWord,
+                "api/StoriesEdit/TranslateWord"
+            );
 
             const w = state.words.concat();
-            const trimmedW = w.filter(a => !(a.lineNumber === pWord.lineNumber && a.wordNumber === pWord.wordNumber));
+            const trimmedW = w.filter(
+                a =>
+                    !(
+                        a.lineNumber === pWord.lineNumber &&
+                        a.wordNumber === pWord.wordNumber
+                    )
+            );
             trimmedW.push(result);
             dispatch({ type: receiveWordsType, words: trimmedW });
-
         } catch (e) {
             //window.location.href = `/not-found?p=${window.location.pathname}`;
             return;
@@ -249,12 +276,18 @@ export const actionCreators = {
         dispatch({ type: receiveSentencesType, sentences: s });
     },
 
-    handleChangeWord: (event, lineNumber, wordNumber, lang) => (dispatch, getState) => {
+    handleChangeWord: (event, lineNumber, wordNumber, lang) => (
+        dispatch,
+        getState
+    ) => {
         const state = getState().storiesEdit;
         const w = state.words.concat();
 
         for (let key in w) {
-            if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
+            if (
+                w[key].lineNumber === lineNumber &&
+                w[key].wordNumber === wordNumber
+            ) {
                 w[key][lang] = event.target.value;
             }
         }
@@ -277,7 +310,7 @@ export const actionCreators = {
             hiragana: "",
             romaji: "",
             english: "",
-        }
+        };
         s.splice(previousLineNumber, 0, sToAdd);
         dispatch({ type: receiveSentencesType, sentences: s });
 
@@ -294,7 +327,7 @@ export const actionCreators = {
             kanji: "",
             hiragana: "",
             english: "",
-        }
+        };
         w.splice(previousLineNumber, 0, wToAdd);
         dispatch({ type: receiveWordsType, words: w });
     },
@@ -304,7 +337,10 @@ export const actionCreators = {
         const w = state.words.concat();
 
         for (let key in w) {
-            if (w[key].lineNumber === lineNumber && w[key].wordNumber > wordNumber) {
+            if (
+                w[key].lineNumber === lineNumber &&
+                w[key].wordNumber > wordNumber
+            ) {
                 w[key].wordNumber++;
             }
         }
@@ -315,17 +351,17 @@ export const actionCreators = {
             kanji: "",
             hiragana: "",
             english: "",
-        }
+        };
         w.push(wToAdd);
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    removeLine: (lineNumber) => (dispatch, getState) => {
-        if (window.confirm('Are you sure that you want to remove this line?')) {
-
+    removeLine: lineNumber => (dispatch, getState) => {
+        if (window.confirm("Are you sure that you want to remove this line?")) {
             const state = getState().storiesEdit;
 
-            const s = state.sentences.concat()
+            const s = state.sentences
+                .concat()
                 .filter(sentence => !(sentence.lineNumber === lineNumber))
                 .map(sentence => {
                     if (sentence.lineNumber > lineNumber) {
@@ -335,8 +371,8 @@ export const actionCreators = {
                 });
             dispatch({ type: receiveSentencesType, sentences: s });
 
-
-            const w = state.words.concat()
+            const w = state.words
+                .concat()
                 .filter(word => word.lineNumber !== lineNumber)
                 .map(word => {
                     if (word.lineNumber > lineNumber) {
@@ -349,29 +385,36 @@ export const actionCreators = {
     },
 
     removeBlankLine: () => (dispatch, getState) => {
-
         //sentences
         const state = getState().storiesEdit;
 
-        const s = state.sentences.concat()
-            .filter(sentence => sentence.kanji);
+        const s = state.sentences.concat().filter(sentence => sentence.kanji);
 
         dispatch({ type: receiveSentencesType, sentences: s });
 
         //words
-        const w = state.words.concat()
-            .filter(word => word.kanji);
+        const w = state.words.concat().filter(word => word.kanji);
 
         dispatch({ type: receiveWordsType, words: w });
     },
 
     removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
-        if (window.confirm('Are you sure that you want to remove this word?')) {
+        if (window.confirm("Are you sure that you want to remove this word?")) {
             const state = getState().storiesEdit;
-            const w = state.words.concat()
-                .filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber))
+            const w = state.words
+                .concat()
+                .filter(
+                    word =>
+                        !(
+                            word.lineNumber === lineNumber &&
+                            word.wordNumber === wordNumber
+                        )
+                )
                 .map(word => {
-                    if (word.lineNumber === lineNumber && word.wordNumber > wordNumber) {
+                    if (
+                        word.lineNumber === lineNumber &&
+                        word.wordNumber > wordNumber
+                    ) {
                         word.wordNumber--;
                     }
                     return word;
@@ -381,7 +424,7 @@ export const actionCreators = {
     },
 
     mergeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
-        if (window.confirm('Do you really want to marge the words?')) {
+        if (window.confirm("Do you really want to marge the words?")) {
             const state = getState().storiesEdit;
             let w = state.words.concat().sort((a, b) => {
                 if (a.lineNumber < b.lineNumber) return -1;
@@ -392,7 +435,10 @@ export const actionCreators = {
             });
 
             for (let key in w) {
-                if (w[key].lineNumber === lineNumber && w[key].wordNumber === wordNumber) {
+                if (
+                    w[key].lineNumber === lineNumber &&
+                    w[key].wordNumber === wordNumber
+                ) {
                     if (w[key].lineNumber === w[Number(key) + 1].lineNumber) {
                         w[key].kanji += w[Number(key) + 1].kanji;
                     } else {
@@ -401,9 +447,19 @@ export const actionCreators = {
                 }
             }
 
-            w = w.filter(word => !(word.lineNumber === lineNumber && word.wordNumber === wordNumber + 1))
+            w = w
+                .filter(
+                    word =>
+                        !(
+                            word.lineNumber === lineNumber &&
+                            word.wordNumber === wordNumber + 1
+                        )
+                )
                 .map(word => {
-                    if (word.lineNumber === lineNumber && word.wordNumber > wordNumber + 1) {
+                    if (
+                        word.lineNumber === lineNumber &&
+                        word.wordNumber > wordNumber + 1
+                    ) {
                         word.wordNumber--;
                     }
                     return word;
@@ -414,11 +470,22 @@ export const actionCreators = {
 
     save: () => async (dispatch, getState) => {
         try {
-            if (window.confirm('Are you sure that you want to save?')) {
-                const { storyDesc, sentences, words, token } = getState().storiesEdit;
-                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+            if (window.confirm("Are you sure that you want to save?")) {
+                const {
+                    storyDesc,
+                    sentences,
+                    words,
+                    token,
+                } = getState().storiesEdit;
+                localStorage.setItem(
+                    "folktales-register-token",
+                    JSON.stringify({ token })
+                );
 
-                const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+                const result = await commonFnc.sendPost(
+                    { storyDesc, sentences, words, token },
+                    "api/StoriesEdit/Save"
+                );
 
                 if (result) {
                     alert("Success to save!");
@@ -435,10 +502,21 @@ export const actionCreators = {
 
     saveWidhoutConfirmation: () => async (dispatch, getState) => {
         try {
-            const { storyDesc, sentences, words, token } = getState().storiesEdit;
-            localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+            const {
+                storyDesc,
+                sentences,
+                words,
+                token,
+            } = getState().storiesEdit;
+            localStorage.setItem(
+                "folktales-register-token",
+                JSON.stringify({ token })
+            );
 
-            const result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+            const result = await commonFnc.sendPost(
+                { storyDesc, sentences, words, token },
+                "api/StoriesEdit/Save"
+            );
 
             if (result) {
                 alert("Success to save!");
@@ -454,14 +532,28 @@ export const actionCreators = {
 
     register: () => async (dispatch, getState) => {
         try {
-            if (window.confirm('Are you sure that you want to register?')) {
-                const { storyDesc, sentences, words, token } = getState().storiesEdit;
-                localStorage.setItem("folktales-register-token", JSON.stringify({ token }));
+            if (window.confirm("Are you sure that you want to register?")) {
+                const {
+                    storyDesc,
+                    sentences,
+                    words,
+                    token,
+                } = getState().storiesEdit;
+                localStorage.setItem(
+                    "folktales-register-token",
+                    JSON.stringify({ token })
+                );
 
-                let result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Save");
+                let result = await commonFnc.sendPost(
+                    { storyDesc, sentences, words, token },
+                    "api/StoriesEdit/Save"
+                );
 
                 if (result) {
-                    result = await commonFnc.sendPost({ storyDesc, sentences, words, token }, "api/StoriesEdit/Register");
+                    result = await commonFnc.sendPost(
+                        { storyDesc, sentences, words, token },
+                        "api/StoriesEdit/Register"
+                    );
                     if (result) {
                         alert("Success to register!");
                     } else {

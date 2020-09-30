@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from 'react-three-fiber'
-import Head from '../Helmet';
-import * as THREE from 'three';
+import React, { useRef, useState } from "react";
+import { Canvas, useFrame } from "react-three-fiber";
+import * as THREE from "three";
+import Head from "../Helmet";
 
 function Box(props) {
     const { x, y } = props;
@@ -10,11 +10,10 @@ function Box(props) {
     const [rotationY, setRotationY] = useState(0);
 
     // This reference will give us direct access to the mesh
-    const mesh: React.MutableRefObject<THREE.Mesh> = useRef()
+    const mesh: React.MutableRefObject<THREE.Mesh> = useRef();
 
     // Rotate mesh every frame, this is outside of React without overhead
     useFrame(() => {
-
         if (mesh.current) {
             mesh.current.rotation.x = rotationX;
             mesh.current.rotation.y = rotationY;
@@ -25,21 +24,20 @@ function Box(props) {
     });
 
     return (
-        <mesh
-            position={[x - 1, y - 1, 0]}
-            ref={mesh}
-            scale={[0.6, 0.6, 0.6]}
-        >
+        <mesh position={[x - 1, y - 1, 0]} ref={mesh} scale={[0.6, 0.6, 0.6]}>
             <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
             <meshStandardMaterial attach="material" color={"green"} />
         </mesh>
-    )
+    );
 }
 
-export default class Boxes extends React.Component<{}, {
-    width: number;
-    height: number;
-}> {
+export default class Boxes extends React.Component<
+    {},
+    {
+        width: number;
+        height: number;
+    }
+> {
     timerId: NodeJS.Timeout;
 
     constructor(props) {
@@ -47,16 +45,16 @@ export default class Boxes extends React.Component<{}, {
         this.state = {
             width: window.innerWidth,
             height: window.innerHeight,
-        }
+        };
 
         this.timerId = setInterval(() => {
             this.setState({
                 width: window.innerWidth,
                 height: window.innerHeight,
-            })
+            });
         }, 200);
     }
-    
+
     UNSAFE_componentWillUnmount() {
         //タイムステップ毎のループの終了
         clearInterval(this.timerId);
@@ -72,20 +70,23 @@ export default class Boxes extends React.Component<{}, {
                         y={y}
                         position={[x - 1, y - 1, 0]}
                         key={`x${x}y${y}`}
-                    />);
+                    />
+                );
             }
         }
         const { width, height } = this.state;
         return (
-            <div style={{
-                width,
-                height,
-                backgroundColor: "black",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: -100,
-            }}>
+            <div
+                style={{
+                    width,
+                    height,
+                    backgroundColor: "black",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: -100,
+                }}
+            >
                 <Head
                     title={"Boxes"}
                     desc={"Moving boxes of react-three-fiber!"}

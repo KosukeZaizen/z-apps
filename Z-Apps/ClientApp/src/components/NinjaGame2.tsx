@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Page1 } from './parts/Ninja2/Page1';
-import { Page2 } from './parts/Ninja2/Page2';
-import { getParams } from './common/functions';
-import '../css/NinjaGame2.css';
-import Head from './parts/Helmet';
+import * as React from "react";
+import "../css/NinjaGame2.css";
+import { getParams } from "./common/functions";
+import Head from "./parts/Helmet";
+import { Page1 } from "./parts/Ninja2/Page1";
+import { Page2 } from "./parts/Ninja2/Page2";
 
 class NinjaGame extends React.Component {
     readElementScroll: any[];
@@ -25,7 +25,7 @@ class NinjaGame extends React.Component {
         };
 
         //セーブデータ読み込み
-        const saveData = localStorage.getItem('saveData2');
+        const saveData = localStorage.getItem("saveData2");
 
         //セーブデータがあればそれを設定
         const objSaveData = JSON.parse(saveData);
@@ -39,12 +39,12 @@ class NinjaGame extends React.Component {
 
         //urlパラメータ取得
         const params = getParams();
-        const lang = (!!params) ? params["l"] : "";
+        const lang = !!params ? params["l"] : "";
 
         this.state = {
             language: lang,
             curPage: 1,
-            stage: stage,//デバッグ用（通常時1）★
+            stage: stage, //デバッグ用（通常時1）★
             //stage: 1,
             ninja: ninja,
         };
@@ -88,21 +88,26 @@ class NinjaGame extends React.Component {
                 />
                 <Pages
                     state={this.state}
-                    changePage={(i, lang) => { this.changePage(i, lang) }}
-                    changeStage={(i, j) => { this.changeStage(i, j) }}
+                    changePage={(i, lang) => {
+                        this.changePage(i, lang);
+                    }}
+                    changeStage={(i, j) => {
+                        this.changeStage(i, j);
+                    }}
                     readElementScroll={this.readElementScroll}
                 />
             </div>
-        )
+        );
     }
-};
+}
 
 function Pages(props) {
-
     if (props.state.curPage === 2 || !!props.state.language) {
         return (
             <Page2
-                changeStage={(i, j) => { props.changeStage(i, j) }}
+                changeStage={(i, j) => {
+                    props.changeStage(i, j);
+                }}
                 ninja={props.state.ninja}
                 stage={props.state.stage}
                 readElementScroll={props.readElementScroll}
@@ -112,7 +117,9 @@ function Pages(props) {
     } else if (props.state.curPage === 1) {
         return (
             <Page1
-                changePage={(i, lang) => { props.changePage(i, lang) }}
+                changePage={(i, lang) => {
+                    props.changePage(i, lang);
+                }}
             />
         );
     }

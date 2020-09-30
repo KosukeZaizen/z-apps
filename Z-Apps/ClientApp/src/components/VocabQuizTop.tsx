@@ -1,21 +1,22 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { TReducers } from '../store/configureStore';
-import * as vocabStore from '../store/VocabQuizStore';
-import './parts/PleaseScrollDown.css';
-import AllVocabList from './parts/VocabQuiz/AllVocabList';
-import CharacterComment from './parts/VocabQuiz/CharacterComment';
-import Head from './parts/Helmet';
-import GoogleAd from './parts/GoogleAd';
-import FB from './parts/FaceBook';
-import PleaseScrollDown from './parts/PleaseScrollDown';
-import { Card, Button, CardTitle } from 'reactstrap';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button, Card, CardTitle } from "reactstrap";
+import { bindActionCreators } from "redux";
+import { TReducers } from "../store/configureStore";
+import * as vocabStore from "../store/VocabQuizStore";
+import FB from "./parts/FaceBook";
+import GoogleAd from "./parts/GoogleAd";
+import Head from "./parts/Helmet";
+import PleaseScrollDown from "./parts/PleaseScrollDown";
+import "./parts/PleaseScrollDown.css";
+import AllVocabList from "./parts/VocabQuiz/AllVocabList";
+import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
-type Props = vocabStore.IVocabQuizState & vocabStore.IActionCreators & {
-    location: { pathname: string };
-};
+type Props = vocabStore.IVocabQuizState &
+    vocabStore.IActionCreators & {
+        location: { pathname: string };
+    };
 type State = {
     screenWidth: number;
     screenHeight: number;
@@ -61,22 +62,25 @@ class VocabQuizTop extends React.Component<Props, State> {
     }
 
     changeScreenSize = () => {
-        if (this.state.screenWidth !== window.innerWidth || this.state.screenHeight !== window.innerHeight) {
+        if (
+            this.state.screenWidth !== window.innerWidth ||
+            this.state.screenHeight !== window.innerHeight
+        ) {
             this.setState({
                 screenWidth: window.innerWidth,
                 screenHeight: window.innerHeight,
             });
         }
-    }
+    };
 
     getImgNumber = () => {
         const today = new Date();
-        const todayNumber = (today.getMonth() + today.getDate());
+        const todayNumber = today.getMonth() + today.getDate();
         const mod = todayNumber % 27;
         if (mod > 13) return 2;
         if (mod > 5) return 3;
         return 1;
-    }
+    };
 
     render() {
         const { allGenres } = this.props;
@@ -85,21 +89,47 @@ class VocabQuizTop extends React.Component<Props, State> {
             <div className="center">
                 <Head
                     title="Japanese Vocabulary Quiz"
-                    desc={"Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!"}
+                    desc={
+                        "Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!"
+                    }
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                <span itemProp="name">
-                                    {"Home"}
-                                </span>
+                    <div
+                        className="breadcrumbs"
+                        itemScope
+                        itemType="https://schema.org/BreadcrumbList"
+                        style={{ textAlign: "left" }}
+                    >
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
+                                <span itemProp="name">{"Home"}</span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <span
+                                itemProp="name"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 {"Japanese Vocabulary Quiz"}
                             </span>
                             <meta itemProp="position" content="2" />
@@ -119,7 +149,13 @@ class VocabQuizTop extends React.Component<Props, State> {
                     <CharacterComment
                         imgNumber={imgNumber}
                         screenWidth={screenWidth}
-                        comment={<p>Free app to learn Japanese vocabulary!<br />Try to get a perfect score on all the quizzes!</p>}
+                        comment={
+                            <p>
+                                Free app to learn Japanese vocabulary!
+                                <br />
+                                Try to get a perfect score on all the quizzes!
+                            </p>
+                        }
                     />
                     <br />
                     <AllVocabList
@@ -128,24 +164,34 @@ class VocabQuizTop extends React.Component<Props, State> {
                     />
                     <hr />
                     <Link to="/vocabulary-list">
-                        <button
-                            className="btn btn-primary btn-lg btn-block"
-                        >
+                        <button className="btn btn-primary btn-lg btn-block">
                             {"Check All Vocabulary Lists"}
                         </button>
                     </Link>
                     <hr />
                     <Link to={`/kanji-quiz`}>
-                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                        <Card
+                            body
+                            style={{
+                                backgroundColor: "#333",
+                                borderColor: "#333",
+                                color: "white",
+                            }}
+                        >
                             <CardTitle>Japanese Kanji Quiz</CardTitle>
-                            <p>Free app to learn Japanese Kanji characters!<br />
-                            Try to get a perfect score on all the quizzes!</p>
+                            <p>
+                                Free app to learn Japanese Kanji characters!
+                                <br />
+                                Try to get a perfect score on all the quizzes!
+                            </p>
                             <Button color="secondary">Try Kanji Quiz</Button>
                         </Card>
                     </Link>
                     <hr />
                     <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">Learn Japanese from Japanese folktales >></Link>
+                        <Link to="/folktales">
+                            {"Learn Japanese from Japanese folktales >>"}
+                        </Link>
                     </div>
                     <br />
                     <FB />
@@ -160,7 +206,7 @@ class VocabQuizTop extends React.Component<Props, State> {
             </div>
         );
     }
-};
+}
 
 export default connect(
     (state: TReducers) => state.vocabQuiz,
