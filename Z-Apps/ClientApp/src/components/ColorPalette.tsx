@@ -15,7 +15,7 @@ class ColorPalette extends React.Component {
         lightness: number;
     };
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         this.consts = {
@@ -38,13 +38,13 @@ class ColorPalette extends React.Component {
         this.onClickCopy = this.onClickCopy.bind(this);
     }
 
-    onChangeHue(e) {
+    onChangeHue(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
             hue: parseInt(e.target.value, 10),
         });
     }
 
-    onClickTable(h, s, l) {
+    onClickTable(h: number, s: number, l: number) {
         this.setState({
             hue: h,
             saturation: s,
@@ -52,31 +52,9 @@ class ColorPalette extends React.Component {
         });
     }
 
-    onClickHueBar(h) {
+    onClickHueBar(h: number) {
         this.setState({
             hue: h,
-        });
-    }
-
-    onChangeHueText(e) {
-        let hue = e.target.value;
-
-        //空文字列を0に変換
-        hue = hue === "" ? "0" : hue;
-
-        //半角に変換
-        hue = hue.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
-            return String.fromCharCode(s.charCodeAt(0) - 65248);
-        });
-
-        //数字以外除去
-        hue = hue.replace(/[^0-9]/g, "");
-
-        //数値型に変換
-        hue = parseInt(hue, 10);
-
-        this.setState({
-            hue: hue,
         });
     }
 
@@ -240,7 +218,7 @@ class ColorPalette extends React.Component {
 //--------------------------------------------------
 // HSLからCSS用の色指定を返す
 //--------------------------------------------------
-function changeHslToStyle(hue, saturation, lightness) {
+function changeHslToStyle(hue: number, saturation: number, lightness: number) {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
@@ -248,12 +226,16 @@ function changeHslToStyle(hue, saturation, lightness) {
 // HSLから背景色付きのtdを返す
 //--------------------------------------------------
 function getColoredTdFromHsl(
-    hue,
-    saturation,
-    lightness,
-    key,
-    onClickTable,
-    state?
+    hue: number,
+    saturation: number,
+    lightness: number,
+    key: number,
+    onClickTable: (hue: number, saturation: number, lightness: number) => void,
+    state?: {
+        hue: number;
+        saturation: number;
+        lightness: number;
+    }
 ) {
     let booLightness = false;
     let booSaturation = false;
@@ -300,7 +282,9 @@ function getColoredTdFromHsl(
 //--------------------------------------------------
 // 色相のグラデーションバーを作成
 //--------------------------------------------------
-function getHueBar(onClickTable) {
+function getHueBar(
+    onClickTable: (hue: number, saturation: number, lightness: number) => void
+) {
     let tdList = [];
     for (let hue = 0; hue <= 360; hue++) {
         tdList.push(getColoredTdFromHsl(hue, 90, 60, hue, onClickTable));
@@ -311,7 +295,17 @@ function getHueBar(onClickTable) {
 //--------------------------------------------------
 // 彩度・明度によるテーブルの1行を作成
 //--------------------------------------------------
-function getSlRow(hue, saturation, key, onClickTable, state) {
+function getSlRow(
+    hue: number,
+    saturation: number,
+    key: number,
+    onClickTable: (hue: number, saturation: number, lightness: number) => void,
+    state: {
+        hue: number;
+        saturation: number;
+        lightness: number;
+    }
+) {
     let tdList = [];
 
     for (let lightness = 100; lightness >= 0; lightness--) {
@@ -332,7 +326,15 @@ function getSlRow(hue, saturation, key, onClickTable, state) {
 //--------------------------------------------------
 // 彩度・明度によるテーブルを作成
 //--------------------------------------------------
-function getSlTable(hue, onClickTable, state) {
+function getSlTable(
+    hue: number,
+    onClickTable: (hue: number, saturation: number, lightness: number) => void,
+    state: {
+        hue: number;
+        saturation: number;
+        lightness: number;
+    }
+) {
     let trList = [];
     for (let saturation = 100; saturation >= 0; saturation--) {
         trList.push(getSlRow(hue, saturation, saturation, onClickTable, state));
@@ -343,14 +345,15 @@ function getSlTable(hue, onClickTable, state) {
 //--------------------------------------------------
 // HSL配列を受け取り、カラーコードを返す
 //--------------------------------------------------
-function changeHslToColorCode(h, s, l) {
+function changeHslToColorCode(h: number, s: number, l: number) {
     let arrRGB = changeHslToRgb(h, s, l);
 
     return (
         "#" +
         arrRGB
             .map(function (value) {
-                return ("0" + value.toString(16)).slice(-2);
+                //return ("0" + value.toString(16)).slice(-2);
+                return ("0" + value.toString()).slice(-2);
             })
             .join("")
     );
@@ -359,7 +362,7 @@ function changeHslToColorCode(h, s, l) {
 //--------------------------------------------------
 // HSL配列をRGB配列に変換
 //--------------------------------------------------
-function changeHslToRgb(hue, saturation, lightness) {
+function changeHslToRgb(hue: number, saturation: number, lightness: number) {
     var result = null;
 
     if (
@@ -386,7 +389,7 @@ function changeHslToRgb(hue, saturation, lightness) {
             green = lightness;
             blue = lightness;
         } else {
-            hueToRgb = function (p, q, t) {
+            hueToRgb = function (p: number, q: number, t: number) {
                 if (t < 0) {
                     t += 1;
                 }
@@ -430,7 +433,7 @@ function changeHslToRgb(hue, saturation, lightness) {
 //--------------------------------------------------
 // カラーコードのコピー実行
 //--------------------------------------------------
-function execCopy(string) {
+function execCopy(string: string) {
     let tmp = document.createElement("div");
     let pre = document.createElement("pre");
 

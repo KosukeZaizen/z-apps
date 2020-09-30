@@ -124,7 +124,7 @@ class HiraganaQuiz extends React.Component {
         };
     };
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.consts = {
             KANA_TYPE: "Hiragana",

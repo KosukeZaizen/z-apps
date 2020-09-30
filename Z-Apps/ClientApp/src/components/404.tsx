@@ -6,7 +6,7 @@ import { getParams } from "./common/functions";
 import Head from "./parts/Helmet";
 const img404 = require("../img/404.png");
 
-const NotFound = props => {
+const NotFound = () => {
     const params = getParams();
 
     return (

@@ -1,7 +1,7 @@
 import { APP_VERSION } from "./../../version";
 
-export function getParams() {
-    let arg = {};
+export function getParams(): { [key: string]: string } {
+    let arg: { [key: string]: string } = {};
     const pair = window.location.search.substring(1).split("&");
     for (let i = 0; pair[i]; i++) {
         const kv = pair[i].split("=");
@@ -10,7 +10,7 @@ export function getParams() {
     return arg;
 }
 
-export async function sendPost(objToSend, url) {
+export async function sendPost(objToSend: object, url: string) {
     const method = "POST";
     const body = JSON.stringify(objToSend);
     const headers = {
@@ -21,7 +21,7 @@ export async function sendPost(objToSend, url) {
     return response.json();
 }
 
-export function sendPostWithoutAwait(objToSend, url) {
+export function sendPostWithoutAwait(objToSend: object, url: string) {
     const method = "POST";
     const body = JSON.stringify(objToSend);
     const headers = {
@@ -31,7 +31,7 @@ export function sendPostWithoutAwait(objToSend, url) {
     fetch(url, { method, headers, body });
 }
 
-export async function sendPostNoJsonResult(objToSend, url) {
+export async function sendPostNoJsonResult(objToSend: object, url: string) {
     const method = "POST";
     const body = JSON.stringify(objToSend);
     const headers = {
@@ -41,7 +41,10 @@ export async function sendPostNoJsonResult(objToSend, url) {
     return response;
 }
 
-export async function sendPostNoJsonResultWithoutAwait(objToSend, url) {
+export async function sendPostNoJsonResultWithoutAwait(
+    objToSend: object,
+    url: string
+) {
     const method = "POST";
     const body = JSON.stringify(objToSend);
     const headers = {
@@ -156,14 +159,16 @@ export function loadLocalStorageOrDB(
     type: string,
     stateName: string,
     fileName: string,
-    dispatch
+    dispatch: (action: any) => void
 ) {
     const saveKey = fileName + stateName;
 
     const loadData = (url: string, type: string, stateName: string) => {
         fetch(url).then(res => {
             res.json().then(objResult => {
-                const action = { type };
+                const action: any = {
+                    type,
+                };
                 action[stateName] = objResult;
                 dispatch(action);
 
@@ -176,7 +181,7 @@ export function loadLocalStorageOrDB(
         const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
 
         if (savedObject && !navigator.userAgent.includes("Googlebot")) {
-            const action = { type };
+            const action: any = { type };
             action[stateName] = savedObject;
             dispatch(action);
         }

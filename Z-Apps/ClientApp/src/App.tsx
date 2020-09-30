@@ -230,7 +230,7 @@ function NotFoundRedirect() {
     );
 }
 
-function LoadingAnimation(props) {
+function LoadingAnimation(props: {num: number}) {
     let arr = [];
     for (let i = 0; i < props.num; i++) {
         arr.push(

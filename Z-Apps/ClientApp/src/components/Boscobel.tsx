@@ -8,12 +8,12 @@ export default class Boscobel extends React.Component {
     };
 
     state: {
-        background: string;
-        top: string;
+        background: File;
+        top: File;
         pw: string;
     };
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         //セーブデータがあればそれを設定
@@ -39,7 +39,10 @@ export default class Boscobel extends React.Component {
         };
     }
 
-    handleChangeFile = (e, imageType) => {
+    handleChangeFile = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        imageType: string
+    ) => {
         const target = e.target;
         const file = target.files.item(0);
         if (imageType === this.consts.background) {
@@ -49,7 +52,7 @@ export default class Boscobel extends React.Component {
         }
     };
 
-    handleChangePW = e => {
+    handleChangePW = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ pw: e.target.value });
         localStorage.setItem(
             "boscobel-token",
@@ -57,7 +60,7 @@ export default class Boscobel extends React.Component {
         );
     };
 
-    uploadFile = imageType => {
+    uploadFile = (imageType: string) => {
         let file = null;
         if (imageType === this.consts.background) {
             file = this.state.background;

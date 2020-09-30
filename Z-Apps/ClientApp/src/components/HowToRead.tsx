@@ -15,6 +15,7 @@ import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type Props = {
     location: { pathname: string };
+    match: { params: { word: string } };
 };
 type State = {
     word: string;
@@ -29,7 +30,7 @@ type State = {
 class HowToRead extends React.Component<Props, State> {
     refSentences: React.RefObject<HTMLDivElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         const { params } = props.match;
@@ -65,13 +66,13 @@ class HowToRead extends React.Component<Props, State> {
             imgNumber: this.getImgNumber(word?.length),
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
@@ -128,8 +129,8 @@ class HowToRead extends React.Component<Props, State> {
         }
     }
 
-    componentDidUpdate(preciousProps) {
-        if (preciousProps.location !== this.props.location) {
+    componentDidUpdate(previousProps: Props) {
+        if (previousProps.location !== this.props.location) {
             const word = this.props.location.pathname
                 .split("/")
                 .filter(a => a)

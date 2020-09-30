@@ -24,7 +24,7 @@ function SayHello() {
 export default class Developer extends React.Component {
     ref: React.RefObject<HTMLHRElement>;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.ref = React.createRef();
     }

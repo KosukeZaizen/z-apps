@@ -5,14 +5,15 @@ import { Button, Card, CardText, CardTitle } from "reactstrap";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
 
-class DictionaryTop extends React.Component {
-    ref: React.RefObject<HTMLDivElement>;
-    props: {};
-    state: {
+class DictionaryTop extends React.Component<
+    {},
+    {
         words: string[];
-    };
+    }
+> {
+    ref: React.RefObject<HTMLDivElement>;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {

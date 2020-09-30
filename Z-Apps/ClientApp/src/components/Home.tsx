@@ -16,7 +16,7 @@ export default class Home extends React.Component<
 > {
     ref: React.RefObject<HTMLDivElement>;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {
@@ -24,13 +24,13 @@ export default class Home extends React.Component<
             imgNumber: this.getImgNumber(),
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
