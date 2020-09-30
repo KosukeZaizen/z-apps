@@ -10,14 +10,21 @@ import PleaseScrollDown from "./parts/PleaseScrollDown";
 
 let objConst: any = {};
 
-class KanjiConverter extends React.Component {
-    state: any;
-    props: any;
+interface Props {
+    requestKanjiConvert: (inputKanji: string) => void;
+    convertedWords: { convertedWord: string }[];
+    isLoading: boolean;
+}
+interface State {
+    inputKanji: string;
+    inputColor: string;
+}
+class KanjiConverter extends React.Component<Props, State> {
     result: string;
     textVal: string;
     ref: React.RefObject<HTMLTableElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         objConst = {
@@ -327,12 +334,12 @@ class KanjiConverter extends React.Component {
         }
     }
 
-    onChangeKanji(kanjiVal) {
+    onChangeKanji(kanjiVal: React.ChangeEvent<HTMLTextAreaElement>) {
         this.setState({ inputKanji: kanjiVal.target.value });
     }
 
     // State(textVal)を変更
-    setStateTextVal(textVal) {
+    setStateTextVal(textVal: string) {
         let textVal_r = textVal;
 
         textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
@@ -354,7 +361,7 @@ class KanjiConverter extends React.Component {
         this.textVal = textVal_r;
     }
 
-    convertSmallTsu(text) {
+    convertSmallTsu(text: string) {
         text = convertChars(text, { っch: "tch", ッch: "tch" });
 
         let arrText = text.split("");
@@ -565,14 +572,16 @@ class Child extends React.Component {
     props: any;
 
     render() {
-        var lines = this.props.textVal.split("\n").map(function (line, index) {
-            return (
-                <p key={index} className="line-wrap">
-                    {line}
-                    <br />
-                </p>
-            );
-        });
+        var lines = this.props.textVal
+            .split("\n")
+            .map(function (line: string, index: number) {
+                return (
+                    <p key={index} className="line-wrap">
+                        {line}
+                        <br />
+                    </p>
+                );
+            });
         return (
             <div id="outputArea" className="lines">
                 {lines}
@@ -588,7 +597,7 @@ function getIoElement() {
     }
 }
 
-function convertChars(text, obj) {
+function convertChars(text: string, obj: { [key: string]: string }) {
     for (let key in obj) {
         let arrText = text.split(key);
         text = arrText.join(obj[key]);
@@ -601,7 +610,7 @@ function getCopyTarget() {
     return convertChars(objConst.ioArea[1].innerHTML, objConst.objChangeLine);
 }
 
-function execCopy(string) {
+function execCopy(string: string) {
     var tmp = document.createElement("div");
     var pre = document.createElement("pre");
 

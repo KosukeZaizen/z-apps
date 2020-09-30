@@ -6,6 +6,7 @@ import Head from "./parts/Helmet";
 import "./parts/KanaQuiz/KanaQuiz.css";
 import { QuizCore } from "./parts/KanaQuiz/KanaQuizCore";
 
+interface Props {}
 class KatakanaQuiz extends React.Component {
     consts: {
         KANA_TYPE: "Katakana";
@@ -120,7 +121,7 @@ class KatakanaQuiz extends React.Component {
         };
     };
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.consts = {
             KANA_TYPE: "Katakana",
