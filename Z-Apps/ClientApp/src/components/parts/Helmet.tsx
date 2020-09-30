@@ -3,7 +3,13 @@ import { Helmet } from "react-helmet";
 import * as consts from "../common/consts";
 import { isGoogleAdsDisplayed } from "./GoogleAd";
 
-const PageHeader = props => {
+const PageHeader = (props: {
+    noindex?: boolean;
+    title?: string;
+    desc?: string;
+    isHome?: boolean;
+    img?: string;
+}) => {
     if (isGoogleAdsDisplayed && props.noindex) {
         // noindexのページにAdsenseの自動広告が引き継がれそうになった場合は、リロードして消す
         window.location.reload();

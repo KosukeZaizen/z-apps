@@ -2,19 +2,19 @@ import * as React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import "./PleaseScrollDown.css";
 
-export default class PleaseScrollDown extends React.Component {
-    props: {
-        criteriaRef: React.RefObject<HTMLElement>;
-        screenHeight?: number;
-        screenWidth?: number;
-        targetId?: string;
-    };
-
-    state: {
+interface Props {
+    criteriaRef: React.RefObject<HTMLElement>;
+    screenHeight?: number;
+    screenWidth?: number;
+    targetId?: string;
+}
+export default class PleaseScrollDown extends React.Component<
+    Props,
+    {
         pleaseScrollDown: boolean;
-    };
-
-    constructor(props) {
+    }
+> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             pleaseScrollDown: false,

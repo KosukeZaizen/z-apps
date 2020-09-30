@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function FB() {
     const innerWidth = window.innerWidth;
-    let width;
+    let width: number;
     if (innerWidth > 350) {
         width = 350;
     } else {
