@@ -19,9 +19,9 @@ function Box({
     const [rotationY, setRotationY] = useState(0);
 
     // This reference will give us direct access to the mesh
-    const mesh: React.MutableRefObject<THREE.Mesh> = useRef();
-    const mesh2: React.MutableRefObject<THREE.Mesh> = useRef();
-    const mesh3: React.MutableRefObject<THREE.Mesh> = useRef();
+    const mesh: React.MutableRefObject<THREE.Mesh | undefined> = useRef();
+    const mesh2: React.MutableRefObject<THREE.Mesh | undefined> = useRef();
+    const mesh3: React.MutableRefObject<THREE.Mesh | undefined> = useRef();
 
     // Rotate mesh every frame, this is outside of React without overhead
     useFrame(() => {

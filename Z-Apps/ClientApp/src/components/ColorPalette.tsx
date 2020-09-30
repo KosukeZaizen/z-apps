@@ -59,7 +59,8 @@ class ColorPalette extends React.Component {
     }
 
     onClickCopy() {
-        let strTarget = document.getElementById("color-code-to-copy").innerHTML;
+        let strTarget = document.getElementById("color-code-to-copy")
+            ?.innerHTML;
 
         if (execCopy(strTarget)) {
             alert(this.consts.MSG_COPY_DONE);
@@ -351,7 +352,7 @@ function changeHslToColorCode(h: number, s: number, l: number) {
     return (
         "#" +
         arrRGB
-            .map(function (value) {
+            ?.map(function (value) {
                 //return ("0" + value.toString(16)).slice(-2);
                 return ("0" + value.toString()).slice(-2);
             })
@@ -433,21 +434,21 @@ function changeHslToRgb(hue: number, saturation: number, lightness: number) {
 //--------------------------------------------------
 // カラーコードのコピー実行
 //--------------------------------------------------
-function execCopy(string: string) {
+function execCopy(string?: string) {
     let tmp = document.createElement("div");
     let pre = document.createElement("pre");
 
     pre.style.webkitUserSelect = "auto";
     pre.style.userSelect = "auto";
 
-    tmp.appendChild(pre).textContent = string;
+    tmp.appendChild(pre).textContent = string || null;
 
     let s = tmp.style;
     s.position = "fixed";
     s.right = "200%";
 
     document.body.appendChild(tmp);
-    document.getSelection().selectAllChildren(tmp);
+    document.getSelection()?.selectAllChildren(tmp);
 
     let result = document.execCommand("copy");
 

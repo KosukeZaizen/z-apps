@@ -6,16 +6,34 @@ import * as Consts from "./parts/Ninja3/Consts";
 import { Page1 } from "./parts/Ninja3/Page1";
 import { Page2 } from "./parts/Ninja3/Page2";
 
-class NinjaGame extends React.Component {
+interface Ninja {
+    size: number;
+    speedX: number;
+    speedY: number;
+    posX: number;
+    posY: number;
+    readScroll: string[];
+    boolLeft: boolean;
+    snow: boolean;
+    lang?: string;
+}
+interface Props {}
+interface State {
+    curPage: number;
+    language: string;
+    ninja: Ninja;
+    stage: number;
+}
+class NinjaGame extends React.Component<Props, State> {
     readElementScroll: any[];
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
-        let ninja;
-        let stage;
+        let ninja: Ninja;
+        let stage: number;
 
-        const initialNinja = {
+        const initialNinja: Ninja = {
             size: 12,
             speedX: 0,
             speedY: 0,
@@ -31,7 +49,7 @@ class NinjaGame extends React.Component {
         const saveData = localStorage.getItem(Consts.SAVE_NAME);
 
         //セーブデータがあればそれを設定
-        const objSaveData = JSON.parse(saveData);
+        const objSaveData = saveData && JSON.parse(saveData);
         if (objSaveData) {
             ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
@@ -68,14 +86,14 @@ class NinjaGame extends React.Component {
         this.changeStage = this.changeStage.bind(this);
     }
 
-    changePage(num, lang) {
+    changePage(num: number, lang: string) {
         this.setState({
             curPage: num,
             language: lang,
         });
     }
 
-    changeStage(num, ninja) {
+    changeStage(num: number, ninja: Ninja) {
         this.readElementScroll = [];
         this.setState({
             stage: num,
@@ -105,10 +123,10 @@ class NinjaGame extends React.Component {
                 />
                 <Pages
                     state={this.state}
-                    changePage={(i, lang) => {
+                    changePage={(i: number, lang: string) => {
                         this.changePage(i, lang);
                     }}
-                    changeStage={(i, j) => {
+                    changeStage={(i: number, j: Ninja) => {
                         this.changeStage(i, j);
                     }}
                     readElementScroll={this.readElementScroll}
@@ -118,11 +136,16 @@ class NinjaGame extends React.Component {
     }
 }
 
-function Pages(props) {
+function Pages(props: {
+    state: State;
+    changePage: (num: number, lang: string) => void;
+    changeStage: (num: number, ninja: Ninja) => void;
+    readElementScroll: string[];
+}) {
     if (props.state.curPage === 2 || props.state.language) {
         return (
             <Page2
-                changeStage={(i, j) => {
+                changeStage={(i: number, j: Ninja) => {
                     props.changeStage(i, j);
                 }}
                 ninja={props.state.ninja}
@@ -134,11 +157,12 @@ function Pages(props) {
     } else if (props.state.curPage === 1) {
         return (
             <Page1
-                changePage={(i, lang) => {
+                changePage={(i: number, lang: string) => {
                     props.changePage(i, lang);
                 }}
             />
         );
     }
+    return null;
 }
 export default NinjaGame;

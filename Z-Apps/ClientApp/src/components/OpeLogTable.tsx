@@ -26,7 +26,7 @@ export default class OpeLogTable extends React.Component<
 > {
     screenHeight: number;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {

@@ -2,8 +2,23 @@ const requestKanjiConverterType = "REQUEST_KANJI_CONVERTER";
 const receiveKanjiConverterType = "RECEIVE_KANJI_CONVERTER";
 const initialState = { convertedWords: [], isLoading: false };
 
+interface RequestKanjiConverter {
+    type: typeof requestKanjiConverterType;
+    kanjis: string;
+}
+interface ReceiveKanjiConverter {
+    type: typeof receiveKanjiConverterType;
+    kanjis: string;
+    convertedWords: any;
+}
+
+type KnownAction = RequestKanjiConverter | ReceiveKanjiConverter;
+
 export const actionCreators = {
-    requestKanjiConvert: kanjis => async (dispatch, getState) => {
+    requestKanjiConvert: (kanjis: string) => async (
+        dispatch: (action: KnownAction) => void,
+        getState: Function
+    ) => {
         if (kanjis === getState().kanjiConverter.kanjis) {
             // Don't issue a duplicate request (we already have or are loading the requested data)
             return;
@@ -19,7 +34,7 @@ export const actionCreators = {
     },
 };
 
-export const reducer = (state, action) => {
+export const reducer = (state: object, action: KnownAction) => {
     state = state || initialState;
 
     if (action.type === requestKanjiConverterType) {

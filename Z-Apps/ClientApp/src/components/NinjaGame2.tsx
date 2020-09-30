@@ -45,7 +45,7 @@ class NinjaGame extends React.Component<Props, State> {
         const saveData = localStorage.getItem("saveData2");
 
         //セーブデータがあればそれを設定
-        const objSaveData = JSON.parse(saveData);
+        const objSaveData = saveData && JSON.parse(saveData);
         if (objSaveData) {
             ninja = objSaveData.ninja || initialNinja;
             stage = objSaveData.stage || 1;
@@ -145,5 +145,6 @@ function Pages(props: {
             />
         );
     }
+    return null;
 }
 export default NinjaGame;

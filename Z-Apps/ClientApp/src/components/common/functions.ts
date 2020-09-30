@@ -58,7 +58,8 @@ export function sendClientOpeLog(
     parameters: string = ""
 ) {
     const saveKey = "userId";
-    let userId = JSON.parse(window.localStorage.getItem(saveKey));
+    const item = window.localStorage.getItem(saveKey);
+    let userId = item && JSON.parse(item);
 
     if (!userId) {
         const nowDate = new Date();
@@ -114,7 +115,7 @@ export function reloadAndRedirect(saveKey: string) {
     //その後、404ページにリダイレクト
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
-    const intSavedTime = parseInt(savedErrTime);
+    const intSavedTime = savedErrTime && parseInt(savedErrTime);
 
     const now = new Date();
     const nowTime = now.getTime();
@@ -139,7 +140,7 @@ export function reloadAndRedirect_OneTimeReload(saveKey: string) {
     //存在してはいけないページがIndexされないため、２回目は即時リダイレクトを行う
 
     const savedErrTime = window.sessionStorage.getItem(saveKey);
-    const intSavedTime = parseInt(savedErrTime);
+    const intSavedTime = savedErrTime && parseInt(savedErrTime);
 
     const now = new Date();
     const nowTime = now.getTime();
@@ -178,7 +179,8 @@ export function loadLocalStorageOrDB(
     };
 
     try {
-        const savedObject = JSON.parse(window.localStorage.getItem(saveKey));
+        const item = window.localStorage.getItem(saveKey);
+        const savedObject = item && JSON.parse(item);
 
         if (savedObject && !navigator.userAgent.includes("Googlebot")) {
             const action: any = { type };

@@ -32,7 +32,7 @@ type State = {
 };
 
 class Dictionary extends React.Component<Props, State> {
-    refSentences: React.RefObject<HTMLDivElement>;
+    refSentences?: React.RefObject<HTMLDivElement>;
 
     constructor(props: Props) {
         super(props);
@@ -150,10 +150,11 @@ class Dictionary extends React.Component<Props, State> {
 
     componentDidUpdate(previousProps: Props) {
         if (previousProps.location !== this.props.location) {
-            const word = this.props.location.pathname
-                .split("/")
-                .filter(a => a)
-                .pop();
+            const word =
+                this.props.location.pathname
+                    .split("/")
+                    .filter(a => a)
+                    .pop() || "";
             this.setState({
                 word: decodeURIComponent(word),
             });

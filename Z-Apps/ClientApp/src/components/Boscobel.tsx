@@ -8,8 +8,8 @@ export default class Boscobel extends React.Component {
     };
 
     state: {
-        background: File;
-        top: File;
+        background?: File;
+        top?: File;
         pw: string;
     };
 
@@ -18,7 +18,7 @@ export default class Boscobel extends React.Component {
 
         //セーブデータがあればそれを設定
         const saveData = localStorage.getItem("boscobel-token");
-        const objSaveData = JSON.parse(saveData);
+        const objSaveData = saveData && JSON.parse(saveData);
 
         let token;
         if (objSaveData) {
@@ -28,8 +28,8 @@ export default class Boscobel extends React.Component {
         }
 
         this.state = {
-            background: null,
-            top: null,
+            background: undefined,
+            top: undefined,
             pw: token,
         };
 
@@ -44,7 +44,7 @@ export default class Boscobel extends React.Component {
         imageType: string
     ) => {
         const target = e.target;
-        const file = target.files.item(0);
+        const file = target.files?.item(0);
         if (imageType === this.consts.background) {
             this.setState({ background: file });
         } else if (imageType === this.consts.top) {
@@ -68,7 +68,7 @@ export default class Boscobel extends React.Component {
             file = this.state.top;
         }
 
-        if (!file || file.name.split(".").pop().toLowerCase() !== "png") {
+        if (!file || file.name.split(".").pop()?.toLowerCase() !== "png") {
             alert("Error! Please select a png file.");
             return;
         }

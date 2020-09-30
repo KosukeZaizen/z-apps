@@ -146,5 +146,6 @@ function Pages(props: {
             />
         );
     }
+    return null;
 }
 export default NinjaGame;

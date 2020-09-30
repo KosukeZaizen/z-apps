@@ -4,7 +4,7 @@ import { getParams } from "./common/functions";
 import Head from "./parts/Helmet";
 
 class GameOver extends React.Component {
-    consts: {
+    consts?: {
         BTN_START_CLASS: "btn btn-primary btn-lg btn-block";
     };
 
