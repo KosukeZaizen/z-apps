@@ -2415,14 +2415,17 @@ function checkRelativityLeftAndTop(
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
 function onTouchScrollOpener(ninja: Ninja) {
+    //@ts-ignore
     if (ninja.game?.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
         let objs = ninja.game?.objs;
         for (let key in objs) {
+            //@ts-ignore
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
                 objs[key].visible = false;
+                //@ts-ignore
             } else if (objs[key].title === this.openTargetTitle) {
                 //該当の巻物を表示する
                 objs[key].visible = true;
@@ -2430,7 +2433,9 @@ function onTouchScrollOpener(ninja: Ninja) {
         }
     }
     //読み終えたリストの中に該当の巻物を追加
+    //@ts-ignore
     ninja.readScroll.push(this.openTargetTitle);
+    //@ts-ignore
     ninja.game?.props.readElementScroll.push(this.openTargetTitle);
 }
 
@@ -2440,18 +2445,22 @@ function onTouchScrollOpener(ninja: Ninja) {
 function onTouchBlock(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
+        //@ts-ignore
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
     } else if (from === "right") {
         //右から
+        //@ts-ignore
         ninja.posX = this.posX + this.size;
         ninja.speedX = 0;
     } else if (from === "lower") {
         //下から
+        //@ts-ignore
         ninja.posY = this.posY + this.size;
         ninja.speedY = 0;
     } else if (from === "left") {
         //左から
+        //@ts-ignore
         ninja.posX = this.posX - ninja.size;
         ninja.speedX = 0;
     }
@@ -2463,6 +2472,7 @@ function onTouchBlock(ninja: Ninja, from: string) {
 function onTouchTree(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
+        //@ts-ignore
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
     }
@@ -2475,6 +2485,7 @@ function onTouchRiverToRight(ninja: Ninja) {
     if (ninja.readScroll.indexOf(ninja.game?.consts.WATER_SCROLL_TITLE) < 0) {
         //水の書を読んでいなければ、流される
         ninja.posX += 10;
+        //@ts-ignore
         ninja.posY = this.posY - ninja.size;
         ninja.speedX = 30;
         ninja.speedY = 0;
@@ -2501,6 +2512,7 @@ function onTouchGateWall(ninja: Ninja, from: string) {
         ninja.speedX = 0;
         ninja.speedY = 0;
     }
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -2517,6 +2529,7 @@ function onTouchGateWallStage11(ninja: Ninja, from: string) {
         ninja.speedX = 0;
         ninja.speedY = 0;
     }
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -2537,6 +2550,7 @@ function onTouchGateTopOrBottom(ninja: Ninja, from: string) {
         ninja.speedX = 0;
         ninja.speedY = -15;
     }
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -2546,12 +2560,14 @@ function onTouchGateTopOrBottom(ninja: Ninja, from: string) {
 // 炎にタッチ
 //=======================================
 function onTouchFire(ninja: Ninja) {
+    //@ts-ignore
     if (this.fireContinueTime && this.visible !== true) {
         //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
         return;
     }
     if (ninja.readScroll.indexOf(ninja.game?.consts.FIRE_SCROLL_TITLE) > 0) {
         //火の書を読んでいればジャンプする
+        //@ts-ignore
         ninja.speedY = this.jumpHeight * -1;
     }
 }
