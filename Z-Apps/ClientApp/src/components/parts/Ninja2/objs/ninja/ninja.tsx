@@ -1,7 +1,13 @@
 import * as React from "react";
 const runningNinja = require("./../../../Ninja/objs/ninja/ninja_hashiru.png");
 
-function NinjaChar(props) {
+function NinjaChar(props: {
+    x: number;
+    y: number;
+    boolLeft: boolean;
+    imgAlt: string;
+    width: number;
+}) {
     let left = props.boolLeft ? "" : "scale(-1, 1)";
 
     let style: any = {

@@ -1,11 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-export default class Obj extends React.Component {
-    props: any;
-    state: any;
-
-    constructor(props) {
+export default class Obj extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.onClickOkButtonInScroll = this.onClickOkButtonInScroll.bind(this);
     }
@@ -65,9 +62,9 @@ export default class Obj extends React.Component {
                 };
 
                 let arrlines = message.split("\n");
-                const listlines = arrlines.map((line, index) => (
-                    <p key={index}>{line}</p>
-                ));
+                const listlines = arrlines.map(
+                    (line: string, index: number) => <p key={index}>{line}</p>
+                );
 
                 return (
                     <div>
@@ -169,7 +166,7 @@ export default class Obj extends React.Component {
 }
 
 //巻物に話者の画像がついていた場合、それも表示する
-function SpeakerImage(props) {
+function SpeakerImage(props: any) {
     let img = props.img;
 
     if (img) {
@@ -198,7 +195,7 @@ function SpeakerImage(props) {
     }
 }
 
-function CloseElement(props) {
+function CloseElement(props: any) {
     if (props.obj.finalMessage) {
         //localStorageに自動セーブ（次回起動時データ）
         const saveData = {

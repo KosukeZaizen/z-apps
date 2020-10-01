@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Language, Ninja } from "../../NinjaGame";
+import { Ninja } from "../../NinjaGame";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
 
@@ -71,7 +71,7 @@ const castle = require("./img/background/castle.jpg");
 //stage14
 const heaven = require("./img/background/heaven.png");
 
-export type EventFunc = (keyType: string) => void;
+export type EventFunc = (keyType: string | undefined) => void;
 export interface Game extends Page2 {
     onClickButton: EventFunc;
     onMouseUp: EventFunc;
@@ -83,12 +83,12 @@ export default class Page2 extends React.Component {
     props: any;
     state: any;
 
-    terminalPC: boolean;
-    initFlag: boolean;
-    prevStage: number;
-    UL: number;
-    ninja: any;
-    objWalls: {
+    terminalPC?: boolean;
+    initFlag?: boolean;
+    prevStage?: number;
+    UL?: number;
+    ninja?: any;
+    objWalls?: {
         leftWall: {
             size: number;
             posX: number;
@@ -104,8 +104,8 @@ export default class Page2 extends React.Component {
             onTouch: (ninja: any, from: any) => void;
         };
     };
-    readElementScroll: string[];
-    objOutOfScreen: {
+    readElementScroll?: string[];
+    objOutOfScreen?: {
         outOfScreenLeft: {
             size: number;
             posX: number;
@@ -123,7 +123,7 @@ export default class Page2 extends React.Component {
         outOfScreenTop: any;
         outOfScreenBottom: any;
     };
-    objFloor: {
+    objFloor?: {
         floor1: {
             size: number;
             posX: number;
@@ -141,7 +141,7 @@ export default class Page2 extends React.Component {
         floor3: any;
         floor4: any;
     };
-    backgroundSetting: {
+    backgroundSetting?: {
         /* 背景画像 */
         backgroundImage: string;
         /* 画像を常に天地左右の中央に配置 */
@@ -154,14 +154,14 @@ export default class Page2 extends React.Component {
         backgroundColor: string;
     };
     consts: any;
-    lButton: boolean;
-    rButton: boolean;
-    jButton: boolean;
+    lButton?: boolean;
+    rButton?: boolean;
+    jButton?: boolean;
     pageStyle: any;
-    timerId: NodeJS.Timeout;
-    objs: any;
-    closeScroll: boolean;
-    closeButton: boolean;
+    timerId?: NodeJS.Timeout;
+    objs?: any;
+    closeScroll?: boolean;
+    closeButton?: boolean;
     bgImg: any;
 
     UNSAFE_componentWillMount() {
@@ -832,7 +832,7 @@ export default class Page2 extends React.Component {
         }
     }
 
-    setKeyboardEvent(objGame: Game) {
+    setKeyboardEvent(objGame: any) {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
@@ -2148,7 +2148,9 @@ export default class Page2 extends React.Component {
             localStorage.setItem("saveData1", JSON.stringify(saveData));
 
             //背景画像の変更
-            this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+            if (this.backgroundSetting) {
+                this.backgroundSetting.backgroundImage = `url(${this.bgImg})`;
+            }
         }
 
         return (
@@ -2162,7 +2164,7 @@ export default class Page2 extends React.Component {
                 >
                     <NinjaChar
                         imgAlt="Running Ninja"
-                        width={this.ninja.size * this.UL}
+                        width={this.ninja.size * (this?.UL || 0)}
                         x={this.state.ninjaStat.ninjaX}
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
@@ -2183,7 +2185,7 @@ export default class Page2 extends React.Component {
     }
 }
 
-function RenderObjs(props: { game: Game }) {
+function RenderObjs(props: any) {
     let objList = [];
     for (let key in props.game.objs) {
         objList.push(
@@ -2198,13 +2200,7 @@ function RenderObjs(props: { game: Game }) {
     return <span>{objList}</span>;
 }
 
-function RenderScreenBottom(props: {
-    UL: number;
-    terminalPC: boolean;
-    lang: Language;
-    onClickButton: EventFunc;
-    onMouseUp: EventFunc;
-}) {
+function RenderScreenBottom(props: any) {
     const UL = props.UL;
 
     //画面下部のボタンなどの表示の出し分け
@@ -2419,10 +2415,10 @@ function checkRelativityLeftAndTop(
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
 function onTouchScrollOpener(ninja: Ninja) {
-    if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
+    if (ninja.game?.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
-        let objs = ninja.game.objs;
+        let objs = ninja.game?.objs;
         for (let key in objs) {
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
@@ -2435,7 +2431,7 @@ function onTouchScrollOpener(ninja: Ninja) {
     }
     //読み終えたリストの中に該当の巻物を追加
     ninja.readScroll.push(this.openTargetTitle);
-    ninja.game.props.readElementScroll.push(this.openTargetTitle);
+    ninja.game?.props.readElementScroll.push(this.openTargetTitle);
 }
 
 //=======================================
@@ -2476,7 +2472,7 @@ function onTouchTree(ninja: Ninja, from: string) {
 // 右向きにに流れる川へのタッチ関数
 //=======================================
 function onTouchRiverToRight(ninja: Ninja) {
-    if (ninja.readScroll.indexOf(ninja.game.consts.WATER_SCROLL_TITLE) < 0) {
+    if (ninja.readScroll.indexOf(ninja.game?.consts.WATER_SCROLL_TITLE) < 0) {
         //水の書を読んでいなければ、流される
         ninja.posX += 10;
         ninja.posY = this.posY - ninja.size;
@@ -2554,7 +2550,7 @@ function onTouchFire(ninja: Ninja) {
         //時間制限付きの火でありながら、不可視となっている場合はジャンプしない
         return;
     }
-    if (ninja.readScroll.indexOf(ninja.game.consts.FIRE_SCROLL_TITLE) > 0) {
+    if (ninja.readScroll.indexOf(ninja.game?.consts.FIRE_SCROLL_TITLE) > 0) {
         //火の書を読んでいればジャンプする
         ninja.speedY = this.jumpHeight * -1;
     }
@@ -2564,7 +2560,7 @@ function onTouchFire(ninja: Ninja) {
 // 地蔵にタッチ
 //=======================================
 function onTouchJizo(ninja: Ninja) {
-    let objs = ninja.game.objs;
+    let objs = ninja.game?.objs;
     for (let key in objs) {
         if (objs[key].fireContinueTime) {
             //fireContinueTimeを持っている要素を表示する

@@ -1,12 +1,10 @@
 import * as React from "react";
 const logo = require("./img/logo.png");
 
-export default class Page1 extends React.Component {
+export default class Page1 extends React.Component<any, any> {
     consts: { BTN_START_CLASS: string };
-    state: any;
-    props: any;
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.consts = {
             BTN_START_CLASS: "btn btn-dark btn-lg btn-block",
@@ -128,7 +126,7 @@ export default class Page1 extends React.Component {
     }
 }
 
-function TopImage(props) {
+function TopImage(props: any) {
     if (props.topImage) {
         return (
             <h1>

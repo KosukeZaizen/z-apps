@@ -79,13 +79,14 @@ class RelatedArticles extends React.Component<{
     }
 }
 
-export default class Quiz3 extends React.Component<{
+interface Props {
     score: number;
     maxChar: number;
     incorrectList: any;
     changePage: any;
     consts: any;
-}> {
+}
+export default class Quiz3 extends React.Component<Props> {
     consts: {
         BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block";
         BUTTON_SUCCESS: "btn btn-success btn-lg btn-block";
@@ -93,7 +94,7 @@ export default class Quiz3 extends React.Component<{
         BUTTON_DARK: "btn btn-dark btn-lg btn-block";
     };
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.consts = {
             BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block",
@@ -115,7 +116,7 @@ export default class Quiz3 extends React.Component<{
                 {Object.keys(this.props.incorrectList).length > 0 && (
                     <IncorrectTable
                         incorrectList={this.props.incorrectList}
-                        changePage={i => {
+                        changePage={(i: number) => {
                             this.props.changePage(i);
                         }}
                     />

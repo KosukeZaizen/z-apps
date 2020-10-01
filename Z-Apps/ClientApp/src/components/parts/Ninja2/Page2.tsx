@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Ninja } from "../../NinjaGame2";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
 
@@ -102,10 +103,10 @@ export default class Page2 extends React.Component {
     props: any;
     state: any;
 
-    terminalPC: boolean;
+    terminalPC?: boolean;
     lang: any;
-    prevStage: number;
-    UL: number;
+    prevStage?: number;
+    UL?: number;
     ninja: any;
     readElementScroll: any;
     objOutOfScreen: any;
@@ -113,13 +114,13 @@ export default class Page2 extends React.Component {
     objFloor: any;
     backgroundSetting: any;
     consts: any;
-    lButton: boolean;
-    rButton: boolean;
-    jButton: boolean;
+    lButton?: boolean;
+    rButton?: boolean;
+    jButton?: boolean;
     timerId: any;
     objs: any;
-    closeScroll: boolean;
-    closeButton: boolean;
+    closeScroll?: boolean;
+    closeButton?: boolean;
     pageStyle: any;
     bgImg: any;
 
@@ -137,7 +138,7 @@ export default class Page2 extends React.Component {
         let pageSize = this.getWindowSize();
 
         //【Unit Length】画面の高さを90等分した長さを、このゲームの単位長さとする
-        this.UL = parseInt(pageSize.pageHeight, 10) / 90;
+        this.UL = pageSize.pageHeight / 90;
 
         //前のステージから受け取った忍者の初期値を設定
         this.ninja = this.props.ninja;
@@ -762,7 +763,7 @@ export default class Page2 extends React.Component {
     }
     //---------------↑　resize　↑---------------
 
-    setKeyboardEvent(objGame) {
+    setKeyboardEvent(objGame: any) {
         // ------------------------------------------------------------
         // キーボードを押したときに実行されるイベント
         // ------------------------------------------------------------
@@ -824,7 +825,7 @@ export default class Page2 extends React.Component {
     }
 
     //ボタン押下時処理
-    onClickButton(btnType) {
+    onClickButton(btnType: string) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = true;
@@ -840,7 +841,7 @@ export default class Page2 extends React.Component {
         }
     }
     //ボタン押下終了時処理
-    onMouseUp(btnType) {
+    onMouseUp(btnType: string) {
         if (btnType === "left") {
             //←ボタン押下判定
             this.lButton = false;
@@ -3290,7 +3291,7 @@ export default class Page2 extends React.Component {
                 <div id="gameScreen" style={this.state.screenStyle}>
                     <NinjaChar
                         imgAlt="Running Ninja"
-                        width={this.ninja.size * this.UL}
+                        width={this.ninja.size * (this?.UL || 0)}
                         x={this.state.ninjaStat.ninjaX}
                         y={this.state.ninjaStat.ninjaY}
                         boolLeft={this.state.ninjaStat.left}
@@ -3311,7 +3312,7 @@ export default class Page2 extends React.Component {
     }
 }
 
-function RenderObjs(props) {
+function RenderObjs(props: any) {
     let objList = [];
     for (let key in props.game.objs) {
         objList.push(
@@ -3326,7 +3327,7 @@ function RenderObjs(props) {
     return <span>{objList}</span>;
 }
 
-function RenderScreenBottom(props) {
+function RenderScreenBottom(props: any) {
     //画面下部のボタンなどの表示の出し分け
 
     const UL = props.UL;
@@ -3376,7 +3377,7 @@ function RenderScreenBottom(props) {
     }
 }
 
-function RenderButtons(props) {
+function RenderButtons(props: any) {
     const UL = props.UL;
 
     //ボタンがあるテーブルのスタイル
@@ -3482,14 +3483,14 @@ function RenderButtons(props) {
 }
 
 function checkRelativityRightAndFoot(
-    objRight,
-    ninjaRight,
-    objTop,
-    objFoot,
-    ninjaLeft,
-    ninjaTop,
-    ninjaFoot,
-    ninjaSize
+    objRight: number,
+    ninjaRight: number,
+    objTop: number,
+    objFoot: number,
+    ninjaLeft: number,
+    ninjaTop: number,
+    ninjaFoot: number,
+    ninjaSize: number
 ) {
     //コメントは忍者が右から来た想定
     if (objRight > ninjaLeft) {
@@ -3508,14 +3509,14 @@ function checkRelativityRightAndFoot(
     return false;
 }
 function checkRelativityLeftAndTop(
-    ninjaLeft,
-    objLeft,
-    objTop,
-    objFoot,
-    ninjaRight,
-    ninjaTop,
-    ninjaFoot,
-    ninjaSize
+    ninjaLeft: number,
+    objLeft: number,
+    objTop: number,
+    objFoot: number,
+    ninjaRight: number,
+    ninjaTop: number,
+    ninjaFoot: number,
+    ninjaSize: number
 ) {
     //コメントは忍者が左から来た想定
     if (objLeft < ninjaRight) {
@@ -3535,7 +3536,7 @@ function checkRelativityLeftAndTop(
 }
 
 //当たり判定
-function checkTouch(obj1, obj2) {
+function checkTouch(obj1: any, obj2: any) {
     if (obj1 && obj2) {
         //オブジェクトが存在する場合
 
@@ -3555,8 +3556,14 @@ function checkTouch(obj1, obj2) {
 }
 
 //ブロック生成関数
-function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
-    let objResult = {};
+function getBlocks(
+    size: number,
+    arrPos: any,
+    onTouch: any,
+    imgBlock: any,
+    zIndex: number
+) {
+    let objResult: any = {};
 
     for (let index in arrPos) {
         objResult["objBlock" + index] = {
@@ -3572,8 +3579,14 @@ function getBlocks(size, arrPos, onTouch, imgBlock, zIndex) {
 }
 
 //鍵　生成関数
-function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
-    let objResult = {};
+function getKeys(
+    ninja: Ninja,
+    posX: number,
+    posY: number,
+    zIndex: number,
+    openTargetTitle: string
+) {
+    let objResult: any = {};
 
     if (ninja.readScroll.indexOf(openTargetTitle) < 0) {
         //まだ鍵を見付けていない場合のみ表示
@@ -3592,8 +3605,8 @@ function getKeys(ninja, posX, posY, zIndex, openTargetTitle) {
 }
 
 //穴が開いた床　生成関数
-function getHoleFloor(holeStart, holeEnd) {
-    let objResult = {};
+function getHoleFloor(holeStart: number, holeEnd: number) {
+    let objResult: any = {};
 
     for (let i = 0; i < 5; i++) {
         objResult["floorL" + i] = {
@@ -3624,7 +3637,7 @@ function getHoleFloor(holeStart, holeEnd) {
 //=======================================
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
-function onTouchScrollOpener(ninja) {
+function onTouchScrollOpener(ninja: Ninja) {
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
@@ -3647,7 +3660,7 @@ function onTouchScrollOpener(ninja) {
 //=======================================
 // 貫通不可能ブロック用のタッチ関数
 //=======================================
-function onTouchBlock(ninja, from) {
+function onTouchBlock(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
         ninja.posY = this.posY - ninja.size;
@@ -3670,7 +3683,7 @@ function onTouchBlock(ninja, from) {
 //=======================================
 // 上から乗れる木などのタッチ関数
 //=======================================
-function onTouchTree(ninja, from) {
+function onTouchTree(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
         ninja.posY = this.posY - ninja.size;
@@ -3681,7 +3694,7 @@ function onTouchTree(ninja, from) {
 //=======================================
 // 風呂場の鍵がかかったドアのタッチ関数
 //=======================================
-function onTouchLockedDoor(ninja, from) {
+function onTouchLockedDoor(ninja: Ninja, from: string) {
     if (ninja.readScroll.indexOf(this.keyName) < 0) {
         //鍵を持っていなければブロック
         if (from === "upper") {
@@ -3714,7 +3727,7 @@ function onTouchNothing() {}
 //=======================================
 // 別ステージへのゲートのタッチ関数（左右）
 //=======================================
-function onTouchGateWall(ninja, from) {
+function onTouchGateWall(ninja: Ninja, from: string) {
     if (from === "right") {
         //右から
         ninja.posX += 160 - ninja.size;
@@ -3734,7 +3747,7 @@ function onTouchGateWall(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（stage1から下へ落ちる）
 //=======================================
-function onTouchGateTop1(ninja, from) {
+function onTouchGateTop1(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
         ninja.posX = 145;
@@ -3750,7 +3763,7 @@ function onTouchGateTop1(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（stage2等から上へ飛ばされる）
 //=======================================
-function onTouchGateTop2(ninja, from) {
+function onTouchGateTop2(ninja: Ninja, from: string) {
     //下から
     ninja.posX = 145;
     ninja.posY = -100;
@@ -3765,7 +3778,7 @@ function onTouchGateTop2(ninja, from) {
 //=======================================
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
-function onTouchStageChangeCommon(ninja, from) {
+function onTouchStageChangeCommon(ninja: Ninja, from: string) {
     ninja.posX = this.nextX;
     ninja.posY = this.nextY;
     ninja.boolLeft = this.nextLeft;
@@ -3778,7 +3791,7 @@ function onTouchStageChangeCommon(ninja, from) {
 //=======================================
 // 敵に触ってゲームオーバー
 //=======================================
-function onTouchEnemy(ninja) {
+function onTouchEnemy(ninja: Ninja) {
     if (!!ninja && !!ninja.game) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
@@ -3796,7 +3809,7 @@ function onTouchEnemy(ninja) {
 //=======================================
 // 通常敵キャラ　タイムステップ毎
 //=======================================
-function eachTimeEnemy(ninja, key) {
+function eachTimeEnemy(ninja: Ninja, key: any) {
     if (this && this.enemy) {
         //敵の行動可能域計算
         if (this.xMax && this.posX > this.xMax) {
@@ -3854,7 +3867,7 @@ function eachTimeEnemy(ninja, key) {
 //=======================================
 // 一つ目小僧　タイムステップ毎
 //=======================================
-function eachTimeOneEye(ninja, key) {
+function eachTimeOneEye(ninja: Ninja, key: any) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
@@ -3903,7 +3916,7 @@ function eachTimeOneEye(ninja, key) {
 //=======================================
 // ボス　タイムステップ毎
 //=======================================
-function eachTimeBoss(ninja, key) {
+function eachTimeBoss(ninja: Ninja, key: any) {
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
@@ -4035,7 +4048,7 @@ function eachTimeBoss(ninja, key) {
 //=======================================
 // ファイヤーボール　タイムステップ毎
 //=======================================
-function eachTimeFireBall(ninja, key) {
+function eachTimeFireBall(ninja: Ninja, key: any) {
     //fireBall
     if (this && this.fireBall) {
         if (this.posX + this.size < 0 || this.posX > 160) {
@@ -4057,7 +4070,7 @@ function eachTimeFireBall(ninja, key) {
 //=======================================
 // デカい魚　タイムステップ毎
 //=======================================
-function eachTimeKimme(ninja, key) {
+function eachTimeKimme(ninja: Ninja, key: any) {
     if (this && this.enemy) {
         //X軸について、忍者を追いかける
         if (this.speedX !== 0) {
@@ -4096,3 +4109,4 @@ function eachTimeKimme(ninja, key) {
 }
 
 export { Page2 };
+

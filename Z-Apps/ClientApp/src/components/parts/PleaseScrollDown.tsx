@@ -31,9 +31,9 @@ export default class PleaseScrollDown extends React.Component<
         }
     }
 
-    componentDidUpdate(preciousProps) {
+    componentDidUpdate(previousProps: Props) {
         if (
-            preciousProps.criteriaRef.current !== this.props.criteriaRef.current
+            previousProps.criteriaRef.current !== this.props.criteriaRef.current
         ) {
             this.judge();
         }

@@ -2,10 +2,10 @@ import * as React from "react";
 import GoogleAds from "react-google-ads";
 import { GOOGLE_ADS_CLIENT, GOOGLE_ADS_SLOT } from "../common/privateConsts";
 
-export let isGoogleAdsDisplayed;
+export let isGoogleAdsDisplayed: boolean;
 
 export default class GoogleAd extends React.Component {
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         // コンポーネント外でのAdsense表示判定のため、Adsenseの状態を変数としてexport
         isGoogleAdsDisplayed = true;

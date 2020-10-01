@@ -1,14 +1,14 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { Game } from "../Page2";
 
-export default class Obj extends React.Component {
-    props: {
-        obj: any;
-        game: any;
-        UL: any;
-    };
-
-    constructor(props) {
+interface Props {
+    obj: any;
+    game: any;
+    UL: any;
+}
+export default class Obj extends React.Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.onClickOkButtonInScroll = this.onClickOkButtonInScroll.bind(this);
     }
@@ -68,9 +68,9 @@ export default class Obj extends React.Component {
                 };
 
                 let arrlines = message.split("\n");
-                const listlines = arrlines.map((line, index) => (
-                    <p key={index}>{line}</p>
-                ));
+                const listlines = arrlines.map(
+                    (line: string, index: number) => <p key={index}>{line}</p>
+                );
 
                 return (
                     <div>
@@ -239,7 +239,13 @@ export default class Obj extends React.Component {
 }
 
 //巻物に話者の画像がついていた場合、それも表示する
-function SpeakerImage(props) {
+function SpeakerImage(props: {
+    img: string;
+    size: number;
+    zIndex: number;
+    posX: number;
+    posY: number;
+}) {
     let img = props.img;
 
     if (img) {
@@ -268,7 +274,14 @@ function SpeakerImage(props) {
     }
 }
 
-function CloseElement(props) {
+function CloseElement(props: {
+    obj: any;
+    game: Game;
+    styleBtnClose: React.CSSProperties;
+    className: string;
+    style: React.CSSProperties;
+    onClick: () => void;
+}) {
     if (props.obj.finalMessage) {
         //localStorageに自動セーブ（次回起動時データ）
         const saveData = {

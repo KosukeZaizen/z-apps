@@ -18,7 +18,7 @@ function NavigationItems(props: { closeToggle: () => void }) {
         "Vocabulary Quiz": "/vocabulary-quiz",
         "Kanji Quiz": "/kanji-quiz",
         "Action Games": "/ninja",
-    };
+    } as const;
     let linkList = [];
     for (let key in objLinks) {
         linkList.push(
@@ -26,7 +26,7 @@ function NavigationItems(props: { closeToggle: () => void }) {
                 key={key}
                 tag={Link}
                 className="text-light dropdown"
-                to={objLinks[key]}
+                to={objLinks[key as keyof typeof objLinks]}
             >
                 {key}
             </NavLink>
@@ -44,7 +44,7 @@ export default class NavMenu extends React.Component {
         isOpen: boolean;
     };
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         this.toggle = this.toggle.bind(this);

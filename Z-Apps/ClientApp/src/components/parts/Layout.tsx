@@ -4,10 +4,10 @@ import Footer from "./Footer";
 import "./Layout.css";
 import NavMenu from "./NavMenu";
 
-export default props => (
+export default ({ children }: { children: React.ReactNode }) => (
     <div>
         <NavMenu />
-        <Container className="contents-container">{props.children}</Container>
+        <Container className="contents-container">{children}</Container>
         <Footer />
     </div>
 );

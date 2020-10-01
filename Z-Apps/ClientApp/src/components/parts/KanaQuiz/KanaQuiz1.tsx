@@ -2,14 +2,15 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import PleaseScrollDown from "../PleaseScrollDown";
 
-export default class Quiz1 extends React.Component<{
+interface Props {
     consts: {
         KANA_TYPE: string;
         OTHER_KANA_TYPE: string;
     };
     changePage: (i: any) => void;
     setMaxChar: (i: any) => void;
-}> {
+}
+export default class Quiz1 extends React.Component<Props> {
     consts: {
         START_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block";
         START_BUTTON_SUCCESS: "btn btn-success btn-lg btn-block";
@@ -18,7 +19,7 @@ export default class Quiz1 extends React.Component<{
     };
     ref: React.RefObject<HTMLButtonElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.consts = {
             START_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block",
@@ -33,7 +34,7 @@ export default class Quiz1 extends React.Component<{
         this.ref = React.createRef();
     }
 
-    startGame(maxChar) {
+    startGame(maxChar: number) {
         this.props.setMaxChar(maxChar);
         this.props.changePage(2);
     }

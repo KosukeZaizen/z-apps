@@ -3,18 +3,19 @@ import { Quiz1 } from "./KanaQuiz1";
 import { Quiz2 } from "./KanaQuiz2";
 import { Quiz3 } from "./KanaQuiz3";
 
+interface Props {
+    consts: any;
+}
 export default class QuizCore extends React.Component<
-    {
-        consts: any;
-    },
+    Props,
     {
         pageNum: number;
         maxChar: number;
-        score: 0;
-        incorrectList: string;
+        score: number;
+        incorrectList: any;
     }
 > {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             pageNum: 1,
@@ -24,19 +25,19 @@ export default class QuizCore extends React.Component<
         };
     }
 
-    setScore(num) {
+    setScore(num: number) {
         this.setState({ score: num });
     }
 
-    setIncorrectList(obj) {
+    setIncorrectList(obj: object) {
         this.setState({ incorrectList: obj });
     }
 
-    changePage(num) {
+    changePage(num: number) {
         this.setState({ pageNum: num });
     }
 
-    setMaxChar(num) {
+    setMaxChar(num: number) {
         this.setState({ maxChar: num });
     }
 
@@ -54,16 +55,18 @@ export default class QuizCore extends React.Component<
                 <Quiz2
                     consts={this.props.consts}
                     maxChar={this.state.maxChar}
-                    changePage={i => this.changePage(i)}
-                    setIncorrectList={obj => this.setIncorrectList(obj)}
-                    setScore={i => this.setScore(i)}
+                    changePage={(i: number) => this.changePage(i)}
+                    setIncorrectList={(obj: object) =>
+                        this.setIncorrectList(obj)
+                    }
+                    setScore={(i: number) => this.setScore(i)}
                 />
             );
         } else if (this.state.pageNum === 3) {
             return (
                 <Quiz3
                     consts={this.props.consts}
-                    changePage={i => this.changePage(i)}
+                    changePage={(i:number) => this.changePage(i)}
                     maxChar={this.state.maxChar}
                     score={this.state.score}
                     incorrectList={this.state.incorrectList}
@@ -74,3 +77,4 @@ export default class QuizCore extends React.Component<
 }
 
 export { QuizCore };
+

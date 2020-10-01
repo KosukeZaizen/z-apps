@@ -1,13 +1,15 @@
 import * as React from "react";
 
+type btnKey = "btn1Value" | "btn2Value" | "btn3Value" | "btn4Value";
+interface Props {
+    consts: any;
+    maxChar: number;
+    changePage: any;
+    setScore: any;
+    setIncorrectList: any;
+}
 export default class Quiz2 extends React.Component<
-    {
-        consts: any;
-        maxChar: number;
-        changePage: any;
-        setScore: any;
-        setIncorrectList: any;
-    },
+    Props,
     {
         gameCount: number;
     }
@@ -26,7 +28,7 @@ export default class Quiz2 extends React.Component<
     listAll: any;
     listTmp: any;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.consts = {
             ANSWER_BUTTON_PRIMARY: "btn btn-primary btn-lg btn-block active",
@@ -62,22 +64,22 @@ export default class Quiz2 extends React.Component<
             let aryKeys = Object.keys(this.listAll);
             let index = aryKeys[Math.floor(Math.random() * aryKeys.length)];
             let j = i + 1;
-            this[`btn${j}Value`] = index;
+            this[`btn${j}Value` as btnKey] = index;
             delete this.listAll[index];
         }
 
         //問題と一致するボタンの設置
         let q = Math.floor(Math.random() * 4) + 1;
-        this[`btn${q}Value`] = this.indexQ;
+        this[`btn${q}Value` as btnKey] = this.indexQ;
 
         this.listAll = Object.assign({}, this.props.consts.KANA_LIST);
     }
 
-    onClickBtn(i) {
+    onClickBtn(i: number) {
         let maxGame = this.props.maxChar;
 
         let question = this.question;
-        let answer = this[`btn${i}Value`];
+        let answer = this[`btn${i}Value` as btnKey];
 
         if (question === this.listTmp[answer]) {
             this.correct += 1;

@@ -14,6 +14,8 @@ export interface Ninja {
     posY: number;
     readScroll: string[];
     boolLeft: boolean;
+    fireBallCount: any;
+    game: any;
 }
 interface Props {}
 interface State {
