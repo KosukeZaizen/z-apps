@@ -158,7 +158,7 @@ export default class Page2 extends React.Component {
     rButton?: boolean;
     jButton?: boolean;
     pageStyle: any;
-    timerId?: NodeJS.Timeout;
+    timerId?: number;
     objs?: any;
     closeScroll?: boolean;
     closeButton?: boolean;
@@ -625,7 +625,7 @@ export default class Page2 extends React.Component {
         //初回描画時のみ処理の登録を行う
         if (this.initFlag) {
             //タイムステップ毎に処理を呼び出す
-            this.timerId = setInterval(() => {
+            this.timerId = window.setInterval(() => {
                 //タイムステップごとの計算
 
                 /* ↓　物体速度・位置計算　↓ */
@@ -2436,7 +2436,7 @@ function onTouchScrollOpener(ninja: Ninja) {
     //@ts-ignore
     ninja.readScroll.push(this.openTargetTitle);
     //@ts-ignore
-    ninja.game?.props.readElementScroll.push(this.openTargetTitle);
+    const _ = ninja.game?.props.readElementScroll.push(this.openTargetTitle);
 }
 
 //=======================================
@@ -2586,3 +2586,4 @@ function onTouchJizo(ninja: Ninja) {
 }
 
 export { Page2 };
+

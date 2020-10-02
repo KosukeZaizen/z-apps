@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as React from "react";
 const logo = require("./img/logo.png");
 

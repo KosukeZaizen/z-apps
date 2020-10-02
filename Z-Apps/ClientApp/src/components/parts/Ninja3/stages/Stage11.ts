@@ -8,7 +8,7 @@ const bgImg = require("../img/background/tengumura2.jpg");
 const Stage: any = {};
 
 //キノコ村　街中１
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 

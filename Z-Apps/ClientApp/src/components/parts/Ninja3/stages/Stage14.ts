@@ -8,7 +8,7 @@ const bgImg = require("../img/background/tengumura5.jpg");
 const Stage: any = {};
 
 //墓場への階段
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 

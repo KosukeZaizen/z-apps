@@ -9,7 +9,7 @@ const bgImg = require("../img/background/snow1.jpg");
 
 const Stage: any = {};
 
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = 0; //風速の最大・最小
 

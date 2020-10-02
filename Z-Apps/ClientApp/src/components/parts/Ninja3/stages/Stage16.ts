@@ -12,7 +12,7 @@ const bgImg = require("../img/background/washitsu.jpg");
 const Stage: any = {};
 
 //仙人の家（室内）
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
 
     let returnObjs: any = {

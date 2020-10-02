@@ -8,7 +8,7 @@ const bgImg = require("../img/background/tengumura1.jpg");
 const Stage: any = {};
 
 //夜の階段（仙人の家の近く）
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 

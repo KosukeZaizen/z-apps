@@ -10,7 +10,7 @@ const bgImg = require("../img/background/tengumura6.jpg");
 const Stage: any = {};
 
 //英雄の墓
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 

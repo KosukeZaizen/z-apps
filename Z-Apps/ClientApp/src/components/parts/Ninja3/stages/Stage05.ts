@@ -9,7 +9,7 @@ const bgImg = require("../img/background/cliff.jpg");
 
 const Stage: any = {};
 
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 2.5 : 0; //風速
 

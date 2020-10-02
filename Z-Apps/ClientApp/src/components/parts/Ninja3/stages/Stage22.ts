@@ -10,7 +10,7 @@ const bgImg = require("../img/background/last.jpg");
 const Stage: any = {};
 
 //クリア後
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
 
     let returnObjs = {

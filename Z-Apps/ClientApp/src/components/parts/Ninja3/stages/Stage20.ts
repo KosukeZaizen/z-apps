@@ -10,7 +10,7 @@ const bgImg = require("../img/background/grave4.jpg");
 const Stage: any = {};
 
 //半化の書
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
 
     let returnObjs: any = {

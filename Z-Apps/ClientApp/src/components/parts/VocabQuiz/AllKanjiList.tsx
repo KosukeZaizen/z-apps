@@ -10,12 +10,13 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { vocabGenre } from "../../../types/vocab";
 
-export default class AllKanjiList extends React.Component<{
+interface Props {
     allGenres: vocabGenre[];
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>;
-}> {
-    constructor(props) {
+}
+export default class AllKanjiList extends React.Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.state = {
             allGenres: [],

@@ -10,7 +10,7 @@ const bgImg = require("../img/background/grave5.jpg");
 const Stage: any = {};
 
 //踏みつけの書
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
 
     let returnObjs = {

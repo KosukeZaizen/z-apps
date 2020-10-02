@@ -9,7 +9,7 @@ const bgImg2 = require("../img/background/snow4-2.jpg");
 
 const Stage: any = {};
 
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.windSpeed = ninja.snow ? -3.2 : 0; //風速
 
     let returnObjs: any = {

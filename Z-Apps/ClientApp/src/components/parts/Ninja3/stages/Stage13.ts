@@ -10,7 +10,7 @@ const bgImg = require("../img/background/tengumura4.jpg");
 const Stage: any = {};
 
 //キノコ村　流れ出る温泉
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 1 : 0; //風速
 

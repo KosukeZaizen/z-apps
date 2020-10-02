@@ -11,7 +11,7 @@ const bgImg2 = require("../img/background/snow2-2.jpg");
 const Stage: any = {};
 
 //修行僧がいる雪道
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.windSpeed = ninja.snow ? -1 : 0; //風速
 
     let returnObjs: any = {

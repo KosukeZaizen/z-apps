@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 
 //当たり判定
-export function checkTouch(obj1, obj2) {
+export function checkTouch(obj1: any, obj2: any) {
     if (obj1 && obj2) {
         //オブジェクトが存在する場合
 
@@ -24,7 +24,7 @@ export function checkTouch(obj1, obj2) {
 }
 
 //相対位置判定
-export function checkRelativity(obj1, obj2) {
+export function checkRelativity(obj1: any, obj2: any) {
     //obj2から見たobj1の位置を返す関数
     //石から見た忍者　等
 
@@ -65,7 +65,7 @@ export function checkRelativity(obj1, obj2) {
 }
 
 let changeStage;
-export function setChangeStage(fnc) {
+export function setChangeStage(fnc: Function) {
     changeStage = fnc;
 }
 export { changeStage };

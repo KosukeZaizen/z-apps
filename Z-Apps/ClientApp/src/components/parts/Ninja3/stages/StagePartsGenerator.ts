@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { changeStage } from "../CommonFnc"; //共通関数
 import * as EachTime from "../EachTime"; //タイムステップごとの処理
 import Imgs from "../ImportImgs";

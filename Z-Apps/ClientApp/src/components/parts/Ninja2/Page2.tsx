@@ -3638,14 +3638,17 @@ function getHoleFloor(holeStart: number, holeEnd: number) {
 // 巻物を開くためのトリガーに触った際のタッチ関数
 //=======================================
 function onTouchScrollOpener(ninja: Ninja) {
+    //@ts-ignore
     if (ninja.game.props.readElementScroll.indexOf(this.openTargetTitle) < 0) {
         //まだターゲットの巻物が読まれていない（ステージ遷移の度にリセット）
 
         let objs = ninja.game.objs;
         for (let key in objs) {
+            //@ts-ignore
             if (objs[key].title !== this.openTargetTitle && objs[key].scroll) {
                 //表示が被らないように、他の巻物を消す
                 objs[key].visible = false;
+                //@ts-ignore
             } else if (objs[key].title === this.openTargetTitle) {
                 //該当の巻物を表示する
                 objs[key].visible = true;
@@ -3653,7 +3656,9 @@ function onTouchScrollOpener(ninja: Ninja) {
         }
     }
     //読み終えたリストの中に該当の巻物を追加
+    //@ts-ignore
     ninja.readScroll.push(this.openTargetTitle);
+    //@ts-ignore
     ninja.game.props.readElementScroll.push(this.openTargetTitle);
 }
 
@@ -3663,18 +3668,22 @@ function onTouchScrollOpener(ninja: Ninja) {
 function onTouchBlock(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
+        //@ts-ignore
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
     } else if (from === "right") {
         //右から
+        //@ts-ignore
         ninja.posX = this.posX + this.size;
         ninja.speedX = 0;
     } else if (from === "lower") {
         //下から
+        //@ts-ignore
         ninja.posY = this.posY + this.size;
         ninja.speedY = 0;
     } else if (from === "left") {
         //左から
+        //@ts-ignore
         ninja.posX = this.posX - ninja.size;
         ninja.speedX = 0;
     }
@@ -3686,6 +3695,7 @@ function onTouchBlock(ninja: Ninja, from: string) {
 function onTouchTree(ninja: Ninja, from: string) {
     if (from === "upper") {
         //上から
+        //@ts-ignore
         ninja.posY = this.posY - ninja.size;
         ninja.speedY = 0;
     }
@@ -3694,23 +3704,29 @@ function onTouchTree(ninja: Ninja, from: string) {
 //=======================================
 // 風呂場の鍵がかかったドアのタッチ関数
 //=======================================
+//@ts-ignore
 function onTouchLockedDoor(ninja: Ninja, from: string) {
+    //@ts-ignore
     if (ninja.readScroll.indexOf(this.keyName) < 0) {
         //鍵を持っていなければブロック
         if (from === "upper") {
             //上から
+            //@ts-ignore
             ninja.posY = this.posY - ninja.size;
             ninja.speedY = 0;
         } else if (from === "right") {
             //右から
+            //@ts-ignore
             ninja.posX = this.posX + this.size;
             ninja.speedX = 0;
         } else if (from === "lower") {
             //下から
+            //@ts-ignore
             ninja.posY = this.posY + this.size;
             ninja.speedY = 0;
         } else if (from === "left") {
             //左から
+            //@ts-ignore
             ninja.posX = this.posX - ninja.size;
             ninja.speedX = 0;
         }
@@ -3739,6 +3755,7 @@ function onTouchGateWall(ninja: Ninja, from: string) {
         ninja.speedX = 0;
         ninja.speedY = 0;
     }
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -3755,6 +3772,7 @@ function onTouchGateTop1(ninja: Ninja, from: string) {
         ninja.speedY = 0;
         ninja.speedX = 0;
     }
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -3770,6 +3788,7 @@ function onTouchGateTop2(ninja: Ninja, from: string) {
     ninja.speedX = 0;
     ninja.speedY = 0;
 
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -3779,10 +3798,13 @@ function onTouchGateTop2(ninja: Ninja, from: string) {
 // 別ステージへのゲートのタッチ関数（汎用化したもの）
 //=======================================
 function onTouchStageChangeCommon(ninja: Ninja, from: string) {
+    //@ts-ignore
     ninja.posX = this.nextX;
+    //@ts-ignore
     ninja.posY = this.nextY;
+    //@ts-ignore
     ninja.boolLeft = this.nextLeft;
-
+    //@ts-ignore
     this.changeStage(this.next, ninja);
 
     return "changed";
@@ -3810,44 +3832,66 @@ function onTouchEnemy(ninja: Ninja) {
 // 通常敵キャラ　タイムステップ毎
 //=======================================
 function eachTimeEnemy(ninja: Ninja, key: any) {
+    //@ts-ignore
     if (this && this.enemy) {
         //敵の行動可能域計算
+        //@ts-ignore
         if (this.xMax && this.posX > this.xMax) {
             //x最大値を超えている場合
+            //@ts-ignore
             this.posX = this.xMax;
             return;
+            //@ts-ignore
         } else if (this.xMin && this.posX < this.xMin) {
             //x最小値を超えている場合
+            //@ts-ignore
             this.posX = this.xMin;
             return;
         }
+        //@ts-ignore
         if (this.yMax && this.posY > this.yMax) {
             //y最大値を超えている場合
+            //@ts-ignore
             this.posY = this.yMax;
             return;
+            //@ts-ignore
         } else if (this.yMin && this.posY < this.yMin) {
             //y最小値を超えている場合
+            //@ts-ignore
             this.posY = this.yMin;
             return;
         }
 
         //X軸について、忍者を追いかける
+        //@ts-ignore
         if (this.speedX !== 0) {
+            //@ts-ignore
             if (ninja.posX >= this.posX + this.size - ninja.size / 2) {
+                //@ts-ignore
                 this.posX += this.speedX;
+                //@ts-ignore
                 this.boolLeft = false;
+                //@ts-ignore
             } else if (ninja.posX + ninja.size / 2 <= this.posX) {
+                //@ts-ignore
                 this.posX += this.speedX * -1;
+                //@ts-ignore
                 this.boolLeft = true;
             } else {
+                //@ts-ignore
                 this.posX += ninja.posX < this.posX ? -1 : 0;
+                //@ts-ignore
                 this.posX += ninja.posX > this.posX ? 1 : 0;
             }
         }
         //Y軸について、忍者を追いかける
+        //@ts-ignore
         if (ninja.posY >= this.posY + this.size - ninja.size / 2) {
+            //@ts-ignore
             this.posY += this.speedY;
+            //@ts-ignore
         } else if (ninja.posY + ninja.size / 2 <= this.posY) {
+            //@ts-ignore
             this.posY += this.speedY * -1;
         }
 
@@ -3855,6 +3899,7 @@ function eachTimeEnemy(ninja: Ninja, key: any) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
 
+                //@ts-ignore
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
                     //敵がFireBallに触れた場合
                     delete ninja.game.objs[key];
@@ -3868,6 +3913,7 @@ function eachTimeEnemy(ninja: Ninja, key: any) {
 // 一つ目小僧　タイムステップ毎
 //=======================================
 function eachTimeOneEye(ninja: Ninja, key: any) {
+    //@ts-ignore
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
@@ -3880,7 +3926,9 @@ function eachTimeOneEye(ninja: Ninja, key: any) {
             if (random2 !== 0 && random3 !== 0) {
                 ninja.game.objs["oneEye" + day] = {
                     size: 13,
+                    //@ts-ignore
                     posX: this.posX,
+                    //@ts-ignore
                     posY: this.posY,
                     speedX: random2 / 5,
                     speedY: random3 / 5,
@@ -3894,9 +3942,13 @@ function eachTimeOneEye(ninja: Ninja, key: any) {
         }
 
         //Y軸について、忍者を追いかける
+        //@ts-ignore
         if (ninja.posY >= this.posY + this.size - ninja.size / 2) {
+            //@ts-ignore
             this.posY += this.speedY;
+            //@ts-ignore
         } else if (ninja.posY + ninja.size / 2 <= this.posY) {
+            //@ts-ignore
             this.posY += this.speedY * -1;
         }
 
@@ -3904,6 +3956,7 @@ function eachTimeOneEye(ninja: Ninja, key: any) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
 
+                //@ts-ignore
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
                     //敵がFireBallに触れた場合
                     delete ninja.game.objs[key];
@@ -3917,6 +3970,7 @@ function eachTimeOneEye(ninja: Ninja, key: any) {
 // ボス　タイムステップ毎
 //=======================================
 function eachTimeBoss(ninja: Ninja, key: any) {
+    //@ts-ignore
     if (this && this.enemy) {
         //重複を防ぐために現在時刻をプロパティ名に
         let day = new Date().getTime();
@@ -3930,7 +3984,9 @@ function eachTimeBoss(ninja: Ninja, key: any) {
         if (random1 * random2 === 9 && randomHalf === 2) {
             ninja.game.objs["bat" + day] = {
                 size: 13,
+                //@ts-ignore
                 posX: this.posX,
+                //@ts-ignore
                 posY: this.posY,
                 speedX: random3 / 3,
                 speedY: random2 / 3,
@@ -4004,6 +4060,7 @@ function eachTimeBoss(ninja: Ninja, key: any) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
 
+                //@ts-ignore
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
                     ninja.game.objs["rightGateWall"] = {
                         size: 300,
@@ -4012,6 +4069,7 @@ function eachTimeBoss(ninja: Ninja, key: any) {
                         zIndex: 30,
                         next: 20,
                         onTouch: onTouchGateWall,
+                        //@ts-ignore
                         changeStage: this.changeStage,
                     };
 
@@ -4050,17 +4108,22 @@ function eachTimeBoss(ninja: Ninja, key: any) {
 //=======================================
 function eachTimeFireBall(ninja: Ninja, key: any) {
     //fireBall
+    //@ts-ignore
     if (this && this.fireBall) {
+        //@ts-ignore
         if (this.posX + this.size < 0 || this.posX > 160) {
             //fireBallが画面からはみ出した場合、消す
             delete ninja.game.objs[key];
         } else {
             //fireBallが画面内にある場合
+            //@ts-ignore
             if (this.boolLeft) {
                 //左向き
+                //@ts-ignore
                 this.posX -= 10;
             } else {
                 //右向き
+                //@ts-ignore
                 this.posX += 10;
             }
         }
@@ -4071,27 +4134,41 @@ function eachTimeFireBall(ninja: Ninja, key: any) {
 // デカい魚　タイムステップ毎
 //=======================================
 function eachTimeKimme(ninja: Ninja, key: any) {
+    //@ts-ignore
     if (this && this.enemy) {
         //X軸について、忍者を追いかける
+        //@ts-ignore
         if (this.speedX !== 0) {
+            //@ts-ignore
             if (ninja.posX >= this.posX + this.size - ninja.size / 2) {
+                //@ts-ignore
                 this.posX += this.speedX;
+                //@ts-ignore
                 this.boolLeft = false;
+                //@ts-ignore
             } else if (ninja.posX + ninja.size / 2 <= this.posX) {
+                //@ts-ignore
                 this.posX += this.speedX * -1;
+                //@ts-ignore
                 this.boolLeft = true;
             } else {
+                //@ts-ignore
                 this.posX += ninja.posX < this.posX ? -1 : 0;
+                //@ts-ignore
                 this.posX += ninja.posX > this.posX ? 1 : 0;
             }
         }
 
         //敵の行動可能域計算
+        //@ts-ignore
         if (this.xMax && this.posX > this.xMax) {
             //x最大値を超えている場合
+            //@ts-ignore
             this.posX = this.xMax;
+            //@ts-ignore
         } else if (this.xMin && this.posX < this.xMin) {
             //x最小値を超えている場合
+            //@ts-ignore
             this.posX = this.xMin;
         }
 
@@ -4099,8 +4176,10 @@ function eachTimeKimme(ninja: Ninja, key: any) {
             if (ninja.game.objs["fireBall" + i]) {
                 //まだ消えていないFireBallについて
 
+                //@ts-ignore
                 if (checkTouch(this, ninja.game.objs["fireBall" + i])) {
                     //敵がFireBallに触れた場合
+                    //@ts-ignore
                     this.posX += 0.5;
                 }
             }
@@ -4109,4 +4188,3 @@ function eachTimeKimme(ninja: Ninja, key: any) {
 }
 
 export { Page2 };
-

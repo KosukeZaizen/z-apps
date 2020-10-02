@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { changeStage } from "./CommonFnc";
 import * as consts from "./Consts"; //定数
 import { messages } from "./Messages"; //メッセージモジュール

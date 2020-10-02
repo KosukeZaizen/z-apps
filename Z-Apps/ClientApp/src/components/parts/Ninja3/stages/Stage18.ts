@@ -10,7 +10,7 @@ const bgImg = require("../img/background/grave2.jpg");
 const Stage: any = {};
 
 //英雄の墓２
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
 
     let returnObjs = {
@@ -98,12 +98,12 @@ Stage.getObjs = ninja => {
             ...returnObjs,
             ...StageParts.getFlyingRockLeft(1, 17, 160, 21, 30, 55),
             ...StageParts.getFlyingRockLeft(2, 17, 160, 52, 30),
-            bottomGate: StageParts.getBottomGate(17, 90, 115, -12, true),
+            bottomGate: StageParts.getBottomGate(17, 90, 115, -12, true) as any,
         };
     } else {
         returnObjs = {
             ...returnObjs,
-            bottomGate: StageParts.getBottomGate(18, 90, 0, 0),
+            bottomGate: StageParts.getBottomGate(18, 90, 0, 0) as any,
         };
     }
     return returnObjs;

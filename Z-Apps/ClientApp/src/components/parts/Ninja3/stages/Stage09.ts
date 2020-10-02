@@ -10,7 +10,7 @@ const bgImg = require("../img/background/snow5.jpg");
 const Stage: any = {};
 
 //仙人の家（外）
-Stage.getObjs = ninja => {
+Stage.getObjs = (ninja: any) => {
     Stage.bgImg = bgImg;
     Stage.windSpeed = ninja.snow ? 0 : 0; //風速
 

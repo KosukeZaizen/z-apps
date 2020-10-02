@@ -13,7 +13,7 @@ class RomajiConverter extends React.Component<
         inputColor: string;
     }
 > {
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         objConst = {
@@ -312,7 +312,7 @@ class RomajiConverter extends React.Component<
     }
 
     // State(textVal)を変更
-    setStateTextVal(textVal) {
+    setStateTextVal(textVal: any) {
         let textVal_r = textVal;
 
         textVal_r = convertChars(textVal_r, objConst.objTwoChars_K);
@@ -337,7 +337,7 @@ class RomajiConverter extends React.Component<
         });
     }
 
-    convertSmallTsu(text) {
+    convertSmallTsu(text: string) {
         text = convertChars(text, { っch: "tch", ッch: "tch" });
 
         let arrText = text.split("");
@@ -461,11 +461,11 @@ class ChildInput extends React.Component<{
     onFocus: (e: any) => void;
     onScroll: () => void;
 }> {
-    _onChange(e) {
+    _onChange(e: any) {
         this.props.onChange(e.target.value);
     }
 
-    _onFocus(e) {
+    _onFocus(e: any) {
         this.props.onFocus(e.target.value);
     }
 
@@ -524,7 +524,7 @@ function getIoElement() {
     }
 }
 
-function convertChars(text, obj) {
+function convertChars(text: string, obj: any) {
     for (let key in obj) {
         let arrText = text.split(key);
         text = arrText.join(obj[key]);
@@ -537,7 +537,7 @@ function getCopyTarget() {
     return convertChars(objConst.ioArea[1].innerHTML, objConst.objChangeLine);
 }
 
-function execCopy(string) {
+function execCopy(string: string) {
     var tmp = document.createElement("div");
     var pre = document.createElement("pre");
 
@@ -551,7 +551,7 @@ function execCopy(string) {
     s.right = "200%";
 
     document.body.appendChild(tmp);
-    document.getSelection().selectAllChildren(tmp);
+    const _ = document.getSelection()?.selectAllChildren(tmp);
 
     var result = document.execCommand("copy");
 

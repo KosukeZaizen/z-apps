@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as React from "react";
 import * as CommonFnc from "./CommonFnc"; //共通関数
 import { TIME_STEP } from "./Consts"; //定数

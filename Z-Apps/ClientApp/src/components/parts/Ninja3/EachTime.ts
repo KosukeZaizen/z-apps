@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { TIME_STEP } from "./Consts";
 import Imgs from "./ImportImgs";
 import * as OnTouch from "./OnTouch"; //タッチ関数
@@ -11,7 +12,7 @@ import * as OnTouch from "./OnTouch"; //タッチ関数
 //=======================================
 // 通常敵キャラ　タイムステップ毎
 //=======================================
-export function Enemy(ninja, key) {
+export function Enemy(ninja: any, key: any) {
     if (this && this.enemy) {
         //敵の行動可能域計算
         if (this.xMax && this.posX > this.xMax) {

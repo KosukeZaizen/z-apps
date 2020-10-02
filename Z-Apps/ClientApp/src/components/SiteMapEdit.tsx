@@ -13,12 +13,12 @@ export default class SiteMapEdit extends React.Component<
 > {
     screenHeight: number;
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
 
         //セーブデータがあればそれを設定
         const saveData = localStorage.getItem("folktales-register-token");
-        const objSaveData = JSON.parse(saveData);
+        const objSaveData = saveData && JSON.parse(saveData);
 
         let token;
         if (objSaveData) {
@@ -51,21 +51,21 @@ export default class SiteMapEdit extends React.Component<
         }
     };
 
-    handleChangeSitemap = (event, i, item) => {
-        const s = this.state.sitemap.concat();
+    handleChangeSitemap = (event: any, i: number, item: any) => {
+        const s: any = this.state.sitemap.concat();
         s[i][item] = event.target.value.split(" ").join("");
 
         this.setState({ sitemap: s });
     };
 
-    addLine = i => {
+    addLine = (i: number) => {
         const s = this.state.sitemap.concat();
         s.splice(i + 1, 0, { loc: "", lastmod: "" });
 
         this.setState({ sitemap: s });
     };
 
-    removeLine = i => {
+    removeLine = (i: number) => {
         const s = this.state.sitemap.filter((l, m) => m !== i);
         this.setState({ sitemap: s });
     };
@@ -93,7 +93,7 @@ export default class SiteMapEdit extends React.Component<
         }
     };
 
-    changeToken = event => {
+    changeToken = (event: any) => {
         const token = event.target.value;
         this.setState({ token: token });
         localStorage.setItem(
@@ -102,7 +102,7 @@ export default class SiteMapEdit extends React.Component<
         );
     };
 
-    checkInput = s => {
+    checkInput = (s: any) => {
         try {
             if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0)
                 return "The URL is strange.";
@@ -265,7 +265,7 @@ export default class SiteMapEdit extends React.Component<
     }
 }
 
-class SitemapInfo extends React.Component<{
+interface InfoProps {
     s: { loc: string; lastmod: string };
     i: number;
     key: number;
@@ -273,8 +273,9 @@ class SitemapInfo extends React.Component<{
     addLine: (i: any) => void;
     removeLine: (i: any) => void;
     checkInput: (s: any) => any;
-}> {
-    constructor(props) {
+}
+class SitemapInfo extends React.Component<InfoProps> {
+    constructor(props: InfoProps) {
         super(props);
 
         this.state = {};

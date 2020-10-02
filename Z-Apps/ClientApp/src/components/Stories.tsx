@@ -14,10 +14,13 @@ import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/PleaseScrollDown.css";
 
+type BtnType = "kanji" | "hiragana" | "romaji" | "english";
+
 type Props = storiesStore.StoriesState &
     storiesStore.IActionCreators & {
         location: { pathname: string };
         otherStories: storyDesc[];
+        match: { params: { [key: string]: string } };
     };
 type State = {
     storyName: string;
@@ -34,7 +37,7 @@ type State = {
 class Stories extends React.Component<Props, State> {
     refSentences: React.RefObject<HTMLDivElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         const { params } = props.match;
@@ -49,7 +52,7 @@ class Stories extends React.Component<Props, State> {
         };
 
         const saveData = localStorage.getItem("folktales-languages");
-        const objSaveData = JSON.parse(saveData);
+        const objSaveData = saveData && JSON.parse(saveData);
         if (objSaveData) {
             this.state = {
                 ...this.state,
@@ -70,13 +73,13 @@ class Stories extends React.Component<Props, State> {
             };
         }
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
@@ -100,12 +103,13 @@ class Stories extends React.Component<Props, State> {
         }
     }
 
-    componentDidUpdate(preciousProps) {
-        if (preciousProps.location !== this.props.location) {
-            const storyName = this.props.location.pathname
-                .split("/")
-                .filter(a => a)
-                .pop();
+    componentDidUpdate(previousProps: Props) {
+        if (previousProps.location !== this.props.location) {
+            const storyName =
+                this.props.location.pathname
+                    .split("/")
+                    .filter(a => a)
+                    .pop() || "";
             this.setState({
                 storyName: storyName,
             });
@@ -157,7 +161,7 @@ class Stories extends React.Component<Props, State> {
         }
     };
 
-    onClickLangBtn = btnType => {
+    onClickLangBtn = (btnType: BtnType) => {
         let saveData;
         switch (btnType) {
             case "kanji":
@@ -651,12 +655,15 @@ function Sentences(props: SentencesProps) {
     );
 }
 
-class AudioContol extends React.Component {
-    props: { s: sentence; audioFolder: string };
+interface AudioContolProps {
+    s: sentence;
+    audioFolder: string;
+}
+class AudioContol extends React.Component<AudioContolProps> {
     refAudio: React.RefObject<HTMLAudioElement>;
     state: { showControl: boolean };
 
-    constructor(props) {
+    constructor(props: AudioContolProps) {
         super(props);
 
         this.state = {
@@ -670,7 +677,7 @@ class AudioContol extends React.Component {
         if (!this.refAudio) return;
 
         const audio = this.refAudio.current;
-        audio.load();
+        audio?.load();
     }
 
     render() {
@@ -691,17 +698,18 @@ class AudioContol extends React.Component {
     }
 }
 
+interface WordListProps {
+    words: word[];
+    s: sentence;
+    storyId: number;
+}
 class WordList extends React.Component<
-    {
-        words: word[];
-        s: sentence;
-        storyId: number;
-    },
+    WordListProps,
     {
         showWordList: boolean;
     }
 > {
-    constructor(props) {
+    constructor(props: WordListProps) {
         super(props);
 
         this.state = {
@@ -834,18 +842,19 @@ function PleaseScrollDown(props: TPleaseScrollDown) {
     );
 }
 
+interface FooterMenuProps {
+    onClickLangBtn: (btnType: any) => void;
+    langState: Readonly<State>;
+    screenWidth: number;
+    showFooterMenu: boolean;
+}
 class FooterMenu extends React.Component<
-    {
-        onClickLangBtn: (btnType: any) => void;
-        langState: Readonly<State>;
-        screenWidth: number;
-        showFooterMenu: boolean;
-    },
+    FooterMenuProps,
     {
         showLangMenu: boolean;
     }
 > {
-    constructor(props) {
+    constructor(props: FooterMenuProps) {
         super(props);
 
         this.state = {
