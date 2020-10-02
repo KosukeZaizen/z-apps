@@ -160,7 +160,7 @@ export function loadLocalStorageOrDB(
     type: string,
     stateName: string,
     fileName: string,
-    dispatch: (action: any) => void
+    dispatch: Function
 ) {
     const saveKey = fileName + stateName;
 

@@ -9,7 +9,7 @@ import * as consts from "./common/consts";
 import Head from "./parts/Helmet";
 
 type Props = storiesEditStore.StoriesEditState &
-    storiesEditStore.IActionCreators;
+    storiesEditStore.IActionCreators & { match: { params: any } };
 type State = {
     storyName: string;
     importData: string;
@@ -17,7 +17,7 @@ type State = {
 };
 class StoriesEdit extends React.Component<Props, State> {
     screenHeight: number;
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         const { params } = props.match;
@@ -43,7 +43,9 @@ class StoriesEdit extends React.Component<Props, State> {
         }
     }
 
-    handleChangeImportData = event => {
+    handleChangeImportData = (
+        event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         this.setState({ importData: event.target.value });
     };
 
@@ -276,13 +278,12 @@ class StoriesEdit extends React.Component<Props, State> {
     }
 }
 
-class Description extends React.Component {
-    props: {
-        desc: string;
-        handleChangeDesc: () => void;
-    };
-
-    constructor(props) {
+interface DescriptionProps {
+    desc: string;
+    handleChangeDesc: () => void;
+}
+class Description extends React.Component<DescriptionProps> {
+    constructor(props: DescriptionProps) {
         super(props);
 
         this.state = {};
@@ -314,30 +315,29 @@ class Description extends React.Component {
     }
 }
 
-class Sentences extends React.Component {
-    props: {
-        storyId: number;
-        sentences: sentence[];
-        words: word[];
-        loadSentences: (storyId: number) => void;
-        loadWords: (storyId: number) => void;
-        handleChangeSentence: (
-            e: React.ChangeEvent<HTMLInputElement>,
-            i: number,
-            type: string
-        ) => void;
-        handleChangeWord: () => void;
-        addWord: () => void;
-        addLine: (idx: number, s?: string) => void;
-        removeWord: () => void;
-        removeLine: (lineNumber: number) => void;
-        translate: (s: sentence) => void;
-        translateWord: () => void;
-        isTranslating: () => void;
-        mergeWord: () => void;
-    };
-
-    constructor(props) {
+interface SentencesProps {
+    storyId: number;
+    sentences: sentence[];
+    words: word[];
+    loadSentences: (storyId: number) => void;
+    loadWords: (storyId: number) => void;
+    handleChangeSentence: (
+        e: React.ChangeEvent<HTMLInputElement>,
+        i: number,
+        type: string
+    ) => void;
+    handleChangeWord: () => void;
+    addWord: () => void;
+    addLine: (idx: number, s?: string) => void;
+    removeWord: () => void;
+    removeLine: (lineNumber: number) => void;
+    translate: (s: sentence) => void;
+    translateWord: () => void;
+    isTranslating: boolean;
+    mergeWord: () => void;
+}
+class Sentences extends React.Component<SentencesProps> {
+    constructor(props: SentencesProps) {
         super(props);
 
         this.state = {};
@@ -565,28 +565,28 @@ class Sentences extends React.Component {
     }
 }
 
-class WordList extends React.Component {
-    props: {
-        words: word[];
-        s: sentence;
-        storyId: number;
-        handleChangeWord: (
-            e: React.ChangeEvent<HTMLTextAreaElement>,
-            lineNumber: number,
-            wordNumber: number,
-            type: string
-        ) => void;
-        addWord: (lineNumber: number, wordNumber: number) => void;
-        removeWord: (lineNumber: number, wordNumber: number) => void;
-        translateWord: (w: word) => void;
-        mergeWord: (lineNumber: number, wordNumber: number) => void;
-    };
-
-    state: {
+interface WordListProps {
+    words: word[];
+    s: sentence;
+    storyId: number;
+    handleChangeWord: (
+        e: React.ChangeEvent<HTMLTextAreaElement>,
+        lineNumber: number,
+        wordNumber: number,
+        type: string
+    ) => void;
+    addWord: (lineNumber: number, wordNumber: number) => void;
+    removeWord: (lineNumber: number, wordNumber: number) => void;
+    translateWord: (w: word) => void;
+    mergeWord: (lineNumber: number, wordNumber: number) => void;
+}
+class WordList extends React.Component<
+    WordListProps,
+    {
         showWordList: boolean;
-    };
-
-    constructor(props) {
+    }
+> {
+    constructor(props: WordListProps) {
         super(props);
 
         this.state = {

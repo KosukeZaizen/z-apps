@@ -25,7 +25,7 @@ export interface IActionCreators {
 }
 
 export const actionCreators: IActionCreators = {
-    loadStory: storyName => async (dispatch, getState) => {
+    loadStory: storyName => async (dispatch: Function, getState: Function) => {
         try {
             dispatch({ type: initializeType });
 
@@ -76,7 +76,7 @@ export const actionCreators: IActionCreators = {
     },
 };
 
-export const reducer = (state, action) => {
+export const reducer = (state: any, action: any) => {
     state = state || initialState;
 
     if (action.type === initializeType) {

@@ -1,40 +1,42 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardText, CardTitle } from 'reactstrap';
-import { bindActionCreators } from 'redux';
-import { TReducers } from '../store/configureStore';
-import { actionCreators } from '../store/StoriesTopStore';
-import { storyDesc } from '../types/stories';
-import * as consts from './common/consts';
-import FB from './parts/FaceBook';
-import GoogleAd from './parts/GoogleAd';
-import Head from './parts/Helmet';
-import PleaseScrollDown from './parts/PleaseScrollDown';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import * as React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button, Card, CardText, CardTitle } from "reactstrap";
+import { bindActionCreators } from "redux";
+import { TReducers } from "../store/configureStore";
+import { actionCreators } from "../store/StoriesTopStore";
+import { storyDesc } from "../types/stories";
+import * as consts from "./common/consts";
+import FB from "./parts/FaceBook";
+import GoogleAd from "./parts/GoogleAd";
+import Head from "./parts/Helmet";
+import PleaseScrollDown from "./parts/PleaseScrollDown";
 
-class StoriesTop extends React.Component {
+interface StoriesTopProps {
+    loadAllStories: () => void;
+    allStories: storyDesc[];
+}
+class StoriesTop extends React.Component<
+    StoriesTopProps,
+    { screenWidth: number }
+> {
     ref: React.RefObject<HTMLDivElement>;
-    props: {
-        loadAllStories: () => void,
-        allStories: storyDesc[],
-    };
-    state: { screenWidth: number };
 
-    constructor(props) {
+    constructor(props: StoriesTopProps) {
         super(props);
 
         this.state = {
             screenWidth: window.innerWidth,
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
@@ -48,9 +50,9 @@ class StoriesTop extends React.Component {
 
     changeScreenSize = () => {
         this.setState({
-            screenWidth: window.innerWidth
+            screenWidth: window.innerWidth,
         });
-    }
+    };
 
     render() {
         const { allStories } = this.props;
@@ -69,138 +71,278 @@ class StoriesTop extends React.Component {
                     desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
                 <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" itemScope itemType="https://schema.org/BreadcrumbList" style={{ textAlign: "left" }}>
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <Link to="/" itemProp="item" style={{ marginRight: "5px", marginLeft: "5px" }}>
-                                <span itemProp="name">
-                                    Home
-                                </span>
+                    <div
+                        className="breadcrumbs"
+                        itemScope
+                        itemType="https://schema.org/BreadcrumbList"
+                        style={{ textAlign: "left" }}
+                    >
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <Link
+                                to="/"
+                                itemProp="item"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
+                                <span itemProp="name">Home</span>
                             </Link>
                             <meta itemProp="position" content="1" />
                         </span>
                         {" > "}
-                        <span itemProp="itemListElement" itemScope itemType="http://schema.org/ListItem">
-                            <span itemProp="name" style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        <span
+                            itemProp="itemListElement"
+                            itemScope
+                            itemType="http://schema.org/ListItem"
+                        >
+                            <span
+                                itemProp="name"
+                                style={{
+                                    marginRight: "5px",
+                                    marginLeft: "5px",
+                                }}
+                            >
                                 Japanese Folktales
                             </span>
                             <meta itemProp="position" content="2" />
                         </span>
                     </div>
-                    <h1 style={{
-                        margin: "30px",
-                        lineHeight: "40px",
-                    }}>
+                    <h1
+                        style={{
+                            margin: "30px",
+                            lineHeight: "40px",
+                        }}
+                    >
                         <b>Japanese Folktales</b>
                     </h1>
                     <p style={styleForAboutTitle}>
-                        Free app to learn Japanese from folktales!<br />
-                        You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!
+                        Free app to learn Japanese from folktales!
+                        <br />
+                        You can read traditional Japanese folktales in English,
+                        Hiragana, Kanji, and Romaji!
                     </p>
                     <br />
-                    {
-                        allStories && allStories.length > 0 ?
-                            null
-                            :
-                            <div className="center">
-                                <CircularProgress key="circle" size="20%" />
-                            </div>
-                    }
+                    {allStories && allStories.length > 0 ? null : (
+                        <div className="center">
+                            <CircularProgress key="circle" size="20%" />
+                        </div>
+                    )}
                     <div id="scrollTargetId" ref={this.ref}>
-                        {
-                            allStories && allStories.sort((a, b) => {
-                                if (!a.order) {
-                                    return 1;
-                                } else if (!b.order) {
-                                    return -1;
-                                } else {
-                                    return (a.order - b.order);
-                                }
-                            }).map(s => {
-                                const nameForUrl = s.storyName;
-                                const nameToShow = s.storyName.split("--").join(" - ").split("_").join(" ");
+                        {allStories &&
+                            allStories
+                                .sort((a, b) => {
+                                    if (!a.order) {
+                                        return 1;
+                                    } else if (!b.order) {
+                                        return -1;
+                                    } else {
+                                        return a.order - b.order;
+                                    }
+                                })
+                                .map(s => {
+                                    const nameForUrl = s.storyName;
+                                    const nameToShow = s.storyName
+                                        .split("--")
+                                        .join(" - ")
+                                        .split("_")
+                                        .join(" ");
 
-                                return (
-                                    <div key={s.storyId} style={{ padding: "10px", marginBottom: "10px", border: "5px double #333333" }}>
-                                        {
-                                            screenWidth > 500 ?
+                                    return (
+                                        <div
+                                            key={s.storyId}
+                                            style={{
+                                                padding: "10px",
+                                                marginBottom: "10px",
+                                                border: "5px double #333333",
+                                            }}
+                                        >
+                                            {screenWidth > 500 ? (
                                                 <table>
                                                     <tbody>
                                                         <tr>
                                                             <td colSpan={2}>
                                                                 <div className="center">
-                                                                    <h2 style={{ color: "black", marginBottom: "20px" }}>
-                                                                        <b>{nameToShow}</b>
+                                                                    <h2
+                                                                        style={{
+                                                                            color:
+                                                                                "black",
+                                                                            marginBottom:
+                                                                                "20px",
+                                                                        }}
+                                                                    >
+                                                                        <b>
+                                                                            {
+                                                                                nameToShow
+                                                                            }
+                                                                        </b>
                                                                     </h2>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style={{ width: "50%" }}>
-                                                                <Link to={`/folktales/${nameForUrl}`}>
+                                                            <td
+                                                                style={{
+                                                                    width:
+                                                                        "50%",
+                                                                }}
+                                                            >
+                                                                <Link
+                                                                    to={`/folktales/${nameForUrl}`}
+                                                                >
                                                                     <img
-                                                                        src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
+                                                                        src={`${
+                                                                            consts.BLOB_URL
+                                                                        }/folktalesImg/${
+                                                                            nameForUrl.split(
+                                                                                "--"
+                                                                            )[0]
+                                                                        }.png`}
                                                                         width="90%"
-                                                                        alt={nameToShow}
-                                                                        title={nameToShow}
-                                                                        style={{ marginLeft: "10px", marginBottom: "10px" }}
+                                                                        alt={
+                                                                            nameToShow
+                                                                        }
+                                                                        title={
+                                                                            nameToShow
+                                                                        }
+                                                                        style={{
+                                                                            marginLeft:
+                                                                                "10px",
+                                                                            marginBottom:
+                                                                                "10px",
+                                                                        }}
                                                                     />
                                                                 </Link>
                                                             </td>
-                                                            <td style={{ textAlign: "left" }}>
-                                                                {
-                                                                    s.description.split("\\n").map((d, i) =>
-                                                                        <span key={i} style={{ color: "black" }}>
-                                                                            {d}<br />
-                                                                        </span>
+                                                            <td
+                                                                style={{
+                                                                    textAlign:
+                                                                        "left",
+                                                                }}
+                                                            >
+                                                                {s.description
+                                                                    .split(
+                                                                        "\\n"
                                                                     )
-                                                                }
+                                                                    .map(
+                                                                        (
+                                                                            d,
+                                                                            i
+                                                                        ) => (
+                                                                            <span
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                                style={{
+                                                                                    color:
+                                                                                        "black",
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    d
+                                                                                }
+                                                                                <br />
+                                                                            </span>
+                                                                        )
+                                                                    )}
                                                                 <div className="center">
-                                                                    <p style={{ margin: "20px" }}>
-                                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
+                                                                    <p
+                                                                        style={{
+                                                                            margin:
+                                                                                "20px",
+                                                                        }}
+                                                                    >
+                                                                        <Link
+                                                                            to={`/folktales/${nameForUrl}`}
+                                                                        >{`Read ${nameToShow} >>`}</Link>
                                                                     </p>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                :
+                                            ) : (
                                                 <div>
                                                     <b>
-                                                        <h2 style={{ color: "black", marginBottom: "20px" }}>{nameToShow}</h2>
+                                                        <h2
+                                                            style={{
+                                                                color: "black",
+                                                                marginBottom:
+                                                                    "20px",
+                                                            }}
+                                                        >
+                                                            {nameToShow}
+                                                        </h2>
                                                     </b>
-                                                    <Link to={`/folktales/${nameForUrl}`}>
+                                                    <Link
+                                                        to={`/folktales/${nameForUrl}`}
+                                                    >
                                                         <img
-                                                            src={`${consts.BLOB_URL}/folktalesImg/${nameForUrl.split("--")[0]}.png`}
+                                                            src={`${
+                                                                consts.BLOB_URL
+                                                            }/folktalesImg/${
+                                                                nameForUrl.split(
+                                                                    "--"
+                                                                )[0]
+                                                            }.png`}
                                                             width="90%"
                                                             alt={nameToShow}
                                                             title={nameToShow}
                                                         />
                                                     </Link>
-                                                    <div style={{ textAlign: "left", margin: "10px" }}>
-                                                        {
-                                                            s.description.split("\\n").map((d, i) =>
-                                                                <span key={i} style={{ color: "black" }}>
-                                                                    {d}<br />
+                                                    <div
+                                                        style={{
+                                                            textAlign: "left",
+                                                            margin: "10px",
+                                                        }}
+                                                    >
+                                                        {s.description
+                                                            .split("\\n")
+                                                            .map((d, i) => (
+                                                                <span
+                                                                    key={i}
+                                                                    style={{
+                                                                        color:
+                                                                            "black",
+                                                                    }}
+                                                                >
+                                                                    {d}
+                                                                    <br />
                                                                 </span>
-                                                            )
-                                                        }
+                                                            ))}
                                                     </div>
                                                     <p>
-                                                        <Link to={`/folktales/${nameForUrl}`}>{`Read ${nameToShow} >>`}</Link>
+                                                        <Link
+                                                            to={`/folktales/${nameForUrl}`}
+                                                        >{`Read ${nameToShow} >>`}</Link>
                                                     </p>
                                                 </div>
-                                        }
-                                    </div>
-                                );
-                            }
-                            )
-                        }
+                                            )}
+                                        </div>
+                                    );
+                                })}
                     </div>
                     <hr />
                     <Link to="/vocabulary-list">
-                        <Card body style={{ backgroundColor: '#333', borderColor: '#333', color: "white" }}>
+                        <Card
+                            body
+                            style={{
+                                backgroundColor: "#333",
+                                borderColor: "#333",
+                                color: "white",
+                            }}
+                        >
                             <CardTitle>Japanese Vocabulary List</CardTitle>
-                            <CardText>Basic Japanese Vocabulary List!<br />Try to memorize all the vocabulary by using the quizzes!</CardText>
+                            <CardText>
+                                Basic Japanese Vocabulary List!
+                                <br />
+                                Try to memorize all the vocabulary by using the
+                                quizzes!
+                            </CardText>
                             <Button color="secondary">Try!</Button>
                         </Card>
                     </Link>
@@ -216,7 +358,7 @@ class StoriesTop extends React.Component {
             </div>
         );
     }
-};
+}
 
 export default connect(
     (state: TReducers) => state.storiesTop,

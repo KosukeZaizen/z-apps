@@ -36,7 +36,7 @@ class VocabList extends React.Component<Props, State> {
     refForScroll: React.RefObject<HTMLHeadingElement>;
     refForReturnToIndex: React.RefObject<HTMLHeadingElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -45,13 +45,13 @@ class VocabList extends React.Component<Props, State> {
             imgNumber: this.getImgNumber(),
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
@@ -206,7 +206,7 @@ class ReturnToIndex extends React.Component<
     TReturnToIndexProps,
     TReturnToIndexState
 > {
-    constructor(props) {
+    constructor(props: TReturnToIndexProps) {
         super(props);
         this.state = {
             showReturnToIndex: false,
@@ -223,9 +223,9 @@ class ReturnToIndex extends React.Component<
         }
     }
 
-    componentDidUpdate(preciousProps) {
+    componentDidUpdate(previousProps: TReturnToIndexProps) {
         if (
-            preciousProps.refForReturnToIndex?.current !==
+            previousProps.refForReturnToIndex?.current !==
             this.props.refForReturnToIndex?.current
         ) {
             this.judge();
@@ -496,11 +496,11 @@ function VList(props: TVListProps) {
 
     const vocabIncorrectIds: number[] =
         JSON.parse(
-            localStorage.getItem(`vocab-quiz-incorrectIds-${g.genreId}`)
+            localStorage.getItem(`vocab-quiz-incorrectIds-${g.genreId}`) || ""
         ) || [];
     const kanjiIncorrectIds: number[] =
         JSON.parse(
-            localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`)
+            localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`) || ""
         ) || [];
 
     return vocabList && vocabList.length > 0 ? (
@@ -569,19 +569,20 @@ function VList(props: TVListProps) {
     );
 }
 
+interface SpeakerProps {
+    v: vocab;
+    g: vocabGenre;
+}
 class Speaker extends React.Component<
-    {
-        v: vocab;
-        g: vocabGenre;
-    },
+    SpeakerProps,
     {
         showImg: boolean;
     }
 > {
-    vocabSound: HTMLAudioElement;
+    vocabSound?: HTMLAudioElement;
     didUnmount: boolean;
 
-    constructor(props) {
+    constructor(props: SpeakerProps) {
         super(props);
 
         this.state = {

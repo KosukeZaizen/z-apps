@@ -29,7 +29,7 @@ import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 type Props = vocabStore.IVocabQuizState &
     vocabStore.IActionCreators & {
         location: { pathname: string };
-    };
+    } & { match: { params: { [key: string]: string } } };
 type State = {
     genreName: string;
     screenWidth: number;
@@ -41,7 +41,7 @@ class VocabQuiz extends React.Component<Props, State> {
     correctSounds = [new Audio(), new Audio()];
     ref: React.RefObject<HTMLHeadingElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         const { params } = props.match;
@@ -54,13 +54,13 @@ class VocabQuiz extends React.Component<Props, State> {
             imgNumber: this.getImgNumber(genreName?.length),
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
@@ -87,14 +87,15 @@ class VocabQuiz extends React.Component<Props, State> {
         this.correctSounds.forEach(s => s.load);
     }
 
-    componentDidUpdate(preciousProps) {
-        if (preciousProps.location !== this.props.location) {
-            const genreName = this.props.location.pathname
-                .split("/")
-                .filter(a => a)
-                .pop()
-                .split("#")
-                .pop();
+    componentDidUpdate(previousProps: Props) {
+        if (previousProps.location !== this.props.location) {
+            const genreName =
+                this.props.location.pathname
+                    .split("/")
+                    .filter(a => a)
+                    .pop()
+                    ?.split("#")
+                    .pop() || "";
             this.setState({
                 genreName,
                 imgNumber: this.getImgNumber(genreName?.length),
@@ -315,7 +316,7 @@ type TPage1Props = {
     vocabList: vocab[];
     screenWidth: number;
     imgNumber: number;
-    changePage: (nextPage: number) => void;
+    changePage: (nextPage: vocabStore.TPageNumber) => void;
     vocabSounds: sound[];
     criteriaRef: React.RefObject<HTMLHeadingElement>;
 };
@@ -341,7 +342,7 @@ function Page1(props: TPage1Props) {
         JSON.parse(
             localStorage.getItem(
                 `kanji-quiz-incorrectIds-${vocabList[0].genreId}`
-            )
+            ) || ""
         ) || [];
 
     return (
@@ -468,18 +469,19 @@ function Page1(props: TPage1Props) {
     );
 }
 
+interface SpeakerProps {
+    vocabSound: sound;
+    vocabId: number;
+}
 class Speaker extends React.Component<
-    {
-        vocabSound: sound;
-        vocabId: number;
-    },
+    SpeakerProps,
     {
         showImg: boolean;
     }
 > {
     didUnmount: boolean;
 
-    constructor(props) {
+    constructor(props: SpeakerProps) {
         super(props);
         this.state = {
             showImg: props.vocabSound.playable,
@@ -491,7 +493,7 @@ class Speaker extends React.Component<
         setTimeout(this.loadSound);
     }
 
-    componentDidUpdate(previous) {
+    componentDidUpdate(previous: SpeakerProps) {
         if (previous.vocabSound.audio !== this.props.vocabSound.audio) {
             this.setState({ showImg: false });
             setTimeout(this.loadSound);
@@ -529,25 +531,26 @@ class Speaker extends React.Component<
     }
 }
 
+interface Page2Props {
+    vocabList: vocab[];
+    changePage: (nextPage: vocabStore.TPageNumber) => void;
+    screenWidth: number;
+    imgNumber: number;
+    correctSounds: HTMLAudioElement[];
+    vocabSounds: HTMLAudioElement[];
+}
 class Page2 extends React.Component<
-    {
-        vocabList: vocab[];
-        changePage: (nextPage: vocabStore.TPageNumber) => void;
-        screenWidth: number;
-        imgNumber: number;
-        correctSounds: HTMLAudioElement[];
-        vocabSounds: HTMLAudioElement[];
-    },
+    Page2Props,
     {
         correctIds: number[];
         incorrectIds: number[];
-        vocabToShow: vocab;
+        vocabToShow?: vocab;
         mode: number;
         buttons: JSX.Element[];
         vocabToBeAsked: vocab;
     }
 > {
-    constructor(props) {
+    constructor(props: Page2Props) {
         super(props);
 
         const { vocabList } = props;
@@ -556,7 +559,7 @@ class Page2 extends React.Component<
         this.state = {
             correctIds: [],
             incorrectIds: [],
-            vocabToShow: null,
+            vocabToShow: undefined,
             mode: 0, //0:quiz, 1:correct/2:incorrect
             buttons: firstButtonsAndVocabs.resultButtons,
             vocabToBeAsked: firstButtonsAndVocabs.resultVocabToBeAsked,
@@ -801,19 +804,19 @@ class Page2 extends React.Component<
                                         style={tableElementStyle}
                                         align="center"
                                     >
-                                        {vocabToShow.kanji}
+                                        {vocabToShow?.kanji}
                                     </TableCell>
                                     <TableCell
                                         style={tableElementStyle}
                                         align="center"
                                     >
-                                        {vocabToShow.hiragana}
+                                        {vocabToShow?.hiragana}
                                     </TableCell>
                                     <TableCell
                                         style={tableElementStyle}
                                         align="center"
                                     >
-                                        {vocabToShow.english}
+                                        {vocabToShow?.english}
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
@@ -838,8 +841,8 @@ class Page2 extends React.Component<
                                 s.pause();
                                 s.currentTime = 0;
                             });
-                            const stopSound = v => {
-                                if (vocabSounds[v.vocabId]) {
+                            const stopSound = (v?: vocab) => {
+                                if (v && vocabSounds[v.vocabId]) {
                                     vocabSounds[v.vocabId].pause();
                                     vocabSounds[v.vocabId].currentTime = 0;
                                 }
@@ -917,7 +920,8 @@ function Page3(props: TPage3Props) {
         localStorage.getItem(`kanji-quiz-percentage-${vocabGenre.genreId}`)
     );
     const incorrectIds = JSON.parse(
-        localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`)
+        localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`) ||
+            ""
     );
 
     const [didSendOpeLog, setDidSendOpeLog] = useState(false);

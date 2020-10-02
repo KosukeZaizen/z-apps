@@ -2,7 +2,7 @@ const receiveStoriesType = "RECEIVE_STORIES";
 const initialState = { allStories: [] };
 
 export const actionCreators = {
-    loadAllStories: () => async dispatch => {
+    loadAllStories: () => async (dispatch: Function) => {
         try {
             const url = `api/Stories/GetAllStories?v=${new Date().getDate()}`;
             const response = await fetch(url);
@@ -15,7 +15,7 @@ export const actionCreators = {
     },
 };
 
-export const reducer = (state, action) => {
+export const reducer = (state: any, action: any) => {
     state = state || initialState;
 
     if (action.type === receiveStoriesType) {

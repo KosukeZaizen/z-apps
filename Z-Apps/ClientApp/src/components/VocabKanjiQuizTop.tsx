@@ -27,7 +27,7 @@ type State = {
 class VocabQuizTop extends React.Component<Props, State> {
     ref: React.RefObject<HTMLHeadingElement>;
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -37,13 +37,13 @@ class VocabQuizTop extends React.Component<Props, State> {
             imgNumber: this.getImgNumber(),
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };

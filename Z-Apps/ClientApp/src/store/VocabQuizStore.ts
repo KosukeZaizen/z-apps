@@ -40,7 +40,7 @@ export interface IActionCreators {
 }
 
 export const actionCreators: IActionCreators = {
-    loadAllGenres: () => (dispatch, getState) => {
+    loadAllGenres: () => (dispatch: Function, getState: Function) => {
         loadLocalStorageOrDB(
             `api/VocabQuiz/GetAllGenres?v=${new Date().getDate()}`,
             receiveAllGenresType,
@@ -49,7 +49,7 @@ export const actionCreators: IActionCreators = {
             dispatch
         );
     },
-    loadAllVocabs: () => (dispatch, getState) => {
+    loadAllVocabs: () => (dispatch: Function, getState: Function) => {
         loadLocalStorageOrDB(
             `api/VocabQuiz/GetAllVocabs?v=${new Date().getDate()}`,
             receiveAllVocabsType,
@@ -58,17 +58,18 @@ export const actionCreators: IActionCreators = {
             dispatch
         );
     },
-    loadVocabs: genreName => (dispatch, getState) => {
+    loadVocabs: genreName => (dispatch: Function, getState: Function) => {
         try {
             dispatch({ type: initializeType });
 
             const loadVocabsFromDB = () => {
-                const currentGenreName = window.location.pathname
-                    .split("/")
-                    .filter(a => a)
-                    .pop()
-                    .split("#")
-                    .pop();
+                const currentGenreName =
+                    window.location.pathname
+                        .split("/")
+                        .filter(a => a)
+                        .pop()
+                        ?.split("#")
+                        .pop() || "";
 
                 const url = `api/VocabQuiz/GetQuizData/${currentGenreName}`;
                 fetch(url).then(response => {
@@ -114,10 +115,10 @@ export const actionCreators: IActionCreators = {
             };
 
             const savedAllGenres: vocabGenre[] = JSON.parse(
-                window.localStorage.getItem(fileName + "allGenres")
+                window.localStorage.getItem(fileName + "allGenres") || ""
             );
             const savedAllVocabs: vocab[] = JSON.parse(
-                window.localStorage.getItem(fileName + "allVocabs")
+                window.localStorage.getItem(fileName + "allVocabs") || ""
             );
 
             const genre = savedAllGenres
@@ -139,13 +140,13 @@ export const actionCreators: IActionCreators = {
             //
         }
     },
-    changePage: nextPage => (dispatch, getState) => {
-        document.getElementById("h1title").scrollIntoView(true);
+    changePage: nextPage => (dispatch: Function, getState: Function) => {
+        document.getElementById("h1title")?.scrollIntoView(true);
         dispatch({ type: changePageType, nextPage });
     },
 };
 
-export const reducer = (state, action) => {
+export const reducer = (state: any, action: any) => {
     state = state || initialState;
 
     if (action.type === initializeType) {
@@ -155,11 +156,14 @@ export const reducer = (state, action) => {
 
     if (action.type === receiveGenreAndVocabType) {
         const { vocabGenre, vocabList } = action.genreAndVocab;
-        const vocabSounds = [];
+        const vocabSounds: {
+            audio: HTMLAudioElement;
+            playable: boolean;
+        }[] = [];
 
         vocabList.length > 0 &&
-            vocabList.forEach(v => {
-                const audio = new Audio();
+            vocabList.forEach((v: vocab) => {
+                const audio = new window.Audio();
                 audio.preload = "none";
                 audio.autoplay = false;
                 audio.src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;

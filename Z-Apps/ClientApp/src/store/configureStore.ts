@@ -7,7 +7,7 @@ import * as Stories from "./StoriesStore";
 import * as StoriesTop from "./StoriesTopStore";
 import * as VocabQuiz from "./VocabQuizStore";
 
-type TReducer = (state, action) => void;
+type TReducer = (state: any, action: any) => void;
 export type TReducers = {
     kanjiConverter: TReducer;
     stories: TReducer;
@@ -16,7 +16,7 @@ export type TReducers = {
     vocabQuiz: TReducer;
 };
 
-export default function configureStore(history, initialState) {
+export default function configureStore(history: any, initialState: any) {
     const reducers: TReducers = {
         kanjiConverter: KanjiConverter.reducer,
         stories: Stories.reducer,
@@ -33,9 +33,9 @@ export default function configureStore(history, initialState) {
     if (
         isDevelopment &&
         typeof window !== "undefined" &&
-        window["devToolsExtension"]
+        window["devToolsExtension" as any]
     ) {
-        enhancers.push(window["devToolsExtension"]());
+        enhancers.push((window["devToolsExtension" as any] as any)());
     }
 
     const rootReducer = combineReducers({

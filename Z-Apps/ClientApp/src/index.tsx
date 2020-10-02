@@ -23,7 +23,8 @@ checkAppVersion();
 ReactGA.initialize(GOOGLE_ANALYTICS);
 
 // Create browser history to use in the Redux store
-const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
+const baseUrl =
+    document.getElementsByTagName("base")[0].getAttribute("href") ?? undefined;
 const history = createBrowserHistory({ basename: baseUrl });
 
 history.listen(({ pathname }) => {
@@ -35,7 +36,7 @@ history.listen(({ pathname }) => {
 });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
-const initialState = window["initialReduxState"];
+const initialState = window["initialReduxState" as any];
 const store = configureStore(history, initialState);
 
 const rootElement = document.getElementById("root");

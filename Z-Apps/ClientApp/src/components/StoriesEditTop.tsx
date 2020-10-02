@@ -8,31 +8,31 @@ import { actionCreators } from "../store/StoriesEditTopStore";
 import * as consts from "./common/consts";
 import Head from "./parts/Helmet";
 
-class StoriesTop extends React.Component {
-    props: {
-        loadAllStories: () => void;
-        allStories: {
-            storyName: string;
-            storyId: number;
-            description: string;
-        }[];
-    };
+interface StoriesTopProps {
+    loadAllStories: () => void;
+    allStories: {
+        storyName: string;
+        storyId: number;
+        description: string;
+    }[];
+}
+class StoriesTop extends React.Component<StoriesTopProps> {
     state: { screenWidth: number };
 
-    constructor(props) {
+    constructor(props: StoriesTopProps) {
         super(props);
 
         this.state = {
             screenWidth: window.innerWidth,
         };
 
-        let timer;
+        let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
 
-            timer = setTimeout(() => {
+            timer = window.setTimeout(() => {
                 this.changeScreenSize();
             }, 100);
         };
