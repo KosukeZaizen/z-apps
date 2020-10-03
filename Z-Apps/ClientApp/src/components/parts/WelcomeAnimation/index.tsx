@@ -1,19 +1,62 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { AnimationEngine } from "../../common/animation";
 import "./animation.css";
 
 const runningNinja = require("./../Ninja/objs/ninja/ninja_hashiru.png");
 const shuriken = require("../../../img/shuriken.png");
 
+interface StateToAnimate {
+    shown: boolean;
+    isOpen: boolean;
+    underBarLength: number;
+    underBarOpacity: number;
+    time: number;
+}
+
 export default function WelcomeAnimation() {
-    const [shown, setShown] = useState(true);
-    const [isOpen, setOpen] = useState(false);
+    const initialAnimationState: StateToAnimate = {
+        shown: true,
+        isOpen: false,
+        underBarLength: 0,
+        underBarOpacity: 0,
+        time: 0,
+    };
+
+    const [animationState, setAnimationState] = useState(initialAnimationState);
 
     useEffect(() => {
-        setOpen(true);
-        setTimeout(() => {
-            setShown(false);
-        }, 4350);
+        const animation = new AnimationEngine<StateToAnimate>(
+            initialAnimationState,
+            ({ shown, isOpen, underBarLength, underBarOpacity, time }) => {
+                if (time === 1) {
+                    isOpen = true;
+                }
+                if (time > 200 && time <= 250) {
+                    underBarOpacity = 1;
+                    underBarLength = underBarLength + 50;
+                }
+                if (time > 250) {
+                    if (underBarOpacity > 0) {
+                        underBarOpacity = underBarOpacity - 0.02;
+                    }
+                }
+                if (time > 470) {
+                    shown = false;
+                    animation.cleanUpAnimation();
+                }
+
+                return {
+                    shown,
+                    isOpen,
+                    underBarLength,
+                    underBarOpacity,
+                    time: time + 1,
+                };
+            },
+            setAnimationState
+        );
+        return animation.cleanUpAnimation;
     }, []);
 
     const innerWidth = window.innerWidth;
@@ -28,7 +71,7 @@ export default function WelcomeAnimation() {
     const charHeight = 130 * U;
     const charTop = leftTopPosition[1] + (squareLength - charHeight) * (2 / 5);
 
-    return shown ? (
+    return animationState.shown ? (
         <div
             style={{
                 width: innerWidth,
@@ -38,9 +81,22 @@ export default function WelcomeAnimation() {
                 left: 0,
                 zIndex: 9999999999,
                 backgroundColor: "white",
+                display: "flex",
+                justifyContent: "center",
             }}
             className="screen"
         >
+            <div
+                style={{
+                    borderRadius: 1,
+                    width: animationState.underBarLength,
+                    border: "solid",
+                    borderColor: "#007bff",
+                    height: 1,
+                    marginTop: charTop + charHeight * 1.5,
+                    opacity: animationState.underBarOpacity,
+                }}
+            ></div>
             <p
                 style={{
                     width: 1000 * U,
@@ -52,7 +108,7 @@ export default function WelcomeAnimation() {
                     padding: 0,
                     fontWeight: "bold",
                     transition: "2s",
-                    opacity: isOpen ? 1 : 0,
+                    opacity: animationState.isOpen ? 1 : 0,
                     fontStyle: "italic",
                 }}
             >
