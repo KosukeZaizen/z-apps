@@ -32,7 +32,7 @@ export default function WelcomeAnimation() {
                 if (time === 1) {
                     isOpen = true;
                 }
-                if (time > 200 && time <= 250) {
+                if (time > 190 && time <= 250) {
                     underBarOpacity = 1;
                     underBarLength = underBarLength + 50;
                 }
