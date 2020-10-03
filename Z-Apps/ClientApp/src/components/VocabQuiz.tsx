@@ -343,12 +343,10 @@ function Page1(props: TPage1Props) {
         fontSize: "medium",
     };
 
-    const incorrectIds: number[] =
-        JSON.parse(
-            localStorage.getItem(
-                `vocab-quiz-incorrectIds-${vocabList[0].genreId}`
-            ) || ""
-        ) || [];
+    const item = localStorage.getItem(
+        `vocab-quiz-incorrectIds-${vocabList[0].genreId}`
+    );
+    const incorrectIds: number[] = (item && JSON.parse(item)) || [];
 
     return (
         <>
@@ -914,10 +912,10 @@ function Page3(props: TPage3Props) {
     const percentage = Number(
         localStorage.getItem(`vocab-quiz-percentage-${vocabGenre.genreId}`)
     );
-    const incorrectIds = JSON.parse(
-        localStorage.getItem(`vocab-quiz-incorrectIds-${vocabGenre.genreId}`) ||
-            ""
+    const savedItem = localStorage.getItem(
+        `vocab-quiz-incorrectIds-${vocabGenre.genreId}`
     );
+    const incorrectIds = savedItem && JSON.parse(savedItem);
 
     const [didSendOpeLog, setDidSendOpeLog] = useState(false);
     setTimeout(() => {

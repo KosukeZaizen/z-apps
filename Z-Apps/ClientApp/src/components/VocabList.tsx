@@ -494,14 +494,16 @@ function VList(props: TVListProps) {
         fontSize: "medium",
     };
 
+    const savedVocabIds = localStorage.getItem(
+        `vocab-quiz-incorrectIds-${g.genreId}`
+    );
     const vocabIncorrectIds: number[] =
-        JSON.parse(
-            localStorage.getItem(`vocab-quiz-incorrectIds-${g.genreId}`) || ""
-        ) || [];
+        (savedVocabIds && JSON.parse(savedVocabIds)) || [];
+    const savedKanjiIds = localStorage.getItem(
+        `kanji-quiz-incorrectIds-${g.genreId}`
+    );
     const kanjiIncorrectIds: number[] =
-        JSON.parse(
-            localStorage.getItem(`kanji-quiz-incorrectIds-${g.genreId}`) || ""
-        ) || [];
+        (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
 
     return vocabList && vocabList.length > 0 ? (
         <TableContainer component={Paper}>

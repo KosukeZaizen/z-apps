@@ -338,12 +338,10 @@ function Page1(props: TPage1Props) {
         fontSize: "medium",
     };
 
-    const incorrectIds: number[] =
-        JSON.parse(
-            localStorage.getItem(
-                `kanji-quiz-incorrectIds-${vocabList[0].genreId}`
-            ) || ""
-        ) || [];
+    const savedItem = localStorage.getItem(
+        `kanji-quiz-incorrectIds-${vocabList[0].genreId}`
+    );
+    const incorrectIds: number[] = (savedItem && JSON.parse(savedItem)) || [];
 
     return (
         <>
@@ -919,10 +917,10 @@ function Page3(props: TPage3Props) {
     const percentage = Number(
         localStorage.getItem(`kanji-quiz-percentage-${vocabGenre.genreId}`)
     );
-    const incorrectIds = JSON.parse(
-        localStorage.getItem(`kanji-quiz-incorrectIds-${vocabGenre.genreId}`) ||
-            ""
+    const savedItem = localStorage.getItem(
+        `kanji-quiz-incorrectIds-${vocabGenre.genreId}`
     );
+    const incorrectIds = savedItem && JSON.parse(savedItem);
 
     const [didSendOpeLog, setDidSendOpeLog] = useState(false);
     setTimeout(() => {

@@ -114,12 +114,17 @@ export const actionCreators: IActionCreators = {
                 });
             };
 
-            const savedAllGenres: vocabGenre[] = JSON.parse(
-                window.localStorage.getItem(fileName + "allGenres") || ""
+            const savedGenres = window.localStorage.getItem(
+                fileName + "allGenres"
             );
-            const savedAllVocabs: vocab[] = JSON.parse(
-                window.localStorage.getItem(fileName + "allVocabs") || ""
+            const savedAllGenres: vocabGenre[] =
+                savedGenres && JSON.parse(savedGenres);
+
+            const savedVocabs = window.localStorage.getItem(
+                fileName + "allVocabs"
             );
+            const savedAllVocabs: vocab[] =
+                savedVocabs && JSON.parse(savedVocabs);
 
             const genre = savedAllGenres
                 ?.filter(g => g?.genreName === genreName)
