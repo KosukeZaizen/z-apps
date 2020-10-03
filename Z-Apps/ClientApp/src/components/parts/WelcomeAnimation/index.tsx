@@ -90,9 +90,8 @@ export default function WelcomeAnimation() {
                 style={{
                     borderRadius: 1,
                     width: animationState.underBarLength,
-                    border: "solid",
-                    borderColor: "#007bff",
-                    height: 1,
+                    border: "solid 1px #007bff",
+                    height: 0,
                     marginTop: charTop + charHeight * 1.5,
                     opacity: animationState.underBarOpacity,
                 }}
