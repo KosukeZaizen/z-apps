@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AnimationEngine } from "../../common/animation";
+import { AnimationEngine } from "../../../common/animation";
 import "./animation.css";
 
 const runningNinja = require("./../Ninja/objs/ninja/ninja_hashiru.png");

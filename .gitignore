@@ -262,3 +262,4 @@ __pycache__/
 Z-Apps/ClientApp/src/components/common/privateConsts.ts
 Z-Apps/ClientApp/src/components/common/privateConsts.js
 Z-Apps/ClientApp/package-lock.json
+Z-Apps/ClientApp/src/common/privateConsts.ts

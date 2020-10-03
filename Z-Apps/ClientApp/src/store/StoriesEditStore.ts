@@ -1,4 +1,4 @@
-import * as commonFnc from "../components/common/functions";
+import * as commonFnc from "../common/functions";
 import { sentence, storyDesc, word } from "../types/stories";
 
 const receiveStoryType = "RECEIVE_STORY";

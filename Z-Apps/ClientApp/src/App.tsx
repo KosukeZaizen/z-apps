@@ -4,7 +4,7 @@ import { lazy, Suspense } from "react";
 import ReactGA from "react-ga";
 import { Route, Switch } from "react-router";
 import ScrollMemory from "react-router-scroll-memory";
-import * as commonFncs from "./components/common/functions";
+import * as commonFncs from "./common/functions";
 import Layout from "./components/parts/Layout";
 import WelcomeAnimation from "./components/parts/WelcomeAnimation";
 import { APP_VERSION } from "./version";
@@ -230,7 +230,7 @@ function NotFoundRedirect() {
     );
 }
 
-function LoadingAnimation(props: {num: number}) {
+function LoadingAnimation(props: { num: number }) {
     let arr = [];
     for (let i = 0; i < props.num; i++) {
         arr.push(

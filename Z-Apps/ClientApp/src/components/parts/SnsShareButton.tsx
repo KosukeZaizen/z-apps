@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as consts from "../common/consts";
-import { sendClientOpeLog } from "../common/functions";
+import * as consts from "../../common/consts";
+import { sendClientOpeLog } from "../../common/functions";
 
 type TFBProps = {
     style: React.CSSProperties;

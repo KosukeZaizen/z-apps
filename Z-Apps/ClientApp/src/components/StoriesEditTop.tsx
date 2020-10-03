@@ -3,9 +3,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import { actionCreators } from "../store/StoriesEditTopStore";
-import * as consts from "./common/consts";
 import Head from "./parts/Helmet";
 
 interface StoriesTopProps {

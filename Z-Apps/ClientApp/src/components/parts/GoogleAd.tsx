@@ -1,6 +1,6 @@
 import * as React from "react";
 import GoogleAds from "react-google-ads";
-import { GOOGLE_ADS_CLIENT, GOOGLE_ADS_SLOT } from "../common/privateConsts";
+import { GOOGLE_ADS_CLIENT, GOOGLE_ADS_SLOT } from "../../common/privateConsts";
 
 export let isGoogleAdsDisplayed: boolean;
 

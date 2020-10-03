@@ -1,4 +1,4 @@
-import { APP_VERSION } from "./../../version";
+import { APP_VERSION } from "../version";
 
 export function getParams(): { [key: string]: string } {
     let arg: { [key: string]: string } = {};

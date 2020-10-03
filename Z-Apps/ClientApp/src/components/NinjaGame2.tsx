@@ -1,6 +1,6 @@
 import * as React from "react";
+import { getParams } from "../common/functions";
 import "../css/NinjaGame2.css";
-import { getParams } from "./common/functions";
 import Head from "./parts/Helmet";
 import { Page1 } from "./parts/Ninja2/Page1";
 import { Page2 } from "./parts/Ninja2/Page2";

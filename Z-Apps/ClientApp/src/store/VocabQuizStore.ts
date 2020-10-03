@@ -1,8 +1,8 @@
-import * as consts from "../components/common/consts";
+import * as consts from "../common/consts";
 import {
     loadLocalStorageOrDB,
     reloadAndRedirect_OneTimeReload,
-} from "../components/common/functions";
+} from "../common/functions";
 import { sound, vocab, vocabGenre } from "../types/vocab";
 
 const fileName = "VocabQuizStore";

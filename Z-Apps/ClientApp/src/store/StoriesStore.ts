@@ -1,4 +1,4 @@
-import { reloadAndRedirect_OneTimeReload } from "../components/common/functions";
+import { reloadAndRedirect_OneTimeReload } from "../common/functions";
 import { sentence, storyDesc, word } from "../types/stories";
 
 const initializeType = "INITIALIZE";

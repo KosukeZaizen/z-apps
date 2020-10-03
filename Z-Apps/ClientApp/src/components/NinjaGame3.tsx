@@ -1,6 +1,6 @@
 import * as React from "react";
+import { getParams } from "../common/functions";
 import "../css/NinjaGame2.css"; //CSSは2のもの
-import { getParams } from "./common/functions";
 import Head from "./parts/Helmet";
 import * as Consts from "./parts/Ninja3/Consts";
 import { Page1 } from "./parts/Ninja3/Page1";

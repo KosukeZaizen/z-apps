@@ -3,9 +3,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import * as consts from "../common/consts";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
-import * as consts from "./common/consts";
 import Head from "./parts/Helmet";
 
 type Props = storiesEditStore.StoriesEditState &

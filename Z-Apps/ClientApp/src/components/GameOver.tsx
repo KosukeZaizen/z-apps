@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { getParams } from "./common/functions";
+import { getParams } from "../common/functions";
 import Head from "./parts/Helmet";
 
 class GameOver extends React.Component {
