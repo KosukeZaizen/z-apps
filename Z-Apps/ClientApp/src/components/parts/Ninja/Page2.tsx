@@ -2436,7 +2436,7 @@ function onTouchScrollOpener(ninja: Ninja) {
     //@ts-ignore
     ninja.readScroll.push(this.openTargetTitle);
     //@ts-ignore
-    const _ = ninja.game?.props.readElementScroll.push(this.openTargetTitle);
+    void ninja.game?.props.readElementScroll.push(this.openTargetTitle);
 }
 
 //=======================================
@@ -2586,4 +2586,3 @@ function onTouchJizo(ninja: Ninja) {
 }
 
 export { Page2 };
-

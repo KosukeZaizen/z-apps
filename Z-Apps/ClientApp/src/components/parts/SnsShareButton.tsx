@@ -12,7 +12,7 @@ export const FBShareBtn = (props: TFBProps) => {
     return (
         <a
             href={`https://www.facebook.com/share.php?u=${urlToShare}`}
-            rel="nofollow"
+            rel="nofollow noopener noreferrer"
             target="_blank"
         >
             <img
@@ -42,7 +42,7 @@ export const TwitterShareBtn = (props: TTWProps) => {
     return (
         <a
             href={`https://twitter.com/share?url=${urlToShare}&text=${textToShare}&hashtags=nihongo,Japanese,LingualNinja`}
-            rel="nofollow"
+            rel="nofollow noopener noreferrer"
             target="_blank"
         >
             <img

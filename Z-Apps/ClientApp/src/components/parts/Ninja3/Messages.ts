@@ -110,7 +110,7 @@ export function setLang(lang) {
         //キノコ村入り口　看板
         SIGN2_SCROLL_TITLE: "ようこそ、キノコ村へ",
         SIGN2_SCROLL_MESSAGE:
-            "この先、キノコ村。\n" + "村の奥には、英雄墓地があります。",
+            "この先、キノコ村。\n村の奥には、英雄墓地があります。",
 
         //英雄墓地　看板
         SIGN3_SCROLL_TITLE: "伝説の英雄　ここに眠る",

@@ -237,8 +237,8 @@ class ReturnToIndex extends React.Component<
     }
 
     judge = () => {
-        const { refForReturnToIndex: refForReturnToIndex } = this.props;
-        const elem = refForReturnToIndex && refForReturnToIndex.current;
+        const { refForReturnToIndex } = this.props;
+        const elem = refForReturnToIndex?.current;
         if (!elem) return;
 
         const height = window.innerHeight;

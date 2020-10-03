@@ -551,7 +551,8 @@ function execCopy(string: string) {
     s.right = "200%";
 
     document.body.appendChild(tmp);
-    const _ = document.getSelection()?.selectAllChildren(tmp);
+
+    void document.getSelection()?.selectAllChildren(tmp);
 
     var result = document.execCommand("copy");
 
