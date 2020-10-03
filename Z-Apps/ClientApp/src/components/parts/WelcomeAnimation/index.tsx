@@ -14,15 +14,15 @@ interface StateToAnimate {
     time: number;
 }
 
-export default function WelcomeAnimation() {
-    const initialAnimationState: StateToAnimate = {
-        shown: true,
-        isOpen: false,
-        underBarLength: 0,
-        underBarOpacity: 0,
-        time: 0,
-    };
+const initialAnimationState: StateToAnimate = {
+    shown: true,
+    isOpen: false,
+    underBarLength: 0,
+    underBarOpacity: 0,
+    time: 0,
+};
 
+export default function WelcomeAnimation() {
     const [animationState, setAnimationState] = useState(initialAnimationState);
 
     useEffect(() => {
