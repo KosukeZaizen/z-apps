@@ -16,8 +16,11 @@ export interface Ninja {
     boolLeft: boolean;
     fireBallCount?: any;
     game?: any;
+    push?: Function;
 }
-interface Props {}
+interface Props {
+    history: { push: Function };
+}
 interface State {
     curPage: number;
     language: Language;
@@ -55,6 +58,9 @@ class NinjaGame extends React.Component<Props, State> {
             ninja = initialNinja;
             stage = 1;
         }
+
+        //リダイレクトのためのpush関数を追加
+        ninja.push = props.history.push;
 
         //urlパラメータ取得
         const params = getParams();

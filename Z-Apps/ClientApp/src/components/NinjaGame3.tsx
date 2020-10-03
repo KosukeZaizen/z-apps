@@ -16,8 +16,11 @@ interface Ninja {
     boolLeft: boolean;
     snow: boolean;
     lang?: string;
+    push?: Function;
 }
-interface Props {}
+interface Props {
+    history: { push: Function };
+}
 interface State {
     curPage: number;
     language: string;
@@ -57,6 +60,9 @@ class NinjaGame extends React.Component<Props, State> {
             ninja = initialNinja;
             stage = 1;
         }
+
+        //リダイレクトのためのpush関数を追加
+        ninja.push = props.history.push;
 
         let lang;
         if (ninja && ninja.lang) {

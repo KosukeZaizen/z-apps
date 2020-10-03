@@ -3818,7 +3818,14 @@ function onTouchEnemy(ninja: Ninja) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト
-        window.location.href = "/game-over?g=ninja2&l=" + ninja.game.lang;
+        const url = "/game-over?g=ninja2&l=" + ninja.game.lang;
+        setTimeout(() => {
+            if (ninja.push) {
+                ninja.push(url);
+            } else {
+                window.location.href = url;
+            }
+        }, 1000);
     }
 }
 

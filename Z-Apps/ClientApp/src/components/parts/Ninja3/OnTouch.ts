@@ -211,8 +211,15 @@ export function toEnemy(ninja) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト
-        window.location.href =
+        const url =
             "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
+        setTimeout(() => {
+            if (ninja.push) {
+                ninja.push(url);
+            } else {
+                window.location.href = url;
+            }
+        }, 1000);
     }
 }
 
@@ -234,8 +241,15 @@ export function toMortalEnemy(ninja, from) {
         //ゲームを停止
         clearInterval(ninja.game.timerId);
         //ゲームオーバー画面へリダイレクト
-        window.location.href =
+        const url =
             "/game-over?g=" + consts.GAME_NAME + "&l=" + ninja.game.lang;
+        setTimeout(() => {
+            if (ninja.push) {
+                ninja.push(url);
+            } else {
+                window.location.href = url;
+            }
+        }, 1000);
     }
 }
 
