@@ -91,6 +91,7 @@ export default function WelcomeAnimation() {
                     borderRadius: 1,
                     width: animationState.underBarLength,
                     border: "solid 1px #007bff",
+                    backgroundColor: "#007bff",
                     height: 0,
                     marginTop: charTop + charHeight * 1.5,
                     opacity: animationState.underBarOpacity,
