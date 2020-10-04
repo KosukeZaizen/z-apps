@@ -348,19 +348,6 @@ class Dictionary extends React.Component<Props, State> {
                                             fontStyle: "italic",
                                         }}
                                     >
-                                        If you want to know more details, please
-                                        check the{" "}
-                                        <a
-                                            href={
-                                                "https://wiki-jp.lingual-ninja.com/word/" +
-                                                wordId
-                                            }
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {"Japanese website >>"}
-                                        </a>
-                                        <br />
                                         This information originally came from{" "}
                                         <a
                                             href={
