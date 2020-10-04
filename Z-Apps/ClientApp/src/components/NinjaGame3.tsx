@@ -116,7 +116,7 @@ class NinjaGame extends React.Component<Props, State> {
             width: "100%",
             height: "100%",
             backgroundColor: "white",
-            zIndex: 9999999,
+            zIndex: 1000000009,
             userSelect: "none",
             touchCallout: "none",
         };

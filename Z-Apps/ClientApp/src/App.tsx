@@ -5,6 +5,7 @@ import ReactGA from "react-ga";
 import { Route, Switch } from "react-router";
 import ScrollMemory from "react-router-scroll-memory";
 import * as commonFncs from "./common/functions";
+import FooterAnimation from "./components/parts/Animations/FooterAnimation";
 import Layout from "./components/parts/Layout";
 import WelcomeAnimation from "./components/parts/WelcomeAnimation";
 import { APP_VERSION } from "./version";
@@ -204,6 +205,7 @@ export default class App extends React.Component {
                     </Switch>
                 </Suspense>
                 <WelcomeAnimation />
+                <FooterAnimation />
             </Layout>
         );
     }

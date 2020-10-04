@@ -31,11 +31,11 @@ export class AnimationEngine<StateToAnimate> {
         animationObjects.push(this.animationObject);
     }
 
-    cleanUpAnimation() {
+    cleanUpAnimation = () => {
         animationObjects = animationObjects.filter(
             obj => obj !== this.animationObject
         );
-    }
+    };
 }
 
 //アプリケーションの初期化時に一度呼び出す関数
