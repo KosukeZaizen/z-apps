@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import * as consts from "../common/consts";
 import { storyDesc } from "../types/stories";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
-import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type Props = {
     location: { pathname: string };

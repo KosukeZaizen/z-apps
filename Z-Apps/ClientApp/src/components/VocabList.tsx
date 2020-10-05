@@ -15,12 +15,12 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { vocab, vocabGenre } from "../types/vocab";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
 import "./parts/PleaseScrollDown.css";
-import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.IActionCreators & {

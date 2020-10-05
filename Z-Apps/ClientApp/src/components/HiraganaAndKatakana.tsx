@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/KanaQuiz/KanaQuiz.css";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
-import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type TState = {
     screenWidth: number;

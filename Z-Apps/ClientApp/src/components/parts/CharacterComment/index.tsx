@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as consts from "../../../common/consts";
-import "./css/CharacterComment.css";
+import "./CharacterComment.css";
 
 type TProps = {
     imgNumber: number;
@@ -27,6 +27,7 @@ export default function CharacterComment(props: TProps) {
                         height: "auto",
                         verticalAlign: "top",
                     }}
+                    className="ninjaPic"
                 />
             </div>
             <div

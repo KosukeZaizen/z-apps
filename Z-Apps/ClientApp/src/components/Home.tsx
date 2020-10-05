@@ -2,10 +2,10 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import "../css/Home.css";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
-import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 export default class Home extends React.Component<
     {},

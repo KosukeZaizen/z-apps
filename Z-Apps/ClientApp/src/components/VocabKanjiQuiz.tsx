@@ -16,6 +16,7 @@ import { sendClientOpeLog, shuffle } from "../common/functions";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../types/vocab";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -24,7 +25,6 @@ import "./parts/PleaseScrollDown.css";
 import { FBShareBtn, TwitterShareBtn } from "./parts/SnsShareButton";
 import AllKanjiList from "./parts/VocabQuiz/AllKanjiList";
 import AllVocabList from "./parts/VocabQuiz/AllVocabList";
-import CharacterComment from "./parts/VocabQuiz/CharacterComment";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.IActionCreators & {
