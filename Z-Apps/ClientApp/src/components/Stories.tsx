@@ -886,7 +886,7 @@ class FooterMenu extends React.Component<
                 >
                     <tbody>
                         <tr
-                            style={{ width: "100%" }}
+                            style={{ width: "100%", cursor: "pointer" }}
                             onClick={this.showLangMenu}
                         >
                             <td colSpan={4} style={{ padding: 3 }}>
