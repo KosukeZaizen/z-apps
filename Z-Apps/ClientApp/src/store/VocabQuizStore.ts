@@ -146,7 +146,7 @@ export const actionCreators: IActionCreators = {
         }
     },
     changePage: nextPage => (dispatch: Function, getState: Function) => {
-        document.getElementById("h1title")?.scrollIntoView(true);
+        void document.getElementById("h1title")?.scrollIntoView(true);
         dispatch({ type: changePageType, nextPage });
     },
 };

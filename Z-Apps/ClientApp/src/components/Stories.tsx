@@ -662,7 +662,7 @@ class AudioContol extends React.Component<AudioContolProps> {
         if (!this.refAudio) return;
 
         const audio = this.refAudio.current;
-        audio?.load();
+        void audio?.load();
     }
 
     render() {
