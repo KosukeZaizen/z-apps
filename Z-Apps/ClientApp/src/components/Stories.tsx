@@ -13,6 +13,7 @@ import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/PleaseScrollDown.css";
+import { FBShareBtn, TwitterShareBtn } from "./parts/SnsShareButton";
 
 type BtnType = "kanji" | "hiragana" | "romaji" | "english";
 
@@ -368,6 +369,29 @@ class Stories extends React.Component<Props, State> {
                                 <CircularProgress key="circle" size="20%" />
                             </div>
                         )}
+                    </div>
+                    <div style={{ margin: "20px 0" }}>
+                        <FBShareBtn
+                            urlToShare={
+                                "https://z-apps.lingual-ninja.com/folktales/" +
+                                storyName
+                            }
+                            style={{
+                                width: "200px",
+                                margin: "5px 20px",
+                            }}
+                        />
+                        <TwitterShareBtn
+                            urlToShare={
+                                "https://z-apps.lingual-ninja.com/folktales/" +
+                                storyName
+                            }
+                            textToShare={title}
+                            style={{
+                                width: "200px",
+                                margin: "5px 20px",
+                            }}
+                        />
                     </div>
                     <GoogleAd />
                     {otherStories?.length > 0 ? (
