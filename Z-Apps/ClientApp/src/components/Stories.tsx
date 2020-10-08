@@ -651,7 +651,7 @@ function Sentences(props: SentencesProps) {
             ) : (
                 sentences &&
                 sentences.map(s => (
-                    <span key={s.lineNumber}>
+                    <div key={s.lineNumber}>
                         <table style={{ width: "100%" }}>
                             <tbody>
                                 {langState.kanji ? (
@@ -691,7 +691,7 @@ function Sentences(props: SentencesProps) {
                         <AudioContol s={s} audioFolder={audioFolder} />
                         <WordList words={words} s={s} storyId={storyId} />
                         <hr />
-                    </span>
+                    </div>
                 ))
             )}
         </div>
