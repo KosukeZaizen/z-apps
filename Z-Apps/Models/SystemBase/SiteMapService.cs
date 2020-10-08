@@ -23,12 +23,11 @@ namespace Z_Apps.Models.SystemBase
             this.storageBkService = storageBkService;
         }
 
-        public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap()
+        public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool excludeWiki = false)
         {
             var listResult = new List<Dictionary<string, string>>();
 
-            var resultXML = await GetSiteMapText();
-
+            var resultXML = await GetSiteMapText(excludeWiki);
 
             XElement xmlTree = XElement.Parse(resultXML);
             var urls = xmlTree.Elements();
@@ -45,7 +44,7 @@ namespace Z_Apps.Models.SystemBase
             return listResult;
         }
 
-        public async Task<string> GetSiteMapText()
+        public async Task<string> GetSiteMapText(bool excludeWiki = false)
         {
             string resultXML = "";
             using (var client = new HttpClient())
@@ -53,27 +52,30 @@ namespace Z_Apps.Models.SystemBase
                 var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
 
-                var lstSitemap = new List<Dictionary<string, string>>();
-
-                var domain = "https://z-apps.lingual-ninja.com/dictionary";
-
-                //top page (noindexのためコメントアウト)
-                //var dic1 = new Dictionary<string, string>();
-                //dic1["loc"] = domain;
-                //lstSitemap.Add(dic1);
-
-                IEnumerable<string> allWord = await GetAllWords();
-                foreach (string word in allWord)
+                if (!excludeWiki)
                 {
-                    var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
-                    var dicWordId = new Dictionary<string, string>();
-                    dicWordId["loc"] = domain + "/" + encodedWord;
-                    lstSitemap.Add(dicWordId);
+                    var lstSitemap = new List<Dictionary<string, string>>();
+
+                    var domain = "https://z-apps.lingual-ninja.com/dictionary";
+
+                    //top page (noindexのためコメントアウト)
+                    //var dic1 = new Dictionary<string, string>();
+                    //dic1["loc"] = domain;
+                    //lstSitemap.Add(dic1);
+
+                    IEnumerable<string> allWord = await GetAllWords();
+                    foreach (string word in allWord)
+                    {
+                        var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                        var dicWordId = new Dictionary<string, string>();
+                        dicWordId["loc"] = domain + "/" + encodedWord;
+                        lstSitemap.Add(dicWordId);
+                    }
+
+                    string partialXML = GetWikiSitemap(lstSitemap);
+
+                    resultXML = resultXML.Replace("</urlset>", partialXML + "</urlset>");
                 }
-
-                string partialXML = GetWikiSitemap(lstSitemap);
-
-                resultXML = resultXML.Replace("</urlset>", partialXML + "</urlset>");
             }
             return resultXML;
         }

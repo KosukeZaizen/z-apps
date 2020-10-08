@@ -40,9 +40,6 @@ const SiteMapEdit = lazy(() => import("./components/SiteMapEdit"));
 const OpeLogTable = lazy(() => import("./components/OpeLogTable"));
 const ColorPalette = lazy(() => import("./components/ColorPalette"));
 const Boscobel = lazy(() => import("./components/Boscobel"));
-const TicTacToeGame = lazy(() => import("./components/parts/3d/TicTacToeGame"));
-const Boxes = lazy(() => import("./components/parts/3d/Boxes"));
-const BoxesExample = lazy(() => import("./components/parts/3d/BoxesExample"));
 const NotFound = lazy(() => import("./components/404"));
 
 export default class App extends React.Component {
@@ -184,17 +181,6 @@ export default class App extends React.Component {
                             sensitive
                             path="/boscobel"
                             component={Boscobel}
-                        />
-                        <Route
-                            sensitive
-                            path="/3d/tic-tac-toe-game"
-                            component={TicTacToeGame}
-                        />
-                        <Route sensitive path="/3d/boxes" component={Boxes} />
-                        <Route
-                            sensitive
-                            path="/3d/ex"
-                            component={BoxesExample}
                         />
                         <Route
                             sensitive

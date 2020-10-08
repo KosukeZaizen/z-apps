@@ -18,7 +18,7 @@ namespace Z_Apps.Controllers
         [HttpGet("[action]/")]
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap()
         {
-            return await siteMapService.GetSiteMap();
+            return await siteMapService.GetSiteMap(true);
         }
 
         [HttpPost("[action]")]

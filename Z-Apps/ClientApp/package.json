@@ -18,12 +18,10 @@
         "react-router-redux": "^5.0.0-alpha.8",
         "react-router-scroll-memory": "^2.0.5",
         "react-scripts": "^3.4.1",
-        "react-three-fiber": "^4.0.22",
         "reactstrap": "^6.3.0",
         "redux": "^4.0.5",
         "redux-thunk": "^2.3.0",
         "rimraf": "^3.0.2",
-        "three": "^0.114.0",
         "typescript": "^3.8.3"
     },
     "devDependencies": {
@@ -36,7 +34,6 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/react-router-redux": "^5.0.18",
         "@types/reactstrap": "^8.5.1",
-        "@types/three": "^0.103.2",
         "ajv": "^6.12.0",
         "babel-eslint": "^10.1.0",
         "copyfiles": "^2.2.0",
