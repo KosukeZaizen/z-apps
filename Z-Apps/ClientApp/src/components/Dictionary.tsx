@@ -196,7 +196,6 @@ class Dictionary extends React.Component<Props, State> {
             furigana,
             romaji,
             word,
-            wordId,
             imgNumber,
             translatedWord,
             snippet,

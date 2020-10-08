@@ -5,7 +5,7 @@ import "./CharacterComment.css";
 type TProps = {
     imgNumber: number;
     screenWidth: number;
-    comment: string | JSX.Element;
+    comment: string | React.ReactNode;
 };
 export default function CharacterComment(props: TProps) {
     const { imgNumber, screenWidth, comment } = props;

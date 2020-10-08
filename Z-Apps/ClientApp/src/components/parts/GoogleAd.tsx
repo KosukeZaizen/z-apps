@@ -4,16 +4,21 @@ import { GOOGLE_ADS_CLIENT, GOOGLE_ADS_SLOT } from "../../common/privateConsts";
 
 export let isGoogleAdsDisplayed: boolean;
 
-export default class GoogleAd extends React.Component {
-    constructor(props: {}) {
+interface Props {
+    style?: React.CSSProperties;
+}
+
+export default class GoogleAd extends React.Component<Props> {
+    constructor(props: Props) {
         super(props);
         // コンポーネント外でのAdsense表示判定のため、Adsenseの状態を変数としてexport
         isGoogleAdsDisplayed = true;
     }
 
     render() {
+        const { style } = this.props;
         return (
-            <aside>
+            <aside style={style}>
                 <GoogleAds
                     client={GOOGLE_ADS_CLIENT}
                     slot={GOOGLE_ADS_SLOT}

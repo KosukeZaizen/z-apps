@@ -9,6 +9,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -33,6 +34,7 @@ type State = {
     hiragana?: boolean;
     romaji?: boolean;
     english?: boolean;
+    imgNumber: 1 | 2 | 3;
 };
 
 class Stories extends React.Component<Props, State> {
@@ -50,6 +52,7 @@ class Stories extends React.Component<Props, State> {
             screenHeight: window.innerHeight,
             pleaseScrollDown: false,
             showFooterMenu: false,
+            imgNumber: this.getImgNumber(storyName.length),
         };
 
         const saveData = localStorage.getItem("folktales-languages");
@@ -112,7 +115,8 @@ class Stories extends React.Component<Props, State> {
                     .filter(a => a)
                     .pop() || "";
             this.setState({
-                storyName: storyName,
+                storyName,
+                imgNumber: this.getImgNumber(storyName.length),
             });
             this.props.loadStory(storyName);
         }
@@ -211,6 +215,15 @@ class Stories extends React.Component<Props, State> {
         localStorage.setItem("folktales-languages", JSON.stringify(saveData));
     };
 
+    getImgNumber = (num: number = 0) => {
+        const today = new Date();
+        const todayNumber = today.getMonth() + today.getDate() + num;
+        const mod = todayNumber % 30;
+        if (mod > 20) return 2;
+        if (mod > 10) return 3;
+        return 1;
+    };
+
     render() {
         const storyName =
             this.props.storyDesc.storyName || this.state.storyName || "";
@@ -229,7 +242,12 @@ class Stories extends React.Component<Props, State> {
             fontSize: "x-large",
             fontWeight: "bold",
         };
-        const { screenWidth, pleaseScrollDown, showFooterMenu } = this.state;
+        const {
+            screenWidth,
+            pleaseScrollDown,
+            showFooterMenu,
+            imgNumber,
+        } = this.state;
         const { storyDesc, sentences, words, otherStories } = this.props;
         return (
             <div className="center">
@@ -382,31 +400,48 @@ class Stories extends React.Component<Props, State> {
                                 screenWidth={screenWidth}
                                 showFooterMenu={showFooterMenu}
                             />
-                            <div style={{ margin: "20px 0" }}>
-                                <FBShareBtn
-                                    urlToShare={
-                                        "https://z-apps.lingual-ninja.com/folktales/" +
-                                        storyName
-                                    }
-                                    style={{
-                                        width: "200px",
-                                        margin: "5px 20px",
-                                    }}
-                                />
-                                <TwitterShareBtn
-                                    urlToShare={
-                                        "https://z-apps.lingual-ninja.com/folktales/" +
-                                        storyName
-                                    }
-                                    textToShare={title}
-                                    style={{
-                                        width: "200px",
-                                        margin: "5px 20px",
-                                    }}
+                            <div
+                                style={{
+                                    margin: "20px 0",
+                                }}
+                            >
+                                <CharacterComment
+                                    comment={[
+                                        <p>
+                                            {
+                                                "If you like this story, please click here!"
+                                            }
+                                        </p>,
+                                        <FBShareBtn
+                                            urlToShare={
+                                                "https://z-apps.lingual-ninja.com/folktales/" +
+                                                storyName
+                                            }
+                                            style={{
+                                                width: "200px",
+                                                marginTop: "10px",
+                                            }}
+                                        />,
+                                        <TwitterShareBtn
+                                            urlToShare={
+                                                "https://z-apps.lingual-ninja.com/folktales/" +
+                                                storyName
+                                            }
+                                            textToShare={title}
+                                            style={{
+                                                width: "200px",
+                                                marginTop: "5px",
+                                            }}
+                                        />,
+                                    ]}
+                                    imgNumber={imgNumber}
+                                    screenWidth={screenWidth}
                                 />
                             </div>
                         </div>
+                        <hr />
                         <GoogleAd />
+                        <hr />
                         <section>
                             {otherStories?.length > 0 ? (
                                 <h2
