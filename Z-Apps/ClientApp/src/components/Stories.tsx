@@ -429,7 +429,7 @@ class Stories extends React.Component<Props, State> {
                                     .join(" ");
 
                                 return (
-                                    <div
+                                    <section
                                         key={s.storyId}
                                         style={{
                                             padding: "10px",
@@ -439,19 +439,16 @@ class Stories extends React.Component<Props, State> {
                                     >
                                         {screenWidth > 500 ? (
                                             <>
-                                                <div className="center">
-                                                    <h3
-                                                        style={{
-                                                            color: "black",
-                                                            margin:
-                                                                "0 20px 20px",
-                                                            fontWeight:
-                                                                "bolder",
-                                                        }}
-                                                    >
-                                                        {nameToShow}
-                                                    </h3>
-                                                </div>
+                                                <h3
+                                                    style={{
+                                                        color: "black",
+                                                        margin: "0 20px 20px",
+                                                        fontWeight: "bolder",
+                                                    }}
+                                                    className="center"
+                                                >
+                                                    {nameToShow}
+                                                </h3>
                                                 <table>
                                                     <tbody>
                                                         <tr>
@@ -537,18 +534,16 @@ class Stories extends React.Component<Props, State> {
                                                 </table>
                                             </>
                                         ) : (
-                                            <div>
-                                                <b>
-                                                    <h3
-                                                        style={{
-                                                            color: "black",
-                                                            marginBottom:
-                                                                "20px",
-                                                        }}
-                                                    >
-                                                        {nameToShow}
-                                                    </h3>
-                                                </b>
+                                            <>
+                                                <h3
+                                                    style={{
+                                                        color: "black",
+                                                        marginBottom: "20px",
+                                                        fontWeight: "bolder",
+                                                    }}
+                                                >
+                                                    {nameToShow}
+                                                </h3>
                                                 <Link
                                                     to={`/folktales/${nameForUrl}`}
                                                 >
@@ -591,9 +586,9 @@ class Stories extends React.Component<Props, State> {
                                                         to={`/folktales/${nameForUrl}`}
                                                     >{`Read ${nameToShow} >>`}</Link>
                                                 </p>
-                                            </div>
+                                            </>
                                         )}
-                                    </div>
+                                    </section>
                                 );
                             })}
                         </section>
