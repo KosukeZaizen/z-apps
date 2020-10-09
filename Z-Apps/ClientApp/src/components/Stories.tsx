@@ -409,7 +409,7 @@ class Stories extends React.Component<Props, State> {
                                     comment={[
                                         <p>
                                             {
-                                                "If you like this story, please click here!"
+                                                "If you like this story, please share!"
                                             }
                                         </p>,
                                         <FBShareBtn
