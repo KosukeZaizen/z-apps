@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using Z_Apps.Util;
 using System.Runtime.Serialization.Json;
 using System.IO;
+using Z_Apps.Models.Stories.Stories;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -23,11 +24,11 @@ namespace Z_Apps.Models.SystemBase
             this.storageBkService = storageBkService;
         }
 
-        public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool excludeWiki = false)
+        public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool onlyStrageXmlFile = false)
         {
             var listResult = new List<Dictionary<string, string>>();
 
-            var resultXML = await GetSiteMapText(excludeWiki);
+            var resultXML = await GetSiteMapText(onlyStrageXmlFile);
 
             XElement xmlTree = XElement.Parse(resultXML);
             var urls = xmlTree.Elements();
@@ -44,35 +45,57 @@ namespace Z_Apps.Models.SystemBase
             return listResult;
         }
 
-        public async Task<string> GetSiteMapText(bool excludeWiki = false)
+        public async Task<string> GetSiteMapText(bool onlyStrageXmlFile = false)
         {
+            //Startup.csのSitemapリクエスト時の処理と、
+            //サイトマップ編集画面の内容をストレージに登録する処理の両方から呼ばれる
             string resultXML = "";
             using (var client = new HttpClient())
             {
                 var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
                 resultXML = await response.Content.ReadAsStringAsync();
 
-                if (!excludeWiki)
+                if (!onlyStrageXmlFile)
                 {
                     var lstSitemap = new List<Dictionary<string, string>>();
 
-                    var domain = "https://z-apps.lingual-ninja.com/dictionary";
+                    //------------------------------------------------------------
+                    //Folktales Topページ
+                    var folktaleBaseUrl = "https://z-apps.lingual-ninja.com/folktales";
+                    var topDic = new Dictionary<string, string>();
+                    topDic["loc"] = folktaleBaseUrl;
+                    lstSitemap.Add(topDic);
 
+                    //Folktalesの各ストーリー
+                    var storyManager = new StoryManager(new DBCon());
+                    var allStories = storyManager.GetAllStories();
+
+                    foreach (var story in allStories)
+                    {
+                        var dicFolktaleURLs = new Dictionary<string, string>();
+                        dicFolktaleURLs["loc"] = folktaleBaseUrl + "/" + story.StoryName;
+                        lstSitemap.Add(dicFolktaleURLs);
+                    }
+
+                    //------------------------------------------------------------
+                    //Dictionary機能
+                    var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
                     //top page (noindexのためコメントアウト)
                     //var dic1 = new Dictionary<string, string>();
                     //dic1["loc"] = domain;
                     //lstSitemap.Add(dic1);
-
                     IEnumerable<string> allWord = await GetAllWords();
                     foreach (string word in allWord)
                     {
                         var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
                         var dicWordId = new Dictionary<string, string>();
-                        dicWordId["loc"] = domain + "/" + encodedWord;
+                        dicWordId["loc"] = dictionaryBaseUrl + "/" + encodedWord;
                         lstSitemap.Add(dicWordId);
                     }
 
-                    string partialXML = GetWikiSitemap(lstSitemap);
+                    //------------------------------------------------------------
+
+                    string partialXML = GetStringSitemapFromDics(lstSitemap);
 
                     resultXML = resultXML.Replace("</urlset>", partialXML + "</urlset>");
                 }
@@ -91,7 +114,7 @@ namespace Z_Apps.Models.SystemBase
             return result.Replace("\"", "").Replace("[", "").Replace("]", "").Split(",");
         }
 
-        private string GetWikiSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
+        private string GetStringSitemapFromDics(IEnumerable<Dictionary<string, string>> sitemapItems)
         {
             StringBuilder sb = new StringBuilder();
 
