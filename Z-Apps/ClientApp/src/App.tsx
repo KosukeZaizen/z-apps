@@ -29,6 +29,7 @@ const Stories = lazy(() => import("./components/Stories"));
 const StoriesTop = lazy(() => import("./components/StoriesTop"));
 const StoriesEdit = lazy(() => import("./components/StoriesEdit"));
 const StoriesEditTop = lazy(() => import("./components/StoriesEditTop"));
+const StoriesVideo = lazy(() => import("./components/StoriesVideo"));
 const NinjaTop = lazy(() => import("./components/NinjaGameTop"));
 const Ninja1 = lazy(() => import("./components/NinjaGame"));
 const Ninja2 = lazy(() => import("./components/NinjaGame2"));
@@ -140,6 +141,12 @@ export default class App extends React.Component {
                             exact
                             path="/folktalesEdit/:storyName"
                             component={StoriesEdit}
+                        />
+                        <Route
+                            sensitive
+                            exact
+                            path="/folktalesVideo/:storyName"
+                            component={StoriesVideo}
                         />
                         <Route sensitive path="/ninja" component={NinjaTop} />
                         <Route sensitive path="/ninja1" component={Ninja1} />
