@@ -54,7 +54,7 @@ class StoriesEdit extends React.Component<Props, State> {
             addLine,
             removeBlankLine,
             translateAllSentences,
-            saveWidhoutConfirmation,
+            saveWithoutConfirmation,
         } = this.props;
 
         const importedSentences = this.state.importData
@@ -67,7 +67,7 @@ class StoriesEdit extends React.Component<Props, State> {
         });
 
         removeBlankLine();
-        translateAllSentences(saveWidhoutConfirmation);
+        translateAllSentences(saveWithoutConfirmation);
 
         this.setState({ imported: true });
     };

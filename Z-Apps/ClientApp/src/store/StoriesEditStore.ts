@@ -31,8 +31,8 @@ export interface IActionCreators {
     setInitialToken: () => void;
     addLine: (idx: number, s?: string) => void;
     removeBlankLine: () => void;
-    translateAllSentences: (saveWidhoutConfirmation: () => void) => void;
-    saveWidhoutConfirmation: () => void;
+    translateAllSentences: (saveWithoutConfirmation: () => void) => void;
+    saveWithoutConfirmation: () => void;
     handleChangeDesc: () => void;
     handleChangeSentence: () => void;
     handleChangeWord: () => void;
@@ -197,7 +197,7 @@ export const actionCreators = {
         dispatch({ type: finishTranslationType });
     },
 
-    translateAllSentences: (saveWidhoutConfirmation: Function) => async (
+    translateAllSentences: (saveWithoutConfirmation: Function) => async (
         dispatch: Function,
         getState: Function
     ) => {
@@ -254,7 +254,7 @@ export const actionCreators = {
         console.log("finish translate");
         dispatch({ type: finishTranslationType });
 
-        saveWidhoutConfirmation();
+        saveWithoutConfirmation();
     },
 
     translateWord: (pWord: word) => async (
@@ -538,7 +538,7 @@ export const actionCreators = {
         }
     },
 
-    saveWidhoutConfirmation: () => async (
+    saveWithoutConfirmation: () => async (
         dispatch: Function,
         getState: Function
     ) => {

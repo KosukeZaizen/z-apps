@@ -8,6 +8,10 @@ import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
 import Head from "./parts/Helmet";
 
+interface CanvasElement extends HTMLCanvasElement {
+    captureStream(frameRate?: number): MediaStream;
+}
+
 type Props = storiesEditStore.StoriesEditState &
     storiesEditStore.IActionCreators & { match: { params: any } };
 type State = {
@@ -54,7 +58,7 @@ class StoriesVideo extends React.Component<Props, State> {
             addLine,
             removeBlankLine,
             translateAllSentences,
-            saveWidhoutConfirmation,
+            saveWithoutConfirmation,
         } = this.props;
 
         const importedSentences = this.state.importData
@@ -67,29 +71,79 @@ class StoriesVideo extends React.Component<Props, State> {
         });
 
         removeBlankLine();
-        translateAllSentences(saveWidhoutConfirmation);
+        translateAllSentences(saveWithoutConfirmation);
 
         this.setState({ imported: true });
     };
 
     componentDidMount() {
-        var canvas = document.getElementById("sample") as HTMLCanvasElement;
-        if (canvas.getContext) {
-            var context = canvas.getContext("2d");
-            if (context) {
-                //ここに具体的な描画内容を指定する
-                //左から20上から40の位置に、幅50高さ100の四角形を描く
-                context.fillRect(20, 40, 50, 100);
-                //色を指定する
-                context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
-                context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
-                //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
-                context.strokeRect(200, 80, 100, 50);
-                //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
-                context.arc(150, 75, 60, Math.PI * 1, Math.PI * 2, true);
-                context.fill();
+        const canvas = document.getElementById("canvas") as
+            | CanvasElement
+            | undefined;
+        if (!canvas || !canvas.getContext) return;
+
+        const recorder = new MediaRecorder(canvas.captureStream(), {
+            mimeType: "video/webm;codecs=vp9",
+        });
+
+        const anchor = document.getElementById("downloadlink") as
+            | HTMLAnchorElement
+            | undefined;
+        if (!anchor) return;
+
+        recorder.ondataavailable = function (e) {
+            const videoBlob = new Blob([e.data], { type: e.data.type });
+            anchor.download = "movie.webm";
+            anchor.href = window.URL.createObjectURL(videoBlob);
+            anchor.style.display = "block";
+        };
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        // const animation = new AnimationEngine<StateToAnimate>(
+        //     initialAnimationState,
+        //     ({
+        //         ninjaX,
+        //         time,
+        //     }) => {
+        //         if (time > 100 && time < 1120) {
+        //             ninjaX -= 5;
+        //             badNinjaX = ninjaX + 900;
+        //         }
+
+        //         return {
+        //             ninjaX,
+        //             time: time + 1,
+        //         };
+        //     },
+        //     setAnimationState
+        // );
+
+        let i = 20;
+
+        //録画開始
+        recorder.start();
+
+        const id = window.setInterval(() => {
+            //ここに具体的な描画内容を指定する
+            //左から20上から40の位置に、幅50高さ100の四角形を描く
+            context.fillRect(i, 40, 50, 100);
+            //色を指定する
+            context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
+            context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
+            //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
+            context.strokeRect(200, 80, 100, 50);
+            //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
+            context.arc(150, 75, 60, Math.PI * 1, Math.PI * 2, true);
+            context.fill();
+            i++;
+            if (i > 200) {
+                recorder.stop();
+                window.clearInterval(id);
+                alert("fin");
             }
-        }
+        }, 50);
     }
 
     render() {
@@ -148,13 +202,17 @@ class StoriesVideo extends React.Component<Props, State> {
                     </h1>
                     <br />
                     <canvas
-                        id="sample"
+                        id="canvas"
                         width="400"
                         height="300"
                         style={{ backgroundColor: "white" }}
                     >
                         図形を表示するには、canvasタグをサポートしたブラウザが必要です。
                     </canvas>
+                    <br />
+                    <a href="#" id="downloadlink" style={{ color: "white" }}>
+                        ダウンロード
+                    </a>
                     <br />
                     <br />
                     {this.props.sentences.filter(s => s && s.kanji.length > 0)
