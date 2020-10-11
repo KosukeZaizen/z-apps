@@ -1,6 +1,11 @@
 let animationObjects: AnimationObject<any>[] = [];
 
-export interface AnimationObject<StateToAnimate> {
+interface MinimumAnimationState {
+    time: number;
+    [key:string]:any;
+}
+
+export interface AnimationObject<StateToAnimate extends MinimumAnimationState> {
     state: StateToAnimate;
     fncForEachTime: (state: StateToAnimate) => StateToAnimate; //単位時間あたりの変更を加えたステートを返す関数
     setState: React.Dispatch<React.SetStateAction<StateToAnimate>>;
@@ -8,7 +13,7 @@ export interface AnimationObject<StateToAnimate> {
 }
 
 //各コンポーネントRFCのuseEffect内でこのクラスをnewし、returnでcleanUpAnimationを返す
-export class AnimationEngine<StateToAnimate> {
+export class AnimationEngine<StateToAnimate extends MinimumAnimationState> {
     animationObject: AnimationObject<StateToAnimate>;
 
     constructor(

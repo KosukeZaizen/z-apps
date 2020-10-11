@@ -3,6 +3,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { AnimationEngine } from "../common/animation";
 import * as consts from "../common/consts";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
@@ -18,24 +19,92 @@ type State = {
     storyName: string;
     importData: string;
     imported: boolean;
+    ninjaX: number;
+    time: number;
+    videoBlob?: Blob;
 };
 class StoriesVideo extends React.Component<Props, State> {
+    canvasRef: React.RefObject<CanvasElement>;
+    animation: AnimationEngine<State>;
+    recorder: MediaRecorder | null = null;
     screenHeight: number;
+
     constructor(props: Props) {
         super(props);
 
         const { params } = props.match;
         const storyName = params.storyName.toString();
+
         this.state = {
             storyName: storyName,
             importData: "",
             imported: false,
+            ninjaX: 20,
+            time: 0,
         };
 
         this.screenHeight = window.innerHeight;
 
         this.props.loadStory(this.state.storyName);
-        this.props.setInitialToken();
+
+        this.canvasRef = React.createRef();
+
+        this.animation = new AnimationEngine<State>(
+            this.state,
+            state => {
+                const canvas = this.canvasRef.current;
+                const context = canvas?.getContext("2d");
+
+                if (canvas && this.recorder === null) {
+                    this.recorder = new MediaRecorder(canvas.captureStream(), {
+                        mimeType: "video/webm;codecs=vp9",
+                    });
+
+                    const that = this;
+                    this.recorder.ondataavailable = function (e) {
+                        if (!that.state.videoBlob) {
+                            that.setState({
+                                videoBlob: new Blob([e.data], {
+                                    type: e.data.type,
+                                }),
+                            });
+                        }
+                    };
+
+                    //録画開始
+                    this.recorder.start();
+                }
+
+                const { ninjaX, time, ...rest } = state;
+                if (context) {
+                    //左から20上から40の位置に、幅50高さ100の四角形を描く
+                    context.fillRect(ninjaX, 40, 50, 100);
+                    //色を指定する
+                    context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
+                    context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
+                    //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
+                    context.strokeRect(200, 80, 100, 50);
+                    //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
+                    context.arc(150, 75, 60, Math.PI * 1, Math.PI * 2, true);
+                    context.fill();
+
+                    if (time === 200) {
+                        this.recorder?.stop();
+                        this.animation.cleanUpAnimation();
+                        alert("fin");
+                    }
+                }
+                return {
+                    ninjaX: ninjaX + 1,
+                    time: time + 1,
+
+                    ...rest,
+                };
+            },
+            state => {
+                this.setState(state);
+            }
+        );
     }
 
     componentDidUpdate() {
@@ -47,106 +116,15 @@ class StoriesVideo extends React.Component<Props, State> {
         }
     }
 
-    handleChangeImportData = (
-        event: React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-        this.setState({ importData: event.target.value });
-    };
+    componentDidMount() {}
 
-    import = () => {
-        const {
-            addLine,
-            removeBlankLine,
-            translateAllSentences,
-            saveWithoutConfirmation,
-        } = this.props;
-
-        const importedSentences = this.state.importData
-            .replace("\r", "")
-            .split("\n");
-        const importedSentencesWithoutBlank = importedSentences.filter(s => s);
-
-        importedSentencesWithoutBlank.forEach((s, idx) => {
-            addLine(idx, s);
-        });
-
-        removeBlankLine();
-        translateAllSentences(saveWithoutConfirmation);
-
-        this.setState({ imported: true });
-    };
-
-    componentDidMount() {
-        const canvas = document.getElementById("canvas") as
-            | CanvasElement
-            | undefined;
-        if (!canvas || !canvas.getContext) return;
-
-        const recorder = new MediaRecorder(canvas.captureStream(), {
-            mimeType: "video/webm;codecs=vp9",
-        });
-
-        const anchor = document.getElementById("downloadlink") as
-            | HTMLAnchorElement
-            | undefined;
-        if (!anchor) return;
-
-        recorder.ondataavailable = function (e) {
-            const videoBlob = new Blob([e.data], { type: e.data.type });
-            anchor.download = "movie.webm";
-            anchor.href = window.URL.createObjectURL(videoBlob);
-            anchor.style.display = "block";
-        };
-
-        const context = canvas.getContext("2d");
-        if (!context) return;
-
-        // const animation = new AnimationEngine<StateToAnimate>(
-        //     initialAnimationState,
-        //     ({
-        //         ninjaX,
-        //         time,
-        //     }) => {
-        //         if (time > 100 && time < 1120) {
-        //             ninjaX -= 5;
-        //             badNinjaX = ninjaX + 900;
-        //         }
-
-        //         return {
-        //             ninjaX,
-        //             time: time + 1,
-        //         };
-        //     },
-        //     setAnimationState
-        // );
-
-        let i = 20;
-
-        //録画開始
-        recorder.start();
-
-        const id = window.setInterval(() => {
-            //ここに具体的な描画内容を指定する
-            //左から20上から40の位置に、幅50高さ100の四角形を描く
-            context.fillRect(i, 40, 50, 100);
-            //色を指定する
-            context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
-            context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
-            //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
-            context.strokeRect(200, 80, 100, 50);
-            //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
-            context.arc(150, 75, 60, Math.PI * 1, Math.PI * 2, true);
-            context.fill();
-            i++;
-            if (i > 200) {
-                recorder.stop();
-                window.clearInterval(id);
-                alert("fin");
-            }
-        }, 50);
+    componentWillUnmount() {
+        this.animation.cleanUpAnimation();
     }
 
     render() {
+        const { videoBlob } = this.state;
+
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const showSentences =
@@ -154,9 +132,10 @@ class StoriesVideo extends React.Component<Props, State> {
             this.props.sentences.length > 0 &&
             this.props.words &&
             this.props.words.length > 0;
+
         return (
             <div className="center">
-                <Head title={title + " Story"} noindex={true} />
+                <Head title={title + " Story"} noindex />
                 <div
                     style={{
                         width: "100%",
@@ -202,7 +181,7 @@ class StoriesVideo extends React.Component<Props, State> {
                     </h1>
                     <br />
                     <canvas
-                        id="canvas"
+                        ref={this.canvasRef}
                         width="400"
                         height="300"
                         style={{ backgroundColor: "white" }}
@@ -210,9 +189,15 @@ class StoriesVideo extends React.Component<Props, State> {
                         図形を表示するには、canvasタグをサポートしたブラウザが必要です。
                     </canvas>
                     <br />
-                    <a href="#" id="downloadlink" style={{ color: "white" }}>
-                        ダウンロード
-                    </a>
+                    {videoBlob && (
+                        <a
+                            style={{ color: "white" }}
+                            download="movie.webm"
+                            href={window.URL.createObjectURL(videoBlob)}
+                        >
+                            ダウンロード
+                        </a>
+                    )}
                     <br />
                     <br />
                     {this.props.sentences.filter(s => s && s.kanji.length > 0)
@@ -229,7 +214,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                     border: "thin solid #594e46",
                                 }}
                                 value={this.state.importData}
-                                onChange={this.handleChangeImportData}
+                                //onChange={this.handleChangeImportData}
                             />
                             <button
                                 style={{
@@ -240,7 +225,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                     color: "black",
                                 }}
                                 className="btn btn-dark btn-xs"
-                                onClick={this.import}
+                                //onClick={this.import}
                             >
                                 <b>Import</b>
                             </button>
