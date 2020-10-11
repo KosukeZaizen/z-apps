@@ -1,7 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { AnimationEngine } from "../common/animation";
 import * as consts from "../common/consts";
@@ -17,8 +16,6 @@ type Props = storiesEditStore.StoriesEditState &
     storiesEditStore.IActionCreators & { match: { params: any } };
 type State = {
     storyName: string;
-    importData: string;
-    imported: boolean;
     ninjaX: number;
     time: number;
     videoBlob?: Blob;
@@ -37,8 +34,6 @@ class StoriesVideo extends React.Component<Props, State> {
 
         this.state = {
             storyName: storyName,
-            importData: "",
-            imported: false,
             ninjaX: 20,
             time: 0,
         };
@@ -70,32 +65,43 @@ class StoriesVideo extends React.Component<Props, State> {
                             });
                         }
                     };
-
-                    //録画開始
-                    this.recorder.start();
                 }
 
-                const { ninjaX, time, ...rest } = state;
+                let { ninjaX, time, ...rest } = state;
                 if (context) {
-                    //左から20上から40の位置に、幅50高さ100の四角形を描く
-                    context.fillRect(ninjaX, 40, 50, 100);
-                    //色を指定する
-                    context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
-                    context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
-                    //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
-                    context.strokeRect(200, 80, 100, 50);
-                    //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
-                    context.arc(150, 75, 60, Math.PI * 1, Math.PI * 2, true);
-                    context.fill();
+                    if (time === 100) {
+                        //録画開始
+                        this.recorder?.start();
+                    } else if (time > 100) {
+                        ninjaX++;
+                        //左から20上から40の位置に、幅50高さ100の四角形を描く
+                        context.fillRect(ninjaX, 40, 50, 100);
+                        //色を指定する
+                        context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
+                        context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
+                        //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
+                        context.strokeRect(200, 80, 100, 50);
+                        //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
+                        context.arc(
+                            150,
+                            75,
+                            60,
+                            Math.PI * 1,
+                            Math.PI * 2,
+                            true
+                        );
+                        context.fill();
 
-                    if (time === 200) {
-                        this.recorder?.stop();
-                        this.animation.cleanUpAnimation();
-                        alert("fin");
+                        if (time === 300) {
+                            //録画終了
+                            this.recorder?.stop();
+                            this.animation.cleanUpAnimation();
+                            alert("fin");
+                        }
                     }
                 }
                 return {
-                    ninjaX: ninjaX + 1,
+                    ninjaX,
                     time: time + 1,
 
                     ...rest,
@@ -147,205 +153,93 @@ class StoriesVideo extends React.Component<Props, State> {
                         zIndex: -1,
                     }}
                 ></div>
-                <div style={{ maxWidth: 1000 }}>
-                    <div
-                        className="breadcrumbs"
-                        style={{ textAlign: "left", color: "white" }}
+                <h1
+                    style={{
+                        margin: "30px",
+                        lineHeight: "30px",
+                        color: "#eb6905",
+                    }}
+                >
+                    <b>{title}</b>
+                </h1>
+                <br />
+                <canvas
+                    ref={this.canvasRef}
+                    width="400"
+                    height="300"
+                    style={{ backgroundColor: "white" }}
+                >
+                    図形を表示するには、canvasタグをサポートしたブラウザが必要です。
+                </canvas>
+                <br />
+                {videoBlob && (
+                    <a
+                        style={{ color: "white" }}
+                        download="movie.webm"
+                        href={window.URL.createObjectURL(videoBlob)}
                     >
-                        <Link
-                            to="/"
-                            style={{ marginRight: "5px", marginLeft: "5px" }}
-                        >
-                            <span>Home</span>
-                        </Link>
-                        ＞
-                        <Link
-                            to="/folktalesEdit"
-                            style={{ marginRight: "5px", marginLeft: "5px" }}
-                        >
-                            <span>Japanese Folktales</span>
-                        </Link>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            {title}
-                        </span>
-                    </div>
-                    <h1
-                        style={{
-                            margin: "30px",
-                            lineHeight: "30px",
-                            color: "#eb6905",
-                        }}
-                    >
-                        <b>{title}</b>
-                    </h1>
-                    <br />
-                    <canvas
-                        ref={this.canvasRef}
-                        width="400"
-                        height="300"
-                        style={{ backgroundColor: "white" }}
-                    >
-                        図形を表示するには、canvasタグをサポートしたブラウザが必要です。
-                    </canvas>
-                    <br />
-                    {videoBlob && (
-                        <a
-                            style={{ color: "white" }}
-                            download="movie.webm"
-                            href={window.URL.createObjectURL(videoBlob)}
-                        >
-                            ダウンロード
-                        </a>
-                    )}
-                    <br />
-                    <br />
-                    {this.props.sentences.filter(s => s && s.kanji.length > 0)
-                        .length <= 0 && (
-                        <span>
-                            <b style={{ color: "white" }}>Import</b>
-                            <br />
-                            <textarea
-                                rows={10}
-                                style={{
-                                    width: "100%",
-                                    backgroundColor: "#1b181b",
-                                    color: "#eb6905",
-                                    border: "thin solid #594e46",
-                                }}
-                                value={this.state.importData}
-                                //onChange={this.handleChangeImportData}
-                            />
-                            <button
-                                style={{
-                                    marginTop: 10,
-                                    marginBottom: 10,
-                                    height: 28,
-                                    paddingTop: 0,
-                                    color: "black",
-                                }}
-                                className="btn btn-dark btn-xs"
-                                //onClick={this.import}
-                            >
-                                <b>Import</b>
-                            </button>
-                            <br />
-                            <br />
-                        </span>
-                    )}
-                    {this.state.storyName ? (
-                        <img
-                            src={`${consts.BLOB_URL}/folktalesImg/${
-                                storyName.split("--")[0]
-                            }.png`}
-                            width="100px"
-                            alt={title}
-                        />
-                    ) : null}
-                    <br />
-                    {this.screenHeight < 750 ? (
-                        <div
-                            style={{
-                                color: "red",
-                            }}
-                        >
-                            <br />
-                            <b>↓ Please scroll down ↓</b>
-                        </div>
-                    ) : null}
-                    <br />
-                    {this.props.storyDesc.description ? (
-                        <Description
-                            desc={this.props.storyDesc.description}
-                            handleChangeDesc={this.props.handleChangeDesc}
-                        />
-                    ) : null}
-                    <br />
-                    {showSentences ? (
-                        <Sentences
-                            storyId={this.props.storyDesc.storyId}
-                            sentences={this.props.sentences}
-                            loadSentences={this.props.loadSentences}
-                            words={this.props.words}
-                            loadWords={this.props.loadWords}
-                            handleChangeSentence={
-                                this.props.handleChangeSentence
-                            }
-                            addLine={this.props.addLine}
-                            handleChangeWord={this.props.handleChangeWord}
-                            addWord={this.props.addWord}
-                            removeWord={this.props.removeWord}
-                            removeLine={this.props.removeLine}
-                            translate={this.props.translate}
-                            translateWord={this.props.translateWord}
-                            isTranslating={this.props.isTranslating}
-                            mergeWord={this.props.mergeWord}
-                        />
-                    ) : (
-                        <div className="center">
-                            <CircularProgress key="circle" size="20%" />
-                        </div>
-                    )}
-                    <input
-                        type="text"
-                        value={this.props.token}
-                        onChange={this.props.handleChangeToken}
+                        ダウンロード
+                    </a>
+                )}
+                <br />
+                <br />
+                {this.state.storyName ? (
+                    <img
+                        src={`${consts.BLOB_URL}/folktalesImg/${
+                            storyName.split("--")[0]
+                        }.png`}
+                        width="100px"
+                        alt={title}
                     />
-                    <br />
+                ) : null}
+                <br />
+                {this.screenHeight < 750 ? (
                     <div
                         style={{
-                            position: "fixed",
-                            bottom: 0,
-                            left: 0,
-                            zIndex: 99999999,
-                            backgroundColor: "black",
-                            width: "100%",
+                            color: "red",
                         }}
                     >
-                        <button
-                            style={{
-                                marginTop: 10,
-                                marginBottom: 10,
-                                height: 28,
-                                paddingTop: 0,
-                                color: "black",
-                            }}
-                            className="btn btn-dark btn-xs"
-                            //onClick={this.props.save}
-                        >
-                            <b>Save</b>
-                        </button>
-                        "　"
-                        <button
-                            style={{
-                                marginTop: 10,
-                                marginBottom: 10,
-                                height: 28,
-                                paddingTop: 0,
-                                color: "black",
-                            }}
-                            className="btn btn-dark btn-xs"
-                            //onClick={this.props.register}
-                        >
-                            <b>Register</b>
-                        </button>
-                        "　"
-                        <a href="/sitemapEdit" target="_blank" rel="noopener">
-                            <button
-                                style={{
-                                    marginTop: 10,
-                                    marginBottom: 10,
-                                    height: 28,
-                                    paddingTop: 0,
-                                    color: "black",
-                                }}
-                                className="btn btn-dark btn-xs"
-                            >
-                                <b>Sitemap</b>
-                            </button>
-                        </a>
+                        <br />
+                        <b>↓ Please scroll down ↓</b>
                     </div>
-                </div>
+                ) : null}
+                <br />
+                {this.props.storyDesc.description ? (
+                    <Description
+                        desc={this.props.storyDesc.description}
+                        handleChangeDesc={this.props.handleChangeDesc}
+                    />
+                ) : null}
+                <br />
+                {showSentences ? (
+                    <Sentences
+                        storyId={this.props.storyDesc.storyId}
+                        sentences={this.props.sentences}
+                        loadSentences={this.props.loadSentences}
+                        words={this.props.words}
+                        loadWords={this.props.loadWords}
+                        handleChangeSentence={this.props.handleChangeSentence}
+                        addLine={this.props.addLine}
+                        handleChangeWord={this.props.handleChangeWord}
+                        addWord={this.props.addWord}
+                        removeWord={this.props.removeWord}
+                        removeLine={this.props.removeLine}
+                        translate={this.props.translate}
+                        translateWord={this.props.translateWord}
+                        isTranslating={this.props.isTranslating}
+                        mergeWord={this.props.mergeWord}
+                    />
+                ) : (
+                    <div className="center">
+                        <CircularProgress key="circle" size="20%" />
+                    </div>
+                )}
+                <input
+                    type="text"
+                    value={this.props.token}
+                    onChange={this.props.handleChangeToken}
+                />
+                <br />
             </div>
         );
     }
