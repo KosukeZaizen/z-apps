@@ -193,16 +193,6 @@ class StoriesVideo extends React.Component<Props, State> {
                     />
                 ) : null}
                 <br />
-                {this.screenHeight < 750 ? (
-                    <div
-                        style={{
-                            color: "red",
-                        }}
-                    >
-                        <br />
-                        <b>↓ Please scroll down ↓</b>
-                    </div>
-                ) : null}
                 <br />
                 {this.props.storyDesc.description ? (
                     <Description
@@ -234,12 +224,6 @@ class StoriesVideo extends React.Component<Props, State> {
                         <CircularProgress key="circle" size="20%" />
                     </div>
                 )}
-                <input
-                    type="text"
-                    value={this.props.token}
-                    onChange={this.props.handleChangeToken}
-                />
-                <br />
             </div>
         );
     }
