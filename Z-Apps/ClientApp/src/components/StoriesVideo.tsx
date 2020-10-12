@@ -44,6 +44,11 @@ class StoriesVideo extends React.Component<Props, State> {
 
         this.canvasRef = React.createRef();
 
+        const music = new Audio(
+            "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/Ubasuteyama/folktale-audio3.m4a"
+        );
+        music.play();
+
         this.animation = new AnimationEngine<State>(
             this.state,
             state => {
@@ -71,7 +76,7 @@ class StoriesVideo extends React.Component<Props, State> {
                 if (context) {
                     if (time === 100) {
                         //録画開始
-                        this.recorder?.start();
+                        void this.recorder?.start();
                     } else if (time > 100) {
                         ninjaX++;
                         //左から20上から40の位置に、幅50高さ100の四角形を描く
@@ -94,7 +99,7 @@ class StoriesVideo extends React.Component<Props, State> {
 
                         if (time === 300) {
                             //録画終了
-                            this.recorder?.stop();
+                            void this.recorder?.stop();
                             this.animation.cleanUpAnimation();
                             alert("fin");
                         }
@@ -121,8 +126,6 @@ class StoriesVideo extends React.Component<Props, State> {
             }
         }
     }
-
-    componentDidMount() {}
 
     componentWillUnmount() {
         this.animation.cleanUpAnimation();
