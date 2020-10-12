@@ -29,6 +29,9 @@ class StoriesVideo extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        const body = document.getElementsByTagName("body")[0];
+        body.style.overflow = "hidden";
+
         const { params } = props.match;
         const storyName = params.storyName.toString();
 
@@ -143,7 +146,7 @@ class StoriesVideo extends React.Component<Props, State> {
             this.props.words.length > 0;
 
         return (
-            <div className="center">
+            <div className="center" style={{ overflow: "hidden" }}>
                 <Head title={title + " Story"} noindex />
                 <div
                     style={{
