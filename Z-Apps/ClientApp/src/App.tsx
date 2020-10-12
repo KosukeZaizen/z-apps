@@ -6,8 +6,8 @@ import { Route, Switch } from "react-router";
 import ScrollMemory from "react-router-scroll-memory";
 import * as commonFncs from "./common/functions";
 import FooterAnimation from "./components/parts/Animations/FooterAnimation";
+import WelcomeAnimation from "./components/parts/Animations/WelcomeAnimation";
 import Layout from "./components/parts/Layout";
-import WelcomeAnimation from "./components/parts/WelcomeAnimation";
 import { APP_VERSION } from "./version";
 
 const Home = lazy(() => import("./components/Home"));

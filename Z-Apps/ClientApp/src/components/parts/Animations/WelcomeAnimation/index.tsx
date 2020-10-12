@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AnimationEngine } from "../../../common/animation";
+import { AnimationEngine } from "../../../../common/animation";
 import "./animation.css";
 
-const runningNinja = require("./../Ninja/objs/ninja/ninja_hashiru.png");
-const shuriken = require("../../../img/shuriken.png");
+const runningNinja = require("../../Ninja/objs/ninja/ninja_hashiru.png");
+const shuriken = require("../../../../img/shuriken.png");
 
 interface StateToAnimate {
     shown: boolean;
@@ -79,7 +79,6 @@ export default function WelcomeAnimation() {
                 position: "fixed",
                 top: 0,
                 left: 0,
-                zIndex: 9999999999,
                 backgroundColor: "white",
                 display: "flex",
                 justifyContent: "center",
