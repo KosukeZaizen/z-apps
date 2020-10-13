@@ -2,7 +2,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { AnimationEngine } from "../common/animation";
+import { AnimationEngine, initializeAnimation } from "../common/animation";
 import * as consts from "../common/consts";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
@@ -28,6 +28,8 @@ class StoriesVideo extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        initializeAnimation();
 
         const body = document.getElementsByTagName("body")[0];
         body.style.overflow = "hidden";

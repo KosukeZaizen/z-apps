@@ -2,7 +2,7 @@ let animationObjects: AnimationObject<any>[] = [];
 
 interface MinimumAnimationState {
     time: number;
-    [key:string]:any;
+    [key: string]: any;
 }
 
 export interface AnimationObject<StateToAnimate extends MinimumAnimationState> {
@@ -55,4 +55,9 @@ export function startAnimation(timeStep: number) {
             setState(newState);
         });
     }, timeStep);
+}
+
+//アニメーションの初期化（登録済みのアニメーションの除去）
+export function initializeAnimation() {
+    animationObjects = [];
 }
