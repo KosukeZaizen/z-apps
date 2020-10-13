@@ -37,14 +37,8 @@
 @keyframes screenAnime {
     0% {
         opacity: 1;
-        z-index: 9999999999;
-    }
-    99% {
-        opacity: 0;
-        z-index: 9999999999;
     }
     100% {
         opacity: 0;
-        z-index: -10;
     }
 }

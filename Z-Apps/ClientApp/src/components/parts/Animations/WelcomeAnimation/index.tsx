@@ -41,7 +41,7 @@ export default function WelcomeAnimation() {
                         underBarOpacity = underBarOpacity - 0.02;
                     }
                 }
-                if (time > 470) {
+                if (time > 430) {
                     shown = false;
                     animation.cleanUpAnimation();
                 }
@@ -79,6 +79,7 @@ export default function WelcomeAnimation() {
                 position: "fixed",
                 top: 0,
                 left: 0,
+                zIndex: 9999999999,
                 backgroundColor: "white",
                 display: "flex",
                 justifyContent: "center",
