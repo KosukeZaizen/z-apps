@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { AnimationEngine, initializeAnimation } from "../common/animation";
 import * as consts from "../common/consts";
+import { sleepAsync } from "../common/functions";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
 import Head from "./parts/Helmet";
@@ -49,56 +50,68 @@ class StoriesVideo extends React.Component<Props, State> {
     }
 
     startVideo = () => {
-        const music = new Audio(
-            "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/Ubasuteyama/folktale-audio3.m4a"
-        );
-        music.play();
+        const { storyDesc, sentences, words } = this.props;
 
-        this.animation = new AnimationEngine<State>(
-            this.state,
-            state => {
-                const canvas = this.canvasRef.current;
-                const context = canvas?.getContext("2d");
-
-                let { ninjaX, time, ...rest } = state;
-                if (context) {
-                    if (time > 100) {
-                        ninjaX++;
-                        //左から20上から40の位置に、幅50高さ100の四角形を描く
-                        context.fillRect(ninjaX, 40, 50, 100);
-                        //色を指定する
-                        context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
-                        context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
-                        //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
-                        context.strokeRect(200, 80, 100, 50);
-                        //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
-                        context.arc(
-                            150,
-                            75,
-                            60,
-                            Math.PI * 1,
-                            Math.PI * 2,
-                            true
-                        );
-                        context.fill();
-
-                        if (time === 300) {
-                            void this.animation?.cleanUpAnimation();
-                            alert("fin");
-                        }
-                    }
-                }
-                return {
-                    ninjaX,
-                    time: time + 1,
-
-                    ...rest,
-                };
-            },
-            state => {
-                this.setState(state);
+        const playOne = async (currentIndex: number) => {
+            if (sentences.length === currentIndex) {
+                alert("fin");
+                return;
+            } else {
+                const music = new Audio(
+                    `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${storyDesc.storyName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
+                );
+                music.onended = async () => await playOne(currentIndex + 1);
+                music.play();
+                await sleepAsync(5000);
             }
-        );
+        };
+        playOne(0);
+
+        // this.animation = new AnimationEngine<State>(
+        //     this.state,
+        //     state => {
+        //         const canvas = this.canvasRef.current;
+        //         const context = canvas?.getContext("2d");
+
+        //         let { ninjaX, time, ...rest } = state;
+        //         if (context) {
+        //             if (time > 100) {
+        //                 ninjaX++;
+        //                 //左から20上から40の位置に、幅50高さ100の四角形を描く
+        //                 context.fillRect(ninjaX, 40, 50, 100);
+        //                 //色を指定する
+        //                 context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
+        //                 context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
+        //                 //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
+        //                 context.strokeRect(200, 80, 100, 50);
+        //                 //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
+        //                 context.arc(
+        //                     150,
+        //                     75,
+        //                     60,
+        //                     Math.PI * 1,
+        //                     Math.PI * 2,
+        //                     true
+        //                 );
+        //                 context.fill();
+
+        //                 if (time === 300) {
+        //                     void this.animation?.cleanUpAnimation();
+        //                     alert("fin");
+        //                 }
+        //             }
+        //         }
+        //         return {
+        //             ninjaX,
+        //             time: time + 1,
+
+        //             ...rest,
+        //         };
+        //     },
+        //     state => {
+        //         this.setState(state);
+        //     }
+        // );
     };
 
     componentDidUpdate() {
@@ -115,13 +128,14 @@ class StoriesVideo extends React.Component<Props, State> {
     }
 
     render() {
+        const { sentences, words } = this.props;
+
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const showSentences =
-            this.props.sentences &&
-            this.props.sentences.length > 0 &&
-            this.props.words &&
-            this.props.words.length > 0;
+            sentences && sentences.length > 0 && words && words.length > 0;
+
+        console.log("props", this.props);
 
         return (
             <div className="center" style={{ overflow: "hidden" }}>
@@ -146,7 +160,11 @@ class StoriesVideo extends React.Component<Props, State> {
                 >
                     <b>{title}</b>
                 </h1>
-                <button onClick={this.startVideo}>{"start video"}</button>
+                {sentences?.length > 0 && words?.length > 0 ? (
+                    <button onClick={this.startVideo}>{"start video"}</button>
+                ) : (
+                    <p>{"loading"}</p>
+                )}
                 <br />
                 <br />
                 <canvas
