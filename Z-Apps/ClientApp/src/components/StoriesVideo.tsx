@@ -22,14 +22,14 @@ type State = {
 };
 class StoriesVideo extends React.Component<Props, State> {
     canvasRef: React.RefObject<CanvasElement>;
-    animation: AnimationEngine<State>;
-    recorder: MediaRecorder | null = null;
+    animation?: AnimationEngine<State>;
+    recorder?: MediaRecorder;
     screenHeight: number;
 
     constructor(props: Props) {
         super(props);
 
-        initializeAnimation();
+        setTimeout(initializeAnimation, 5000);
 
         const body = document.getElementsByTagName("body")[0];
         body.style.overflow = "hidden";
@@ -48,7 +48,9 @@ class StoriesVideo extends React.Component<Props, State> {
         this.props.loadStory(this.state.storyName);
 
         this.canvasRef = React.createRef();
+    }
 
+    startVideo = () => {
         const music = new Audio(
             "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/Ubasuteyama/folktale-audio3.m4a"
         );
@@ -60,7 +62,7 @@ class StoriesVideo extends React.Component<Props, State> {
                 const canvas = this.canvasRef.current;
                 const context = canvas?.getContext("2d");
 
-                if (canvas && this.recorder === null) {
+                if (canvas && !this.recorder) {
                     this.recorder = new MediaRecorder(canvas.captureStream(), {
                         mimeType: "video/webm;codecs=vp9",
                     });
@@ -105,7 +107,7 @@ class StoriesVideo extends React.Component<Props, State> {
                         if (time === 300) {
                             //録画終了
                             void this.recorder?.stop();
-                            this.animation.cleanUpAnimation();
+                            void this.animation?.cleanUpAnimation();
                             alert("fin");
                         }
                     }
@@ -121,7 +123,7 @@ class StoriesVideo extends React.Component<Props, State> {
                 this.setState(state);
             }
         );
-    }
+    };
 
     componentDidUpdate() {
         if (this.props.storyDesc.storyId) {
@@ -133,7 +135,7 @@ class StoriesVideo extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
-        this.animation.cleanUpAnimation();
+        void this.animation?.cleanUpAnimation();
     }
 
     render() {
@@ -170,6 +172,8 @@ class StoriesVideo extends React.Component<Props, State> {
                 >
                     <b>{title}</b>
                 </h1>
+                <button onClick={this.startVideo}>{"start video"}</button>
+                <br />
                 <br />
                 <canvas
                     ref={this.canvasRef}
