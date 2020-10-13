@@ -18,12 +18,10 @@ type State = {
     storyName: string;
     ninjaX: number;
     time: number;
-    videoBlob?: Blob;
 };
 class StoriesVideo extends React.Component<Props, State> {
     canvasRef: React.RefObject<CanvasElement>;
     animation?: AnimationEngine<State>;
-    recorder?: MediaRecorder;
     screenHeight: number;
 
     constructor(props: Props) {
@@ -62,29 +60,9 @@ class StoriesVideo extends React.Component<Props, State> {
                 const canvas = this.canvasRef.current;
                 const context = canvas?.getContext("2d");
 
-                if (canvas && !this.recorder) {
-                    this.recorder = new MediaRecorder(canvas.captureStream(), {
-                        mimeType: "video/webm;codecs=vp9",
-                    });
-
-                    const that = this;
-                    this.recorder.ondataavailable = function (e) {
-                        if (!that.state.videoBlob) {
-                            that.setState({
-                                videoBlob: new Blob([e.data], {
-                                    type: e.data.type,
-                                }),
-                            });
-                        }
-                    };
-                }
-
                 let { ninjaX, time, ...rest } = state;
                 if (context) {
-                    if (time === 100) {
-                        //録画開始
-                        void this.recorder?.start();
-                    } else if (time > 100) {
+                    if (time > 100) {
                         ninjaX++;
                         //左から20上から40の位置に、幅50高さ100の四角形を描く
                         context.fillRect(ninjaX, 40, 50, 100);
@@ -105,8 +83,6 @@ class StoriesVideo extends React.Component<Props, State> {
                         context.fill();
 
                         if (time === 300) {
-                            //録画終了
-                            void this.recorder?.stop();
                             void this.animation?.cleanUpAnimation();
                             alert("fin");
                         }
@@ -139,8 +115,6 @@ class StoriesVideo extends React.Component<Props, State> {
     }
 
     render() {
-        const { videoBlob } = this.state;
-
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const showSentences =
@@ -183,17 +157,6 @@ class StoriesVideo extends React.Component<Props, State> {
                 >
                     図形を表示するには、canvasタグをサポートしたブラウザが必要です。
                 </canvas>
-                <br />
-                {videoBlob && (
-                    <a
-                        style={{ color: "white" }}
-                        download="movie.webm"
-                        href={window.URL.createObjectURL(videoBlob)}
-                    >
-                        ダウンロード
-                    </a>
-                )}
-                <br />
                 <br />
                 {this.state.storyName ? (
                     <img
