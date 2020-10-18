@@ -94,6 +94,7 @@ class Stories extends React.Component<Props, State> {
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.judgeFooter);
+        window.onresize = null;
     }
 
     componentDidMount() {
