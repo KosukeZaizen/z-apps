@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
@@ -9,6 +8,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -391,7 +391,7 @@ class Stories extends React.Component<Props, State> {
                                 </section>
                             ) : (
                                 <div className="center">
-                                    <CircularProgress key="circle" size="20%" />
+                                    <ShurikenProgress key="circle" size="20%" />
                                 </div>
                             )}
                             <FooterMenu
@@ -681,7 +681,7 @@ function Sentences(props: SentencesProps) {
         <div style={{ textAlign: "left" }}>
             {isLoading ? (
                 <div className="center">
-                    <CircularProgress key="circle" size="20%" />
+                    <ShurikenProgress key="circle" size="20%" />
                 </div>
             ) : (
                 sentences &&

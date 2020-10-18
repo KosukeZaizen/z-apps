@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,6 +15,7 @@ import { sendClientOpeLog, shuffle } from "../common/functions";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../types/vocab";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -269,7 +269,7 @@ class VocabQuiz extends React.Component<Props, State> {
                     {vocabList && vocabList.length > 0 ? (
                         pageData
                     ) : (
-                        <CircularProgress key="circle" size="20%" />
+                        <ShurikenProgress key="circle" size="20%" />
                     )}
                     <hr />
                     <h2 style={{ fontWeight: "bold", margin: 20 }}>
@@ -513,7 +513,7 @@ class Speaker extends React.Component<
                 }}
             />
         ) : (
-            <CircularProgress key="circle" size="20%" />
+            <ShurikenProgress key="circle" size="20%" />
         );
     }
 }
@@ -808,7 +808,7 @@ class Page2 extends React.Component<
                                                 }}
                                             />
                                         ) : (
-                                            <CircularProgress
+                                            <ShurikenProgress
                                                 key="circle"
                                                 size="20%"
                                             />

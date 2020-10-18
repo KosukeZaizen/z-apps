@@ -1,6 +1,6 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import { isGoogleAdsDisplayed } from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -17,7 +17,7 @@ const NinjaGameTop = () => {
 
         return (
             <div className="center">
-                <CircularProgress key="circle" size="20%" />
+                <ShurikenProgress key="circle" size="20%" />
             </div>
         );
     }

@@ -1,7 +1,7 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import * as commonFnc from "../common/functions";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import Head from "./parts/Helmet";
 
 export default class SiteMapEdit extends React.Component<
@@ -218,7 +218,7 @@ export default class SiteMapEdit extends React.Component<
                         </div>
                     ) : (
                         <div className="center">
-                            <CircularProgress key="circle" size="20%" />
+                            <ShurikenProgress key="circle" size="20%" />
                         </div>
                     )}
                     <input

@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { vocabGenre } from "../../../types/vocab";
+import ShurikenProgress from "../Animations/ShurikenProgress";
 
 interface Props {
     allGenres: vocabGenre[];
@@ -114,7 +114,7 @@ export default class AllVocabList extends React.Component<Props> {
                 </Table>
             </TableContainer>
         ) : (
-            <CircularProgress key="circle" size="20%" />
+            <ShurikenProgress key="circle" size="20%" />
         );
     }
 }

@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -7,6 +6,7 @@ import * as consts from "../common/consts";
 import { sleepAsync } from "../common/functions";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import Head from "./parts/Helmet";
 
 interface CanvasElement extends HTMLCanvasElement {
@@ -214,7 +214,7 @@ class StoriesVideo extends React.Component<Props, State> {
                     />
                 ) : (
                     <div className="center">
-                        <CircularProgress key="circle" size="20%" />
+                        <ShurikenProgress key="circle" size="20%" />
                     </div>
                 )}
             </div>

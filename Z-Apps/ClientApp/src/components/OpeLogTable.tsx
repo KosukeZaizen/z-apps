@@ -1,6 +1,6 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import Head from "./parts/Helmet";
 
 type TClientOpeLog = {
@@ -144,7 +144,7 @@ export default class OpeLogTable extends React.Component<
                     </div>
                 ) : (
                     <div className="center">
-                        <CircularProgress key="circle" size="20%" />
+                        <ShurikenProgress key="circle" size="20%" />
                     </div>
                 );
         } else if (page === 2) {

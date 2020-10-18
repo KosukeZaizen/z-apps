@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { lazy, Suspense } from "react";
 import ReactGA from "react-ga";
@@ -6,6 +5,7 @@ import { Route, Switch } from "react-router";
 import ScrollMemory from "react-router-scroll-memory";
 import * as commonFncs from "./common/functions";
 import FooterAnimation from "./components/parts/Animations/FooterAnimation";
+import ShurikenProgress from "./components/parts/Animations/ShurikenProgress";
 import WelcomeAnimation from "./components/parts/Animations/WelcomeAnimation";
 import Layout from "./components/parts/Layout";
 import { APP_VERSION } from "./version";
@@ -234,6 +234,6 @@ function LoadingAnimation(props: { num: number }) {
             </span>
         );
     }
-    arr.push(<CircularProgress key="circle" size="20%" />);
+    arr.push(<ShurikenProgress key="circle" size="20%" />);
     return <div className="center">{arr}</div>;
 }

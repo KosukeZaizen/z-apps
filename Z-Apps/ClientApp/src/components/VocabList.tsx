@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,6 +14,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { vocab, vocabGenre } from "../types/vocab";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -334,7 +334,7 @@ function AllVocabList(props: TAllVocabListProps) {
                         );
                     })
                 ) : (
-                    <CircularProgress key="circle" size="10%" />
+                    <ShurikenProgress key="circle" size="10%" />
                 )}
             </div>
             <hr />
@@ -353,7 +353,7 @@ function AllVocabList(props: TAllVocabListProps) {
                     );
                 })
             ) : (
-                <CircularProgress key="circle" size="20%" />
+                <ShurikenProgress key="circle" size="20%" />
             )}
         </>
     );
@@ -567,7 +567,7 @@ function VList(props: TVListProps) {
             </Table>
         </TableContainer>
     ) : (
-        <CircularProgress key="circle" size="20%" />
+        <ShurikenProgress key="circle" size="20%" />
     );
 }
 
@@ -630,7 +630,7 @@ class Speaker extends React.Component<
                 }}
             />
         ) : (
-            <CircularProgress key="circle" size="20%" />
+            <ShurikenProgress key="circle" size="20%" />
         );
     }
 }

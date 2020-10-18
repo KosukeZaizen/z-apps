@@ -1,4 +1,3 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,6 +7,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import { actionCreators } from "../store/StoriesTopStore";
 import { storyDesc } from "../types/stories";
+import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -130,7 +130,7 @@ class StoriesTop extends React.Component<
                     <br />
                     {allStories && allStories.length > 0 ? null : (
                         <div className="center">
-                            <CircularProgress key="circle" size="20%" />
+                            <ShurikenProgress key="circle" size="20%" />
                         </div>
                     )}
                     <div id="scrollTargetId" ref={this.ref}>
