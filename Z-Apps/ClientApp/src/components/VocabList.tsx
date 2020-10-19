@@ -632,8 +632,8 @@ class Speaker extends React.Component<
         ) : (
             <ShurikenProgress
                 key="circle"
-                size="20%"
-                style={{ width: "60%", maxWidth: 100 }}
+                size="100%"
+                style={{ width: "60%", maxWidth: 30 }}
             />
         );
     }

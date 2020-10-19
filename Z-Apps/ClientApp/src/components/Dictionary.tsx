@@ -648,7 +648,11 @@ class Dictionary extends React.Component<Props, State> {
                                 </section>
                             </>
                         ) : (
-                            <ShurikenProgress key="circle" size="20%" />
+                            <ShurikenProgress
+                                key="circle"
+                                size="20%"
+                                style={{ marginBottom: 25 }}
+                            />
                         )}
                     </article>
                     <br />
