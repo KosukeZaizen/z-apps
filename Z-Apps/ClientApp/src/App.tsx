@@ -234,6 +234,8 @@ function LoadingAnimation(props: { num: number }) {
             </span>
         );
     }
-    arr.push(<ShurikenProgress key="circle" size="20%" />);
+    arr.push(
+        <ShurikenProgress key="circle" size="20%" style={{ margin: 30 }} />
+    );
     return <div className="center">{arr}</div>;
 }
