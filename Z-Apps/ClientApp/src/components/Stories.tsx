@@ -675,10 +675,14 @@ type SentencesProps = {
     langState: State;
     audioFolder: string;
 };
-function Sentences(props: SentencesProps) {
-    const { storyId, sentences, words, langState, audioFolder } = props;
+function Sentences({
+    storyId,
+    sentences,
+    words,
+    langState,
+    audioFolder,
+}: SentencesProps) {
     const isLoading = !sentences || sentences.length <= 0;
-
     return (
         <div style={{ textAlign: "left" }}>
             {isLoading ? (
@@ -689,43 +693,109 @@ function Sentences(props: SentencesProps) {
                 sentences &&
                 sentences.map(s => (
                     <div key={s.lineNumber}>
-                        <table style={{ width: "100%" }}>
-                            <tbody>
-                                {langState.kanji ? (
-                                    <tr style={{ backgroundColor: "#fff0f2" }}>
-                                        <td>
-                                            <b>Ｋ:　</b>
-                                        </td>
-                                        <td>{s.kanji}</td>
-                                    </tr>
-                                ) : null}
-                                {langState.hiragana ? (
-                                    <tr style={{ backgroundColor: "#ffffe0" }}>
-                                        <td>
-                                            <b>Ｈ:　</b>
-                                        </td>
-                                        <td>{s.hiragana}</td>
-                                    </tr>
-                                ) : null}
-                                {langState.romaji ? (
-                                    <tr style={{ backgroundColor: "#f0fff2" }}>
-                                        <td>
-                                            <b>Ｒ:　</b>
-                                        </td>
-                                        <td>{s.romaji}</td>
-                                    </tr>
-                                ) : null}
-                                {langState.english ? (
-                                    <tr style={{ backgroundColor: "#f0f8ff" }}>
-                                        <td>
-                                            <b>Ｅ:　</b>
-                                        </td>
-                                        <td>{s.english}</td>
-                                    </tr>
-                                ) : null}
-                            </tbody>
-                        </table>
-                        <AudioContol s={s} audioFolder={audioFolder} />
+                        <Collapse
+                            in={langState.kanji}
+                            timeout={1000}
+                            style={{
+                                width: "100%",
+                                backgroundColor: "#fff0f2",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: "bold",
+                                        marginRight: "1em",
+                                    }}
+                                >
+                                    <abbr title="kanji">Ｋ</abbr>:
+                                </div>
+                                <div style={{ width: "100%" }}>{s.kanji}</div>
+                            </div>
+                        </Collapse>
+                        <Collapse
+                            in={langState.hiragana}
+                            timeout={1000}
+                            style={{
+                                width: "100%",
+                                backgroundColor: "#ffffe0",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: "bold",
+                                        marginRight: "1em",
+                                    }}
+                                >
+                                    <abbr title="hiragana">Ｈ</abbr>:
+                                </div>
+                                <div style={{ width: "100%" }}>
+                                    {s.hiragana}
+                                </div>
+                            </div>
+                        </Collapse>
+                        <Collapse
+                            in={langState.romaji}
+                            timeout={1000}
+                            style={{
+                                width: "100%",
+                                backgroundColor: "#f0fff2",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: "bold",
+                                        marginRight: "1em",
+                                    }}
+                                >
+                                    <abbr title="romaji">Ｒ</abbr>:
+                                </div>
+                                <div style={{ width: "100%" }}>{s.romaji}</div>
+                            </div>
+                        </Collapse>
+                        <Collapse
+                            in={langState.english}
+                            timeout={1000}
+                            style={{
+                                width: "100%",
+                                backgroundColor: "#f0f8ff",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: "bold",
+                                        marginRight: "1em",
+                                    }}
+                                >
+                                    <abbr title="english">Ｅ</abbr>:
+                                </div>
+                                <div style={{ width: "100%" }}>{s.english}</div>
+                            </div>
+                        </Collapse>
+                        <AudioControl s={s} audioFolder={audioFolder} />
                         <WordList words={words} s={s} storyId={storyId} />
                         <hr />
                     </div>
@@ -735,15 +805,15 @@ function Sentences(props: SentencesProps) {
     );
 }
 
-interface AudioContolProps {
+interface AudioControlProps {
     s: sentence;
     audioFolder: string;
 }
-class AudioContol extends React.Component<AudioContolProps> {
+class AudioControl extends React.Component<AudioControlProps> {
     refAudio: React.RefObject<HTMLAudioElement>;
     state: { showControl: boolean };
 
-    constructor(props: AudioContolProps) {
+    constructor(props: AudioControlProps) {
         super(props);
 
         this.state = {

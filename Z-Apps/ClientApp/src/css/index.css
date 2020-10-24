@@ -5,3 +5,9 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+/* Folktale内のabbrの下線除去 */
+abbr[title] {
+    text-decoration: none;
+    border-bottom-width: 0;
+}
