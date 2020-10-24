@@ -1,8 +1,9 @@
+import { Collapse } from "@material-ui/core";
 import * as React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Card, CardText, CardTitle, Collapse } from "reactstrap";
+import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
@@ -840,7 +841,7 @@ class WordList extends React.Component<
                         </button>
                     )
                 ) : null}
-                <Collapse isOpen={this.state.showWordList}>
+                <Collapse in={this.state.showWordList}>
                     <div
                         className="center"
                         style={{ backgroundColor: "#f8f7f8" }}
