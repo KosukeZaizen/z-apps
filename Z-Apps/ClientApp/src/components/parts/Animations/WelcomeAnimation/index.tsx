@@ -6,6 +6,8 @@ import "./animation.css";
 const runningNinja = require("../../Ninja/objs/ninja/ninja_hashiru.png");
 const shuriken = require("../../../../img/shuriken.png");
 
+export let finishWelcomeAnimation: () => void;
+
 interface StateToAnimate {
     shown: boolean;
     isOpen: boolean;
@@ -26,6 +28,10 @@ export default function WelcomeAnimation() {
     const [animationState, setAnimationState] = useState(initialAnimationState);
 
     useEffect(() => {
+        finishWelcomeAnimation = () => {
+            setAnimationState({ ...initialAnimationState, shown: false });
+        };
+
         const animation = new AnimationEngine<StateToAnimate>(
             initialAnimationState,
             ({ shown, isOpen, underBarLength, underBarOpacity, time }) => {
@@ -59,6 +65,11 @@ export default function WelcomeAnimation() {
         return animation.cleanUpAnimation;
     }, []);
 
+    if (!animationState.shown) {
+        console.log("not active");
+        return null;
+    }
+
     const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;
     const squareLength = innerWidth < innerHeight ? innerWidth : innerHeight;
@@ -71,7 +82,7 @@ export default function WelcomeAnimation() {
     const charHeight = 130 * U;
     const charTop = leftTopPosition[1] + (squareLength - charHeight) * (2 / 5);
 
-    return animationState.shown ? (
+    return (
         <div
             style={{
                 width: innerWidth,
@@ -137,5 +148,5 @@ export default function WelcomeAnimation() {
                 className="shuriken"
             />
         </div>
-    ) : null;
+    );
 }

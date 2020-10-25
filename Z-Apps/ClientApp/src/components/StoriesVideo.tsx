@@ -28,7 +28,7 @@ class StoriesVideo extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        setTimeout(initializeAnimation, 5000);
+        initializeAnimation();
 
         const body = document.getElementsByTagName("body")[0];
         body.style.overflow = "hidden";

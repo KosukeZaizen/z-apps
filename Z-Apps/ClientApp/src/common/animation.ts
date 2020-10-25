@@ -1,3 +1,5 @@
+import { finishWelcomeAnimation } from "../components/parts/Animations/WelcomeAnimation";
+
 let animationObjects: AnimationObject<any>[] = [];
 
 interface MinimumAnimationState {
@@ -60,4 +62,5 @@ export function startAnimation(timeStep: number) {
 //アニメーションの初期化（登録済みのアニメーションの除去）
 export function initializeAnimation() {
     animationObjects = [];
+    finishWelcomeAnimation();
 }
