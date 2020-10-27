@@ -9,6 +9,7 @@ const fire = require("./../../Ninja3/objs/fireRight.png");
 const flyingNinja = require("./flying-ninja.png");
 
 interface StateToAnimate {
+    shown: boolean;
     ninjaX: number;
     ninjaY: number;
     badNinjaX: number;
@@ -19,6 +20,7 @@ interface StateToAnimate {
 }
 
 const initialAnimationState: StateToAnimate = {
+    shown: true,
     ninjaX: 3000,
     ninjaY: 0,
     badNinjaX: 3000,
@@ -33,10 +35,16 @@ const baseStyle: React.CSSProperties = {
     zIndex: 1000000000,
 };
 
+export let finishFooterAnimation: () => void;
+
 export default function WelcomeAnimation() {
     const [animationState, setAnimationState] = useState(initialAnimationState);
 
     useEffect(() => {
+        finishFooterAnimation = () => {
+            setAnimationState({ ...initialAnimationState, shown: false });
+        };
+
         const animation = new AnimationEngine<StateToAnimate>(
             initialAnimationState,
             ({
@@ -47,6 +55,7 @@ export default function WelcomeAnimation() {
                 flyingNinjaPos,
                 flyingNinjaSpeed,
                 time,
+                ...rest
             }) => {
                 if (time > 100 && time < 1120) {
                     ninjaX -= 5;
@@ -83,12 +92,17 @@ export default function WelcomeAnimation() {
                     flyingNinjaPos,
                     flyingNinjaSpeed,
                     time: time + 1,
+                    ...rest,
                 };
             },
             setAnimationState
         );
         return animation.cleanUpAnimation;
     }, []);
+
+    if (!animationState.shown) {
+        return null;
+    }
 
     const innerWidth = window.innerWidth;
     const innerHeight = window.innerHeight;

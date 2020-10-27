@@ -66,7 +66,6 @@ export default function WelcomeAnimation() {
     }, []);
 
     if (!animationState.shown) {
-        console.log("not active");
         return null;
     }
 

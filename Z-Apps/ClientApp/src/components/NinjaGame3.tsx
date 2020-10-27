@@ -1,4 +1,5 @@
 import * as React from "react";
+import { initializeAnimation } from "../common/animation";
 import { getParams } from "../common/functions";
 import "../css/NinjaGame2.css"; //CSSは2のもの
 import Head from "./parts/Helmet";
@@ -32,6 +33,8 @@ class NinjaGame extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        setTimeout(initializeAnimation, 4000); //ゲーム以外のアニメーションを止める
 
         let ninja: Ninja;
         let stage: number;

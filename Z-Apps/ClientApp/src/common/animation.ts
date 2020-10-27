@@ -1,3 +1,4 @@
+import { finishFooterAnimation } from "../components/parts/Animations/FooterAnimation";
 import { finishWelcomeAnimation } from "../components/parts/Animations/WelcomeAnimation";
 
 let animationObjects: AnimationObject<any>[] = [];
@@ -63,4 +64,5 @@ export function startAnimation(timeStep: number) {
 export function initializeAnimation() {
     animationObjects = [];
     finishWelcomeAnimation();
+    finishFooterAnimation();
 }
