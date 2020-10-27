@@ -919,7 +919,7 @@ class WordList extends React.Component<
                         </button>
                     )
                 ) : null}
-                <Collapse in={this.state.showWordList}>
+                <Collapse in={this.state.showWordList} timeout={1000}>
                     <div
                         className="center"
                         style={{ backgroundColor: "#f8f7f8" }}
