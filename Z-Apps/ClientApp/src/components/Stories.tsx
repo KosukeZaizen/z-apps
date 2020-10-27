@@ -360,14 +360,22 @@ class Stories extends React.Component<Props, State> {
                                 <h2 style={styleForAboutTitle}>
                                     About {titleOfAbout}
                                 </h2>
-                                {storyDesc.description
-                                    .split("\\n")
-                                    .map((d, i) => (
-                                        <span key={i}>
-                                            {d}
-                                            <br />
-                                        </span>
-                                    ))}
+                                <div
+                                    style={{
+                                        textAlign: "left",
+                                        display: "inline-block",
+                                        padding: "0 10px",
+                                    }}
+                                >
+                                    {storyDesc.description
+                                        .split("\\n")
+                                        .map((d, i) => (
+                                            <span key={i}>
+                                                {d}
+                                                <br />
+                                            </span>
+                                        ))}
+                                </div>
                             </section>
                         ) : null}
                         <br />
