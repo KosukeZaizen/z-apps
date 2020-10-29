@@ -507,7 +507,7 @@ class Speaker extends React.Component<
             <img
                 alt="vocabulary speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                style={{ width: "60%", maxWidth: 30 }}
+                style={{ width: "60%", maxWidth: 30, cursor: "pointer" }}
                 onClick={() => {
                     void vocabSound?.audio?.play();
                 }}
@@ -696,7 +696,7 @@ class Page2 extends React.Component<
                     {buttons}
                     <br />
                     <p
-                        style={{ color: "#007bff" }}
+                        style={{ color: "#007bff", cursor: "pointer" }}
                         onClick={() => {
                             const sure = window.confirm(
                                 "Your progress will not be saved.\nAre you sure you want to return?"
@@ -801,6 +801,7 @@ class Page2 extends React.Component<
                                                 style={{
                                                     width: "60%",
                                                     maxWidth: 30,
+                                                    cursor: "pointer",
                                                 }}
                                                 onClick={() => {
                                                     vocabSounds[
@@ -1098,6 +1099,7 @@ function Page3(props: TPage3Props) {
                                                     style={{
                                                         width: "60%",
                                                         maxWidth: 30,
+                                                        cursor: "pointer",
                                                     }}
                                                     onClick={() => {
                                                         vocabSounds[

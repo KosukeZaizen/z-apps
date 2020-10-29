@@ -624,7 +624,7 @@ class Speaker extends React.Component<
             <img
                 alt="vocab speaker"
                 src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                style={{ width: "60%", maxWidth: 30 }}
+                style={{ width: "60%", maxWidth: 30, cursor: "pointer" }}
                 onClick={() => {
                     vocabSound && vocabSound.play();
                 }}
