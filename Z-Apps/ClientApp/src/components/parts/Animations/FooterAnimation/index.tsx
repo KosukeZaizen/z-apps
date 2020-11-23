@@ -57,29 +57,29 @@ export default function WelcomeAnimation() {
                 time,
                 ...rest
             }) => {
-                if (time > 100 && time < 1120) {
-                    ninjaX -= 5;
+                if (time > 5 && time < 370) {
+                    ninjaX -= 15;
                     badNinjaX = ninjaX + 900;
                 }
 
-                if (time === 1120) {
+                if (time === 370) {
                     turn = true;
                     ninjaY = 115;
                 }
 
-                if (time > 1120 && time < 2200) {
-                    ninjaX += 5;
+                if (time > 370 && time < 730) {
+                    ninjaX += 15;
                     badNinjaX = ninjaX + 600;
                 }
 
-                if (time > 2200 && flyingNinjaPos[0] > -200) {
-                    flyingNinjaSpeed[1] += (Math.random() - 0.499) / 10;
+                if (time > 730 && flyingNinjaPos[0] > -200) {
+                    flyingNinjaSpeed[1] += (Math.random() - 0.499) / 3;
 
-                    flyingNinjaPos[0] -= 3;
+                    flyingNinjaPos[0] -= 9;
                     flyingNinjaPos[1] += flyingNinjaSpeed[1];
                 }
 
-                if (time % 6000 === 0) {
+                if (time % 2000 === 0) {
                     flyingNinjaPos = [2500, 300];
                     flyingNinjaSpeed = [0, 0];
                 }
@@ -192,7 +192,7 @@ export default function WelcomeAnimation() {
                     transform: animationState.turn ? "" : "scale(-1, 1)",
                 }}
             />
-            {animationState.time > 1000 && (
+            {animationState.time > 330 && (
                 <>
                     <img
                         src={rock}
@@ -217,7 +217,7 @@ export default function WelcomeAnimation() {
                     />
                 </>
             )}
-            {animationState.time > 1800 && (
+            {animationState.time > 600 && (
                 <img
                     src={flyingNinja}
                     alt="flying ninja"
