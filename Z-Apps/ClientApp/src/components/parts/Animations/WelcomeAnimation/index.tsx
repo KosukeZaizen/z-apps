@@ -38,16 +38,16 @@ export default function WelcomeAnimation() {
                 if (time === 1) {
                     isOpen = true;
                 }
-                if (time > 190 && time <= 250) {
+                if (time > 95 && time <= 125) {
                     underBarOpacity = 1;
-                    underBarLength = underBarLength + 50;
+                    underBarLength = underBarLength + 100;
                 }
-                if (time > 250) {
+                if (time > 125) {
                     if (underBarOpacity > 0) {
-                        underBarOpacity = underBarOpacity - 0.02;
+                        underBarOpacity = underBarOpacity - 0.04;
                     }
                 }
-                if (time > 430) {
+                if (time > 215) {
                     shown = false;
                     animation.cleanUpAnimation();
                 }
