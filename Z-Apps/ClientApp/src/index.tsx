@@ -36,7 +36,7 @@ history.listen(({ pathname }) => {
     }, 1000);
 });
 
-startAnimation(50);
+startAnimation(10);
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const initialState = window["initialReduxState" as any];
