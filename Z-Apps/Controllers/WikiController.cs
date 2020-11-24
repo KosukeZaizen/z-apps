@@ -1,13 +1,10 @@
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Z_Apps.Models;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Util;
@@ -98,7 +95,8 @@ namespace Z_Apps.Controllers
                 wc.Dispose();
 
                 //受信したデータを表示する
-                return new {
+                return new
+                {
                     xml = enc.GetString(resData),
                     w?.wordId,
                     w?.snippet,
