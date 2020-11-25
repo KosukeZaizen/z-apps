@@ -583,6 +583,7 @@ class Speaker extends React.Component<
 > {
     vocabSound?: HTMLAudioElement;
     didUnmount: boolean;
+    timerId: number;
 
     constructor(props: SpeakerProps) {
         super(props);
@@ -591,12 +592,16 @@ class Speaker extends React.Component<
             showImg: false,
         };
 
+        this.timerId = 0;
         this.didUnmount = false;
     }
 
     componentDidMount = () => {
         const { v, g } = this.props;
-        setTimeout(this.loadSound, 5000 * g.order + 300 * v.order);
+        this.timerId = window.setTimeout(
+            this.loadSound,
+            5000 * g.order + 300 * v.order
+        );
     };
 
     loadSound = () => {
@@ -614,6 +619,7 @@ class Speaker extends React.Component<
     };
 
     componentWillUnmount() {
+        clearTimeout(this.timerId);
         this.didUnmount = true;
     }
 
