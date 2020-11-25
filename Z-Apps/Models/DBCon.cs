@@ -8,9 +8,26 @@ namespace Z_Apps.Models
 {
     public class DBCon
     {
+        private string connectionString;
+        public enum DBType
+        {
+            z_apps,
+            wiki_db
+        }
+        public DBCon(DBType type = DBType.z_apps)
+        {
+            if(type == DBType.wiki_db)
+            {
+                connectionString = PrivateConsts.CONNECTION_STRING_WIKI;
+            }
+            else
+            {
+                connectionString = PrivateConsts.CONNECTION_STRING;
+            }
+        }
         public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams)
         {
-            using (var connection = new SqlConnection(PrivateConsts.CONNECTION_STRING))
+            using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(sql, connection))
             {
                 try
@@ -65,7 +82,7 @@ namespace Z_Apps.Models
 
         public bool ExecuteUpdate(string sql, Dictionary<string, object[]> dicParams)
         {
-            using (var connection = new SqlConnection(PrivateConsts.CONNECTION_STRING))
+            using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand("SET ANSI_WARNINGS OFF; " + sql, connection))
             {
                 try

@@ -120,9 +120,11 @@ class DictionaryTop extends React.Component<
                     {this.state.words.length > 0 ? (
                         this.state.words.map(w => (
                             <div key={w}>
-                                <a href={"dictionary/" + encodeURIComponent(w)}>
+                                <Link
+                                    to={"dictionary/" + encodeURIComponent(w)}
+                                >
                                     {w}
-                                </a>
+                                </Link>
                             </div>
                         ))
                     ) : (

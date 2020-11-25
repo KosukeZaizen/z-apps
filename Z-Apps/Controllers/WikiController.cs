@@ -1,8 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
@@ -43,41 +48,53 @@ namespace Z_Apps.Controllers
             [DataMember]
             public string snippet;
         }
-        [HttpGet("[action]")]
-        public async Task<object> GetEnglishWordAndSnippet(string word)
+        class DictionaryResult
         {
-            var storyEdit = new StoriesEditService(new DBCon());
-            Data w = null;
-            using (var client = new HttpClient())
+            public int? wordId { get; set; }
+            public string snippet { get; set; }
+            public string xml { get; set; }
+            public string translatedWord { get; set; }
+        }
+        [HttpGet("[action]")]
+        public async Task<string> GetEnglishWordAndSnippet(string word)
+        {
+            Func<Task<DictionaryResult>> getDictionaryDataWithoutCache = async () =>
             {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordIdAndSnippet?word=" + word);
-                string json = await response.Content.ReadAsStringAsync();
-                var serializer = new DataContractJsonSerializer(typeof(Data));
-                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                var storyEdit = new StoriesEditService(new DBCon());
+                Data w = null;
+                using (var client = new HttpClient())
                 {
-                    w = (Data)serializer.ReadObject(ms);
+                    HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordIdAndSnippet?word=" + word);
+                    string json = await response.Content.ReadAsStringAsync();
+                    var serializer = new DataContractJsonSerializer(typeof(Data));
+                    using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                    {
+                        w = (Data)serializer.ReadObject(ms);
 
-                    //英語に翻訳
-                    w.snippet = (await storyEdit.MakeEnglish(
-                        w.snippet
-                            .Replace("<bold>", "")
-                            .Replace("</bold>", "")
-                            .Replace("#", "")
-                            .Replace("?", "")
-                            .Replace("&", "")
-                        )
-                    )
-                    .Replace("<bold>", "").Replace("</bold>", "");
+                        if (w == null || w.wordId == null)
+                        {
+                            return new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
+                        }
+
+                        //英語に翻訳
+                        w.snippet = (
+                            await storyEdit.MakeEnglish(
+                                w.snippet
+                                    .Replace("<bold>", "")
+                                    .Replace("</bold>", "")
+                                    .Replace("#", "")
+                                    .Replace("?", "")
+                                    .Replace("&", "")
+                            )
+                        ).Replace("<bold>", "").Replace("</bold>", "");
+                    }
                 }
-            }
 
-            if (w != null && w.wordId != null)
-            {
                 string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
 
                 //文字コードを指定する
-                System.Text.Encoding enc =
-                    System.Text.Encoding.GetEncoding("UTF-8");
+                Encoding enc =
+                    Encoding.GetEncoding("UTF-8");
 
                 //POST送信する文字列を作成
                 string postData =
@@ -95,20 +112,54 @@ namespace Z_Apps.Controllers
                 wc.Dispose();
 
                 //受信したデータを表示する
-                return new
+                return new DictionaryResult()
                 {
                     xml = enc.GetString(resData),
-                    w?.wordId,
-                    w?.snippet,
+                    wordId = w?.wordId,
+                    snippet = w?.snippet,
                     translatedWord = await storyEdit.MakeEnglish(word
                             .Replace("#", "")
                             .Replace("?", "")
                             .Replace("&", ""))
                 };
+            };
+
+
+            var con = new DBCon(DBCon.DBType.wiki_db);
+
+            //キャッシュ取得
+            var cache = con.ExecuteSelect(
+                            "select response from ZAppsDictionaryCache where word = @word",
+                            new Dictionary<string, object[]> { { "@word", new object[2] { SqlDbType.NVarChar, word } } }
+                        ).FirstOrDefault();
+
+            if (cache != null)
+            {
+                //キャッシュデータあり
+                return (string)cache["response"]; ;
             }
             else
             {
-                return new { xml = "", translatedWord = "", wordId = "", snippet = "" };
+                //キャッシュデータなし
+                var obj = await getDictionaryDataWithoutCache();
+                var json = JsonSerializer.Serialize(obj);
+
+                var task = Task.Run(async () =>
+                {
+                    //5秒待って登録
+                    await Task.Delay(5 * 1000);
+
+                    if (obj.wordId > 0 && obj.xml.Length > 0 && obj.xml.Length > 0 && obj.translatedWord.Length > 0 && json.Contains("wordId"))
+                    {
+                        con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json);", new Dictionary<string, object[]> {
+                            { "@json", new object[2] { SqlDbType.NVarChar, json } },
+                            { "@word", new object[2] { SqlDbType.NVarChar, word } }
+                        });
+                    }
+                });
+
+                //上記完了を待たずにreturn
+                return json;
             }
         }
     }
