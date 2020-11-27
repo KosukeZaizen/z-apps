@@ -115,8 +115,8 @@ namespace Z_Apps.Controllers
                 return new DictionaryResult()
                 {
                     xml = enc.GetString(resData),
-                    wordId = w?.wordId,
-                    snippet = w?.snippet,
+                    wordId = w.wordId,
+                    snippet = w.snippet,
                     translatedWord = await storyEdit.MakeEnglish(word
                             .Replace("#", "")
                             .Replace("?", "")

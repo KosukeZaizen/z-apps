@@ -1,6 +1,7 @@
 import { Collapse } from "@material-ui/core";
 import * as React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
@@ -506,28 +507,32 @@ class Stories extends React.Component<Props, State> {
                                                                 <Link
                                                                     to={`/folktales/${nameForUrl}`}
                                                                 >
-                                                                    <img
-                                                                        src={`${
-                                                                            consts.BLOB_URL
-                                                                        }/folktalesImg/${
-                                                                            nameForUrl.split(
-                                                                                "--"
-                                                                            )[0]
-                                                                        }.png`}
-                                                                        width="90%"
-                                                                        alt={
-                                                                            nameToShow
-                                                                        }
-                                                                        title={
-                                                                            nameToShow
-                                                                        }
-                                                                        style={{
-                                                                            marginLeft:
-                                                                                "10px",
-                                                                            marginBottom:
-                                                                                "10px",
-                                                                        }}
-                                                                    />
+                                                                    <LazyLoad
+                                                                        once
+                                                                    >
+                                                                        <img
+                                                                            src={`${
+                                                                                consts.BLOB_URL
+                                                                            }/folktalesImg/${
+                                                                                nameForUrl.split(
+                                                                                    "--"
+                                                                                )[0]
+                                                                            }.png`}
+                                                                            width="90%"
+                                                                            alt={
+                                                                                nameToShow
+                                                                            }
+                                                                            title={
+                                                                                nameToShow
+                                                                            }
+                                                                            style={{
+                                                                                marginLeft:
+                                                                                    "10px",
+                                                                                marginBottom:
+                                                                                    "10px",
+                                                                            }}
+                                                                        />
+                                                                    </LazyLoad>
                                                                 </Link>
                                                             </td>
                                                             <td
@@ -592,18 +597,20 @@ class Stories extends React.Component<Props, State> {
                                                 <Link
                                                     to={`/folktales/${nameForUrl}`}
                                                 >
-                                                    <img
-                                                        src={`${
-                                                            consts.BLOB_URL
-                                                        }/folktalesImg/${
-                                                            nameForUrl.split(
-                                                                "--"
-                                                            )[0]
-                                                        }.png`}
-                                                        width="90%"
-                                                        alt={nameToShow}
-                                                        title={nameToShow}
-                                                    />
+                                                    <LazyLoad>
+                                                        <img
+                                                            src={`${
+                                                                consts.BLOB_URL
+                                                            }/folktalesImg/${
+                                                                nameForUrl.split(
+                                                                    "--"
+                                                                )[0]
+                                                            }.png`}
+                                                            width="90%"
+                                                            alt={nameToShow}
+                                                            title={nameToShow}
+                                                        />
+                                                    </LazyLoad>
                                                 </Link>
                                                 <div
                                                     style={{
