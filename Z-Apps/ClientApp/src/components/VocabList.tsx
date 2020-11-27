@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -559,7 +560,9 @@ function VList(props: TVListProps) {
                                 {v.english}
                             </TableCell>
                             <TableCell style={tableElementStyle} align="center">
-                                <Speaker v={v} g={g} />
+                                <LazyLoad>
+                                    <Speaker v={v} g={g} />
+                                </LazyLoad>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -583,7 +586,6 @@ class Speaker extends React.Component<
 > {
     vocabSound?: HTMLAudioElement;
     didUnmount: boolean;
-    timerId: number;
 
     constructor(props: SpeakerProps) {
         super(props);
@@ -592,16 +594,11 @@ class Speaker extends React.Component<
             showImg: false,
         };
 
-        this.timerId = 0;
         this.didUnmount = false;
     }
 
     componentDidMount = () => {
-        const { v, g } = this.props;
-        this.timerId = window.setTimeout(
-            this.loadSound,
-            5000 * g.order + 300 * v.order
-        );
+        this.loadSound();
     };
 
     loadSound = () => {
@@ -619,7 +616,6 @@ class Speaker extends React.Component<
     };
 
     componentWillUnmount() {
-        clearTimeout(this.timerId);
         this.didUnmount = true;
     }
 
