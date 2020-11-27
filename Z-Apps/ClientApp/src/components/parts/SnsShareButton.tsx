@@ -1,5 +1,4 @@
 import * as React from "react";
-import LazyLoad from "react-lazyload";
 import * as consts from "../../common/consts";
 import { sendClientOpeLog } from "../../common/functions";
 
@@ -16,21 +15,18 @@ export const FBShareBtn = (props: TFBProps) => {
             rel="nofollow noopener noreferrer"
             target="_blank"
         >
-            <LazyLoad>
-                <img
-                    src={
-                        consts.BLOB_URL +
-                        "/vocabulary-quiz/img/shareOnFacebook.png"
-                    }
-                    alt="Share on Facebook"
-                    style={style}
-                    onClick={() => {
-                        setTimeout(() => {
-                            sendClientOpeLog("facebook share button");
-                        }, 1000);
-                    }}
-                />
-            </LazyLoad>
+            <img
+                src={
+                    consts.BLOB_URL + "/vocabulary-quiz/img/shareOnFacebook.png"
+                }
+                alt="Share on Facebook"
+                style={style}
+                onClick={() => {
+                    setTimeout(() => {
+                        sendClientOpeLog("facebook share button");
+                    }, 1000);
+                }}
+            />
         </a>
     );
 };
@@ -49,21 +45,18 @@ export const TwitterShareBtn = (props: TTWProps) => {
             rel="nofollow noopener noreferrer"
             target="_blank"
         >
-            <LazyLoad>
-                <img
-                    src={
-                        consts.BLOB_URL +
-                        "/vocabulary-quiz/img/shareOnTwitter.png"
-                    }
-                    alt="Share on Twitter"
-                    style={style}
-                    onClick={() => {
-                        setTimeout(() => {
-                            sendClientOpeLog("twitter share button");
-                        }, 1000);
-                    }}
-                />
-            </LazyLoad>
+            <img
+                src={
+                    consts.BLOB_URL + "/vocabulary-quiz/img/shareOnTwitter.png"
+                }
+                alt="Share on Twitter"
+                style={style}
+                onClick={() => {
+                    setTimeout(() => {
+                        sendClientOpeLog("twitter share button");
+                    }, 1000);
+                }}
+            />
         </a>
     );
 };

@@ -5,7 +5,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
-import LazyLoad from "react-lazyload";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import * as consts from "../common/consts";
@@ -497,30 +496,28 @@ class Dictionary extends React.Component<Props, State> {
                                                                         <Link
                                                                             to={`/folktales/${nameForUrl}`}
                                                                         >
-                                                                            <LazyLoad>
-                                                                                <img
-                                                                                    src={`${
-                                                                                        consts.BLOB_URL
-                                                                                    }/folktalesImg/${
-                                                                                        nameForUrl.split(
-                                                                                            "--"
-                                                                                        )[0]
-                                                                                    }.png`}
-                                                                                    width="90%"
-                                                                                    alt={
-                                                                                        nameToShow
-                                                                                    }
-                                                                                    title={
-                                                                                        nameToShow
-                                                                                    }
-                                                                                    style={{
-                                                                                        marginLeft:
-                                                                                            "10px",
-                                                                                        marginBottom:
-                                                                                            "10px",
-                                                                                    }}
-                                                                                />
-                                                                            </LazyLoad>
+                                                                            <img
+                                                                                src={`${
+                                                                                    consts.BLOB_URL
+                                                                                }/folktalesImg/${
+                                                                                    nameForUrl.split(
+                                                                                        "--"
+                                                                                    )[0]
+                                                                                }.png`}
+                                                                                width="90%"
+                                                                                alt={
+                                                                                    nameToShow
+                                                                                }
+                                                                                title={
+                                                                                    nameToShow
+                                                                                }
+                                                                                style={{
+                                                                                    marginLeft:
+                                                                                        "10px",
+                                                                                    marginBottom:
+                                                                                        "10px",
+                                                                                }}
+                                                                            />
                                                                         </Link>
                                                                     </td>
                                                                     <td
@@ -587,24 +584,22 @@ class Dictionary extends React.Component<Props, State> {
                                                             <Link
                                                                 to={`/folktales/${nameForUrl}`}
                                                             >
-                                                                <LazyLoad>
-                                                                    <img
-                                                                        src={`${
-                                                                            consts.BLOB_URL
-                                                                        }/folktalesImg/${
-                                                                            nameForUrl.split(
-                                                                                "--"
-                                                                            )[0]
-                                                                        }.png`}
-                                                                        width="90%"
-                                                                        alt={
-                                                                            nameToShow
-                                                                        }
-                                                                        title={
-                                                                            nameToShow
-                                                                        }
-                                                                    />
-                                                                </LazyLoad>
+                                                                <img
+                                                                    src={`${
+                                                                        consts.BLOB_URL
+                                                                    }/folktalesImg/${
+                                                                        nameForUrl.split(
+                                                                            "--"
+                                                                        )[0]
+                                                                    }.png`}
+                                                                    width="90%"
+                                                                    alt={
+                                                                        nameToShow
+                                                                    }
+                                                                    title={
+                                                                        nameToShow
+                                                                    }
+                                                                />
                                                             </Link>
                                                             <div
                                                                 style={{

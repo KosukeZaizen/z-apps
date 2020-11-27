@@ -1,5 +1,4 @@
 import * as React from "react";
-import LazyLoad from "react-lazyload";
 import * as consts from "../../../common/consts";
 import "./CharacterComment.css";
 
@@ -19,19 +18,17 @@ export default function CharacterComment(props: TProps) {
             }}
         >
             <div>
-                <LazyLoad>
-                    <img
-                        src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${imgNumber}.png`}
-                        alt="Japanese ninja"
-                        style={{
-                            width: (screenWidth * 2) / 10,
-                            maxWidth: 120,
-                            height: "auto",
-                            verticalAlign: "top",
-                        }}
-                        className="ninjaPic"
-                    />
-                </LazyLoad>
+                <img
+                    src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${imgNumber}.png`}
+                    alt="Japanese ninja"
+                    style={{
+                        width: (screenWidth * 2) / 10,
+                        maxWidth: 120,
+                        height: "auto",
+                        verticalAlign: "top",
+                    }}
+                    className="ninjaPic"
+                />
             </div>
             <div
                 className="chatting"
