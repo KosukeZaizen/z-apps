@@ -283,6 +283,8 @@ class Dictionary extends React.Component<Props, State> {
                     <article
                         style={{
                             borderBottom: "1px solid gainsboro",
+                            paddingBottom: 20,
+                            marginBottom: 15,
                         }}
                     >
                         {title && (
@@ -414,11 +416,7 @@ class Dictionary extends React.Component<Props, State> {
                                     <br />
                                 </section>
                                 <br />
-                                <section
-                                    style={{
-                                        borderBottom: "1px solid gainsboro",
-                                    }}
-                                >
+                                <section>
                                     <h2 style={styleDiv}>
                                         {"Learn Japanese from folktales"}
                                     </h2>
@@ -645,6 +643,16 @@ class Dictionary extends React.Component<Props, State> {
                                                 </div>
                                             );
                                         })}
+                                    <Link
+                                        to="/folktales"
+                                        style={{
+                                            fontSize: "x-large",
+                                            display: "block",
+                                            marginTop: 15,
+                                        }}
+                                    >
+                                        {"All folktales >>"}
+                                    </Link>
                                 </section>
                             </>
                         ) : (
@@ -655,7 +663,6 @@ class Dictionary extends React.Component<Props, State> {
                             />
                         )}
                     </article>
-                    <br />
                     <Link to="/vocabulary-list">
                         <Card
                             body
