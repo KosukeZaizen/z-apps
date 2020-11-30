@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
@@ -51,6 +52,23 @@ namespace Z_Apps.Models.SystemBase
 
             //アップロード処理
             await blockBlob.UploadTextAsync(content);
+            return true;
+        }
+
+        //フォルダ内の全てのファイルを削除
+        public async Task<bool> DeleteAllFilesInTheFolder(string folderPath)
+        {
+            var token = default(BlobContinuationToken);
+            var bls = await container.GetDirectoryReference(folderPath).ListBlobsSegmentedAsync(token);
+            
+            foreach (IListBlobItem item in bls.Results)
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+                    await blob.DeleteIfExistsAsync();
+                }
+            }
             return true;
         }
     }

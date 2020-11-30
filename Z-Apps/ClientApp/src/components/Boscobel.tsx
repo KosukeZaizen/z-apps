@@ -1,15 +1,18 @@
 import * as React from "react";
+import { sendPost } from "../common/functions";
 import Head from "./parts/Helmet";
 
 export default class Boscobel extends React.Component {
-    consts: {
-        background: string;
-        top: string;
+    consts = {
+        background: "background",
+        top: "top",
+        menu: "menu",
     };
 
     state: {
         background?: File;
         top?: File;
+        menu: { file: File; order: number }[];
         pw: string;
     };
 
@@ -30,12 +33,8 @@ export default class Boscobel extends React.Component {
         this.state = {
             background: undefined,
             top: undefined,
+            menu: [],
             pw: token,
-        };
-
-        this.consts = {
-            background: "background",
-            top: "top",
         };
     }
 
@@ -49,6 +48,14 @@ export default class Boscobel extends React.Component {
             this.setState({ background: file });
         } else if (imageType === this.consts.top) {
             this.setState({ top: file });
+        } else if (imageType === this.consts.menu) {
+            if (!target.files) return;
+            this.setState({
+                menu: Array.from(target.files).map((file, order) => ({
+                    file,
+                    order,
+                })),
+            });
         }
     };
 
@@ -99,7 +106,57 @@ export default class Boscobel extends React.Component {
             });
     };
 
+    uploadMenuFiles = async () => {
+        const { menu } = this.state;
+        const files = [...menu]
+            .sort((a, b) => a.order - b.order)
+            .map(m => m.file);
+
+        for (let file of files) {
+            if (!file || file.name.split(".").pop()?.toLowerCase() !== "png") {
+                alert("Error! Please select png files.");
+                return;
+            }
+        }
+
+        const data = {
+            //files,
+            shop: "boscobel",
+            pw: this.state.pw,
+        };
+        console.log("data", data);
+
+        try {
+            const response: Response = await sendPost(
+                data,
+                "/api/ShopImg/UploadMenu"
+            );
+
+            const result = await response.json();
+            if (result) {
+                if (result.errMessage) {
+                    alert(result.errMessage);
+                } else {
+                    alert("Success to upload!");
+                    window.open("https://www.cafe-boscobel.com/");
+                    window.location.reload(true);
+                }
+            } else {
+                alert("Failed to upload... Status:" + response.status);
+            }
+        } catch (e) {
+            alert("Failed to upload...");
+        }
+    };
+
     render() {
+        const { menu } = this.state;
+        console.log("menu", menu);
+        const createObjectURL: (file: File) => string =
+            (window.URL || window.webkitURL).createObjectURL ||
+            (window as typeof window & {
+                createObjectURL: (file: File) => string;
+            }).createObjectURL;
         return (
             <div className="center">
                 <Head title={"Boscobel - Upload Image"} noindex={true} />
@@ -153,8 +210,9 @@ export default class Boscobel extends React.Component {
                         />
                         <br />
                         <br />
-                        Select a png file from your computer! (Only png is
-                        valid!)
+                        png形式のファイルのみアップロード可能です。
+                        <br />
+                        <br />
                         <input
                             type="file"
                             name="background"
@@ -199,13 +257,14 @@ export default class Boscobel extends React.Component {
                         />
                         <br />
                         <br />
-                        Select a png file from your computer! (Only png is
-                        valid!)
+                        png形式のファイルのみアップロード可能です。
+                        <br />
+                        <br />
                         <input
                             type="file"
                             name="top"
                             onChange={e =>
-                                this.handleChangeFile(e, this.consts.top)
+                                this.handleChangeFile(e, this.consts.menu)
                             }
                         />
                         <br />
@@ -218,11 +277,137 @@ export default class Boscobel extends React.Component {
                                 paddingTop: 0,
                             }}
                             className="btn btn-primary btn-xs"
-                            onClick={() => this.uploadFile(this.consts.top)}
+                            onClick={() => this.uploadFile(this.consts.menu)}
                         >
                             <b>Upload</b>
                         </button>
                     </div>
+                    <br />
+                    <div
+                        style={{
+                            padding: "10px",
+                            marginBottom: "10px",
+                            border: "5px double #333333",
+                            color: "#eb6905",
+                        }}
+                    >
+                        <h2>Menu</h2>
+                        {menu
+                            .sort((a, b) => a.order - b.order)
+                            .filter(m => m.file instanceof File)
+                            .map((m, i) => (
+                                <div
+                                    key={`${m.order}-${i}`}
+                                    style={{
+                                        width: "30%",
+                                        margin: "20px 5px 5px",
+                                        display: "inline-block",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            marginBottom: 2,
+                                        }}
+                                    >
+                                        <span>表示順：</span>
+                                        <input
+                                            type="number"
+                                            style={{
+                                                width: "50%",
+                                                marginRight: "auto",
+                                                textAlign: "right",
+                                                color: "black",
+                                            }}
+                                            defaultValue={`${m.order + 1}`}
+                                            onBlur={e => {
+                                                console.log(
+                                                    "e.target.value",
+                                                    e.target.value
+                                                );
+                                                this.setState({
+                                                    menu: [
+                                                        ...menu.filter(
+                                                            me =>
+                                                                me.file !==
+                                                                m.file
+                                                        ),
+                                                        {
+                                                            file: m.file,
+                                                            order:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ) - 1,
+                                                        },
+                                                    ],
+                                                });
+                                            }}
+                                        />
+                                    </div>
+                                    <img
+                                        style={{ width: "100%" }}
+                                        src={createObjectURL(m.file)}
+                                    />
+                                </div>
+                            ))}
+                        <br />
+                        {menu.length > 0 ? (
+                            <span>
+                                上記の「表示順」の値が小さいファイルから順番にサイトに表示されます。
+                                <br />
+                                「表示順」の値は変更可能です。
+                                <br />
+                                （「表示順」の数値は連続してなくてもOKっす）
+                                <br />
+                                <br />
+                                <button
+                                    style={{ color: "black" }}
+                                    onClick={() => this.setState({ menu: [] })}
+                                >
+                                    クリア（ファイルを選びなおす）
+                                </button>
+                                <br />
+                                <br />
+                                <button
+                                    style={{
+                                        marginTop: 10,
+                                        marginBottom: 10,
+                                        height: 28,
+                                        paddingTop: 0,
+                                    }}
+                                    className="btn btn-primary btn-xs"
+                                    onClick={() => this.uploadMenuFiles()}
+                                >
+                                    <b>Upload</b>
+                                </button>
+                            </span>
+                        ) : (
+                            <span>
+                                以下のボタンから、メニューとしてサイトに掲載したい全ての画像を、一度に選択してください。
+                                <br />
+                                （一度に複数のファイルを選択可能です。）
+                                <br />
+                                png形式のファイルのみアップロード可能です。
+                                <br />
+                                <br />
+                                <input
+                                    type="file"
+                                    name="menu"
+                                    onChange={e =>
+                                        this.handleChangeFile(
+                                            e,
+                                            this.consts.menu
+                                        )
+                                    }
+                                    multiple
+                                />
+                            </span>
+                        )}
+                        <br />
+                    </div>
+                    <br />
+                    <br />
                 </div>
             </div>
         );

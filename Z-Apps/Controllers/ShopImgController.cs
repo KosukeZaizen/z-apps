@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Util;
 using Z_Apps.Models.SystemBase;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Z_Apps.Controllers
 {
@@ -35,6 +37,46 @@ namespace Z_Apps.Controllers
             {
                 return new { result = "ng", errMessage = "Error! Upload was failed!" };
             };
+
+            return new { result = "ok" };
+        }
+
+        public class MenuRequest
+        {
+            //public IEnumerable<IFormFile> files;
+            public string shop;
+            public string pw;
+        }
+        [HttpPost("[action]")]
+        public async Task<Object> UploadMenu([FromBody] MenuRequest req)
+        {
+            if (req.pw != PrivateConsts.BOSCOBEL_PW)
+            {
+                return new { result = "ng", errMessage = "Error! Invalid password!" };
+            }
+
+            //if (req.files.Any(file => file.Length <= 0))
+            //{
+            //    return new { result = "ng", errMessage = "Error! Invalid file!" };
+            //}
+
+            //delete
+            if (!await storageService.DeleteAllFilesInTheFolder(req.shop + "/menu"))
+            {
+                return new { result = "ng", errMessage = "Error! Upload was failed!" };
+            }
+
+            //var i = 0;
+            //foreach (var file in req.files)
+            //{
+            //    i++;
+
+            //    //upload
+            //    if (!await storageService.UploadAndOverwriteFileAsync(file, req.shop + "/menu/cafe-boscobel-menu-" + i.ToString("00") + ".png"))
+            //    {
+            //        return new { result = "ng", errMessage = "Error! Upload was failed!" };
+            //    }
+            //}
 
             return new { result = "ok" };
         }
