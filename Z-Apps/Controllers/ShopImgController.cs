@@ -23,60 +23,37 @@ namespace Z_Apps.Controllers
         {
             if (pw != PrivateConsts.BOSCOBEL_PW)
             {
-                return new { result = "ng", errMessage = "Error! Invalid password!" };
+                return new { result = "ng", errMessage = "画面上部でパスワードを入力してください！" };
             }
 
             var formFile = file;
             if (formFile.Length <= 0)
             {
-                return new { result = "ng", errMessage = "Error! Invalid file!" };
+                return new { result = "ng", errMessage = "ファイルが不正です！" };
             }
 
             //upload
             if (!await storageService.UploadAndOverwriteFileAsync(formFile, shop + "/" + fileName + ".png"))
             {
-                return new { result = "ng", errMessage = "Error! Upload was failed!" };
+                return new { result = "ng", errMessage = "アップロードに失敗しました。" };
             };
 
             return new { result = "ok" };
         }
 
-        public class MenuRequest
-        {
-            //public IEnumerable<IFormFile> files;
-            public string shop;
-            public string pw;
-        }
         [HttpPost("[action]")]
-        public async Task<Object> UploadMenu([FromBody] MenuRequest req)
+        public async Task<Object> DeleteOldMenu(string shop, string pw)
         {
-            if (req.pw != PrivateConsts.BOSCOBEL_PW)
+            if (pw != PrivateConsts.BOSCOBEL_PW)
             {
-                return new { result = "ng", errMessage = "Error! Invalid password!" };
+                return new { result = "ng", errMessage = "画面上部でパスワードを入力してください！" };
             }
-
-            //if (req.files.Any(file => file.Length <= 0))
-            //{
-            //    return new { result = "ng", errMessage = "Error! Invalid file!" };
-            //}
 
             //delete
-            if (!await storageService.DeleteAllFilesInTheFolder(req.shop + "/menu"))
+            if (!await storageService.DeleteAllFilesInTheFolder(shop + "/menu"))
             {
-                return new { result = "ng", errMessage = "Error! Upload was failed!" };
+                return new { result = "ng", errMessage = "古いメニューの削除に失敗しました。" };
             }
-
-            //var i = 0;
-            //foreach (var file in req.files)
-            //{
-            //    i++;
-
-            //    //upload
-            //    if (!await storageService.UploadAndOverwriteFileAsync(file, req.shop + "/menu/cafe-boscobel-menu-" + i.ToString("00") + ".png"))
-            //    {
-            //        return new { result = "ng", errMessage = "Error! Upload was failed!" };
-            //    }
-            //}
 
             return new { result = "ok" };
         }

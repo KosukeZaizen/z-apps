@@ -1,5 +1,4 @@
 import * as React from "react";
-import { sendPost } from "../common/functions";
 import Head from "./parts/Helmet";
 
 export default class Boscobel extends React.Component {
@@ -14,6 +13,7 @@ export default class Boscobel extends React.Component {
         top?: File;
         menu: { file: File; order: number }[];
         pw: string;
+        isUploading: boolean;
     };
 
     constructor(props: {}) {
@@ -35,6 +35,7 @@ export default class Boscobel extends React.Component {
             top: undefined,
             menu: [],
             pw: token,
+            isUploading: false,
         };
     }
 
@@ -107,6 +108,8 @@ export default class Boscobel extends React.Component {
     };
 
     uploadMenuFiles = async () => {
+        this.setState({ isUploading: true });
+
         const { menu } = this.state;
         const files = [...menu]
             .sort((a, b) => a.order - b.order)
@@ -114,49 +117,80 @@ export default class Boscobel extends React.Component {
 
         for (let file of files) {
             if (!file || file.name.split(".").pop()?.toLowerCase() !== "png") {
-                alert("Error! Please select png files.");
+                alert("png形式でお願いします！");
+                this.setState({ isUploading: false });
                 return;
             }
         }
 
-        const data = {
-            //files,
-            shop: "boscobel",
-            pw: this.state.pw,
-        };
-        console.log("data", data);
+        //古いメニューをストレージから削除
+        const formData = new FormData();
+        formData.append("shop", "boscobel");
+        formData.append("pw", this.state.pw);
+        const error = await this.sendPost(
+            formData,
+            "/api/ShopImg/DeleteOldMenu"
+        );
+        if (error) {
+            alert(error);
+            this.setState({ isUploading: false });
+            return;
+        }
 
-        try {
-            const response: Response = await sendPost(
-                data,
-                "/api/ShopImg/UploadMenu"
+        for (let i in files) {
+            //１ファイルずつアップロード
+            const formData = new FormData();
+            formData.append("file", files[i]);
+            formData.append("shop", "boscobel");
+            formData.append(
+                "fileName",
+                `menu/cafe-boscobel-menu-${("00" + (Number(i) + 1)).slice(-2)}`
             );
+            formData.append("pw", this.state.pw);
 
+            const error = await this.sendPost(formData, "/api/ShopImg/Upload");
+            if (error) {
+                alert(error);
+                this.setState({ isUploading: false });
+                return;
+            }
+        }
+
+        this.setState({ isUploading: false });
+        alert("メニューのアップロードに成功しました！");
+    };
+
+    sendPost = async (formData: FormData, url: string): Promise<string> => {
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData,
+            });
             const result = await response.json();
             if (result) {
                 if (result.errMessage) {
-                    alert(result.errMessage);
+                    return result.errMessage;
                 } else {
-                    alert("Success to upload!");
-                    window.open("https://www.cafe-boscobel.com/");
-                    window.location.reload(true);
+                    //成功
+                    return "";
                 }
             } else {
-                alert("Failed to upload... Status:" + response.status);
+                return "Failed to upload... Status:" + response.status;
             }
         } catch (e) {
-            alert("Failed to upload...");
+            return "Failed to upload...";
         }
     };
 
     render() {
-        const { menu } = this.state;
-        console.log("menu", menu);
+        const { menu, isUploading } = this.state;
+
         const createObjectURL: (file: File) => string =
             (window.URL || window.webkitURL).createObjectURL ||
             (window as typeof window & {
                 createObjectURL: (file: File) => string;
             }).createObjectURL;
+
         return (
             <div className="center">
                 <Head title={"Boscobel - Upload Image"} noindex={true} />
@@ -378,8 +412,13 @@ export default class Boscobel extends React.Component {
                                     }}
                                     className="btn btn-primary btn-xs"
                                     onClick={() => this.uploadMenuFiles()}
+                                    disabled={isUploading}
                                 >
-                                    <b>Upload</b>
+                                    {isUploading ? (
+                                        <b>アップロード中…</b>
+                                    ) : (
+                                        <b>Upload</b>
+                                    )}
                                 </button>
                             </span>
                         ) : (
