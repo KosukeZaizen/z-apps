@@ -110,6 +110,15 @@ export default class Boscobel extends React.Component {
     uploadMenuFiles = async () => {
         this.setState({ isUploading: true });
 
+        if (
+            !window.confirm(
+                "新しいメニューをアップロードすると、古いメニューのファイルは削除されます。よろしいですか？"
+            )
+        ) {
+            this.setState({ isUploading: false });
+            return;
+        }
+
         const { menu } = this.state;
         const files = [...menu]
             .sort((a, b) => a.order - b.order)
