@@ -1,5 +1,4 @@
 using System.Linq;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,12 +20,9 @@ namespace Z_Apps
 {
     public class Startup
     {
-        private readonly ILogger logger;
-
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            this.logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -53,8 +49,6 @@ namespace Z_Apps
             services.AddSingleton(new StoriesService(con));
             services.AddSingleton(new StoriesEditService(con));
             services.AddSingleton(new VocabQuizService(con));
-
-            services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,16 +80,11 @@ namespace Z_Apps
 
                 if (url.EndsWith("sitemap.xml"))
                 {
-                    logger.LogWarning("sitemap.xml");
                     string resultXML = await siteMapService.GetSiteMapText();
-                    logger.LogWarning(resultXML);
-
                     await context.Response.WriteAsync(resultXML);
                 }
                 else if (ua.StartsWith("facebookexternalhit"))
                 {
-                    logger.LogWarning("SNS bot");
-
                     if (url == null)
                     {
                         await next.Invoke();
@@ -234,7 +223,6 @@ namespace Z_Apps
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
-                        logger.LogWarning(resultHTML);
 
                         var clientLogService = new ClientLogService(con);
                         clientLogService.RegisterLog(new ClientOpeLog()
