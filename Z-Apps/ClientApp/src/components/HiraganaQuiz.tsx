@@ -303,7 +303,7 @@ class HiraganaQuiz extends React.Component {
                             itemProp="name"
                             style={{ marginRight: "5px", marginLeft: "5px" }}
                         >
-                            {"Katakana Quiz"}
+                            {"Hiragana Quiz"}
                         </span>
                         <meta itemProp="position" content="3" />
                     </span>
