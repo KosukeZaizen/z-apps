@@ -1,4 +1,5 @@
 import * as React from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
@@ -426,16 +427,11 @@ I am glad that you are interested in my country, Japan.
 I hope this application helps you to study Japanese!
 `}
                     />
-                    <Button
-                        color="primary"
-                        onClick={() =>
-                            window.document.body.scrollIntoView({
-                                behavior: "smooth",
-                            })
-                        }
-                    >
-                        Study Japanese from folktales!
-                    </Button>
+                    <AnchorLink href={`#${this.ref?.current?.id}`}>
+                        <Button color="primary">
+                            Study Japanese from folktales!
+                        </Button>
+                    </AnchorLink>
                     <br />
                     <br />
                     <hr />
