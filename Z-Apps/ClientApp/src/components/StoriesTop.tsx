@@ -328,7 +328,7 @@ class StoriesTop extends React.Component<
                         style={{ textAlign: "left" }}
                         source={`
 ## Why you should learn Japanese using Japanese Folktales
-The best way to learn a language is by **remembering many sentences**.
+The best way to learn a language is by *remembering many sentences*.
 
 Of course, studying grammar is important.
 However, only knowing grammar and vocabulary is not enough to speak and use languages.
@@ -337,7 +337,7 @@ There is no time to think about grammar when speaking with someone.
 While you are thinking about grammar, the topic of the conversation
  with your Japanese friends will proceed on to the next thing.
 
-### *Getting used to the language* is the most important part of learning languages
+### Getting used to the language is the most important part of learning languages
 
 Please imagine how you learned your native language.
 When you were born, of course, you couldn't use your native language at all.
@@ -350,8 +350,8 @@ After that, maybe you made friends and spoke about your favorite
  Anime characters with them.
 And finally, you started to learn grammar in your school.
 
-If you have already gotten use to the language,
- you can speak without knowing grammar.
+*If you have already gotten use to the language,
+ you can speak without knowing grammar.*
 
 ### The big obstacle to learn Japanese
 
@@ -363,7 +363,7 @@ This is the way I learned English.
 
 However, there is one big problem in learning Japanese this way.
 
-It is **Kanji**.
+It is *Kanji*.
 When you try to read the Japanese subtitles in movies, they will include a lot of Kanji.
 So if you haven't leaned the Kanji characters yet, it will be extremely difficult to read them.
 (Maybe you will want to cry because there are too many Kanji characters!)
@@ -371,11 +371,11 @@ So if you haven't leaned the Kanji characters yet, it will be extremely difficul
 The same thing will happen when you try to read Japanese books.
 They include a lot of Kanji characters.
 
-### At first, you should learn Japanese in *Romaji*, *Hiragana*, and *while listening*.
+### At first, you should learn Japanese in Romaji, Hiragana, and while listening.
 
 As I explained before, normal Japanese books include a lot of Kanji,
  and it disturbs your studying at first.
-Therefore, some kind of **special text book** is necessary to learn Japanese.
+Therefore, some kind of *special text book is necessary to learn Japanese*.
 The ideal textbook to learn Japanese is one in which:
 - You can listen to the native speaker's pronunciation over and over
 - It includes a lot of easy sentences to remember
@@ -408,15 +408,15 @@ If you already remember Hiragana characters,
  please keep showing the Hiragana and hide the Romaji.
 If you still don't remember Hiragana perfectly, you can keep showing Romaji.
 
-**While listening,
- please read the sentences in Romaji or Hiragana.**
+*While listening,
+ please read the sentences in Romaji or Hiragana.*
 And after getting used to reading,
  please say the sentences out loud to remember the sentences.
 
 Maybe remembering all the sentences is too difficult.
 But remembering a few sentences will be extremely helpful.
-**If you already remember some Japanese sentences,
- it will make it much easier to learn Japanese grammar.**
+*If you already remember some Japanese sentences,
+ it will make it much easier to learn Japanese grammar.*
 
 If you continue studying in this way, you will learn natural Japanese rapidly.
 I learned English by doing this using English movies.

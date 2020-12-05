@@ -43,7 +43,7 @@ export default class Quiz1 extends React.Component<Props> {
     render() {
         return (
             <div id="disp1">
-                <h1>{this.props.consts.KANA_TYPE} Quiz!</h1>
+                <h1>{this.props.consts.KANA_TYPE} Quiz</h1>
                 <p>
                     Please bookmark this page to remember all{" "}
                     {this.props.consts.KANA_TYPE} characters!
@@ -77,7 +77,7 @@ export default class Quiz1 extends React.Component<Props> {
                 </button>
                 <br />
                 <hr />
-                {this.props.consts.KANA_TYPE === "Hiragana" && (
+                {this.props.consts.KANA_TYPE === "Hiragana" ? (
                     <Markdown
                         style={{ textAlign: "left" }}
                         source={`
@@ -120,6 +120,62 @@ Since you already remembered all of the Hiragana characters using this Hiragana 
 Many Katakana characters look like Hiragana characters.
 So, the knowledge you obtained from the Hiragana Quiz will be useful.
 Please proceed to the next step by clicking the “Katakana Quiz” button below!
+`}
+                    />
+                ) : (
+                    <Markdown
+                        style={{ textAlign: "left" }}
+                        source={`
+## What is Katakana?
+Japanese language has three types of characters.
+The three characters are Hiragana, Katakana, and Kanji.
+Hiragana is the most basic character in Japanese.
+After remembering Hiragana, you should start to learn Katakana.
+
+Katakana and Hiragana look very similar.
+Basically, we use Hiragana more than Katakana.
+
+### When do Japanese people use Katakana?
+Katakana is used in the limited cases below:
+- Loan-words from foreign countries
+- Onomatopoeic word
+
+We use Katakana for the two purposes above.
+If you want to know more detailed information, please check this link:
+ [When should we use Katakana? >>](https://www.lingual-ninja.com/2018/08/katakana-chart.html#Katakana-chart6)
+
+## What you should do before taking this Katakana Quiz
+
+Before remembering Katakana, you should remember Hiragana.
+If you still don't remember all the Hiragana characters,
+ please try this Hiragana Quiz: [Hiragana Quiz >>](/hiragana-quiz)
+
+## How to use Katakana Quiz
+How you use this Katakana Quiz is the same way you use the Hiragana Quiz.
+If you have some issues when using the Katakana Quiz,
+ please check the explanation in the Hiragana Quiz page:
+ [Hiragana Quiz >>](/hiragana-quiz)
+
+## The next step after taking this Katakana Quiz
+After you get a perfect score in “All Katakana characters mode”,
+ the next step is remembering vocabulary and practice reading and listening.
+
+### Remembering vocabulary
+
+This website has basic vocabulary lists and quizzes for N5 exam.
+I recommend you to remember basic N5 vocabulary using this quiz:
+ [Vocabulary Quiz >>](/vocabulary-quiz)
+
+### Practice reading and listening
+If you want to enjoy Japanese stories while remembering vocabulary,
+ there is a good way.
+This website has a reading practice tool called "[Japanese Folktales](/folktales)".
+You can read Japanese folktales in Romaji, Hiragana, and Katakana.
+Also, you can listen to the stories spoken by a native Japanese speaker.
+Please try to get used to listening and reading Japanese:
+ [Japanese Folktales >>](/folktales)
+
+I hope this application helps you to study Japanese!
 `}
                     />
                 )}
