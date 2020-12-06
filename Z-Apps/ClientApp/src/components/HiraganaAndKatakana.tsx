@@ -7,6 +7,7 @@ import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/KanaQuiz/KanaQuiz.css";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
+import { ScrollBox } from "./parts/ScrollBox";
 
 type TState = {
     screenWidth: number;
@@ -144,15 +145,8 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             </p>
                         }
                     />
-                    <br />
 
-                    <div
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "5px double #333333",
-                        }}
-                    >
+                    <ScrollBox>
                         <h2 ref={this.ref}>Hiragana</h2>
                         <div style={{ margin: "10px" }}>
                             Hiragana is the most basic character in the Japanese
@@ -170,16 +164,9 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                                 Hiragana Chart
                             </Button>
                         </a>
-                    </div>
-                    <hr />
+                    </ScrollBox>
 
-                    <div
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "5px double #333333",
-                        }}
-                    >
+                    <ScrollBox style={{ marginTop: 45 }}>
                         <h2>Katakana</h2>
                         <div style={{ margin: "10px" }}>
                             Katakana is similar to Hiragana!
@@ -187,16 +174,16 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             Try to get a perfect score!
                         </div>
                         <Link to="/katakana-quiz">
-                            <Button style={{ margin: 5 }} color="success">
+                            <Button style={{ margin: 5 }} color="primary">
                                 Katakana Quiz
                             </Button>
                         </Link>
                         <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
-                            <Button style={{ margin: 5 }} color="success">
+                            <Button style={{ margin: 5 }} color="primary">
                                 Katakana Chart
                             </Button>
                         </a>
-                    </div>
+                    </ScrollBox>
                     <hr />
 
                     <Link to="/vocabulary-list">
