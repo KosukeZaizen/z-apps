@@ -389,6 +389,7 @@ export default class Boscobel extends React.Component {
                                         />
                                     </div>
                                     <img
+                                        alt={`boscobel${i}`}
                                         style={{ width: "100%" }}
                                         src={createObjectURL(m.file)}
                                     />

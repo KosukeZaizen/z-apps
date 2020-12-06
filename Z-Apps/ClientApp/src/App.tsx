@@ -37,6 +37,8 @@ const Ninja3 = lazy(() => import("./components/NinjaGame3"));
 const GameOver = lazy(() => import("./components/GameOver"));
 const Dictionary = lazy(() => import("./components/Dictionary"));
 const DictionaryTop = lazy(() => import("./components/DictionaryTop"));
+const Articles = lazy(() => import("./components/Articles"));
+const ArticlesTop = lazy(() => import("./components/Articles/Top"));
 const SiteMapEdit = lazy(() => import("./components/SiteMapEdit"));
 const OpeLogTable = lazy(() => import("./components/OpeLogTable"));
 const ColorPalette = lazy(() => import("./components/ColorPalette"));
@@ -171,6 +173,18 @@ export default class App extends React.Component {
                         />
                         <Route
                             sensitive
+                            exact
+                            path="/articles"
+                            component={ArticlesTop}
+                        />
+                        <Route
+                            sensitive
+                            exact
+                            path="/articles/:pageName"
+                            component={Articles}
+                        />
+                        <Route
+                            sensitive
                             path="/sitemapEdit"
                             component={SiteMapEdit}
                         />
@@ -225,7 +239,7 @@ function NotFoundRedirect() {
     );
 }
 
-function LoadingAnimation(props: { num: number }) {
+export function LoadingAnimation(props: { num: number }) {
     let arr = [];
     for (let i = 0; i < props.num; i++) {
         arr.push(

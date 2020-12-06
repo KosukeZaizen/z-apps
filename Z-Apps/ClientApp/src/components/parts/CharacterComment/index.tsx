@@ -6,15 +6,17 @@ type TProps = {
     imgNumber: number;
     screenWidth: number;
     comment: string | React.ReactNode;
+    style?: React.CSSProperties;
 };
 export default function CharacterComment(props: TProps) {
-    const { imgNumber, screenWidth, comment } = props;
+    const { imgNumber, screenWidth, comment, style } = props;
     return (
         <div
             style={{
                 display: "flex",
                 maxWidth: 450,
                 margin: "auto",
+                ...style,
             }}
         >
             <div>

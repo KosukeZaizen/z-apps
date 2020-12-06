@@ -6,6 +6,7 @@ import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
+import { ScrollBox } from "./parts/ScrollBox";
 
 export default class Home extends React.Component<
     {},
@@ -65,6 +66,8 @@ export default class Home extends React.Component<
 
     render() {
         const { screenWidth, imgNumber } = this.state;
+        const isWide = screenWidth > 991;
+        const cardMargin = 5;
         return (
             <div className="home">
                 <Head
@@ -84,149 +87,316 @@ export default class Home extends React.Component<
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
                         comment={
-                            <p>
+                            <span>
                                 Free app to learn Japanese,
                                 {screenWidth < 800 ? <br /> : " "}
                                 made by{" "}
                                 <Link to="/developer">Kosuke Zaizen</Link>.
                                 <br />I hope you enjoy!
-                            </p>
+                            </span>
                         }
+                        style={isWide ? {} : { marginBottom: 40 }}
                     />
-                    <br />
                     <div ref={this.ref} id="scrollTargetId">
-                        <Link to="/folktales">
-                            <Card
-                                body
+                        <ScrollBox>
+                            <Link to="/folktales">
+                                <h2>Japanese Folktales</h2>
+                            </Link>
+                            <div
                                 style={{
-                                    backgroundColor: "#333",
-                                    borderColor: "#333",
-                                    color: "white",
+                                    display: "flex",
+                                    flexDirection: isWide ? "row" : "column",
                                 }}
                             >
-                                <CardTitle>Japanese Folktales</CardTitle>
-                                <CardText>
-                                    An app to learn Japanese from folktales. You
-                                    can read traditional Japanese folktales in
-                                    English, Hiragana, Kanji, and Romaji!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
+                                <div>
+                                    <Link to="/folktales">
+                                        <img
+                                            style={{ width: "100%" }}
+                                            src={
+                                                "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png"
+                                            }
+                                            alt="Japanese Folktale Momotaro"
+                                        />
+                                    </Link>
+                                </div>
+                                <div>
+                                    <div
+                                        style={{
+                                            fontSize: "large",
+                                            textAlign: "left",
+                                            padding: isWide
+                                                ? 25
+                                                : "10px 10px 20px",
+                                        }}
+                                    >
+                                        An app to learn Japanese from folktales.
+                                        You can read traditional Japanese
+                                        folktales in English, Hiragana, Kanji,
+                                        and Romaji!
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Link
+                                            to="/folktales"
+                                            style={{
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            <Button
+                                                size="lg"
+                                                color="secondary"
+                                                style={{
+                                                    width: 100,
+                                                }}
+                                            >
+                                                Try!
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </ScrollBox>
 
-                        <Link to="/hiragana-katakana">
-                            <Card body inverse color="primary">
-                                <CardTitle>Hiragana / Katakana</CardTitle>
-                                <CardText>
-                                    An app to remember Hiragana and Katakana!
-                                    Let's test your memory of Hiragana and
-                                    Katakana!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/vocabulary-quiz">
-                            <Card body inverse color="success">
-                                <CardTitle>Japanese Vocabulary Quiz</CardTitle>
-                                <CardText>
-                                    An app to learn basic Japanese vocabulary!
-                                    Try to get a perfect score on all the
-                                    quizzes!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/kanji-quiz">
-                            <Card body inverse color="danger">
-                                <CardTitle>Japanese Kanji Quiz</CardTitle>
-                                <CardText>
-                                    An app to learn Japanese Kanji characters!
-                                    Try to get a perfect score on all the
-                                    quizzes!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/vocabulary-list">
-                            <Card
-                                body
-                                style={{
-                                    backgroundColor: "#333",
-                                    borderColor: "#333",
-                                    color: "white",
-                                }}
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: isWide ? "row" : "column",
+                            }}
+                        >
+                            <Link
+                                to="/hiragana-katakana"
+                                style={{ margin: cardMargin }}
                             >
-                                <CardTitle>Japanese Vocabulary List</CardTitle>
-                                <CardText>
-                                    Basic Japanese Vocabulary List! Try to
-                                    memorize all the vocabulary by using the
-                                    quizzes!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
+                                <Card
+                                    body
+                                    style={{
+                                        backgroundColor: "#333",
+                                        borderColor: "#333",
+                                        color: "white",
+                                        height: "100%",
+                                    }}
+                                >
+                                    <CardTitle>Hiragana / Katakana</CardTitle>
+                                    <CardText>
+                                        An app to remember Hiragana and
+                                        Katakana! Let's test your memory of
+                                        Hiragana and Katakana!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
 
-                        <Link to="/kanji-converter">
-                            <Card body inverse color="primary">
-                                <CardTitle>Kanji Converter</CardTitle>
-                                <CardText>
-                                    A converter to change Kanji to Hiragana and
-                                    Romaji. Use to know how to read Kanji!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/romaji-converter">
-                            <Card body inverse color="success">
-                                <CardTitle>Romaji Converter</CardTitle>
-                                <CardText>
-                                    A converter to change Hiragana and Katakana
-                                    to Romaji. Use when you need to know Romaji!
-                                </CardText>
-                                <Button>Try!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/ninja">
-                            <Card body inverse color="danger">
-                                <CardTitle>Lingual Ninja Game</CardTitle>
-                                <CardText>
-                                    Action game! Be a Ninja, and collect the
-                                    scrolls in Japan!
-                                </CardText>
-                                <Button color="secondary">Play!</Button>
-                            </Card>
-                        </Link>
-                        <br />
-
-                        <Link to="/dictionary">
-                            <Card
-                                body
-                                style={{
-                                    backgroundColor: "#333",
-                                    borderColor: "#333",
-                                    color: "white",
-                                }}
+                            <Link
+                                to="/vocabulary-list"
+                                style={{ margin: cardMargin }}
                             >
-                                <CardTitle>Japanese Dictionary</CardTitle>
-                                <CardText>
-                                    An app to learn the meaning of Japanese
-                                    words!
-                                </CardText>
-                                <Button color="secondary">Try!</Button>
-                            </Card>
-                        </Link>
+                                <Card
+                                    body
+                                    inverse
+                                    color="primary"
+                                    style={{ height: "100%" }}
+                                >
+                                    <CardTitle>
+                                        Japanese Vocabulary List
+                                    </CardTitle>
+                                    <CardText>
+                                        Basic Japanese Vocabulary List! Try to
+                                        memorize all the vocabulary by using the
+                                        quizzes!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+
+                            <Link
+                                to="/vocabulary-quiz"
+                                style={{ margin: cardMargin }}
+                            >
+                                <Card
+                                    body
+                                    inverse
+                                    color="success"
+                                    style={{ height: "100%" }}
+                                >
+                                    <CardTitle>
+                                        Japanese Vocabulary Quiz
+                                    </CardTitle>
+                                    <CardText>
+                                        An app to learn basic Japanese
+                                        vocabulary! Try to get a perfect score
+                                        on all the quizzes!
+                                    </CardText>
+                                    <Button
+                                        style={{ marginTop: "auto" }}
+                                        color="secondary"
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+                        </div>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: isWide ? "row" : "column",
+                            }}
+                        >
+                            <Link
+                                to="/kanji-quiz"
+                                style={{ margin: cardMargin, flex: 1 }}
+                            >
+                                <Card
+                                    body
+                                    inverse
+                                    color="danger"
+                                    style={{ height: "100%" }}
+                                >
+                                    <CardTitle>Japanese Kanji Quiz</CardTitle>
+                                    <CardText>
+                                        An app to learn Japanese Kanji
+                                        characters! Try to get a perfect score
+                                        on all the quizzes!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+
+                            <Link
+                                to="/ninja"
+                                style={{ margin: cardMargin, flex: 1 }}
+                            >
+                                <Card
+                                    body
+                                    style={{
+                                        backgroundColor: "#333",
+                                        borderColor: "#333",
+                                        color: "white",
+                                        height: "100%",
+                                    }}
+                                >
+                                    <CardTitle>Lingual Ninja Game</CardTitle>
+                                    <CardText>
+                                        Action game! Be a Ninja, and collect the
+                                        scrolls in Japan!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Play!
+                                    </Button>
+                                </Card>
+                            </Link>
+                        </div>
+
+                        <CharacterComment
+                            style={{ marginTop: 20, marginBottom: 20 }}
+                            screenWidth={screenWidth}
+                            imgNumber={imgNumber - 1 || 3}
+                            comment={"Enjoy studying Japanese!"}
+                        />
+
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: isWide ? "row" : "column",
+                            }}
+                        >
+                            <Link
+                                to="/kanji-converter"
+                                style={{ margin: cardMargin, flex: 1 }}
+                            >
+                                <Card
+                                    body
+                                    inverse
+                                    color="primary"
+                                    style={{ height: "100%" }}
+                                >
+                                    <CardTitle>Kanji Converter</CardTitle>
+                                    <CardText>
+                                        A converter to change Kanji to Hiragana
+                                        and Romaji. Use to know how to read
+                                        Kanji!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+
+                            <Link
+                                to="/romaji-converter"
+                                style={{ margin: cardMargin, flex: 1 }}
+                            >
+                                <Card
+                                    body
+                                    inverse
+                                    color="success"
+                                    style={{ height: "100%" }}
+                                >
+                                    <CardTitle>Romaji Converter</CardTitle>
+                                    <CardText>
+                                        A converter to change Hiragana and
+                                        Katakana to Romaji. Use when you need to
+                                        know Romaji!
+                                    </CardText>
+                                    <Button style={{ marginTop: "auto" }}>
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+
+                            <Link
+                                to="/dictionary"
+                                style={{ margin: cardMargin, flex: 1 }}
+                            >
+                                <Card
+                                    body
+                                    style={{
+                                        backgroundColor: "#333",
+                                        borderColor: "#333",
+                                        color: "white",
+                                        height: "100%",
+                                    }}
+                                >
+                                    <CardTitle>Japanese Dictionary</CardTitle>
+                                    <CardText>
+                                        An app to learn the meaning of Japanese
+                                        words!
+                                    </CardText>
+                                    <Button
+                                        color="secondary"
+                                        style={{ marginTop: "auto" }}
+                                    >
+                                        Try!
+                                    </Button>
+                                </Card>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <br />

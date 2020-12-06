@@ -14,6 +14,7 @@ import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import { Markdown } from "./parts/Markdown";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
+import { ScrollBox } from "./parts/ScrollBox";
 
 interface StoriesTopProps {
     loadAllStories: () => void;
@@ -64,7 +65,7 @@ class StoriesTop extends React.Component<
             boxShadow: "0px 0px 0px 5px #fee8b4",
             border: "dashed 2px white",
             padding: "0.2em 0.5em",
-            marginBottom: "10px",
+            marginBottom: "40px",
         };
         return (
             <div className="center">
@@ -72,7 +73,7 @@ class StoriesTop extends React.Component<
                     title="Japanese Folktales in Romaji, Hiragana, Kanji, and English"
                     desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
-                <main style={{ maxWidth: 700 }}>
+                <main style={{ maxWidth: 900 }}>
                     <div
                         className="breadcrumbs"
                         itemScope
@@ -129,7 +130,6 @@ class StoriesTop extends React.Component<
                         You can read traditional Japanese folktales in Romaji,
                         Hiragana, Kanji, and English!
                     </p>
-                    <br />
                     {allStories && allStories.length > 0 ? null : (
                         <div className="center">
                             <ShurikenProgress key="circle" size="20%" />
@@ -159,166 +159,169 @@ class StoriesTop extends React.Component<
                                         <article
                                             key={s.storyId}
                                             style={{
-                                                padding: "10px",
-                                                marginBottom: "10px",
-                                                border: "5px double #333333",
+                                                marginBottom: 45,
                                             }}
                                         >
-                                            {screenWidth > 500 ? (
-                                                <>
-                                                    <h2
-                                                        style={{
-                                                            color: "black",
-                                                            margin:
-                                                                "0 20px 20px",
-                                                            fontWeight:
-                                                                "bolder",
-                                                        }}
-                                                        className="center"
-                                                    >
-                                                        {nameToShow}
-                                                    </h2>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td
-                                                                    style={{
-                                                                        width:
-                                                                            "50%",
-                                                                    }}
-                                                                >
-                                                                    <Link
-                                                                        to={`/folktales/${nameForUrl}`}
+                                            <ScrollBox>
+                                                {screenWidth > 500 ? (
+                                                    <>
+                                                        <h2
+                                                            style={{
+                                                                color: "black",
+                                                                margin:
+                                                                    "0 20px 20px",
+                                                                fontWeight:
+                                                                    "bolder",
+                                                            }}
+                                                            className="center"
+                                                        >
+                                                            {nameToShow}
+                                                        </h2>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td
+                                                                        style={{
+                                                                            width:
+                                                                                "50%",
+                                                                        }}
                                                                     >
-                                                                        <img
-                                                                            src={`${
-                                                                                consts.BLOB_URL
-                                                                            }/folktalesImg/${
-                                                                                nameForUrl.split(
-                                                                                    "--"
-                                                                                )[0]
-                                                                            }.png`}
-                                                                            width="90%"
-                                                                            alt={
-                                                                                nameToShow
-                                                                            }
-                                                                            title={
-                                                                                nameToShow
-                                                                            }
-                                                                            style={{
-                                                                                marginLeft:
-                                                                                    "10px",
-                                                                                marginBottom:
-                                                                                    "10px",
-                                                                            }}
-                                                                        />
-                                                                    </Link>
-                                                                </td>
-                                                                <td
-                                                                    style={{
-                                                                        textAlign:
-                                                                            "left",
-                                                                    }}
-                                                                >
-                                                                    {s.description
-                                                                        .split(
-                                                                            "\\n"
-                                                                        )
-                                                                        .map(
-                                                                            (
-                                                                                d,
-                                                                                i
-                                                                            ) => (
-                                                                                <span
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                    style={{
-                                                                                        color:
-                                                                                            "black",
-                                                                                    }}
-                                                                                >
-                                                                                    {
-                                                                                        d
-                                                                                    }
-                                                                                    <br />
-                                                                                </span>
-                                                                            )
-                                                                        )}
-                                                                    <div className="center">
-                                                                        <p
-                                                                            style={{
-                                                                                margin:
-                                                                                    "20px",
-                                                                            }}
+                                                                        <Link
+                                                                            to={`/folktales/${nameForUrl}`}
                                                                         >
-                                                                            <Link
-                                                                                to={`/folktales/${nameForUrl}`}
-                                                                            >{`Read ${nameToShow} >>`}</Link>
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <h2
-                                                        style={{
-                                                            color: "black",
-                                                            marginBottom:
-                                                                "20px",
-                                                            fontWeight:
-                                                                "bolder",
-                                                        }}
-                                                    >
-                                                        {nameToShow}
-                                                    </h2>
-                                                    <Link
-                                                        to={`/folktales/${nameForUrl}`}
-                                                    >
-                                                        <img
-                                                            src={`${
-                                                                consts.BLOB_URL
-                                                            }/folktalesImg/${
-                                                                nameForUrl.split(
-                                                                    "--"
-                                                                )[0]
-                                                            }.png`}
-                                                            width="90%"
-                                                            alt={nameToShow}
-                                                            title={nameToShow}
-                                                        />
-                                                    </Link>
-                                                    <div
-                                                        style={{
-                                                            textAlign: "left",
-                                                            margin: "10px",
-                                                        }}
-                                                    >
-                                                        {s.description
-                                                            .split("\\n")
-                                                            .map((d, i) => (
-                                                                <span
-                                                                    key={i}
-                                                                    style={{
-                                                                        color:
-                                                                            "black",
-                                                                    }}
-                                                                >
-                                                                    {d}
-                                                                    <br />
-                                                                </span>
-                                                            ))}
-                                                    </div>
-                                                    <p>
+                                                                            <img
+                                                                                src={`${
+                                                                                    consts.BLOB_URL
+                                                                                }/folktalesImg/${
+                                                                                    nameForUrl.split(
+                                                                                        "--"
+                                                                                    )[0]
+                                                                                }.png`}
+                                                                                width="90%"
+                                                                                alt={
+                                                                                    nameToShow
+                                                                                }
+                                                                                title={
+                                                                                    nameToShow
+                                                                                }
+                                                                                style={{
+                                                                                    marginLeft:
+                                                                                        "10px",
+                                                                                    marginBottom:
+                                                                                        "10px",
+                                                                                }}
+                                                                            />
+                                                                        </Link>
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            textAlign:
+                                                                                "left",
+                                                                        }}
+                                                                    >
+                                                                        {s.description
+                                                                            .split(
+                                                                                "\\n"
+                                                                            )
+                                                                            .map(
+                                                                                (
+                                                                                    d,
+                                                                                    i
+                                                                                ) => (
+                                                                                    <span
+                                                                                        key={
+                                                                                            i
+                                                                                        }
+                                                                                        style={{
+                                                                                            color:
+                                                                                                "black",
+                                                                                        }}
+                                                                                    >
+                                                                                        {
+                                                                                            d
+                                                                                        }
+                                                                                        <br />
+                                                                                    </span>
+                                                                                )
+                                                                            )}
+                                                                        <div className="center">
+                                                                            <p
+                                                                                style={{
+                                                                                    margin:
+                                                                                        "20px",
+                                                                                }}
+                                                                            >
+                                                                                <Link
+                                                                                    to={`/folktales/${nameForUrl}`}
+                                                                                >{`Read ${nameToShow} >>`}</Link>
+                                                                            </p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <h2
+                                                            style={{
+                                                                color: "black",
+                                                                marginBottom:
+                                                                    "20px",
+                                                                fontWeight:
+                                                                    "bolder",
+                                                            }}
+                                                        >
+                                                            {nameToShow}
+                                                        </h2>
                                                         <Link
                                                             to={`/folktales/${nameForUrl}`}
-                                                        >{`Read ${nameToShow} >>`}</Link>
-                                                    </p>
-                                                </>
-                                            )}
+                                                        >
+                                                            <img
+                                                                src={`${
+                                                                    consts.BLOB_URL
+                                                                }/folktalesImg/${
+                                                                    nameForUrl.split(
+                                                                        "--"
+                                                                    )[0]
+                                                                }.png`}
+                                                                width="90%"
+                                                                alt={nameToShow}
+                                                                title={
+                                                                    nameToShow
+                                                                }
+                                                            />
+                                                        </Link>
+                                                        <div
+                                                            style={{
+                                                                textAlign:
+                                                                    "left",
+                                                                margin: "10px",
+                                                            }}
+                                                        >
+                                                            {s.description
+                                                                .split("\\n")
+                                                                .map((d, i) => (
+                                                                    <span
+                                                                        key={i}
+                                                                        style={{
+                                                                            color:
+                                                                                "black",
+                                                                        }}
+                                                                    >
+                                                                        {d}
+                                                                        <br />
+                                                                    </span>
+                                                                ))}
+                                                        </div>
+                                                        <p>
+                                                            <Link
+                                                                to={`/folktales/${nameForUrl}`}
+                                                            >{`Read ${nameToShow} >>`}</Link>
+                                                        </p>
+                                                    </>
+                                                )}
+                                            </ScrollBox>
                                         </article>
                                     );
                                 })}

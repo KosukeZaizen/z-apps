@@ -1,0 +1,30 @@
+.style-scroll {
+    position: relative;
+    margin: 2em auto 2.5em;
+    padding: 1.5em;
+    border: 12px solid transparent;
+    border-left-width: 48px;
+    background: linear-gradient(#fff, #fff), linear-gradient(#a3caae, #acd1b9);
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+}
+.style-scroll:before,
+.style-scroll:after {
+    display: inline-block;
+    position: absolute;
+    content: "";
+}
+.style-scroll:before {
+    left: -36px;
+    top: -32px;
+    width: 24px;
+    height: calc(100% + 64px);
+    background: #4d4d4d;
+}
+.style-scroll:after {
+    left: -48px;
+    top: -20px;
+    width: 48px;
+    height: calc(100% + 40px);
+    background: linear-gradient(#035c1d, #047c28);
+}
