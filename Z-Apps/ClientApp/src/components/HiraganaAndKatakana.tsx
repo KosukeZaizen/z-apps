@@ -73,6 +73,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
 
     render() {
         const { screenWidth, imgNumber } = this.state;
+        const buttonWidth = screenWidth < 400 ? "80%" : undefined;
 
         return (
             <div className="kana-quiz center">
@@ -155,12 +156,21 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             Let's test your memory of Hiragana!
                         </div>
                         <Link to="/hiragana-quiz">
-                            <Button style={{ margin: 5 }} color="primary">
+                            <Button
+                                style={{ margin: 5, width: buttonWidth }}
+                                color="primary"
+                            >
                                 Hiragana Quiz
                             </Button>
                         </Link>
                         <a href="https://www.lingual-ninja.com/2018/07/hiragana-list.html">
-                            <Button style={{ margin: 5 }} color="primary">
+                            <Button
+                                style={{
+                                    margin: 5,
+                                    width: buttonWidth,
+                                }}
+                                color="primary"
+                            >
                                 Hiragana Chart
                             </Button>
                         </a>
@@ -174,12 +184,18 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             Try to get a perfect score!
                         </div>
                         <Link to="/katakana-quiz">
-                            <Button style={{ margin: 5 }} color="primary">
+                            <Button
+                                style={{ margin: 5, width: buttonWidth }}
+                                color="primary"
+                            >
                                 Katakana Quiz
                             </Button>
                         </Link>
                         <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
-                            <Button style={{ margin: 5 }} color="primary">
+                            <Button
+                                style={{ margin: 5, width: buttonWidth }}
+                                color="primary"
+                            >
                                 Katakana Chart
                             </Button>
                         </a>
