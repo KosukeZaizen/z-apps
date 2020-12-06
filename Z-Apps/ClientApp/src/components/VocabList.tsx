@@ -15,6 +15,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { vocab, vocabGenre } from "../types/vocab";
+import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
@@ -190,6 +191,7 @@ class VocabList extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         refForReturnToIndex={this.refForReturnToIndex}
                     />
+                    <Momiji frequencySec={2} screenWidth={screenWidth} />
                 </div>
             </div>
         );
