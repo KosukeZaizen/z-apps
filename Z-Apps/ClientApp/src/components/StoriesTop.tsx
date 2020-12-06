@@ -8,6 +8,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import { actionCreators } from "../store/StoriesTopStore";
 import { storyDesc } from "../types/stories";
+import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -466,6 +467,7 @@ I hope this application helps you to study Japanese!
                     criteriaRef={this.ref}
                     screenWidth={screenWidth}
                 />
+                <Momiji frequencySec={2} screenWidth={screenWidth} />
             </div>
         );
     }

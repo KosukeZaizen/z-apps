@@ -1,0 +1,29 @@
+@keyframes fall {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateX(-1000px) translateY(2000px) rotate(1000deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .japanese_leaf {
+        animation: fall 40s 1s ease-out infinite;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .japanese_leaf {
+        animation: fall 25s 1s ease-out infinite;
+    }
+}

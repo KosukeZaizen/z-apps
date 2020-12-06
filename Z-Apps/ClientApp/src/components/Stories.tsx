@@ -417,12 +417,13 @@ class Stories extends React.Component<Props, State> {
                             >
                                 <CharacterComment
                                     comment={[
-                                        <p>
+                                        <p key="commentContent">
                                             {
                                                 "If you like this story, please share!"
                                             }
                                         </p>,
                                         <FBShareBtn
+                                            key="fbShareButton"
                                             urlToShare={
                                                 "https://z-apps.lingual-ninja.com/folktales/" +
                                                 storyName
@@ -433,6 +434,7 @@ class Stories extends React.Component<Props, State> {
                                             }}
                                         />,
                                         <TwitterShareBtn
+                                            key="twitterShareButton"
                                             urlToShare={
                                                 "https://z-apps.lingual-ninja.com/folktales/" +
                                                 storyName
