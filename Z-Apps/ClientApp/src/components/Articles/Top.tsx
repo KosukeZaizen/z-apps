@@ -57,7 +57,7 @@ const ArticlesTop = () => {
 
     return (
         <div style={{ width: "100%" }} className="center">
-            <Head title={title} desc={description} />
+            <Head title={title} desc={description} noindex />
             <main style={{ maxWidth: 900, textAlign: "left" }}>
                 <div
                     className="breadcrumbs"

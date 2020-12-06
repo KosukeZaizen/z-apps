@@ -106,7 +106,7 @@ const Articles = (props: Props) => {
 
     return (
         <div style={{ width: "100%" }} className="center">
-            <Head title={title} desc={description} />
+            <Head title={title} desc={description} noindex />
             <main style={{ maxWidth: 800 }}>
                 <div
                     className="breadcrumbs"
