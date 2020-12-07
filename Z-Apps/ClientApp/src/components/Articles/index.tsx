@@ -4,6 +4,8 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
 import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
+import FB from "../parts/FaceBook";
+import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
@@ -105,10 +107,12 @@ const Articles = (props: Props) => {
         );
     }, [content]);
 
+    const isWide = width > 991;
+
     return (
         <div style={{ width: "100%" }} className="center">
-            <Head title={title} desc={description} noindex />
-            <main style={{ maxWidth: 800 }}>
+            <Head title={title} desc={description} />
+            <main style={{ maxWidth: 900 }}>
                 <div
                     className="breadcrumbs"
                     itemScope
@@ -182,13 +186,17 @@ const Articles = (props: Props) => {
                         comment={description}
                         style={{ marginBottom: 15 }}
                     />
-                    <div style={{ display: "flex" }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: isWide ? "row" : "column",
+                        }}
+                    >
                         <ScrollBox
                             style={{
                                 display: "inline-block",
-                                maxWidth: 400,
-                                float: width > 800 ? "left" : undefined,
-                                marginRight: 25,
+                                flex: 1,
+                                marginRight: isWide ? 30 : undefined,
                             }}
                         >
                             <div
@@ -213,12 +221,13 @@ const Articles = (props: Props) => {
                                 </ol>
                             </div>
                         </ScrollBox>
-                        <div></div>
+                        <GoogleAd
+                            style={{ flex: 1, backgroundColor: "gray" }}
+                        />
                     </div>
-                    <div style={{ margin: "20px 0" }}>
-                        <Markdown source={content} />
-                    </div>
+                    <Markdown source={content} style={{ margin: "25px 0" }} />
                 </article>
+                <FB />
             </main>
             <Momiji frequencySec={2} screenWidth={width} />
             {/* <GoogleAd /> */}
