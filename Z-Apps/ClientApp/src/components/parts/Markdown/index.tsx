@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import "./index.css";
@@ -15,7 +15,7 @@ const linkBlock = (props: { href: string; children: React.ReactNode }) => {
     return <Link to={href}>{children}</Link>;
 };
 
-function flatten(text: string, child: ReactElement | string): string {
+function flatten(text: string, child: any): string {
     return typeof child === "string"
         ? text + child
         : React.Children.toArray(child.props.children).reduce(flatten, text);

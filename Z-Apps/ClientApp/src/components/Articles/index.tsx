@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
+import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
@@ -181,41 +182,45 @@ const Articles = (props: Props) => {
                         comment={description}
                         style={{ marginBottom: 15 }}
                     />
-                    <ScrollBox
-                        style={{
-                            display: "inline-block",
-                            maxWidth: 400,
-                            float: width > 800 ? "left" : undefined,
-                            marginRight: 25,
-                        }}
-                    >
-                        <div
+                    <div style={{ display: "flex" }}>
+                        <ScrollBox
                             style={{
-                                fontSize: "large",
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "column",
+                                display: "inline-block",
+                                maxWidth: 400,
+                                float: width > 800 ? "left" : undefined,
+                                marginRight: 25,
                             }}
                         >
-                            <span
+                            <div
                                 style={{
-                                    fontWeight: "bold",
                                     fontSize: "large",
-                                    marginBottom: 10,
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
                                 }}
                             >
-                                Index
-                            </span>
-                            <ol style={{ display: "inline-block" }}>
-                                {indexLi}
-                            </ol>
-                        </div>
-                    </ScrollBox>
+                                <span
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "large",
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    Index
+                                </span>
+                                <ol style={{ display: "inline-block" }}>
+                                    {indexLi}
+                                </ol>
+                            </div>
+                        </ScrollBox>
+                        <div></div>
+                    </div>
                     <div style={{ margin: "20px 0" }}>
                         <Markdown source={content} />
                     </div>
                 </article>
             </main>
+            <Momiji frequencySec={2} screenWidth={width} />
             {/* <GoogleAd /> */}
         </div>
     );
