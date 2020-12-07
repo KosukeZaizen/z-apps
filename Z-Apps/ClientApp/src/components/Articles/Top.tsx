@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
+import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
@@ -131,7 +132,7 @@ const ArticlesTop = () => {
                     ))}
                 </div>
             </main>
-            {/* <GoogleAd /> */}
+            <Momiji frequencySec={2} screenWidth={width} />
         </div>
     );
 };
