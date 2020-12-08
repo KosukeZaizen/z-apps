@@ -123,7 +123,7 @@ const ArticlesTop = () => {
                 />
                 <div style={{ margin: "20px 0" }}>
                     {articles.map((page, i) => (
-                        <article key={page.title} style={{ marginTop: 45 }}>
+                        <article key={page.title} style={{ marginBottom: 45 }}>
                             <ScrollBox>
                                 <Link to={`/articles/${pageNames[i]}`}>
                                     <h2>{page.title}</h2>

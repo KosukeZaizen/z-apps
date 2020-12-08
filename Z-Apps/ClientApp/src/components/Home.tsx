@@ -355,7 +355,7 @@ interface FolktaleMenuProps {
 export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
     return (
-        <ScrollBox>
+        <ScrollBox style={{textAlign: "center"}}>
             <Link to="/folktales">
                 <h2>Japanese Folktales</h2>
             </Link>
