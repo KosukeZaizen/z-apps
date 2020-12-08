@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
+import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
 import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
@@ -135,6 +136,7 @@ const ArticlesTop = () => {
                 </div>
             </main>
             <GoogleAd style={{ backgroundColor: "gray" }} />
+            <Momiji frequencySec={2} screenWidth={width} />
         </div>
     );
 };

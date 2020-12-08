@@ -227,14 +227,16 @@ const Articles = (props: Props) => {
                             style={{ flex: 1, backgroundColor: "gray" }}
                         />
                     </div>
-                    <Markdown source={content} style={{ margin: "25px 0" }} />
+                    <Markdown
+                        source={content}
+                        style={{ margin: "25px 0 40px" }}
+                    />
                 </article>
                 <hr />
                 <FolktaleMenu screenWidth={width} />
                 <FB />
             </main>
             <Momiji frequencySec={2} screenWidth={width} />
-            {/* <GoogleAd /> */}
         </div>
     );
 };
