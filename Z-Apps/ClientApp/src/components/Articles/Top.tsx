@@ -2,7 +2,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
+import { FolktaleMenu } from "../Home";
 import CharacterComment from "../parts/CharacterComment";
+import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
 import "./style.css";
@@ -57,7 +59,7 @@ const ArticlesTop = () => {
 
     return (
         <div style={{ width: "100%" }} className="center">
-            <Head title={title} desc={description} noindex />
+            <Head title={title} desc={description} />
             <main style={{ maxWidth: 900, textAlign: "left" }}>
                 <div
                     className="breadcrumbs"
@@ -129,9 +131,10 @@ const ArticlesTop = () => {
                             </ScrollBox>
                         </article>
                     ))}
+                    <FolktaleMenu screenWidth={width} />
                 </div>
             </main>
-            {/* <GoogleAd /> */}
+            <GoogleAd style={{ backgroundColor: "gray" }} />
         </div>
     );
 };

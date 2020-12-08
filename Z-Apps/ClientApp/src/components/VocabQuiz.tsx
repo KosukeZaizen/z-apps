@@ -188,7 +188,7 @@ class VocabQuiz extends React.Component<Props, State> {
                 <Head
                     title={"Japanese Vocabulary Quiz - " + titleToShowUpper}
                     desc={
-                        "Free app to remember Japanese " +
+                        "Free web app to remember Japanese " +
                         titleToShowLower +
                         " vocabulary! Try to get a perfect score on all the quizzes!"
                     }

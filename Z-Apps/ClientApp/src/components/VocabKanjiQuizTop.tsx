@@ -91,7 +91,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                 <Head
                     title="Japanese Kanji Quiz"
                     desc={
-                        "Free app to learn Japanese Kanji! Try to get a perfect score on all the quizzes!"
+                        "Free web app to learn Japanese Kanji! Try to get a perfect score on all the quizzes!"
                     }
                 />
                 <div style={{ maxWidth: 700 }}>
@@ -152,7 +152,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         comment={
                             <p>
-                                Free app to learn Japanese Kanji!
+                                Free web app to learn Japanese Kanji!
                                 <br />
                                 Try to get a perfect score on all the quizzes!
                             </p>
@@ -181,7 +181,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                         >
                             <CardTitle>Japanese Vocabulary Quiz</CardTitle>
                             <p>
-                                Free app to learn Japanese vocabulary!
+                                Free web app to learn Japanese vocabulary!
                                 <br />
                                 Try to get a perfect score on all the quizzes!
                             </p>

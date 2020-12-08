@@ -89,80 +89,17 @@ export default class Home extends React.Component<
                         imgNumber={imgNumber}
                         comment={
                             <span>
-                                Free app to learn Japanese,
-                                {screenWidth < 800 ? <br /> : " "}
+                                Free web app to learn Japanese,
+                                <br />
                                 made by{" "}
                                 <Link to="/developer">Kosuke Zaizen</Link>.
                                 <br />I hope you enjoy!
                             </span>
                         }
-                        style={isWide ? {} : { marginBottom: 40 }}
+                        style={isWide ? {} : { margin: "auto auto 40px auto" }}
                     />
                     <div ref={this.ref} id="scrollTargetId">
-                        <ScrollBox>
-                            <Link to="/folktales">
-                                <h2>Japanese Folktales</h2>
-                            </Link>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: isWide ? "row" : "column",
-                                }}
-                            >
-                                <div>
-                                    <Link to="/folktales">
-                                        <img
-                                            style={{ width: "100%" }}
-                                            src={
-                                                "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png"
-                                            }
-                                            alt="Japanese Folktale Momotaro"
-                                        />
-                                    </Link>
-                                </div>
-                                <div>
-                                    <div
-                                        style={{
-                                            fontSize: "large",
-                                            textAlign: "left",
-                                            padding: isWide
-                                                ? 25
-                                                : "10px 10px 20px",
-                                        }}
-                                    >
-                                        An app to learn Japanese from folktales.
-                                        You can read traditional Japanese
-                                        folktales in English, Hiragana, Kanji,
-                                        and Romaji!
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Link
-                                            to="/folktales"
-                                            style={{
-                                                fontWeight: "bold",
-                                            }}
-                                        >
-                                            <Button
-                                                size="lg"
-                                                color="secondary"
-                                                style={{
-                                                    width: 100,
-                                                }}
-                                            >
-                                                Try!
-                                            </Button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </ScrollBox>
-
+                        <FolktaleMenu screenWidth={screenWidth} />
                         <div
                             style={{
                                 display: "flex",
@@ -184,7 +121,7 @@ export default class Home extends React.Component<
                                 >
                                     <CardTitle>Hiragana / Katakana</CardTitle>
                                     <CardText>
-                                        An app to remember Hiragana and
+                                        A web app to remember Hiragana and
                                         Katakana! Let's test your memory of
                                         Hiragana and Katakana!
                                     </CardText>
@@ -238,7 +175,7 @@ export default class Home extends React.Component<
                                         Japanese Vocabulary Quiz
                                     </CardTitle>
                                     <CardText>
-                                        An app to learn basic Japanese
+                                        A web app to learn basic Japanese
                                         vocabulary! Try to get a perfect score
                                         on all the quizzes!
                                     </CardText>
@@ -270,7 +207,7 @@ export default class Home extends React.Component<
                                 >
                                     <CardTitle>Japanese Kanji Quiz</CardTitle>
                                     <CardText>
-                                        An app to learn Japanese Kanji
+                                        A web app to learn Japanese Kanji
                                         characters! Try to get a perfect score
                                         on all the quizzes!
                                     </CardText>
@@ -386,8 +323,8 @@ export default class Home extends React.Component<
                                 >
                                     <CardTitle>Japanese Dictionary</CardTitle>
                                     <CardText>
-                                        An app to learn the meaning of Japanese
-                                        words!
+                                        A web app to learn the meaning of
+                                        Japanese words!
                                     </CardText>
                                     <Button
                                         color="secondary"
@@ -411,3 +348,72 @@ export default class Home extends React.Component<
         );
     }
 }
+
+interface FolktaleMenuProps {
+    screenWidth: number;
+}
+export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
+    const isWide = screenWidth > 991;
+    return (
+        <ScrollBox>
+            <Link to="/folktales">
+                <h2>Japanese Folktales</h2>
+            </Link>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: isWide ? "row" : "column",
+                }}
+            >
+                <div>
+                    <Link to="/folktales">
+                        <img
+                            style={{ width: "100%" }}
+                            src={
+                                "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png"
+                            }
+                            alt="Japanese Folktale Momotaro"
+                        />
+                    </Link>
+                </div>
+                <div>
+                    <div
+                        style={{
+                            fontSize: "large",
+                            textAlign: "left",
+                            padding: isWide ? 25 : "10px 10px 20px",
+                        }}
+                    >
+                        A web app to learn Japanese from folktales. You can read
+                        traditional Japanese folktales in English, Hiragana,
+                        Kanji, and Romaji!
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Link
+                            to="/folktales"
+                            style={{
+                                fontWeight: "bold",
+                            }}
+                        >
+                            <Button
+                                size="lg"
+                                color="secondary"
+                                style={{
+                                    width: 100,
+                                }}
+                            >
+                                Try!
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </ScrollBox>
+    );
+};

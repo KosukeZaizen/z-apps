@@ -244,7 +244,7 @@ class KatakanaQuiz extends React.Component {
             <div className="kana-quiz center">
                 <Head
                     title="Katakana Quiz"
-                    desc="An app to remember Katakana! I hope this will help you to study!"
+                    desc="A web app to remember Katakana! I hope this will help you to study!"
                 />
                 <div
                     className="breadcrumbs"

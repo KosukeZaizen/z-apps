@@ -187,7 +187,7 @@ class VocabQuiz extends React.Component<Props, State> {
                 <Head
                     title={"Japanese Kanji Quiz - " + titleToShowUpper}
                     desc={
-                        "Free app to remember Kanji for " +
+                        "Free web app to remember Kanji for " +
                         titleToShowLower +
                         "! Try to get a perfect score on all the quizzes!"
                     }

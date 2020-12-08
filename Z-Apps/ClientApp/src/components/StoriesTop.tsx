@@ -72,7 +72,7 @@ class StoriesTop extends React.Component<
             <div className="center">
                 <Head
                     title="Japanese Folktales in Romaji, Hiragana, Kanji, and English"
-                    desc="Free application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
+                    desc="Free web application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
                 <main style={{ maxWidth: 900 }}>
                     <div
@@ -126,7 +126,7 @@ class StoriesTop extends React.Component<
                         Japanese Folktales
                     </h1>
                     <p style={styleForAboutTitle}>
-                        Free app to learn Japanese from folktales!
+                        Free web app to learn Japanese from folktales!
                         <br />
                         You can read traditional Japanese folktales in Romaji,
                         Hiragana, Kanji, and English!

@@ -80,7 +80,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
             <div className="kana-quiz center">
                 <Head
                     title="Hiragana / Katakana Quiz"
-                    desc="Free app to remember Japanese Hiragana and Katakana characters! Try to get a perfect score on all the quizzes!"
+                    desc="Free web app to remember Japanese Hiragana and Katakana characters! Try to get a perfect score on all the quizzes!"
                 />
                 <div style={{ maxWidth: "700px" }}>
                     <div
@@ -140,7 +140,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                         screenWidth={screenWidth}
                         comment={
                             <p>
-                                Free app to remember Japanese Hiragana and
+                                Free web app to remember Japanese Hiragana and
                                 Katakana characters!
                                 <br />
                                 Try to get a perfect score on all the quizzes!

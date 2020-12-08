@@ -7,9 +7,10 @@ type TProps = {
     screenWidth: number;
     comment: string | React.ReactNode;
     style?: React.CSSProperties;
+    commentStyle?: React.CSSProperties;
 };
 export default function CharacterComment(props: TProps) {
-    const { imgNumber, screenWidth, comment, style } = props;
+    const { imgNumber, screenWidth, comment, style, commentStyle } = props;
     return (
         <div
             style={{
@@ -45,6 +46,7 @@ export default function CharacterComment(props: TProps) {
                     style={{
                         width: (screenWidth * 7) / 10 - 15,
                         maxWidth: 420,
+                        ...commentStyle,
                     }}
                 >
                     {comment}

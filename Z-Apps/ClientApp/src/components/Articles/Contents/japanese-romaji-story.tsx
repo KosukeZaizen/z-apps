@@ -1,24 +1,41 @@
 import { Page } from "..";
 
 const page: Page = {
-    title: "Read Japanese romaji story to study Japanese",
-    description: "This is a description",
+    title: "Read Japanese Romaji story to study Japanese",
+    description:
+        "Reading Romaji story is a good way to study Japanese at first. In this article, I will introduce you a way to study Japanese by reading Romaji stories.",
     content: `
-## test is hereaaa aaaa aaaaaaaa aaaaaaaaa aaaaaa aaaa aaaa aaa aaa aaa
-This is a test.
-Just a test.
+## Why reading Japanese Romaji story is good to study Japanese?
 
-### t1
+Studying English is much simpler than studying Japanese.
+One Reason is that Japanese has three types of characters
+ even though English has only alphabets.
+Especially, Kanji is so hard to remember
+ because there are so many Kanji characters in Japanese.
 
-hello
+If you are a beginner of studying Japanese, Kanji will annoy you so much.
+When you try to read a Japanese book, it would include a lot of Kanji.
+You can not read a natural Japanese document without knowing Kanji.
 
-### t2
-bye
-bye
+For many Japanese learners,
+ remembering Hiragana is a first step to study Japanese.
+But if you are completely new to Japanese,
+ perhaps you can not read Hiragana.
 
-## test2
-Those are tests.
-Good luck!
+In that case,
+ reading Japanese Romaji stories is a good way to get used to Japanese language
+ while you enjoy the stories.
+The most important thing to study new languages is "continue long time".
+To do that, you should enjoy studying.
+If the way to study is so hard, maybe it would be difficult to continue.
+
+## How to read Japanese Romaji stories
+
+One good way is using this website to read Japanese folktales in Romaji and English:
+[Japanese Folktales >>](/folktales)
+
+
+
 `,
 };
 

@@ -254,7 +254,7 @@ class HiraganaQuiz extends React.Component {
             <div className="kana-quiz center">
                 <Head
                     title="Hiragana Quiz"
-                    desc="An app to remember Hiragana! I hope this will help you to study!"
+                    desc="A web app to remember Hiragana! I hope this will help you to study!"
                 />
                 <div
                     className="breadcrumbs"

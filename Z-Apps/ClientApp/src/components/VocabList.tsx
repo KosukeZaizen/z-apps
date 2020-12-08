@@ -98,7 +98,7 @@ class VocabList extends React.Component<Props, State> {
                 <Head
                     title="Japanese Vocabulary List"
                     desc={
-                        "Free app to learn Japanese vocabulary! Try to memorize all the vocabulary using the quizzes!"
+                        "Free web app to learn Japanese vocabulary! Try to memorize all the vocabulary using the quizzes!"
                     }
                 />
                 <div style={{ maxWidth: 700 }}>
@@ -159,7 +159,7 @@ class VocabList extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         comment={
                             <p>
-                                Free app to learn Japanese vocabulary!
+                                Free web app to learn Japanese vocabulary!
                                 <br />
                                 Try to get a perfect score on all the quizzes!
                             </p>

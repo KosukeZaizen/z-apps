@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
+import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
@@ -185,6 +186,7 @@ const Articles = (props: Props) => {
                         screenWidth={width}
                         comment={description}
                         style={{ marginBottom: 15 }}
+                        commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
                     />
                     <div
                         style={{
@@ -227,6 +229,8 @@ const Articles = (props: Props) => {
                     </div>
                     <Markdown source={content} style={{ margin: "25px 0" }} />
                 </article>
+                <hr />
+                <FolktaleMenu screenWidth={width} />
                 <FB />
             </main>
             <Momiji frequencySec={2} screenWidth={width} />
