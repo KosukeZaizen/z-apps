@@ -226,9 +226,7 @@ const Articles = (props: Props) => {
                                 </ol>
                             </div>
                         </ScrollBox>
-                        <GoogleAd
-                            style={{ flex: 1, backgroundColor: "gray" }}
-                        />
+                        <GoogleAd style={{ flex: 1 }} />
                     </div>
                     <Markdown
                         source={content}

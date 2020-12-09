@@ -1,6 +1,12 @@
 import * as React from "react";
+import { CSSProperties } from "react";
 
-export default function FB() {
+interface Props {
+    style?: CSSProperties;
+}
+export default function FB(props: Props) {
+    const { style } = props;
+
     const innerWidth = window.innerWidth;
     let width: number;
     if (innerWidth > 350) {
@@ -11,7 +17,7 @@ export default function FB() {
     const height = 200;
 
     return (
-        <div className="center">
+        <div className="center" style={style}>
             <iframe
                 title="fb"
                 src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLingualNinja%2F&width=${width}&height=${height}&small_header=false&tabs=timeline$adapt_container_width=false&hide_cover=false&show_facepile=true&appId`}

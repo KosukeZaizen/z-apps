@@ -5,6 +5,7 @@ import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
 import CharacterComment from "../parts/CharacterComment";
+import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
@@ -134,8 +135,9 @@ const ArticlesTop = () => {
                     ))}
                     <FolktaleMenu screenWidth={width} />
                 </div>
+                <GoogleAd />
+                <FB style={{ marginTop: 20 }} />
             </main>
-            <GoogleAd style={{ backgroundColor: "gray" }} />
             <Momiji frequencySec={2} screenWidth={width} />
         </div>
     );

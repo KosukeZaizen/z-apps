@@ -337,7 +337,13 @@ export default class Home extends React.Component<
                         </div>
                     </div>
                 </div>
-                <br />
+                <hr />
+                <div
+                    className="center"
+                    style={{ fontSize: "x-large", marginBottom: 25 }}
+                >
+                    <Link to="/articles">{"Lingual Ninja Articles >>"}</Link>
+                </div>
                 <FB />
                 <PleaseScrollDown
                     criteriaRef={this.ref}
@@ -355,7 +361,7 @@ interface FolktaleMenuProps {
 export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
     return (
-        <ScrollBox style={{textAlign: "center"}}>
+        <ScrollBox style={{ textAlign: "center" }}>
             <Link to="/folktales">
                 <h2>Japanese Folktales</h2>
             </Link>
