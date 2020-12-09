@@ -12,7 +12,7 @@ import "./style.css";
 
 export const pageNames = [
     "japanese-romaji-story",
-    "japanese-folktales-in-japanese",
+    //"japanese-folktales-in-japanese",
 ];
 
 const imgNumber = getImgNumber();
@@ -56,7 +56,7 @@ const ArticlesTop = () => {
 
     const title = "Lingual Ninja Articles";
     const description =
-        "Articles about studying Japan and Japanese culture! I hope these articles helps you to study Japanese!";
+        "Articles about studying Japanese language and culture! I hope these articles helps you to learn about Japan!";
 
     return (
         <div style={{ width: "100%" }} className="center">
