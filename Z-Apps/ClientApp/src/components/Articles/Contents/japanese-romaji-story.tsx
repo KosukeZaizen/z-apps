@@ -25,7 +25,7 @@ But if you are completely new to Japanese,
 In that case,
  reading Japanese Romaji stories is a good way to get used to Japanese language
  while you enjoy the stories.
-The most important thing to study new languages is "continue long time".
+The most important thing to study new languages is "continuing long time".
 To do that, you should enjoy studying.
 If the way to study is so hard, maybe it would be difficult to continue.
 

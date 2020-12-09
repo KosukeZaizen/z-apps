@@ -98,7 +98,10 @@ const Articles = (props: Props) => {
                     return (
                         <li key={linkText}>
                             <AnchorLink
-                                href={"#" + linkText.split(" ").join("-")}
+                                href={
+                                    "#" +
+                                    linkText.split(" ").join("-").toLowerCase()
+                                }
                             >
                                 {linkText}
                             </AnchorLink>

@@ -35,7 +35,7 @@ interface MarkdownProps {
 export function Markdown(props: MarkdownProps) {
     const { source, style } = props;
     return (
-        <div style={style}>
+        <div style={style} className="markdownArea">
             <ReactMarkdown
                 source={source}
                 renderers={{

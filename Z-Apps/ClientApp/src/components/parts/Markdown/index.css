@@ -1,4 +1,8 @@
-em {
+.markdownArea em {
     background-color: #ffff66;
     font-style: normal;
+}
+
+.markdownArea h2 {
+    margin-top: 25px;
 }
