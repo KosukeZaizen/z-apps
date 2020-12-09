@@ -56,7 +56,7 @@ const ArticlesTop = () => {
 
     const title = "Lingual Ninja Articles";
     const description =
-        "Articles about studying Japanese language and culture! I hope these articles helps you to learn about Japan!";
+        "Articles about studying Japanese language and culture! I hope these articles help you to learn about Japan!";
 
     return (
         <div style={{ width: "100%" }} className="center">
