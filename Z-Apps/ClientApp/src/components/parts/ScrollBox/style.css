@@ -19,12 +19,12 @@
     top: -32px;
     width: 24px;
     height: calc(100% + 64px);
-    background: #4d4d4d;
+    background: linear-gradient(to right, #706f6f, #3b3b3b);
 }
 .style-scroll:after {
     left: -48px;
     top: -20px;
     width: 48px;
     height: calc(100% + 40px);
-    background: linear-gradient(#035c1d, #047c28);
+    background: linear-gradient(to right, #079732, #046621);
 }
