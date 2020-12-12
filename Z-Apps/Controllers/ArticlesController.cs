@@ -24,7 +24,7 @@ namespace Z_Apps.Controllers
             var result = con.ExecuteSelect(@"
 SELECT title, description, articleContent
 FROM tblArticles
-WHERE url = @p
+WHERE url = @p and released = 1
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
             ).FirstOrDefault();
 
@@ -46,6 +46,45 @@ WHERE url = @p
         {
             var con = new DBCon();
             var result = con.ExecuteSelect("SELECT url, title, description FROM tblArticles WHERE released = 1", null);
+
+            return result.Select(r => new Article()
+            {
+                url = (string)r["url"],
+                title = (string)r["title"],
+                description = (string)r["description"],
+            }
+            );
+        }
+
+        [HttpGet("[action]/")]
+        public Article GetArticleForEdit(string p)
+        {
+            var con = new DBCon();
+            var result = con.ExecuteSelect(@"
+SELECT title, description, articleContent
+FROM tblArticles
+WHERE url = @p
+", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
+            ).FirstOrDefault();
+
+            if (result != null)
+            {
+                return new Article()
+                {
+                    title = (string)result["title"],
+                    description = (string)result["description"],
+                    articleContent = (string)result["articleContent"],
+                };
+            }
+
+            return null;
+        }
+
+        [HttpGet("[action]/")]
+        public IEnumerable<Article> GetAllArticlesForEdit()
+        {
+            var con = new DBCon();
+            var result = con.ExecuteSelect("SELECT url, title, description FROM tblArticles", null);
 
             return result.Select(r => new Article()
             {

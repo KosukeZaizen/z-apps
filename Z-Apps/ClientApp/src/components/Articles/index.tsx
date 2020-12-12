@@ -121,6 +121,34 @@ const Articles = (props: Props) => {
         );
     }, [content]);
 
+    return (
+        <ArticleContent
+            title={title}
+            description={description}
+            imgNumber={imgNumber}
+            width={width}
+            indexLi={indexLi}
+            content={content}
+        />
+    );
+};
+
+interface ArticleContentProps {
+    title: string;
+    description: string;
+    imgNumber: number;
+    width: number;
+    indexLi: JSX.Element[];
+    content: string;
+}
+export function ArticleContent({
+    title,
+    description,
+    imgNumber,
+    width,
+    indexLi,
+    content,
+}: ArticleContentProps) {
     const isWide = width > 991;
 
     return (
@@ -263,5 +291,6 @@ const Articles = (props: Props) => {
             <Momiji frequencySec={2} screenWidth={width} />
         </div>
     );
-};
+}
+
 export default Articles;

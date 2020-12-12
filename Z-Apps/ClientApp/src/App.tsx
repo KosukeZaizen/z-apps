@@ -39,6 +39,8 @@ const Dictionary = lazy(() => import("./components/Dictionary"));
 const DictionaryTop = lazy(() => import("./components/DictionaryTop"));
 const Articles = lazy(() => import("./components/Articles"));
 const ArticlesTop = lazy(() => import("./components/Articles/Top"));
+const ArticlesEditTop = lazy(() => import("./components/Articles/EditTop"));
+const ArticlesEdit = lazy(() => import("./components/Articles/Edit"));
 const SiteMapEdit = lazy(() => import("./components/SiteMapEdit"));
 const OpeLogTable = lazy(() => import("./components/OpeLogTable"));
 const ColorPalette = lazy(() => import("./components/ColorPalette"));
@@ -182,6 +184,18 @@ export default class App extends React.Component {
                             exact
                             path="/articles/:pageName"
                             component={Articles}
+                        />
+                        <Route
+                            sensitive
+                            exact
+                            path="/articlesEdit"
+                            component={ArticlesEditTop}
+                        />
+                        <Route
+                            sensitive
+                            exact
+                            path="/articlesEdit/:pageName"
+                            component={ArticlesEdit}
                         />
                         <Route
                             sensitive
