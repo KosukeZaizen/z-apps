@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { Button } from "reactstrap";
 import { ArticleContent } from ".";
+import Head from "../parts/Helmet";
 import "./style.css";
 
 export interface Page {
@@ -37,6 +39,7 @@ const Articles = (props: Props) => {
     const [content, setContent] = useState<Page["articleContent"]>("");
     const [indexLi, setIndexLi] = useState<JSX.Element[]>([]);
     const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
     const [imgNumber, setImgNumber] = useState(getImgNumber(pageName.length));
 
     useEffect(() => {
@@ -65,6 +68,9 @@ const Articles = (props: Props) => {
         const onChangeScreenSize = () => {
             if (width !== window.innerWidth) {
                 setWidth(window.innerWidth);
+            }
+            if (height !== window.innerHeight) {
+                setWidth(window.innerHeight);
             }
         };
 
@@ -113,33 +119,82 @@ const Articles = (props: Props) => {
     }, [content]);
 
     return (
-        <div style={{ width: "100%", display: "flex" }}>
+        <div>
             <div
-                style={{
-                    flex: 1,
-                    padding: 30,
-                }}
+                style={{ width: "100%", height: height - 130, display: "flex" }}
             >
-                <ArticleContent
-                    title={title}
-                    description={description}
-                    imgNumber={imgNumber}
-                    width={width / 3}
-                    indexLi={indexLi}
-                    content={content}
-                />
+                <Head title={title} desc={description} noindex />
+                <div
+                    style={{
+                        flex: 1,
+                        padding: 30,
+                        height: height - 130,
+                        overflowY: "scroll",
+                        marginRight: 15,
+                    }}
+                >
+                    <ArticleContent
+                        title={title}
+                        description={description}
+                        imgNumber={imgNumber}
+                        width={width / 3}
+                        indexLi={indexLi}
+                        content={content}
+                        adsense={false}
+                    />
+                </div>
+                <div
+                    style={{
+                        flex: 2,
+                        width: "100%",
+                    }}
+                >
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        style={{ width: "100%" }}
+                    />
+                    <textarea
+                        style={{ width: "100%", height: 100 }}
+                        defaultValue={description}
+                        onChange={e => setDescription(e.target.value)}
+                    />
+                    <textarea
+                        style={{
+                            width: "100%",
+                            height: height - 260,
+                            padding: 10,
+                        }}
+                        defaultValue={content}
+                        onChange={e => setContent(e.target.value)}
+                    />
+                </div>
             </div>
-            <div
-                style={{
-                    flex: 2,
-                    width: "100%",
-                }}
-            >
-                <textarea
-                    style={{ width: "100%", height: "100%" }}
-                    defaultValue={content}
-                    onChange={e => setContent(e.target.value)}
-                />
+            <div style={{ width: "100%", textAlign: "center" }}>
+                <Button
+                    color="primary"
+                    style={{ margin: 15 }}
+                    onClick={() => {}}
+                >
+                    Save
+                </Button>
+                <Button
+                    color="primary"
+                    style={{ margin: 15 }}
+                    onClick={() => {}}
+                >
+                    Register
+                </Button>
+                <Button
+                    color="primary"
+                    style={{ margin: 15 }}
+                    onClick={() => {
+                        history.push("/articlesEdit");
+                    }}
+                >
+                    Go to Edit Top
+                </Button>
             </div>
         </div>
     );

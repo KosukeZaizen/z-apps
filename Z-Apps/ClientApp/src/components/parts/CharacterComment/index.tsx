@@ -20,7 +20,7 @@ export default function CharacterComment(props: TProps) {
                 ...style,
             }}
         >
-            <div>
+            <div style={{ flex: 1 }}>
                 <img
                     src={`${consts.BLOB_URL}/vocabulary-quiz/img/ninja${imgNumber}.png`}
                     alt="Japanese ninja"
@@ -39,12 +39,16 @@ export default function CharacterComment(props: TProps) {
                     height: "auto",
                     display: "flex",
                     alignItems: "center",
+                    flex: 3,
                 }}
             >
                 <div
                     className="says"
                     style={{
-                        width: (screenWidth * 7) / 10 - 15,
+                        width:
+                            screenWidth > 767
+                                ? (screenWidth * 7) / 10 - 15
+                                : "100%",
                         maxWidth: 420,
                         ...commentStyle,
                     }}

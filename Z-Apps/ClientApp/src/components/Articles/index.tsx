@@ -122,14 +122,19 @@ const Articles = (props: Props) => {
     }, [content]);
 
     return (
-        <ArticleContent
-            title={title}
-            description={description}
-            imgNumber={imgNumber}
-            width={width}
-            indexLi={indexLi}
-            content={content}
-        />
+        <div style={{ width: "100%" }} className="center">
+            <Head title={title} desc={description} />
+            <ArticleContent
+                title={title}
+                description={description}
+                imgNumber={imgNumber}
+                width={width}
+                indexLi={indexLi}
+                content={content}
+                adsense={true}
+            />
+            <Momiji frequencySec={2} screenWidth={width} />
+        </div>
     );
 };
 
@@ -140,6 +145,7 @@ interface ArticleContentProps {
     width: number;
     indexLi: JSX.Element[];
     content: string;
+    adsense: boolean;
 }
 export function ArticleContent({
     title,
@@ -148,148 +154,151 @@ export function ArticleContent({
     width,
     indexLi,
     content,
+    adsense,
 }: ArticleContentProps) {
     const isWide = width > 991;
 
     return (
-        <div style={{ width: "100%" }} className="center">
-            <Head title={title} desc={description} />
-            <main style={{ maxWidth: 900 }}>
-                <div
-                    className="breadcrumbs"
+        <main style={{ maxWidth: 900 }}>
+            <div
+                className="breadcrumbs"
+                itemScope
+                itemType="https://schema.org/BreadcrumbList"
+                style={{ textAlign: "left" }}
+            >
+                <span
+                    itemProp="itemListElement"
                     itemScope
-                    itemType="https://schema.org/BreadcrumbList"
-                    style={{ textAlign: "left" }}
+                    itemType="http://schema.org/ListItem"
                 >
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <Link
-                            to="/"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">{"Home"}</span>
-                        </Link>
-                        <meta itemProp="position" content="1" />
-                    </span>
-                    {" > "}
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <Link
-                            to="/articles"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">{"Articles"}</span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
-                    </span>
-                    {" > "}
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <span
-                            itemProp="name"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            {title}
-                        </span>
-                        <meta itemProp="position" content="3" />
-                    </span>
-                </div>
-                <article style={{ textAlign: "left" }}>
-                    {title ? (
-                        <h1
-                            style={{
-                                margin: "25px 0 30px",
-                            }}
-                        >
-                            {title}
-                        </h1>
-                    ) : (
-                        <ShurikenProgress size="10%" />
-                    )}
-
-                    <CharacterComment
-                        imgNumber={imgNumber}
-                        screenWidth={width}
-                        comment={description || <ShurikenProgress size="20%" />}
-                        style={{ marginBottom: 15 }}
-                        commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
-                    />
-                    <div
+                    <Link
+                        to="/"
+                        itemProp="item"
                         style={{
-                            display: "flex",
-                            flexDirection: isWide ? "row" : "column",
+                            marginRight: "5px",
+                            marginLeft: "5px",
                         }}
                     >
-                        <ScrollBox
+                        <span itemProp="name">{"Home"}</span>
+                    </Link>
+                    <meta itemProp="position" content="1" />
+                </span>
+                {" > "}
+                <span
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ListItem"
+                >
+                    <Link
+                        to="/articles"
+                        itemProp="item"
+                        style={{
+                            marginRight: "5px",
+                            marginLeft: "5px",
+                        }}
+                    >
+                        <span itemProp="name">{"Articles"}</span>
+                        <meta itemProp="position" content="2" />
+                    </Link>
+                </span>
+                {" > "}
+                <span
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ListItem"
+                >
+                    <span
+                        itemProp="name"
+                        style={{
+                            marginRight: "5px",
+                            marginLeft: "5px",
+                        }}
+                    >
+                        {title}
+                    </span>
+                    <meta itemProp="position" content="3" />
+                </span>
+            </div>
+            <article style={{ textAlign: "left" }}>
+                {title ? (
+                    <h1
+                        style={{
+                            margin: "25px 0 30px",
+                        }}
+                    >
+                        {title}
+                    </h1>
+                ) : (
+                    <ShurikenProgress size="10%" />
+                )}
+
+                <CharacterComment
+                    imgNumber={imgNumber}
+                    screenWidth={width}
+                    comment={description || <ShurikenProgress size="20%" />}
+                    style={{ marginBottom: 15 }}
+                    commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
+                />
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: isWide ? "row" : "column",
+                    }}
+                >
+                    <ScrollBox
+                        style={{
+                            display: "inline-block",
+                            flex: 1,
+                            marginRight: isWide ? 30 : undefined,
+                        }}
+                    >
+                        <div
                             style={{
-                                display: "inline-block",
-                                flex: 1,
-                                marginRight: isWide ? 30 : undefined,
+                                fontSize: "large",
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
                             }}
                         >
-                            <div
+                            <span
                                 style={{
+                                    fontWeight: "bold",
                                     fontSize: "large",
-                                    width: "100%",
-                                    display: "flex",
-                                    flexDirection: "column",
+                                    marginBottom: 10,
                                 }}
                             >
-                                <span
-                                    style={{
-                                        fontWeight: "bold",
-                                        fontSize: "large",
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Index
-                                </span>
-                                {indexLi && indexLi.length > 0 ? (
-                                    <ol style={{ display: "inline-block" }}>
-                                        {indexLi}
-                                    </ol>
-                                ) : (
-                                    <ShurikenProgress size="20%" />
-                                )}
-                            </div>
-                        </ScrollBox>
+                                Index
+                            </span>
+                            {indexLi && indexLi.length > 0 ? (
+                                <ol style={{ display: "inline-block" }}>
+                                    {indexLi}
+                                </ol>
+                            ) : (
+                                <ShurikenProgress size="20%" />
+                            )}
+                        </div>
+                    </ScrollBox>
+                    {adsense ? (
                         <GoogleAd style={{ flex: 1 }} />
-                    </div>
-                    {content ? (
-                        <Markdown
-                            source={content}
-                            style={{ margin: "25px 0 40px" }}
-                        />
                     ) : (
-                        <ShurikenProgress size="20%" />
+                        <aside
+                            style={{ flex: 1, backgroundColor: "gray" }}
+                        ></aside>
                     )}
-                </article>
-                <hr />
-                <FolktaleMenu screenWidth={width} />
-                <FB />
-            </main>
-            <Momiji frequencySec={2} screenWidth={width} />
-        </div>
+                </div>
+                {content ? (
+                    <Markdown
+                        source={content}
+                        style={{ margin: "25px 0 40px" }}
+                    />
+                ) : (
+                    <ShurikenProgress size="20%" />
+                )}
+            </article>
+            <hr />
+            <FolktaleMenu screenWidth={width} />
+            <FB />
+        </main>
     );
 }
 
