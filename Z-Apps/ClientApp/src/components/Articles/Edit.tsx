@@ -41,6 +41,7 @@ const Articles = (props: Props) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const [imgNumber, setImgNumber] = useState(getImgNumber(pageName.length));
+    const [token, setToken] = useState("");
 
     useEffect(() => {
         const getArticle = async () => {
@@ -91,6 +92,10 @@ const Articles = (props: Props) => {
         }
 
         setImgNumber(getImgNumber(pageName.length));
+
+        const saveData = localStorage.getItem("folktales-register-token");
+        const objSaveData = saveData && JSON.parse(saveData);
+        setToken(objSaveData?.token || "");
     }, [pageName]);
 
     useEffect(() => {
@@ -132,6 +137,7 @@ const Articles = (props: Props) => {
                         overflowY: "scroll",
                         marginRight: 15,
                     }}
+                    className="center"
                 >
                     <ArticleContent
                         title={title}
@@ -147,6 +153,7 @@ const Articles = (props: Props) => {
                     style={{
                         flex: 2,
                         width: "100%",
+                        overflowY: "scroll",
                     }}
                 >
                     <input
@@ -156,14 +163,14 @@ const Articles = (props: Props) => {
                         style={{ width: "100%" }}
                     />
                     <textarea
-                        style={{ width: "100%", height: 100 }}
+                        style={{ width: "100%", height: 90 }}
                         defaultValue={description}
                         onChange={e => setDescription(e.target.value)}
                     />
                     <textarea
                         style={{
                             width: "100%",
-                            height: height - 260,
+                            height: height - 270,
                             padding: 10,
                         }}
                         defaultValue={content}
@@ -171,20 +178,120 @@ const Articles = (props: Props) => {
                     />
                 </div>
             </div>
+            <input
+                type="text"
+                style={{ width: "100%" }}
+                onChange={e => setToken(e.target.value)}
+                defaultValue={token}
+            />
             <div style={{ width: "100%", textAlign: "center" }}>
                 <Button
                     color="primary"
                     style={{ margin: 15 }}
-                    onClick={() => {}}
+                    onClick={() => {
+                        const confirmationResult = window.confirm(
+                            "Do you really want to save?"
+                        );
+                        if (!confirmationResult) {
+                            return;
+                        }
+
+                        localStorage.setItem(
+                            "folktales-register-token",
+                            JSON.stringify({ token })
+                        );
+
+                        const formData = new FormData();
+                        formData.append("url", pageName);
+                        formData.append("title", title);
+                        formData.append("description", description);
+                        formData.append("articleContent", content);
+                        formData.append("token", token);
+
+                        fetch("/api/Articles/UpdateContents", {
+                            method: "POST",
+                            body: formData,
+                        })
+                            .then(async response => {
+                                const result: string = await response.text();
+                                alert(result);
+                            })
+                            .catch(() => {
+                                alert("Failed to save...");
+                            });
+                    }}
                 >
                     Save
                 </Button>
                 <Button
                     color="primary"
                     style={{ margin: 15 }}
-                    onClick={() => {}}
+                    onClick={() => {
+                        const confirmationResult = window.confirm(
+                            "Do you really want to register?"
+                        );
+                        if (!confirmationResult) {
+                            return;
+                        }
+
+                        localStorage.setItem(
+                            "folktales-register-token",
+                            JSON.stringify({ token })
+                        );
+
+                        const formData = new FormData();
+                        formData.append("url", pageName);
+                        formData.append("token", token);
+
+                        fetch("/api/Articles/Register", {
+                            method: "POST",
+                            body: formData,
+                        })
+                            .then(async response => {
+                                const result: string = await response.text();
+                                alert(result);
+                            })
+                            .catch(() => {
+                                alert("Failed to register...");
+                            });
+                    }}
                 >
                     Register
+                </Button>
+                <Button
+                    color="primary"
+                    style={{ margin: 15 }}
+                    onClick={() => {
+                        const confirmationResult = window.confirm(
+                            "Do you really want to hide?"
+                        );
+                        if (!confirmationResult) {
+                            return;
+                        }
+
+                        localStorage.setItem(
+                            "folktales-register-token",
+                            JSON.stringify({ token })
+                        );
+
+                        const formData = new FormData();
+                        formData.append("url", pageName);
+                        formData.append("token", token);
+
+                        fetch("/api/Articles/Hide", {
+                            method: "POST",
+                            body: formData,
+                        })
+                            .then(async response => {
+                                const result: string = await response.text();
+                                alert(result);
+                            })
+                            .catch(() => {
+                                alert("Failed to hide...");
+                            });
+                    }}
+                >
+                    Hide
                 </Button>
                 <Button
                     color="primary"

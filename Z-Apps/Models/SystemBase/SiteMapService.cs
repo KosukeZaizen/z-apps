@@ -10,6 +10,7 @@ using Z_Apps.Util;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using Z_Apps.Models.Stories.Stories;
+using Z_Apps.Controllers;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -72,9 +73,27 @@ namespace Z_Apps.Models.SystemBase
 
                     foreach (var story in allStories)
                     {
-                        var dicFolktaleURLs = new Dictionary<string, string>();
-                        dicFolktaleURLs["loc"] = folktaleBaseUrl + "/" + story.StoryName;
-                        lstSitemap.Add(dicFolktaleURLs);
+                        var dicFolktaleURL = new Dictionary<string, string>();
+                        dicFolktaleURL["loc"] = folktaleBaseUrl + "/" + story.StoryName;
+                        lstSitemap.Add(dicFolktaleURL);
+                    }
+
+                    //------------------------------------------------------------
+                    //Articles Topページ
+                    var articlesBaseUrl = "https://z-apps.lingual-ninja.com/articles";
+                    var articleTopDic = new Dictionary<string, string>();
+                    articleTopDic["loc"] = articlesBaseUrl;
+                    lstSitemap.Add(articleTopDic);
+
+                    //Articlesの各記事
+                    var articlesController = new ArticlesController();
+                    var allArticles = articlesController.GetAllArticles();
+
+                    foreach (var article in allArticles)
+                    {
+                        var dicArticleURL = new Dictionary<string, string>();
+                        dicArticleURL["loc"] = articlesBaseUrl + "/" + article.url;
+                        lstSitemap.Add(dicArticleURL);
                     }
 
                     //------------------------------------------------------------

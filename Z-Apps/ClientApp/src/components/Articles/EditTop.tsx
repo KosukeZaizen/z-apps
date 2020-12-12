@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
-import { Momiji } from "../parts/Animations/Momiji";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
@@ -16,15 +16,18 @@ const imgNumber = getImgNumber();
 const ArticlesTop = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [articles, setArticles] = useState<Page[]>([]);
+    const [newUrl, setNewUrl] = useState<string>("");
+    const [token, setToken] = useState<string>("");
+
+    const getArticles = async () => {
+        const response: Response = await fetch(
+            "api/Articles/GetAllArticlesForEdit"
+        );
+        const pages: Page[] = await response.json();
+        setArticles(pages);
+    };
 
     useEffect(() => {
-        const getArticles = async () => {
-            const response: Response = await fetch(
-                "api/Articles/GetAllArticlesForEdit"
-            );
-            const pages: Page[] = await response.json();
-            setArticles(pages);
-        };
         void getArticles();
 
         const onChangeScreenSize = () => {
@@ -48,6 +51,10 @@ const ArticlesTop = () => {
                 onChangeScreenSize();
             }, i * 1000);
         }
+
+        const saveData = localStorage.getItem("folktales-register-token");
+        const objSaveData = saveData && JSON.parse(saveData);
+        setToken(objSaveData?.token || "");
     }, []);
 
     const title = "Lingual Ninja Articles";
@@ -117,6 +124,71 @@ const ArticlesTop = () => {
                         </span>
                     ))}
                 />
+                <div
+                    style={{
+                        display: "flex",
+                        width: "100%",
+                        textAlign: "center",
+                    }}
+                >
+                    <span style={{ fontSize: "x-large" }}>{"New URL:"}</span>
+                    <input
+                        type="text"
+                        defaultValue={newUrl}
+                        onChange={e => setNewUrl(e.target.value)}
+                        style={{ width: "100%" }}
+                    />
+                    <Button
+                        color="primary"
+                        onClick={() => {
+                            const confirmationResult = window.confirm(
+                                "Do you really want to add?"
+                            );
+                            if (!confirmationResult) {
+                                return;
+                            }
+
+                            localStorage.setItem(
+                                "folktales-register-token",
+                                JSON.stringify({ token })
+                            );
+
+                            const formData = new FormData();
+                            formData.append("url", newUrl);
+                            formData.append("token", token);
+
+                            fetch("/api/Articles/AddNewUrl", {
+                                method: "POST",
+                                body: formData,
+                            })
+                                .then(async response => {
+                                    const result: string = await response.text();
+                                    alert(result);
+                                    void getArticles();
+                                })
+                                .catch(() => {
+                                    alert("Failed to add...");
+                                });
+                        }}
+                    >
+                        Add
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        width: "100%",
+                        textAlign: "center",
+                    }}
+                >
+                    <span style={{ fontSize: "x-large" }}>{"Token:"}</span>
+                    <input
+                        type="text"
+                        defaultValue={token}
+                        onChange={e => setToken(e.target.value)}
+                        style={{ width: "100%" }}
+                    />
+                </div>
                 <div style={{ margin: "20px 0" }}>
                     {articles.length > 0 ? (
                         articles.map((page, i) => (
@@ -126,7 +198,9 @@ const ArticlesTop = () => {
                             >
                                 <ScrollBox>
                                     <Link to={`/articlesEdit/${page.url}`}>
-                                        <h2>{page.title}</h2>
+                                        <h2>
+                                            {page.title || "Add contents >>"}
+                                        </h2>
                                     </Link>
                                     <p style={{ margin: 0 }}>
                                         {page.description}
@@ -141,7 +215,7 @@ const ArticlesTop = () => {
                 </div>
                 <FB style={{ marginTop: 20 }} />
             </main>
-            <Momiji frequencySec={2} screenWidth={width} />
+            {/* <Momiji frequencySec={2} screenWidth={width} /> */}
         </div>
     );
 };
