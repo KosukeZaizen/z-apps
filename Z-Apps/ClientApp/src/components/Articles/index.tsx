@@ -4,6 +4,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
 import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
@@ -13,9 +14,10 @@ import { ScrollBox } from "../parts/ScrollBox";
 import "./style.css";
 
 export interface Page {
+    url?: string;
     title: string;
     description: string;
-    content: string;
+    articleContent: string;
 }
 
 export const getImgNumber = (num: number = 0) => {
@@ -29,37 +31,45 @@ export const getImgNumber = (num: number = 0) => {
 
 interface Props {
     match: { params: { pageName: string } };
+    history: { push: (url: string) => void };
 }
 const Articles = (props: Props) => {
     const {
         match: {
             params: { pageName },
         },
+        history,
     } = props;
 
     const [title, setTitle] = useState<Page["title"]>("");
     const [description, setDescription] = useState<Page["description"]>("");
-    const [content, setContent] = useState<Page["content"]>("");
+    const [content, setContent] = useState<Page["articleContent"]>("");
     const [indexLi, setIndexLi] = useState<JSX.Element[]>([]);
     const [width, setWidth] = useState(window.innerWidth);
     const [imgNumber, setImgNumber] = useState(getImgNumber(pageName.length));
 
     useEffect(() => {
-        import(`./Contents/${pageName}`)
-            .then(
-                ({
-                    default: { title, description, content },
-                }: {
-                    default: Page;
-                }) => {
-                    setTitle(title);
-                    setDescription(description);
-                    setContent(content);
+        const getArticle = async () => {
+            try {
+                const lowerPageName = pageName.toLowerCase();
+                if (pageName !== lowerPageName) {
+                    history.push(`/articles/${lowerPageName}`);
+                    return;
                 }
-            )
-            .catch(e => {
-                console.log("e", e);
-            });
+
+                const response: Response = await fetch(
+                    `api/Articles/GetArticle?p=${pageName}`
+                );
+                const page: Page = await response.json();
+                const { title, description, articleContent } = page;
+                setTitle(title);
+                setDescription(description);
+                setContent(articleContent);
+            } catch (e) {
+                history.push(`/not-found?p=/articles/${pageName}`);
+            }
+        };
+        void getArticle();
 
         const onChangeScreenSize = () => {
             if (width !== window.innerWidth) {
@@ -177,17 +187,22 @@ const Articles = (props: Props) => {
                     </span>
                 </div>
                 <article style={{ textAlign: "left" }}>
-                    <h1
-                        style={{
-                            margin: "25px 0 30px",
-                        }}
-                    >
-                        {title}
-                    </h1>
+                    {title ? (
+                        <h1
+                            style={{
+                                margin: "25px 0 30px",
+                            }}
+                        >
+                            {title}
+                        </h1>
+                    ) : (
+                        <ShurikenProgress size="10%" />
+                    )}
+
                     <CharacterComment
                         imgNumber={imgNumber}
                         screenWidth={width}
-                        comment={description}
+                        comment={description || <ShurikenProgress size="20%" />}
                         style={{ marginBottom: 15 }}
                         commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
                     />
@@ -221,17 +236,25 @@ const Articles = (props: Props) => {
                                 >
                                     Index
                                 </span>
-                                <ol style={{ display: "inline-block" }}>
-                                    {indexLi}
-                                </ol>
+                                {indexLi && indexLi.length > 0 ? (
+                                    <ol style={{ display: "inline-block" }}>
+                                        {indexLi}
+                                    </ol>
+                                ) : (
+                                    <ShurikenProgress size="20%" />
+                                )}
                             </div>
                         </ScrollBox>
                         <GoogleAd style={{ flex: 1 }} />
                     </div>
-                    <Markdown
-                        source={content}
-                        style={{ margin: "25px 0 40px" }}
-                    />
+                    {content ? (
+                        <Markdown
+                            source={content}
+                            style={{ margin: "25px 0 40px" }}
+                        />
+                    ) : (
+                        <ShurikenProgress size="20%" />
+                    )}
                 </article>
                 <hr />
                 <FolktaleMenu screenWidth={width} />

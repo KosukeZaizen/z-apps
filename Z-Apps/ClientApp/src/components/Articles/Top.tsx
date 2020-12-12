@@ -4,17 +4,13 @@ import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
 import "./style.css";
-
-export const pageNames = [
-    "japanese-romaji-story",
-    //"japanese-folktales-in-japanese",
-];
 
 const imgNumber = getImgNumber();
 
@@ -23,14 +19,14 @@ const ArticlesTop = () => {
     const [articles, setArticles] = useState<Page[]>([]);
 
     useEffect(() => {
-        const promises = pageNames.map(
-            pageName => import(`./Contents/${pageName}`)
-        );
-
-        Promise.all(promises).then((result: { default: Page }[]) => {
-            const pages = result.map(({ default: page }) => page);
+        const getArticles = async () => {
+            const response: Response = await fetch(
+                "api/Articles/GetAllArticles"
+            );
+            const pages: Page[] = await response.json();
             setArticles(pages);
-        });
+        };
+        void getArticles();
 
         const onChangeScreenSize = () => {
             if (width !== window.innerWidth) {
@@ -123,16 +119,25 @@ const ArticlesTop = () => {
                     ))}
                 />
                 <div style={{ margin: "20px 0" }}>
-                    {articles.map((page, i) => (
-                        <article key={page.title} style={{ marginBottom: 45 }}>
-                            <ScrollBox>
-                                <Link to={`/articles/${pageNames[i]}`}>
-                                    <h2>{page.title}</h2>
-                                </Link>
-                                <p style={{ margin: 0 }}>{page.description}</p>
-                            </ScrollBox>
-                        </article>
-                    ))}
+                    {articles.length > 0 ? (
+                        articles.map((page, i) => (
+                            <article
+                                key={page.title}
+                                style={{ marginBottom: 45 }}
+                            >
+                                <ScrollBox>
+                                    <Link to={`/articles/${page.url}`}>
+                                        <h2>{page.title}</h2>
+                                    </Link>
+                                    <p style={{ margin: 0 }}>
+                                        {page.description}
+                                    </p>
+                                </ScrollBox>
+                            </article>
+                        ))
+                    ) : (
+                        <ShurikenProgress size="20%" />
+                    )}
                     <FolktaleMenu screenWidth={width} />
                 </div>
                 <GoogleAd />
