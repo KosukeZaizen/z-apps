@@ -178,6 +178,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                                 borderColor: "#333",
                                 color: "white",
                             }}
+                            arti
                         >
                             <CardTitle>Japanese Vocabulary Quiz</CardTitle>
                             <p>
