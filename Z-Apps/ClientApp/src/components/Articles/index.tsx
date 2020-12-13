@@ -98,27 +98,7 @@ const Articles = (props: Props) => {
 
     useEffect(() => {
         if (!content) return;
-
-        setIndexLi(
-            content
-                .split("\n")
-                .filter(c => c.includes("##") && !c.includes("###"))
-                .map(c => {
-                    const linkText = c.split("#").join("").trim();
-                    return (
-                        <li key={linkText}>
-                            <AnchorLink
-                                href={
-                                    "#" +
-                                    linkText.split(" ").join("-").toLowerCase()
-                                }
-                            >
-                                {linkText}
-                            </AnchorLink>
-                        </li>
-                    );
-                })
-        );
+        setIndexLi(getIndex(content));
     }, [content]);
 
     return (
@@ -264,13 +244,17 @@ export function ArticleContent({
                                 style={{
                                     fontWeight: "bold",
                                     fontSize: "large",
-                                    marginBottom: 10,
                                 }}
                             >
                                 Index
                             </span>
                             {indexLi && indexLi.length > 0 ? (
-                                <ol style={{ display: "inline-block" }}>
+                                <ol
+                                    style={{
+                                        display: "inline-block",
+                                        margin: 0,
+                                    }}
+                                >
                                     {indexLi}
                                 </ol>
                             ) : (
@@ -300,6 +284,24 @@ export function ArticleContent({
             <FB />
         </main>
     );
+}
+
+export function getIndex(content: string) {
+    return content
+        .split("\n")
+        .filter(c => c.includes("##") && !c.includes("###"))
+        .map((c, i) => {
+            const linkText = c.split("#").join("").trim();
+            return (
+                <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
+                    <AnchorLink
+                        href={"#" + linkText.split(" ").join("-").toLowerCase()}
+                    >
+                        {linkText}
+                    </AnchorLink>
+                </li>
+            );
+        });
 }
 
 export default Articles;

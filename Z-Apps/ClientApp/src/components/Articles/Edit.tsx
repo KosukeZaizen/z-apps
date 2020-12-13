@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Button } from "reactstrap";
-import { ArticleContent } from ".";
+import { ArticleContent, getIndex } from ".";
 import Head from "../parts/Helmet";
 import "./style.css";
 
@@ -100,27 +99,7 @@ const Articles = (props: Props) => {
 
     useEffect(() => {
         if (!content) return;
-
-        setIndexLi(
-            content
-                .split("\n")
-                .filter(c => c.includes("##") && !c.includes("###"))
-                .map(c => {
-                    const linkText = c.split("#").join("").trim();
-                    return (
-                        <li key={linkText}>
-                            <AnchorLink
-                                href={
-                                    "#" +
-                                    linkText.split(" ").join("-").toLowerCase()
-                                }
-                            >
-                                {linkText}
-                            </AnchorLink>
-                        </li>
-                    );
-                })
-        );
+        setIndexLi(getIndex(content));
     }, [content]);
 
     return (
