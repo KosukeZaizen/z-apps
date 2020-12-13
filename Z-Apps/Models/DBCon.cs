@@ -25,7 +25,7 @@ namespace Z_Apps.Models
                 connectionString = PrivateConsts.CONNECTION_STRING;
             }
         }
-        public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams)
+        public List<Dictionary<string, Object>> ExecuteSelect(string sql, Dictionary<string, object[]> dicParams = null)
         {
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(sql, connection))

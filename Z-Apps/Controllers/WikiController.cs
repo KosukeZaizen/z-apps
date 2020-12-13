@@ -20,23 +20,20 @@ namespace Z_Apps.Controllers
     public class WikiController : Controller
     {
         [HttpGet("[action]")]
-        public async Task<string> GetAllWords(int num)
+        public IEnumerable<string> GetAllWords(int num)
         {
-            string result = "";
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response;
-                if (num == 0)
-                {
-                    response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
-                }
-                else
-                {
-                    response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetPartialKanjiWords?num=" + num);
-                }
-                result = await response.Content.ReadAsStringAsync();
-            }
-            return result;
+            var con = new DBCon(DBCon.DBType.wiki_db);
+            var sql = 
+                    num == 0 
+                        ? "select word from ZAppsDictionaryCache;" 
+                        : "select top(@num) word from ZAppsDictionaryCache;";
+
+            var result = con.ExecuteSelect(
+                    sql,
+                    new Dictionary<string, object[]> { { "@num", new object[2] { SqlDbType.Int, num } } }
+                );
+
+            return result.Select(r => (string)r["word"]);
         }
 
         [DataContract]

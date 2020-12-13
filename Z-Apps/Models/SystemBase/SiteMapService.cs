@@ -103,7 +103,8 @@ namespace Z_Apps.Models.SystemBase
                     //var dic1 = new Dictionary<string, string>();
                     //dic1["loc"] = domain;
                     //lstSitemap.Add(dic1);
-                    IEnumerable<string> allWord = await GetAllWords();
+                    var wikiCon = new WikiController();
+                    IEnumerable<string> allWord = wikiCon.GetAllWords(0);
                     foreach (string word in allWord)
                     {
                         var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
@@ -122,16 +123,6 @@ namespace Z_Apps.Models.SystemBase
             return resultXML;
         }
 
-        private async Task<IEnumerable<string>> GetAllWords()
-        {
-            string result = "";
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
-                result = await response.Content.ReadAsStringAsync();
-            }
-            return result.Replace("\"", "").Replace("[", "").Replace("]", "").Split(",");
-        }
 
         private string GetStringSitemapFromDics(IEnumerable<Dictionary<string, string>> sitemapItems)
         {
