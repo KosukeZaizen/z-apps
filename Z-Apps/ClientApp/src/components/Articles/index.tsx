@@ -295,7 +295,7 @@ export function getIndex(content: string) {
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
                     <AnchorLink
-                        href={"#" + linkText.split(" ").join("-").toLowerCase()}
+                        href={"#" + encodeURIComponent(linkText)}
                     >
                         {linkText}
                     </AnchorLink>

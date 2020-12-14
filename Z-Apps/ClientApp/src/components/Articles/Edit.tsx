@@ -207,7 +207,7 @@ const Articles = (props: Props) => {
                     style={{ margin: 15 }}
                     onClick={() => {
                         const confirmationResult = window.confirm(
-                            "Do you really want to register?"
+                            "Do you really want to release?"
                         );
                         if (!confirmationResult) {
                             return;
@@ -231,11 +231,11 @@ const Articles = (props: Props) => {
                                 alert(result);
                             })
                             .catch(() => {
-                                alert("Failed to register...");
+                                alert("Failed to release...");
                             });
                     }}
                 >
-                    Register
+                    Release
                 </Button>
                 <Button
                     color="primary"
