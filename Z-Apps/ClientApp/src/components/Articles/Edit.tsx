@@ -102,6 +102,26 @@ const Articles = (props: Props) => {
         setIndexLi(getIndex(content));
     }, [content]);
 
+    const save = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("url", pageName);
+            formData.append("title", title);
+            formData.append("description", description);
+            formData.append("articleContent", content);
+            formData.append("token", token);
+
+            const response = await fetch("/api/Articles/UpdateContents", {
+                method: "POST",
+                body: formData,
+            });
+            const result: string = await response.text();
+            return result;
+        } catch (e) {
+            return "Failed to save...";
+        }
+    };
+
     return (
         <div>
             <div
@@ -167,7 +187,7 @@ const Articles = (props: Props) => {
                 <Button
                     color="primary"
                     style={{ margin: 15 }}
-                    onClick={() => {
+                    onClick={async () => {
                         const confirmationResult = window.confirm(
                             "Do you really want to save?"
                         );
@@ -180,24 +200,7 @@ const Articles = (props: Props) => {
                             JSON.stringify({ token })
                         );
 
-                        const formData = new FormData();
-                        formData.append("url", pageName);
-                        formData.append("title", title);
-                        formData.append("description", description);
-                        formData.append("articleContent", content);
-                        formData.append("token", token);
-
-                        fetch("/api/Articles/UpdateContents", {
-                            method: "POST",
-                            body: formData,
-                        })
-                            .then(async response => {
-                                const result: string = await response.text();
-                                alert(result);
-                            })
-                            .catch(() => {
-                                alert("Failed to save...");
-                            });
+                        alert(await save());
                     }}
                 >
                     Save
@@ -205,7 +208,7 @@ const Articles = (props: Props) => {
                 <Button
                     color="primary"
                     style={{ margin: 15 }}
-                    onClick={() => {
+                    onClick={async () => {
                         const confirmationResult = window.confirm(
                             "Do you really want to release?"
                         );
@@ -213,10 +216,11 @@ const Articles = (props: Props) => {
                             return;
                         }
 
-                        localStorage.setItem(
-                            "folktales-register-token",
-                            JSON.stringify({ token })
-                        );
+                        const resultSave = await save();
+                        if (resultSave !== "success") {
+                            alert(resultSave)
+                            return;
+                        }
 
                         const formData = new FormData();
                         formData.append("url", pageName);
