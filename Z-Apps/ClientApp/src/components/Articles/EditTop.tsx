@@ -124,6 +124,11 @@ const ArticlesTop = () => {
                         </span>
                     ))}
                 />
+                {articles.some(page => page.url === newUrl) && (
+                    <p style={{ color: "red" }}>
+                        The url has already been registerd!
+                    </p>
+                )}
                 <div
                     style={{
                         display: "flex",
@@ -134,8 +139,10 @@ const ArticlesTop = () => {
                     <span style={{ fontSize: "x-large" }}>{"New URL:"}</span>
                     <input
                         type="text"
-                        defaultValue={newUrl}
-                        onChange={e => setNewUrl(e.target.value)}
+                        value={newUrl}
+                        onChange={e =>
+                            setNewUrl(e.target.value.split(" ").join("-"))
+                        }
                         style={{ width: "100%" }}
                     />
                     <Button
