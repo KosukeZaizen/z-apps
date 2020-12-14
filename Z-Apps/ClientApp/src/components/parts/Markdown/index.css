@@ -6,3 +6,8 @@
 .markdownArea h2 {
     margin: 25px 0 15px;
 }
+
+img {
+    display: block;
+    margin: 0 auto;
+}
