@@ -216,7 +216,7 @@ export function ArticleContent({
                     imgNumber={imgNumber}
                     screenWidth={width}
                     comment={description || <ShurikenProgress size="20%" />}
-                    style={{ marginBottom: 15 }}
+                    style={{ marginLeft: 0, marginBottom: 15 }}
                     commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
                 />
                 <div
@@ -294,9 +294,7 @@ export function getIndex(content: string) {
             const linkText = c.split("#").join("").trim();
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <AnchorLink
-                        href={"#" + encodeURIComponent(linkText)}
-                    >
+                    <AnchorLink href={"#" + encodeURIComponent(linkText)}>
                         {linkText}
                     </AnchorLink>
                 </li>
