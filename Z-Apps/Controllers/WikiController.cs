@@ -25,8 +25,9 @@ namespace Z_Apps.Controllers
             var con = new DBCon(DBCon.DBType.wiki_db);
             var sql = 
                     num == 0 
-                        ? "select word from ZAppsDictionaryCache;" 
-                        : "select top(@num) word from ZAppsDictionaryCache;";
+                        ? "select word from ZAppsDictionaryCache" 
+                        : "select top(@num) word from ZAppsDictionaryCache";
+            sql += " where response != N'removed';";
 
             var result = con.ExecuteSelect(
                     sql,
@@ -34,6 +35,26 @@ namespace Z_Apps.Controllers
                 );
 
             return result.Select(r => (string)r["word"]);
+        }
+
+        [HttpPost("[action]")]
+        public void Exclude(string word, string token)
+        {
+            if (token != PrivateConsts.REGISTER_PASS) {
+                return;
+            }
+
+            var con = new DBCon(DBCon.DBType.wiki_db);
+            var sql = @"
+UPDATE ZAppsDictionaryCache SET
+ response = N'removed'
+ where word = @word
+;";
+
+            var result = con.ExecuteSelect(
+                    sql,
+                    new Dictionary<string, object[]> { { "@word", new object[2] { SqlDbType.NVarChar, word } } }
+                );
         }
 
         [DataContract]
@@ -133,7 +154,7 @@ namespace Z_Apps.Controllers
             if (cache != null)
             {
                 //キャッシュデータあり
-                return (string)cache["response"]; ;
+                return (string)cache["response"]; //jsonもしくは「removed」という文字列
             }
             else
             {
