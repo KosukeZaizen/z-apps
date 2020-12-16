@@ -49,7 +49,7 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
             ls = [];
             clearInterval(intervalId);
         };
-    }, []);
+    }, [frequencySec]);
 
     return (
         <div>
