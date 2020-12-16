@@ -218,7 +218,7 @@ const Articles = (props: Props) => {
 
                         const resultSave = await save();
                         if (resultSave !== "success") {
-                            alert(resultSave)
+                            alert(resultSave);
                             return;
                         }
 
