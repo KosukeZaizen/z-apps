@@ -46,7 +46,13 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
         return () => {
             clearInterval(intervalId);
         };
-    }, [frequencySec, screenWidth]);
+    }, [screenWidth]);
+
+    useEffect(() => {
+        return () => {
+            ls = [];
+        };
+    }, []);
 
     return (
         <div>
