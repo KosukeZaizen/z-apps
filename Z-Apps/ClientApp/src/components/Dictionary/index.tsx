@@ -306,12 +306,14 @@ class Dictionary extends React.Component<Props, State> {
                         {title && (
                             <h1
                                 style={{
-                                    margin: "25px",
+                                    margin: "25px 0",
                                     lineHeight:
                                         screenWidth > 500 ? "45px" : "35px",
+                                    width: "100%",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <b>{title}</b>
+                                {title}
                             </h1>
                         )}
                         <br />
