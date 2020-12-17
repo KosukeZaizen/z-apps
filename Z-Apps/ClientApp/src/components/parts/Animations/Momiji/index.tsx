@@ -23,9 +23,7 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
 
     useEffect(() => {
         setScale((screenWidth + window.innerHeight) / 1000);
-    }, [screenWidth]);
 
-    useEffect(() => {
         const intervalId = window.setInterval(() => {
             //各葉っぱは20秒で消える
             const newLeaves = ls
@@ -46,10 +44,9 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
         }, 1000);
 
         return () => {
-            ls = [];
             clearInterval(intervalId);
         };
-    }, [frequencySec]);
+    }, [frequencySec, screenWidth]);
 
     return (
         <div>
