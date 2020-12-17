@@ -23,11 +23,12 @@ namespace Z_Apps.Controllers
         public IEnumerable<string> GetAllWords(int num)
         {
             var con = new DBCon(DBCon.DBType.wiki_db);
-            var sql = 
-                    num == 0 
-                        ? "select word from ZAppsDictionaryCache" 
+            var sql =
+                    num == 0
+                        ? "select word from ZAppsDictionaryCache"
                         : "select top(@num) word from ZAppsDictionaryCache";
-            sql += " where response != N'removed';";
+            sql += " where response != N'removed'";
+            sql += " order by word desc;";
 
             var result = con.ExecuteSelect(
                     sql,
@@ -40,7 +41,8 @@ namespace Z_Apps.Controllers
         [HttpPost("[action]")]
         public void Exclude(string word, string token)
         {
-            if (token != PrivateConsts.REGISTER_PASS) {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
                 return;
             }
 

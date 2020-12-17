@@ -25,12 +25,12 @@ class DictionaryTop extends React.Component<
 
     componentDidMount() {
         const getData = async () => {
-            const url = `api/Wiki/GetAllWords?num=1000`;
+            const url = `api/Wiki/GetAllWords?num=500`;
             const response = await fetch(url);
             const words = await response.json();
 
             this.setState({
-                words: words.sort().reverse(),
+                words,
             });
 
             setTimeout(async () => {
@@ -39,7 +39,7 @@ class DictionaryTop extends React.Component<
                 const words = await response.json();
 
                 this.setState({
-                    words: words.sort().reverse(),
+                    words,
                 });
             }, 1000);
         };
