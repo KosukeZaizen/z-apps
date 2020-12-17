@@ -105,6 +105,18 @@ namespace Z_Apps.Models.SystemBase
                     //lstSitemap.Add(dic1);
                     var wikiCon = new WikiController();
                     IEnumerable<string> allWord = wikiCon.GetAllWords(0);
+                    if (allWord.Count() < 15000)
+                    {
+                        // Linaual NinjaのDB側にキャッシュされているレコードが、まだ15000件未満であれば、
+                        // 全件取得したい時は、WikiNinja側からデータを取ってくる
+                        allWord = await GetAllWords();
+
+                        if (allWord.Count() < 15000)
+                        {
+                            // WikiNinja側が落ちているような場合は、やはりLingual NinjaのDBから持ってきたデータを用いる
+                            allWord = wikiCon.GetAllWords(0);
+                        }
+                    }
                     foreach (string word in allWord)
                     {
                         var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
@@ -121,6 +133,25 @@ namespace Z_Apps.Models.SystemBase
                 }
             }
             return resultXML;
+        }
+
+
+        private async Task<IEnumerable<string>> GetAllWords()
+        {
+            try
+            {
+                string result = "";
+                using (var client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
+                    result = await response.Content.ReadAsStringAsync();
+                }
+                return result.Replace("\"", "").Replace("[", "").Replace("]", "").Split(",");
+            }
+            catch (Exception e)
+            {
+                return new List<string> { };
+            }
         }
 
 
