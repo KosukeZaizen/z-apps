@@ -140,7 +140,7 @@ export function ArticleContent({
     const isWide = width > 991;
 
     return (
-        <main style={{ maxWidth: 900 }}>
+        <main style={{ maxWidth: 800 }}>
             <div
                 className="breadcrumbs"
                 itemScope
