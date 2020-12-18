@@ -144,10 +144,11 @@ const CommentMarkDown = ({ style }: { style?: CSSProperties }) => (
         source={`
 Thank you for visiting my website!
 
-I am a Japanese web programmer named Kosuke Zaizen.
+I am a Japanese programmer named Kosuke Zaizen.
 I like to make free web applications for Japanese learners.
-I know learning Japanese is hard.
-I think the most important thing to learn new language is **having fun** and **continuing**.
+I know that learning Japanese can be difficult.
+I think the most important thing in learning a new language 
+is to **have fun** and to **continue**.
 I would like you to enjoy studying Japanese by using my web application.
 
 I hope this website helps you to study Japanese!

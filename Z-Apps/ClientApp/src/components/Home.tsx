@@ -343,7 +343,7 @@ export default class Home extends React.Component<
                     className="center"
                     style={{ fontSize: "x-large", marginBottom: 25 }}
                 >
-                    <Link to="/articles">{"Lingual Ninja Articles >>"}</Link>
+                    <Link to="/articles">{"Articles about Japan >>"}</Link>
                 </div>
                 <FB />
                 <PleaseScrollDown

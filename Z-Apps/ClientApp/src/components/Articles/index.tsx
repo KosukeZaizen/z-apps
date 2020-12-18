@@ -178,7 +178,7 @@ export function ArticleContent({
                             marginLeft: "5px",
                         }}
                     >
-                        <span itemProp="name">{"Articles"}</span>
+                        <span itemProp="name">{"Articles about Japan"}</span>
                         <meta itemProp="position" content="2" />
                     </Link>
                 </span>

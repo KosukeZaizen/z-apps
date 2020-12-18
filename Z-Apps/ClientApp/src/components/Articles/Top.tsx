@@ -52,7 +52,7 @@ const ArticlesTop = () => {
         }
     }, []);
 
-    const title = "Lingual Ninja Articles";
+    const title = "Articles about Japan";
     const description =
         "Articles about studying Japanese language and culture! I hope these articles help you to learn about Japan!";
 
@@ -96,7 +96,7 @@ const ArticlesTop = () => {
                                 marginLeft: "5px",
                             }}
                         >
-                            Articles
+                            {title}
                         </span>
                         <meta itemProp="position" content="2" />
                     </span>
