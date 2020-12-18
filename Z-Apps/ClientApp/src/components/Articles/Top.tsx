@@ -5,6 +5,7 @@ import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
@@ -139,6 +140,7 @@ const ArticlesTop = () => {
                         <ShurikenProgress size="20%" />
                     )}
                     <FolktaleMenu screenWidth={width} />
+                    <Author style={{ marginTop: 45 }} screenWidth={width} />
                 </div>
                 <GoogleAd />
                 <FB style={{ marginTop: 20 }} />

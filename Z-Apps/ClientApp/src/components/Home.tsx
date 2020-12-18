@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import "../css/Home.css";
 import { Momiji } from "./parts/Animations/Momiji";
+import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
@@ -337,7 +338,7 @@ export default class Home extends React.Component<
                         </div>
                     </div>
                 </div>
-                <hr />
+                <Author screenWidth={screenWidth} />
                 <div
                     className="center"
                     style={{ fontSize: "x-large", marginBottom: 25 }}

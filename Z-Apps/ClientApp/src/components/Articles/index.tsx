@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FolktaleMenu } from "../Home";
 import { Momiji } from "../parts/Animations/Momiji";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
@@ -281,6 +282,7 @@ export function ArticleContent({
             </article>
             <hr />
             <FolktaleMenu screenWidth={width} />
+            <Author style={{ marginTop: 45 }} screenWidth={width} />
             <FB />
         </main>
     );

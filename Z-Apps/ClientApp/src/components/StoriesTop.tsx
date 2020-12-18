@@ -10,6 +10,7 @@ import { actionCreators } from "../store/StoriesTopStore";
 import { storyDesc } from "../types/stories";
 import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
+import { Author } from "./parts/Author";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -326,6 +327,10 @@ class StoriesTop extends React.Component<
                                         </article>
                                     );
                                 })}
+                        <Author
+                            style={{ marginTop: 45 }}
+                            screenWidth={screenWidth}
+                        />
                     </div>
                     <hr />
                     <Markdown

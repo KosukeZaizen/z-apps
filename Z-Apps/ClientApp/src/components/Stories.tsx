@@ -10,6 +10,7 @@ import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
+import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -643,7 +644,10 @@ class Stories extends React.Component<Props, State> {
                     <Link to="/folktales" style={{ fontSize: "x-large" }}>
                         {"All folktales >>"}
                     </Link>
-                    <br />
+                    <Author
+                        style={{ marginTop: 45 }}
+                        screenWidth={screenWidth}
+                    />
                     <hr />
                     <Link to="/vocabulary-list">
                         <Card
