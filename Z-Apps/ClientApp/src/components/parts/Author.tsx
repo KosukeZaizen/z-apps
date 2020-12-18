@@ -6,29 +6,13 @@ import { Markdown } from "./Markdown";
 import { ScrollBox } from "./ScrollBox";
 const image = require("../../img/KosukeZaizen.jpg");
 
-const commentMarkDown = (
-    <Markdown
-        style={{ margin: 5, textAlign: "left", fontSize: "large" }}
-        source={`
-Thank you for visiting my website!
-
-I am a Japanese web programmer named Kosuke Zaizen.
-I like to make free web applications for Japanese learners.
-I know learning Japanese is hard.
-I think the most important thing to learn new language is **having fun** and **continuing**.
-I would like you to enjoy studying Japanese by using my web application.
-
-I hope this website helps you to study Japanese!
-`}
-    />
-);
-
 type AuthorProps = {
     screenWidth: number;
     style?: CSSProperties;
 };
 export const Author = ({ style, screenWidth }: AuthorProps) => {
     const isCommentUsed = screenWidth > 767;
+    const isVeryNarrow = screenWidth < 500;
     return (
         <ScrollBox style={{ textAlign: "center", ...style }}>
             <h2 style={{ marginBottom: 25 }}>
@@ -50,7 +34,9 @@ export const Author = ({ style, screenWidth }: AuthorProps) => {
                             >
                                 I'm Kosuke Zaizen!
                             </div>
-                            <div style={{ margin: 10 }}>{commentMarkDown}</div>
+                            <div style={{ margin: 10 }}>
+                                <CommentMarkDown />
+                            </div>
                         </div>
                     }
                 />
@@ -71,22 +57,29 @@ export const Author = ({ style, screenWidth }: AuthorProps) => {
                     </div>
                     <div
                         style={{
-                            margin: 10,
+                            margin: isVeryNarrow ? "10px 0" : 10,
                             fontSize: "large",
                             textAlign: "left",
-                            padding: 10,
+                            padding: isVeryNarrow ? 0 : 10,
                         }}
                     >
                         <div
                             style={{
                                 fontWeight: "bold",
                                 fontSize: "x-large",
-                                margin: "0 5px 25px",
+                                margin: isVeryNarrow
+                                    ? "0 0 25px"
+                                    : "0 5px 25px",
                             }}
                         >
                             I'm Kosuke Zaizen!
                         </div>
-                        {commentMarkDown}
+                        <CommentMarkDown
+                            style={{
+                                margin: isVeryNarrow ? "5px 0" : 5,
+                                fontSize: isVeryNarrow ? "medium" : undefined,
+                            }}
+                        />
                     </div>
                 </div>
             )}
@@ -101,7 +94,7 @@ type CommentProps = {
     commentStyle?: React.CSSProperties;
 };
 export function PersonComment(props: CommentProps) {
-    const { screenWidth, comment, style, commentStyle } = props;
+    const { comment, style, commentStyle } = props;
     return (
         <div
             style={{
@@ -115,7 +108,7 @@ export function PersonComment(props: CommentProps) {
                     alt="Kosuke Zaizen"
                     title="Kosuke Zaizen"
                     style={{
-                        maxWidth: 250,
+                        maxWidth: 300,
                         height: "auto",
                         verticalAlign: "top",
                     }}
@@ -144,3 +137,20 @@ export function PersonComment(props: CommentProps) {
         </div>
     );
 }
+
+const CommentMarkDown = ({ style }: { style?: CSSProperties }) => (
+    <Markdown
+        style={{ margin: 5, textAlign: "left", fontSize: "large", ...style }}
+        source={`
+Thank you for visiting my website!
+
+I am a Japanese web programmer named Kosuke Zaizen.
+I like to make free web applications for Japanese learners.
+I know learning Japanese is hard.
+I think the most important thing to learn new language is **having fun** and **continuing**.
+I would like you to enjoy studying Japanese by using my web application.
+
+I hope this website helps you to study Japanese!
+`}
+    />
+);
