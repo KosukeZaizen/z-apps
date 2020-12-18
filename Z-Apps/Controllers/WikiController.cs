@@ -101,12 +101,26 @@ UPDATE ZAppsDictionaryCache SET
                             await storyEdit.MakeEnglish(
                                 w.snippet
                                     .Replace("<bold>", "")
+                                    .Replace("<bold", "")
+                                    .Replace("<bol", "")
+                                    .Replace("<bo", "")
+                                    .Replace("<b", "")
                                     .Replace("</bold>", "")
+                                    .Replace("</bold", "")
+                                    .Replace("</bol", "")
+                                    .Replace("</bo", "")
+                                    .Replace("</b", "")
+                                    .Replace("</", "")
+                                    .Replace("/bold>", "")
+                                    .Replace("bold>", "")
+                                    .Replace("old>", "")
+                                    .Replace("ld>", "")
+                                    .Replace("d>", "")
                                     .Replace("#", "")
                                     .Replace("?", "")
                                     .Replace("&", "")
                             )
-                        ).Replace("<bold>", "").Replace("</bold>", "");
+                        );
                     }
                 }
 

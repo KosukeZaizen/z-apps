@@ -7,14 +7,15 @@ import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
-import * as consts from "../common/consts";
-import { storyDesc } from "../types/stories";
-import { Momiji } from "./parts/Animations/Momiji";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import CharacterComment from "./parts/CharacterComment";
-import FB from "./parts/FaceBook";
-import Head from "./parts/Helmet";
-import { ScrollBox } from "./parts/ScrollBox";
+import * as consts from "../../common/consts";
+import { storyDesc } from "../../types/stories";
+import { Momiji } from "../parts/Animations/Momiji";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import CharacterComment from "../parts/CharacterComment";
+import FB from "../parts/FaceBook";
+import Head from "../parts/Helmet";
+import { ScrollBox } from "../parts/ScrollBox";
+import { getRomaji } from "./romajiConvert";
 
 type Props = {
     location: { pathname: string };
@@ -99,44 +100,57 @@ class Dictionary extends React.Component<Props, State> {
                     translatedWord,
                 } = await response.json();
 
-                if (!xml) {
-                    window.location.href = `/not-found?p=${window.location.pathname}`;
-                    return;
-                }
-
-                const parser = new DOMParser();
-                const word = parser.parseFromString(xml, "text/xml");
-
-                const getInnerHTML = (type: string) =>
-                    Array.prototype.map
-                        .call(
-                            word?.getElementsByTagName("Word"),
-                            (w: HTMLElement) => {
-                                const forType = w?.getElementsByTagName(type);
-                                if (forType?.length <= 0) {
-                                    return w?.getElementsByTagName("Surface")[0]
-                                        ?.innerHTML;
-                                } else {
-                                    return forType[0]?.innerHTML;
-                                }
-                            }
-                        )
-                        ?.join(" ")
-                        .split("<![CDATA[ ]]>")
-                        .join(" ");
-
-                const furigana = getInnerHTML("Furigana");
-                const romaji = getInnerHTML("Roman");
-
                 this.setState({
-                    furigana,
-                    romaji,
                     wordId,
                     translatedWord,
                     snippet,
                 });
 
-                this.getStories();
+                const getFuriganaAndRomaji = async () => {
+                    try {
+                        if (!xml) {
+                            window.location.href = `/not-found?p=${window.location.pathname}`;
+                            return;
+                        }
+
+                        const parser = new DOMParser();
+                        const word = parser.parseFromString(xml, "text/xml");
+
+                        const getInnerHTML = (type: string) =>
+                            Array.prototype.map
+                                .call(
+                                    word?.getElementsByTagName("Word"),
+                                    (w: HTMLElement) => {
+                                        const forType = w?.getElementsByTagName(
+                                            type
+                                        );
+                                        if (forType?.length <= 0) {
+                                            return w?.getElementsByTagName(
+                                                "Surface"
+                                            )[0]?.innerHTML;
+                                        } else {
+                                            return forType[0]?.innerHTML;
+                                        }
+                                    }
+                                )
+                                ?.join(" ")
+                                .split("<![CDATA[ ]]>")
+                                .join(" ");
+
+                        const furigana = getInnerHTML("Furigana");
+                        const romaji = getRomaji(furigana);
+
+                        this.setState({
+                            furigana,
+                            romaji,
+                        });
+
+                        this.getStories();
+                    } catch (e) {
+                        window.location.href = `/not-found?p=${window.location.pathname}`;
+                    }
+                };
+                getFuriganaAndRomaji();
             } catch (ex) {
                 window.location.href = `/not-found?p=${window.location.pathname}`;
             }
@@ -292,12 +306,14 @@ class Dictionary extends React.Component<Props, State> {
                         {title && (
                             <h1
                                 style={{
-                                    margin: "25px",
+                                    margin: "25px 0",
                                     lineHeight:
                                         screenWidth > 500 ? "45px" : "35px",
+                                    width: "100%",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <b>{title}</b>
+                                {title}
                             </h1>
                         )}
                         <br />
