@@ -119,88 +119,100 @@ public class WikiService
     }
     public async Task<string> GetEnglishWordAndSnippet(string word)
     {
+        var con = new DBCon(DBCon.DBType.wiki_db);
+
         Func<Task<DictionaryResult>> getDictionaryDataWithoutCache = async () =>
         {
-            var storyEdit = new StoriesEditService(new DBCon());
-            Data w = null;
-            using (var client = new HttpClient())
+            try
             {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordIdAndSnippet?word=" + word);
-                string json = await response.Content.ReadAsStringAsync();
-                var serializer = new DataContractJsonSerializer(typeof(Data));
-                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                var storyEdit = new StoriesEditService(new DBCon());
+                Data w = null;
+                using (var client = new HttpClient())
                 {
-                    w = (Data)serializer.ReadObject(ms);
-
-                    if (w == null || w.wordId == null)
+                    HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordIdAndSnippet?word=" + word);
+                    string json = await response.Content.ReadAsStringAsync();
+                    var serializer = new DataContractJsonSerializer(typeof(Data));
+                    using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
                     {
-                        return new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
+                        w = (Data)serializer.ReadObject(ms);
+
+                        if (w == null || w.wordId == null)
+                        {
+                            return new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
+                        }
+
+                        //英語に翻訳
+                        w.snippet = (
+                            await storyEdit.MakeEnglish(
+                                w.snippet
+                                    .Replace("<bold>", "")
+                                    .Replace("<bold", "")
+                                    .Replace("<bol", "")
+                                    .Replace("<bo", "")
+                                    .Replace("<b", "")
+                                    .Replace("</bold>", "")
+                                    .Replace("</bold", "")
+                                    .Replace("</bol", "")
+                                    .Replace("</bo", "")
+                                    .Replace("</b", "")
+                                    .Replace("</", "")
+                                    .Replace("/bold>", "")
+                                    .Replace("bold>", "")
+                                    .Replace("old>", "")
+                                    .Replace("ld>", "")
+                                    .Replace("d>", "")
+                                    .Replace("#", "")
+                                    .Replace("?", "")
+                                    .Replace("&", "")
+                            )
+                        );
                     }
-
-                    //英語に翻訳
-                    w.snippet = (
-                        await storyEdit.MakeEnglish(
-                            w.snippet
-                                .Replace("<bold>", "")
-                                .Replace("<bold", "")
-                                .Replace("<bol", "")
-                                .Replace("<bo", "")
-                                .Replace("<b", "")
-                                .Replace("</bold>", "")
-                                .Replace("</bold", "")
-                                .Replace("</bol", "")
-                                .Replace("</bo", "")
-                                .Replace("</b", "")
-                                .Replace("</", "")
-                                .Replace("/bold>", "")
-                                .Replace("bold>", "")
-                                .Replace("old>", "")
-                                .Replace("ld>", "")
-                                .Replace("d>", "")
-                                .Replace("#", "")
-                                .Replace("?", "")
-                                .Replace("&", "")
-                        )
-                    );
                 }
+
+                string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
+
+                //文字コードを指定する
+                Encoding enc =
+                    Encoding.GetEncoding("UTF-8");
+
+                //POST送信する文字列を作成
+                string postData =
+                    "sentence=" +
+                    System.Web.HttpUtility.UrlEncode(word, enc);
+                //バイト型配列に変換
+                byte[] postDataBytes = enc.GetBytes(postData);
+
+                System.Net.WebClient wc = new System.Net.WebClient();
+                //ヘッダにContent-Typeを加える
+                wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                wc.Headers.Add("User-Agent", PrivateConsts.YAHOO_API_ID);
+                //データを送信し、また受信する
+                byte[] resData = wc.UploadData(url, postDataBytes);
+                wc.Dispose();
+
+                //受信したデータを表示する
+                return new DictionaryResult()
+                {
+                    xml = enc.GetString(resData),
+                    wordId = w.wordId,
+                    snippet = w.snippet,
+                    translatedWord = await storyEdit.MakeEnglish(word
+                            .Replace("#", "")
+                            .Replace("?", "")
+                            .Replace("&", ""))
+                };
             }
-
-            string url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
-
-            //文字コードを指定する
-            Encoding enc =
-                Encoding.GetEncoding("UTF-8");
-
-            //POST送信する文字列を作成
-            string postData =
-                "sentence=" +
-                System.Web.HttpUtility.UrlEncode(word, enc);
-            //バイト型配列に変換
-            byte[] postDataBytes = enc.GetBytes(postData);
-
-            System.Net.WebClient wc = new System.Net.WebClient();
-            //ヘッダにContent-Typeを加える
-            wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            wc.Headers.Add("User-Agent", PrivateConsts.YAHOO_API_ID);
-            //データを送信し、また受信する
-            byte[] resData = wc.UploadData(url, postDataBytes);
-            wc.Dispose();
-
-            //受信したデータを表示する
-            return new DictionaryResult()
+            catch (Exception ex)
             {
-                xml = enc.GetString(resData),
-                wordId = w.wordId,
-                snippet = w.snippet,
-                translatedWord = await storyEdit.MakeEnglish(word
-                        .Replace("#", "")
-                        .Replace("?", "")
-                        .Replace("&", ""))
-            };
+                var json = "removed";
+                con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json);", new Dictionary<string, object[]> {
+                            { "@json", new object[2] { SqlDbType.NVarChar, json } },
+                            { "@word", new object[2] { SqlDbType.NVarChar, word } }
+                        });
+            }
+            return null;
         };
 
-
-        var con = new DBCon(DBCon.DBType.wiki_db);
 
         //キャッシュ取得
         var cache = con.ExecuteSelect(
