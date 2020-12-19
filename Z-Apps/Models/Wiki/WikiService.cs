@@ -19,6 +19,7 @@ public class WikiService
         {
             "一覧",
             "曖昧さ",
+            "邾",
         };
 
     public async Task<IEnumerable<string>> GetAllWords(int num)
