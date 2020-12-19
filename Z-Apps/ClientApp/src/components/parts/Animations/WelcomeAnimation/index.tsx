@@ -6,7 +6,7 @@ import "./animation.css";
 const runningNinja = require("../../Ninja/objs/ninja/ninja_hashiru.png");
 const shuriken = require("../../../../img/shuriken.png");
 
-export let finishWelcomeAnimation: () => void = () => {};
+export let finishWelcomeAnimation: () => void;
 
 interface StateToAnimate {
     shown: boolean;
