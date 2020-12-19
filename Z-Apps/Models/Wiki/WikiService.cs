@@ -19,6 +19,7 @@ public class WikiService
         {
             "一覧",
             "曖昧さ",
+            "人物",
             "邾",
         };
 
