@@ -20,6 +20,8 @@ public class WikiService
             "一覧",
             "曖昧さ",
             "人物",
+            "年",
+            "月",
             "邾",
         };
 
