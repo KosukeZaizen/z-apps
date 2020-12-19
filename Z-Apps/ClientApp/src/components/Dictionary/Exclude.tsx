@@ -1,4 +1,6 @@
+import * as React from "react";
 import { useEffect } from "react";
+import Head from "../parts/Helmet";
 
 type Props = {
     location: { pathname: string };
@@ -30,5 +32,10 @@ export default function Exclude(props: Props) {
         });
     }, []);
 
-    return null;
+    return (
+        <div>
+            <Head noindex />
+            exclude screen
+        </div>
+    );
 }

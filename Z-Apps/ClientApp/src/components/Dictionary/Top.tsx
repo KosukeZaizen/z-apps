@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import FB from "./parts/FaceBook";
-import Head from "./parts/Helmet";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import FB from "../parts/FaceBook";
+import Head from "../parts/Helmet";
 
 class DictionaryTop extends React.Component<
     {},

@@ -59,6 +59,30 @@ UPDATE ZAppsDictionaryCache SET
                 );
         }
 
+        [HttpPost("[action]")]
+        public void Register(string word, string token, string jsonText)
+        {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
+                return;
+            }
+
+            var con = new DBCon(DBCon.DBType.wiki_db);
+            var sql = @"
+UPDATE ZAppsDictionaryCache SET
+ response = @jsonText
+ where word = @word
+;";
+
+            var result = con.ExecuteSelect(
+                    sql,
+                    new Dictionary<string, object[]> {
+                        { "@word", new object[2] { SqlDbType.NVarChar, word } },
+                        { "@jsonText", new object[2] { SqlDbType.NVarChar, jsonText } }
+                    }
+                );
+        }
+
         [DataContract]
         class Data
         {
