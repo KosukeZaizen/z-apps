@@ -50,6 +50,10 @@ const Articles = (props: Props) => {
     const [imgNumber, setImgNumber] = useState(getImgNumber(pageName.length));
 
     useEffect(() => {
+        setTitle("");
+        setDescription("");
+        setContent("");
+
         const getArticle = async () => {
             try {
                 const lowerPageName = pageName.toLowerCase();
@@ -98,7 +102,6 @@ const Articles = (props: Props) => {
     }, [pageName]);
 
     useEffect(() => {
-        if (!content) return;
         setIndexLi(getIndex(content));
     }, [content]);
 
