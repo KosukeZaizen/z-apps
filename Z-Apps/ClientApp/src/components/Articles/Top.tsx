@@ -52,6 +52,8 @@ const ArticlesTop = () => {
         }
     }, []);
 
+    const isWide = width > 767;
+
     const title = "Articles about Japan";
     const description =
         "Articles about studying Japanese language and culture! I hope these articles help you to learn about Japan!";
@@ -130,9 +132,45 @@ const ArticlesTop = () => {
                                     <Link to={`/articles/${page.url}`}>
                                         <h2>{page.title}</h2>
                                     </Link>
-                                    <p style={{ margin: 0 }}>
-                                        {page.description}
-                                    </p>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: isWide
+                                                ? "row"
+                                                : "column",
+                                        }}
+                                    >
+                                        {page.imgPath && (
+                                            <div>
+                                                <img
+                                                    alt={page.title}
+                                                    src={page.imgPath}
+                                                    style={{
+                                                        width: "100%",
+                                                        maxHeight: 150,
+                                                        objectFit: "contain",
+                                                        margin:
+                                                            "20px 10px 10px 0",
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                        <div
+                                            style={{
+                                                margin: 0,
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <p
+                                                style={{
+                                                    margin: "0 20px 10px 20px",
+                                                }}
+                                            >
+                                                {page.description}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </ScrollBox>
                             </article>
                         ))

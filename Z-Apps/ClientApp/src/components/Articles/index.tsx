@@ -19,6 +19,7 @@ export interface Page {
     title: string;
     description: string;
     articleContent: string;
+    imgPath?: string;
 }
 
 export const getImgNumber = (num: number = 0) => {
