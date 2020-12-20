@@ -23,6 +23,8 @@ public class WikiService
             "年",
             "月",
             "邾",
+            "(",
+            "（",
         };
 
     public async Task<IEnumerable<string>> GetAllWords(int num)
