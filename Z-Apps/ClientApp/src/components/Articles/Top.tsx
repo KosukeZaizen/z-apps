@@ -164,7 +164,12 @@ const ArticlesTop = () => {
                                         >
                                             <p
                                                 style={{
-                                                    margin: "0 20px 10px 20px",
+                                                    margin: isWide
+                                                        ? "0 20px 10px 20px"
+                                                        : "10px 0 0",
+                                                    fontSize: isWide
+                                                        ? undefined
+                                                        : "medium",
                                                 }}
                                             >
                                                 {page.description}
