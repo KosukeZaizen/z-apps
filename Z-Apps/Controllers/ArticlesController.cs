@@ -14,6 +14,7 @@ namespace Z_Apps.Controllers
         public string title;
         public string description;
         public string articleContent;
+        public string imgPath;
     }
 
     [Route("api/[controller]")]
@@ -24,7 +25,7 @@ namespace Z_Apps.Controllers
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
-SELECT title, description, articleContent
+SELECT title, description, articleContent, imgPath
 FROM tblArticles
 WHERE url = @p and released = 1
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
@@ -37,6 +38,7 @@ WHERE url = @p and released = 1
                     title = (string)result["title"],
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
+                    imgPath = (string)result["imgPath"],
                 };
             }
 
@@ -48,7 +50,7 @@ WHERE url = @p and released = 1
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
-SELECT url, title, description 
+SELECT url, title, description, imgPath
 FROM tblArticles 
 WHERE released = 1
 ORDER BY orderNumber DESC
@@ -59,6 +61,7 @@ ORDER BY orderNumber DESC
                 url = (string)r["url"],
                 title = (string)r["title"],
                 description = (string)r["description"],
+                imgPath = (string)r["imgPath"],
             }
             );
         }
@@ -137,7 +140,8 @@ ORDER BY orderNumber DESC
 
 
         [HttpPost("[action]/")]
-        public string UpdateContents(string url, string title, string description, string articleContent, string token)
+        public string UpdateContents(string url, string title, string description, 
+            string articleContent, string imgPath, string token)
         {
             if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
 
@@ -149,7 +153,8 @@ ORDER BY orderNumber DESC
 UPDATE tblArticles
 SET    title = @title,
        description = @description,
-       articleContent = @articleContent
+       articleContent = @articleContent,
+       imgPath = @imgPath
 WHERE  url = @url;
 ";
 
@@ -157,7 +162,8 @@ WHERE  url = @url;
                     { "@url", new object[2] { SqlDbType.NVarChar, url } },
                     { "@title", new object[2] { SqlDbType.NVarChar, title } },
                     { "@description", new object[2] { SqlDbType.NVarChar, description } },
-                    { "@articleContent", new object[2] { SqlDbType.NVarChar, articleContent } }
+                    { "@articleContent", new object[2] { SqlDbType.NVarChar, articleContent } },
+                    { "@imgPath", new object[2] { SqlDbType.NVarChar, imgPath } }
                 });
 
                 if (!result)

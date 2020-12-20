@@ -14,6 +14,7 @@ using Z_Apps.Models.Stories;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.VocabList;
 using Microsoft.AspNetCore.Rewrite;
+using Z_Apps.Controllers;
 
 namespace Z_Apps
 {
@@ -198,6 +199,32 @@ namespace Z_Apps
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
                                     "<meta property='og:description' content='Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body>";
+                        }
+                        else if (url.Contains("articles/") && url.Length > 9)
+                        {
+                            string articleName = url.Split("articles/")[1].Replace("/", "");
+
+                            var articleCon = new ArticlesController();
+                            var article = articleCon.GetArticle(articleName);
+                            var description = article.description.Replace("\\n", " ").Replace("\'", "&#39;");
+                            var title = article.title.Replace("\'", "&#39;");
+                            var imgPath = article.imgPath?.Length > 0 ? article.imgPath : "https://z-apps.lingual-ninja.com/ogp-img.png";
+
+                            resultHTML = "" +
+                                    "<head>" + Environment.NewLine +
+                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='" + imgPath + "'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='" + description + "'>" + Environment.NewLine +
                                     "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
                                     "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
