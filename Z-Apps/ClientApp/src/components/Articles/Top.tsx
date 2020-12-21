@@ -141,7 +141,7 @@ const ArticlesTop = () => {
                                         }}
                                     >
                                         {page.imgPath && (
-                                            <div>
+                                            <Link to={`/articles/${page.url}`}>
                                                 <img
                                                     alt={page.title}
                                                     src={page.imgPath}
@@ -153,7 +153,7 @@ const ArticlesTop = () => {
                                                             "20px 10px 10px 0",
                                                     }}
                                                 />
-                                            </div>
+                                            </Link>
                                         )}
                                         <div
                                             style={{
