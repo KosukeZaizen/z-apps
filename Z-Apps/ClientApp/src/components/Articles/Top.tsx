@@ -52,8 +52,6 @@ const ArticlesTop = () => {
         }
     }, []);
 
-    const isWide = width > 767;
-
     const title = "Articles about Japan";
     const description =
         "Articles about studying Japanese language and culture! I hope these articles help you to learn about Japan!";
@@ -122,66 +120,11 @@ const ArticlesTop = () => {
                     ))}
                 />
                 <div style={{ margin: "20px 0" }}>
-                    {articles.length > 0 ? (
-                        articles.map((page, i) => (
-                            <article
-                                key={page.title}
-                                style={{ marginBottom: 45 }}
-                            >
-                                <ScrollBox>
-                                    <Link to={`/articles/${page.url}`}>
-                                        <h2>{page.title}</h2>
-                                    </Link>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: isWide
-                                                ? "row"
-                                                : "column",
-                                        }}
-                                    >
-                                        {page.imgPath && (
-                                            <Link to={`/articles/${page.url}`}>
-                                                <img
-                                                    alt={page.title}
-                                                    src={page.imgPath}
-                                                    style={{
-                                                        width: "100%",
-                                                        maxHeight: 150,
-                                                        objectFit: "contain",
-                                                        margin:
-                                                            "20px 10px 10px 0",
-                                                    }}
-                                                />
-                                            </Link>
-                                        )}
-                                        <div
-                                            style={{
-                                                margin: 0,
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <p
-                                                style={{
-                                                    margin: isWide
-                                                        ? "0 20px 10px 20px"
-                                                        : "10px 0 0",
-                                                    fontSize: isWide
-                                                        ? undefined
-                                                        : "medium",
-                                                }}
-                                            >
-                                                {page.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </ScrollBox>
-                            </article>
-                        ))
-                    ) : (
-                        <ShurikenProgress size="20%" />
-                    )}
+                    <ArticlesList
+                        titleH={"h2"}
+                        articles={articles}
+                        screenWidth={width}
+                    />
                     <FolktaleMenu screenWidth={width} />
                     <Author style={{ marginTop: 45 }} screenWidth={width} />
                 </div>
@@ -192,4 +135,92 @@ const ArticlesTop = () => {
         </div>
     );
 };
+
+interface ArticlesListProps {
+    articles: Page[];
+    screenWidth: number;
+    titleH: "h2" | "h3";
+}
+export function ArticlesList({
+    articles,
+    screenWidth,
+    titleH,
+}: ArticlesListProps) {
+    const isWide = screenWidth > 767;
+
+    return (
+        <>
+            {articles.length > 0 ? (
+                articles.map((page, i) => (
+                    <article
+                        key={page.title}
+                        style={{ marginBottom: 45, textAlign: "left" }}
+                    >
+                        <ScrollBox>
+                            <Link to={`/articles/${page.url}`}>
+                                {titleH === "h3" ? (
+                                    <h3
+                                        style={{
+                                            fontSize: "xx-large",
+                                            textAlign: "center",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        {page.title}
+                                    </h3>
+                                ) : (
+                                    <h2>{page.title}</h2>
+                                )}
+                            </Link>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: isWide ? "row" : "column",
+                                }}
+                            >
+                                {page.imgPath && (
+                                    <Link to={`/articles/${page.url}`}>
+                                        <img
+                                            alt={page.title}
+                                            src={page.imgPath}
+                                            style={{
+                                                width: "100%",
+                                                maxHeight: 150,
+                                                objectFit: "contain",
+                                                margin: "20px 10px 10px 0",
+                                            }}
+                                        />
+                                    </Link>
+                                )}
+                                <div
+                                    style={{
+                                        margin: 0,
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <p
+                                        style={{
+                                            margin: isWide
+                                                ? "0 20px 10px 20px"
+                                                : "10px 0 0",
+                                            fontSize: isWide
+                                                ? undefined
+                                                : "medium",
+                                        }}
+                                    >
+                                        {page.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </ScrollBox>
+                    </article>
+                ))
+            ) : (
+                <ShurikenProgress size="20%" />
+            )}
+        </>
+    );
+}
+
 export default ArticlesTop;

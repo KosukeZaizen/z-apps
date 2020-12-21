@@ -10,6 +10,8 @@ export interface Page {
     title: string;
     description: string;
     articleContent: string;
+    released?: boolean;
+    isAboutFolktale?: boolean;
 }
 
 export const getImgNumber = (num: number = 0) => {
@@ -36,6 +38,11 @@ const Articles = (props: Props) => {
     const [title, setTitle] = useState<Page["title"]>("");
     const [description, setDescription] = useState<Page["description"]>("");
     const [content, setContent] = useState<Page["articleContent"]>("");
+    const [released, setReleased] = useState<Page["released"]>(false);
+    const [isAboutFolktale, setIsAboutFolktale] = useState<
+        Page["isAboutFolktale"]
+    >(false);
+
     const [indexLi, setIndexLi] = useState<JSX.Element[]>([]);
     const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
@@ -55,10 +62,18 @@ const Articles = (props: Props) => {
                     `api/Articles/GetArticleForEdit?p=${pageName}`
                 );
                 const page: Page = await response.json();
-                const { title, description, articleContent } = page;
+                const {
+                    title,
+                    description,
+                    articleContent,
+                    released,
+                    isAboutFolktale,
+                } = page;
                 setTitle(title);
                 setDescription(description);
                 setContent(articleContent);
+                setReleased(released);
+                setIsAboutFolktale(isAboutFolktale);
             } catch (e) {
                 history.push(`/not-found?p=/articlesEdit/${pageName}`);
             }
@@ -70,7 +85,7 @@ const Articles = (props: Props) => {
                 setWidth(window.innerWidth);
             }
             if (height !== window.innerHeight) {
-                setWidth(window.innerHeight);
+                setHeight(window.innerHeight);
             }
         };
 
@@ -115,6 +130,10 @@ const Articles = (props: Props) => {
             formData.append("description", description);
             formData.append("articleContent", content);
             formData.append("imgPath", imgPath);
+            formData.append(
+                "isAboutFolktale",
+                isAboutFolktale ? "true" : "false"
+            );
             formData.append("token", token);
 
             const response = await fetch("/api/Articles/UpdateContents", {
@@ -152,6 +171,7 @@ const Articles = (props: Props) => {
                         indexLi={indexLi}
                         content={content}
                         adsense={false}
+                        isAboutFolktale={isAboutFolktale}
                     />
                 </div>
                 <div
@@ -190,6 +210,17 @@ const Articles = (props: Props) => {
                 defaultValue={token}
             />
             <div style={{ width: "100%", textAlign: "center" }}>
+                {released && (
+                    <span style={{ color: "red", margin: "0 15px" }}>
+                        {"released"}
+                    </span>
+                )}
+                {"isAboutFolktale:"}
+                <input
+                    type="checkbox"
+                    checked={isAboutFolktale}
+                    onChange={ev => setIsAboutFolktale(ev.target.checked)}
+                />
                 <Button
                     color="primary"
                     style={{ margin: 15 }}

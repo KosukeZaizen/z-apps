@@ -8,6 +8,8 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import { actionCreators } from "../store/StoriesTopStore";
 import { storyDesc } from "../types/stories";
+import { Page } from "./Articles";
+import { ArticlesList } from "./Articles/Top";
 import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import { Author } from "./parts/Author";
@@ -22,10 +24,11 @@ interface StoriesTopProps {
     loadAllStories: () => void;
     allStories: storyDesc[];
 }
-class StoriesTop extends React.Component<
-    StoriesTopProps,
-    { screenWidth: number }
-> {
+interface StoriesTopState {
+    pages: Page[];
+    screenWidth: number;
+}
+class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
     ref: React.RefObject<HTMLDivElement>;
 
     constructor(props: StoriesTopProps) {
@@ -33,6 +36,7 @@ class StoriesTop extends React.Component<
 
         this.state = {
             screenWidth: window.innerWidth,
+            pages: [],
         };
 
         let timer: number;
@@ -51,7 +55,25 @@ class StoriesTop extends React.Component<
 
     componentDidMount() {
         this.props.loadAllStories();
+
+        if (this.props.allStories.length > 0) {
+            void this.getArticles();
+        }
     }
+
+    componentDidUpdate(previousProps: StoriesTopProps) {
+        if (this.props.allStories.length !== previousProps.allStories.length) {
+            void this.getArticles();
+        }
+    }
+
+    getArticles = async () => {
+        const response: Response = await fetch(
+            "api/Articles/GetAllArticles?isAboutFolktale=true"
+        );
+        const pages: Page[] = await response.json();
+        this.setState({ pages });
+    };
 
     changeScreenSize = () => {
         this.setState({
@@ -61,7 +83,7 @@ class StoriesTop extends React.Component<
 
     render() {
         const { allStories } = this.props;
-        const { screenWidth } = this.state;
+        const { screenWidth, pages } = this.state;
         const styleForAboutTitle = {
             background: "#fee8b4",
             boxShadow: "0px 0px 0px 5px #fee8b4",
@@ -327,6 +349,30 @@ class StoriesTop extends React.Component<
                                         </article>
                                     );
                                 })}
+                        {pages.length > 0 && (
+                            <section
+                                style={{
+                                    borderTop: "1px solid #dcdcdc",
+                                    marginTop: 60,
+                                    paddingTop: 20,
+                                }}
+                            >
+                                <h2
+                                    style={{
+                                        fontSize: "xx-large",
+                                        fontWeight: "bold",
+                                        margin: "10px 0",
+                                    }}
+                                >
+                                    Articles about Japanese Folktales
+                                </h2>
+                                <ArticlesList
+                                    articles={pages}
+                                    screenWidth={screenWidth}
+                                    titleH="h3"
+                                />
+                            </section>
+                        )}
                         <Author
                             style={{ marginTop: 45 }}
                             screenWidth={screenWidth}

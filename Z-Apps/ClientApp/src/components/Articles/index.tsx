@@ -20,6 +20,7 @@ export interface Page {
     description: string;
     articleContent: string;
     imgPath?: string;
+    isAboutFolktale?: boolean;
 }
 
 export const getImgNumber = (num: number = 0) => {
@@ -46,6 +47,9 @@ const Articles = (props: Props) => {
     const [title, setTitle] = useState<Page["title"]>("");
     const [description, setDescription] = useState<Page["description"]>("");
     const [content, setContent] = useState<Page["articleContent"]>("");
+    const [isAboutFolktale, setIsAboutFolktale] = useState<
+        Page["isAboutFolktale"]
+    >(false);
     const [indexLi, setIndexLi] = useState<JSX.Element[]>([]);
     const [width, setWidth] = useState(window.innerWidth);
     const [imgNumber, setImgNumber] = useState(getImgNumber(pageName.length));
@@ -54,6 +58,7 @@ const Articles = (props: Props) => {
         setTitle("");
         setDescription("");
         setContent("");
+        setIsAboutFolktale(false);
 
         const getArticle = async () => {
             try {
@@ -67,10 +72,16 @@ const Articles = (props: Props) => {
                     `api/Articles/GetArticle?p=${pageName}`
                 );
                 const page: Page = await response.json();
-                const { title, description, articleContent } = page;
+                const {
+                    title,
+                    description,
+                    articleContent,
+                    isAboutFolktale,
+                } = page;
                 setTitle(title);
                 setDescription(description);
                 setContent(articleContent);
+                setIsAboutFolktale(isAboutFolktale);
             } catch (e) {
                 history.push(`/not-found?p=/articles/${pageName}`);
             }
@@ -117,6 +128,7 @@ const Articles = (props: Props) => {
                 indexLi={indexLi}
                 content={content}
                 adsense={true}
+                isAboutFolktale={isAboutFolktale}
             />
             <Momiji frequencySec={2} screenWidth={width} />
         </div>
@@ -126,6 +138,7 @@ const Articles = (props: Props) => {
 interface ArticleContentProps {
     title: string;
     description: string;
+    isAboutFolktale?: boolean;
     imgNumber: number;
     width: number;
     indexLi: JSX.Element[];
@@ -140,6 +153,7 @@ export function ArticleContent({
     indexLi,
     content,
     adsense,
+    isAboutFolktale,
 }: ArticleContentProps) {
     const isWide = width > 991;
 
@@ -174,17 +188,33 @@ export function ArticleContent({
                     itemScope
                     itemType="http://schema.org/ListItem"
                 >
-                    <Link
-                        to="/articles"
-                        itemProp="item"
-                        style={{
-                            marginRight: "5px",
-                            marginLeft: "5px",
-                        }}
-                    >
-                        <span itemProp="name">{"Articles about Japan"}</span>
-                        <meta itemProp="position" content="2" />
-                    </Link>
+                    {isAboutFolktale ? (
+                        <Link
+                            to="/folktales"
+                            itemProp="item"
+                            style={{
+                                marginRight: "5px",
+                                marginLeft: "5px",
+                            }}
+                        >
+                            <span itemProp="name">{"Japanese Folktales"}</span>
+                            <meta itemProp="position" content="2" />
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/articles"
+                            itemProp="item"
+                            style={{
+                                marginRight: "5px",
+                                marginLeft: "5px",
+                            }}
+                        >
+                            <span itemProp="name">
+                                {"Articles about Japan"}
+                            </span>
+                            <meta itemProp="position" content="2" />
+                        </Link>
+                    )}
                 </span>
                 {" > "}
                 <span

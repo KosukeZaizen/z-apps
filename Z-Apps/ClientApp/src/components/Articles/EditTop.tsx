@@ -2,13 +2,14 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
-import { getImgNumber, Page } from ".";
+import { getImgNumber } from ".";
 import { FolktaleMenu } from "../Home";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
+import { Page } from "./Edit";
 import "./style.css";
 
 const imgNumber = getImgNumber();
@@ -209,9 +210,31 @@ const ArticlesTop = () => {
                                             {page.title || "Add contents >>"}
                                         </h2>
                                     </Link>
-                                    <p style={{ margin: 0 }}>
+                                    <p style={{ margin: "0 0 20px" }}>
                                         {page.description}
                                     </p>
+                                    {page.released && (
+                                        <span
+                                            style={{
+                                                backgroundColor: "pink",
+                                                margin: 10,
+                                                padding: 10,
+                                            }}
+                                        >
+                                            {"released"}
+                                        </span>
+                                    )}
+                                    {page.isAboutFolktale && (
+                                        <span
+                                            style={{
+                                                backgroundColor: "yellow",
+                                                margin: 10,
+                                                padding: 10,
+                                            }}
+                                        >
+                                            {"folktale"}
+                                        </span>
+                                    )}
                                 </ScrollBox>
                             </article>
                         ))

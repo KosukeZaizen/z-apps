@@ -15,6 +15,8 @@ namespace Z_Apps.Controllers
         public string description;
         public string articleContent;
         public string imgPath;
+        public bool released;
+        public bool isAboutFolktale;
     }
 
     [Route("api/[controller]")]
@@ -25,7 +27,7 @@ namespace Z_Apps.Controllers
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
-SELECT title, description, articleContent, imgPath
+SELECT title, description, articleContent, imgPath, isAboutFolktale
 FROM tblArticles
 WHERE url = @p and released = 1
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
@@ -39,6 +41,7 @@ WHERE url = @p and released = 1
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
                     imgPath = (string)result["imgPath"],
+                    isAboutFolktale = (bool)result["isAboutFolktale"],
                 };
             }
 
@@ -46,15 +49,19 @@ WHERE url = @p and released = 1
         }
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetAllArticles()
+        public IEnumerable<Article> GetAllArticles(bool isAboutFolktale = false)
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
 SELECT url, title, description, imgPath
 FROM tblArticles 
-WHERE released = 1
+WHERE released = 1 and isAboutFolktale = @isAboutFolktale
 ORDER BY orderNumber DESC
-", null);
+", 
+                        new Dictionary<string, object[]> {
+                            { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
+                        }
+                 );
 
             return result.Select(r => new Article()
             {
@@ -71,7 +78,7 @@ ORDER BY orderNumber DESC
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
-SELECT title, description, articleContent
+SELECT title, description, articleContent, released, isAboutFolktale
 FROM tblArticles
 WHERE url = @p
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
@@ -84,6 +91,8 @@ WHERE url = @p
                     title = (string)result["title"],
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
+                    released = (bool)result["released"],
+                    isAboutFolktale = (bool)result["isAboutFolktale"],
                 };
             }
 
@@ -95,18 +104,20 @@ WHERE url = @p
         {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
-SELECT url, title, description 
+SELECT url, title, description, released, isAboutFolktale
 FROM tblArticles
 ORDER BY orderNumber DESC
 ", null);
 
-            return result.Select(r => new Article()
-            {
+            var articles = result.Select(r => new Article() {
                 url = (string)r["url"],
                 title = (string)r["title"],
                 description = (string)r["description"],
-            }
-            );
+                released = (bool)r["released"],
+                isAboutFolktale = (bool)r["isAboutFolktale"],
+            });
+
+            return articles;
         }
 
         [HttpPost("[action]/")]
@@ -141,7 +152,7 @@ ORDER BY orderNumber DESC
 
         [HttpPost("[action]/")]
         public string UpdateContents(string url, string title, string description, 
-            string articleContent, string imgPath, string token)
+            string articleContent, string imgPath, bool isAboutFolktale, string token)
         {
             if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
 
@@ -154,7 +165,8 @@ UPDATE tblArticles
 SET    title = @title,
        description = @description,
        articleContent = @articleContent,
-       imgPath = @imgPath
+       imgPath = @imgPath,
+       isAboutFolktale = @isAboutFolktale
 WHERE  url = @url;
 ";
 
@@ -163,7 +175,8 @@ WHERE  url = @url;
                     { "@title", new object[2] { SqlDbType.NVarChar, title } },
                     { "@description", new object[2] { SqlDbType.NVarChar, description } },
                     { "@articleContent", new object[2] { SqlDbType.NVarChar, articleContent } },
-                    { "@imgPath", new object[2] { SqlDbType.NVarChar, imgPath } }
+                    { "@imgPath", new object[2] { SqlDbType.NVarChar, imgPath } },
+                    { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
                 });
 
                 if (!result)
