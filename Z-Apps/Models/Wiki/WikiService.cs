@@ -233,17 +233,18 @@ public class WikiService
         else
         {
             //キャッシュデータなし
-            var obj = await getDictionaryDataWithoutCache();
-
+            DictionaryResult obj;
             string json;
             if (ExcludedWords.Any(ew => word.Contains(ew)))
             {
                 //除外対象文字列を含む場合
+                obj = new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
                 json = "removed";
             }
             else
             {
                 //通常時
+                obj = await getDictionaryDataWithoutCache();
                 json = JsonSerializer.Serialize(obj);
             }
 
@@ -252,7 +253,8 @@ public class WikiService
                 //5秒待って登録
                 await Task.Delay(5 * 1000);
 
-                if (obj.wordId > 0 && obj.xml.Length > 0 && obj.xml.Length > 0 && obj.translatedWord.Length > 0 && (json.Contains("wordId") || json == "removed"))
+                if ((obj.wordId > 0 && obj.xml.Length > 0 && obj.xml.Length > 0 && obj.translatedWord.Length > 0 && json.Contains("wordId"))
+                    || json == "removed")
                 {
                     con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json);", new Dictionary<string, object[]> {
                             { "@json", new object[2] { SqlDbType.NVarChar, json } },
