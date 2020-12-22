@@ -152,8 +152,8 @@ ORDER BY orderNumber DESC
 
 
         [HttpPost("[action]/")]
-        public string UpdateContents(string url, string title, string description,
-            string articleContent, string imgPath, bool isAboutFolktale, string token)
+        public string UpdateContents(string url, string token, string title, string description,
+            string articleContent, string imgPath, bool isAboutFolktale)
         {
             if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
 
@@ -173,10 +173,10 @@ WHERE  url = @url;
 
                 bool result = con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
                     { "@url", new object[2] { SqlDbType.NVarChar, url } },
-                    { "@title", new object[2] { SqlDbType.NVarChar, title } },
-                    { "@description", new object[2] { SqlDbType.NVarChar, description } },
-                    { "@articleContent", new object[2] { SqlDbType.NVarChar, articleContent } },
-                    { "@imgPath", new object[2] { SqlDbType.NVarChar, imgPath } },
+                    { "@title", new object[2] { SqlDbType.NVarChar, title != null ? title : "" } },
+                    { "@description", new object[2] { SqlDbType.NVarChar, description != null ? description : "" } },
+                    { "@articleContent", new object[2] { SqlDbType.NVarChar, articleContent != null ? articleContent : "" } },
+                    { "@imgPath", new object[2] { SqlDbType.NVarChar, imgPath != null ? imgPath : "" } },
                     { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
                 });
 
