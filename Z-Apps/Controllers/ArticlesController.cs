@@ -41,7 +41,7 @@ WHERE url = @p and released = 1
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
                     imgPath = (string)result["imgPath"],
-                    isAboutFolktale = (bool)result["isAboutFolktale"],
+                    isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
                 };
             }
 
@@ -57,7 +57,7 @@ SELECT url, title, description, imgPath
 FROM tblArticles 
 WHERE released = 1 and isAboutFolktale = @isAboutFolktale
 ORDER BY orderNumber DESC
-", 
+",
                         new Dictionary<string, object[]> {
                             { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
                         }
@@ -91,8 +91,8 @@ WHERE url = @p
                     title = (string)result["title"],
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
-                    released = (bool)result["released"],
-                    isAboutFolktale = (bool)result["isAboutFolktale"],
+                    released = result["released"] != null ? (bool)result["released"] : false,
+                    isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
                 };
             }
 
@@ -109,12 +109,13 @@ FROM tblArticles
 ORDER BY orderNumber DESC
 ", null);
 
-            var articles = result.Select(r => new Article() {
+            var articles = result.Select(r => new Article()
+            {
                 url = (string)r["url"],
                 title = (string)r["title"],
                 description = (string)r["description"],
-                released = (bool)r["released"],
-                isAboutFolktale = (bool)r["isAboutFolktale"],
+                released = r["released"] != null ? (bool)r["released"] : false,
+                isAboutFolktale = r["isAboutFolktale"] != null ? (bool)r["isAboutFolktale"] : false,
             });
 
             return articles;
@@ -151,7 +152,7 @@ ORDER BY orderNumber DESC
 
 
         [HttpPost("[action]/")]
-        public string UpdateContents(string url, string title, string description, 
+        public string UpdateContents(string url, string title, string description,
             string articleContent, string imgPath, bool isAboutFolktale, string token)
         {
             if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
