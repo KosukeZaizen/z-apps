@@ -126,10 +126,10 @@ const Articles = (props: Props) => {
 
             const formData = new FormData();
             formData.append("url", pageName);
-            formData.append("title", title || "");
-            formData.append("description", description || "");
-            formData.append("articleContent", content || "");
-            formData.append("imgPath", imgPath || "");
+            formData.append("title", title);
+            formData.append("description", description);
+            formData.append("articleContent", content);
+            formData.append("imgPath", imgPath);
             formData.append(
                 "isAboutFolktale",
                 isAboutFolktale ? "true" : "false"
