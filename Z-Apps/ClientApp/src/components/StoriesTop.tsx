@@ -91,6 +91,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
             padding: "0.2em 0.5em",
             marginBottom: "40px",
         };
+        const isWide = screenWidth > 767;
         return (
             <div className="center">
                 <Head
@@ -187,7 +188,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                             }}
                                         >
                                             <ScrollBox>
-                                                {screenWidth > 500 ? (
+                                                {isWide ? (
                                                     <>
                                                         <h2
                                                             style={{
@@ -361,7 +362,9 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                     style={{
                                         fontSize: "xx-large",
                                         fontWeight: "bold",
-                                        margin: "10px 0",
+                                        margin: isWide
+                                            ? "10px 0"
+                                            : "10px 0 40px",
                                     }}
                                 >
                                     Articles about Japanese Folktales
