@@ -126,7 +126,7 @@ namespace Z_Apps.Models.SystemBase
 
                     //------------------------------------------------------------
                     //サイトマップの分割
-                    var chunkSize = 10000;
+                    var chunkSize = 30000;
                     sitemapChunks = lstSitemap.Select((v, i) => new { v, i })
                                             .GroupBy(x => x.i / chunkSize)
                                             .Select(g => g.Select(x => x.v))
