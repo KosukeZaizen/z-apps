@@ -18,11 +18,15 @@ namespace Z_Apps.Models.SystemBase
     {
         private readonly StorageService storageService;
         private readonly StorageBackupService storageBkService;
+        private List<IEnumerable<Dictionary<string, string>>> sitemapChunks;
 
         public SiteMapService(StorageService storageService, StorageBackupService storageBkService)
         {
             this.storageService = storageService;
             this.storageBkService = storageBkService;
+
+            //分割したsitemapChunksの初期値を生成
+            var result =  GetSiteMapText(false, 0);
         }
 
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool onlyStrageXmlFile = false)
@@ -46,17 +50,23 @@ namespace Z_Apps.Models.SystemBase
             return listResult;
         }
 
-        public async Task<string> GetSiteMapText(bool onlyStrageXmlFile = false)
+        public async Task<string> GetSiteMapText(
+            bool onlyStrageXmlFile = false,
+            //各ファイルの配置を書いているXMLが0番、ストレージ上の静的XMLが1番、それ以降は2番～...
+            int sitemapNumber = 0
+        )
         {
             //Startup.csのSitemapリクエスト時の処理と、
             //サイトマップ編集画面の内容をストレージに登録する処理の両方から呼ばれる
-            string resultXML = "";
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
-                resultXML = await response.Content.ReadAsStringAsync();
+                if (sitemapNumber == 1 || onlyStrageXmlFile)
+                {
+                    var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
+                    return await response.Content.ReadAsStringAsync();
+                }
 
-                if (!onlyStrageXmlFile)
+                if (sitemapNumber == 0)
                 {
                     var lstSitemap = new List<Dictionary<string, string>>();
 
@@ -115,13 +125,30 @@ namespace Z_Apps.Models.SystemBase
                     }
 
                     //------------------------------------------------------------
+                    //サイトマップの分割
+                    var chunkSize = 30000;
+                    sitemapChunks = lstSitemap.Select((v, i) => new { v, i })
+                                            .GroupBy(x => x.i / chunkSize)
+                                            .Select(g => g.Select(x => x.v))
+                                            .ToList();
 
-                    string partialXML = GetStringSitemapFromDics(lstSitemap);
-
-                    resultXML = resultXML.Replace("</urlset>", partialXML + "</urlset>");
+                    var result = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
+                    for (var i = 1; i < sitemapChunks.Count() + 2; i++)
+                    {
+                        result.Append("<sitemap><loc>");
+                        result.Append(Consts.SITE_URL + "/sitemap" + i + ".xml");
+                        result.Append("</loc></sitemap>");
+                    }
+                    result.Append("</sitemapindex>");
+                    return result.ToString();
+                }
+                else
+                {
+                    string baseXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></urlset>";
+                    string partialXML = GetStringSitemapFromDics(sitemapChunks[sitemapNumber - 2]);
+                    return baseXML.Replace("</urlset>", partialXML + "</urlset>");
                 }
             }
-            return resultXML;
         }
 
 

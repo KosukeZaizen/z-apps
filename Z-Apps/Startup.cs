@@ -15,6 +15,7 @@ using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.VocabList;
 using Microsoft.AspNetCore.Rewrite;
 using Z_Apps.Controllers;
+using System.Text.RegularExpressions;
 
 namespace Z_Apps
 {
@@ -80,7 +81,13 @@ namespace Z_Apps
 
                 if (url.EndsWith("sitemap.xml"))
                 {
-                    string resultXML = await siteMapService.GetSiteMapText();
+                    string resultXML = await siteMapService.GetSiteMapText(false, 0);
+                    await context.Response.WriteAsync(resultXML);
+                }
+                else if (Regex.IsMatch(url, "sitemap[1-9][0-9]*.xml"))
+                {
+                    int number = Int32.Parse(Regex.Replace(url, @"[^0-9]", ""));
+                    string resultXML = await siteMapService.GetSiteMapText(false, number);
                     await context.Response.WriteAsync(resultXML);
                 }
                 else if (ua.StartsWith("facebookexternalhit"))
