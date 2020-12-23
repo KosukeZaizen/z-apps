@@ -87,7 +87,8 @@ namespace Z_Apps.Models.SystemBase
 
                     //Articlesの各記事
                     var articlesController = new ArticlesController();
-                    var allArticles = articlesController.GetAllArticles();
+                    var allArticles = articlesController.GetAllArticles(true)
+                                .Concat(articlesController.GetAllArticles(false));
 
                     foreach (var article in allArticles)
                     {
