@@ -15,7 +15,7 @@ export default function CharacterComment(props: TProps) {
         <div
             style={{
                 display: "flex",
-                maxWidth: 450,
+                maxWidth: 600,
                 margin: "auto",
                 ...style,
             }}

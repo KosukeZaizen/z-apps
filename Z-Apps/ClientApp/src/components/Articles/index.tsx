@@ -238,7 +238,8 @@ export function ArticleContent({
                 {title ? (
                     <h1
                         style={{
-                            margin: "25px 0 30px",
+                            margin: "25px auto 30px",
+                            textAlign: "center",
                         }}
                     >
                         {title}
@@ -246,12 +247,13 @@ export function ArticleContent({
                 ) : (
                     <ShurikenProgress size="10%" />
                 )}
-
                 <CharacterComment
                     imgNumber={imgNumber}
                     screenWidth={width}
                     comment={description || <ShurikenProgress size="20%" />}
-                    style={{ marginLeft: 0, marginBottom: 15 }}
+                    style={{
+                        marginBottom: 15,
+                    }}
                     commentStyle={{ paddingLeft: 25, paddingRight: 20 }}
                 />
                 <div
