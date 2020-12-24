@@ -1,5 +1,7 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import { isGoogleAdsDisplayed } from "./parts/GoogleAd";
@@ -10,6 +12,30 @@ const logo2 = require("./parts/Ninja2/img/logo.png");
 const logo3 = require("./parts/Ninja3/img/logo.png");
 
 const NinjaGameTop = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        let timer: number;
+        window.onresize = () => {
+            if (timer > 0) {
+                clearTimeout(timer);
+            }
+            timer = window.setTimeout(() => {
+                setWidth(window.innerWidth);
+            }, 100);
+        };
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                setWidth(window.innerWidth);
+            }, i * 1000);
+        }
+
+        return () => {
+            window.onresize = null;
+        };
+    }, []);
+
     if (isGoogleAdsDisplayed) {
         // Adsenseが表示されているときに遷移があった場合はリロードし、
         // 自動広告によってゲームが邪魔されることを防ぐ
@@ -28,7 +54,7 @@ const NinjaGameTop = () => {
                 title="Lingual Ninja Games"
                 desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
             />
-            <div className="center">
+            <div className="center" style={{ marginTop: 15 }}>
                 <h1>Lingual Ninja Games</h1>
             </div>
             <br />
@@ -54,6 +80,7 @@ const NinjaGameTop = () => {
             <br />
             <br />
             <FB />
+            <Momiji frequencySec={2} screenWidth={width} />
         </div>
     );
 };

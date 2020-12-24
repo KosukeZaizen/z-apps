@@ -88,29 +88,27 @@ const Articles = (props: Props) => {
         };
         void getArticle();
 
-        const onChangeScreenSize = () => {
-            if (width !== window.innerWidth) {
-                setWidth(window.innerWidth);
-            }
-        };
-
         let timer: number;
         window.onresize = () => {
             if (timer > 0) {
                 clearTimeout(timer);
             }
             timer = window.setTimeout(() => {
-                onChangeScreenSize();
+                setWidth(window.innerWidth);
             }, 100);
         };
 
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
-                onChangeScreenSize();
+                setWidth(window.innerWidth);
             }, i * 1000);
         }
 
         setImgNumber(getImgNumber(pageName.length));
+
+        return () => {
+            window.onresize = null;
+        };
     }, [pageName]);
 
     useEffect(() => {
