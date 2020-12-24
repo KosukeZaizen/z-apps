@@ -321,7 +321,8 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                                             style={{
                                                                 textAlign:
                                                                     "left",
-                                                                margin: "10px",
+                                                                margin:
+                                                                    "10px 0",
                                                             }}
                                                         >
                                                             {s.description
