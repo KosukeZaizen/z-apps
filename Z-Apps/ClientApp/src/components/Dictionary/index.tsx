@@ -355,6 +355,7 @@ class Dictionary extends React.Component<Props, State> {
                                 <section
                                     style={{
                                         borderBottom: "1px solid gainsboro",
+                                        backgroundColor: "white",
                                     }}
                                 >
                                     <h2 style={styleDiv}>{title}</h2>

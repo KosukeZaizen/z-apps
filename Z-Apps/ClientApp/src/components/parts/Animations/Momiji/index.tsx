@@ -6,9 +6,9 @@ import "./animation.css";
 let count = 0;
 let ls: Leaf[] = [];
 
-type Season = "spring" | "summer" | "autumn" | "winter" | "";
+export type Season = "spring" | "summer" | "autumn" | "winter" | "none";
 type SeasonItem = { alt: string; src: string };
-const seasonItems: { [key in Exclude<Season, "">]: SeasonItem } = {
+const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
     spring: { alt: "Japanese sakura", src: "sakura.png" },
     summer: { alt: "Japanese fan", src: "japanese-fan.png" },
     autumn: { alt: "Japanese red leaf", src: "momiji.png" },
@@ -35,11 +35,9 @@ export const Momiji = ({
         (screenWidth + window.innerHeight) / 1000
     );
     const [leaves, setLeaves] = useState<Leaf[]>([]);
-    const [season, setSeason] = useState<Season>("");
+    const [season, setSeason] = useState<Season>("none");
 
     useEffect(() => {
-        setScale((screenWidth + window.innerHeight) / 1000);
-
         if (pSeason) {
             setSeason(pSeason);
         } else {
@@ -58,6 +56,10 @@ export const Momiji = ({
                 setSeason("summer");
             }
         }
+    }, [pSeason]);
+
+    useEffect(() => {
+        setScale((screenWidth + window.innerHeight) / 1000);
 
         const intervalId = window.setInterval(() => {
             //各葉っぱは20秒で消える
@@ -89,10 +91,28 @@ export const Momiji = ({
         };
     }, []);
 
-    if (!season) {
-        return null;
+    let getImg;
+    if (!season || season === "none") {
+        getImg = () => null;
+    } else {
+        const seasonItem = seasonItems[season];
+        getImg = (l: Leaf) => (
+            <img
+                key={`${seasonItem.alt} ${l.id}`}
+                src={appsPublicImg + seasonItem.src}
+                alt={`${seasonItem.alt} ${l.id}`}
+                title={`${seasonItem.alt} ${l.id}`}
+                style={{
+                    width: 50 * scale,
+                    position: "fixed",
+                    top: -1.5 * 90 * scale,
+                    left: l.initialX,
+                    zIndex: -100,
+                }}
+                className="falling"
+            />
+        );
     }
-    const seasonItem = seasonItems[season];
 
     return (
         <div>
@@ -108,22 +128,7 @@ export const Momiji = ({
                     zIndex: -110,
                 }}
             />
-            {leaves.map(l => (
-                <img
-                    key={`${seasonItem.alt} ${l.id}`}
-                    src={appsPublicImg + seasonItem.src}
-                    alt={`${seasonItem.alt} ${l.id}`}
-                    title={`${seasonItem.alt} ${l.id}`}
-                    style={{
-                        width: 50 * scale,
-                        position: "fixed",
-                        top: -1.5 * 90 * scale,
-                        left: l.initialX,
-                        zIndex: -100,
-                    }}
-                    className="falling"
-                />
-            ))}
+            {leaves.map(getImg)}
         </div>
     );
 };

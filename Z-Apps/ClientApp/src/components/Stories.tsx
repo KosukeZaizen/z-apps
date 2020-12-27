@@ -9,6 +9,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
+import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
@@ -346,6 +347,7 @@ class Stories extends React.Component<Props, State> {
                                 width="90%"
                                 alt={title}
                                 title={title}
+                                style={{ position: "relative", zIndex: -120 }}
                             />
                         ) : null}
                         <br />
@@ -356,6 +358,7 @@ class Stories extends React.Component<Props, State> {
                                     padding: "10px",
                                     marginBottom: "10px",
                                     border: "5px double #333333",
+                                    backgroundColor: "white",
                                 }}
                                 id="aboutFolktale"
                             >
@@ -692,6 +695,11 @@ class Stories extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                     />
                 </main>
+                <Momiji
+                    frequencySec={2}
+                    screenWidth={screenWidth}
+                    season={storyDesc.season || "none"}
+                />
             </div>
         );
     }

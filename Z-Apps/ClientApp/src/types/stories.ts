@@ -1,8 +1,11 @@
+import { Season } from "../components/parts/Animations/Momiji";
+
 export type storyDesc = {
     storyId: number;
     storyName: string;
     description: string;
     order?: number;
+    season?: Season;
 };
 export type sentence = {
     lineNumber: number;

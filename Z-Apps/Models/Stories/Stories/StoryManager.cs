@@ -53,6 +53,7 @@ namespace Z_Apps.Models.Stories.Stories
                 story.StoryId = (int)dicStory["StoryId"];
                 story.StoryName = (string)dicStory["StoryName"];
                 story.Description = (string)dicStory["Description"];
+                story.Season = (string)dicStory["Season"];
             }
             return story;
         }
