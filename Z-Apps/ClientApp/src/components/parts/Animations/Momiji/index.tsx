@@ -6,6 +6,15 @@ import "./animation.css";
 let count = 0;
 let ls: Leaf[] = [];
 
+type Season = "spring" | "summer" | "autumn" | "winter" | "";
+type SeasonItem = { alt: string; src: string };
+const seasonItems: { [key in Exclude<Season, "">]: SeasonItem } = {
+    spring: { alt: "Japanese sakura", src: "sakura.png" },
+    summer: { alt: "Japanese fan", src: "japanese-fan.png" },
+    autumn: { alt: "Japanese red leaf", src: "momiji.png" },
+    winter: { alt: "snow", src: "snow.png" },
+};
+
 interface Leaf {
     id: number;
     ageCount: number;
@@ -15,15 +24,40 @@ interface Leaf {
 interface Props {
     frequencySec: number;
     screenWidth: number;
+    season?: Season;
 }
-export const Momiji = ({ frequencySec, screenWidth }: Props) => {
+export const Momiji = ({
+    frequencySec,
+    screenWidth,
+    season: pSeason,
+}: Props) => {
     const [scale, setScale] = useState(
         (screenWidth + window.innerHeight) / 1000
     );
     const [leaves, setLeaves] = useState<Leaf[]>([]);
+    const [season, setSeason] = useState<Season>("");
 
     useEffect(() => {
         setScale((screenWidth + window.innerHeight) / 1000);
+
+        if (pSeason) {
+            setSeason(pSeason);
+        } else {
+            const month = new Date().getMonth() + 1;
+            if (9 <= month && month <= 11) {
+                //秋
+                setSeason("autumn");
+            } else if (12 === month || month <= 2) {
+                //冬
+                setSeason("winter");
+            } else if (3 <= month && month <= 4) {
+                //春
+                setSeason("spring");
+            } else {
+                //夏
+                setSeason("summer");
+            }
+        }
 
         const intervalId = window.setInterval(() => {
             //各葉っぱは20秒で消える
@@ -55,6 +89,11 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
         };
     }, []);
 
+    if (!season) {
+        return null;
+    }
+    const seasonItem = seasonItems[season];
+
     return (
         <div>
             <img
@@ -71,10 +110,10 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
             />
             {leaves.map(l => (
                 <img
-                    key={`Japanese red leaf ${l.id}`}
-                    src={appsPublicImg + "momiji.png"}
-                    alt={`Japanese red leaf ${l.id}`}
-                    title={`Japanese red leaf ${l.id}`}
+                    key={`${seasonItem.alt} ${l.id}`}
+                    src={appsPublicImg + seasonItem.src}
+                    alt={`${seasonItem.alt} ${l.id}`}
+                    title={`${seasonItem.alt} ${l.id}`}
                     style={{
                         width: 50 * scale,
                         position: "fixed",
@@ -82,7 +121,7 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
                         left: l.initialX,
                         zIndex: -100,
                     }}
-                    className="japanese_leaf"
+                    className="falling"
                 />
             ))}
         </div>
