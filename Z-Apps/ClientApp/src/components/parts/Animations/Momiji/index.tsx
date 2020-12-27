@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { appsPublicImg } from "../../../../common/consts";
 import "./animation.css";
 
 let count = 0;
@@ -56,10 +57,22 @@ export const Momiji = ({ frequencySec, screenWidth }: Props) => {
 
     return (
         <div>
+            <img
+                alt="japanese festival"
+                title="japanese festival"
+                src={appsPublicImg + "japanese-festival.png"}
+                style={{
+                    position: "absolute",
+                    width: "130%",
+                    top: 80 - screenWidth * 0.34,
+                    left: -(screenWidth * 0.28),
+                    zIndex: -110,
+                }}
+            />
             {leaves.map(l => (
                 <img
                     key={`Japanese red leaf ${l.id}`}
-                    src="https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/img/momiji.png"
+                    src={appsPublicImg + "momiji.png"}
                     alt={`Japanese red leaf ${l.id}`}
                     title={`Japanese red leaf ${l.id}`}
                     style={{
