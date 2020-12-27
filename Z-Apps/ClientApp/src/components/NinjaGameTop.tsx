@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { appsPublicImg } from "../common/consts";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import { isGoogleAdsDisplayed } from "./parts/GoogleAd";
@@ -81,7 +81,7 @@ const NinjaGameTop = () => {
             <br />
             <br />
             <FB />
-            <Momiji frequencySec={2} screenWidth={width} />
+            <SeasonAnimation frequencySec={2} screenWidth={width} />
         </div>
     );
 };

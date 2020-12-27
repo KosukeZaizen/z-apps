@@ -15,7 +15,7 @@ import { sendClientOpeLog, shuffle } from "../common/functions";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../types/vocab";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
@@ -312,7 +312,10 @@ class VocabQuiz extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         targetId="h1title"
                     />
-                    <Momiji frequencySec={2} screenWidth={screenWidth} />
+                    <SeasonAnimation
+                        frequencySec={2}
+                        screenWidth={screenWidth}
+                    />
                 </div>
             </div>
         );

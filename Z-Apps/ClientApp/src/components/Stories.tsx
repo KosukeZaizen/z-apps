@@ -9,7 +9,7 @@ import * as consts from "../common/consts";
 import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
@@ -695,7 +695,7 @@ class Stories extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                     />
                 </main>
-                <Momiji
+                <SeasonAnimation
                     frequencySec={2}
                     screenWidth={screenWidth}
                     season={storyDesc.season || "none"}

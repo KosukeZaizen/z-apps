@@ -5,7 +5,7 @@ import { Button, Card, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import { TReducers } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -205,7 +205,10 @@ class VocabQuizTop extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         targetId="h1title"
                     />
-                    <Momiji frequencySec={2} screenWidth={screenWidth} />
+                    <SeasonAnimation
+                        frequencySec={2}
+                        screenWidth={screenWidth}
+                    />
                 </div>
             </div>
         );

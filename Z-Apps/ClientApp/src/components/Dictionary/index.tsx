@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import * as consts from "../../common/consts";
 import { storyDesc } from "../../types/stories";
-import { Momiji } from "../parts/Animations/Momiji";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
@@ -704,7 +704,10 @@ class Dictionary extends React.Component<Props, State> {
                     </Link>
                     <hr />
                     <FB />
-                    <Momiji frequencySec={2} screenWidth={screenWidth} />
+                    <SeasonAnimation
+                        frequencySec={2}
+                        screenWidth={screenWidth}
+                    />
                 </div>
             </div>
         );

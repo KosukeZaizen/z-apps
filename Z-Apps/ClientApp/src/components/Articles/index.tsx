@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
 import { FolktaleMenu } from "../Home";
-import { Momiji } from "../parts/Animations/Momiji";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
@@ -128,7 +128,7 @@ const Articles = (props: Props) => {
                 adsense={true}
                 isAboutFolktale={isAboutFolktale}
             />
-            <Momiji frequencySec={2} screenWidth={width} />
+            <SeasonAnimation frequencySec={2} screenWidth={width} />
         </div>
     );
 };

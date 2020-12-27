@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
@@ -224,7 +224,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                     screenWidth={screenWidth}
                     targetId="h1title"
                 />
-                <Momiji frequencySec={2} screenWidth={screenWidth} />
+                <SeasonAnimation frequencySec={2} screenWidth={screenWidth} />
             </div>
         );
     }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
 import { FolktaleMenu } from "../Home";
-import { Momiji } from "../parts/Animations/Momiji";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
@@ -131,7 +131,7 @@ const ArticlesTop = () => {
                 <GoogleAd />
                 <FB style={{ marginTop: 20 }} />
             </main>
-            <Momiji frequencySec={2} screenWidth={width} />
+            <SeasonAnimation frequencySec={2} screenWidth={width} />
         </div>
     );
 };

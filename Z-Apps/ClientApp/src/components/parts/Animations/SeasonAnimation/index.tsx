@@ -15,6 +15,9 @@ export type Season =
     | "peach"
     | "sake"
     | "fish"
+    | "star"
+    | "mallet"
+    | "leaf"
     | "none";
 type SeasonItem = { alt: string; src: string };
 const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
@@ -26,6 +29,9 @@ const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
     peach: { alt: "peach", src: "peach.png" },
     sake: { alt: "Japanese sake", src: "sake.png" },
     fish: { alt: "Japanese fish", src: "fish.png" },
+    star: { alt: "star", src: "star.png" },
+    mallet: { alt: "mallet", src: "mallet.png" },
+    leaf: { alt: "leaf", src: "leaf.png" },
 };
 
 interface Leaf {
@@ -39,7 +45,7 @@ interface Props {
     screenWidth: number;
     season?: Season;
 }
-export const Momiji = ({
+export const SeasonAnimation = ({
     frequencySec,
     screenWidth,
     season: pSeason,
@@ -52,7 +58,11 @@ export const Momiji = ({
 
     useEffect(() => {
         if (pSeason) {
-            setSeason(pSeason);
+            if (Object.keys(seasonItems).includes(pSeason)) {
+                setSeason(pSeason);
+            } else {
+                setSeason("none");
+            }
         } else {
             const month = new Date().getMonth() + 1;
             if (9 <= month && month <= 11) {

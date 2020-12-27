@@ -10,7 +10,7 @@ import { actionCreators } from "../store/StoriesTopStore";
 import { storyDesc } from "../types/stories";
 import { Page } from "./Articles";
 import { ArticlesList } from "./Articles/Top";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import { Author } from "./parts/Author";
 import FB from "./parts/FaceBook";
@@ -522,7 +522,7 @@ I hope this application helps you to study Japanese!
                     criteriaRef={this.ref}
                     screenWidth={screenWidth}
                 />
-                <Momiji frequencySec={2} screenWidth={screenWidth} />
+                <SeasonAnimation frequencySec={2} screenWidth={screenWidth} />
             </div>
         );
     }

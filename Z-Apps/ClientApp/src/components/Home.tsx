@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import "../css/Home.css";
-import { Momiji } from "./parts/Animations/Momiji";
+import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
@@ -350,7 +350,7 @@ export default class Home extends React.Component<
                     criteriaRef={this.ref}
                     targetId="scrollTargetId"
                 />
-                <Momiji frequencySec={2} screenWidth={screenWidth} />
+                <SeasonAnimation frequencySec={2} screenWidth={screenWidth} />
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import { Season } from "../components/parts/Animations/Momiji";
+import { Season } from "../components/parts/Animations/SeasonAnimation";
 
 export type storyDesc = {
     storyId: number;
