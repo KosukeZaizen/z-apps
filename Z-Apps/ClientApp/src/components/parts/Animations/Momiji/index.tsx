@@ -6,13 +6,26 @@ import "./animation.css";
 let count = 0;
 let ls: Leaf[] = [];
 
-export type Season = "spring" | "summer" | "autumn" | "winter" | "none";
+export type Season =
+    | "spring"
+    | "summer"
+    | "autumn"
+    | "winter"
+    | "money"
+    | "peach"
+    | "sake"
+    | "fish"
+    | "none";
 type SeasonItem = { alt: string; src: string };
 const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
     spring: { alt: "Japanese sakura", src: "sakura.png" },
     summer: { alt: "Japanese fan", src: "japanese-fan.png" },
     autumn: { alt: "Japanese red leaf", src: "momiji.png" },
     winter: { alt: "snow", src: "snow.png" },
+    money: { alt: "Japanese money", src: "japanese-money.png" },
+    peach: { alt: "peach", src: "peach.png" },
+    sake: { alt: "Japanese sake", src: "sake.png" },
+    fish: { alt: "Japanese fish", src: "fish.png" },
 };
 
 interface Leaf {
