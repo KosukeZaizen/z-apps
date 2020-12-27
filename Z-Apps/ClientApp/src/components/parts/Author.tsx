@@ -1,10 +1,12 @@
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { appsPublicImg } from "../../common/consts";
 import "./CharacterComment/CharacterComment.css";
 import { Markdown } from "./Markdown";
 import { ScrollBox } from "./ScrollBox";
-const image = require("../../img/KosukeZaizen.jpg");
+
+const image = appsPublicImg + "KosukeZaizen.jpg";
 
 type AuthorProps = {
     screenWidth: number;

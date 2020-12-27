@@ -1,13 +1,13 @@
-//@ts-nocheck
 import * as React from "react";
-const logo = require("./img/logo.png");
+import { appsPublicImg } from "../../../common/consts";
+const logo = appsPublicImg + "game-logo-3.png";
 
 export default class Page1 extends React.Component {
     props: any;
     state: any;
     consts: any;
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.consts = {
             BTN_START_CLASS: "btn btn-primary btn-lg btn-block",
@@ -135,7 +135,7 @@ export default class Page1 extends React.Component {
     }
 }
 
-function TopImage(props) {
+function TopImage(props: any) {
     if (props.topImage) {
         return (
             <h1>

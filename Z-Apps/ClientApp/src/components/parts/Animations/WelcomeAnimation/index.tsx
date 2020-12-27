@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { AnimationEngine } from "../../../../common/animation";
+import { appsPublicImg } from "../../../../common/consts";
 import "./animation.css";
 
-const runningNinja = require("../../Ninja/objs/ninja/ninja_hashiru.png");
-const shuriken = require("../../../../img/shuriken.png");
+const shuriken = appsPublicImg + "shuriken.png";
+const runningNinja = appsPublicImg + "ninja_hashiru.png";
 
 export let finishWelcomeAnimation: () => void = () => {};
 

@@ -2,6 +2,8 @@
 //　全てのオブジェクトの画像をconstし、exportするモジュール
 //------------------------------------------------------------
 
+import { appsPublicImg } from "../../../common/consts";
+
 //＜過去要素引継ぎ＞
 
 //岩
@@ -62,7 +64,7 @@ const Monk = require("./objs/monk.png");
 //氷
 const Ice = require("./objs/ice.jpg");
 //岩（右）
-const RockRight = require("./objs/rockRight.png");
+const RockRight = appsPublicImg + "rockRight.png";
 //扉
 const DarkDoor = require("./objs/darkDoor.jpg");
 //死神

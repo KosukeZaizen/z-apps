@@ -1,5 +1,6 @@
 import * as React from "react";
-const runningNinja = require("./../../../Ninja/objs/ninja/ninja_hashiru.png");
+import { appsPublicImg } from "../../../../../common/consts";
+const runningNinja = appsPublicImg + "ninja_hashiru.png";
 
 function NinjaChar(props: {
     x: number;

@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { AnimationEngine } from "../../../../common/animation";
+import { appsPublicImg } from "../../../../common/consts";
 
-const runningNinja = require("./../../Ninja/objs/ninja/ninja_hashiru.png");
-const badNinja = require("./../../Ninja2/objs/ninja_bad.png");
-const rock = require("./../../Ninja3/objs/rockRight.png");
-const fire = require("./../../Ninja3/objs/fireRight.png");
-const flyingNinja = require("./flying-ninja.png");
+const badNinja = appsPublicImg + "ninja_bad.png";
+const rock = appsPublicImg + "rockRight.png";
+const fire = appsPublicImg + "fireRight.png";
+const flyingNinja = appsPublicImg + "flying-ninja.png";
+const runningNinja = appsPublicImg + "ninja_hashiru.png";
 
 interface StateToAnimate {
     shown: boolean;

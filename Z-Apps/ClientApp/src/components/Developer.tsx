@@ -1,10 +1,11 @@
 import * as React from "react";
+import { appsPublicImg } from "../common/consts";
 import "../css/Developer.css";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
-const image = require("../img/KosukeZaizen.jpg");
 
+const image = appsPublicImg + "KosukeZaizen.jpg";
 function SayHello() {
     return (
         <p>

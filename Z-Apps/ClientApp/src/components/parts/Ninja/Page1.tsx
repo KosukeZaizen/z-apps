@@ -1,5 +1,7 @@
 import * as React from "react";
-const logo = require("./img/logo.png");
+import { appsPublicImg } from "../../../common/consts";
+
+const logo = appsPublicImg + "game-logo-1.png";
 
 export default class Page1 extends React.Component<any, any> {
     consts: { BTN_START_CLASS: string };

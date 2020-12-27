@@ -1,15 +1,16 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { appsPublicImg } from "../common/consts";
 import { Momiji } from "./parts/Animations/Momiji";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import FB from "./parts/FaceBook";
 import { isGoogleAdsDisplayed } from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 
-const logo1 = require("./parts/Ninja/img/logo.png");
-const logo2 = require("./parts/Ninja2/img/logo.png");
-const logo3 = require("./parts/Ninja3/img/logo.png");
+const logo1 = appsPublicImg + "game-logo-1.png";
+const logo2 = appsPublicImg + "game-logo-2.png";
+const logo3 = appsPublicImg + "game-logo-3.png";
 
 const NinjaGameTop = () => {
     const [width, setWidth] = useState(window.innerWidth);

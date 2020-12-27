@@ -1,7 +1,8 @@
 import * as React from "react";
+import { appsPublicImg } from "../../../../common/consts";
 import "./animation.css";
 
-const shuriken = require("../../../../img/shuriken.png");
+const shuriken = appsPublicImg + "shuriken.png";
 
 interface Props {
     size?: string;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { appsPublicImg } from "../../../common/consts";
 import { Ninja } from "../../NinjaGame2";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
@@ -20,7 +21,7 @@ const imgShino = require("./../Ninja/objs/shino.png");
 //屋敷（屋根）
 const imgHouse1 = require("./objs/house.png");
 //悪忍者
-const imgBadNinja = require("./objs/ninja_bad.png");
+const imgBadNinja = appsPublicImg + "ninja_bad.png";
 //鷲
 const imgWashi = require("./objs/washi.png");
 //木箱
