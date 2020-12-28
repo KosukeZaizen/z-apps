@@ -27,7 +27,6 @@ export const ColorChangeButton = ({
         const initialColorKey = initialColor
             ? ((arrColors.indexOf(initialColor) + 1) as ButtonKey)
             : 1;
-
         setButtonKey(initialColorKey);
     }, [initialColor]);
 

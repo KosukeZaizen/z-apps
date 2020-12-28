@@ -32,10 +32,13 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
                     flexDirection: isWide ? "row" : "column",
                 }}
             >
-                <div>
-                    <Link to="/folktales">
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Link
+                        to="/folktales"
+                        style={{ display: "flex", justifyContent: "center" }}
+                    >
                         <img
-                            style={{ width: "100%" }}
+                            style={{ width: "100%", objectFit: "contain" }}
                             src={
                                 "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png"
                             }
