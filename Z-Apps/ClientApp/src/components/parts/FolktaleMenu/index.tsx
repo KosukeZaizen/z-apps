@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ColorChangeButton } from "../Animations/ColorChangeButton";
 import { ScrollBox } from "../ScrollBox";
@@ -11,16 +10,9 @@ const buttonColor = { 1: "secondary", 2: "success", 3: "primary" };
 type ButtonKey = keyof typeof buttonColor;
 export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
-    const [buttonKey, setButtonKey] = useState<ButtonKey>(1);
-
-    useEffect(() => {
-        const timerId = window.setTimeout(() => {
-            const nextKey = (buttonKey - 1 || 3) as ButtonKey;
-            setButtonKey(nextKey);
-        }, 3000);
-        return () => clearTimeout(timerId);
-    }, [buttonKey]);
-
+    const styleImgContainer = isWide
+        ? { display: "flex", justifyContent: "center" }
+        : undefined;
     return (
         <ScrollBox style={{ textAlign: "center" }}>
             <Link to="/folktales">
@@ -32,11 +24,8 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
                     flexDirection: isWide ? "row" : "column",
                 }}
             >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Link
-                        to="/folktales"
-                        style={{ display: "flex", justifyContent: "center" }}
-                    >
+                <div style={styleImgContainer}>
+                    <Link to="/folktales" style={styleImgContainer}>
                         <img
                             style={{ width: "100%", objectFit: "contain" }}
                             src={
