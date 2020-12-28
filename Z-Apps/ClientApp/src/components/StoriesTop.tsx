@@ -13,6 +13,7 @@ import { ArticlesList } from "./Articles/Top";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import { Author } from "./parts/Author";
+import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 // import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
@@ -27,6 +28,7 @@ interface StoriesTopProps {
 interface StoriesTopState {
     pages: Page[];
     screenWidth: number;
+    imgNumber: 1 | 2 | 3;
 }
 class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
     ref: React.RefObject<HTMLDivElement>;
@@ -37,6 +39,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
         this.state = {
             screenWidth: window.innerWidth,
             pages: [],
+            imgNumber: this.getImgNumber(),
         };
 
         let timer: number;
@@ -52,6 +55,15 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
 
         this.ref = React.createRef();
     }
+
+    getImgNumber = () => {
+        const today = new Date();
+        const todayNumber = today.getMonth() + today.getDate();
+        const mod = todayNumber % 27;
+        if (mod > 6) return 1;
+        if (mod > 2) return 2;
+        return 3;
+    };
 
     componentDidMount() {
         this.props.loadAllStories();
@@ -83,14 +95,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
 
     render() {
         const { allStories } = this.props;
-        const { screenWidth, pages } = this.state;
-        const styleForAboutTitle = {
-            background: "#fee8b4",
-            boxShadow: "0px 0px 0px 5px #fee8b4",
-            border: "dashed 2px white",
-            padding: "0.2em 0.5em",
-            marginBottom: "40px",
-        };
+        const { screenWidth, pages, imgNumber } = this.state;
         const isWide = screenWidth > 767;
         return (
             <div className="center">
@@ -98,7 +103,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                     title="Japanese Folktales in Romaji, Hiragana, Kanji, and English"
                     desc="Free web application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
-                <main style={{ maxWidth: 900 }}>
+                <main style={{ maxWidth: 1000 }}>
                     <div
                         className="breadcrumbs"
                         itemScope
@@ -149,12 +154,19 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                     >
                         Japanese Folktales
                     </h1>
-                    <p style={styleForAboutTitle}>
-                        Free web app to learn Japanese from folktales!
-                        <br />
-                        You can read traditional Japanese folktales in Romaji,
-                        Hiragana, Kanji, and English!
-                    </p>
+                    <CharacterComment
+                        screenWidth={screenWidth}
+                        imgNumber={imgNumber}
+                        comment={
+                            <p>
+                                Free web app to learn Japanese from folktales!
+                                <br />
+                                You can read traditional Japanese folktales in
+                                Romaji, Hiragana, Kanji, and English!
+                            </p>
+                        }
+                        style={isWide ? {} : { margin: "auto auto 40px auto" }}
+                    />
                     {allStories && allStories.length > 0 ? null : (
                         <div className="center">
                             <ShurikenProgress key="circle" size="20%" />
@@ -267,6 +279,8 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                                                                         style={{
                                                                                             color:
                                                                                                 "black",
+                                                                                            fontSize:
+                                                                                                "large",
                                                                                         }}
                                                                                     >
                                                                                         {

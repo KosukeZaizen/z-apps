@@ -61,8 +61,8 @@ export default class Home extends React.Component<
         const today = new Date();
         const todayNumber = today.getMonth() + today.getDate();
         const mod = todayNumber % 27;
-        if (mod > 35) return 3;
-        if (mod > 30) return 2;
+        if (mod > 25) return 3;
+        if (mod > 23) return 2;
         return 1;
     };
 
