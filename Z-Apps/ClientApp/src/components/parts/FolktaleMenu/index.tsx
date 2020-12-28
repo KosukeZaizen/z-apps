@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { ColorChangeButton } from "../Animations/ColorChangeButton";
 import { ScrollBox } from "../ScrollBox";
 
 interface FolktaleMenuProps {
@@ -68,16 +68,7 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            <Button
-                                size="lg"
-                                color={buttonColor[buttonKey]}
-                                style={{
-                                    width: 100,
-                                }}
-                                className="colorChangeButton"
-                            >
-                                Try!
-                            </Button>
+                            <ColorChangeButton label="Try!" />
                         </Link>
                     </div>
                 </div>
