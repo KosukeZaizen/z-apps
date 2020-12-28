@@ -5,6 +5,7 @@ import { ColorChangeButton } from "./parts/Animations/ColorChangeButton";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
+import { FolktaleMenu } from "./parts/FolktaleMenu";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/KanaQuiz/KanaQuiz.css";
@@ -170,7 +171,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                                     margin: 5,
                                     width: buttonWidth,
                                 }}
-                                initialColor="secondary"
+                                color="secondary"
                             >
                                 Hiragana Chart
                             </Button>
@@ -194,7 +195,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                         <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
                             <Button
                                 style={{ margin: 5, width: buttonWidth }}
-                                initialColor="secondary"
+                                color="secondary"
                             >
                                 Katakana Chart
                             </Button>
@@ -208,11 +209,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                         </button>
                     </Link>
                     <hr />
-                </div>
-                <div style={{ fontSize: "x-large", margin: "20px" }}>
-                    <Link to="/folktales">
-                        {"Learn Japanese from Japanese folktales >>"}
-                    </Link>
+                    <FolktaleMenu screenWidth={screenWidth} />
                 </div>
                 <br />
                 <FB />
