@@ -8,3 +8,7 @@
     margin: 10px;
     line-height: 10px;
 }
+
+.colorChangeButton {
+    transition: 2s;
+}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import "../css/Home.css";
@@ -359,8 +360,20 @@ export default class Home extends React.Component<
 interface FolktaleMenuProps {
     screenWidth: number;
 }
+const buttonColor = { 1: "secondary", 2: "success", 3: "primary" };
+type ButtonKey = keyof typeof buttonColor;
 export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
+    const [buttonKey, setButtonKey] = useState<ButtonKey>(1);
+
+    useEffect(() => {
+        const timerId = window.setTimeout(() => {
+            const nextKey = (buttonKey - 1 || 3) as ButtonKey;
+            setButtonKey(nextKey);
+        }, 3000);
+        return () => clearTimeout(timerId);
+    }, [buttonKey]);
+
     return (
         <ScrollBox style={{ textAlign: "center" }}>
             <Link to="/folktales">
@@ -410,10 +423,11 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
                         >
                             <Button
                                 size="lg"
-                                color="secondary"
+                                color={buttonColor[buttonKey]}
                                 style={{
                                     width: 100,
                                 }}
+                                className="colorChangeButton"
                             >
                                 Try!
                             </Button>
