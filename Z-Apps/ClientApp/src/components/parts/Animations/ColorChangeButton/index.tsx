@@ -10,6 +10,7 @@ interface FolktaleMenuProps {
     style?: React.CSSProperties;
 }
 const buttonColor = { 1: "secondary", 2: "success", 3: "primary" } as const;
+const arrColors = Object.values(buttonColor);
 type ButtonKey = keyof typeof buttonColor;
 export const ColorChangeButton = ({
     label,
@@ -17,14 +18,18 @@ export const ColorChangeButton = ({
     size,
     style,
 }: FolktaleMenuProps) => {
-    const initialColorKey = initialColor
-        ? ((Object.keys(buttonColor).indexOf(initialColor) + 1) as ButtonKey)
-        : 1;
-    const [buttonKey, setButtonKey] = useState<ButtonKey>(initialColorKey);
-    const btnSize = size || "lg";
-    const btnStyle = style || {
-        width: 100,
-    };
+    const [buttonKey, setButtonKey] = useState<ButtonKey>(1);
+
+    useEffect(() => {
+        if (!initialColor || !arrColors.indexOf(initialColor)) {
+            return;
+        }
+        const initialColorKey = initialColor
+            ? (arrColors.indexOf(initialColor) as ButtonKey)
+            : 1;
+
+        setButtonKey(initialColorKey);
+    }, [initialColor]);
 
     useEffect(() => {
         const timerId = window.setTimeout(() => {
@@ -36,9 +41,9 @@ export const ColorChangeButton = ({
 
     return (
         <Button
-            size={btnSize}
+            size={size}
             color={buttonColor[buttonKey]}
-            style={btnStyle}
+            style={style}
             className="colorChangeButton"
         >
             {label}

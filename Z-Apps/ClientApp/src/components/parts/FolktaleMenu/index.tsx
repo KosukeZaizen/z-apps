@@ -68,7 +68,13 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
                                 fontWeight: "bold",
                             }}
                         >
-                            <ColorChangeButton label="Try!" />
+                            <ColorChangeButton
+                                size="lg"
+                                style={{
+                                    width: 100,
+                                }}
+                                label="Try!"
+                            />
                         </Link>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import { ColorChangeButton } from "./parts/Animations/ColorChangeButton";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
@@ -157,12 +158,11 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             Let's test your memory of Hiragana!
                         </div>
                         <Link to="/hiragana-quiz">
-                            <Button
+                            <ColorChangeButton
                                 style={{ margin: 5, width: buttonWidth }}
-                                color="primary"
-                            >
-                                Hiragana Quiz
-                            </Button>
+                                initialColor="primary"
+                                label="Hiragana Quiz"
+                            />
                         </Link>
                         <a href="https://www.lingual-ninja.com/2018/07/hiragana-list.html">
                             <Button
@@ -170,7 +170,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                                     margin: 5,
                                     width: buttonWidth,
                                 }}
-                                color="primary"
+                                initialColor="secondary"
                             >
                                 Hiragana Chart
                             </Button>
@@ -185,17 +185,16 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             Try to get a perfect score!
                         </div>
                         <Link to="/katakana-quiz">
-                            <Button
+                            <ColorChangeButton
                                 style={{ margin: 5, width: buttonWidth }}
-                                color="primary"
-                            >
-                                Katakana Quiz
-                            </Button>
+                                initialColor="success"
+                                label="Katakana Quiz"
+                            />
                         </Link>
                         <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
                             <Button
                                 style={{ margin: 5, width: buttonWidth }}
-                                color="primary"
+                                initialColor="secondary"
                             >
                                 Katakana Chart
                             </Button>
