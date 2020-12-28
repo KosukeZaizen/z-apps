@@ -158,12 +158,12 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
                         comment={
-                            <p>
+                            <span>
                                 Free web app to learn Japanese from folktales!
                                 <br />
                                 You can read traditional Japanese folktales in
                                 Romaji, Hiragana, Kanji, and English!
-                            </p>
+                            </span>
                         }
                         style={isWide ? {} : { margin: "auto auto 40px auto" }}
                     />
