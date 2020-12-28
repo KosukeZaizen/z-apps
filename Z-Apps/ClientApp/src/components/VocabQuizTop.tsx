@@ -8,6 +8,7 @@ import * as vocabStore from "../store/VocabQuizStore";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
+import { FolktaleMenu } from "./parts/FolktaleMenu";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
@@ -189,11 +190,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                         </Card>
                     </Link>
                     <hr />
-                    <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">
-                            {"Learn Japanese from Japanese folktales >>"}
-                        </Link>
-                    </div>
+                    <FolktaleMenu screenWidth={screenWidth} />
                     <br />
                     <FB />
                     <br />

@@ -19,6 +19,7 @@ import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
+import { FolktaleMenu } from "./parts/FolktaleMenu";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
@@ -293,11 +294,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         </button>
                     </Link>
                     <hr />
-                    <div style={{ fontSize: "x-large", margin: "20px" }}>
-                        <Link to="/folktales">
-                            {"Learn Japanese from Japanese folktales >>"}
-                        </Link>
-                    </div>
+                    <FolktaleMenu screenWidth={screenWidth} />
                     <br />
                     <FB />
                     <br />
