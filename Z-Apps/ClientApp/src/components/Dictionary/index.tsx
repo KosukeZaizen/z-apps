@@ -486,17 +486,23 @@ class Dictionary extends React.Component<Props, State> {
                                                                             <div className="center">
                                                                                 <h3
                                                                                     style={{
-                                                                                        color:
-                                                                                            "black",
                                                                                         marginBottom:
                                                                                             "20px",
+                                                                                        fontWeight:
+                                                                                            "bolder",
                                                                                     }}
                                                                                 >
-                                                                                    <b>
+                                                                                    <Link
+                                                                                        to={`/folktales/${nameForUrl}`}
+                                                                                        style={{
+                                                                                            color:
+                                                                                                "black",
+                                                                                        }}
+                                                                                    >
                                                                                         {
                                                                                             nameToShow
                                                                                         }
-                                                                                    </b>
+                                                                                    </Link>
                                                                                 </h3>
                                                                             </div>
                                                                         </td>
@@ -584,20 +590,26 @@ class Dictionary extends React.Component<Props, State> {
                                                             </table>
                                                         ) : (
                                                             <div>
-                                                                <b>
-                                                                    <h3
+                                                                <h3
+                                                                    style={{
+                                                                        marginBottom:
+                                                                            "20px",
+                                                                        fontWeight:
+                                                                            "bolder",
+                                                                    }}
+                                                                >
+                                                                    <Link
+                                                                        to={`/folktales/${nameForUrl}`}
                                                                         style={{
                                                                             color:
                                                                                 "black",
-                                                                            marginBottom:
-                                                                                "20px",
                                                                         }}
                                                                     >
                                                                         {
                                                                             nameToShow
                                                                         }
-                                                                    </h3>
-                                                                </b>
+                                                                    </Link>
+                                                                </h3>
                                                                 <Link
                                                                     to={`/folktales/${nameForUrl}`}
                                                                 >

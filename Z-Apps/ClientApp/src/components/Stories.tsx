@@ -492,7 +492,6 @@ class Stories extends React.Component<Props, State> {
                                                 <>
                                                     <h3
                                                         style={{
-                                                            color: "black",
                                                             margin:
                                                                 "0 20px 20px",
                                                             fontWeight:
@@ -500,7 +499,14 @@ class Stories extends React.Component<Props, State> {
                                                         }}
                                                         className="center"
                                                     >
-                                                        {nameToShow}
+                                                        <Link
+                                                            to={`/folktales/${nameForUrl}`}
+                                                            style={{
+                                                                color: "black",
+                                                            }}
+                                                        >
+                                                            {nameToShow}
+                                                        </Link>
                                                     </h3>
                                                     <table>
                                                         <tbody>
@@ -597,7 +603,14 @@ class Stories extends React.Component<Props, State> {
                                                                 "bolder",
                                                         }}
                                                     >
-                                                        {nameToShow}
+                                                        <Link
+                                                            to={`/folktales/${nameForUrl}`}
+                                                            style={{
+                                                                color: "black",
+                                                            }}
+                                                        >
+                                                            {nameToShow}
+                                                        </Link>
                                                     </h3>
                                                     <Link
                                                         to={`/folktales/${nameForUrl}`}

@@ -192,7 +192,6 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                                     <>
                                                         <h2
                                                             style={{
-                                                                color: "black",
                                                                 margin:
                                                                     "0 20px 20px",
                                                                 fontWeight:
@@ -200,7 +199,15 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                                             }}
                                                             className="center"
                                                         >
-                                                            {nameToShow}
+                                                            <Link
+                                                                to={`/folktales/${nameForUrl}`}
+                                                                style={{
+                                                                    color:
+                                                                        "black",
+                                                                }}
+                                                            >
+                                                                {nameToShow}
+                                                            </Link>
                                                         </h2>
                                                         <table>
                                                             <tbody>
@@ -290,14 +297,21 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                                     <>
                                                         <h2
                                                             style={{
-                                                                color: "black",
                                                                 marginBottom:
                                                                     "20px",
                                                                 fontWeight:
                                                                     "bolder",
                                                             }}
                                                         >
-                                                            {nameToShow}
+                                                            <Link
+                                                                to={`/folktales/${nameForUrl}`}
+                                                                style={{
+                                                                    color:
+                                                                        "black",
+                                                                }}
+                                                            >
+                                                                {nameToShow}
+                                                            </Link>
                                                         </h2>
                                                         <Link
                                                             to={`/folktales/${nameForUrl}`}
