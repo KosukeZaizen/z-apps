@@ -328,16 +328,35 @@ class Dictionary extends React.Component<Props, State> {
                                 comment={
                                     furigana && romaji ? (
                                         <p>
-                                            Let's check the meaning of{" "}
+                                            {"Check the information about "}
                                             <span
                                                 style={{
-                                                    fontWeight: "bold",
                                                     display: "inline-block",
                                                 }}
                                             >
-                                                {romaji}
+                                                <span
+                                                    style={{
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    {romaji}
+                                                </span>
+                                            </span>{" "}
+                                            <span
+                                                style={{
+                                                    display: "inline-block",
+                                                }}
+                                            >
+                                                {"("}
+                                                <span
+                                                    style={{
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    {word}
+                                                </span>
+                                                {")!"}
                                             </span>
-                                            !
                                         </p>
                                     ) : (
                                         <ShurikenProgress
