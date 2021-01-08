@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\parts\Stories\" />
+    <Folder Include="Connected Services\" />
   </ItemGroup>
 
   <ItemGroup>
