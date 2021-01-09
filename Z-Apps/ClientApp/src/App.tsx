@@ -238,7 +238,7 @@ export default class App extends React.Component {
                         <Route component={NotFoundRedirect} />
                     </Switch>
                 </Suspense>
-                {/* <WelcomeAnimation /> */}
+                <WelcomeAnimation />
                 <FooterAnimation />
             </Layout>
         );
