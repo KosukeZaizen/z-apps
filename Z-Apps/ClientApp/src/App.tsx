@@ -6,6 +6,7 @@ import ScrollMemory from "react-router-scroll-memory";
 import * as commonFncs from "./common/functions";
 import FooterAnimation from "./components/parts/Animations/FooterAnimation";
 import ShurikenProgress from "./components/parts/Animations/ShurikenProgress";
+import WelcomeAnimation from "./components/parts/Animations/WelcomeAnimation";
 import Layout from "./components/parts/Layout";
 import { APP_VERSION } from "./version";
 
