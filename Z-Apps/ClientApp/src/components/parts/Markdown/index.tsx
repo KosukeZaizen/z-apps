@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
+import gfm from "remark-gfm";
 import "./index.css";
 
 const linkBlock = (props: { href: string; children: React.ReactNode }) => {
@@ -42,6 +43,7 @@ export function Markdown(props: MarkdownProps) {
                     link: linkBlock,
                     heading: HeadingRenderer,
                 }}
+                plugins={[gfm]}
             />
         </div>
     );
