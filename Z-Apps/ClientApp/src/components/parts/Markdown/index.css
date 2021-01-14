@@ -8,10 +8,15 @@
     padding: 20px;
     color: white;
     background: linear-gradient(to top, #035c1d, #047c28);
+    border-radius: 5px;
 }
 
 .markdownArea h3 {
-    margin: 35px 0 20px;
+    margin: 45px 0 20px;
+    border-left: solid 10px #035c1d;
+    border-bottom: solid 2px #035c1d;
+    padding: 8px;
+    border-radius: 2px;
 }
 
 .markdownArea img {
