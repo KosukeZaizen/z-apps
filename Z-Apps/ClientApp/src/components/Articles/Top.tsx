@@ -165,7 +165,9 @@ export function ArticlesList({
                                 {titleH === "h3" ? (
                                     <h3
                                         style={{
-                                            fontSize: "xx-large",
+                                            fontSize: isWide
+                                                ? "xx-large"
+                                                : "x-large",
                                             textAlign: "center",
                                             width: "100%",
                                         }}
@@ -173,7 +175,14 @@ export function ArticlesList({
                                         {page.title}
                                     </h3>
                                 ) : (
-                                    <h2 style={{ textAlign: "center" }}>
+                                    <h2
+                                        style={{
+                                            fontSize: isWide
+                                                ? "xx-large"
+                                                : "x-large",
+                                            textAlign: "center",
+                                        }}
+                                    >
                                         {page.title}
                                     </h2>
                                 )}
