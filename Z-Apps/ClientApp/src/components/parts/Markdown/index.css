@@ -38,11 +38,11 @@
 }
 
 .markdownArea table th:first-child {
-    border-radius: 5px 0 0 0;
+    border-top-left-radius: 5px;
 }
 
 .markdownArea table th:last-child {
-    border-radius: 0 5px 0 0;
+    border-top-right-radius: 5px;
     border-right: 1px solid #035c1d;
 }
 
@@ -73,11 +73,11 @@
 }
 
 .markdownArea table tr:last-child td:first-child {
-    border-radius: 0 0 0 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .markdownArea table tr:last-child td:last-child {
-    border-radius: 0 0 5px 0;
+    border-bottom-right-radius: 5px;
 }
 
 .markdownArea .pointBox {
