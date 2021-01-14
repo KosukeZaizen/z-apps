@@ -173,25 +173,31 @@ export function ArticlesList({
                                         {page.title}
                                     </h3>
                                 ) : (
-                                    <h2>{page.title}</h2>
+                                    <h2 style={{ textAlign: "center" }}>
+                                        {page.title}
+                                    </h2>
                                 )}
                             </Link>
                             <div
                                 style={{
                                     display: "flex",
                                     flexDirection: isWide ? "row" : "column",
+                                    marginTop: 25,
                                 }}
                             >
                                 {page.imgPath && (
-                                    <Link to={`/articles/${page.url}`}>
+                                    <Link
+                                        to={`/articles/${page.url}`}
+                                        style={{ display: "block", flex: 1 }}
+                                    >
                                         <img
                                             alt={page.title}
                                             src={page.imgPath}
                                             style={{
                                                 width: "100%",
                                                 maxHeight: 150,
-                                                objectFit: "contain",
-                                                margin: "20px 10px 10px 0",
+                                                objectFit: "cover",
+                                                margin: "0",
                                             }}
                                         />
                                     </Link>
@@ -201,6 +207,7 @@ export function ArticlesList({
                                         margin: 0,
                                         display: "flex",
                                         alignItems: "center",
+                                        flex: 2,
                                     }}
                                 >
                                     <p

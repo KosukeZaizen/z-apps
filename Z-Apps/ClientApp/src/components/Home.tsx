@@ -358,7 +358,7 @@ export default class Home extends React.Component<
                     style={{
                         marginLeft: "auto",
                         marginRight: "auto",
-                        maxWidth: 950,
+                        maxWidth: 900,
                     }}
                 >
                     <h2
@@ -367,28 +367,20 @@ export default class Home extends React.Component<
                     >
                         New Articles
                     </h2>
-                    <div
-                        style={{
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            maxWidth: 900,
-                        }}
-                    >
-                        <ArticlesList
-                            titleH={"h3"}
-                            articles={articles}
-                            screenWidth={screenWidth}
-                        />
-                        <div style={{ textAlign: "center", marginBottom: 45 }}>
-                            <Link
-                                to="/articles"
-                                style={{
-                                    fontSize: "xx-large",
-                                }}
-                            >
-                                {"More articles about Japan >>"}
-                            </Link>
-                        </div>
+                    <ArticlesList
+                        titleH={"h3"}
+                        articles={articles}
+                        screenWidth={screenWidth}
+                    />
+                    <div style={{ textAlign: "center", marginBottom: 50 }}>
+                        <Link
+                            to="/articles"
+                            style={{
+                                fontSize: "xx-large",
+                            }}
+                        >
+                            {"More articles about Japan >>"}
+                        </Link>
                     </div>
                 </section>
                 <FB />
