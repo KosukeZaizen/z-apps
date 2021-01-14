@@ -1,3 +1,7 @@
+.markdownArea li {
+    font-size: large;
+}
+
 .markdownArea em {
     background-color: #ffff66;
     font-style: normal;
