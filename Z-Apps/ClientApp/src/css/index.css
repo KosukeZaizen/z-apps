@@ -11,3 +11,11 @@ abbr[title] {
     text-decoration: none;
     border-bottom-width: 0;
 }
+
+.markdownH2 {
+    margin: 55px 0 25px;
+    padding: 20px;
+    color: white;
+    background: linear-gradient(to top, #035c1d, #047c28);
+    border-radius: 5px;
+}

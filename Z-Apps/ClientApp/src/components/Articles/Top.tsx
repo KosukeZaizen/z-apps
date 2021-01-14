@@ -154,7 +154,11 @@ export function ArticlesList({
                 articles.map((page, i) => (
                     <article
                         key={page.title}
-                        style={{ marginBottom: 45, textAlign: "left" }}
+                        style={{
+                            marginBottom: 45,
+                            textAlign: "left",
+                            maxWidth: 900,
+                        }}
                     >
                         <ScrollBox>
                             <Link to={`/articles/${page.url}`}>

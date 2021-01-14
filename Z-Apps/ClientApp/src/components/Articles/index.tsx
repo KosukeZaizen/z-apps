@@ -13,6 +13,7 @@ import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
 import "./style.css";
+import { ArticlesList } from "./Top";
 
 export interface Page {
     url?: string;
@@ -23,14 +24,14 @@ export interface Page {
     isAboutFolktale?: boolean;
 }
 
-export const getImgNumber = (num: number = 0) => {
+export function getImgNumber(num: number = 0) {
     const today = new Date();
     const todayNumber = today.getMonth() + today.getDate() + num;
     const mod = todayNumber % 30;
     if (mod > 22) return 2;
     if (mod > 14) return 3;
     return 1;
-};
+}
 
 interface Props {
     match: { params: { pageName: string } };
@@ -133,6 +134,8 @@ const Articles = (props: Props) => {
     );
 };
 
+export const excludedArticleTitles = ["Kamikaze"];
+
 interface ArticleContentProps {
     title: string;
     description: string;
@@ -153,6 +156,43 @@ export function ArticleContent({
     adsense,
     isAboutFolktale,
 }: ArticleContentProps) {
+    const [otherArticles, setOtherArticles] = useState<Page[]>([]);
+
+    useEffect(() => {
+        if (title) {
+            const getArticles = async () => {
+                const url = "api/Articles/GetRandomArticles";
+
+                const titlesToExclude = [title, ...excludedArticleTitles];
+                const param = `?${titlesToExclude
+                    .map(t => `wordsToExclude=${t}`)
+                    .join("&")}${
+                    isAboutFolktale ? "&isAboutFolktale=true" : ""
+                }`;
+
+                const response: Response = await fetch(url + param);
+                const pages: Page[] = await response.json();
+                const copy = pages
+                    .slice()
+                    .filter(p =>
+                        titlesToExclude.every(
+                            titleToExclude => !p.title.includes(titleToExclude)
+                        )
+                    );
+                // ランダムに５件取得
+                const selected = [...Array(5)].map(
+                    () =>
+                        copy.splice(
+                            Math.floor(Math.random() * copy.length),
+                            1
+                        )[0]
+                );
+                setOtherArticles(selected);
+            };
+            void getArticles();
+        }
+    }, [title, isAboutFolktale]);
+
     const isWide = width > 991;
 
     return (
@@ -315,8 +355,17 @@ export function ArticleContent({
                 )}
             </article>
             <hr />
-            <FolktaleMenu screenWidth={width} />
             <Author style={{ marginTop: 45 }} screenWidth={width} />
+            <hr />
+            <h2 className="markdownH2" style={{ marginBottom: 55 }}>
+                More Articles
+            </h2>
+            <ArticlesList
+                titleH={"h3"}
+                articles={otherArticles}
+                screenWidth={width}
+            />
+            <FolktaleMenu screenWidth={width} />
             <FB />
         </main>
     );

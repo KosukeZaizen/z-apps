@@ -2,6 +2,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import "../css/Home.css";
+import { Page } from "./Articles";
+import { ArticlesList } from "./Articles/Top";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import { Author } from "./parts/Author";
 import CharacterComment from "./parts/CharacterComment";
@@ -15,6 +17,7 @@ export default class Home extends React.Component<
     {
         screenWidth: number;
         imgNumber: 1 | 2 | 3;
+        articles: Page[];
     }
 > {
     ref: React.RefObject<HTMLDivElement>;
@@ -25,6 +28,7 @@ export default class Home extends React.Component<
         this.state = {
             screenWidth: window.innerWidth,
             imgNumber: this.getImgNumber(),
+            articles: [],
         };
 
         let timer: number;
@@ -47,7 +51,17 @@ export default class Home extends React.Component<
                 this.changeScreenSize();
             }, i * 1000);
         }
+
+        void this.fetchArticles();
     }
+
+    fetchArticles = async () => {
+        const url = "api/Articles/GetNewArticles";
+        const response: Response = await fetch(url);
+        const articles: Page[] = await response.json();
+
+        this.setState({ articles });
+    };
 
     changeScreenSize = () => {
         if (this.state.screenWidth !== window.innerWidth) {
@@ -67,7 +81,7 @@ export default class Home extends React.Component<
     };
 
     render() {
-        const { screenWidth, imgNumber } = this.state;
+        const { screenWidth, imgNumber, articles } = this.state;
         const isWide = screenWidth > 991;
         const cardMargin = 5;
         return (
@@ -339,12 +353,44 @@ export default class Home extends React.Component<
                     </div>
                 </div>
                 <Author screenWidth={screenWidth} />
-                <div
-                    className="center"
-                    style={{ fontSize: "x-large", marginBottom: 25 }}
+                <hr />
+                <section
+                    style={{
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        maxWidth: 950,
+                    }}
                 >
-                    <Link to="/articles">{"Articles about Japan >>"}</Link>
-                </div>
+                    <h2
+                        className="markdownH2"
+                        style={{ marginBottom: 55, textAlign: "center" }}
+                    >
+                        New Articles
+                    </h2>
+                    <div
+                        style={{
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            maxWidth: 900,
+                        }}
+                    >
+                        <ArticlesList
+                            titleH={"h3"}
+                            articles={articles}
+                            screenWidth={screenWidth}
+                        />
+                        <div style={{ textAlign: "center", marginBottom: 45 }}>
+                            <Link
+                                to="/articles"
+                                style={{
+                                    fontSize: "xx-large",
+                                }}
+                            >
+                                {"More articles about Japan >>"}
+                            </Link>
+                        </div>
+                    </div>
+                </section>
                 <FB />
                 <img
                     style={{

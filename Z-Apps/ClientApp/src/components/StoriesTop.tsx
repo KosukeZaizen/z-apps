@@ -389,12 +389,11 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                             >
                                 <h2
                                     style={{
-                                        fontSize: "xx-large",
-                                        fontWeight: "bold",
-                                        margin: isWide
-                                            ? "10px 0"
-                                            : "10px 0 40px",
+                                        maxWidth: 900,
+                                        display: "block",
+                                        margin: "40px auto 60px",
                                     }}
+                                    className="markdownH2"
                                 >
                                     Articles about Japanese Folktales
                                 </h2>
@@ -406,7 +405,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                             </section>
                         )}
                         <Author
-                            style={{ marginTop: 45 }}
+                            style={{ marginTop: 45, maxWidth: 900 }}
                             screenWidth={screenWidth}
                         />
                     </div>
