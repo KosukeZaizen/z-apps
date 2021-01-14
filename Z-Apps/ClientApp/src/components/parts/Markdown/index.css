@@ -90,13 +90,13 @@
 }
 
 .markdownArea .pointBox:before {
-    font-size: "large";
+    font-size: 15px;
     position: absolute;
-    top: -24px;
+    top: -23px;
     left: 0;
-    height: 24px;
+    height: 23px;
     padding: 0 1em;
-    content: "\POINT";
+    content: "\TIP";
     color: #fff;
     border-radius: 10px 10px 0 0;
     background: #22ac38;
