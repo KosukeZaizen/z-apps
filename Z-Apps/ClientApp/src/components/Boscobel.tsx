@@ -364,10 +364,6 @@ export default class Boscobel extends React.Component {
                                             }}
                                             defaultValue={`${m.order + 1}`}
                                             onBlur={e => {
-                                                console.log(
-                                                    "e.target.value",
-                                                    e.target.value
-                                                );
                                                 this.setState({
                                                     menu: [
                                                         ...menu.filter(

@@ -87,7 +87,6 @@ export default class SiteMapEdit extends React.Component<
                 }
             }
         } catch (ex) {
-            console.log(ex);
             alert("Error!");
             alert("Error!");
         }

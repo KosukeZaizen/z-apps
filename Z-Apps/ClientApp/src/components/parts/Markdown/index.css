@@ -79,3 +79,25 @@
 .markdownArea table tr:last-child td:last-child {
     border-radius: 0 0 5px 0;
 }
+
+.markdownArea .pointBox {
+    position: relative;
+    padding: 15px 20px 2px;
+    color: black;
+    border-radius: 0 10px 10px 10px;
+    background: #e3f5d8;
+    margin: 40px 0 25px;
+}
+
+.markdownArea .pointBox:before {
+    font-size: "large";
+    position: absolute;
+    top: -24px;
+    left: 0;
+    height: 24px;
+    padding: 0 1em;
+    content: "\POINT";
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    background: #22ac38;
+}
