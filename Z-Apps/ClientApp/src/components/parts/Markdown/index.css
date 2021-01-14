@@ -86,7 +86,8 @@
     color: black;
     border-radius: 0 10px 10px 10px;
     background: #e3f5d8;
-    margin: 40px 0 25px;
+    margin: 45px 0 25px;
+    display: inline-block;
 }
 
 .markdownArea .pointBox:before {
@@ -96,7 +97,7 @@
     left: 0;
     height: 23px;
     padding: 0 1em;
-    content: "\TIP";
+    content: "\NOTE";
     color: #fff;
     border-radius: 10px 10px 0 0;
     background: #22ac38;
