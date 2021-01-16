@@ -90,7 +90,7 @@ namespace Z_Apps
                     string resultXML = await siteMapService.GetSiteMapText(false, number);
                     await context.Response.WriteAsync(resultXML);
                 }
-                else if (ua.StartsWith("facebookexternalhit") || ua.Contains("Twitterbot"))
+                else if (ua.StartsWith("facebookexternalhit"))
                 {
                     if (url == null)
                     {
@@ -224,19 +224,17 @@ namespace Z_Apps
 
                             resultHTML = "" +
                                     "<head>" + Environment.NewLine +
-                                    "<meta name='twitter:card' content='summary_large_image'></meta>" + Environment.NewLine +
-                                    "<meta name='twitter:site' content='@LingualNinja'></meta>" + Environment.NewLine +
-                                    "<meta name='twitter:title' content='" + title + "'></meta>" + Environment.NewLine +
-                                    "<meta name='og:image' content='" + imgPath + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:image' content='" + imgPath + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:type' content='article'></meta>" + Environment.NewLine +
-                                    "<meta property='og:title' content='" + title + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:image:alt' content='" + title + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:description' content='" + description + "'></meta>" + Environment.NewLine +
-                                    "<meta property='og:site_name' content='Lingual Ninja'></meta>" + Environment.NewLine +
-                                    "<meta property='fb:app_id' content='217853132566874'></meta>" + Environment.NewLine +
-                                    "<meta property='fb:page_id' content='491712431290062'></meta>" + Environment.NewLine +
+                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='" + imgPath + "'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='" + description + "'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body>";
                         }
@@ -264,7 +262,7 @@ namespace Z_Apps
                         {
                             url = url,
                             operationName = "get OGP setting",
-                            userId = "SNS Bot"
+                            userId = "Facebook Bot"
                         });
 
                         await context.Response.WriteAsync(resultHTML);
