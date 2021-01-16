@@ -90,7 +90,7 @@ namespace Z_Apps
                     string resultXML = await siteMapService.GetSiteMapText(false, number);
                     await context.Response.WriteAsync(resultXML);
                 }
-                else if (ua.StartsWith("facebookexternalhit"))
+                else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
                 {
                     if (url == null)
                     {
@@ -101,7 +101,7 @@ namespace Z_Apps
                         string resultHTML = "";
                         if (url == "/")
                         {
-                            resultHTML = "" +
+                            resultHTML = "<!DOCTYPE html><html>" +
                                 "<head>" +
                                 "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                 "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
@@ -115,104 +115,9 @@ namespace Z_Apps
                                 "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                 "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                 "</head>" + Environment.NewLine +
-                                "<body>Content for SNS bot</body>";
+                                "<body>Content for SNS bot</body></html>";
                         }
-                        else if (url.Contains("folktales/") && url.Length > 10)
-                        {
-                            string storyName = url.Split("folktales/")[1].Replace("/", "");
-
-                            var storyManager = new StoryManager(con);
-                            var story = storyManager.GetStory(storyName);
-                            var description = story?.Description.Replace("\\n", " ").Replace("\'", "&#39;");
-                            var title = storyName.Replace("--", " - ").Replace("_", " ");
-
-                            resultHTML = "" +
-                                    "<head>" + Environment.NewLine +
-                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
-                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
-                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
-                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
-                                    "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
-                                    "<meta property='og:description' content='" + description + "'>" + Environment.NewLine +
-                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
-                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
-                                    "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
-                        }
-                        else if (url.Contains("vocabulary-quiz"))
-                        {
-                            var arrUrl = url.Split("/");
-                            var lastElem = arrUrl.LastOrDefault();
-                            string title = (lastElem == "vocabulary-quiz") ?
-                                "Japanese Vocabulary Quiz" :
-                                "Japanese Vocabulary Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
-
-                            resultHTML = "" +
-                                    "<head>" +
-                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
-                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
-                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
-                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
-                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='og:description' content='Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
-                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
-                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
-                                    "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
-                        }
-                        else if (url.Contains("kanji-quiz"))
-                        {
-                            var arrUrl = url.Split("/");
-                            var lastElem = arrUrl.LastOrDefault();
-                            string title = (lastElem == "kanji-quiz") ?
-                                "Kanji Quiz" :
-                                "Kanji Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
-
-                            resultHTML = "" +
-                                    "<head>" +
-                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
-                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
-                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
-                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
-                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='og:description' content='Free app to learn Japanese Kanji characters! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
-                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
-                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
-                                    "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
-                        }
-                        else if (url.Contains("vocabulary-list"))
-                        {
-                            var arrUrl = url.Split("/");
-                            var lastElem = arrUrl.LastOrDefault();
-                            string title = "Japanese Vocabulary List";
-
-                            resultHTML = "" +
-                                    "<head>" +
-                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
-                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
-                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
-                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
-                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='og:description' content='Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
-                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
-                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
-                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
-                                    "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
-                        }
-                        else if (url.Contains("articles/") && url.Length > 9)
+                        else if (url.Contains("articles/") && url.Length > 10)
                         {
                             string articleName = url.Split("articles/")[1].Replace("/", "");
 
@@ -222,7 +127,7 @@ namespace Z_Apps
                             var title = article.title.Replace("\'", "&#39;");
                             var imgPath = article.imgPath?.Length > 0 ? article.imgPath : "https://z-apps.lingual-ninja.com/ogp-img.png";
 
-                            resultHTML = "" +
+                            resultHTML = "<!DOCTYPE html><html>" +
                                     "<head>" + Environment.NewLine +
                                     "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
@@ -236,11 +141,106 @@ namespace Z_Apps
                                     "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
+                                    "<body>Content for SNS bot</body></html>";
+                        }
+                        else if (url.Contains("folktales/") && url.Length > 11)
+                        {
+                            string storyName = url.Split("folktales/")[1].Replace("/", "");
+
+                            var storyManager = new StoryManager(con);
+                            var story = storyManager.GetStory(storyName);
+                            var description = story?.Description.Replace("\\n", " ").Replace("\'", "&#39;");
+                            var title = storyName.Replace("--", " - ").Replace("_", " ");
+
+                            resultHTML = "<!DOCTYPE html><html>" +
+                                    "<head>" + Environment.NewLine +
+                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='" + description + "'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body></html>";
+                        }
+                        else if (url.Contains("vocabulary-quiz"))
+                        {
+                            var arrUrl = url.Split("/");
+                            var lastElem = arrUrl.LastOrDefault();
+                            string title = (lastElem == "vocabulary-quiz") ?
+                                "Japanese Vocabulary Quiz" :
+                                "Japanese Vocabulary Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
+
+                            resultHTML = "<!DOCTYPE html><html>" +
+                                    "<head>" +
+                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body></html>";
+                        }
+                        else if (url.Contains("kanji-quiz"))
+                        {
+                            var arrUrl = url.Split("/");
+                            var lastElem = arrUrl.LastOrDefault();
+                            string title = (lastElem == "kanji-quiz") ?
+                                "Kanji Quiz" :
+                                "Kanji Quiz - " + string.Join(" ", lastElem.Split("_").Select((e) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(e)));
+
+                            resultHTML = "<!DOCTYPE html><html>" +
+                                    "<head>" +
+                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Free app to learn Japanese Kanji characters! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body></html>";
+                        }
+                        else if (url.Contains("vocabulary-list"))
+                        {
+                            var arrUrl = url.Split("/");
+                            var lastElem = arrUrl.LastOrDefault();
+                            string title = "Japanese Vocabulary List";
+
+                            resultHTML = "<!DOCTYPE html><html>" +
+                                    "<head>" +
+                                    "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Free app to learn Japanese vocabulary! Try to get a perfect score on all the quizzes!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body></html>";
                         }
                         else
                         {
-                            resultHTML = "" +
+                            resultHTML = "<!DOCTYPE html><html>" +
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
@@ -254,7 +254,7 @@ namespace Z_Apps
                                     "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
-                                    "<body>Content for SNS bot</body>";
+                                    "<body>Content for SNS bot</body></html>";
                         }
 
                         var clientLogService = new ClientLogService(con);
@@ -262,9 +262,12 @@ namespace Z_Apps
                         {
                             url = url,
                             operationName = "get OGP setting",
-                            userId = "Facebook Bot"
+                            userId = "SNS Bot",
+                            parameters = "ua: " + ua
+
                         });
 
+                        context.Response.Headers.Add("Content-Type", "text/html");
                         await context.Response.WriteAsync(resultHTML);
                     }
                 }

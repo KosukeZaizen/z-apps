@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -25,12 +26,15 @@ namespace Z_Apps.Models.SystemBase
 
         public void RegisterLog(ClientOpeLog log)
         {
-            TimeZoneInfo jstZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
-            log.time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, jstZoneInfo);
+            var task = Task.Run(() =>
+            {
+                TimeZoneInfo jstZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
+                log.time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, jstZoneInfo);
 
-            if (log.parameters == null) { log.parameters = ""; }
+                if (log.parameters == null) { log.parameters = ""; }
 
-            clientOpeLogManager.InsertLog(log);
+                clientOpeLogManager.InsertLog(log);
+            });
         }
     }
 }
