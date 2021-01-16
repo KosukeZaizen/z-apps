@@ -15,8 +15,8 @@ function NavigationItems(props: { closeToggle: () => void }) {
     let objLinks = {
         "Japanese Folktales": "/folktales",
         "Hiragana / Katakana": "/hiragana-katakana",
-        "Vocabulary Quiz": "/vocabulary-quiz",
-        "Kanji Quiz": "/kanji-quiz",
+        Vocabulary: "/vocabulary-list",
+        Articles: "/articles",
         "Action Games": "/ninja",
     } as const;
     let linkList = [];
