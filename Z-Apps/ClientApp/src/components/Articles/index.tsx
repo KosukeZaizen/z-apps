@@ -12,6 +12,7 @@ import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
+import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import "./style.css";
 import { ArticlesList } from "./Top";
 
@@ -120,6 +121,7 @@ const Articles = (props: Props) => {
         <div style={{ width: "100%" }} className="center">
             <Head title={title} desc={description} />
             <ArticleContent
+                pageName={pageName}
                 title={title}
                 description={description}
                 imgNumber={imgNumber}
@@ -137,6 +139,7 @@ const Articles = (props: Props) => {
 export const excludedArticleTitles = ["Kamikaze"];
 
 interface ArticleContentProps {
+    pageName: string;
     title: string;
     description: string;
     isAboutFolktale?: boolean;
@@ -147,6 +150,7 @@ interface ArticleContentProps {
     adsense: boolean;
 }
 export function ArticleContent({
+    pageName,
     title,
     description,
     imgNumber,
@@ -354,6 +358,38 @@ export function ArticleContent({
                     <ShurikenProgress size="20%" />
                 )}
             </article>
+            <CharacterComment
+                comment={[
+                    <p key="commentContent">
+                        {"If you like this article, please share!"}
+                    </p>,
+                    <FBShareBtn
+                        key="fbShareButton"
+                        urlToShare={
+                            "https://z-apps.lingual-ninja.com/articles/" +
+                            pageName
+                        }
+                        style={{
+                            width: "200px",
+                            marginTop: "10px",
+                        }}
+                    />,
+                    <TwitterShareBtn
+                        key="twitterShareButton"
+                        urlToShare={
+                            "https://z-apps.lingual-ninja.com/articles/" +
+                            pageName
+                        }
+                        textToShare={title}
+                        style={{
+                            width: "200px",
+                            marginTop: "5px",
+                        }}
+                    />,
+                ]}
+                imgNumber={(imgNumber - 1 || 3) - 1 || 3}
+                screenWidth={width}
+            />
             <hr />
             <Author style={{ marginTop: 45 }} screenWidth={width} />
             <hr />

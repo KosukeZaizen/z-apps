@@ -164,6 +164,7 @@ const Articles = (props: Props) => {
                     className="center"
                 >
                     <ArticleContent
+                        pageName={pageName}
                         title={title}
                         description={description}
                         imgNumber={imgNumber}
