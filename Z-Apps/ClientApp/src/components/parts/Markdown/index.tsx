@@ -111,7 +111,7 @@ const ImageRender = (props: any) => {
     if (props.src.includes(".m4a")) {
         return <Speaker {...props} />;
     }
-    return <img {...props} />;
+    return <img {...props} className="renderedImg" />;
 };
 
 const RenderCode = (props: any) => {
