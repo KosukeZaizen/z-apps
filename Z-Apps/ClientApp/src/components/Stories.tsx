@@ -266,7 +266,7 @@ class Stories extends React.Component<Props, State> {
                         storyName.split("--")[0]
                     }.png`}
                 />
-                <main style={{ maxWidth: 800 }}>
+                <main style={{ maxWidth: 1000 }}>
                     <div
                         className="breadcrumbs"
                         itemScope
@@ -1067,12 +1067,9 @@ class FooterMenu extends React.Component<
     render() {
         const { showLangMenu } = this.state;
         const { screenWidth, langState, showFooterMenu } = this.props;
-        const tableWidth = screenWidth > 730 ? 730 : screenWidth;
+        const tableWidth = screenWidth;
         const buttonWidth = tableWidth / 4 - 4;
-        const tableLeft =
-            screenWidth > 730
-                ? (screenWidth - tableWidth) / 2 - 10
-                : (screenWidth - tableWidth) / 2;
+        const tableLeft = 0;
         const tdStyle = { width: `${buttonWidth}px` };
 
         return (
