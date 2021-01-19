@@ -26,7 +26,7 @@ namespace Z_Apps.Models.SystemBase
             this.storageBkService = storageBkService;
 
             //分割したsitemapChunksの初期値を生成
-            var result =  GetSiteMapText(false, 0);
+            var task = GetSiteMapText(false, 0);
         }
 
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool onlyStrageXmlFile = false)
