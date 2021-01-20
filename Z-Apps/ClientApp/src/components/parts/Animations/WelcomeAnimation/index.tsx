@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AnimationEngine } from "../../../../common/animation";
 import "./animation.css";
 
 export let finishWelcomeAnimation: () => void = () => {};
@@ -13,56 +12,16 @@ interface StateToAnimate {
     time: number;
 }
 
-const initialAnimationState: StateToAnimate = {
-    shown: true,
-    isOpen: false,
-    underBarLength: 0,
-    underBarOpacity: 0,
-    time: 0,
-};
-
 export default function WelcomeAnimation() {
-    const [animationState, setAnimationState] = useState(initialAnimationState);
+    const [shown, setIsShown] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        finishWelcomeAnimation = () => {
-            setAnimationState({ ...initialAnimationState, shown: false });
-        };
-
-        const animation = new AnimationEngine<StateToAnimate>(
-            initialAnimationState,
-            ({ shown, isOpen, underBarLength, underBarOpacity, time }) => {
-                if (time === 1) {
-                    isOpen = true;
-                }
-                if (time > 15 && time <= 45) {
-                    underBarOpacity = 1;
-                    underBarLength = underBarLength + 100;
-                }
-                if (time > 45) {
-                    if (underBarOpacity > 0) {
-                        underBarOpacity = underBarOpacity - 0.04;
-                    }
-                }
-                if (time > 90) {
-                    shown = false;
-                    animation.cleanUpAnimation();
-                }
-
-                return {
-                    shown,
-                    isOpen,
-                    underBarLength,
-                    underBarOpacity,
-                    time: time + 1,
-                };
-            },
-            setAnimationState
-        );
-        return animation.cleanUpAnimation;
+        setTimeout(() => setIsOpen(true), 10);
+        setTimeout(() => setIsShown(false), 2000);
     }, []);
 
-    if (!animationState.shown) {
+    if (!shown) {
         return null;
     }
 
@@ -86,7 +45,6 @@ export default function WelcomeAnimation() {
                 position: "fixed",
                 top: 0,
                 left: 0,
-                zIndex: 9999999999,
                 backgroundColor: "white",
                 display: "flex",
                 justifyContent: "center",
@@ -96,13 +54,12 @@ export default function WelcomeAnimation() {
             <div
                 style={{
                     borderRadius: 1,
-                    width: animationState.underBarLength,
                     border: "solid 1px #007bff",
                     backgroundColor: "#007bff",
                     height: 0,
                     marginTop: charTop + charHeight * 1.5,
-                    opacity: animationState.underBarOpacity,
                 }}
+                className="blueLine"
             ></div>
             <p
                 style={{
@@ -115,7 +72,7 @@ export default function WelcomeAnimation() {
                     padding: 0,
                     fontWeight: "bold",
                     transition: "1s",
-                    opacity: animationState.isOpen ? 1 : 0,
+                    opacity: isOpen ? 1 : 0,
                     fontStyle: "italic",
                 }}
             >

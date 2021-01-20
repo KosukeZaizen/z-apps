@@ -1,6 +1,13 @@
 import { finishFooterAnimation } from "../components/parts/Animations/FooterAnimation";
 import { finishWelcomeAnimation } from "../components/parts/Animations/WelcomeAnimation";
 
+export const timeStep = 1000; //ms
+
+export const smoothCSSProperty = {
+    transitionDuration: `${timeStep / 1000}s`,
+    transitionTimingFunction: "linear",
+};
+
 let animationObjects: AnimationObject<any>[] = [];
 
 interface MinimumAnimationState {
@@ -47,7 +54,7 @@ export class AnimationEngine<StateToAnimate extends MinimumAnimationState> {
 }
 
 //アプリケーションの初期化時に一度呼び出す関数
-export function startAnimation(timeStep: number) {
+export function startAnimation() {
     setInterval(() => {
         //タイムステップごとのオブジェクト状態更新
         animationObjects.forEach(obj => {

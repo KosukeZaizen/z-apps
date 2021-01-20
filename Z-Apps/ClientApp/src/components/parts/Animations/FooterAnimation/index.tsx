@@ -1,6 +1,10 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { AnimationEngine } from "../../../../common/animation";
+import {
+    AnimationEngine,
+    smoothCSSProperty,
+    timeStep,
+} from "../../../../common/animation";
 import { appsPublicImg } from "../../../../common/consts";
 
 const badNinja = appsPublicImg + "ninja_bad.png";
@@ -38,6 +42,11 @@ const baseStyle: React.CSSProperties = {
 
 export let finishFooterAnimation: () => void;
 
+const smoothPosition = {
+    transitionProperty: "top left",
+    ...smoothCSSProperty,
+};
+
 export default function WelcomeAnimation() {
     const [animationState, setAnimationState] = useState(initialAnimationState);
 
@@ -58,29 +67,30 @@ export default function WelcomeAnimation() {
                 time,
                 ...rest
             }) => {
-                if (time > 50 && time < 560) {
-                    ninjaX -= 10;
+                if (time > 1000 / timeStep && time < 11200 / timeStep) {
+                    ninjaX -= 0.5 * timeStep;
                     badNinjaX = ninjaX + 900;
                 }
 
-                if (time === 560) {
+                if (time === Math.floor(11200 / timeStep)) {
                     turn = true;
                     ninjaY = 115;
                 }
 
-                if (time > 560 && time < 1100) {
-                    ninjaX += 10;
+                if (time > 11200 / timeStep && time < 22000 / timeStep) {
+                    ninjaX += 0.5 * timeStep;
                     badNinjaX = ninjaX + 600;
                 }
 
-                if (time > 1100 && flyingNinjaPos[0] > -200) {
-                    flyingNinjaSpeed[1] += (Math.random() - 0.499) / 5;
+                if (time > 22000 / timeStep && flyingNinjaPos[0] > -200) {
+                    flyingNinjaSpeed[1] +=
+                        ((Math.random() - 0.499) * timeStep) / 30;
 
-                    flyingNinjaPos[0] -= 6;
+                    flyingNinjaPos[0] -= 0.3 * timeStep;
                     flyingNinjaPos[1] += flyingNinjaSpeed[1];
                 }
 
-                if (time % 3000 === 0) {
+                if (time % Math.floor(60000 / timeStep) === 0) {
                     flyingNinjaPos = [2500, 300];
                     flyingNinjaSpeed = [0, 0];
                 }
@@ -125,6 +135,7 @@ export default function WelcomeAnimation() {
                     bottom: animationState.ninjaY * U,
                     width: ninjaLength * U,
                     transform: animationState.turn ? "scale(-1, 1)" : "",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -136,6 +147,7 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -147,6 +159,7 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -158,6 +171,7 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U * 1.1,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -169,6 +183,7 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -180,6 +195,7 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U * 1.1,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
             <img
@@ -191,9 +207,10 @@ export default function WelcomeAnimation() {
                     bottom: 0,
                     width: ninjaLength * U * 1.1,
                     transform: animationState.turn ? "" : "scale(-1, 1)",
+                    ...smoothPosition,
                 }}
             />
-            {animationState.time > 500 && (
+            {animationState.time > 10000 / timeStep && (
                 <>
                     <img
                         src={rock}
@@ -204,6 +221,7 @@ export default function WelcomeAnimation() {
                             bottom: 0,
                             width: ninjaLength * U * 1.3,
                             zIndex: 1000000001,
+                            ...smoothPosition,
                         }}
                     />
                     <img
@@ -214,11 +232,12 @@ export default function WelcomeAnimation() {
                             left: (animationState.ninjaX - ninjaLength) * U,
                             bottom: 0,
                             width: ninjaLength * U * 1.3,
+                            ...smoothPosition,
                         }}
                     />
                 </>
             )}
-            {animationState.time > 900 && (
+            {animationState.time > 18000 / timeStep && (
                 <img
                     src={flyingNinja}
                     alt="flying ninja"
@@ -227,6 +246,7 @@ export default function WelcomeAnimation() {
                         left: animationState.flyingNinjaPos[0] * U,
                         bottom: animationState.flyingNinjaPos[1] * U,
                         width: ninjaLength * U * 1.5,
+                        ...smoothPosition,
                     }}
                 />
             )}

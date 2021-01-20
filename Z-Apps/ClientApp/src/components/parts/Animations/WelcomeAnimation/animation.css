@@ -1,12 +1,31 @@
 .screen {
-    animation: screenAnime 0.7s 1.1s forwards;
+    animation: screenAnime 0.6s 1.2s forwards;
 }
 
 @keyframes screenAnime {
     0% {
         opacity: 1;
+        z-index: 9999999999;
+    }
+    99% {
+        opacity: 0;
+        z-index: 9999999999;
     }
     100% {
         opacity: 0;
+        z-index: -100;
+    }
+}
+
+.blueLine {
+    animation: blueLineAnime 0.8s 0.4s forwards;
+}
+
+@keyframes blueLineAnime {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
     }
 }
