@@ -1,5 +1,5 @@
 .screen {
-    animation: screenAnime 0.6s 1.2s forwards;
+    animation: screenAnime 0.7s 1s forwards;
 }
 
 @keyframes screenAnime {
@@ -18,7 +18,7 @@
 }
 
 .blueLine {
-    animation: blueLineAnime 0.8s 0.4s forwards;
+    animation: blueLineAnime 0.3s ease-in 0.3s forwards;
 }
 
 @keyframes blueLineAnime {
