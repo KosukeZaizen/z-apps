@@ -49,7 +49,7 @@ class StoriesVideo extends React.Component<Props, State> {
         this.canvasRef = React.createRef();
     }
 
-    startVideo = () => {
+    startVideo = async () => {
         const { storyDesc, sentences, words } = this.props;
 
         const playOne = async (currentIndex: number) => {
@@ -57,61 +57,26 @@ class StoriesVideo extends React.Component<Props, State> {
                 alert("fin");
                 return;
             } else {
-                const music = new Audio(
-                    `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${storyDesc.storyName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
-                );
-                music.onended = async () => await playOne(currentIndex + 1);
-                music.play();
-                await sleepAsync(5000);
+                return new Promise(async r => {
+                    const music = new Audio(
+                        `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${storyDesc.storyName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
+                    );
+                    music.onended = async () => {
+                        await sleepAsync(2000);
+                        music.currentTime = 0;
+                        music.onended = async () => {
+                            await sleepAsync(3000);
+                            r(undefined);
+                        };
+                        music.play();
+                    };
+                    music.play();
+                });
             }
         };
-        playOne(0);
-
-        // this.animation = new AnimationEngine<State>(
-        //     this.state,
-        //     state => {
-        //         const canvas = this.canvasRef.current;
-        //         const context = canvas?.getContext("2d");
-
-        //         let { ninjaX, time, ...rest } = state;
-        //         if (context) {
-        //             if (time > 100) {
-        //                 ninjaX++;
-        //                 //左から20上から40の位置に、幅50高さ100の四角形を描く
-        //                 context.fillRect(ninjaX, 40, 50, 100);
-        //                 //色を指定する
-        //                 context.strokeStyle = "rgb(00,00,255)"; //枠線の色は青
-        //                 context.fillStyle = "rgb(255,00,00)"; //塗りつぶしの色は赤
-        //                 //左から200上から80の位置に、幅100高さ50の四角の枠線を描く
-        //                 context.strokeRect(200, 80, 100, 50);
-        //                 //左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
-        //                 context.arc(
-        //                     150,
-        //                     75,
-        //                     60,
-        //                     Math.PI * 1,
-        //                     Math.PI * 2,
-        //                     true
-        //                 );
-        //                 context.fill();
-
-        //                 if (time === 300) {
-        //                     void this.animation?.cleanUpAnimation();
-        //                     alert("fin");
-        //                 }
-        //             }
-        //         }
-        //         return {
-        //             ninjaX,
-        //             time: time + 1,
-
-        //             ...rest,
-        //         };
-        //     },
-        //     state => {
-        //         this.setState(state);
-        //     }
-        // );
+        for (let k in sentences) {
+            await playOne(Number(k));
+        }
     };
 
     componentDidUpdate() {
@@ -121,10 +86,6 @@ class StoriesVideo extends React.Component<Props, State> {
                 this.props.loadWords(this.props.storyDesc.storyId);
             }
         }
-    }
-
-    componentWillUnmount() {
-        void this.animation?.cleanUpAnimation();
     }
 
     render() {
@@ -165,8 +126,6 @@ class StoriesVideo extends React.Component<Props, State> {
                 ) : (
                     <p>{"loading"}</p>
                 )}
-                <br />
-                <br />
                 <canvas
                     ref={this.canvasRef}
                     width="400"
