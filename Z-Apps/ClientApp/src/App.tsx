@@ -178,6 +178,22 @@ export default class App extends React.Component {
                         <Route
                             sensitive
                             exact
+                            path="/how-to-read-japanese/:word"
+                            component={(props: {
+                                match: { params: { word: string } };
+                            }) => {
+                                const {
+                                    match: {
+                                        params: { word },
+                                    },
+                                } = props;
+                                window.location.href = `/dictionary/${word}`;
+                                return null;
+                            }}
+                        />
+                        <Route
+                            sensitive
+                            exact
                             path="/dictionaryEdit/:word"
                             component={DictionaryEdit}
                         />
