@@ -22,6 +22,7 @@ interface StateToAnimate {
     flyingNinjaPos: [number, number];
     flyingNinjaSpeed: [number, number];
     time: number;
+    flyingNinjaDisplay: string;
 }
 
 const initialAnimationState: StateToAnimate = {
@@ -32,6 +33,7 @@ const initialAnimationState: StateToAnimate = {
     turn: false,
     flyingNinjaPos: [2500, 300],
     flyingNinjaSpeed: [0, 0],
+    flyingNinjaDisplay: "block",
     time: 0,
 };
 
@@ -64,6 +66,7 @@ export default function WelcomeAnimation() {
                 turn,
                 flyingNinjaPos,
                 flyingNinjaSpeed,
+                flyingNinjaDisplay,
                 time,
                 ...rest
             }) => {
@@ -83,6 +86,9 @@ export default function WelcomeAnimation() {
                 }
 
                 if (time > 22000 / timeStep && flyingNinjaPos[0] > -200) {
+                    if (flyingNinjaPos[0] > 2000) {
+                        flyingNinjaDisplay = "block";
+                    }
                     flyingNinjaSpeed[1] +=
                         ((Math.random() - 0.499) * timeStep) / 30;
 
@@ -91,6 +97,7 @@ export default function WelcomeAnimation() {
                 }
 
                 if (time % Math.floor(60000 / timeStep) === 0) {
+                    flyingNinjaDisplay = "none";
                     flyingNinjaPos = [2500, 300];
                     flyingNinjaSpeed = [0, 0];
                 }
@@ -102,6 +109,7 @@ export default function WelcomeAnimation() {
                     turn,
                     flyingNinjaPos,
                     flyingNinjaSpeed,
+                    flyingNinjaDisplay,
                     time: time + 1,
                     ...rest,
                 };
@@ -246,6 +254,7 @@ export default function WelcomeAnimation() {
                         left: animationState.flyingNinjaPos[0] * U,
                         bottom: animationState.flyingNinjaPos[1] * U,
                         width: ninjaLength * U * 1.5,
+                        display: animationState.flyingNinjaDisplay,
                         ...smoothPosition,
                     }}
                 />
