@@ -384,15 +384,6 @@ export default class Home extends React.Component<
                     </div>
                 </section>
                 <FB />
-                <img
-                    style={{
-                        display: "block",
-                        marginRight: "auto",
-                        marginLeft: "auto",
-                    }}
-                    src="https://4.bp.blogspot.com/-2e6PgEvhJPA/X_vX7k9gcqI/AAAAAAAAFzs/Rz0G5WYAA0Q-ZgG4kZBF6oOkQMD5JOHugCK4BGAYYCw/s1600/ill_logo.png"
-                    alt="innovative language"
-                />
                 <PleaseScrollDown
                     criteriaRef={this.ref}
                     targetId="scrollTargetId"
