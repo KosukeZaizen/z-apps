@@ -82,12 +82,14 @@ namespace Z_Apps
                 if (url.EndsWith("sitemap.xml"))
                 {
                     string resultXML = await siteMapService.GetSiteMapText(false, 0);
+                    context.Response.Headers.Add("Content-Type", "application/xml");
                     await context.Response.WriteAsync(resultXML);
                 }
                 else if (Regex.IsMatch(url, "sitemap[1-9][0-9]*.xml"))
                 {
                     int number = Int32.Parse(Regex.Replace(url, @"[^0-9]", ""));
                     string resultXML = await siteMapService.GetSiteMapText(false, number);
+                    context.Response.Headers.Add("Content-Type", "application/xml");
                     await context.Response.WriteAsync(resultXML);
                 }
                 else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))

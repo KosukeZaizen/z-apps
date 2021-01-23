@@ -100,7 +100,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
         return (
             <div className="center">
                 <Head
-                    title="Japanese Folktales in Romaji, Hiragana, Kanji, and English"
+                    title="Learn Japanese from Folktales"
                     desc="Free web application to learn Japanese from folktales! You can read traditional Japanese folktales in English, Hiragana, Kanji, and Romaji!"
                 />
                 <main style={{ maxWidth: 1000 }}>
@@ -140,7 +140,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                     marginLeft: "5px",
                                 }}
                             >
-                                Japanese Folktales
+                                Learn Japanese from Folktales
                             </span>
                             <meta itemProp="position" content="2" />
                         </span>
@@ -152,7 +152,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                             fontWeight: "bolder",
                         }}
                     >
-                        Japanese Folktales
+                        Learn Japanese from Folktales
                     </h1>
                     <CharacterComment
                         screenWidth={screenWidth}

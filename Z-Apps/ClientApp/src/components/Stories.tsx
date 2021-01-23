@@ -305,7 +305,7 @@ class Stories extends React.Component<Props, State> {
                                 }}
                             >
                                 <span itemProp="name">
-                                    {"Japanese Folktales"}
+                                    {"Learn Japanese from Folktales"}
                                 </span>
                                 <meta itemProp="position" content="2" />
                             </Link>

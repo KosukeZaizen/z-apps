@@ -16,7 +16,7 @@ export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     return (
         <ScrollBox style={{ textAlign: "center" }}>
             <Link to="/folktales">
-                <h2>Japanese Folktales</h2>
+                <h2>Learn Japanese from Folktales</h2>
             </Link>
             <div
                 style={{
