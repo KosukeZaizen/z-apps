@@ -19,3 +19,29 @@ abbr[title] {
     background: linear-gradient(to top, #035c1d, #047c28);
     border-radius: 5px;
 }
+
+h1,
+.breadcrumbs,
+.ninjaGameTop,
+.whiteShadow {
+    text-shadow: 0px 0px 1px white, 0px 0px 2px white, 0px 0px 3px white,
+        0px 0px 4px white, 0px 0px 5px white, 0px 0px 5px white,
+        0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white,
+        0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white,
+        0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white,
+        0px 0px 6px white, 1px 1px 6px white, -1px 1px 6px white,
+        1px -1px 6px white, -1px -1px 6px white, 2px 2px 6px white,
+        -2px 2px 6px white, 2px -2px 6px white, -2px -2px 6px white,
+        3px 3px 6px white, -3px 3px 6px white, 3px -3px 6px white,
+        -3px -3px 6px white, 0px 0px 8px white, 1px 1px 8px white,
+        -1px 1px 8px white, 1px -1px 8px white, -1px -1px 8px white,
+        2px 2px 8px white, -2px 2px 8px white, 2px -2px 8px white,
+        -2px -2px 8px white, 3px 3px 8px white, -3px 3px 8px white,
+        3px -3px 8px white, -3px -3px 8px white, 0px 0px 10px white,
+        1px 1px 10px white, -1px 1px 10px white, 1px -1px 10px white,
+        -1px -1px 10px white, 2px 2px 10px white, -2px 2px 10px white,
+        2px -2px 10px white, -2px -2px 10px white, 3px 3px 10px white,
+        -3px 3px 10px white, 3px -3px 10px white, -3px -3px 10px white,
+        3px 3px 10px white, -3px 3px 10px white, 3px -3px 10px white,
+        -3px -3px 10px white;
+}
