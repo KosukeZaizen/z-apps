@@ -7,6 +7,7 @@ import * as consts from "../common/consts";
 import { sleepAsync } from "../common/functions";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence } from "../types/stories";
+import CharacterComment from "./parts/CharacterComment";
 import Head from "./parts/Helmet";
 
 interface CanvasElement extends HTMLCanvasElement {
@@ -18,19 +19,16 @@ type Props = storiesEditStore.StoriesEditState &
 type State = {
     storyName: string;
     isStarted: boolean;
+    isEnding: boolean;
     playingSentence: number;
 };
 class StoriesVideo extends React.Component<Props, State> {
     canvasRef: React.RefObject<CanvasElement>;
-    screenHeight: number;
 
     constructor(props: Props) {
         super(props);
 
         initializeAnimation();
-
-        // const body = document.getElementsByTagName("body")[0];
-        // body.style.overflow = "hidden";
 
         const { params } = props.match;
         const storyName = params.storyName.toString();
@@ -39,9 +37,8 @@ class StoriesVideo extends React.Component<Props, State> {
             storyName: storyName,
             playingSentence: -1,
             isStarted: false,
+            isEnding: false,
         };
-
-        this.screenHeight = window.innerHeight;
 
         this.props.loadStory(this.state.storyName);
 
@@ -74,10 +71,13 @@ class StoriesVideo extends React.Component<Props, State> {
             }
         };
         this.setState({ isStarted: true });
+        await sleepAsync(5000);
         for (let k in sentences) {
             this.setState({ playingSentence: Number(k) });
             await playOne(Number(k));
         }
+        await sleepAsync(1000);
+        this.setState({ isEnding: true });
     };
 
     componentDidUpdate() {
@@ -91,14 +91,12 @@ class StoriesVideo extends React.Component<Props, State> {
 
     render() {
         const { sentences, words } = this.props;
-        const { playingSentence, isStarted } = this.state;
+        const { playingSentence, isStarted, isEnding } = this.state;
 
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
-        const showSentences =
-            sentences && sentences.length > 0 && words && words.length > 0;
 
-        console.log("props", this.props);
+        const transition = "0.5s";
 
         const typeButton = (type: string) => (
             <Button
@@ -106,6 +104,7 @@ class StoriesVideo extends React.Component<Props, State> {
                 style={{
                     fontSize: "x-large",
                     fontWeight: "bold",
+                    transition,
                 }}
                 size="sm"
             >
@@ -113,7 +112,7 @@ class StoriesVideo extends React.Component<Props, State> {
             </Button>
         );
         const line = (type: keyof sentence) => (
-            <ul style={{ margin: "5px 0 20px" }}>
+            <ul style={{ margin: "5px 0 20px", transition }}>
                 <li>{sentences[playingSentence][type]}</li>
             </ul>
         );
@@ -192,20 +191,76 @@ class StoriesVideo extends React.Component<Props, State> {
                                 fontSize: "xx-large",
                                 fontWeight: "bold",
                                 zIndex: 999999,
+                                width: "100%",
+                                height: "100%",
                             }}
-                            className="whiteShadow"
                         >
-                            {playingSentence >= 0 && (
-                                <>
-                                    {typeButton("Kanji")}
-                                    {line("kanji")}
-                                    {typeButton("Hiragana")}
-                                    {line("hiragana")}
-                                    {typeButton("Romaji")}
-                                    {line("romaji")}
-                                    {typeButton("English")}
-                                    {line("english")}
-                                </>
+                            {playingSentence >= 0 ? (
+                                !isEnding ? (
+                                    <div className="whiteShadow">
+                                        {typeButton("Kanji")}
+                                        {line("kanji")}
+                                        {typeButton("Hiragana")}
+                                        {line("hiragana")}
+                                        {typeButton("Romaji")}
+                                        {line("romaji")}
+                                        {typeButton("English")}
+                                        {line("english")}
+                                    </div>
+                                ) : (
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            width: "100%",
+                                            height: "100%",
+                                            //flexDirection: "column",
+                                        }}
+                                    >
+                                        <div style={{ textAlign: "center" }}>
+                                            <h1
+                                                style={{
+                                                    margin: 35,
+                                                    fontSize: "50px",
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                Thank you for watching!
+                                            </h1>
+                                            <CharacterComment
+                                                imgNumber={1}
+                                                comment="Don't forget to subscribe to this channel!"
+                                                screenWidth={window.innerWidth}
+                                                commentStyle={{
+                                                    textAlign: "left",
+                                                    padding: "10px 30px",
+                                                    fontSize: "30px",
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                )
+                            ) : (
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                    className="whiteShadow"
+                                >
+                                    <h1
+                                        style={{
+                                            display: "block",
+                                            fontSize: "100px",
+                                        }}
+                                    >
+                                        {storyName}
+                                    </h1>
+                                </div>
                             )}
                         </div>
                         <div
