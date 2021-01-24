@@ -7,5 +7,6 @@ namespace Z_Apps.Models.Stories.Stories
         public string Description { get; set; }
         public int? Order { get; set; }
         public string Season { get; set; }
+        public string Youtube { get; set; }
     }
 }

@@ -254,6 +254,7 @@ class Stories extends React.Component<Props, State> {
             imgNumber,
         } = this.state;
         const { storyDesc, sentences, words, otherStories } = this.props;
+
         return (
             <div className="center">
                 <Head
@@ -384,6 +385,52 @@ class Stories extends React.Component<Props, State> {
                             </section>
                         ) : null}
                         <br />
+                        {storyDesc.youtube && (
+                            <section style={{ margin: "5px 0 35px" }}>
+                                <h2
+                                    style={{
+                                        ...styleForStoryTitle,
+                                        textAlign: "left",
+                                    }}
+                                >
+                                    {title + " Video"}
+                                </h2>
+                                <div
+                                    style={{
+                                        backgroundColor:
+                                            screenWidth > 600
+                                                ? "rgb(231, 233, 231)"
+                                                : undefined,
+                                        padding: "5px 0",
+                                        border: 0,
+                                    }}
+                                >
+                                    <div style={{ maxWidth: 600 }}>
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                width: "100%",
+                                                paddingTop: "56.25%",
+                                            }}
+                                        >
+                                            <iframe
+                                                style={{
+                                                    position: "absolute",
+                                                    top: 0,
+                                                    right: 0,
+                                                    width: "100%",
+                                                    height: "100%",
+                                                }}
+                                                src={storyDesc.youtube}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
                         <div ref={this.refSentences}>
                             {storyDesc.storyId ? (
                                 <section>

@@ -6,6 +6,7 @@ export type storyDesc = {
     description: string;
     order?: number;
     season?: Season;
+    youtube?: string;
 };
 export type sentence = {
     lineNumber: number;

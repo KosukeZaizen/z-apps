@@ -215,7 +215,6 @@ class StoriesVideo extends React.Component<Props, State> {
                                             alignItems: "center",
                                             width: "100%",
                                             height: "100%",
-                                            //flexDirection: "column",
                                         }}
                                     >
                                         <div style={{ textAlign: "center" }}>
@@ -258,7 +257,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                             fontSize: "100px",
                                         }}
                                     >
-                                        {storyName}
+                                        {title}
                                     </h1>
                                 </div>
                             )}
