@@ -26,7 +26,11 @@ namespace Z_Apps.Models.SystemBase
             this.storageBkService = storageBkService;
 
             //分割したsitemapChunksの初期値を生成
-            var task = GetSiteMapText(false, 0);
+            Task.Run(() =>
+            {
+                Task.Delay(3 * 60 * 1000);//３分遅れ
+                var task = GetSiteMapText(false, 0);
+            });
         }
 
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool onlyStrageXmlFile = false)

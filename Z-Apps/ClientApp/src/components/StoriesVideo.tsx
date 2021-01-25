@@ -157,6 +157,9 @@ class StoriesVideo extends React.Component<Props, State> {
                             left: 0,
                             zIndex: 9999999999999999,
                             textAlign: "left",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
                     >
                         {this.state.storyName ? (
@@ -164,9 +167,14 @@ class StoriesVideo extends React.Component<Props, State> {
                                 src={`${consts.BLOB_URL}/folktalesImg/${
                                     storyName.split("--")[0]
                                 }.png`}
-                                width="100%"
                                 alt={title}
-                                style={{ position: "relative", zIndex: -9999 }}
+                                style={{
+                                    width: "100%",
+                                    maxHeight: "100%",
+                                    position: "relative",
+                                    zIndex: -9999,
+                                    objectFit: "contain",
+                                }}
                             />
                         ) : null}
                         <div

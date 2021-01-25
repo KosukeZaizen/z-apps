@@ -243,10 +243,6 @@ class Stories extends React.Component<Props, State> {
             marginBottom: "10px",
             fontWeight: "bold",
         };
-        const styleForStoryTitle: React.CSSProperties = {
-            fontSize: "x-large",
-            fontWeight: "bold",
-        };
         const {
             screenWidth,
             pleaseScrollDown,
@@ -254,6 +250,19 @@ class Stories extends React.Component<Props, State> {
             imgNumber,
         } = this.state;
         const { storyDesc, sentences, words, otherStories } = this.props;
+
+        const styleForStoryTitle: React.CSSProperties =
+            screenWidth > 767
+                ? {
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                      marginTop: 45,
+                  }
+                : {
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                      marginTop: 30,
+                  };
 
         return (
             <div className="center">
@@ -384,7 +393,6 @@ class Stories extends React.Component<Props, State> {
                                 </div>
                             </section>
                         ) : null}
-                        <br />
                         {storyDesc.youtube && (
                             <section style={{ margin: "5px 0 35px" }}>
                                 <h2
@@ -421,7 +429,10 @@ class Stories extends React.Component<Props, State> {
                                                     width: "100%",
                                                     height: "100%",
                                                 }}
-                                                src={storyDesc.youtube}
+                                                src={
+                                                    "https://www.youtube.com/embed/" +
+                                                    storyDesc.youtube
+                                                }
                                                 frameBorder="0"
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                 allowFullScreen
