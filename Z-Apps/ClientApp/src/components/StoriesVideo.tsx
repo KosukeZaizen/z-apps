@@ -96,26 +96,27 @@ class StoriesVideo extends React.Component<Props, State> {
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
 
-        const transition = "0.5s";
-
         const typeButton = (type: string) => (
             <Button
                 color="success"
                 style={{
                     fontSize: "x-large",
                     fontWeight: "bold",
-                    transition,
                 }}
                 size="sm"
             >
                 {type}
             </Button>
         );
-        const line = (type: keyof sentence) => (
-            <ul style={{ margin: "5px 0 20px", transition }}>
-                <li>{sentences[playingSentence][type]}</li>
-            </ul>
-        );
+        const line = (type: keyof sentence) => {
+            const r = sentences[playingSentence]["romaji"];
+            const size = r?.length < 150 ? {} : { fontSize: 27 };
+            return (
+                <ul style={{ margin: "5px 0 20px", ...size }}>
+                    <li>{sentences[playingSentence][type]}</li>
+                </ul>
+            );
+        };
 
         return (
             <div className="center" style={{ overflow: "hidden" }}>
