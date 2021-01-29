@@ -46,7 +46,7 @@ class StoriesVideo extends React.Component<Props, State> {
     }
 
     startVideo = async () => {
-        const { storyDesc, sentences, words } = this.props;
+        const { storyDesc, sentences } = this.props;
 
         const playOne = async (currentIndex: number) => {
             if (sentences.length === currentIndex) {
@@ -54,8 +54,9 @@ class StoriesVideo extends React.Component<Props, State> {
                 return;
             } else {
                 return new Promise(async r => {
+                    const shortStoryName = storyDesc.storyName.split("--")[0];
                     const music = new Audio(
-                        `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${storyDesc.storyName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
+                        `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${shortStoryName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
                     );
                     music.onended = async () => {
                         await sleepAsync(1000);
@@ -264,9 +265,14 @@ class StoriesVideo extends React.Component<Props, State> {
                                         style={{
                                             display: "block",
                                             fontSize: "100px",
+                                            textAlign: "center",
                                         }}
                                     >
-                                        {title}
+                                        {title.split(" - ").map((s, i) => (
+                                            <>
+                                                <p>{!i ? s : `(${s})`}</p>
+                                            </>
+                                        ))}
                                     </h1>
                                 </div>
                             )}
