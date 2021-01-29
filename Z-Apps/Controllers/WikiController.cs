@@ -12,10 +12,10 @@ namespace Z_Apps.Controllers
     public class WikiController : Controller
     {
         [HttpGet("[action]")]
-        public async Task<IEnumerable<string>> GetAllWords(int num)
+        public IEnumerable<string> GetAllWords(int num)
         {
             var service = new WikiService();
-            return await service.GetAllWords(num);
+            return service.GetAllWordsFromDB(num);
         }
 
 

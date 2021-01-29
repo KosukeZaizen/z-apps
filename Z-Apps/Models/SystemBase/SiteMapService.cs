@@ -60,99 +60,107 @@ namespace Z_Apps.Models.SystemBase
             int sitemapNumber = 0
         )
         {
-            //Startup.csのSitemapリクエスト時の処理と、
-            //サイトマップ編集画面の内容をストレージに登録する処理の両方から呼ばれる
-            using (var client = new HttpClient())
+            try
             {
-                if (sitemapNumber == 1 || onlyStrageXmlFile)
+                //Startup.csのSitemapリクエスト時の処理と、
+                //サイトマップ編集画面の内容をストレージに登録する処理の両方から呼ばれる
+                using (var client = new HttpClient())
                 {
-                    var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
-                    return await response.Content.ReadAsStringAsync();
-                }
-
-                if (sitemapNumber == 0)
-                {
-                    var lstSitemap = new List<Dictionary<string, string>>();
-
-                    //------------------------------------------------------------
-                    //Folktales Topページ
-                    var folktaleBaseUrl = "https://z-apps.lingual-ninja.com/folktales";
-                    var topDic = new Dictionary<string, string>();
-                    topDic["loc"] = folktaleBaseUrl;
-                    lstSitemap.Add(topDic);
-
-                    //Folktalesの各ストーリー
-                    var storyManager = new StoryManager(new DBCon());
-                    var allStories = storyManager.GetAllStories();
-
-                    foreach (var story in allStories)
+                    if (sitemapNumber == 1 || onlyStrageXmlFile)
                     {
-                        var dicFolktaleURL = new Dictionary<string, string>();
-                        dicFolktaleURL["loc"] = folktaleBaseUrl + "/" + story.StoryName;
-                        lstSitemap.Add(dicFolktaleURL);
+                        var response = await client.GetAsync(Consts.BLOB_URL + Consts.SITEMAP_PATH);
+                        return await response.Content.ReadAsStringAsync();
                     }
 
-                    //------------------------------------------------------------
-                    //Articles Topページ
-                    var articlesBaseUrl = "https://z-apps.lingual-ninja.com/articles";
-                    var articleTopDic = new Dictionary<string, string>();
-                    articleTopDic["loc"] = articlesBaseUrl;
-                    lstSitemap.Add(articleTopDic);
-
-                    //Articlesの各記事
-                    var articlesController = new ArticlesController();
-                    var allArticles = articlesController.GetAllArticles(true)
-                                .Concat(articlesController.GetAllArticles(false));
-
-                    foreach (var article in allArticles)
+                    if (sitemapNumber == 0)
                     {
-                        var dicArticleURL = new Dictionary<string, string>();
-                        dicArticleURL["loc"] = articlesBaseUrl + "/" + article.url;
-                        lstSitemap.Add(dicArticleURL);
+                        var lstSitemap = new List<Dictionary<string, string>>();
+
+                        //------------------------------------------------------------
+                        //Folktales Topページ
+                        var folktaleBaseUrl = "https://z-apps.lingual-ninja.com/folktales";
+                        var topDic = new Dictionary<string, string>();
+                        topDic["loc"] = folktaleBaseUrl;
+                        lstSitemap.Add(topDic);
+
+                        //Folktalesの各ストーリー
+                        var storyManager = new StoryManager(new DBCon());
+                        var allStories = storyManager.GetAllStories();
+
+                        foreach (var story in allStories)
+                        {
+                            var dicFolktaleURL = new Dictionary<string, string>();
+                            dicFolktaleURL["loc"] = folktaleBaseUrl + "/" + story.StoryName;
+                            lstSitemap.Add(dicFolktaleURL);
+                        }
+
+                        //------------------------------------------------------------
+                        //Articles Topページ
+                        var articlesBaseUrl = "https://z-apps.lingual-ninja.com/articles";
+                        var articleTopDic = new Dictionary<string, string>();
+                        articleTopDic["loc"] = articlesBaseUrl;
+                        lstSitemap.Add(articleTopDic);
+
+                        //Articlesの各記事
+                        var articlesController = new ArticlesController();
+                        var allArticles = articlesController.GetAllArticles(true)
+                                    .Concat(articlesController.GetAllArticles(false));
+
+                        foreach (var article in allArticles)
+                        {
+                            var dicArticleURL = new Dictionary<string, string>();
+                            dicArticleURL["loc"] = articlesBaseUrl + "/" + article.url;
+                            lstSitemap.Add(dicArticleURL);
+                        }
+
+                        //------------------------------------------------------------
+                        //Dictionary機能
+                        var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
+                        //top page (noindexのためコメントアウト)
+                        //var dic1 = new Dictionary<string, string>();
+                        //dic1["loc"] = domain;
+                        //lstSitemap.Add(dic1);
+                        var wikiService = new WikiService();
+                        IEnumerable<string> allWords = wikiService.GetAllWordsFromDB(0);
+                        foreach (string word in allWords)
+                        {
+                            var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                            var dicWordId = new Dictionary<string, string>();
+                            dicWordId["loc"] = dictionaryBaseUrl + "/" + encodedWord;
+                            lstSitemap.Add(dicWordId);
+                        }
+
+                        //------------------------------------------------------------
+                        //サイトマップの分割
+                        var chunkSize = 30000;
+                        sitemapChunks = lstSitemap.Select((v, i) => new { v, i })
+                                                .GroupBy(x => x.i / chunkSize)
+                                                .Select(g => g.Select(x => x.v))
+                                                .ToList();
+
+                        var result = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
+                        for (var i = 1; i < sitemapChunks.Count() + 2; i++)
+                        {
+                            result.Append("<sitemap><loc>");
+                            result.Append(Consts.SITE_URL + "/sitemap" + i + ".xml");
+                            result.Append("</loc></sitemap>");
+                        }
+                        result.Append("</sitemapindex>");
+                        return result.ToString();
                     }
 
-                    //------------------------------------------------------------
-                    //Dictionary機能
-                    var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
-                    //top page (noindexのためコメントアウト)
-                    //var dic1 = new Dictionary<string, string>();
-                    //dic1["loc"] = domain;
-                    //lstSitemap.Add(dic1);
-                    var wikiService = new WikiService();
-                    IEnumerable<string> allWords = await wikiService.GetAllWords(0);
-                    foreach (string word in allWords)
+                    var chunkIndex = sitemapNumber - 2;
+                    if (chunkIndex < sitemapChunks.Count())
                     {
-                        var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
-                        var dicWordId = new Dictionary<string, string>();
-                        dicWordId["loc"] = dictionaryBaseUrl + "/" + encodedWord;
-                        lstSitemap.Add(dicWordId);
+                        string baseXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></urlset>";
+                        string partialXML = GetStringSitemapFromDics(sitemapChunks[chunkIndex]);
+                        return baseXML.Replace("</urlset>", partialXML + "</urlset>");
                     }
-
-                    //------------------------------------------------------------
-                    //サイトマップの分割
-                    var chunkSize = 30000;
-                    sitemapChunks = lstSitemap.Select((v, i) => new { v, i })
-                                            .GroupBy(x => x.i / chunkSize)
-                                            .Select(g => g.Select(x => x.v))
-                                            .ToList();
-
-                    var result = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
-                    for (var i = 1; i < sitemapChunks.Count() + 2; i++)
-                    {
-                        result.Append("<sitemap><loc>");
-                        result.Append(Consts.SITE_URL + "/sitemap" + i + ".xml");
-                        result.Append("</loc></sitemap>");
-                    }
-                    result.Append("</sitemapindex>");
-                    return result.ToString();
-                }
-                else
-                {
-                    string baseXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></urlset>";
-                    string partialXML = GetStringSitemapFromDics(sitemapChunks[sitemapNumber - 2]);
-                    return baseXML.Replace("</urlset>", partialXML + "</urlset>");
                 }
             }
+            catch (Exception ex){}
+
+            return "";
         }
 
 

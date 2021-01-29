@@ -29,7 +29,7 @@ public class WikiService
 
     public async Task<IEnumerable<string>> GetAllWords(int num)
     {
-        return await GetAllWordsFromSomewhere(num);
+        return GetAllWordsFromDB(num);
     }
 
     public IEnumerable<string> Exclude(IEnumerable<string> words)
@@ -41,36 +41,8 @@ public class WikiService
                 ));
     }
 
-    private async Task<IEnumerable<string>> GetAllWordsFromSomewhere(int num)
-    {
-        if (num > 0)
-        {
-            //件数指定があれば、DBから取得
-            return GetAllWordsFromDB(num);
-        }
 
-        //全件取得の場合
-        IEnumerable<string> allWordsFromDB = GetAllWordsFromDB(0);
-        if (allWordsFromDB.Count() > 15000)
-        {
-            //DBに15000件以上あれば、それを返す
-            return allWordsFromDB;
-        }
-
-        // Linaual NinjaのDB側にキャッシュされているレコードが、まだ15000件未満であれば、
-        // WikiNinja側からデータを取ってくる
-        IEnumerable<string> allWordsFromWikiNinja = await GetAllWordsFromWikiNinja();
-        if (allWordsFromWikiNinja.Count() > 15000)
-        {
-            // WikiNinja側が生きていれば、取得したデータを返す
-            return allWordsFromWikiNinja;
-        }
-
-        // WikiNinja側が落ちているような場合は、やはりLingual NinjaのDBから持ってきたデータを用いる
-        return allWordsFromDB;
-    }
-
-    private IEnumerable<string> GetAllWordsFromDB(int num)
+    public IEnumerable<string> GetAllWordsFromDB(int num)
     {
         var con = new DBCon(DBCon.DBType.wiki_db);
         var sql =
@@ -88,23 +60,6 @@ public class WikiService
         return result.Select(r => (string)r["word"]);
     }
 
-    private async Task<IEnumerable<string>> GetAllWordsFromWikiNinja()
-    {
-        try
-        {
-            string result = "";
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetAllWords");
-                result = await response.Content.ReadAsStringAsync();
-            }
-            return Exclude(result.Replace("\"", "").Replace("[", "").Replace("]", "").Split(","));
-        }
-        catch (Exception e)
-        {
-            return new List<string> { };
-        }
-    }
 
     [DataContract]
     class Data
