@@ -356,6 +356,7 @@ function Page1(props: TPage1Props) {
                 screenWidth={screenWidth}
                 imgNumber={imgNumber}
                 comment="Before starting the vocabulary quiz, please remember the vocabulary list below!"
+                commentStyle={{ textAlign: "left", padding: "15px 20px" }}
             />
             <div
                 style={{

@@ -159,11 +159,16 @@ class VocabList extends React.Component<Props, State> {
                         imgNumber={imgNumber}
                         screenWidth={screenWidth}
                         comment={
-                            <p>
+                            <div
+                                style={{
+                                    textAlign: "left",
+                                    padding: "0 8px",
+                                }}
+                            >
                                 Free web app to learn Japanese vocabulary!
                                 <br />
                                 Try to get a perfect score on all the quizzes!
-                            </p>
+                            </div>
                         }
                     />
                     <span id="indexOfVocabLists"></span>

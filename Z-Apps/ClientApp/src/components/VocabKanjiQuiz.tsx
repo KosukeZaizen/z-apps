@@ -351,6 +351,7 @@ function Page1(props: TPage1Props) {
                 screenWidth={screenWidth}
                 imgNumber={imgNumber}
                 comment="Before starting the Kanji quiz, please remember the Kanji list below!"
+                commentStyle={{ textAlign: "left", padding: "15px 20px" }}
             />
             <div
                 style={{

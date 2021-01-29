@@ -6,8 +6,6 @@ import { ScrollBox } from "../ScrollBox";
 interface FolktaleMenuProps {
     screenWidth: number;
 }
-const buttonColor = { 1: "secondary", 2: "success", 3: "primary" };
-type ButtonKey = keyof typeof buttonColor;
 export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
     const styleImgContainer = isWide

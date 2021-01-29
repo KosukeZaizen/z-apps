@@ -158,12 +158,14 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                         screenWidth={screenWidth}
                         imgNumber={imgNumber}
                         comment={
-                            <span>
+                            <div
+                                style={{ textAlign: "left", padding: "0 10px" }}
+                            >
                                 Free web app to learn Japanese from folktales!
                                 <br />
                                 You can read traditional Japanese folktales in
                                 Romaji, Hiragana, Kanji, and English!
-                            </span>
+                            </div>
                         }
                         style={isWide ? {} : { margin: "auto auto 40px auto" }}
                     />
@@ -379,11 +381,18 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                         </article>
                                     );
                                 })}
+                        <CharacterComment
+                            screenWidth={screenWidth}
+                            imgNumber={imgNumber - 1 || 3}
+                            comment={
+                                "Enjoy studying Japanese from traditional folktales!"
+                            }
+                        />
                         {pages.length > 0 && (
                             <section
                                 style={{
                                     borderTop: "1px solid #dcdcdc",
-                                    marginTop: 60,
+                                    marginTop: 20,
                                     paddingTop: 20,
                                 }}
                             >
