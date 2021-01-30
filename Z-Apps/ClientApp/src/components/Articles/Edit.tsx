@@ -182,21 +182,36 @@ const Articles = (props: Props) => {
                         overflowY: "scroll",
                     }}
                 >
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                        style={{ width: "100%" }}
-                    />
-                    <textarea
-                        style={{ width: "100%", height: 90 }}
-                        defaultValue={description}
-                        onChange={e => setDescription(e.target.value)}
-                    />
+                    <div style={{ display: "flex" }}>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            style={{ width: "100%" }}
+                        />
+                        <button
+                            onClick={() => {
+                                setTitle("folktale");
+                                setDescription("folktale");
+                            }}
+                        >
+                            folktale
+                        </button>
+                    </div>
+                    {title != "folktale" && (
+                        <textarea
+                            style={{ width: "100%", height: 90 }}
+                            defaultValue={description}
+                            onChange={e => setDescription(e.target.value)}
+                        />
+                    )}
                     <textarea
                         style={{
                             width: "100%",
-                            height: height - 270,
+                            height:
+                                title != "folktale"
+                                    ? height - 270
+                                    : height - 170,
                             padding: 10,
                         }}
                         defaultValue={content}

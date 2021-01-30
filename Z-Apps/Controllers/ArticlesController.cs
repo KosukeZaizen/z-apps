@@ -30,6 +30,7 @@ namespace Z_Apps.Controllers
 SELECT title, description, articleContent, imgPath, isAboutFolktale
 FROM tblArticles
 WHERE url = @p and released = 1
+AND title != N'folktale'
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
             ).FirstOrDefault();
 
@@ -56,6 +57,7 @@ WHERE url = @p and released = 1
 SELECT url, title, description, imgPath
 FROM tblArticles 
 WHERE released = 1 and isAboutFolktale = @isAboutFolktale
+AND title != N'folktale'
 ORDER BY orderNumber DESC
 ",
                         new Dictionary<string, object[]> {
@@ -82,6 +84,7 @@ ORDER BY orderNumber DESC
 SELECT url, title, description, imgPath
 FROM tblArticles 
 WHERE released = 1 and isAboutFolktale = @isAboutFolktale
+AND title != N'folktale'
 ORDER BY orderNumber DESC
 ",
                         new Dictionary<string, object[]> {
@@ -112,6 +115,7 @@ ORDER BY orderNumber DESC
 SELECT url, title, description, imgPath
 FROM tblArticles 
 WHERE released = 1 and isAboutFolktale = @isAboutFolktale
+AND title != N'folktale'
 ORDER BY orderNumber DESC
 ",
                         new Dictionary<string, object[]> {
