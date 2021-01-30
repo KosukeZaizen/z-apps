@@ -17,8 +17,9 @@ import { unregister } from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
 //AzureUrlから通常のURLへリダイレクト
-if (window.location.href.includes(azureUrl))
+if (window.location.href.includes(azureUrl)) {
     window.location.href = window.location.href.replace(azureUrl, siteUrl);
+}
 
 checkAppVersion();
 ReactGA.initialize(GOOGLE_ANALYTICS);
