@@ -16,6 +16,7 @@ import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
+import { Markdown } from "./parts/Markdown";
 import "./parts/PleaseScrollDown.css";
 import { ScrollBox } from "./parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "./parts/SnsShareButton";
@@ -234,8 +235,36 @@ class Stories extends React.Component<Props, State> {
             this.props.storyDesc.storyName || this.state.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
         const titleOfAbout = storyName.split("--")[0].split("_").join(" ");
+
+        const {
+            screenWidth,
+            pleaseScrollDown,
+            showFooterMenu,
+            imgNumber,
+        } = this.state;
+        const {
+            storyDesc,
+            sentences,
+            words,
+            explanation,
+            otherStories,
+        } = this.props;
+
+        const isWide = screenWidth > 767;
+
+        const styleForStoryTitle: React.CSSProperties = isWide
+            ? {
+                  fontSize: "x-large",
+                  fontWeight: "bold",
+                  marginTop: 45,
+              }
+            : {
+                  fontSize: "x-large",
+                  fontWeight: "bold",
+                  marginTop: 30,
+              };
         const styleForAboutTitle: React.CSSProperties = {
-            fontSize: "large",
+            fontSize: isWide ? "x-large" : "large",
             background: "#fee8b4",
             boxShadow: "0px 0px 0px 5px #fee8b4",
             border: "dashed 2px white",
@@ -243,26 +272,6 @@ class Stories extends React.Component<Props, State> {
             marginBottom: "10px",
             fontWeight: "bold",
         };
-        const {
-            screenWidth,
-            pleaseScrollDown,
-            showFooterMenu,
-            imgNumber,
-        } = this.state;
-        const { storyDesc, sentences, words, otherStories } = this.props;
-
-        const styleForStoryTitle: React.CSSProperties =
-            screenWidth > 767
-                ? {
-                      fontSize: "x-large",
-                      fontWeight: "bold",
-                      marginTop: 45,
-                  }
-                : {
-                      fontSize: "x-large",
-                      fontWeight: "bold",
-                      marginTop: 30,
-                  };
 
         return (
             <div className="center">
@@ -338,7 +347,7 @@ class Stories extends React.Component<Props, State> {
                             <meta itemProp="position" content="3" />
                         </span>
                     </div>
-                    <article>
+                    <article style={isWide ? { fontSize: "large" } : {}}>
                         <h1
                             style={{
                                 margin: "25px",
@@ -442,77 +451,85 @@ class Stories extends React.Component<Props, State> {
                                 </div>
                             </section>
                         )}
-                        <div ref={this.refSentences}>
-                            {storyDesc.storyId ? (
-                                <section>
-                                    <h2
-                                        style={{
-                                            ...styleForStoryTitle,
-                                            textAlign: "left",
-                                        }}
-                                    >
-                                        {title + " Story"}
-                                    </h2>
-                                    <br />
-                                    <Sentences
-                                        storyId={storyDesc.storyId}
-                                        sentences={sentences}
-                                        words={words}
-                                        langState={this.state}
-                                        audioFolder={storyName?.split("--")[0]}
-                                    />
-                                </section>
-                            ) : (
-                                <div className="center">
-                                    <ShurikenProgress key="circle" size="20%" />
-                                </div>
-                            )}
-                            <FooterMenu
-                                onClickLangBtn={this.onClickLangBtn}
-                                langState={this.state}
-                                screenWidth={screenWidth}
-                                showFooterMenu={showFooterMenu}
-                            />
-                            <div
-                                style={{
-                                    margin: "20px 0",
-                                }}
-                            >
-                                <CharacterComment
-                                    comment={[
-                                        <p key="commentContent">
-                                            {
-                                                "If you like this story, please share!"
-                                            }
-                                        </p>,
-                                        <FBShareBtn
-                                            key="fbShareButton"
-                                            urlToShare={
-                                                "https://z-apps.lingual-ninja.com/folktales/" +
-                                                storyName
-                                            }
-                                            style={{
-                                                width: "200px",
-                                                marginTop: "10px",
-                                            }}
-                                        />,
-                                        <TwitterShareBtn
-                                            key="twitterShareButton"
-                                            urlToShare={
-                                                "https://z-apps.lingual-ninja.com/folktales/" +
-                                                storyName
-                                            }
-                                            textToShare={title}
-                                            style={{
-                                                width: "200px",
-                                                marginTop: "5px",
-                                            }}
-                                        />,
-                                    ]}
-                                    imgNumber={imgNumber}
-                                    screenWidth={screenWidth}
+                        {storyDesc.storyId ? (
+                            <section ref={this.refSentences}>
+                                <h2
+                                    style={{
+                                        ...styleForStoryTitle,
+                                        textAlign: "left",
+                                    }}
+                                >
+                                    {title + " Story"}
+                                </h2>
+                                <br />
+                                <Sentences
+                                    storyId={storyDesc.storyId}
+                                    sentences={sentences}
+                                    words={words}
+                                    langState={this.state}
+                                    audioFolder={storyName?.split("--")[0]}
                                 />
+                            </section>
+                        ) : (
+                            <div className="center">
+                                <ShurikenProgress key="circle" size="20%" />
                             </div>
+                        )}
+                        <FooterMenu
+                            onClickLangBtn={this.onClickLangBtn}
+                            langState={this.state}
+                            screenWidth={screenWidth}
+                            showFooterMenu={showFooterMenu}
+                        />
+                        {explanation && (
+                            <Markdown
+                                source={explanation}
+                                style={{
+                                    marginTop: isWide ? 0 : -20,
+                                    marginBottom: 40,
+                                }}
+                                section
+                            />
+                        )}
+                        <div
+                            style={{
+                                margin: "20px 0",
+                            }}
+                        >
+                            <CharacterComment
+                                comment={[
+                                    <p key="commentContent">
+                                        {
+                                            "If you like this story, please share!"
+                                        }
+                                    </p>,
+                                    <FBShareBtn
+                                        key="fbShareButton"
+                                        urlToShare={
+                                            "https://z-apps.lingual-ninja.com/folktales/" +
+                                            storyName
+                                        }
+                                        style={{
+                                            width: "200px",
+                                            marginTop: "10px",
+                                        }}
+                                    />,
+                                    <TwitterShareBtn
+                                        key="twitterShareButton"
+                                        urlToShare={
+                                            "https://z-apps.lingual-ninja.com/folktales/" +
+                                            storyName
+                                        }
+                                        textToShare={title}
+                                        style={{
+                                            width: "200px",
+                                            marginTop: "5px",
+                                        }}
+                                    />,
+                                ]}
+                                imgNumber={imgNumber}
+                                screenWidth={screenWidth}
+                            />
                         </div>
                         <hr />
                         <GoogleAd />

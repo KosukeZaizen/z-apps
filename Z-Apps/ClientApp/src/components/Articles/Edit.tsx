@@ -192,7 +192,7 @@ const Articles = (props: Props) => {
                         <button
                             onClick={() => {
                                 setTitle("folktale");
-                                setDescription("folktale");
+                                setDescription(pageName);
                             }}
                         >
                             folktale

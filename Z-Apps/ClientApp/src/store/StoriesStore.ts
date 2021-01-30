@@ -5,11 +5,13 @@ const initializeType = "INITIALIZE";
 const receiveStoryType = "RECEIVE_STORY";
 const receiveSentencesType = "RECEIVE_SENTENCES";
 const receiveWordsType = "RECEIVE_WORDS";
+const receiveExpType = "RECEIVE_EXP";
 const receiveOtherStoriesType = "RECEIVE_OTHER_STORIES";
 const initialState = {
     storyDesc: [],
     sentences: [],
     words: [],
+    explanation: "",
     otherStories: [],
 };
 
@@ -17,6 +19,7 @@ export interface StoriesState {
     storyDesc: storyDesc;
     sentences: sentence[];
     words: word[];
+    explanation?: string;
     token: string;
 }
 
@@ -65,6 +68,10 @@ export const actionCreators: IActionCreators = {
             const url3 = `api/Stories/GetWords/${storyId}`;
             const response3 = fetch(url3);
 
+            //explanation article
+            const urlExp = `api/Stories/GetExplanation/${storyName}`;
+            const responseExp = fetch(urlExp);
+
             //other stories
             const url4 = `api/Stories/GetOtherStories/${storyId}`;
             const response4 = fetch(url4);
@@ -80,6 +87,10 @@ export const actionCreators: IActionCreators = {
             const words = await (await response3).json();
             dispatch({ type: receiveWordsType, words });
 
+            //explanation article
+            const explanation = await (await responseExp).text();
+            dispatch({ type: receiveExpType, explanation });
+
             //other stories
             const otherStories = await (await response4).json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
@@ -89,7 +100,7 @@ export const actionCreators: IActionCreators = {
     },
 };
 
-export const reducer = (state: any, action: any) => {
+export const reducer = (state: StoriesState, action: any) => {
     state = state || initialState;
 
     if (action.type === initializeType) {
@@ -114,6 +125,13 @@ export const reducer = (state: any, action: any) => {
         return {
             ...state,
             words: action.words,
+        };
+    }
+
+    if (action.type === receiveExpType) {
+        return {
+            ...state,
+            explanation: action.explanation,
         };
     }
 

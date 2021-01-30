@@ -1,3 +1,8 @@
+.markdownArea {
+    text-align: left;
+    font-size: large;
+}
+
 .markdownArea li {
     font-size: large;
 }

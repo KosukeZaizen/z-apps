@@ -4,6 +4,9 @@ using Z_Apps.Models.Stories;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
+using System.Data;
+using Z_Apps.Models;
+using System.Linq;
 
 namespace Z_Apps.Controllers
 {
@@ -72,6 +75,28 @@ namespace Z_Apps.Controllers
             {
                 return null;
             }
+        }
+
+        [HttpGet("[action]/{storyName?}")]
+        public string GetExplanation(string storyName)
+        {
+            if (!string.IsNullOrEmpty(storyName))
+            {
+                var con = new DBCon();
+                var result = con.ExecuteSelect(@"
+SELECT articleContent
+FROM tblArticles
+WHERE url = @storyName and released = 1
+AND title = N'folktale'
+", new Dictionary<string, object[]> { { "@storyName", new object[2] { SqlDbType.NVarChar, storyName } } }
+                ).FirstOrDefault();
+
+                if (result != null)
+                {
+                    return (string)result["articleContent"];
+                }
+            }
+            return "";
         }
     }
 }

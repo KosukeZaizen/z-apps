@@ -129,22 +129,30 @@ const InlineCode = (props: any) => {
 interface MarkdownProps {
     source: string;
     style?: React.CSSProperties;
+    section?: boolean;
 }
-export function Markdown(props: MarkdownProps) {
-    const { source, style } = props;
-    return (
+export function Markdown({ source, style, section }: MarkdownProps) {
+    const markdown = (
+        <ReactMarkdown
+            source={source}
+            renderers={{
+                link: linkBlock,
+                heading: HeadingRenderer,
+                image: ImageRender,
+                code: RenderCode,
+                inlineCode: InlineCode,
+            }}
+            plugins={[gfm]}
+        />
+    );
+
+    return section ? (
+        <section style={style} className="markdownArea">
+            {markdown}
+        </section>
+    ) : (
         <div style={style} className="markdownArea">
-            <ReactMarkdown
-                source={source}
-                renderers={{
-                    link: linkBlock,
-                    heading: HeadingRenderer,
-                    image: ImageRender,
-                    code: RenderCode,
-                    inlineCode: InlineCode,
-                }}
-                plugins={[gfm]}
-            />
+            {markdown}
         </div>
     );
 }
