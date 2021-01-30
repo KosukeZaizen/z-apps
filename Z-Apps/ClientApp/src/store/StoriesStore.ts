@@ -25,7 +25,7 @@ export interface IActionCreators {
 }
 
 export const actionCreators: IActionCreators = {
-    loadStory: storyName => async (dispatch: Function, getState: Function) => {
+    loadStory: storyName => async (dispatch: Function) => {
         try {
             dispatch({ type: initializeType });
 
@@ -52,23 +52,36 @@ export const actionCreators: IActionCreators = {
                 return;
             }
 
-            //sentences
             const storyId = storyDesc.storyId;
+
+            /**------------------------------------------------------------
+             * fetch
+             */
+            //sentences
             const url2 = `api/Stories/GetSentences/${storyId}`;
-            const response2 = await fetch(url2);
-            const sentences = await response2.json();
-            dispatch({ type: receiveSentencesType, sentences });
+            const response2 = fetch(url2);
 
             //words
             const url3 = `api/Stories/GetWords/${storyId}`;
-            const response3 = await fetch(url3);
-            const words = await response3.json();
-            dispatch({ type: receiveWordsType, words });
+            const response3 = fetch(url3);
 
             //other stories
             const url4 = `api/Stories/GetOtherStories/${storyId}`;
-            const response4 = await fetch(url4);
-            const otherStories = await response4.json();
+            const response4 = fetch(url4);
+
+            /**------------------------------------------------------------
+             * dispatch
+             */
+            //sentences
+            const sentences = await (await response2).json();
+            dispatch({ type: receiveSentencesType, sentences });
+
+            //words
+            const words = await (await response3).json();
+            dispatch({ type: receiveWordsType, words });
+
+            //other stories
+            const otherStories = await (await response4).json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
         } catch (e) {
             window.location.reload(true);
