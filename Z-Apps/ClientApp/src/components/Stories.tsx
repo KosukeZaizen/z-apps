@@ -251,6 +251,7 @@ class Stories extends React.Component<Props, State> {
         } = this.props;
 
         const isWide = screenWidth > 767;
+        const isVeryWide = screenWidth > 991;
 
         const styleForStoryTitle: React.CSSProperties = isWide
             ? {
@@ -272,6 +273,83 @@ class Stories extends React.Component<Props, State> {
             marginBottom: "10px",
             fontWeight: "bold",
         };
+
+        const videoIndex = storyDesc.youtube ? [title + " Video"] : [];
+
+        const articleIndex = explanation
+            ? explanation
+                  .split("\n")
+                  .filter(c => c.includes("##") && !c.includes("###"))
+                  .map(c => c.split("#").join("").trim())
+            : [];
+
+        const indexLi = [
+            `About ${titleOfAbout}`,
+            ...videoIndex,
+            `${title} Story`,
+            ...articleIndex,
+            "More folktales",
+        ].map(c => {
+            const linkText = c.split("#").join("").trim();
+            return (
+                <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
+                    <AnchorLink href={"#" + encodeURIComponent(linkText)}>
+                        {linkText}
+                    </AnchorLink>
+                </li>
+            );
+        });
+
+        const index = (
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: isVeryWide ? "row" : "column",
+                    margin: isVeryWide ? "40px 0" : "20px 0",
+                }}
+            >
+                <ScrollBox
+                    style={{
+                        display: "inline-block",
+                        flex: 1,
+                        marginRight: isVeryWide ? 30 : undefined,
+                        textAlign: "left",
+                    }}
+                >
+                    <div
+                        style={{
+                            fontSize: "large",
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: "large",
+                            }}
+                        >
+                            Index
+                        </span>
+                        {indexLi && indexLi.length > 0 ? (
+                            <ol
+                                style={{
+                                    display: "inline-block",
+                                    margin: "auto",
+                                    paddingRight: 20,
+                                }}
+                            >
+                                {indexLi}
+                            </ol>
+                        ) : (
+                            <ShurikenProgress size="20%" />
+                        )}
+                    </div>
+                </ScrollBox>
+                <GoogleAd style={{ flex: 1 }} />
+            </div>
+        );
 
         return (
             <div className="center">
@@ -369,8 +447,7 @@ class Stories extends React.Component<Props, State> {
                                 style={{ position: "relative", zIndex: -120 }}
                             />
                         ) : null}
-                        <br />
-                        <br />
+                        {index}
                         {storyDesc.description ? (
                             <section
                                 style={{
@@ -381,7 +458,12 @@ class Stories extends React.Component<Props, State> {
                                 }}
                                 id="aboutFolktale"
                             >
-                                <h2 style={styleForAboutTitle}>
+                                <h2
+                                    style={styleForAboutTitle}
+                                    id={encodeURIComponent(
+                                        `About ${titleOfAbout}`
+                                    )}
+                                >
                                     About {titleOfAbout}
                                 </h2>
                                 <div
@@ -409,8 +491,9 @@ class Stories extends React.Component<Props, State> {
                                         ...styleForStoryTitle,
                                         textAlign: "left",
                                     }}
+                                    id={encodeURIComponent(`${title} Video`)}
                                 >
-                                    {title + " Video"}
+                                    {`${title} Video`}
                                 </h2>
                                 <div
                                     style={{
@@ -458,8 +541,9 @@ class Stories extends React.Component<Props, State> {
                                         ...styleForStoryTitle,
                                         textAlign: "left",
                                     }}
+                                    id={encodeURIComponent(`${title} Story`)}
                                 >
-                                    {title + " Story"}
+                                    {`${title} Story`}
                                 </h2>
                                 <br />
                                 <Sentences
@@ -543,6 +627,7 @@ class Stories extends React.Component<Props, State> {
                                         marginTop: "30px",
                                         marginBottom: "20px",
                                     }}
+                                    id={encodeURIComponent("More folktales")}
                                 >
                                     More folktales
                                 </h2>

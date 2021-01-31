@@ -210,5 +210,7 @@ export function shuffle(array: any[]) {
 }
 
 export async function sleepAsync(milliSec: number) {
-    return new Promise(resolve => setTimeout(() => resolve(), milliSec));
+    return new Promise(resolve =>
+        setTimeout(() => resolve(undefined), milliSec)
+    );
 }
