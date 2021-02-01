@@ -21,6 +21,7 @@ type State = {
     isStarted: boolean;
     isEnding: boolean;
     playingSentence: number;
+    isFooterShown: boolean;
 };
 class StoriesVideo extends React.Component<Props, State> {
     canvasRef: React.RefObject<CanvasElement>;
@@ -38,6 +39,7 @@ class StoriesVideo extends React.Component<Props, State> {
             playingSentence: -1,
             isStarted: false,
             isEnding: false,
+            isFooterShown: true,
         };
 
         this.props.loadStory(this.state.storyName);
@@ -92,7 +94,12 @@ class StoriesVideo extends React.Component<Props, State> {
 
     render() {
         const { sentences, words } = this.props;
-        const { playingSentence, isStarted, isEnding } = this.state;
+        const {
+            playingSentence,
+            isStarted,
+            isEnding,
+            isFooterShown,
+        } = this.state;
 
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
@@ -143,7 +150,21 @@ class StoriesVideo extends React.Component<Props, State> {
                     <b>{title}</b>
                 </h1>
                 {sentences?.length > 0 && words?.length > 0 ? (
-                    <button onClick={this.startVideo}>{"start video"}</button>
+                    <>
+                        <button onClick={this.startVideo}>
+                            {"start video"}
+                        </button>
+                        <br />
+                        <br />
+                        <button
+                            onClick={() => {
+                                this.setState({ isFooterShown: false });
+                                this.startVideo();
+                            }}
+                        >
+                            {"without footer"}
+                        </button>
+                    </>
                 ) : (
                     <p>{"loading"}</p>
                 )}
@@ -277,26 +298,33 @@ class StoriesVideo extends React.Component<Props, State> {
                                 </div>
                             )}
                         </div>
-                        <div
-                            style={{
-                                position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                padding: 5,
-                                fontSize: "large",
+                        {isFooterShown && (
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    padding: 5,
+                                    fontSize: "large",
 
-                                zIndex: 999999,
-                                width: "100%",
-                                backgroundColor: "white",
-                                textAlign: "center",
-                            }}
-                        >
-                            If you want to check the word list for this story,
-                            please visit:{" "}
-                            <span style={{ color: "blue" }}>
-                                {window.location.href.replace("Video", "")}
-                            </span>
-                        </div>
+                                    zIndex: 999999,
+                                    width: "100%",
+                                    backgroundColor: "white",
+                                    textAlign: "center",
+                                }}
+                            >
+                                If you want to check the word list for this
+                                story, please visit:{" "}
+                                <span style={{ color: "blue" }}>
+                                    {window.location.href
+                                        .replace("Video", "")
+                                        .replace(
+                                            "localhost:5001",
+                                            "z-apps.lingual-ninja.com"
+                                        )}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
