@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import * as consts from "../../common/consts";
 import { storyDesc } from "../../types/stories";
+import { excludedArticleTitles, Page } from "../Articles";
+import { ArticlesList } from "../Articles/Top";
 import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
@@ -32,6 +34,7 @@ type State = {
     screenHeight: number;
     imgNumber: number;
     otherStories: storyDesc[];
+    articles: Page[];
 };
 
 class Dictionary extends React.Component<Props, State> {
@@ -74,6 +77,7 @@ class Dictionary extends React.Component<Props, State> {
             screenHeight: window.innerHeight,
             imgNumber: this.getImgNumber(word?.length),
             otherStories: [],
+            articles: [],
         };
 
         let timer: number;
@@ -146,6 +150,7 @@ class Dictionary extends React.Component<Props, State> {
                         });
 
                         this.getStories();
+                        this.getArticles();
                     } catch (e) {
                         window.location.href = `/not-found?p=${window.location.pathname}`;
                     }
@@ -198,6 +203,30 @@ class Dictionary extends React.Component<Props, State> {
         return 1;
     };
 
+    getArticles = async () => {
+        const url = "api/Articles/GetRandomArticles";
+
+        const titlesToExclude = [...excludedArticleTitles];
+        const param = `?${titlesToExclude
+            .map(t => `wordsToExclude=${t}`)
+            .join("&")}`;
+
+        const response: Response = await fetch(url + param);
+        const pages: Page[] = await response.json();
+        const copy = pages
+            .slice()
+            .filter(p =>
+                titlesToExclude.every(
+                    titleToExclude => !p.title.includes(titleToExclude)
+                )
+            );
+        // ランダムに５件取得
+        const selected = [...Array(5)].map(
+            () => copy.splice(Math.floor(Math.random() * copy.length), 1)[0]
+        );
+        this.setState({ articles: selected });
+    };
+
     getStories = async () => {
         //other stories
         const url = `api/Stories/GetOtherStories/${this.state.wordId}`;
@@ -216,6 +245,7 @@ class Dictionary extends React.Component<Props, State> {
             translatedWord,
             snippet,
             otherStories,
+            articles,
         } = this.state;
 
         const title = romaji && `${romaji} (${translatedWord})`;
@@ -713,6 +743,15 @@ class Dictionary extends React.Component<Props, State> {
                                 style={{ marginBottom: 25 }}
                             />
                         )}
+                        <hr />
+                        <h2 className="markdownH2" style={{ marginBottom: 55 }}>
+                            Articles about Japanese
+                        </h2>
+                        <ArticlesList
+                            titleH={"h3"}
+                            articles={articles}
+                            screenWidth={screenWidth}
+                        />
                     </article>
                     <Link to="/vocabulary-list">
                         <Card
