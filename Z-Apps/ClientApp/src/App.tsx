@@ -251,17 +251,12 @@ export default class App extends React.Component {
                             sensitive
                             exact
                             path="/2018/:month/:article"
-                            component={(props: {
-                                match: {
-                                    params: { article: string; month: string };
-                                };
-                            }) => {
-                                const {
-                                    match: {
-                                        params: { article, month },
-                                    },
-                                } = props;
-                                window.location.href = `https://blog.lingual-ninja.com/2018/${month}/${article}`;
+                            component={() => {
+                                window.location.href =
+                                    "https://blog.lingual-ninja.com" +
+                                    (window.location.href.split(
+                                        "lingual-ninja.com"
+                                    )[1] || "");
                                 return null;
                             }}
                         />
