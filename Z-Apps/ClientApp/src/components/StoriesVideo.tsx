@@ -320,7 +320,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                         .replace("Video", "")
                                         .replace(
                                             "localhost:5001",
-                                            "z-apps.lingual-ninja.com"
+                                            "www.lingual-ninja.com"
                                         )}
                                 </span>
                             </div>

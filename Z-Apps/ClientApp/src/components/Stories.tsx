@@ -590,7 +590,7 @@ class Stories extends React.Component<Props, State> {
                                     <FBShareBtn
                                         key="fbShareButton"
                                         urlToShare={
-                                            "https://z-apps.lingual-ninja.com/folktales/" +
+                                            "https://www.lingual-ninja.com/folktales/" +
                                             storyName
                                         }
                                         style={{
@@ -601,7 +601,7 @@ class Stories extends React.Component<Props, State> {
                                     <TwitterShareBtn
                                         key="twitterShareButton"
                                         urlToShare={
-                                            "https://z-apps.lingual-ninja.com/folktales/" +
+                                            "https://www.lingual-ninja.com/folktales/" +
                                             storyName
                                         }
                                         textToShare={title}

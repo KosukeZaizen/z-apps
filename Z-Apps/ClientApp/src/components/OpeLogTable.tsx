@@ -194,7 +194,7 @@ export default class OpeLogTable extends React.Component<
                                             <td style={tableStyle}>
                                                 {log.url
                                                     .replace(
-                                                        "https://z-apps.lingual-ninja.com",
+                                                        "https://www.lingual-ninja.com",
                                                         ""
                                                     )
                                                     .split("/")

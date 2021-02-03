@@ -78,7 +78,7 @@ namespace Z_Apps.Models.SystemBase
 
                         //------------------------------------------------------------
                         //Folktales Topページ
-                        var folktaleBaseUrl = "https://z-apps.lingual-ninja.com/folktales";
+                        var folktaleBaseUrl = "https://www.lingual-ninja.com/folktales";
                         var topDic = new Dictionary<string, string>();
                         topDic["loc"] = folktaleBaseUrl;
                         lstSitemap.Add(topDic);
@@ -96,7 +96,7 @@ namespace Z_Apps.Models.SystemBase
 
                         //------------------------------------------------------------
                         //Articles Topページ
-                        var articlesBaseUrl = "https://z-apps.lingual-ninja.com/articles";
+                        var articlesBaseUrl = "https://www.lingual-ninja.com/articles";
                         var articleTopDic = new Dictionary<string, string>();
                         articleTopDic["loc"] = articlesBaseUrl;
                         lstSitemap.Add(articleTopDic);
@@ -115,7 +115,7 @@ namespace Z_Apps.Models.SystemBase
 
                         //------------------------------------------------------------
                         //Dictionary機能
-                        //var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
+                        //var dictionaryBaseUrl = "https://www.lingual-ninja.com/dictionary";
                         //top page (noindexのためコメントアウト)
                         //var dic1 = new Dictionary<string, string>();
                         //dic1["loc"] = domain;

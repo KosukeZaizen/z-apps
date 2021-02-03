@@ -107,8 +107,8 @@ namespace Z_Apps
                                 "<head>" +
                                 "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                 "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                "<meta property='og:url' content='https://z-apps.lingual-ninja.com'>" + Environment.NewLine +
+                                "<meta property='og:image' content='https://www.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                "<meta property='og:url' content='https://www.lingual-ninja.com'>" + Environment.NewLine +
                                 "<meta property='og:type' content='website'>" + Environment.NewLine +
                                 "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
                                 "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
@@ -127,14 +127,14 @@ namespace Z_Apps
                             var article = articleCon.GetArticle(articleName);
                             var description = article.description.Replace("\\n", " ").Replace("\'", "&#39;");
                             var title = article.title.Replace("\'", "&#39;");
-                            var imgPath = article.imgPath?.Length > 0 ? article.imgPath : "https://z-apps.lingual-ninja.com/ogp-img.png";
+                            var imgPath = article.imgPath?.Length > 0 ? article.imgPath : "https://www.lingual-ninja.com/ogp-img.png";
 
                             resultHTML = "<!DOCTYPE html><html>" +
                                     "<head>" + Environment.NewLine +
                                     "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
                                     "<meta property='og:image' content='" + imgPath + "'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
@@ -159,7 +159,7 @@ namespace Z_Apps
                                     "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
                                     "<meta property='og:image' content='https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/" + storyName.Split("--")[0] + ".png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='" + title + "'>" + Environment.NewLine +
@@ -182,8 +182,8 @@ namespace Z_Apps
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://www.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
@@ -206,8 +206,8 @@ namespace Z_Apps
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://www.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
@@ -228,8 +228,8 @@ namespace Z_Apps
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://www.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='" + title + "'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +
@@ -246,8 +246,8 @@ namespace Z_Apps
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
                                     "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
-                                    "<meta property='og:image' content='https://z-apps.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
-                                    "<meta property='og:url' content='https://z-apps.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://www.lingual-ninja.com/ogp-img.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
                                     "<meta property='og:type' content='article'>" + Environment.NewLine +
                                     "<meta property='og:title' content='Lingual Ninja'>" + Environment.NewLine +
                                     "<meta property='og:image:alt' content='Lingual Ninja'>" + Environment.NewLine +

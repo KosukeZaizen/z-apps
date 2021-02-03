@@ -103,7 +103,7 @@ export default class SiteMapEdit extends React.Component<
 
     checkInput = (s: any) => {
         try {
-            if (s.loc.indexOf("https://z-apps.lingual-ninja.com") < 0)
+            if (s.loc.indexOf("https://www.lingual-ninja.com") < 0)
                 return "The URL is strange.";
 
             if (s.lastmod.length !== 25)

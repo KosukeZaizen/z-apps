@@ -3,7 +3,7 @@ namespace Z_Apps.Util
     public class Consts
     {
         //site url
-        public static string SITE_URL = "https://z-apps.lingual-ninja.com";
+        public static string SITE_URL = "https://www.lingual-ninja.com";
 
         //blob url
         public static string BLOB_URL = "https://lingualninja.blob.core.windows.net";

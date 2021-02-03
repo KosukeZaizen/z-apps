@@ -366,7 +366,7 @@ export function ArticleContent({
                     <FBShareBtn
                         key="fbShareButton"
                         urlToShare={
-                            "https://z-apps.lingual-ninja.com/articles/" +
+                            "https://www.lingual-ninja.com/articles/" +
                             pageName
                         }
                         style={{
@@ -377,7 +377,7 @@ export function ArticleContent({
                     <TwitterShareBtn
                         key="twitterShareButton"
                         urlToShare={
-                            "https://z-apps.lingual-ninja.com/articles/" +
+                            "https://www.lingual-ninja.com/articles/" +
                             pageName
                         }
                         textToShare={title}
