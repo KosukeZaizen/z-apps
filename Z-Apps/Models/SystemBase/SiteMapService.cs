@@ -115,20 +115,20 @@ namespace Z_Apps.Models.SystemBase
 
                         //------------------------------------------------------------
                         //Dictionary機能
-                        var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
+                        //var dictionaryBaseUrl = "https://z-apps.lingual-ninja.com/dictionary";
                         //top page (noindexのためコメントアウト)
                         //var dic1 = new Dictionary<string, string>();
                         //dic1["loc"] = domain;
                         //lstSitemap.Add(dic1);
-                        var wikiService = new WikiService();
-                        IEnumerable<string> allWords = wikiService.GetAllWordsFromDB(0);
-                        foreach (string word in allWords)
-                        {
-                            var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
-                            var dicWordId = new Dictionary<string, string>();
-                            dicWordId["loc"] = dictionaryBaseUrl + "/" + encodedWord;
-                            lstSitemap.Add(dicWordId);
-                        }
+                        //var wikiService = new WikiService();
+                        //IEnumerable<string> allWords = wikiService.GetAllWordsFromDB(0);
+                        //foreach (string word in allWords)
+                        //{
+                        //    var encodedWord = HttpUtility.UrlEncode(word, Encoding.UTF8).Replace("+", "%20");
+                        //    var dicWordId = new Dictionary<string, string>();
+                        //    dicWordId["loc"] = dictionaryBaseUrl + "/" + encodedWord;
+                        //    lstSitemap.Add(dicWordId);
+                        //}
 
                         //------------------------------------------------------------
                         //サイトマップの分割
