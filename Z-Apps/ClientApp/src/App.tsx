@@ -249,6 +249,24 @@ export default class App extends React.Component {
                         />
                         <Route
                             sensitive
+                            exact
+                            path="/2018/:month/:article"
+                            component={(props: {
+                                match: {
+                                    params: { article: string; month: string };
+                                };
+                            }) => {
+                                const {
+                                    match: {
+                                        params: { article, month },
+                                    },
+                                } = props;
+                                window.location.href = `https://blog.lingual-ninja.com/2018/${month}/${article}`;
+                                return null;
+                            }}
+                        />
+                        <Route
+                            sensitive
                             path="/not-found"
                             component={NotFound}
                         />
