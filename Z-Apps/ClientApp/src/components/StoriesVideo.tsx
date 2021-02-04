@@ -51,27 +51,22 @@ class StoriesVideo extends React.Component<Props, State> {
         const { storyDesc, sentences } = this.props;
 
         const playOne = async (currentIndex: number) => {
-            if (sentences.length === currentIndex) {
-                alert("fin");
-                return;
-            } else {
-                return new Promise(async r => {
-                    const shortStoryName = storyDesc.storyName.split("--")[0];
-                    const music = new Audio(
-                        `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${shortStoryName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
-                    );
+            return new Promise(async r => {
+                const shortStoryName = storyDesc.storyName.split("--")[0];
+                const music = new Audio(
+                    `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${shortStoryName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
+                );
+                music.onended = async () => {
+                    await sleepAsync(1000);
+                    music.currentTime = 0;
                     music.onended = async () => {
-                        await sleepAsync(1000);
-                        music.currentTime = 0;
-                        music.onended = async () => {
-                            await sleepAsync(2000);
-                            r(undefined);
-                        };
-                        music.play();
+                        await sleepAsync(2000);
+                        r(undefined);
                     };
                     music.play();
-                });
-            }
+                };
+                music.play();
+            });
         };
         this.setState({ isStarted: true });
         await sleepAsync(5000);
@@ -118,7 +113,12 @@ class StoriesVideo extends React.Component<Props, State> {
         );
         const line = (type: keyof sentence) => {
             const r = sentences[playingSentence]["romaji"];
-            const size = r?.length < 150 ? {} : { fontSize: 27 };
+            const size =
+                r?.length < 150
+                    ? {}
+                    : r?.length < 210
+                    ? { fontSize: 27 }
+                    : { fontSize: 26 };
             return (
                 <ul style={{ margin: "5px 0 20px", ...size }}>
                     <li>{sentences[playingSentence][type]}</li>
