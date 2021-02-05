@@ -107,6 +107,7 @@ const ArticlesTop = () => {
                         fontWeight: "bolder",
                         textAlign: "center",
                     }}
+                    className="whiteShadow"
                 >
                     {title}
                 </h1>

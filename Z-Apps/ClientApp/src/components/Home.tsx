@@ -92,7 +92,7 @@ export default class Home extends React.Component<
                     isHome={true}
                 />
                 <div style={{ textAlign: "center" }}>
-                    <h1>
+                    <h1 className="whiteShadow">
                         Welcome to<span className="hidden-xs"> </span>
                         <span className="visible-xs">
                             <br />

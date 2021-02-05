@@ -144,6 +144,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                             fontWeight: "bold",
                         }}
+                        className="whiteShadow"
                     >
                         {"Japanese Kanji Quiz"}
                     </h1>

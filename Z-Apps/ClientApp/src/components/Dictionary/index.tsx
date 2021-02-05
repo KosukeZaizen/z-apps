@@ -342,6 +342,7 @@ class Dictionary extends React.Component<Props, State> {
                                     width: "100%",
                                     fontWeight: "bold",
                                 }}
+                                className="whiteShadow"
                             >
                                 {title}
                             </h1>

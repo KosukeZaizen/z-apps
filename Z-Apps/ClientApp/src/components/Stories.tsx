@@ -432,6 +432,7 @@ class Stories extends React.Component<Props, State> {
                                 lineHeight: screenWidth > 500 ? "45px" : "35px",
                                 fontWeight: "bolder",
                             }}
+                            className="whiteShadow"
                         >
                             {title}
                         </h1>

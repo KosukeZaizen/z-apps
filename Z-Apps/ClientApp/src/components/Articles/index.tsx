@@ -283,6 +283,7 @@ export function ArticleContent({
                             margin: "25px auto 30px",
                             textAlign: "center",
                         }}
+                        className="whiteShadow"
                     >
                         {title}
                     </h1>
@@ -366,8 +367,7 @@ export function ArticleContent({
                     <FBShareBtn
                         key="fbShareButton"
                         urlToShare={
-                            "https://www.lingual-ninja.com/articles/" +
-                            pageName
+                            "https://www.lingual-ninja.com/articles/" + pageName
                         }
                         style={{
                             width: "200px",
@@ -377,8 +377,7 @@ export function ArticleContent({
                     <TwitterShareBtn
                         key="twitterShareButton"
                         urlToShare={
-                            "https://www.lingual-ninja.com/articles/" +
-                            pageName
+                            "https://www.lingual-ninja.com/articles/" + pageName
                         }
                         textToShare={title}
                         style={{

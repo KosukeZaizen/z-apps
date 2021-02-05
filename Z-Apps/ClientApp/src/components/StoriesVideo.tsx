@@ -146,6 +146,7 @@ class StoriesVideo extends React.Component<Props, State> {
                         lineHeight: "30px",
                         color: "#eb6905",
                     }}
+                    className="whiteShadow"
                 >
                     <b>{title}</b>
                 </h1>
@@ -255,6 +256,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                                     fontSize: "50px",
                                                     fontWeight: "bold",
                                                 }}
+                                                className="whiteShadow"
                                             >
                                                 Thank you for watching!
                                             </h1>
@@ -288,6 +290,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                             fontSize: "100px",
                                             textAlign: "center",
                                         }}
+                                        className="whiteShadow"
                                     >
                                         {title.split(" - ").map((s, i) => (
                                             <>

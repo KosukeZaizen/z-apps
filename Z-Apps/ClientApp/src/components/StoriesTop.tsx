@@ -151,6 +151,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                             lineHeight: "40px",
                             fontWeight: "bolder",
                         }}
+                        className="whiteShadow"
                     >
                         Learn Japanese from Folktales
                     </h1>

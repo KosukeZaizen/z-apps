@@ -108,6 +108,7 @@ class DictionaryTop extends React.Component<
                             margin: "30px",
                             lineHeight: "40px",
                         }}
+                        className="whiteShadow"
                     >
                         <b>Japanese dictionary</b>
                     </h1>

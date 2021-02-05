@@ -133,6 +133,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                             lineHeight: "45px",
                             fontWeight: "bold",
                         }}
+                        className="whiteShadow"
                     >
                         {"Hiragana and Katakana"}
                     </h1>

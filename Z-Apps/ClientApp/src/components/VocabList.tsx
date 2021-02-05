@@ -151,6 +151,7 @@ class VocabList extends React.Component<Props, State> {
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                             fontWeight: "bold",
                         }}
+                        className="whiteShadow"
                     >
                         {"Japanese Vocabulary List"}
                     </h1>

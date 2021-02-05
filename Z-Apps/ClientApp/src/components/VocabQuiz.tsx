@@ -262,6 +262,7 @@ class VocabQuiz extends React.Component<Props, State> {
                             margin: "25px",
                             lineHeight: screenWidth > 500 ? "45px" : "40px",
                         }}
+                        className="whiteShadow"
                     >
                         <b>
                             {"Japanese Vocabulary Quiz - " + titleToShowUpper}
