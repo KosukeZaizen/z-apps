@@ -176,22 +176,7 @@ export function ArticleContent({
 
                 const response: Response = await fetch(url + param);
                 const pages: Page[] = await response.json();
-                const copy = pages
-                    .slice()
-                    .filter(p =>
-                        titlesToExclude.every(
-                            titleToExclude => !p.title.includes(titleToExclude)
-                        )
-                    );
-                // ランダムに５件取得
-                const selected = [...Array(5)].map(
-                    () =>
-                        copy.splice(
-                            Math.floor(Math.random() * copy.length),
-                            1
-                        )[0]
-                );
-                setOtherArticles(selected);
+                setOtherArticles(pages);
             };
             void getArticles();
         }

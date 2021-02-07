@@ -152,7 +152,7 @@ export function ArticlesList({
     return (
         <>
             {articles.length > 0 ? (
-                articles.map((page, i) => (
+                articles.map(page => (
                     <article
                         key={page.title}
                         style={{
