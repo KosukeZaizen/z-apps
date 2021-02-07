@@ -201,6 +201,14 @@ function FolktaleExample({
 
     return (
         <div id={id} key={id}>
+            <img
+                src={`${consts.BLOB_URL}/folktalesImg/${
+                    storyName.split("--")[0]
+                }.png`}
+                alt={folktaleTitle}
+                title={folktaleTitle}
+                className="renderedImg"
+            />
             <div style={{ fontWeight: "bold", marginBottom: 20 }}>
                 {"Below is a sentence from the folktale "}
                 <Link to={`/folktales/${storyName}`}>
