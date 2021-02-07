@@ -172,6 +172,7 @@ function FolktaleExample({
 
     useEffect(() => {
         if (!boldInfo) {
+            setBold({});
             return;
         }
         try {
@@ -339,12 +340,12 @@ function getBoldSentence(sentence: string, minAndMax?: [number, number]) {
         return sentence;
     }
 
-    const min = minAndMax[0];
-    const max = minAndMax[1];
+    const [min, max] = minAndMax;
 
     const firstPart = sentence.substr(0, min);
-    const secondPart = sentence.substr(min + 1, max);
-    const thirdPart = sentence.substr(max + 1, sentence.length);
+    const secondPart = sentence.substr(min, max - min);
+    const thirdPart = sentence.substr(max, sentence.length - max);
+
     return (
         <>
             {firstPart}
