@@ -43,6 +43,37 @@ namespace Z_Apps.Models.Stories.Words
             return resultWords;
         }
 
+        public IEnumerable<Word> GetWordsForSentence(int storyId, int lineNumber)
+        {
+            //SQL文作成
+            string sql = "";
+            sql += "select * from tblDictionary";
+            sql += " where StoryId =@storyId and LineNumber = @lineNumber";
+            sql += " order by WordNumber;";
+
+            //List<Dictionary<string, Object>>型で取得
+            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {
+                { "@storyId", new object[2] { SqlDbType.Int, storyId } },
+                { "@lineNumber", new object[2] { SqlDbType.Int, lineNumber } }
+            });
+
+            //List<Sentence>型に変換してreturn
+            var resultWords = new List<Word>();
+            foreach (var dicWord in words)
+            {
+                var word = new Word();
+                word.StoryId = (int)dicWord["StoryId"];
+                word.LineNumber = (int)dicWord["LineNumber"];
+                word.WordNumber = (int)dicWord["WordNumber"];
+                word.Kanji = (string)dicWord["Kanji"];
+                word.Hiragana = (string)dicWord["Hiragana"];
+                word.English = (string)dicWord["English"];
+
+                resultWords.Add(word);
+            }
+            return resultWords;
+        }
+
         public string GetWordMeaning(string kanji)
         {
             //SQL文作成

@@ -4,6 +4,7 @@ using System.Linq;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
+using static Z_Apps.Controllers.StoriesController;
 
 namespace Z_Apps.Models.Stories
 {
@@ -77,6 +78,14 @@ namespace Z_Apps.Models.Stories
         {
             var sentences = sentenceManager.GetSentences(storyId);
             return sentences;
+        }
+
+        public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber)
+        {
+            var sentence = sentenceManager.GetOneSentence(storyName, lineNumber);
+            var words = wordManager.GetWordsForSentence(sentence.StoryId, lineNumber);
+            
+            return new OneSnetenceAndWords() { sentence = sentence, words = words };
         }
 
         public IEnumerable<Word> GetWords(int storyId)

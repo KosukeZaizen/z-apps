@@ -1019,8 +1019,9 @@ function Sentences({
 interface AudioControlProps {
     s: sentence;
     audioFolder: string;
+    style?: React.CSSProperties;
 }
-class AudioControl extends React.Component<AudioControlProps> {
+export class AudioControl extends React.Component<AudioControlProps> {
     refAudio: React.RefObject<HTMLAudioElement>;
     state: { showControl: boolean };
 
@@ -1042,14 +1043,19 @@ class AudioControl extends React.Component<AudioControlProps> {
     }
 
     render() {
-        const { audioFolder } = this.props;
+        const { audioFolder, style } = this.props;
         const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
 
         return (
             <audio
                 ref={this.refAudio}
                 src={audioPath}
-                style={{ width: "100%", height: "30px", marginTop: "5px" }}
+                style={{
+                    width: "100%",
+                    height: "30px",
+                    marginTop: "5px",
+                    ...style,
+                }}
                 onCanPlayThrough={() => {
                     this.setState({ showControl: true });
                 }}
@@ -1064,7 +1070,7 @@ interface WordListProps {
     s: sentence;
     storyId: number;
 }
-class WordList extends React.Component<
+export class WordList extends React.Component<
     WordListProps,
     {
         showWordList: boolean;
@@ -1125,9 +1131,17 @@ class WordList extends React.Component<
                 <Collapse in={this.state.showWordList} timeout={1000}>
                     <div
                         className="center"
-                        style={{ backgroundColor: "#f8f7f8" }}
+                        style={{
+                            backgroundColor: "#f8f7f8",
+                            maxWidth: 700,
+                            marginLeft: 0,
+                            marginRight: "auto",
+                        }}
                     >
-                        <table>
+                        <table
+                            className="exclude"
+                            style={{ fontSize: "normal" }}
+                        >
                             <tbody>
                                 {this.props.words &&
                                     this.props.words
@@ -1157,7 +1171,15 @@ class WordList extends React.Component<
                                                         border: "1px solid",
                                                     }}
                                                 >
-                                                    {w.english}
+                                                    <div
+                                                        style={{
+                                                            display:
+                                                                "inline-block",
+                                                            textAlign: "left",
+                                                        }}
+                                                    >
+                                                        {w.english}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}

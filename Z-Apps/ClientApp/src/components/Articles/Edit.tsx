@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { ArticleContent, getIndex } from ".";
 import Head from "../parts/Helmet";
+import { checkImgExtension } from "../parts/Markdown";
 import "./style.css";
 
 export interface Page {
@@ -119,7 +120,9 @@ const Articles = (props: Props) => {
 
     const save = async () => {
         try {
-            const imgLine = content?.split("\n")?.find(c => c.includes("!["));
+            const imgLine = content
+                ?.split("\n")
+                ?.find(c => c.includes("![") && checkImgExtension(c));
             const imgPath = imgLine
                 ? imgLine.split("](")[1].replace(")", "")
                 : "";

@@ -43,6 +43,35 @@ namespace Z_Apps.Models.Stories.Sentences
             return resultSentences;
         }
 
+        public Sentence GetOneSentence(string storyName, int lineNumber)
+        {
+            //SQL文作成
+            string sql = @"
+select * from tblSentence
+where StoryId = (
+select StoryId from tblStoryMst where StoryName = @storyName
+)
+and LineNumber = @lineNumber;
+";
+
+            var dicSentence = Con.ExecuteSelect(
+                sql, new Dictionary<string, object[]> {
+                    { "@storyName", new object[2] { SqlDbType.NVarChar, storyName } },
+                    { "@lineNumber", new object[2] { SqlDbType.Int, lineNumber } },
+                })
+                .FirstOrDefault();
+
+            return new Sentence()
+            {
+                StoryId = (int)dicSentence["StoryId"],
+                LineNumber = (int)dicSentence["LineNumber"],
+                Kanji = (string)dicSentence["Kanji"],
+                Hiragana = (string)dicSentence["Hiragana"],
+                Romaji = (string)dicSentence["Romaji"],
+                English = (string)dicSentence["English"]
+            };
+        }
+
         public bool DeleteInsertSentences(int storyId, IEnumerable<Sentence> sentences)
         {
             //SQL文作成

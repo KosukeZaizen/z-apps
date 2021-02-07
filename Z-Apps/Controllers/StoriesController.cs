@@ -64,6 +64,24 @@ namespace Z_Apps.Controllers
             }
         }
 
+        public class OneSnetenceAndWords
+        {
+            public Sentence sentence;
+            public IEnumerable<Word> words;
+        }
+        [HttpGet("[action]/{storyName?}/{lineNumber?}")]
+        public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber)
+        {
+            if (storyName != null && storyName.Length > 0 && lineNumber > 0)
+            {
+                return storiesService.GetOneSentence(storyName, lineNumber);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         [HttpGet("[action]/{storyId?}")]
         public IEnumerable<Word> GetWords(int storyId)
         {

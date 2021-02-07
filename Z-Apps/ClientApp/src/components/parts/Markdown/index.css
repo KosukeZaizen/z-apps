@@ -1,4 +1,4 @@
-.markdownArea {
+.markdownArea:not(.exclude) {
     text-align: left;
     font-size: large;
 }
@@ -45,7 +45,7 @@
     position: relative;
 }
 
-.markdownArea table {
+.markdownArea table:not(.exclude) {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -53,16 +53,16 @@
     background-color: white;
 }
 
-.markdownArea table th:first-child {
+.markdownArea table:not(.exclude) th:first-child {
     border-top-left-radius: 5px;
 }
 
-.markdownArea table th:last-child {
+.markdownArea table:not(.exclude) th:last-child {
     border-top-right-radius: 5px;
     border-right: 1px solid #035c1d;
 }
 
-.markdownArea table th {
+.markdownArea table:not(.exclude) th {
     text-align: center;
     color: white;
     background: linear-gradient(#035c1d, #047c28);
@@ -74,7 +74,7 @@
     padding: 10px 5px;
 }
 
-.markdownArea table td {
+.markdownArea table:not(.exclude) td {
     text-align: center;
     border-left: 1px solid #a8b7c5;
     border-bottom: 1px solid #a8b7c5;
@@ -84,15 +84,15 @@
     padding: 10px 5px;
 }
 
-.markdownArea table td:last-child {
+.markdownArea table:not(.exclude) td:last-child {
     border-right: 1px solid #a8b7c5;
 }
 
-.markdownArea table tr:last-child td:first-child {
+.markdownArea table:not(.exclude) tr:last-child td:first-child {
     border-bottom-left-radius: 5px;
 }
 
-.markdownArea table tr:last-child td:last-child {
+.markdownArea table:not(.exclude) tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
 

@@ -9,6 +9,7 @@ export type storyDesc = {
     youtube?: string;
 };
 export type sentence = {
+    storyId: number;
     lineNumber: number;
     kanji: string;
     hiragana: string;
