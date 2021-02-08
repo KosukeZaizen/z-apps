@@ -357,9 +357,7 @@ function getBoldSentence(sentence: string, minAndMax?: [number, number]) {
     return (
         <>
             {firstPart}
-            <span style={{ fontWeight: "bold", color: "red" }}>
-                {secondPart}
-            </span>
+            <strong style={{ color: "red" }}>{secondPart}</strong>
             {thirdPart}
         </>
     );
