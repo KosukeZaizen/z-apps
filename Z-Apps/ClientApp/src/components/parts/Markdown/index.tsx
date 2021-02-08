@@ -200,7 +200,7 @@ function FolktaleExample({
         .join(" ");
 
     return (
-        <div id={id} key={id}>
+        <div id={id} key={id} style={{ marginBottom: 20 }}>
             <img
                 src={`${consts.BLOB_URL}/folktalesImg/${
                     storyName.split("--")[0]
