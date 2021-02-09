@@ -385,7 +385,7 @@ const RenderCode = (props: any) => {
     }
     return (
         <div className="pointBox">
-            <p>{value}</p>
+            <Markdown source={value} />
         </div>
     );
 };
