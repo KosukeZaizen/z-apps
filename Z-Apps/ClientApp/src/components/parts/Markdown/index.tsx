@@ -134,10 +134,10 @@ const ImageRender = (props: any) => {
 };
 
 interface BoldInfo {
-    K?: [number, number];
-    H?: [number, number];
-    R?: [number, number];
-    E?: [number, number];
+    K?: number[];
+    H?: number[];
+    R?: number[];
+    E?: number[];
 }
 function FolktaleExample({
     storyName,
@@ -343,22 +343,37 @@ function FolktaleExample({
     );
 }
 
-function getBoldSentence(sentence: string, minAndMax?: [number, number]) {
-    if (!minAndMax || minAndMax.length !== 2) {
+function getBoldSentence(sentence: string, minAndMax?: number[]) {
+    if (!minAndMax || minAndMax.length % 2 !== 0) {
         return sentence;
     }
 
-    const [min, max] = minAndMax;
+    const copyMinAndMax = [...minAndMax];
+    const arrToShow = [];
 
-    const firstPart = sentence.substr(0, min);
-    const secondPart = sentence.substr(min, max - min);
-    const thirdPart = sentence.substr(max, sentence.length - max);
+    const firstPart = sentence.substr(0, copyMinAndMax[0]);
+
+    while (copyMinAndMax.length > 0) {
+        const min = copyMinAndMax.shift() || 0;
+        const max = copyMinAndMax.shift() || 500;
+
+        const strongPart = sentence.substr(min, max - min);
+        const thirdPart = sentence.substr(
+            max,
+            (copyMinAndMax[0] || sentence.length) - max
+        );
+        arrToShow.push(
+            <span key={min}>
+                <strong style={{ color: "red" }}>{strongPart}</strong>
+                {thirdPart}
+            </span>
+        );
+    }
 
     return (
         <>
             {firstPart}
-            <strong style={{ color: "red" }}>{secondPart}</strong>
-            {thirdPart}
+            {arrToShow}
         </>
     );
 }
