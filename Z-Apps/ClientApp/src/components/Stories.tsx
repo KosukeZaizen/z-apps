@@ -894,7 +894,7 @@ function Sentences({
     storyId,
     sentences,
     words,
-    articles: articles,
+    articles,
     langState,
     audioFolder,
 }: SentencesProps) {
@@ -1053,8 +1053,16 @@ function Grammar({
         <div className="grammarBox">
             <ul>
                 {articlesForSentence.map((a, i) => (
-                    <li key={`${lineNumber}-${i}`} style={{ marginBottom: 10 }}>
-                        <Link to={`/articles/${a.url}`}>{a.title}</Link>
+                    <li
+                        key={`${lineNumber}-${i}`}
+                        style={{
+                            marginBottom: 10,
+                            textDecoration: "underline",
+                        }}
+                    >
+                        <Link to={`/articles/${a.url}`}>
+                            {`${a.title.split(" - ")[0]} >>`}
+                        </Link>
                     </li>
                 ))}
             </ul>
