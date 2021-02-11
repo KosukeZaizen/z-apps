@@ -430,8 +430,8 @@ class Stories extends React.Component<Props, State> {
                     <article style={isWide ? { fontSize: "large" } : {}}>
                         <h1
                             style={{
-                                margin: "25px",
-                                lineHeight: screenWidth > 500 ? "45px" : "35px",
+                                margin: "25px 0",
+                                lineHeight: "45px",
                                 fontWeight: "bolder",
                             }}
                             className="whiteShadow"
