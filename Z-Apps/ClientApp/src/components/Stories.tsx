@@ -1096,7 +1096,7 @@ export class WordList extends React.Component<
         return (
             <span>
                 {this.props.words &&
-                this.props.words[this.props.s.lineNumber]?.length > 0 ? (
+                this.props.words[this.props.s.lineNumber] ? (
                     this.state.showWordList ? (
                         <button
                             style={{
