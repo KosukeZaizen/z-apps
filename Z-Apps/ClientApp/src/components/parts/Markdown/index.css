@@ -119,3 +119,7 @@
     border-radius: 10px 10px 0 0;
     background: #22ac38;
 }
+
+.markdownArea hr {
+    margin: 30px 0;
+}
