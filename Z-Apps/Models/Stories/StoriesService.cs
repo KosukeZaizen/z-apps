@@ -88,7 +88,7 @@ namespace Z_Apps.Models.Stories
             return new OneSnetenceAndWords() { sentence = sentence, words = words };
         }
 
-        public IEnumerable<Word> GetWords(int storyId)
+        public Dictionary<int, List<Word>> GetWords(int storyId)
         {
             var words = wordManager.GetWords(storyId);
             return words;

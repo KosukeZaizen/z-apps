@@ -10,7 +10,7 @@ const receiveOtherStoriesType = "RECEIVE_OTHER_STORIES";
 const initialState = {
     storyDesc: [],
     sentences: [],
-    words: [],
+    words: {},
     explanation: "",
     otherStories: [],
 };
@@ -18,7 +18,7 @@ const initialState = {
 export interface StoriesState {
     storyDesc: storyDesc;
     sentences: sentence[];
-    words: word[];
+    words: { [key: number]: word[] };
     explanation?: string;
     token: string;
 }
@@ -95,7 +95,7 @@ export const actionCreators: IActionCreators = {
             const otherStories = await (await response4).json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
         } catch (e) {
-            window.location.reload(true);
+            console.log("e", e);
         }
     },
 };

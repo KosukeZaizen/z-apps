@@ -15,7 +15,7 @@ namespace Z_Apps.Models.Stories.Words
             Con = con;
         }
 
-        public IEnumerable<Word> GetWords(int storyId)
+        public Dictionary<int, List<Word>> GetWords(int storyId)
         {
             //SQL文作成
             string sql = "";
@@ -27,7 +27,7 @@ namespace Z_Apps.Models.Stories.Words
             var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
 
             //List<Sentence>型に変換してreturn
-            var resultWords = new List<Word>();
+            var resultWords = new Dictionary<int, List<Word>>();
             foreach (var dicWord in words)
             {
                 var word = new Word();
@@ -38,7 +38,12 @@ namespace Z_Apps.Models.Stories.Words
                 word.Hiragana = (string)dicWord["Hiragana"];
                 word.English = (string)dicWord["English"];
 
-                resultWords.Add(word);
+                if (!resultWords.ContainsKey(word.LineNumber))
+                {
+                    resultWords.Add(word.LineNumber, new List<Word>());
+                }
+                resultWords[word.LineNumber].Add(word);
+
             }
             return resultWords;
         }

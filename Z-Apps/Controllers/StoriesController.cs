@@ -83,7 +83,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<Word> GetWords(int storyId)
+        public Dictionary<int, List<Word>> GetWords(int storyId)
         {
             if (storyId > 0)
             {

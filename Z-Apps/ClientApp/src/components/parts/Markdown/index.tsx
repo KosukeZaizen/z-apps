@@ -338,7 +338,11 @@ function FolktaleExample({
                 </div>
             </div>
             <AudioControl s={s} audioFolder={audioFolder} />
-            <WordList words={words} s={s} storyId={s.storyId} />
+            <WordList
+                words={{ [s.lineNumber]: words }}
+                s={s}
+                storyId={s.storyId}
+            />
         </div>
     );
 }

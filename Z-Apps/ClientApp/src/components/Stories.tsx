@@ -882,7 +882,7 @@ class Stories extends React.Component<Props, State> {
 type SentencesProps = {
     storyId: number;
     sentences: sentence[];
-    words: word[];
+    words: { [key: number]: word[] };
     langState: State;
     audioFolder: string;
 };
@@ -1066,7 +1066,7 @@ export class AudioControl extends React.Component<AudioControlProps> {
 }
 
 interface WordListProps {
-    words: word[];
+    words: { [key: number]: word[] };
     s: sentence;
     storyId: number;
 }
@@ -1096,9 +1096,7 @@ export class WordList extends React.Component<
         return (
             <span>
                 {this.props.words &&
-                this.props.words.filter(
-                    w => w.lineNumber === this.props.s.lineNumber
-                ).length > 0 ? (
+                this.props.words[this.props.s.lineNumber]?.length > 0 ? (
                     this.state.showWordList ? (
                         <button
                             style={{
@@ -1144,45 +1142,40 @@ export class WordList extends React.Component<
                         >
                             <tbody>
                                 {this.props.words &&
-                                    this.props.words
-                                        .filter(
-                                            w =>
-                                                w.lineNumber ===
-                                                this.props.s.lineNumber
-                                        )
-                                        .map(w => (
-                                            <tr key={w.wordNumber}>
-                                                <td
+                                    this.props.words[
+                                        this.props.s.lineNumber
+                                    ]?.map(w => (
+                                        <tr key={w.wordNumber}>
+                                            <td
+                                                style={{
+                                                    minWidth: 100,
+                                                    border: "1px solid",
+                                                }}
+                                            >
+                                                {w.kanji}
+                                                <br />
+                                                {w.hiragana
+                                                    ? `(${w.hiragana})`
+                                                    : null}
+                                            </td>
+                                            <td
+                                                style={{
+                                                    paddingLeft: 3,
+                                                    paddingRight: 3,
+                                                    border: "1px solid",
+                                                }}
+                                            >
+                                                <div
                                                     style={{
-                                                        minWidth: 100,
-                                                        border: "1px solid",
+                                                        display: "inline-block",
+                                                        textAlign: "left",
                                                     }}
                                                 >
-                                                    {w.kanji}
-                                                    <br />
-                                                    {w.hiragana
-                                                        ? `(${w.hiragana})`
-                                                        : null}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        paddingLeft: 3,
-                                                        paddingRight: 3,
-                                                        border: "1px solid",
-                                                    }}
-                                                >
-                                                    <div
-                                                        style={{
-                                                            display:
-                                                                "inline-block",
-                                                            textAlign: "left",
-                                                        }}
-                                                    >
-                                                        {w.english}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                    {w.english}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
                     </div>
