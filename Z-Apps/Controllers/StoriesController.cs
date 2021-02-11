@@ -7,6 +7,7 @@ using Z_Apps.Models.Stories.Words;
 using System.Data;
 using Z_Apps.Models;
 using System.Linq;
+using static Z_Apps.Models.Stories.StoriesService;
 
 namespace Z_Apps.Controllers
 {
@@ -83,11 +84,11 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public Dictionary<int, List<Word>> GetWords(int storyId)
+        public WordsAndArticles GetWords(int storyId)
         {
             if (storyId > 0)
             {
-                return storiesService.GetWords(storyId);
+                return storiesService.GetWordsAndArticles(storyId);
             }
             else
             {

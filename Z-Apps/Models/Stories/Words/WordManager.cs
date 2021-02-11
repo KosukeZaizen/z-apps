@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Z_Apps.Models.Stories.Words
 {
@@ -18,10 +14,11 @@ namespace Z_Apps.Models.Stories.Words
         public Dictionary<int, List<Word>> GetWords(int storyId)
         {
             //SQL文作成
-            string sql = "";
-            sql += "select * from tblDictionary";
-            sql += " where StoryId =@storyId";
-            sql += " order by WordNumber;";
+            string sql = @"
+select * from tblDictionary
+where StoryId =@storyId
+order by WordNumber;
+";
 
             //List<Dictionary<string, Object>>型で取得
             var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });

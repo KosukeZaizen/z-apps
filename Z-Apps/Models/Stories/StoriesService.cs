@@ -5,6 +5,7 @@ using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
 using static Z_Apps.Controllers.StoriesController;
+using System.Data;
 
 namespace Z_Apps.Models.Stories
 {
@@ -88,10 +89,67 @@ namespace Z_Apps.Models.Stories
             return new OneSnetenceAndWords() { sentence = sentence, words = words };
         }
 
-        public Dictionary<int, List<Word>> GetWords(int storyId)
+        public class WordsAndArticles
+        {
+            public Dictionary<int, List<Word>> words;
+            public Dictionary<int, List<ArticleUrlAndTitle>> articles;
+        }
+        public class ArticleUrlAndTitle
+        {
+            public string url;
+            public string title;
+        }
+        public WordsAndArticles GetWordsAndArticles(int storyId)
         {
             var words = wordManager.GetWords(storyId);
-            return words;
+            var articles = GetArticles(storyId);
+
+            return new WordsAndArticles() {
+                words = words,
+                articles = articles
+            };
+        }
+
+        private Dictionary<int, List<ArticleUrlAndTitle>> GetArticles(int storyId)
+        {
+            var con = new DBCon();
+
+            //SQL文作成
+            string sql = @"
+select s.lineNumber, s.articleUrl, a.title from
+(
+    select distinct lineNumber, articleUrl
+    from tblArticleExampleSentenceRelation
+    where storyId = @storyId
+) as s
+inner join tblArticles as a
+on a.url = s.articleUrl
+";
+
+            //List<Dictionary<string, Object>>型で取得
+            var words = con.ExecuteSelect(sql, new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId }
+                } });
+
+            //List<Sentence>型に変換してreturn
+            var resultArticles = new Dictionary<int, List<ArticleUrlAndTitle>>();
+            foreach (var dicWord in words)
+            {
+                var lineNumber = (int)dicWord["lineNumber"];
+
+                if (!resultArticles.ContainsKey(lineNumber))
+                {
+                    resultArticles.Add(lineNumber, new List<ArticleUrlAndTitle>());
+                }
+
+                resultArticles[lineNumber].Add(
+                    new ArticleUrlAndTitle(){
+                        url = (string)dicWord["articleUrl"],
+                        title = (string)dicWord["title"],
+                    }
+                );
+            }
+            return resultArticles;
         }
     }
 }

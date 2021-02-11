@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as consts from "../common/consts";
+import "../css/Stories.css";
 import { TReducers } from "../store/configureStore";
 import * as storiesStore from "../store/StoriesStore";
 import { sentence, storyDesc, word } from "../types/stories";
@@ -246,6 +247,7 @@ class Stories extends React.Component<Props, State> {
             storyDesc,
             sentences,
             words,
+            articles,
             explanation,
             otherStories,
         } = this.props;
@@ -551,6 +553,7 @@ class Stories extends React.Component<Props, State> {
                                     storyId={storyDesc.storyId}
                                     sentences={sentences}
                                     words={words}
+                                    articles={articles}
                                     langState={this.state}
                                     audioFolder={storyName?.split("--")[0]}
                                 />
@@ -883,6 +886,7 @@ type SentencesProps = {
     storyId: number;
     sentences: sentence[];
     words: { [key: number]: word[] };
+    articles: { [key: number]: { title: string; url: string }[] };
     langState: State;
     audioFolder: string;
 };
@@ -890,6 +894,7 @@ function Sentences({
     storyId,
     sentences,
     words,
+    articles: articles,
     langState,
     audioFolder,
 }: SentencesProps) {
@@ -902,116 +907,157 @@ function Sentences({
                 </div>
             ) : (
                 sentences &&
-                sentences.map(s => (
-                    <div key={s.lineNumber}>
-                        <Collapse
-                            in={langState.kanji}
-                            timeout={1000}
+                sentences.map(s => {
+                    const articlesForSentence = articles[s.lineNumber];
+                    return (
+                        <div
+                            key={s.lineNumber}
                             style={{
-                                width: "100%",
-                                backgroundColor: "#fff0f2",
+                                borderBottom: "1px solid #dcdcdc",
+                                marginBottom: 35,
+                                paddingBottom: 35,
                             }}
                         >
-                            <div
+                            <Collapse
+                                in={langState.kanji}
+                                timeout={1000}
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
+                                    width: "100%",
+                                    backgroundColor: "#fff0f2",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontWeight: "bold",
-                                        marginRight: "1em",
+                                        display: "flex",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <abbr title="kanji">Ｋ</abbr>:
+                                    <div
+                                        style={{
+                                            fontWeight: "bold",
+                                            marginRight: "1em",
+                                        }}
+                                    >
+                                        <abbr title="kanji">Ｋ</abbr>:
+                                    </div>
+                                    <div style={{ width: "100%" }}>
+                                        {s.kanji}
+                                    </div>
                                 </div>
-                                <div style={{ width: "100%" }}>{s.kanji}</div>
-                            </div>
-                        </Collapse>
-                        <Collapse
-                            in={langState.hiragana}
-                            timeout={1000}
-                            style={{
-                                width: "100%",
-                                backgroundColor: "#ffffe0",
-                            }}
-                        >
-                            <div
+                            </Collapse>
+                            <Collapse
+                                in={langState.hiragana}
+                                timeout={1000}
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
+                                    width: "100%",
+                                    backgroundColor: "#ffffe0",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontWeight: "bold",
-                                        marginRight: "1em",
+                                        display: "flex",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <abbr title="hiragana">Ｈ</abbr>:
+                                    <div
+                                        style={{
+                                            fontWeight: "bold",
+                                            marginRight: "1em",
+                                        }}
+                                    >
+                                        <abbr title="hiragana">Ｈ</abbr>:
+                                    </div>
+                                    <div style={{ width: "100%" }}>
+                                        {s.hiragana}
+                                    </div>
                                 </div>
-                                <div style={{ width: "100%" }}>
-                                    {s.hiragana}
-                                </div>
-                            </div>
-                        </Collapse>
-                        <Collapse
-                            in={langState.romaji}
-                            timeout={1000}
-                            style={{
-                                width: "100%",
-                                backgroundColor: "#f0fff2",
-                            }}
-                        >
-                            <div
+                            </Collapse>
+                            <Collapse
+                                in={langState.romaji}
+                                timeout={1000}
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
+                                    width: "100%",
+                                    backgroundColor: "#f0fff2",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontWeight: "bold",
-                                        marginRight: "1em",
+                                        display: "flex",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <abbr title="romaji">Ｒ</abbr>:
+                                    <div
+                                        style={{
+                                            fontWeight: "bold",
+                                            marginRight: "1em",
+                                        }}
+                                    >
+                                        <abbr title="romaji">Ｒ</abbr>:
+                                    </div>
+                                    <div style={{ width: "100%" }}>
+                                        {s.romaji}
+                                    </div>
                                 </div>
-                                <div style={{ width: "100%" }}>{s.romaji}</div>
-                            </div>
-                        </Collapse>
-                        <Collapse
-                            in={langState.english}
-                            timeout={1000}
-                            style={{
-                                width: "100%",
-                                backgroundColor: "#f0f8ff",
-                            }}
-                        >
-                            <div
+                            </Collapse>
+                            <Collapse
+                                in={langState.english}
+                                timeout={1000}
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
+                                    width: "100%",
+                                    backgroundColor: "#f0f8ff",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontWeight: "bold",
-                                        marginRight: "1em",
+                                        display: "flex",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <abbr title="english">Ｅ</abbr>:
+                                    <div
+                                        style={{
+                                            fontWeight: "bold",
+                                            marginRight: "1em",
+                                        }}
+                                    >
+                                        <abbr title="english">Ｅ</abbr>:
+                                    </div>
+                                    <div style={{ width: "100%" }}>
+                                        {s.english}
+                                    </div>
                                 </div>
-                                <div style={{ width: "100%" }}>{s.english}</div>
-                            </div>
-                        </Collapse>
-                        <AudioControl s={s} audioFolder={audioFolder} />
-                        <WordList words={words} s={s} storyId={storyId} />
-                        <hr />
-                    </div>
-                ))
+                            </Collapse>
+                            <AudioControl s={s} audioFolder={audioFolder} />
+                            <WordList words={words} s={s} storyId={storyId} />
+                            {articlesForSentence && (
+                                <Grammar
+                                    articlesForSentence={articlesForSentence}
+                                    lineNumber={s.lineNumber}
+                                />
+                            )}
+                        </div>
+                    );
+                })
             )}
+        </div>
+    );
+}
+
+function Grammar({
+    articlesForSentence,
+    lineNumber,
+}: {
+    articlesForSentence: { title: string; url: string }[];
+    lineNumber: number;
+}) {
+    return (
+        <div className="grammarBox">
+            <ul>
+                {articlesForSentence.map((a, i) => (
+                    <li key={`${lineNumber}-${i}`} style={{ marginBottom: 10 }}>
+                        <Link to={`/articles/${a.url}`}>{a.title}</Link>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
@@ -1119,7 +1165,7 @@ export class WordList extends React.Component<
                                 paddingTop: 0,
                                 color: "white",
                             }}
-                            className="btn btn-dark btn-xs"
+                            className="btn btn-primary btn-xs"
                             onClick={this.showWordList}
                         >
                             ▼　Show vocabulary list

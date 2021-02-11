@@ -11,6 +11,7 @@ const initialState = {
     storyDesc: [],
     sentences: [],
     words: {},
+    articles: {},
     explanation: "",
     otherStories: [],
 };
@@ -19,6 +20,7 @@ export interface StoriesState {
     storyDesc: storyDesc;
     sentences: sentence[];
     words: { [key: number]: word[] };
+    articles: { [key: number]: { title: string; url: string }[] };
     explanation?: string;
     token: string;
 }
@@ -84,8 +86,8 @@ export const actionCreators: IActionCreators = {
             dispatch({ type: receiveSentencesType, sentences });
 
             //words
-            const words = await (await response3).json();
-            dispatch({ type: receiveWordsType, words });
+            const { words, articles } = await (await response3).json();
+            dispatch({ type: receiveWordsType, words, articles });
 
             //explanation article
             const explanation = await (await responseExp).text();
@@ -125,6 +127,7 @@ export const reducer = (state: StoriesState, action: any) => {
         return {
             ...state,
             words: action.words,
+            articles: action.articles,
         };
     }
 

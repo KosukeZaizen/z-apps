@@ -1,0 +1,22 @@
+.grammarBox {
+    position: relative;
+    padding: 15px 25px 2px 0px;
+    color: black;
+    border-radius: 0 10px 10px 10px;
+    background: #e3f5d8;
+    margin-top: 45px;
+    display: inline-block;
+}
+
+.grammarBox:before {
+    font-size: 15px;
+    position: absolute;
+    top: -23px;
+    left: 0;
+    height: 23px;
+    padding: 0 1em;
+    content: "\Grammar";
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    background: #22ac38;
+}
