@@ -385,10 +385,11 @@ function getBoldSentence(sentence: string, minAndMax?: number[]) {
 const RenderCode = (props: any) => {
     const { language, value } = props;
 
+    if (!value) {
+        return null;
+    }
+
     if (language === "ex") {
-        if (!value) {
-            return null;
-        }
         const storyNameAndLineNumber = value.split("\n");
         const { length } = storyNameAndLineNumber;
         const getInfo = (n: number) =>
@@ -401,7 +402,14 @@ const RenderCode = (props: any) => {
                 boldInfo={getInfo(2)}
             />
         );
+    } else if (language === "box") {
+        return (
+            <div className="greenBox">
+                <Markdown source={value} />
+            </div>
+        );
     }
+
     return (
         <div className="pointBox">
             <Markdown source={value} />
