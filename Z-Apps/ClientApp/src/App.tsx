@@ -52,8 +52,12 @@ const NotFound = lazy(() => import("./components/404"));
 export default class App extends React.Component {
     componentDidMount() {
         const { pathname } = window.location;
-        ReactGA.set({ page: pathname });
-        ReactGA.pageview(pathname);
+
+        // 旧ブログへのリダイレクト時はAnalyticsから除外
+        if (!pathname.startsWith("/2018")) {
+            ReactGA.set({ page: pathname });
+            ReactGA.pageview(pathname);
+        }
     }
 
     render() {
