@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
+import { storyDesc } from "../../types/stories";
 import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
@@ -13,6 +14,7 @@ import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
+import { StoriesList } from "../StoriesTop/StoriesList";
 import "./style.css";
 import { ArticlesList } from "./Top";
 
@@ -161,6 +163,7 @@ export function ArticleContent({
     isAboutFolktale,
 }: ArticleContentProps) {
     const [otherArticles, setOtherArticles] = useState<Page[]>([]);
+    const [folktales, setFolktales] = useState<storyDesc[]>([]);
 
     useEffect(() => {
         if (title) {
@@ -178,9 +181,18 @@ export function ArticleContent({
                 const pages: Page[] = await response.json();
                 setOtherArticles(pages);
             };
-            void getArticles();
+            getArticles();
         }
     }, [title, isAboutFolktale]);
+
+    useEffect(() => {
+        const getFolktales = async () => {
+            const url = `api/Stories/GetOtherStories/${content.length}`;
+            const response = await fetch(url);
+            setFolktales(await response.json());
+        };
+        getFolktales();
+    }, [content]);
 
     const isWide = width > 991;
 
@@ -377,15 +389,52 @@ export function ArticleContent({
             <hr />
             <Author style={{ marginTop: 45 }} screenWidth={width} />
             <hr />
-            <h2 className="markdownH2" style={{ marginBottom: 55 }}>
-                More Articles
-            </h2>
-            <ArticlesList
-                titleH={"h3"}
-                articles={otherArticles}
-                screenWidth={width}
-            />
-            <FolktaleMenu screenWidth={width} />
+            <section>
+                <h2 className="markdownH2" style={{ marginBottom: 55 }}>
+                    More Articles
+                </h2>
+                <ArticlesList
+                    titleH={"h3"}
+                    articles={otherArticles}
+                    screenWidth={width}
+                />
+            </section>
+            <hr />
+            <section>
+                <h2 className="markdownH2">
+                    {"Learn Japanese from folktales"}
+                </h2>
+                <CharacterComment
+                    screenWidth={width}
+                    imgNumber={imgNumber - 1 || 3}
+                    commentStyle={{
+                        textAlign: "center",
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                    }}
+                    style={isWide ? { margin: "20px auto 0" } : {}}
+                    comment={
+                        <p
+                            style={{
+                                textAlign: "left",
+                                display: "inline-block",
+                            }}
+                        >
+                            Reading a lot of sample sentences are the best way
+                            to learn new languages!
+                            <br />
+                            Let's learn Japanese by reading popular Japanese
+                            folktales in English, Hiragana, Kanji, and Romaji!
+                        </p>
+                    }
+                />
+                <StoriesList
+                    headLevel="h3"
+                    stories={folktales}
+                    screenWidth={width}
+                />
+                <FolktaleMenu screenWidth={width} style={{ marginTop: 45 }} />
+            </section>
             <FB />
         </main>
     );

@@ -5,14 +5,15 @@ import { ScrollBox } from "../ScrollBox";
 
 interface FolktaleMenuProps {
     screenWidth: number;
+    style?: React.CSSProperties;
 }
-export const FolktaleMenu = ({ screenWidth }: FolktaleMenuProps) => {
+export const FolktaleMenu = ({ screenWidth, style }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
     const styleImgContainer = isWide
         ? { display: "flex", justifyContent: "center" }
         : undefined;
     return (
-        <ScrollBox style={{ textAlign: "center" }}>
+        <ScrollBox style={{ textAlign: "center", ...style }}>
             <Link to="/folktales">
                 <h2>Learn Japanese from Folktales</h2>
             </Link>
