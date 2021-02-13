@@ -395,7 +395,7 @@ export function getIndex(content: string) {
     return content
         .split("\n")
         .filter(c => c.includes("##") && !c.includes("###"))
-        .map((c, i) => {
+        .map(c => {
             const linkText = c.split("#").join("").trim();
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
