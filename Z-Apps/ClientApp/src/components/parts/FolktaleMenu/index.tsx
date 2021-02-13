@@ -11,7 +11,7 @@ export const FolktaleMenu = ({ screenWidth, style }: FolktaleMenuProps) => {
     const isWide = screenWidth > 991;
     const styleImgContainer = isWide
         ? { display: "flex", justifyContent: "center" }
-        : undefined;
+        : { margin: "10px 0" };
     return (
         <ScrollBox style={{ textAlign: "center", ...style }}>
             <Link to="/folktales">
@@ -39,7 +39,7 @@ export const FolktaleMenu = ({ screenWidth, style }: FolktaleMenuProps) => {
                         style={{
                             fontSize: "large",
                             textAlign: "left",
-                            padding: isWide ? 25 : "10px 10px 20px",
+                            padding: isWide ? 25 : "10px 0 20px",
                         }}
                     >
                         A web app to learn Japanese from folktales. You can read
