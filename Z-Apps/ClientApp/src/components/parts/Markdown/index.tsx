@@ -9,6 +9,7 @@ import ShurikenProgress from "../Animations/ShurikenProgress";
 import { ExampleSentence } from "./ExampleSentence";
 import { FolktaleExample } from "./ExampleSentence/Folktale";
 import "./index.css";
+import { PointBox } from "./PointBox";
 
 const linkBlock = (props: { href: string; children: React.ReactNode }) => {
     const { href, children } = props;
@@ -178,9 +179,9 @@ const RenderCode = ({
     }
 
     return (
-        <div className="pointBox">
+        <PointBox language={language}>
             <Markdown source={value} />
-        </div>
+        </PointBox>
     );
 };
 

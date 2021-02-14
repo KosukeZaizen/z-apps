@@ -18,6 +18,7 @@ import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
+import { PointBox } from "../parts/Markdown/PointBox";
 import "../parts/PleaseScrollDown.css";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
@@ -872,7 +873,7 @@ function Grammar({
     lineNumber: number;
 }) {
     return (
-        <div className="grammarBox">
+        <PointBox language="Grammar" style={{ padding: "15px 25px 2px 0px" }}>
             <ul>
                 {articlesForSentence.map((a, i) => (
                     <li
@@ -888,7 +889,7 @@ function Grammar({
                     </li>
                 ))}
             </ul>
-        </div>
+        </PointBox>
     );
 }
 

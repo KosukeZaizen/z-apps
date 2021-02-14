@@ -97,29 +97,6 @@
     border-bottom-right-radius: 5px;
 }
 
-.markdownArea .pointBox {
-    position: relative;
-    padding: 15px 20px 2px;
-    color: black;
-    border-radius: 0 10px 10px 10px;
-    background: #e3f5d8;
-    margin: 45px 0 25px;
-    display: inline-block;
-}
-
-.markdownArea .pointBox:before {
-    font-size: 15px;
-    position: absolute;
-    top: -23px;
-    left: 0;
-    height: 23px;
-    padding: 0 1em;
-    content: "\NOTE";
-    color: #fff;
-    border-radius: 10px 10px 0 0;
-    background: #22ac38;
-}
-
 .markdownArea hr {
     margin: 30px 0;
 }
