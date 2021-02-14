@@ -87,7 +87,7 @@ export default class Home extends React.Component<
         return (
             <div className="home">
                 <Head
-                    title="Lingual Ninja"
+                    title="Lingual Ninja - Learn Japanese Online"
                     desc="Free applications to learn Japanese, made by Kosuke Zaizen! I hope you enjoy!"
                     isHome={true}
                 />
