@@ -6,7 +6,7 @@ import "./Footer.css";
 const styles = StyleSheet.create({
     sp: {
         "@media (max-width: 600px)": {
-            marginTop: 5,
+            marginTop: 8,
         },
     },
 });
