@@ -5,23 +5,25 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
-import * as consts from "../common/consts";
-import "../css/Stories.css";
-import { TReducers } from "../store/configureStore";
-import * as storiesStore from "../store/StoriesStore";
-import { sentence, storyDesc, word } from "../types/stories";
-import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import { Author } from "./parts/Author";
-import CharacterComment from "./parts/CharacterComment";
-import FB from "./parts/FaceBook";
-import GoogleAd from "./parts/GoogleAd";
-import Head from "./parts/Helmet";
-import { Markdown } from "./parts/Markdown";
-import "./parts/PleaseScrollDown.css";
-import { ScrollBox } from "./parts/ScrollBox";
-import { FBShareBtn, TwitterShareBtn } from "./parts/SnsShareButton";
-import { StoriesList } from "./StoriesTop/StoriesList";
+import * as consts from "../../common/consts";
+import "../../css/Stories.css";
+import { TReducers } from "../../store/configureStore";
+import * as storiesStore from "../../store/StoriesStore";
+import { sentence, storyDesc, word } from "../../types/stories";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import { Author } from "../parts/Author";
+import CharacterComment from "../parts/CharacterComment";
+import FB from "../parts/FaceBook";
+import GoogleAd from "../parts/GoogleAd";
+import Head from "../parts/Helmet";
+import { Markdown } from "../parts/Markdown";
+import "../parts/PleaseScrollDown.css";
+import { ScrollBox } from "../parts/ScrollBox";
+import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
+import { StoriesList } from "../StoriesTop/StoriesList";
+import { AudioControl } from "./AudioControl";
+import { WordList } from "./WordList";
 
 type BtnType = "kanji" | "hiragana" | "romaji" | "english";
 
@@ -844,7 +846,9 @@ function Sentences({
                                     </div>
                                 </div>
                             </Collapse>
-                            <AudioControl s={s} audioFolder={audioFolder} />
+                            <AudioControl
+                                audioPath={`${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${s.lineNumber}.m4a`}
+                            />
                             <WordList words={words} s={s} storyId={storyId} />
                             {articlesForSentence && (
                                 <Grammar
@@ -886,175 +890,6 @@ function Grammar({
             </ul>
         </div>
     );
-}
-
-interface AudioControlProps {
-    s: sentence;
-    audioFolder: string;
-    style?: React.CSSProperties;
-}
-export class AudioControl extends React.Component<AudioControlProps> {
-    refAudio: React.RefObject<HTMLAudioElement>;
-    state: { showControl: boolean };
-
-    constructor(props: AudioControlProps) {
-        super(props);
-
-        this.state = {
-            showControl: false,
-        };
-
-        this.refAudio = React.createRef();
-    }
-
-    componentDidMount() {
-        if (!this.refAudio) return;
-
-        const audio = this.refAudio.current;
-        void audio?.load();
-    }
-
-    render() {
-        const { audioFolder, style } = this.props;
-        const audioPath = `${consts.BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${this.props.s.lineNumber}.m4a`;
-
-        return (
-            <audio
-                ref={this.refAudio}
-                src={audioPath}
-                style={{
-                    width: "100%",
-                    height: "30px",
-                    marginTop: "5px",
-                    ...style,
-                }}
-                onCanPlayThrough={() => {
-                    this.setState({ showControl: true });
-                }}
-                controls={this.state.showControl}
-            />
-        );
-    }
-}
-
-interface WordListProps {
-    words: { [key: number]: word[] };
-    s: sentence;
-    storyId: number;
-}
-export class WordList extends React.Component<
-    WordListProps,
-    {
-        showWordList: boolean;
-    }
-> {
-    constructor(props: WordListProps) {
-        super(props);
-
-        this.state = {
-            showWordList: false,
-        };
-    }
-
-    showWordList = () => {
-        this.setState({ showWordList: true });
-    };
-
-    hideWordList = () => {
-        this.setState({ showWordList: false });
-    };
-
-    render() {
-        return (
-            <span>
-                {this.props.words &&
-                this.props.words[this.props.s.lineNumber] ? (
-                    this.state.showWordList ? (
-                        <button
-                            style={{
-                                marginTop: 5,
-                                marginBottom: 2,
-                                height: 28,
-                                paddingTop: 0,
-                                color: "white",
-                            }}
-                            className="btn btn-dark btn-xs"
-                            onClick={this.hideWordList}
-                        >
-                            ▲　Hide vocabulary list
-                        </button>
-                    ) : (
-                        <button
-                            style={{
-                                marginTop: 5,
-                                height: 28,
-                                paddingTop: 0,
-                                color: "white",
-                            }}
-                            className="btn btn-primary btn-xs"
-                            onClick={this.showWordList}
-                        >
-                            ▼　Show vocabulary list
-                        </button>
-                    )
-                ) : null}
-                <Collapse in={this.state.showWordList} timeout={1000}>
-                    <div
-                        className="center"
-                        style={{
-                            backgroundColor: "#f8f7f8",
-                            maxWidth: 700,
-                            marginLeft: 0,
-                            marginRight: "auto",
-                        }}
-                    >
-                        <table
-                            className="exclude"
-                            style={{ fontSize: "normal" }}
-                        >
-                            <tbody>
-                                {this.props.words &&
-                                    this.props.words[
-                                        this.props.s.lineNumber
-                                    ]?.map(w => (
-                                        <tr key={w.wordNumber}>
-                                            <td
-                                                style={{
-                                                    minWidth: 100,
-                                                    border: "1px solid",
-                                                }}
-                                            >
-                                                {w.kanji}
-                                                <br />
-                                                {w.hiragana
-                                                    ? `(${w.hiragana})`
-                                                    : null}
-                                            </td>
-                                            <td
-                                                style={{
-                                                    paddingLeft: 3,
-                                                    paddingRight: 3,
-                                                    border: "1px solid",
-                                                }}
-                                            >
-                                                <div
-                                                    style={{
-                                                        display: "inline-block",
-                                                        textAlign: "left",
-                                                    }}
-                                                >
-                                                    {w.english}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </Collapse>
-            </span>
-        );
-    }
 }
 
 type TPleaseScrollDown = {
