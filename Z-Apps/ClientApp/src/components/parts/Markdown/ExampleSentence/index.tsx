@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BLOB_URL } from "../../../../common/consts";
 import { sentence, word } from "../../../../types/stories";
 import { AudioControl } from "../../../Stories/AudioControl";
 import { WordList } from "../../../Stories/WordList";
@@ -14,12 +13,12 @@ export function ExampleSentence({
     s,
     boldInfo,
     words,
-    audioFolder,
+    audioPath,
 }: {
     s: sentence;
     boldInfo: string;
     words: word[];
-    audioFolder: string;
+    audioPath: string;
 }) {
     const [bold, setBold] = useState<BoldInfo>({});
 
@@ -164,12 +163,8 @@ export function ExampleSentence({
                     {getBoldSentence(s.english, bold?.E)}
                 </div>
             </div>
-            {audioFolder && (
-                <AudioControl
-                    audioPath={`${BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${s.lineNumber}.m4a`}
-                />
-            )}
-            {words && (
+            {audioPath && <AudioControl audioPath={audioPath} />}
+            {words?.length > 0 && (
                 <WordList
                     words={{ [s.lineNumber]: words }}
                     s={s}

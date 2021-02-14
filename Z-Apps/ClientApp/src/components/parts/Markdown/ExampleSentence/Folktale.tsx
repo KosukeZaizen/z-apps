@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ExampleSentence } from ".";
 import * as consts from "../../../../common/consts";
+import { BLOB_URL } from "../../../../common/consts";
 import { sentence, word } from "../../../../types/stories";
 
 export function FolktaleExample({
@@ -66,7 +67,7 @@ export function FolktaleExample({
                 s={s}
                 boldInfo={boldInfo}
                 words={words}
-                audioFolder={audioFolder}
+                audioPath={`${BLOB_URL}/folktalesAudio/${audioFolder}/folktale-audio${s.lineNumber}.m4a`}
             />
         </div>
     );
