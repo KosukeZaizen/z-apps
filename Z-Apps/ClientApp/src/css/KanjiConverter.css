@@ -106,11 +106,6 @@
     line-height: 30px;
 }
 
-.kanji-converter .no-margin {
-    margin: 7px;
-    line-height: 10px;
-}
-
 .kanji-converter #inputKanji {
     max-width: 400px;
 }

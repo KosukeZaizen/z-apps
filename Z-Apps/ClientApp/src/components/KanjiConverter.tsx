@@ -416,19 +416,12 @@ class KanjiConverter extends React.Component<Props, State> {
                     desc="A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"
                 />
                 <h1>
-                    <b>
-                        Kanji<span className="hidden-xs"> </span>
-                        <span className="visible-xs">
-                            <br />
-                        </span>
-                        Converter
-                    </b>
+                    <b>Kanji Converter</b>
                 </h1>
                 <span className="redChar" id="scrollTargetId">
                     ※ Please also check the result.
                 </span>
                 <br />
-
                 <table className="kanji-table" ref={this.ref}>
                     <tbody>
                         <tr>
@@ -495,14 +488,7 @@ class KanjiConverter extends React.Component<Props, State> {
                     {objConst.COPY_BTN_LABEL}
                 </button>
                 <br />
-                <p className="no-margin">
-                    If you want to know about Kanji,
-                    <span className="hidden-xs"> </span>
-                    <span className="visible-xs">
-                        <br />
-                    </span>
-                    please check this:
-                </p>
+                If you want to know about Kanji, please check this:{" "}
                 <a
                     href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html"
                     target="_blank"

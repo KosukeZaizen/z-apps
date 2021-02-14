@@ -376,14 +376,8 @@ class RomajiConverter extends React.Component<
                     title="Romaji Converter"
                     desc="A converter to change Hiragana and Katakana to Romaji. Use when you need to know Romaji!"
                 />
-                <h1>
-                    <b>
-                        Romaji<span className="hidden-xs"> </span>
-                        <span className="visible-xs">
-                            <br />
-                        </span>
-                        Converter
-                    </b>
+                <h1 style={{ fontWeight: "bold", lineHeight: 1.2 }}>
+                    Romaji Converter
                 </h1>
                 <span className="redChar">※ Please also check the result.</span>
                 <table>
@@ -430,14 +424,7 @@ class RomajiConverter extends React.Component<
                     {objConst.BTN_LABEL}
                 </button>
                 <br />
-                <p className="no-margin">
-                    If you want to check Romaji chart,
-                    <span className="hidden-xs"> </span>
-                    <span className="visible-xs">
-                        <br />
-                    </span>
-                    please check this:
-                </p>
+                If you want to check Romaji chart, please check this:{" "}
                 <a
                     href="https://www.lingual-ninja.com/2018/07/romaji.html"
                     target="_blank"

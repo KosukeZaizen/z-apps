@@ -92,12 +92,11 @@ export default class Home extends React.Component<
                     isHome={true}
                 />
                 <div style={{ textAlign: "center" }}>
-                    <h1 className="whiteShadow">
-                        Welcome to<span className="hidden-xs"> </span>
-                        <span className="visible-xs">
-                            <br />
+                    <h1 className="whiteShadow" style={{ lineHeight: 1.3 }}>
+                        Welcome to{" "}
+                        <span style={{ display: "inline-block" }}>
+                            Lingual Ninja!
                         </span>
-                        Lingual Ninja!
                     </h1>
                     <CharacterComment
                         screenWidth={screenWidth}

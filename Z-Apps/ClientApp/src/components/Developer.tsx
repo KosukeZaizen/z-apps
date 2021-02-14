@@ -1,3 +1,4 @@
+import { css, StyleSheet } from "aphrodite";
 import * as React from "react";
 import { appsPublicImg } from "../common/consts";
 import "../css/Developer.css";
@@ -22,6 +23,19 @@ function SayHello() {
     );
 }
 
+const styles = StyleSheet.create({
+    visibleXs: {
+        "@media (min-width: 600px)": {
+            display: "none",
+        },
+    },
+    hiddenXs: {
+        "@media (max-width: 599px)": {
+            display: "none",
+        },
+    },
+});
+
 export default class Developer extends React.Component {
     ref: React.RefObject<HTMLHRElement>;
 
@@ -42,7 +56,7 @@ export default class Developer extends React.Component {
 
                     <div className="contents">
                         <hr id="scrollTargetId" />
-                        <span className="hidden-xs">
+                        <span className={css(styles.hiddenXs)}>
                             <table>
                                 <tbody>
                                     <tr>
@@ -63,7 +77,7 @@ export default class Developer extends React.Component {
                                 </tbody>
                             </table>
                         </span>
-                        <span className="visible-xs">
+                        <span className={css(styles.visibleXs)}>
                             <div className="center">
                                 <img
                                     width="200px"
@@ -78,14 +92,7 @@ export default class Developer extends React.Component {
                         <hr ref={this.ref} />
                         <br />
                         <div className="center">
-                            <p className="no-margin">
-                                I am writing a blog for people
-                                <span className="hidden-xs"> </span>
-                                <span className="visible-xs">
-                                    <br />
-                                </span>
-                                studying Japanese!:
-                            </p>
+                            I am writing a blog for people studying Japanese!:
                             <br />
                             <b>
                                 <a
@@ -96,13 +103,9 @@ export default class Developer extends React.Component {
                                     {"Lingual Ninja! >>"}
                                 </a>
                             </b>
-
                             <br />
                             <br />
-                            <br />
-                            <p className="no-margin">
-                                Also, this is my Japanese blog!:
-                            </p>
+                            Also, this is my Japanese blog!:
                             <br />
                             <b>
                                 <a
@@ -113,7 +116,6 @@ export default class Developer extends React.Component {
                                     {"IT / Web技術 >>"}
                                 </a>
                             </b>
-
                             <br />
                             <br />
                             <hr />

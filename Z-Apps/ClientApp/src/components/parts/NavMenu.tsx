@@ -69,6 +69,7 @@ export default class NavMenu extends React.Component {
                 <Navbar
                     variant="pills"
                     className="navbar-inverse navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3"
+                    style={{ backgroundColor: "#222222" }}
                 >
                     <Container>
                         <NavbarBrand tag={Link} to="/">

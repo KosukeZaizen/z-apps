@@ -20,12 +20,9 @@ export default class Terms extends React.Component {
                     desc="Lingual Ninja - The ownership of website and Responsibility"
                 />
                 <div className="center">
-                    <h1 id="scrollTargetId">
-                        Lingual Ninja<span className="hidden-xs"> </span>
-                        <span className="visible-xs">
-                            <br />
-                        </span>
-                        Terms of Use
+                    <h1 id="scrollTargetId" style={{ lineHeight: 1.2 }}>
+                        Lingual Ninja{" "}
+                        <span style={{ display: "block" }}>Terms of Use</span>
                     </h1>
                     <div className="contents">
                         <hr />
