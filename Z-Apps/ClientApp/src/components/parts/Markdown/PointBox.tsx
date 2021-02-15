@@ -19,7 +19,9 @@ export function PointBox({
                 left: 0,
                 height: 23,
                 padding: "0 1em",
-                content: language ? `'${language}'` : "'NOTE'",
+                content: language
+                    ? `'${language.split("_").join(" ")}'`
+                    : "'NOTE'",
                 color: "#fff",
                 borderRadius: "10px 10px 0 0",
                 background: "#22ac38",
