@@ -415,9 +415,7 @@ class KanjiConverter extends React.Component<Props, State> {
                     title="Kanji Converter"
                     desc="A converter to change Kanji to Hiragana and Romaji. Use to know how to read Kanji!"
                 />
-                <h1>
-                    <b>Kanji Converter</b>
-                </h1>
+                <h1 style={{ fontWeight: "bold" }}>Kanji Converter</h1>
                 <span className="redChar" id="scrollTargetId">
                     ※ Please also check the result.
                 </span>
@@ -597,22 +595,22 @@ function getCopyTarget() {
 }
 
 function execCopy(string: string) {
-    var tmp = document.createElement("div");
-    var pre = document.createElement("pre");
+    const tmp = document.createElement("div");
+    const pre = document.createElement("pre");
 
     pre.style.webkitUserSelect = "auto";
     pre.style.userSelect = "auto";
 
     tmp.appendChild(pre).textContent = string;
 
-    var s = tmp.style;
+    const s = tmp.style;
     s.position = "fixed";
     s.right = "200%";
 
     document.body.appendChild(tmp);
-    document.getSelection()?.selectAllChildren(tmp);
+    void document.getSelection()?.selectAllChildren(tmp);
 
-    var result = document.execCommand("copy");
+    const result = document.execCommand("copy");
 
     document.body.removeChild(tmp);
 
