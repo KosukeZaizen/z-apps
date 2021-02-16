@@ -170,6 +170,24 @@ namespace Z_Apps
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
                         }
+                        else if (url.Contains("folktales") && url.Length < 11)
+                        {
+                            resultHTML = "<!DOCTYPE html><html>" +
+                                    "<head>" + Environment.NewLine +
+                                    "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
+                                    "<meta name='twitter:site' content='@LingualNinja'>" + Environment.NewLine +
+                                    "<meta property='og:image' content='https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png'>" + Environment.NewLine +
+                                    "<meta property='og:url' content='https://www.lingual-ninja.com" + url + "'>" + Environment.NewLine +
+                                    "<meta property='og:type' content='article'>" + Environment.NewLine +
+                                    "<meta property='og:title' content='Learn Japanese from Folktales'>" + Environment.NewLine +
+                                    "<meta property='og:image:alt' content='Learn Japanese from Folktales'>" + Environment.NewLine +
+                                    "<meta property='og:description' content='Free web app to learn Japanese from folktales! You can read traditional Japanese folktales in Romaji, Hiragana, Kanji, and English!'>" + Environment.NewLine +
+                                    "<meta property='og:site_name' content='Lingual Ninja'>" + Environment.NewLine +
+                                    "<meta property='fb:app_id' content='217853132566874'>" + Environment.NewLine +
+                                    "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
+                                    "</head>" + Environment.NewLine +
+                                    "<body>Content for SNS bot</body></html>";
+                        }
                         else if (url.Contains("vocabulary-quiz"))
                         {
                             var arrUrl = url.Split("/");
