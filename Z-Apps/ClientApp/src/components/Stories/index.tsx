@@ -560,6 +560,7 @@ class Stories extends React.Component<Props, State> {
                                     articles={articles}
                                     langState={this.state}
                                     audioFolder={storyName?.split("--")[0]}
+                                    isWide={isWide}
                                 />
                             </section>
                         ) : (
@@ -710,6 +711,7 @@ type SentencesProps = {
     articles: { [key: number]: { title: string; url: string }[] };
     langState: State;
     audioFolder: string;
+    isWide: boolean;
 };
 function Sentences({
     storyId,
@@ -718,6 +720,7 @@ function Sentences({
     articles,
     langState,
     audioFolder,
+    isWide,
 }: SentencesProps) {
     const isLoading = !sentences || sentences.length <= 0;
     return (
@@ -735,8 +738,8 @@ function Sentences({
                             key={s.lineNumber}
                             style={{
                                 borderBottom: "1px solid #dcdcdc",
-                                marginBottom: 35,
-                                paddingBottom: 35,
+                                marginBottom: 10,
+                                paddingBottom: isWide ? 30 : 10,
                             }}
                         >
                             <Collapse
