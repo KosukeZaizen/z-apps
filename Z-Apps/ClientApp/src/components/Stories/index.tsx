@@ -739,7 +739,7 @@ function Sentences({
                             style={{
                                 borderBottom: "1px solid #dcdcdc",
                                 marginBottom: 10,
-                                paddingBottom: isWide ? 30 : 10,
+                                paddingBottom: isWide ? 25 : 5,
                             }}
                         >
                             <Collapse

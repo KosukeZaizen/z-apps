@@ -31,7 +31,7 @@ export function PointBox({
             color: "black",
             borderRadius: "0 10px 10px 10px",
             background: "#e3f5d8",
-            margin: "45px 0 25px",
+            margin: "45px 0 30px",
             display: "inline-block",
             ...style,
         } as any,
