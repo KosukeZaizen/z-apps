@@ -152,8 +152,13 @@ namespace Z_Apps.Models.SystemBase
                         return result.ToString();
                     }
 
+                    if(sitemapChunks == null || sitemapChunks.Count() == 0)
+                    {
+                        await GetSiteMapText(false, 0);
+                    }
+
                     var chunkIndex = sitemapNumber - 2;
-                    if (chunkIndex < sitemapChunks.Count())
+                    if (sitemapChunks != null && chunkIndex < sitemapChunks.Count())
                     {
                         string baseXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></urlset>";
                         string partialXML = GetStringSitemapFromDics(sitemapChunks[chunkIndex]);
