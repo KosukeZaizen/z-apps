@@ -133,6 +133,7 @@ const Articles = (props: Props) => {
                 adsense={true}
                 isAboutFolktale={isAboutFolktale}
             />
+            <GoogleAd />
             <SeasonAnimation frequencySec={2} screenWidth={width} />
         </div>
     );
