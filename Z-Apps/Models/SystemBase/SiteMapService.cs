@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 using Z_Apps.Util;
-using System.Runtime.Serialization.Json;
-using System.IO;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Controllers;
 
@@ -18,7 +16,7 @@ namespace Z_Apps.Models.SystemBase
     {
         private readonly StorageService storageService;
         private readonly StorageBackupService storageBkService;
-        private List<IEnumerable<Dictionary<string, string>>> sitemapChunks;
+        public List<IEnumerable<Dictionary<string, string>>> sitemapChunks;
 
         public SiteMapService(StorageService storageService, StorageBackupService storageBkService)
         {
@@ -141,15 +139,7 @@ namespace Z_Apps.Models.SystemBase
                                                 .Select(g => g.Select(x => x.v))
                                                 .ToList();
 
-                        var result = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
-                        for (var i = 1; i < sitemapChunks.Count() + 2; i++)
-                        {
-                            result.Append("<sitemap><loc>");
-                            result.Append(Consts.SITE_URL + "/sitemap" + i + ".xml");
-                            result.Append("</loc></sitemap>");
-                        }
-                        result.Append("</sitemapindex>");
-                        return result.ToString();
+                        return GetSitemapWithoutStorageFromCache();
                     }
 
                     if(sitemapChunks == null || sitemapChunks.Count() == 0)
@@ -169,6 +159,20 @@ namespace Z_Apps.Models.SystemBase
             catch (Exception ex){}
 
             return "";
+        }
+
+
+        public string GetSitemapWithoutStorageFromCache()
+        {
+            var result = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
+            for (var i = 1; i < sitemapChunks.Count() + 2; i++)
+            {
+                result.Append("<sitemap><loc>");
+                result.Append(Consts.SITE_URL + "/sitemap" + i + ".xml");
+                result.Append("</loc></sitemap>");
+            }
+            result.Append("</sitemapindex>");
+            return result.ToString();
         }
 
 
