@@ -31,7 +31,8 @@ namespace Z_Apps.Models.SystemBase
                 TimeZoneInfo jstZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
                 log.time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, jstZoneInfo);
 
-                if (log.parameters == null) { log.parameters = ""; }
+                if (log.parameters == null)
+                { log.parameters = ""; }
 
                 clientOpeLogManager.InsertLog(log);
             });

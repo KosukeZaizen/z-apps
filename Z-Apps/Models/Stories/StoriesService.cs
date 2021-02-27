@@ -44,7 +44,8 @@ namespace Z_Apps.Models.Stories
             for (var i = 0; i < 10; i++)
             {
                 var newStories = storiesHistory.LastOrDefault();
-                if (newStories == null) return null;
+                if (newStories == null)
+                    return null;
 
                 //10日に一度変わる数値から、indexを生成
                 int index = numForStory % (newStories.Count());
@@ -85,7 +86,7 @@ namespace Z_Apps.Models.Stories
         {
             var sentence = sentenceManager.GetOneSentence(storyName, lineNumber);
             var words = wordManager.GetWordsForSentence(sentence.StoryId, lineNumber);
-            
+
             return new OneSnetenceAndWords() { sentence = sentence, words = words };
         }
 
@@ -104,7 +105,8 @@ namespace Z_Apps.Models.Stories
             var words = wordManager.GetWords(storyId);
             var articles = GetArticles(storyId);
 
-            return new WordsAndArticles() {
+            return new WordsAndArticles()
+            {
                 words = words,
                 articles = articles
             };
@@ -143,7 +145,8 @@ on a.url = s.articleUrl
                 }
 
                 resultArticles[lineNumber].Add(
-                    new ArticleUrlAndTitle(){
+                    new ArticleUrlAndTitle()
+                    {
                         url = (string)dicWord["articleUrl"],
                         title = (string)dicWord["title"],
                     }

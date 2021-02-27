@@ -142,7 +142,7 @@ namespace Z_Apps.Models.SystemBase
                         return GetSitemapWithoutStorageFromCache();
                     }
 
-                    if(sitemapChunks == null || sitemapChunks.Count() == 0)
+                    if (sitemapChunks == null || sitemapChunks.Count() == 0)
                     {
                         await GetSiteMapText(false, 0);
                     }
@@ -156,7 +156,7 @@ namespace Z_Apps.Models.SystemBase
                     }
                 }
             }
-            catch (Exception ex){}
+            catch (Exception ex) { }
 
             return "";
         }

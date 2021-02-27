@@ -60,7 +60,7 @@ namespace Z_Apps.Models.SystemBase
         {
             var token = default(BlobContinuationToken);
             var bls = await container.GetDirectoryReference(folderPath).ListBlobsSegmentedAsync(token);
-            
+
             foreach (IListBlobItem item in bls.Results)
             {
                 if (item.GetType() == typeof(CloudBlockBlob))

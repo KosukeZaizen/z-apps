@@ -33,7 +33,7 @@ public class DB_Util
     {
         //SQL文作成
         string sql = "SELECT *";
-        sql += " FROM "+ tableName;
+        sql += " FROM " + tableName;
 
         //List<Dictionary<string, Object>>型で取得
         var records = con.ExecuteSelect(sql, null);

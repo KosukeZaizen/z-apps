@@ -37,7 +37,8 @@ namespace Z_Apps.Models.VocabList
             return vocabManager.GetAllVocabLists();
         }
 
-        public IEnumerable<VocabGenre> GetAllGenres(){
+        public IEnumerable<VocabGenre> GetAllGenres()
+        {
             return vocabGenreManager.GetAllGenres();
         }
     }

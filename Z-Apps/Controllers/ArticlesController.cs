@@ -183,9 +183,15 @@ ORDER BY orderNumber DESC
         [HttpPost("[action]/")]
         public string AddNewUrl(string url, string token)
         {
-            if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
+                return "Password is wrong";
+            }
 
-            if (url.Length <= 0) { return "Url is empty"; }
+            if (url.Length <= 0)
+            {
+                return "Url is empty";
+            }
 
             try
             {
@@ -214,7 +220,10 @@ ORDER BY orderNumber DESC
         public string UpdateContents(string url, string token, string title, string description,
             string articleContent, string imgPath, bool isAboutFolktale)
         {
-            if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
+                return "Password is wrong";
+            }
 
             try
             {
@@ -255,7 +264,10 @@ WHERE  url = @url;
         [HttpPost("[action]/")]
         public string Register(string url, string token)
         {
-            if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
+                return "Password is wrong";
+            }
 
             try
             {
@@ -287,7 +299,10 @@ WHERE  url = @url;
         [HttpPost("[action]/")]
         public string Hide(string url, string token)
         {
-            if (token != PrivateConsts.REGISTER_PASS) { return "Password is wrong"; }
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
+                return "Password is wrong";
+            }
 
             try
             {

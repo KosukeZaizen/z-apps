@@ -16,7 +16,7 @@ namespace Z_Apps.Models
         }
         public DBCon(DBType type = DBType.z_apps)
         {
-            if(type == DBType.wiki_db)
+            if (type == DBType.wiki_db)
             {
                 connectionString = PrivateConsts.CONNECTION_STRING_WIKI;
             }

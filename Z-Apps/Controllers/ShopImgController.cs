@@ -23,22 +23,37 @@ namespace Z_Apps.Controllers
         {
             if (pw != PrivateConsts.BOSCOBEL_PW)
             {
-                return new { result = "ng", errMessage = "画面上部でパスワードを入力してください！" };
+                return new
+                {
+                    result = "ng",
+                    errMessage = "画面上部でパスワードを入力してください！"
+                };
             }
 
             var formFile = file;
             if (formFile.Length <= 0)
             {
-                return new { result = "ng", errMessage = "ファイルが不正です！" };
+                return new
+                {
+                    result = "ng",
+                    errMessage = "ファイルが不正です！"
+                };
             }
 
             //upload
             if (!await storageService.UploadAndOverwriteFileAsync(formFile, shop + "/" + fileName + ".png"))
             {
-                return new { result = "ng", errMessage = "アップロードに失敗しました。" };
+                return new
+                {
+                    result = "ng",
+                    errMessage = "アップロードに失敗しました。"
+                };
             };
 
-            return new { result = "ok" };
+            return new
+            {
+                result = "ok"
+            };
         }
 
         [HttpPost("[action]")]
@@ -46,16 +61,27 @@ namespace Z_Apps.Controllers
         {
             if (pw != PrivateConsts.BOSCOBEL_PW)
             {
-                return new { result = "ng", errMessage = "画面上部でパスワードを入力してください！" };
+                return new
+                {
+                    result = "ng",
+                    errMessage = "画面上部でパスワードを入力してください！"
+                };
             }
 
             //delete
             if (!await storageService.DeleteAllFilesInTheFolder(shop + "/menu"))
             {
-                return new { result = "ng", errMessage = "古いメニューの削除に失敗しました。" };
+                return new
+                {
+                    result = "ng",
+                    errMessage = "古いメニューの削除に失敗しました。"
+                };
             }
 
-            return new { result = "ok" };
+            return new
+            {
+                result = "ok"
+            };
         }
     }
 }
