@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
+import { cFetch } from "../../common/util/cFetch";
 import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
@@ -21,7 +22,7 @@ const ArticlesTop = () => {
 
     useEffect(() => {
         const getArticles = async () => {
-            const response: Response = await fetch(
+            const response: Response = await cFetch(
                 "api/Articles/GetAllArticles"
             );
             const pages: Page[] = await response.json();

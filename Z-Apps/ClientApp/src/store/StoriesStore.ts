@@ -1,4 +1,5 @@
 import { reloadAndRedirect_OneTimeReload } from "../common/functions";
+import { cFetch } from "../common/util/cFetch";
 import { sentence, storyDesc, word } from "../types/stories";
 
 const initializeType = "INITIALIZE";
@@ -36,7 +37,7 @@ export const actionCreators: IActionCreators = {
 
             //story
             const url1 = `api/Stories/GetPageData/${storyName}`;
-            const response1 = await fetch(url1);
+            const response1 = await cFetch(url1);
             const storyDesc = await response1.json();
             dispatch({ type: receiveStoryType, storyDesc });
 
@@ -64,19 +65,19 @@ export const actionCreators: IActionCreators = {
              */
             //sentences
             const url2 = `api/Stories/GetSentences/${storyId}`;
-            const response2 = fetch(url2);
+            const response2 = cFetch(url2);
 
             //words
             const url3 = `api/Stories/GetWords/${storyId}`;
-            const response3 = fetch(url3);
+            const response3 = cFetch(url3);
 
             //explanation article
             const urlExp = `api/Stories/GetExplanation/${storyName}`;
-            const responseExp = fetch(urlExp);
+            const responseExp = cFetch(urlExp);
 
             //other stories
             const url4 = `api/Stories/GetOtherStories/${storyId}`;
-            const response4 = fetch(url4);
+            const response4 = cFetch(url4);
 
             /**------------------------------------------------------------
              * dispatch

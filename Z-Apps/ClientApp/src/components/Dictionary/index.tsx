@@ -7,6 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
+import { cFetch } from "../../common/util/cFetch";
 import { storyDesc } from "../../types/stories";
 import { excludedArticleTitles, Page } from "../Articles";
 import { ArticlesList } from "../Articles/Top";
@@ -95,7 +96,7 @@ class Dictionary extends React.Component<Props, State> {
         const getData = async () => {
             try {
                 const url = `api/Wiki/GetEnglishWordAndSnippet?word=${this.state.word}`;
-                const response = await fetch(url);
+                const response = await cFetch(url);
                 const {
                     xml,
                     wordId,
@@ -229,7 +230,7 @@ class Dictionary extends React.Component<Props, State> {
     getStories = async () => {
         //other stories
         const url = `api/Stories/GetOtherStories/${this.state.wordId}`;
-        const response = await fetch(url);
+        const response = await cFetch(url);
         const otherStories = await response.json();
         this.setState({ otherStories });
     };

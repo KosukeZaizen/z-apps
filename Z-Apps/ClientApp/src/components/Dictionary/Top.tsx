@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
+import { cFetch } from "../../common/util/cFetch";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import FB from "../parts/FaceBook";
 import Head from "../parts/Helmet";
@@ -26,7 +27,7 @@ class DictionaryTop extends React.Component<
     componentDidMount() {
         const getData = async () => {
             const url = `api/Wiki/GetAllWords?num=500`;
-            const response = await fetch(url);
+            const response = await cFetch(url);
             const words = await response.json();
 
             this.setState({
@@ -35,7 +36,7 @@ class DictionaryTop extends React.Component<
 
             setTimeout(async () => {
                 const url = `api/Wiki/GetAllWords?num=0`;
-                const response = await fetch(url);
+                const response = await cFetch(url);
                 const words = await response.json();
 
                 this.setState({

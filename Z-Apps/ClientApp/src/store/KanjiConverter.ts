@@ -1,3 +1,5 @@
+import { cFetch } from "../common/util/cFetch";
+
 const requestKanjiConverterType = "REQUEST_KANJI_CONVERTER";
 const receiveKanjiConverterType = "RECEIVE_KANJI_CONVERTER";
 const initialState = { convertedWords: [], isLoading: false };
@@ -27,7 +29,7 @@ export const actionCreators = {
         dispatch({ type: requestKanjiConverterType, kanjis });
 
         const url = `api/ConvertKanji/Convert?kanjis=${kanjis}`;
-        const response = await fetch(url);
+        const response = await cFetch(url);
         const convertedWords = await response.json();
 
         dispatch({ type: receiveKanjiConverterType, kanjis, convertedWords });

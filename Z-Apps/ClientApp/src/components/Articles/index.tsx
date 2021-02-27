@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
+import { cFetch } from "../../common/util/cFetch";
 import { storyDesc } from "../../types/stories";
 import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
@@ -72,7 +73,7 @@ const Articles = (props: Props) => {
                     return;
                 }
 
-                const response: Response = await fetch(
+                const response: Response = await cFetch(
                     `api/Articles/GetArticle?p=${pageName}`
                 );
                 const page: Page = await response.json();
@@ -189,7 +190,7 @@ export function ArticleContent({
     useEffect(() => {
         const getFolktales = async () => {
             const url = `api/Stories/GetOtherStories/${content.length}`;
-            const response = await fetch(url);
+            const response = await cFetch(url);
             setFolktales(await response.json());
         };
         getFolktales();

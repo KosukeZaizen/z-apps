@@ -3,6 +3,7 @@ import {
     loadLocalStorageOrDB,
     reloadAndRedirect_OneTimeReload,
 } from "../common/functions";
+import { cFetch } from "../common/util/cFetch";
 import { sound, vocab, vocabGenre } from "../types/vocab";
 
 const fileName = "VocabQuizStore";
@@ -72,7 +73,7 @@ export const actionCreators: IActionCreators = {
                         .pop() || "";
 
                 const url = `api/VocabQuiz/GetQuizData/${currentGenreName}`;
-                fetch(url).then(response => {
+                cFetch(url).then(response => {
                     response
                         .json()
                         .then(

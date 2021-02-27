@@ -1,3 +1,5 @@
+import { cFetch } from "../common/util/cFetch";
+
 const receiveStoriesType = "RECEIVE_STORIES";
 const initialState = { allStories: [] };
 
@@ -5,7 +7,7 @@ export const actionCreators = {
     loadAllStories: () => async (dispatch: Function) => {
         try {
             const url = "api/Stories/GetAllStories";
-            const response = await fetch(url);
+            const response = await cFetch(url);
             const allStories = await response.json();
 
             dispatch({ type: receiveStoriesType, allStories });

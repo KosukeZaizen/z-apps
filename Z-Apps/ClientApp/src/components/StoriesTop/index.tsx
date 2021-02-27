@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
+import { cFetch } from "../../common/util/cFetch";
 import { TReducers } from "../../store/configureStore";
 import { actionCreators } from "../../store/StoriesTopStore";
 import { storyDesc } from "../../types/stories";
@@ -79,7 +80,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
     }
 
     getArticles = async () => {
-        const response: Response = await fetch(
+        const response: Response = await cFetch(
             "api/Articles/GetAllArticles?isAboutFolktale=true"
         );
         const pages: Page[] = await response.json();

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
+import { cFetch } from "../common/util/cFetch";
 import "../css/Home.css";
 import { Page } from "./Articles";
 import { ArticlesList } from "./Articles/Top";
@@ -57,7 +58,7 @@ export default class Home extends React.Component<
 
     fetchArticles = async () => {
         const url = "api/Articles/GetNewArticles";
-        const response: Response = await fetch(url);
+        const response: Response = await cFetch(url);
         const articles: Page[] = await response.json();
 
         this.setState({ articles });
