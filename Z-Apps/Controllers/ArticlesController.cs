@@ -23,7 +23,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/")]
         public Article GetArticle(string p) {
 
-            return GetCache.UseCache(p, () => {
+            return ApiCache.UseCache(p, () => {
 
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
@@ -51,7 +51,7 @@ AND title != N'folktale'
         [HttpGet("[action]/")]
         public IEnumerable<Article> GetAllArticles(bool isAboutFolktale = false) {
 
-            return GetCache.UseCache(isAboutFolktale ? "true" : "false", () => {
+            return ApiCache.UseCache(isAboutFolktale ? "true" : "false", () => {
 
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
@@ -80,7 +80,7 @@ ORDER BY orderNumber DESC
         [HttpGet("[action]/")]
         public IEnumerable<Article> GetNewArticles(bool isAboutFolktale = false, int num = 5) {
 
-            return GetCache.UseCache(isAboutFolktale ? "true" : "false" + num, () => {
+            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num, () => {
 
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
@@ -108,7 +108,7 @@ ORDER BY orderNumber DESC
         [HttpGet("[action]/")]
         public IEnumerable<Article> GetRandomArticles(bool isAboutFolktale = false, int num = 5, IEnumerable<string> wordsToExclude = null) {
 
-            return GetCache.UseCache(isAboutFolktale ? "true" : "false" + num + wordsToExclude.Join(), () => {
+            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num + wordsToExclude.Join(), () => {
 
                 if (wordsToExclude == null) {
                     wordsToExclude = new List<string>();

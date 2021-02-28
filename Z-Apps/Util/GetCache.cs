@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Z_Apps.Util {
-    public class GetCache {
+    public class ApiCache {
         private static Dictionary<string, Dictionary<string, Dictionary<string, object>>> cache =
             new Dictionary<string, Dictionary<string, Dictionary<string, object>>>();
 
@@ -111,6 +111,10 @@ namespace Z_Apps.Util {
             });
 
             return result;
+        }
+
+        public static Dictionary<string, Dictionary<string, Dictionary<string, object>>> GetCache() {
+            return cache;
         }
     }
 }

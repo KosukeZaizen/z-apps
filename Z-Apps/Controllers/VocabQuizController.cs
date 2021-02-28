@@ -14,7 +14,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{genreName?}")]
         public GenreAndVocab GetQuizData(string genreName) {
 
-            return GetCache.UseCache(genreName, () => {
+            return ApiCache.UseCache(genreName, () => {
 
                 if (!string.IsNullOrEmpty(genreName)) {
                     return vocabQuizService.GetQuizData(genreName);
@@ -31,7 +31,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]")]
         public IEnumerable<Vocab> GetAllVocabs() {
 
-            return GetCache.UseCache("p", () => {
+            return ApiCache.UseCache("p", () => {
                 return vocabQuizService.GetAllVocabs();
             });
         }
@@ -39,7 +39,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]")]
         public IEnumerable<VocabGenre> GetAllGenres() {
 
-            return GetCache.UseCache("p", () => {
+            return ApiCache.UseCache("p", () => {
                 return vocabQuizService.GetAllGenres();
             });
         }

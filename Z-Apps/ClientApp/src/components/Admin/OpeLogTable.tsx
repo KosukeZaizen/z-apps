@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import Head from "./parts/Helmet";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import Head from "../parts/Helmet";
 
 type TClientOpeLog = {
     time: Date;

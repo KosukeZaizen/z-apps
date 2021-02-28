@@ -21,7 +21,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/")]
         public IEnumerable<Story> GetAllStories() {
 
-            return GetCache.UseCache("p", () => {
+            return ApiCache.UseCache("p", () => {
                 return storiesService.GetAllStories();
             });
         }
@@ -29,7 +29,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyId?}")]
         public IEnumerable<Story> GetOtherStories(int storyId) {
 
-            return GetCache.UseCache(storyId.ToString(), () => {
+            return ApiCache.UseCache(storyId.ToString(), () => {
                 if (storyId > 0) {
                     return storiesService.GetOtherStories(storyId);
                 } else {
@@ -41,7 +41,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyName?}")]
         public Story GetPageData(string storyName) {
 
-            return GetCache.UseCache(storyName, () => {
+            return ApiCache.UseCache(storyName, () => {
                 if (!string.IsNullOrEmpty(storyName)) {
                     return storiesService.GetPageData(storyName);
                 } else {
@@ -53,7 +53,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyId?}")]
         public IEnumerable<Sentence> GetSentences(int storyId) {
 
-            return GetCache.UseCache(storyId.ToString(), () => {
+            return ApiCache.UseCache(storyId.ToString(), () => {
                 if (storyId > 0) {
                     return storiesService.GetSentences(storyId);
                 } else {
@@ -69,7 +69,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyName?}/{lineNumber?}")]
         public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber) {
 
-            return GetCache.UseCache(storyName + lineNumber, () => {
+            return ApiCache.UseCache(storyName + lineNumber, () => {
                 if (storyName != null && storyName.Length > 0 && lineNumber > 0) {
                     return storiesService.GetOneSentence(storyName, lineNumber);
                 } else {
@@ -81,7 +81,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyId?}")]
         public WordsAndArticles GetWords(int storyId) {
 
-            return GetCache.UseCache(storyId.ToString(), () => {
+            return ApiCache.UseCache(storyId.ToString(), () => {
                 if (storyId > 0) {
                     return storiesService.GetWordsAndArticles(storyId);
                 } else {
@@ -93,7 +93,7 @@ namespace Z_Apps.Controllers {
         [HttpGet("[action]/{storyName?}")]
         public string GetExplanation(string storyName) {
 
-            return GetCache.UseCache(storyName, () => {
+            return ApiCache.UseCache(storyName, () => {
                 if (!string.IsNullOrEmpty(storyName)) {
                     var con = new DBCon();
                     var result = con.ExecuteSelect(@"

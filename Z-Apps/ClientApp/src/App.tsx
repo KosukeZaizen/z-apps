@@ -43,7 +43,9 @@ const ArticlesTop = lazy(() => import("./components/Articles/Top"));
 const ArticlesEditTop = lazy(() => import("./components/Articles/EditTop"));
 const ArticlesEdit = lazy(() => import("./components/Articles/Edit"));
 const SiteMapEdit = lazy(() => import("./components/SiteMapEdit"));
-const OpeLogTable = lazy(() => import("./components/OpeLogTable"));
+const Admin = lazy(() => import("./components/Admin"));
+const ApiCache = lazy(() => import("./components/Admin/ApiCache"));
+const OpeLogTable = lazy(() => import("./components/Admin/OpeLogTable"));
 const ColorPalette = lazy(() => import("./components/ColorPalette"));
 const Boscobel = lazy(() => import("./components/Boscobel"));
 const NotFound = lazy(() => import("./components/404"));
@@ -235,6 +237,12 @@ export default class App extends React.Component {
                             path="/sitemapEdit"
                             component={SiteMapEdit}
                         />
+                        <Route sensitive path="/admin" component={Admin} />
+                        <Route
+                            sensitive
+                            path="/apiCache"
+                            component={ApiCache}
+                        />
                         <Route
                             sensitive
                             path="/opeLogTable"
@@ -271,7 +279,6 @@ export default class App extends React.Component {
                         <Route component={NotFoundRedirect} />
                     </Switch>
                 </Suspense>
-                {/* <WelcomeAnimation /> */}
                 <FooterAnimation />
             </Layout>
         );

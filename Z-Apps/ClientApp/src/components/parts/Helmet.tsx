@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet as ReactHelmet } from "react-helmet";
 import * as consts from "../../common/consts";
 import { isGoogleAdsDisplayed } from "./GoogleAd";
 
-const PageHeader = (props: {
+export const Helmet = (props: {
     noindex?: boolean;
     title?: string;
     desc?: string;
@@ -20,7 +20,7 @@ const PageHeader = (props: {
 
     return (
         <div className="application">
-            <Helmet>
+            <ReactHelmet>
                 {props.title ? <title>{props.title}</title> : null}
                 {props.desc ? (
                     <meta name="description" content={props.desc} />
@@ -46,8 +46,8 @@ const PageHeader = (props: {
                     property="og:url"
                     content={topUrl + window.location.pathname}
                 />
-            </Helmet>
+            </ReactHelmet>
         </div>
     );
 };
-export default PageHeader;
+export default Helmet;
