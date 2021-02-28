@@ -30,6 +30,7 @@ type State = {
     wordId: string;
     furigana: string;
     romaji: string;
+    noindex: boolean;
     screenWidth: number;
     screenHeight: number;
     imgNumber: number;
@@ -73,6 +74,7 @@ class Dictionary extends React.Component<Props, State> {
             wordId: "",
             furigana: "",
             romaji: "",
+            noindex: false,
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight,
             imgNumber: this.getImgNumber(word?.length),
@@ -96,18 +98,18 @@ class Dictionary extends React.Component<Props, State> {
         const getData = async () => {
             try {
                 const url = `api/Wiki/GetEnglishWordAndSnippet?word=${this.state.word}`;
-                const response = await cFetch(url);
-                const {
-                    xml,
-                    wordId,
-                    snippet,
-                    translatedWord,
-                } = await response.json();
+                const res = await cFetch(url);
+
+                const { response, noindex } = await res.json();
+                const { xml, wordId, snippet, translatedWord } = JSON.parse(
+                    response
+                );
 
                 this.setState({
                     wordId,
                     translatedWord,
                     snippet,
+                    noindex,
                 });
 
                 const getFuriganaAndRomaji = async () => {
@@ -241,6 +243,7 @@ class Dictionary extends React.Component<Props, State> {
             furigana,
             romaji,
             word,
+            noindex,
             imgNumber,
             translatedWord,
             snippet,
@@ -263,7 +266,7 @@ class Dictionary extends React.Component<Props, State> {
 
         return (
             <div className="center">
-                <Head title={title} desc={snippet} />
+                <Head title={title} desc={snippet} noindex={noindex} />
                 <div style={{ maxWidth: 900 }}>
                     <div
                         className="breadcrumbs"

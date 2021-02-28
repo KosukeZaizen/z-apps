@@ -71,7 +71,11 @@ public class WikiService {
         public string xml { get; set; }
         public string translatedWord { get; set; }
     }
-    public async Task<string> GetEnglishWordAndSnippet(string word) {
+    public class CacheResult {
+        public string Response { get; set; }
+        public bool Noindex { get; set; }
+    }
+    public async Task<CacheResult> GetEnglishWordAndSnippet(string word) {
         var con = new DBCon(DBCon.DBType.wiki_db);
 
         Func<Task<DictionaryResult>> getDictionaryDataWithoutCache = async () => {
@@ -162,7 +166,7 @@ public class WikiService {
 
         //キャッシュ取得
         var cache = con.ExecuteSelect(
-                        "select response from ZAppsDictionaryCache where word = @word",
+                        "select response, noindex from ZAppsDictionaryCache where word = @word",
                         new Dictionary<string, object[]> {
                             { "@word", new object[2] { SqlDbType.NVarChar, word } }
                         }
@@ -170,7 +174,10 @@ public class WikiService {
 
         if (cache != null) {
             //キャッシュデータあり
-            return (string)cache["response"]; //jsonもしくは「removed」という文字列
+            return new CacheResult() {
+                Response = (string)cache["response"],//jsonもしくは「removed」という文字列
+                Noindex = (bool)cache["noindex"]
+            };
         } else {
             //キャッシュデータなし
             DictionaryResult obj;
@@ -205,7 +212,10 @@ public class WikiService {
             });
 
             //上記完了を待たずにreturn
-            return json;
+            return new CacheResult() {
+                Response = json,
+                Noindex = false
+            };
         }
     }
 }

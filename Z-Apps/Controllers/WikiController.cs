@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Util;
+using static WikiService;
 
 namespace Z_Apps.Controllers {
     [Route("api/[controller]")]
@@ -60,7 +61,7 @@ UPDATE ZAppsDictionaryCache SET
 
 
         [HttpGet("[action]")]
-        public async Task<string> GetEnglishWordAndSnippet(string word) {
+        public async Task<CacheResult> GetEnglishWordAndSnippet(string word) {
             var service = new WikiService();
             return await service.GetEnglishWordAndSnippet(word);
         }
