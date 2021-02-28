@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -60,39 +59,30 @@ namespace Z_Apps.Models.SystemBase
 
                 foreach (string tableName in tableNames)
                 {
-                    try
-                    {
-                        if (tableName != "tblClientOpeLog")
-                        {
-                            StringBuilder sb = new StringBuilder();
-                            var records = dbUtil.GetAllDataFromOneTable(tableName);
+                    try {
+                        StringBuilder sb = new StringBuilder();
+                        var records = dbUtil.GetAllDataFromOneTable(tableName);
 
-                            foreach (string key in records[0]?.Keys)
-                            {
-                                sb.Append(key);
+                        foreach (string key in records[0]?.Keys) {
+                            sb.Append(key);
+                            sb.Append("\t");
+                        }
+                        sb.Append("\n");
+
+                        foreach (var record in records) {
+                            foreach (string key in records[0]?.Keys) {
+                                sb.Append(record[key]?.ToString());
                                 sb.Append("\t");
                             }
                             sb.Append("\n");
-
-                            foreach (var record in records)
-                            {
-                                foreach (string key in records[0]?.Keys)
-                                {
-                                    sb.Append(record[key]?.ToString());
-                                    sb.Append("\t");
-                                }
-                                sb.Append("\n");
-                            }
-
-                            DateTime dt = DateTime.Now;
-                            await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
                         }
-                    }
-                    catch (Exception ex)
-                    {
+
+                        DateTime dt = DateTime.Now;
+                        await UploadAndOverwriteFileAsync(sb.ToString(), "database-bk/" + dt.ToString("yyyy-MM") + "-" + tableName + ".txt");
+
+                    } catch (Exception ex) {
                         var logService = new ClientLogService(con);
-                        logService.RegisterLog(new ClientOpeLog()
-                        {
+                        logService.RegisterLog(new ClientOpeLog() {
                             url = "wrBatch",
                             operationName = tableName + " backup error",
                             userId = "wrBatch",

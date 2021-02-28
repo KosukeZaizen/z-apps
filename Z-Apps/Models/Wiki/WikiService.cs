@@ -13,8 +13,7 @@ using Z_Apps.Models;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Util;
 
-public class WikiService
-{
+public class WikiService {
     private readonly List<string> ExcludedWords = new List<string>
         {
             "一覧",
@@ -27,13 +26,11 @@ public class WikiService
             "（",
         };
 
-    public async Task<IEnumerable<string>> GetAllWords(int num)
-    {
+    public async Task<IEnumerable<string>> GetAllWords(int num) {
         return GetAllWordsFromDB(num);
     }
 
-    public IEnumerable<string> Exclude(IEnumerable<string> words)
-    {
+    public IEnumerable<string> Exclude(IEnumerable<string> words) {
         return (words)
             .Where(
                 word => !ExcludedWords.Any(
@@ -42,8 +39,7 @@ public class WikiService
     }
 
 
-    public IEnumerable<string> GetAllWordsFromDB(int num)
-    {
+    public IEnumerable<string> GetAllWordsFromDB(int num) {
         var con = new DBCon(DBCon.DBType.wiki_db);
         var sql =
                 num == 0
@@ -62,42 +58,34 @@ public class WikiService
 
 
     [DataContract]
-    class Data
-    {
+    class Data {
         [DataMember]
         public int? wordId;
 
         [DataMember]
         public string snippet;
     }
-    class DictionaryResult
-    {
+    class DictionaryResult {
         public int? wordId { get; set; }
         public string snippet { get; set; }
         public string xml { get; set; }
         public string translatedWord { get; set; }
     }
-    public async Task<string> GetEnglishWordAndSnippet(string word)
-    {
+    public async Task<string> GetEnglishWordAndSnippet(string word) {
         var con = new DBCon(DBCon.DBType.wiki_db);
 
-        Func<Task<DictionaryResult>> getDictionaryDataWithoutCache = async () =>
-        {
-            try
-            {
+        Func<Task<DictionaryResult>> getDictionaryDataWithoutCache = async () => {
+            try {
                 var storyEdit = new StoriesEditService(new DBCon());
                 Data w = null;
-                using (var client = new HttpClient())
-                {
+                using (var client = new HttpClient()) {
                     HttpResponseMessage response = await client.GetAsync("https://wiki-jp.lingual-ninja.com/api/WikiWalks/GetWordIdAndSnippet?word=" + word);
                     string json = await response.Content.ReadAsStringAsync();
                     var serializer = new DataContractJsonSerializer(typeof(Data));
-                    using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
-                    {
+                    using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json))) {
                         w = (Data)serializer.ReadObject(ms);
 
-                        if (w == null || w.wordId == null)
-                        {
+                        if (w == null || w.wordId == null) {
                             return new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
                         }
 
@@ -151,8 +139,7 @@ public class WikiService
                 wc.Dispose();
 
                 //受信したデータを表示する
-                return new DictionaryResult()
-                {
+                return new DictionaryResult() {
                     xml = enc.GetString(resData),
                     wordId = w.wordId,
                     snippet = w.snippet,
@@ -161,11 +148,10 @@ public class WikiService
                             .Replace("?", "")
                             .Replace("&", ""))
                 };
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 var json = "removed";
-                con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json);", new Dictionary<string, object[]> {
+                con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE());",
+                    new Dictionary<string, object[]> {
                             { "@json", new object[2] { SqlDbType.NVarChar, json } },
                             { "@word", new object[2] { SqlDbType.NVarChar, word } }
                         });
@@ -177,41 +163,41 @@ public class WikiService
         //キャッシュ取得
         var cache = con.ExecuteSelect(
                         "select response from ZAppsDictionaryCache where word = @word",
-                        new Dictionary<string, object[]> { { "@word", new object[2] { SqlDbType.NVarChar, word } } }
+                        new Dictionary<string, object[]> {
+                            { "@word", new object[2] { SqlDbType.NVarChar, word } }
+                        }
                     ).FirstOrDefault();
 
-        if (cache != null)
-        {
+        if (cache != null) {
             //キャッシュデータあり
             return (string)cache["response"]; //jsonもしくは「removed」という文字列
-        }
-        else
-        {
+        } else {
             //キャッシュデータなし
             DictionaryResult obj;
             string json;
-            if (ExcludedWords.Any(ew => word.Contains(ew)))
-            {
+            if (ExcludedWords.Any(ew => word.Contains(ew))) {
                 //除外対象文字列を含む場合
                 obj = new DictionaryResult() { xml = "", translatedWord = "", wordId = 0, snippet = "" };
                 json = "removed";
-            }
-            else
-            {
+            } else {
                 //通常時
                 obj = await getDictionaryDataWithoutCache();
                 json = JsonSerializer.Serialize(obj);
             }
 
-            var task = Task.Run(async () =>
-            {
+            var task = Task.Run(async () => {
                 //5秒待って登録
                 await Task.Delay(5 * 1000);
 
-                if ((obj.wordId > 0 && obj.xml.Length > 0 && obj.xml.Length > 0 && obj.translatedWord.Length > 0 && json.Contains("wordId"))
-                    || json == "removed")
-                {
-                    con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json);", new Dictionary<string, object[]> {
+                if ((
+                    obj.wordId > 0 && obj.xml.Length > 0
+                        && obj.xml.Length > 0
+                        && obj.translatedWord.Length > 0
+                        && json.Contains("wordId")
+                    )
+                    || json == "removed") {
+                    con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE());",
+                        new Dictionary<string, object[]> {
                             { "@json", new object[2] { SqlDbType.NVarChar, json } },
                             { "@word", new object[2] { SqlDbType.NVarChar, word } }
                         });

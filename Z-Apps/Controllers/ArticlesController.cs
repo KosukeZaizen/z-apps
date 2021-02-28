@@ -20,6 +20,7 @@ namespace Z_Apps.Controllers {
 
     [Route("api/[controller]")]
     public class ArticlesController : Controller {
+
         [HttpGet("[action]/")]
         public Article GetArticle(string p) {
 

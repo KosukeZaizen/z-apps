@@ -30,7 +30,9 @@ UPDATE ZAppsDictionaryCache SET
 
             var result = con.ExecuteSelect(
                     sql,
-                    new Dictionary<string, object[]> { { "@word", new object[2] { SqlDbType.NVarChar, word } } }
+                    new Dictionary<string, object[]> {
+                        { "@word", new object[2] { SqlDbType.NVarChar, word } }
+                    }
                 );
         }
 

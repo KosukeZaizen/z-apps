@@ -15,11 +15,15 @@ namespace Z_Apps.Models.SystemBase
 
         public bool InsertLog(ClientOpeLog log)
         {
-            //SQL文作成
-            string sql = "insert into tblClientOpeLog(time, url, operationName, userId, parameters) ";
-            sql += " values (@time, @url, @operationName, @userId, @parameters) ";
+            var wikiCon = new DBCon(DBCon.DBType.wiki_db);
 
-            bool result = con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+            //SQL文作成
+            string sql = @"
+insert into ZAppsClientOpeLog(time, url, operationName, userId, parameters)
+values (@time, @url, @operationName, @userId, @parameters);
+";
+
+            bool result = wikiCon.ExecuteUpdate(sql, new Dictionary<string, object[]> {
                     { "@time", new object[2] { SqlDbType.DateTime, log.time } },
                     { "@url", new object[2] { SqlDbType.VarChar, log.url } },
                     { "@operationName", new object[2] { SqlDbType.VarChar, log.operationName } },
@@ -36,6 +40,8 @@ namespace Z_Apps.Models.SystemBase
 
         public IEnumerable<ClientOpeLog> GetOpeLogs()
         {
+            var wikiCon = new DBCon(DBCon.DBType.wiki_db);
+
             //SQL文作成
             string sql = $@"
  SELECT time
@@ -43,13 +49,13 @@ namespace Z_Apps.Models.SystemBase
       ,operationName
       ,userId
       ,parameters
-  FROM tblClientOpeLog
+  FROM ZAppsClientOpeLog
   where time > CONVERT(date, getdate()-{logRemainingDays})
   and not url like '%localhost%'
   order by time desc
 ";
 
-            var dics = con.ExecuteSelect(sql, null);
+            var dics = wikiCon.ExecuteSelect(sql, null);
 
             var result = new List<ClientOpeLog>();
             foreach (var dic in dics)
@@ -71,14 +77,16 @@ namespace Z_Apps.Models.SystemBase
             var logService = new ClientLogService(con);
             try
             {
+                var wikiCon = new DBCon(DBCon.DBType.wiki_db);
+
                 //SQL文作成
                 string sql = $@"
-delete from tblClientOpeLog
+delete from ZAppsClientOpeLog
   where time < CONVERT(date, getdate()-{logRemainingDays})
   or url like '%localhost%'
             ";
 
-                con.ExecuteUpdate(sql, null);
+                wikiCon.ExecuteUpdate(sql, null);
 
                 logService.RegisterLog(new ClientOpeLog()
                 {
@@ -104,6 +112,8 @@ delete from tblClientOpeLog
             var logService = new ClientLogService(con);
             try
             {
+                var wikiCon = new DBCon(DBCon.DBType.wiki_db);
+
                 var clientManager = new ClientManager(con);
                 var allClients = clientManager.GetAllClients();
 
@@ -112,11 +122,11 @@ delete from tblClientOpeLog
                     if (client.isAdmin == true)
                     {
                         string sql = $@"
-delete from tblClientOpeLog
+delete from ZAppsClientOpeLog
   where userId like @userId
   ";
 
-                        con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                        wikiCon.ExecuteUpdate(sql, new Dictionary<string, object[]> {
                             { "@userId", new object[2] { SqlDbType.VarChar, client.userId } },
                         });
                     }
