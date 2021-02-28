@@ -150,7 +150,7 @@ public class WikiService {
                 };
             } catch (Exception ex) {
                 var json = "removed";
-                con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE());",
+                con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE(), 1);",
                     new Dictionary<string, object[]> {
                             { "@json", new object[2] { SqlDbType.NVarChar, json } },
                             { "@word", new object[2] { SqlDbType.NVarChar, word } }
@@ -196,7 +196,7 @@ public class WikiService {
                         && json.Contains("wordId")
                     )
                     || json == "removed") {
-                    con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE());",
+                    con.ExecuteUpdate("insert into ZAppsDictionaryCache values(@word, @json, GETDATE(), 0);",
                         new Dictionary<string, object[]> {
                             { "@json", new object[2] { SqlDbType.NVarChar, json } },
                             { "@word", new object[2] { SqlDbType.NVarChar, word } }
