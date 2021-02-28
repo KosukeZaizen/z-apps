@@ -188,12 +188,14 @@ export function ArticleContent({
     }, [title, isAboutFolktale]);
 
     useEffect(() => {
-        const getFolktales = async () => {
-            const url = `api/Stories/GetOtherStories/${content.length}`;
-            const response = await cFetch(url);
-            setFolktales(await response.json());
-        };
-        getFolktales();
+        if (content) {
+            const getFolktales = async () => {
+                const url = `api/Stories/GetOtherStories/${content.length}`;
+                const response = await cFetch(url);
+                setFolktales(await response.json());
+            };
+            getFolktales();
+        }
     }, [content]);
 
     const isWide = width > 991;
