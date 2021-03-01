@@ -7,8 +7,10 @@ using Z_Apps.Util;
 using static WikiService;
 
 namespace Z_Apps.Controllers {
+
     [Route("api/[controller]")]
     public class WikiController : Controller {
+
         [HttpGet("[action]")]
         public IEnumerable<string> GetAllWords(int num) {
             var service = new WikiService();

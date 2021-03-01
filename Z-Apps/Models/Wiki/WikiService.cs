@@ -26,10 +26,6 @@ public class WikiService {
             "（",
         };
 
-    public async Task<IEnumerable<string>> GetAllWords(int num) {
-        return GetAllWordsFromDB(num);
-    }
-
     public IEnumerable<string> Exclude(IEnumerable<string> words) {
         return (words)
             .Where(
@@ -45,7 +41,7 @@ public class WikiService {
                 num == 0
                     ? "select word from ZAppsDictionaryCache"
                     : "select top(@num) word from ZAppsDictionaryCache";
-        sql += " where response != N'removed'";
+        sql += " where response != N'removed' and noindex = 0";
         sql += " order by word desc;";
 
         var result = con.ExecuteSelect(

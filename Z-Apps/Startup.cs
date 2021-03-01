@@ -18,28 +18,25 @@ using Z_Apps.Controllers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Z_Apps
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace Z_Apps {
+
+    public class Startup {
+
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration
-        {
+        public IConfiguration Configuration {
             get;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
+            services.AddSpaStaticFiles(configuration => {
                 configuration.RootPath = "ClientApp/build";
             });
 
@@ -57,14 +54,11 @@ namespace Z_Apps
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DBCon con, SiteMapService siteMapService)
-        {
-            if (env.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DBCon con, SiteMapService siteMapService) {
+
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
+            } else {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
@@ -78,25 +72,19 @@ namespace Z_Apps
             app.UseRewriter(options);
 
 
-            app.Use(async (context, next) =>
-            {
+            app.Use(async (context, next) => {
                 var ua = context.Request.Headers["User-Agent"].ToString();
                 string url = context.Request.Path.Value;
 
-                if (url.EndsWith("sitemap.xml"))
-                {
+                if (url.EndsWith("sitemap.xml")) {
                     context.Response.Headers.Add("Content-Type", "application/xml");
 
-                    if (siteMapService.sitemapChunks == null || siteMapService.sitemapChunks.Count() <= 0)
-                    {
+                    if (siteMapService.sitemapChunks == null || siteMapService.sitemapChunks.Count() <= 0) {
                         await context.Response.WriteAsync(
                             await siteMapService.GetSiteMapText(false, 0)
                         );
-                    }
-                    else
-                    {
-                        var task = Task.Run(async () =>
-                        {
+                    } else {
+                        var task = Task.Run(async () => {
                             await Task.Delay(5 * 1000);// 5秒
                             await siteMapService.GetSiteMapText(false, 0);
                         });
@@ -105,32 +93,25 @@ namespace Z_Apps
                             siteMapService.GetSitemapWithoutStorageFromCache()
                         );
                     }
-                }
-                else if (Regex.IsMatch(url, "sitemap[1-9][0-9]*.xml"))
-                {
+
+                } else if (Regex.IsMatch(url, "sitemap[1-9][0-9]*.xml")) {
                     int number = Int32.Parse(Regex.Replace(url, @"[^0-9]", ""));
                     string resultXML = await siteMapService.GetSiteMapText(false, number);
                     context.Response.Headers.Add("Content-Type", "application/xml");
 
-                    var task = Task.Run(async () =>
-                    {
+                    var task = Task.Run(async () => {
                         await Task.Delay(5 * 1000);// 5秒
                         await siteMapService.GetSiteMapText(false, 0);
                     });
 
                     await context.Response.WriteAsync(resultXML);
-                }
-                else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
-                {
-                    if (url == null)
-                    {
+
+                } else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot")) {
+                    if (url == null) {
                         await next.Invoke();
-                    }
-                    else
-                    {
+                    } else {
                         string resultHTML = "";
-                        if (url == "/")
-                        {
+                        if (url == "/") {
                             resultHTML = "<!DOCTYPE html><html>" +
                                 "<head>" +
                                 "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
@@ -146,9 +127,8 @@ namespace Z_Apps
                                 "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                 "</head>" + Environment.NewLine +
                                 "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("articles/") && url.Length > 10)
-                        {
+
+                        } else if (url.Contains("articles/") && url.Length > 10) {
                             string articleName = url.Split("articles/")[1].Replace("/", "");
 
                             var articleCon = new ArticlesController();
@@ -172,9 +152,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("folktales/") && url.Length > 11)
-                        {
+
+                        } else if (url.Contains("folktales/") && url.Length > 11) {
                             string storyName = url.Split("folktales/")[1].Replace("/", "");
 
                             var storyManager = new StoryManager(con);
@@ -197,9 +176,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("folktales") && url.Length < 11)
-                        {
+
+                        } else if (url.Contains("folktales") && url.Length < 11) {
                             resultHTML = "<!DOCTYPE html><html>" +
                                     "<head>" + Environment.NewLine +
                                     "<meta name='twitter:card' content='summary_large_image'>" + Environment.NewLine +
@@ -215,9 +193,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("vocabulary-quiz"))
-                        {
+
+                        } else if (url.Contains("vocabulary-quiz")) {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
                             string title = (lastElem == "vocabulary-quiz") ?
@@ -239,9 +216,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("kanji-quiz"))
-                        {
+
+                        } else if (url.Contains("kanji-quiz")) {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
                             string title = (lastElem == "kanji-quiz") ?
@@ -263,9 +239,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else if (url.Contains("vocabulary-list"))
-                        {
+
+                        } else if (url.Contains("vocabulary-list")) {
                             var arrUrl = url.Split("/");
                             var lastElem = arrUrl.LastOrDefault();
                             string title = "Japanese Vocabulary List";
@@ -285,9 +260,8 @@ namespace Z_Apps
                                     "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                     "</head>" + Environment.NewLine +
                                     "<body>Content for SNS bot</body></html>";
-                        }
-                        else
-                        {
+
+                        } else {
                             resultHTML = "<!DOCTYPE html><html>" +
                                     "<head>" +
                                     "<meta name='twitter:card' content='summary'>" + Environment.NewLine +
@@ -306,8 +280,7 @@ namespace Z_Apps
                         }
 
                         var clientLogService = new ClientLogService(con);
-                        clientLogService.RegisterLog(new ClientOpeLog()
-                        {
+                        clientLogService.RegisterLog(new ClientOpeLog() {
                             url = url,
                             operationName = "get OGP setting",
                             userId = "SNS Bot",
@@ -318,26 +291,21 @@ namespace Z_Apps
                         context.Response.Headers.Add("Content-Type", "text/html");
                         await context.Response.WriteAsync(resultHTML);
                     }
-                }
-                else
-                {
+                } else {
                     await next.Invoke();
                 }
             });
 
-            app.UseMvc(routes =>
-            {
+            app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
+            app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
+                if (env.IsDevelopment()) {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
