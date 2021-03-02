@@ -63,56 +63,51 @@ export const actionCreators: IActionCreators = {
         try {
             dispatch({ type: initializeType });
 
-            const loadVocabsFromDB = () => {
-                const currentGenreName =
-                    window.location.pathname
-                        .split("/")
-                        .filter(a => a)
-                        .pop()
-                        ?.split("#")
-                        .pop() || "";
+            const loadVocabsFromDB = async () => {
+                try {
+                    const currentGenreName =
+                        window.location.pathname
+                            .split("/")
+                            .filter(a => a)
+                            .pop()
+                            ?.split("#")
+                            .pop() || "";
 
-                const url = `api/VocabQuiz/GetQuizData/${currentGenreName}`;
-                cFetch(url).then(response => {
-                    response
-                        .json()
-                        .then(
-                            (genreAndVocab: {
-                                vocabGenre: vocabGenre;
-                                vocabList: vocab[];
-                            }) => {
-                                dispatch({
-                                    type: receiveGenreAndVocabType,
-                                    genreAndVocab,
-                                });
+                    const url = `api/VocabQuiz/GetQuizData/${currentGenreName}`;
+                    const response = await cFetch(url);
 
-                                const { vocabGenre } = genreAndVocab;
-                                if (vocabGenre) {
-                                    if (
-                                        currentGenreName !==
-                                        vocabGenre.genreName
-                                    ) {
-                                        if (!vocabGenre.genreName) {
-                                            reloadAndRedirect_OneTimeReload(
-                                                "db-access-error-time"
-                                            );
-                                        } else if (
-                                            currentGenreName.toLowerCase ===
-                                            vocabGenre.genreName.toLowerCase
-                                        ) {
-                                            window.location.href = `/vocabulary-quiz/${vocabGenre.genreName}`;
-                                        }
-                                        return;
-                                    }
-                                } else {
-                                    reloadAndRedirect_OneTimeReload(
-                                        "db-access-error-time"
-                                    );
-                                    return;
-                                }
+                    const genreAndVocab: {
+                        vocabGenre: vocabGenre;
+                        vocabList: vocab[];
+                    } = await response.json();
+
+                    dispatch({
+                        type: receiveGenreAndVocabType,
+                        genreAndVocab,
+                    });
+
+                    const { vocabGenre } = genreAndVocab;
+                    if (vocabGenre) {
+                        if (currentGenreName !== vocabGenre.genreName) {
+                            if (!vocabGenre.genreName) {
+                                reloadAndRedirect_OneTimeReload(
+                                    "db-access-error-time"
+                                );
+                            } else if (
+                                currentGenreName.toLowerCase ===
+                                vocabGenre.genreName.toLowerCase
+                            ) {
+                                window.location.href = `/vocabulary-quiz/${vocabGenre.genreName}`;
                             }
-                        );
-                });
+                            return;
+                        }
+                    } else {
+                        reloadAndRedirect_OneTimeReload("db-access-error-time");
+                        return;
+                    }
+                } catch (ex) {
+                    reloadAndRedirect_OneTimeReload("db-access-error-time");
+                }
             };
 
             const savedGenres = window.localStorage.getItem(
@@ -143,7 +138,7 @@ export const actionCreators: IActionCreators = {
             }
             loadVocabsFromDB();
         } catch (e) {
-            //
+            reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     },
     changePage: nextPage => (dispatch: Function, getState: Function) => {

@@ -36,7 +36,7 @@ namespace Z_Apps.Controllers {
         }
 
         [HttpGet("[action]")]
-        public Dictionary<string, Dictionary<string, Dictionary<string, object>>> GetCache() {
+        public Dictionary<string, Dictionary<string, Dictionary<string, ApiCache.CacheData>>> GetCache() {
             return ApiCache.GetCache();
         }
     }

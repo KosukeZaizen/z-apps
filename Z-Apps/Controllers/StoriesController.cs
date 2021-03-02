@@ -9,6 +9,7 @@ using Z_Apps.Models;
 using System.Linq;
 using static Z_Apps.Models.Stories.StoriesService;
 using Z_Apps.Util;
+using System;
 
 namespace Z_Apps.Controllers {
     [Route("api/[controller]")]
@@ -95,6 +96,7 @@ namespace Z_Apps.Controllers {
 
             return ApiCache.UseCache(storyName, () => {
                 if (!string.IsNullOrEmpty(storyName)) {
+
                     var con = new DBCon();
                     var result = con.ExecuteSelect(@"
 SELECT articleContent
@@ -104,9 +106,13 @@ AND title = N'folktale'
 ", new Dictionary<string, object[]> { { "@storyName", new object[2] { SqlDbType.NVarChar, storyName } } }
                     ).FirstOrDefault();
 
-                    if (result != null) {
-                        return (string)result["articleContent"];
+                    if (result == null) {
+                        // 1件もデータがなければ、
+                        // フロントから不正なパラメータが来ている可能性があるためエラー
+                        throw new Exception();
                     }
+
+                    return (string)result["articleContent"];
                 }
                 return "";
             });

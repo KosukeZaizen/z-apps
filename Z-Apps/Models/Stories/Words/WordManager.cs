@@ -1,18 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
-namespace Z_Apps.Models.Stories.Words
-{
-    public class WordManager
-    {
+namespace Z_Apps.Models.Stories.Words {
+    public class WordManager {
         private readonly DBCon Con;
-        public WordManager(DBCon con)
-        {
+        public WordManager(DBCon con) {
             Con = con;
         }
 
-        public Dictionary<int, List<Word>> GetWords(int storyId)
-        {
+        public Dictionary<int, List<Word>> GetWords(int storyId) {
             //SQL文作成
             string sql = @"
 select * from tblDictionary
@@ -21,12 +19,19 @@ order by WordNumber;
 ";
 
             //List<Dictionary<string, Object>>型で取得
-            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {
+                { "@storyId", new object[2] { SqlDbType.Int, storyId } }
+            });
+
+            if (!words.Any()) {
+                // 1件もデータがなければ、
+                // フロントから不正なパラメータが来ている可能性があるためエラー
+                throw new Exception();
+            }
 
             //List<Sentence>型に変換してreturn
             var resultWords = new Dictionary<int, List<Word>>();
-            foreach (var dicWord in words)
-            {
+            foreach (var dicWord in words) {
                 var word = new Word();
                 word.StoryId = (int)dicWord["StoryId"];
                 word.LineNumber = (int)dicWord["LineNumber"];
@@ -35,8 +40,7 @@ order by WordNumber;
                 word.Hiragana = (string)dicWord["Hiragana"];
                 word.English = (string)dicWord["English"];
 
-                if (!resultWords.ContainsKey(word.LineNumber))
-                {
+                if (!resultWords.ContainsKey(word.LineNumber)) {
                     resultWords.Add(word.LineNumber, new List<Word>());
                 }
                 resultWords[word.LineNumber].Add(word);
@@ -45,8 +49,7 @@ order by WordNumber;
             return resultWords;
         }
 
-        public IEnumerable<Word> GetWordsForSentence(int storyId, int lineNumber)
-        {
+        public IEnumerable<Word> GetWordsForSentence(int storyId, int lineNumber) {
             //SQL文作成
             string sql = "";
             sql += "select * from tblDictionary";
@@ -61,8 +64,7 @@ order by WordNumber;
 
             //List<Sentence>型に変換してreturn
             var resultWords = new List<Word>();
-            foreach (var dicWord in words)
-            {
+            foreach (var dicWord in words) {
                 var word = new Word();
                 word.StoryId = (int)dicWord["StoryId"];
                 word.LineNumber = (int)dicWord["LineNumber"];
@@ -76,8 +78,7 @@ order by WordNumber;
             return resultWords;
         }
 
-        public string GetWordMeaning(string kanji)
-        {
+        public string GetWordMeaning(string kanji) {
             //SQL文作成
             string sql = "";
             sql += "SELECT English, count(*) as cnt";
@@ -98,15 +99,13 @@ order by WordNumber;
             //List<Dictionary<string, Object>>型で取得
             var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } } });
 
-            foreach (var dicWord in words)
-            {
+            foreach (var dicWord in words) {
                 return (string)dicWord["English"];
             }
             return "";
         }
 
-        public bool DeleteInsertWords(int storyId, IEnumerable<Word> words)
-        {
+        public bool DeleteInsertWords(int storyId, IEnumerable<Word> words) {
             //SQL文作成
             string sql = "";
             sql += "delete from tblDictionary";
@@ -115,14 +114,12 @@ order by WordNumber;
 
             bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
 
-            if (!result)
-            {
+            if (!result) {
                 return false;
             }
 
 
-            foreach (Word word in words)
-            {
+            foreach (Word word in words) {
                 //SQL文作成
                 sql = "";
                 sql += "insert into tblDictionary(StoryId, LineNumber, WordNumber, Kanji, Hiragana, English) ";
@@ -137,8 +134,7 @@ order by WordNumber;
                     { "@english", new object[2] { SqlDbType.NVarChar, word.English } }
                 });
 
-                if (!result)
-                {
+                if (!result) {
                     return false;
                 }
             }

@@ -1,18 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
-namespace Z_Apps.Models.VocabList
-{
-    public class VocabGenreManager
-    {
+namespace Z_Apps.Models.VocabList {
+    public class VocabGenreManager {
         private readonly DBCon Con;
-        public VocabGenreManager(DBCon con)
-        {
+        public VocabGenreManager(DBCon con) {
             Con = con;
         }
 
-        public IEnumerable<VocabGenre> GetAllGenres()
-        {
+        public IEnumerable<VocabGenre> GetAllGenres() {
             //SQL文作成
             string sql = "";
             sql += " select * from tblVocabGenreMst";
@@ -23,8 +21,7 @@ namespace Z_Apps.Models.VocabList
 
             var order = 1;
             var resultGenres = new List<VocabGenre>();
-            foreach (var dicGenre in genres)
-            {
+            foreach (var dicGenre in genres) {
                 var genre = new VocabGenre();
                 genre.genreId = (int)dicGenre["genreId"];
                 genre.genreName = (string)dicGenre["genreName"];
@@ -35,25 +32,31 @@ namespace Z_Apps.Models.VocabList
             return resultGenres;
         }
 
-        public VocabGenre GetVocabGenre(string genreName)
-        {
+        public VocabGenre GetVocabGenre(string genreName) {
             //SQL文作成
             string sql = "";
             sql += "select * from tblVocabGenreMst";
             sql += " where genreName Like @genreName";
 
             //List<Dictionary<string, Object>>型で取得
-            var vocabGenre = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@genreName", new object[2] { SqlDbType.NChar, genreName } } });
+            var vocabGenre = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {
+                { "@genreName", new object[2] { SqlDbType.NChar, genreName } }
+            })
+            .FirstOrDefault();
+
+            if (vocabGenre == null) {
+                // 1件もデータがなければ、
+                // フロントから不正なパラメータが来ている可能性があるためエラー
+                throw new Exception();
+            }
+
 
             //Story型に変換してreturn
-            var genre = new VocabGenre();
-            foreach (var dicGenre in vocabGenre)
-            {
-                genre.genreId = (int)dicGenre["genreId"];
-                genre.genreName = (string)dicGenre["genreName"];
-                genre.order = (int)dicGenre["order"];
-            }
-            return genre;
+            return new VocabGenre() {
+                genreId = (int)vocabGenre["genreId"],
+                genreName = (string)vocabGenre["genreName"],
+                order = (int)vocabGenre["order"]
+            };
         }
     }
 }

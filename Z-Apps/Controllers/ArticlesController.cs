@@ -35,17 +35,19 @@ AND title != N'folktale'
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
                 ).FirstOrDefault();
 
-                if (result != null) {
-                    return new Article() {
-                        title = (string)result["title"],
-                        description = (string)result["description"],
-                        articleContent = (string)result["articleContent"],
-                        imgPath = (string)result["imgPath"],
-                        isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
-                    };
+                if (result == null) {
+                    // 1件もデータがなければ、
+                    // フロントから不正なパラメータが来ている可能性があるためエラー
+                    throw new Exception();
                 }
 
-                return null;
+                return new Article() {
+                    title = (string)result["title"],
+                    description = (string)result["description"],
+                    articleContent = (string)result["articleContent"],
+                    imgPath = (string)result["imgPath"],
+                    isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
+                };
             });
         }
 
@@ -147,17 +149,19 @@ WHERE url = @p
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
             ).FirstOrDefault();
 
-            if (result != null) {
-                return new Article() {
-                    title = (string)result["title"],
-                    description = (string)result["description"],
-                    articleContent = (string)result["articleContent"],
-                    released = result["released"] != null ? (bool)result["released"] : false,
-                    isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
-                };
+            if (result == null) {
+                // 1件もデータがなければ、
+                // フロントから不正なパラメータが来ている可能性があるためエラー
+                throw new Exception();
             }
 
-            return null;
+            return new Article() {
+                title = (string)result["title"],
+                description = (string)result["description"],
+                articleContent = (string)result["articleContent"],
+                released = result["released"] != null ? (bool)result["released"] : false,
+                isAboutFolktale = result["isAboutFolktale"] != null ? (bool)result["isAboutFolktale"] : false,
+            };
         }
 
         [HttpGet("[action]/")]

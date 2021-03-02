@@ -7,29 +7,24 @@ using Z_Apps.Models.Stories.Words;
 using static Z_Apps.Controllers.StoriesController;
 using System.Data;
 
-namespace Z_Apps.Models.Stories
-{
-    public class StoriesService
-    {
+namespace Z_Apps.Models.Stories {
+    public class StoriesService {
         private readonly StoryManager storyManager;
         private readonly SentenceManager sentenceManager;
         private readonly WordManager wordManager;
 
-        public StoriesService(DBCon con)
-        {
+        public StoriesService(DBCon con) {
             storyManager = new StoryManager(con);
             sentenceManager = new SentenceManager(con);
             wordManager = new WordManager(con);
         }
 
-        public IEnumerable<Story> GetAllStories()
-        {
+        public IEnumerable<Story> GetAllStories() {
             var stories = storyManager.GetAllStories();
             return stories;
         }
 
-        public IEnumerable<Story> GetOtherStories(int storyId)
-        {
+        public IEnumerable<Story> GetOtherStories(int storyId) {
             //戻り値
             List<Story> result = new List<Story>();
 
@@ -40,9 +35,14 @@ namespace Z_Apps.Models.Stories
             //自分自身を除いた、全てのStory
             var stories = GetAllStories().Where(s => s.StoryId != storyId);
 
+            if (!stories.Any()) {
+                // 1件もデータがなければ、
+                // フロントから不正なパラメータが来ている可能性があるためエラー
+                throw new Exception();
+            }
+
             var storiesHistory = new List<IEnumerable<Story>>() { stories };
-            for (var i = 0; i < 10; i++)
-            {
+            for (var i = 0; i < 10; i++) {
                 var newStories = storiesHistory.LastOrDefault();
                 if (newStories == null)
                     return null;
@@ -61,8 +61,7 @@ namespace Z_Apps.Models.Stories
         }
 
         //10日に１回変わる数値を取得
-        private int GetNumberForThe10Days()
-        {
+        private int GetNumberForThe10Days() {
             // 2019年1月1日からの経過日数
             double interval = (DateTime.Today - new DateTime(2019, 1, 1)).TotalDays;
 
@@ -70,50 +69,42 @@ namespace Z_Apps.Models.Stories
             return (int)Math.Pow((int)interval / 10, 2);
         }
 
-        public Story GetPageData(string storyName)
-        {
+        public Story GetPageData(string storyName) {
             var story = storyManager.GetStory(storyName);
             return story;
         }
 
-        public IEnumerable<Sentence> GetSentences(int storyId)
-        {
+        public IEnumerable<Sentence> GetSentences(int storyId) {
             var sentences = sentenceManager.GetSentences(storyId);
             return sentences;
         }
 
-        public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber)
-        {
+        public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber) {
             var sentence = sentenceManager.GetOneSentence(storyName, lineNumber);
             var words = wordManager.GetWordsForSentence(sentence.StoryId, lineNumber);
 
             return new OneSnetenceAndWords() { sentence = sentence, words = words };
         }
 
-        public class WordsAndArticles
-        {
+        public class WordsAndArticles {
             public Dictionary<int, List<Word>> words;
             public Dictionary<int, List<ArticleUrlAndTitle>> articles;
         }
-        public class ArticleUrlAndTitle
-        {
+        public class ArticleUrlAndTitle {
             public string url;
             public string title;
         }
-        public WordsAndArticles GetWordsAndArticles(int storyId)
-        {
+        public WordsAndArticles GetWordsAndArticles(int storyId) {
             var words = wordManager.GetWords(storyId);
             var articles = GetArticles(storyId);
 
-            return new WordsAndArticles()
-            {
+            return new WordsAndArticles() {
                 words = words,
                 articles = articles
             };
         }
 
-        private Dictionary<int, List<ArticleUrlAndTitle>> GetArticles(int storyId)
-        {
+        private Dictionary<int, List<ArticleUrlAndTitle>> GetArticles(int storyId) {
             var con = new DBCon();
 
             //SQL文作成
@@ -135,18 +126,15 @@ on a.url = s.articleUrl
 
             //List<Sentence>型に変換してreturn
             var resultArticles = new Dictionary<int, List<ArticleUrlAndTitle>>();
-            foreach (var dicWord in words)
-            {
+            foreach (var dicWord in words) {
                 var lineNumber = (int)dicWord["lineNumber"];
 
-                if (!resultArticles.ContainsKey(lineNumber))
-                {
+                if (!resultArticles.ContainsKey(lineNumber)) {
                     resultArticles.Add(lineNumber, new List<ArticleUrlAndTitle>());
                 }
 
                 resultArticles[lineNumber].Add(
-                    new ArticleUrlAndTitle()
-                    {
+                    new ArticleUrlAndTitle() {
                         url = (string)dicWord["articleUrl"],
                         title = (string)dicWord["title"],
                     }

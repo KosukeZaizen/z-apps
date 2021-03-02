@@ -98,7 +98,7 @@ export const actionCreators: IActionCreators = {
             const otherStories = await (await response4).json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
         } catch (e) {
-            console.log("e", e);
+            reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     },
 };
