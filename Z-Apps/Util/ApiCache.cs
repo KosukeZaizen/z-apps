@@ -50,14 +50,11 @@ namespace Z_Apps.Util {
 
 
             //キャッシュ未登録
+            Result result = action();
 
-            Result result;
-            try {
-                result = action();
-            } catch (Exception ex) {
-                return null;
+            if (result == null || "".Equals(result)) {
+                return result;
             }
-
 
             Task.Run(async () => {
                 await Task.Delay(3000);

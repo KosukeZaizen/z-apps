@@ -91,7 +91,7 @@ export const actionCreators: IActionCreators = {
             dispatch({ type: receiveWordsType, words, articles });
 
             //explanation article
-            const explanation = await (await responseExp).text();
+            const { explanation } = await (await responseExp).json();
             dispatch({ type: receiveExpType, explanation });
 
             //other stories

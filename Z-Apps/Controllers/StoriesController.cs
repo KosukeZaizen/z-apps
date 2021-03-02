@@ -91,8 +91,11 @@ namespace Z_Apps.Controllers {
             });
         }
 
+        public class ExplanationResponse {
+            public string explanation { get; set; }
+        }
         [HttpGet("[action]/{storyName?}")]
-        public string GetExplanation(string storyName) {
+        public ExplanationResponse GetExplanation(string storyName) {
 
             return ApiCache.UseCache(storyName, () => {
                 if (!string.IsNullOrEmpty(storyName)) {
@@ -106,15 +109,13 @@ AND title = N'folktale'
 ", new Dictionary<string, object[]> { { "@storyName", new object[2] { SqlDbType.NVarChar, storyName } } }
                     ).FirstOrDefault();
 
-                    if (result == null) {
-                        // 1件もデータがなければ、
-                        // フロントから不正なパラメータが来ている可能性があるためエラー
-                        throw new Exception();
-                    }
-
-                    return (string)result["articleContent"];
+                    return new ExplanationResponse() {
+                        explanation = result == null
+                                                ? ""
+                                                : (string)result["articleContent"]
+                    };
                 }
-                return "";
+                return null;
             });
         }
     }
