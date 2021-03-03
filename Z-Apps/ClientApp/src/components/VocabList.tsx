@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import React from "react";
+import React, { useEffect } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
@@ -27,7 +27,7 @@ import "./parts/PleaseScrollDown.css";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.IActionCreators & {
-        location: { pathname: string };
+        location: { pathname: string; hash: string };
     };
 type State = {
     screenWidth: number;
@@ -92,7 +92,11 @@ class VocabList extends React.Component<Props, State> {
     };
 
     render() {
-        const { allVocabs, allGenres } = this.props;
+        const {
+            allVocabs,
+            allGenres,
+            location: { hash },
+        } = this.props;
         const { screenWidth, imgNumber } = this.state;
         return (
             <div className="center">
@@ -178,6 +182,7 @@ class VocabList extends React.Component<Props, State> {
                         allGenres={allGenres}
                         criteriaRef={this.refForScroll}
                         refForReturnToIndex={this.refForReturnToIndex}
+                        hash={hash}
                     />
                     <hr />
                     <FolktaleMenu screenWidth={screenWidth} />
@@ -302,14 +307,22 @@ type TAllVocabListProps = {
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>;
     refForReturnToIndex?: React.RefObject<HTMLHeadingElement>;
+    hash: string;
 };
-function AllVocabList(props: TAllVocabListProps) {
-    const {
-        allGenres: vocabGenres,
-        allVocabs,
-        criteriaRef,
-        refForReturnToIndex,
-    } = props;
+function AllVocabList({
+    allGenres: vocabGenres,
+    allVocabs,
+    criteriaRef,
+    refForReturnToIndex,
+    hash,
+}: TAllVocabListProps) {
+    useEffect(() => {
+        if (hash && vocabGenres?.length > 0 && allVocabs?.length > 0) {
+            void document
+                .getElementById(hash.replace("#", ""))
+                ?.scrollIntoView(true);
+        }
+    }, [hash, vocabGenres, allVocabs]);
 
     return (
         <>
@@ -328,7 +341,7 @@ function AllVocabList(props: TAllVocabListProps) {
                     vocabGenres.map((g, idx) => {
                         return (
                             <span key={g.genreId}>
-                                <AnchorLink href={`#${g.genreName}`}>
+                                <Link to={`#${g.genreName}`}>
                                     {g.genreName
                                         .split("_")
                                         .map(
@@ -337,7 +350,7 @@ function AllVocabList(props: TAllVocabListProps) {
                                                 t[0].toUpperCase() + t.substr(1)
                                         )
                                         .join(" ")}
-                                </AnchorLink>
+                                </Link>
                                 {idx !== vocabGenres.length - 1 && " / "}
                             </span>
                         );

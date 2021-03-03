@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Link } from "react-router-dom";
 import { cFetch } from "../../common/util/cFetch";
 import { storyDesc } from "../../types/stories";
@@ -448,9 +447,10 @@ export function ArticleContent({
 
 export function getIndex(content: string, hash?: string) {
     if (content && hash) {
-        void document
-            .getElementById(hash.replace("#", ""))
-            ?.scrollIntoView(true);
+        void document.getElementById(hash.replace("#", ""))?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
     }
 
     return content
@@ -460,9 +460,9 @@ export function getIndex(content: string, hash?: string) {
             const linkText = c.split("#").join("").trim();
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <AnchorLink href={"#" + encodeURIComponent(linkText)}>
+                    <Link to={"#" + encodeURIComponent(linkText)}>
                         {linkText}
-                    </AnchorLink>
+                    </Link>
                 </li>
             );
         });

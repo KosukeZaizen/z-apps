@@ -8,6 +8,7 @@ const receiveSentencesType = "RECEIVE_SENTENCES";
 const receiveWordsType = "RECEIVE_WORDS";
 const receiveExpType = "RECEIVE_EXP";
 const receiveOtherStoriesType = "RECEIVE_OTHER_STORIES";
+const allLoadFinished = "ALL_LOAD_FINISHED";
 const initialState = {
     storyDesc: [],
     sentences: [],
@@ -15,6 +16,7 @@ const initialState = {
     articles: {},
     explanation: "",
     otherStories: [],
+    allLoadFinished: false,
 };
 
 export interface StoriesState {
@@ -24,6 +26,7 @@ export interface StoriesState {
     articles: { [key: number]: { title: string; url: string }[] };
     explanation?: string;
     token: string;
+    allLoadFinished: boolean;
 }
 
 export interface IActionCreators {
@@ -97,6 +100,9 @@ export const actionCreators: IActionCreators = {
             //other stories
             const otherStories = await (await response4).json();
             dispatch({ type: receiveOtherStoriesType, otherStories });
+
+            //allLoadFinished
+            dispatch({ type: allLoadFinished, allLoadFinished: true });
         } catch (e) {
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
@@ -143,6 +149,13 @@ export const reducer = (state: StoriesState, action: any) => {
         return {
             ...state,
             otherStories: action.otherStories,
+        };
+    }
+
+    if (action.type === allLoadFinished) {
+        return {
+            ...state,
+            allLoadFinished: action.allLoadFinished,
         };
     }
 

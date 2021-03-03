@@ -255,6 +255,7 @@ class Stories extends React.Component<Props, State> {
             articles,
             explanation,
             otherStories,
+            allLoadFinished,
             location: { hash },
         } = this.props;
 
@@ -299,7 +300,13 @@ class Stories extends React.Component<Props, State> {
             "More folktales",
         ].map(c => {
             const linkText = c.split("#").join("").trim();
-            return <IndexItem linkText={linkText} hash={hash} />;
+            return (
+                <IndexItem
+                    allLoadFinished={allLoadFinished}
+                    linkText={linkText}
+                    hash={hash}
+                />
+            );
         });
 
         const index = (
@@ -1083,19 +1090,34 @@ class FooterMenu extends React.Component<
     }
 }
 
-function IndexItem({ linkText, hash }: { linkText: string; hash: string }) {
+function IndexItem({
+    linkText,
+    hash,
+    allLoadFinished,
+}: {
+    linkText: string;
+    hash: string;
+    allLoadFinished: boolean;
+}) {
     const encodedLinkText = encodeURIComponent(linkText);
     const replacedHash = hash.replace("#", "");
 
     useEffect(() => {
-        if (encodedLinkText === replacedHash && encodedLinkText) {
-            void document.getElementById(replacedHash)?.scrollIntoView(true);
+        if (
+            allLoadFinished &&
+            encodedLinkText === replacedHash &&
+            encodedLinkText
+        ) {
+            void document.getElementById(replacedHash)?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
         }
-    }, [encodedLinkText, hash]);
+    }, [encodedLinkText, hash, allLoadFinished]);
 
     return (
         <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-            <AnchorLink href={"#" + encodedLinkText}>{linkText}</AnchorLink>
+            <Link to={"#" + encodedLinkText}>{linkText}</Link>
         </li>
     );
 }
