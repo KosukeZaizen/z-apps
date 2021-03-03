@@ -1,5 +1,6 @@
 import { Collapse } from "@material-ui/core";
 import * as React from "react";
+import { useEffect } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -30,7 +31,7 @@ type BtnType = "kanji" | "hiragana" | "romaji" | "english";
 
 type Props = storiesStore.StoriesState &
     storiesStore.IActionCreators & {
-        location: { pathname: string };
+        location: { pathname: string; hash: string };
         otherStories: storyDesc[];
         match: { params: { [key: string]: string } };
     };
@@ -254,6 +255,7 @@ class Stories extends React.Component<Props, State> {
             articles,
             explanation,
             otherStories,
+            location: { hash },
         } = this.props;
 
         const isWide = screenWidth > 767;
@@ -297,13 +299,7 @@ class Stories extends React.Component<Props, State> {
             "More folktales",
         ].map(c => {
             const linkText = c.split("#").join("").trim();
-            return (
-                <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <AnchorLink href={"#" + encodeURIComponent(linkText)}>
-                        {linkText}
-                    </AnchorLink>
-                </li>
-            );
+            return <IndexItem linkText={linkText} hash={hash} />;
         });
 
         const index = (
@@ -628,24 +624,26 @@ class Stories extends React.Component<Props, State> {
                         <GoogleAd />
                         <hr />
                         <section>
+                            <h2
+                                style={{
+                                    ...styleForStoryTitle,
+                                    textAlign: "left",
+                                    marginTop: "30px",
+                                    marginBottom: "20px",
+                                }}
+                                id={encodeURIComponent("More folktales")}
+                            >
+                                More folktales
+                            </h2>
                             {otherStories?.length > 0 ? (
-                                <h2
-                                    style={{
-                                        ...styleForStoryTitle,
-                                        textAlign: "left",
-                                        marginTop: "30px",
-                                        marginBottom: "20px",
-                                    }}
-                                    id={encodeURIComponent("More folktales")}
-                                >
-                                    More folktales
-                                </h2>
-                            ) : null}
-                            <StoriesList
-                                headLevel="h3"
-                                stories={otherStories}
-                                screenWidth={screenWidth}
-                            />
+                                <StoriesList
+                                    headLevel="h3"
+                                    stories={otherStories}
+                                    screenWidth={screenWidth}
+                                />
+                            ) : (
+                                <ShurikenProgress key="circle" size="20%" />
+                            )}
                         </section>
                     </article>
                     <Link
@@ -1083,6 +1081,23 @@ class FooterMenu extends React.Component<
             </div>
         );
     }
+}
+
+function IndexItem({ linkText, hash }: { linkText: string; hash: string }) {
+    const encodedLinkText = encodeURIComponent(linkText);
+    const replacedHash = hash.replace("#", "");
+
+    useEffect(() => {
+        if (encodedLinkText === replacedHash && encodedLinkText) {
+            void document.getElementById(replacedHash)?.scrollIntoView(true);
+        }
+    }, [encodedLinkText, hash]);
+
+    return (
+        <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
+            <AnchorLink href={"#" + encodedLinkText}>{linkText}</AnchorLink>
+        </li>
+    );
 }
 
 export default connect(

@@ -435,22 +435,22 @@ function changeHslToRgb(hue: number, saturation: number, lightness: number) {
 // カラーコードのコピー実行
 //--------------------------------------------------
 function execCopy(string?: string) {
-    let tmp = document.createElement("div");
-    let pre = document.createElement("pre");
+    const tmp = document.createElement("div");
+    const pre = document.createElement("pre");
 
     pre.style.webkitUserSelect = "auto";
     pre.style.userSelect = "auto";
 
     tmp.appendChild(pre).textContent = string || null;
 
-    let s = tmp.style;
+    const s = tmp.style;
     s.position = "fixed";
     s.right = "200%";
 
     document.body.appendChild(tmp);
-    document.getSelection()?.selectAllChildren(tmp);
+    void document.getSelection()?.selectAllChildren(tmp);
 
-    let result = document.execCommand("copy");
+    const result = document.execCommand("copy");
 
     document.body.removeChild(tmp);
 

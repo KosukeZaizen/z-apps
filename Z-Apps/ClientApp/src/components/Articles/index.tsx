@@ -40,6 +40,7 @@ export function getImgNumber(num: number = 0) {
 interface Props {
     match: { params: { pageName: string } };
     history: { push: (url: string) => void };
+    location: { hash: string };
 }
 const Articles = (props: Props) => {
     const {
@@ -47,6 +48,7 @@ const Articles = (props: Props) => {
             params: { pageName },
         },
         history,
+        location: { hash },
     } = props;
 
     const [title, setTitle] = useState<Page["title"]>("");
@@ -117,8 +119,8 @@ const Articles = (props: Props) => {
     }, [pageName]);
 
     useEffect(() => {
-        setIndexLi(getIndex(content));
-    }, [content]);
+        setIndexLi(getIndex(content, hash));
+    }, [content, hash]);
 
     return (
         <div style={{ width: "100%" }} className="center">
@@ -444,7 +446,13 @@ export function ArticleContent({
     );
 }
 
-export function getIndex(content: string) {
+export function getIndex(content: string, hash?: string) {
+    if (content && hash) {
+        void document
+            .getElementById(hash.replace("#", ""))
+            ?.scrollIntoView(true);
+    }
+
     return content
         .split("\n")
         .filter(c => c.includes("##") && !c.includes("###"))
