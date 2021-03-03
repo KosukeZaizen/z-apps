@@ -888,10 +888,12 @@ function Grammar({
                         key={`${lineNumber}-${i}`}
                         style={{
                             marginBottom: 10,
-                            textDecoration: "underline",
                         }}
                     >
-                        <Link to={`/articles/${a.url}`}>
+                        <Link
+                            to={`/articles/${a.url}`}
+                            style={{ textDecoration: "underline" }}
+                        >
                             {`${a.title.split(" - ")[0]} >>`}
                         </Link>
                     </li>
