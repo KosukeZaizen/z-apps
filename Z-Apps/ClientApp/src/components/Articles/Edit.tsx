@@ -115,7 +115,7 @@ const Articles = (props: Props) => {
 
     useEffect(() => {
         if (!content) return;
-        setIndexLi(getIndex(content));
+        setIndexLi(getIndex(content, pageName));
     }, [content]);
 
     const save = async () => {

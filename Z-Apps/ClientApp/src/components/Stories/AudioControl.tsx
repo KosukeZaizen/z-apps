@@ -36,12 +36,14 @@ export class AudioControl extends React.Component<AudioControlProps> {
                     width: "100%",
                     height: "30px",
                     marginTop: "5px",
+                    opacity: this.state.showControl ? 1 : 0,
+                    transition: "1s",
                     ...style,
                 }}
                 onCanPlayThrough={() => {
                     this.setState({ showControl: true });
                 }}
-                controls={this.state.showControl}
+                controls
             />
         );
     }

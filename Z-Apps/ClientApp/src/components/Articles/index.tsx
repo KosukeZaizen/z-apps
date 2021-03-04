@@ -10,6 +10,7 @@ import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
 import GoogleAd from "../parts/GoogleAd";
+import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
@@ -118,8 +119,8 @@ const Articles = (props: Props) => {
     }, [pageName]);
 
     useEffect(() => {
-        setIndexLi(getIndex(content, hash));
-    }, [content, hash]);
+        setIndexLi(getIndex(content, pageName, history));
+    }, [content, pageName]);
 
     return (
         <div style={{ width: "100%" }} className="center">
@@ -137,6 +138,7 @@ const Articles = (props: Props) => {
             />
             <GoogleAd />
             <SeasonAnimation frequencySec={2} screenWidth={width} />
+            <HashScroll hash={hash} allLoadFinished={!!content} />
         </div>
     );
 };
@@ -445,24 +447,22 @@ export function ArticleContent({
     );
 }
 
-export function getIndex(content: string, hash?: string) {
-    if (content && hash) {
-        void document.getElementById(hash.replace("#", ""))?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        });
-    }
-
+export function getIndex(
+    content: string,
+    pageName: string,
+    history?: { push: (url: string) => void }
+) {
     return content
         .split("\n")
         .filter(c => c.includes("##") && !c.includes("###"))
         .map(c => {
             const linkText = c.split("#").join("").trim();
+            const encodedUrl = encodeURIComponent(linkText);
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <Link to={"#" + encodeURIComponent(linkText)}>
+                    <a href={`/articles/${pageName}#${encodedUrl}`}>
                         {linkText}
-                    </Link>
+                    </a>
                 </li>
             );
         });

@@ -1,6 +1,5 @@
 import { Collapse } from "@material-ui/core";
 import * as React from "react";
-import { useEffect } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,6 +16,7 @@ import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import GoogleAd from "../parts/GoogleAd";
+import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { PointBox } from "../parts/Markdown/PointBox";
@@ -302,9 +302,11 @@ class Stories extends React.Component<Props, State> {
             const linkText = c.split("#").join("").trim();
             return (
                 <IndexItem
+                    key={linkText}
                     allLoadFinished={allLoadFinished}
                     linkText={linkText}
                     hash={hash}
+                    storyName={storyName}
                 />
             );
         });
@@ -704,6 +706,7 @@ class Stories extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     season={storyDesc.season || "none"}
                 />
+                <HashScroll hash={hash} allLoadFinished={allLoadFinished} />
             </div>
         );
     }
@@ -1094,32 +1097,20 @@ class FooterMenu extends React.Component<
 
 function IndexItem({
     linkText,
-    hash,
-    allLoadFinished,
+    storyName,
 }: {
     linkText: string;
     hash: string;
     allLoadFinished: boolean;
+    storyName: string;
 }) {
     const encodedLinkText = encodeURIComponent(linkText);
-    const replacedHash = hash.replace("#", "");
-
-    useEffect(() => {
-        if (
-            allLoadFinished &&
-            encodedLinkText === replacedHash &&
-            encodedLinkText
-        ) {
-            void document.getElementById(replacedHash)?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-        }
-    }, [encodedLinkText, hash, allLoadFinished]);
 
     return (
         <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-            <Link to={"#" + encodedLinkText}>{linkText}</Link>
+            <Link to={`/folktales/${storyName}#${encodedLinkText}`}>
+                {linkText}
+            </Link>
         </li>
     );
 }

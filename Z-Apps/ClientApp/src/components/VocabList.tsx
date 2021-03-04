@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import React, { useEffect } from "react";
+import React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
@@ -21,6 +21,7 @@ import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import { FolktaleMenu } from "./parts/FolktaleMenu";
 import GoogleAd from "./parts/GoogleAd";
+import { HashScroll } from "./parts/HashScroll";
 import Head from "./parts/Helmet";
 import PleaseScrollDown from "./parts/PleaseScrollDown";
 import "./parts/PleaseScrollDown.css";
@@ -182,7 +183,6 @@ class VocabList extends React.Component<Props, State> {
                         allGenres={allGenres}
                         criteriaRef={this.refForScroll}
                         refForReturnToIndex={this.refForReturnToIndex}
-                        hash={hash}
                     />
                     <hr />
                     <FolktaleMenu screenWidth={screenWidth} />
@@ -204,6 +204,12 @@ class VocabList extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                     />
                 </div>
+                <HashScroll
+                    hash={hash}
+                    allLoadFinished={
+                        allGenres?.length > 0 && allVocabs?.length > 0
+                    }
+                />
             </div>
         );
     }
@@ -307,23 +313,13 @@ type TAllVocabListProps = {
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>;
     refForReturnToIndex?: React.RefObject<HTMLHeadingElement>;
-    hash: string;
 };
 function AllVocabList({
     allGenres: vocabGenres,
     allVocabs,
     criteriaRef,
     refForReturnToIndex,
-    hash,
 }: TAllVocabListProps) {
-    useEffect(() => {
-        if (hash && vocabGenres?.length > 0 && allVocabs?.length > 0) {
-            void document
-                .getElementById(hash.replace("#", ""))
-                ?.scrollIntoView(true);
-        }
-    }, [hash, vocabGenres, allVocabs]);
-
     return (
         <>
             <hr />
