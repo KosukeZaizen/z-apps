@@ -119,7 +119,7 @@ const Articles = (props: Props) => {
     }, [pageName]);
 
     useEffect(() => {
-        setIndexLi(getIndex(content, pageName, history));
+        setIndexLi(getIndex(content, pageName));
     }, [content, pageName]);
 
     return (
@@ -447,11 +447,7 @@ export function ArticleContent({
     );
 }
 
-export function getIndex(
-    content: string,
-    pageName: string,
-    history?: { push: (url: string) => void }
-) {
+export function getIndex(content: string, pageName: string) {
     return content
         .split("\n")
         .filter(c => c.includes("##") && !c.includes("###"))

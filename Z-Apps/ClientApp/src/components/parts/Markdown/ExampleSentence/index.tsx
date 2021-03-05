@@ -164,13 +164,11 @@ export function ExampleSentence({
                 </div>
             </div>
             {audioPath && <AudioControl audioPath={audioPath} />}
-            {words?.length > 0 && (
-                <WordList
-                    words={{ [s.lineNumber]: words }}
-                    s={s}
-                    storyId={s.storyId}
-                />
-            )}
+            <WordList
+                words={{ [s.lineNumber]: words }}
+                s={s}
+                storyId={s.storyId}
+            />
         </>
     );
 }

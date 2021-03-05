@@ -18,12 +18,20 @@ export function FolktaleExample({
     const [s, setSentence] = useState<sentence>({
         storyId: 0,
         lineNumber: 0,
-        kanji: "",
-        hiragana: "",
-        romaji: "",
-        english: "",
+        kanji: "Loading...",
+        hiragana: "Loading...",
+        romaji: "Loading...",
+        english: "Loading...",
     });
-    const [words, setWords] = useState<word[]>([]);
+    const [words, setWords] = useState<word[]>([
+        {
+            lineNumber: 0,
+            wordNumber: 0,
+            kanji: "loading...",
+            hiragana: "loading...",
+            english: "loading...",
+        },
+    ]);
 
     useEffect(() => {
         const fetchSentence = async () => {
@@ -35,10 +43,6 @@ export function FolktaleExample({
         };
         storyName && lineNumber && fetchSentence();
     }, [storyName, lineNumber]);
-
-    if (!s.lineNumber) {
-        return <p>Loading...</p>;
-    }
 
     const audioFolder = storyName?.split("--")[0];
     const id = `${storyName}-${s.lineNumber}`;
