@@ -176,6 +176,7 @@ const Articles = (props: Props) => {
                         content={content}
                         adsense={false}
                         isAboutFolktale={isAboutFolktale}
+                        hash={""}
                     />
                 </div>
                 <div

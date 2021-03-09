@@ -11,7 +11,12 @@ export function HashScroll({
 
     useEffect(() => {
         if (allLoadFinished && replacedHash) {
-            void document.getElementById(replacedHash)?.scrollIntoView(true);
+            setTimeout(() => {
+                void document.getElementById(replacedHash)?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+            });
         }
     }, [replacedHash, allLoadFinished]);
 
