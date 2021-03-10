@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { sendClientOpeLog } from "../../../common/functions";
+import { YouTubeAd } from "./YouTubeAd";
 
 export const PopupAd = () => {
     const [isShown, setIsShown] = React.useState(false);
@@ -86,26 +86,7 @@ export const PopupAd = () => {
                     }}
                     onClick={ev => ev.stopPropagation()}
                 >
-                    <a
-                        href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                        onClick={() => {
-                            setTimeout(() => {
-                                sendClientOpeLog("click YouTube channel");
-                            }, 1000);
-                        }}
-                    >
-                        <img
-                            src="https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/ad/ad1.png"
-                            alt="Lingual Ninja YouTube Channel"
-                            style={{
-                                width: adWidth - 60,
-                                height: adWidth - 60,
-                                margin: "7px 0",
-                            }}
-                        />
-                    </a>
+                    <YouTubeAd width={adWidth - 60} />
                     <div
                         onClick={close}
                         style={{ cursor: "pointer", color: "black" }}
