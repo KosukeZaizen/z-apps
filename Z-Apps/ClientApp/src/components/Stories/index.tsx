@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as consts from "../../common/consts";
+import { sendClientOpeLog } from "../../common/functions";
 import "../../css/Stories.css";
 import { TReducers } from "../../store/configureStore";
 import * as storiesStore from "../../store/StoriesStore";
@@ -259,6 +260,7 @@ class Stories extends React.Component<Props, State> {
             location: { hash },
         } = this.props;
 
+        const isSlightlyWide = screenWidth > 600;
         const isWide = screenWidth > 767;
         const isVeryWide = screenWidth > 991;
 
@@ -497,7 +499,13 @@ class Stories extends React.Component<Props, State> {
                             </section>
                         ) : null}
                         {storyDesc.youtube && (
-                            <section style={{ margin: "5px 0 35px" }}>
+                            <section
+                                style={{
+                                    margin: isSlightlyWide
+                                        ? "5px 0 35px"
+                                        : "5px 0 40px",
+                                }}
+                            >
                                 <h2
                                     style={{
                                         ...styleForStoryTitle,
@@ -509,10 +517,9 @@ class Stories extends React.Component<Props, State> {
                                 </h2>
                                 <div
                                     style={{
-                                        backgroundColor:
-                                            screenWidth > 600
-                                                ? "rgb(231, 233, 231)"
-                                                : undefined,
+                                        backgroundColor: isSlightlyWide
+                                            ? "rgb(231, 233, 231)"
+                                            : undefined,
                                         padding: "5px 0",
                                         border: 0,
                                     }}
@@ -542,6 +549,33 @@ class Stories extends React.Component<Props, State> {
                                                 allowFullScreen
                                             ></iframe>
                                         </div>
+                                        <Button
+                                            style={{
+                                                marginTop: 5,
+                                                width: "100%",
+                                            }}
+                                            size="sm"
+                                            color="primary"
+                                        >
+                                            <a
+                                                href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
+                                                target="_blank"
+                                                rel="noopener noreferrer nofollow"
+                                                onClick={() => {
+                                                    setTimeout(() => {
+                                                        sendClientOpeLog(
+                                                            "click YouTube channel",
+                                                            "from folktale video bottom"
+                                                        );
+                                                    }, 1000);
+                                                }}
+                                                style={{ color: "white" }}
+                                            >
+                                                {
+                                                    "Click here to subscribe to this YouTube channel!"
+                                                }
+                                            </a>
+                                        </Button>
                                     </div>
                                 </div>
                             </section>

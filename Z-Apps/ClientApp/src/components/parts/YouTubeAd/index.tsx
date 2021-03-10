@@ -8,7 +8,7 @@ export const YouTubeAd = ({ width }: { width?: number }) => (
         rel="noopener noreferrer nofollow"
         onClick={() => {
             setTimeout(() => {
-                sendClientOpeLog("click YouTube channel");
+                sendClientOpeLog("click YouTube channel", "from popup");
             }, 1000);
         }}
     >

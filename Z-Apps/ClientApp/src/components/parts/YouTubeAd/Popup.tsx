@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { YouTubeAd } from "./YouTubeAd";
+import { YouTubeAd } from ".";
 
 export const PopupAd = () => {
     const [isShown, setIsShown] = React.useState(false);

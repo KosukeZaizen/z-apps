@@ -7,7 +7,7 @@ import * as commonFncs from "./common/functions";
 import FooterAnimation from "./components/parts/Animations/FooterAnimation";
 import ShurikenProgress from "./components/parts/Animations/ShurikenProgress";
 import Layout from "./components/parts/Layout";
-import { PopupAd } from "./components/parts/PopupAd";
+import { PopupAd } from "./components/parts/YouTubeAd/Popup";
 import { APP_VERSION } from "./version";
 
 const Home = lazy(() => import("./components/Home"));
