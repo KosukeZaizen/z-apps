@@ -24,7 +24,7 @@ export const PopupAd = () => {
                 return;
             }
             body.onscroll = showAd;
-        }, 15 * 1000);
+        }, 30 * 1000);
     }, []);
 
     const maxWidth = 500;
