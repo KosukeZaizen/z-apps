@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Button } from "reactstrap";
+import { cFetch } from "../../common/util/cFetch";
 import Head from "../parts/Helmet";
 type Props = {
     location: { pathname: string };
@@ -53,13 +54,12 @@ class Dictionary extends React.Component<Props, State> {
         const getData = async () => {
             try {
                 const url = `api/Wiki/GetEnglishWordAndSnippet?word=${this.state.word}`;
-                const response = await fetch(url);
-                const {
-                    xml,
-                    wordId,
-                    snippet,
-                    translatedWord,
-                } = await response.json();
+                const res = await cFetch(url);
+
+                const { response, noindex } = await res.json();
+                const { xml, wordId, snippet, translatedWord } = JSON.parse(
+                    response
+                );
 
                 this.setState({
                     wordId,
