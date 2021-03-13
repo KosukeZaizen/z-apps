@@ -76,8 +76,8 @@ namespace Z_Apps.Models.StoriesEdit
 
         public class TranslationResult
         {
-            public SentenceEdit sentence;
-            public IEnumerable<WordEdit> words;
+            public SentenceEdit sentence { get; set; }
+            public IEnumerable<WordEdit> words { get; set; }
         }
 
         public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence)

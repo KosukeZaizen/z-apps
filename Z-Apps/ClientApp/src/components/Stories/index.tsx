@@ -774,7 +774,8 @@ function Sentences({
             ) : (
                 sentences &&
                 sentences.map(s => {
-                    const articlesForSentence = articles[s.lineNumber];
+                    const articlesForSentence =
+                        articles && articles[s.lineNumber];
                     return (
                         <div
                             key={s.lineNumber}

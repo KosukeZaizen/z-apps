@@ -6,25 +6,22 @@ using System.Linq;
 using Z_Apps.Util;
 using System;
 using Microsoft.EntityFrameworkCore.Internal;
+using Z_Apps.Models.Articles;
+using System.Text.Json;
 
-namespace Z_Apps.Controllers {
-    public class Article {
-        public string url;
-        public string title;
-        public string description;
-        public string articleContent;
-        public string imgPath;
-        public bool released;
-        public bool isAboutFolktale;
-    }
+namespace Z_Apps.Controllers
+{
 
     [Route("api/[controller]")]
-    public class ArticlesController : Controller {
+    public class ArticlesController : Controller
+    {
 
         [HttpGet("[action]/")]
-        public Article GetArticle(string p) {
+        public Article GetArticle(string p)
+        {
 
-            return ApiCache.UseCache(p, () => {
+            return ApiCache.UseCache(p, () =>
+            {
 
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
@@ -35,13 +32,15 @@ AND title != N'folktale'
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
                 ).FirstOrDefault();
 
-                if (result == null) {
+                if (result == null)
+                {
                     // 1件もデータがなければ、
                     // フロントから不正なパラメータが来ている可能性があるためエラー
                     throw new Exception();
                 }
 
-                return new Article() {
+                return new Article()
+                {
                     title = (string)result["title"],
                     description = (string)result["description"],
                     articleContent = (string)result["articleContent"],
@@ -52,38 +51,26 @@ AND title != N'folktale'
         }
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetAllArticles(bool isAboutFolktale = false) {
+        public IEnumerable<Article> GetAllArticles(bool isAboutFolktale = false)
+        {
 
-            return ApiCache.UseCache(isAboutFolktale ? "true" : "false", () => {
+            ArticlesService articleService = new ArticlesService();
 
-                var con = new DBCon();
-                var result = con.ExecuteSelect(@"
-SELECT url, title, description, imgPath
-FROM tblArticles 
-WHERE released = 1 and isAboutFolktale = @isAboutFolktale
-AND title != N'folktale'
-ORDER BY orderNumber DESC
-",
-                            new Dictionary<string, object[]> {
-                            { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
-                            }
-                     );
-
-                return result.Select(r => new Article() {
-                    url = (string)r["url"],
-                    title = (string)r["title"],
-                    description = (string)r["description"],
-                    imgPath = (string)r["imgPath"],
-                }
+            var res = ApiCache.UseCache(
+                isAboutFolktale ? "true" : "false",
+                () => articleService.GetAllArticles(isAboutFolktale)
                 );
-            });
+
+            return res;
         }
 
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetNewArticles(bool isAboutFolktale = false, int num = 5) {
+        public IEnumerable<Article> GetNewArticles(bool isAboutFolktale = false, int num = 5)
+        {
 
-            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num, () => {
+            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num, () =>
+            {
 
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
@@ -98,7 +85,8 @@ ORDER BY orderNumber DESC
                             }
                      );
 
-                return result.Select(r => new Article() {
+                return result.Select(r => new Article()
+                {
                     url = (string)r["url"],
                     title = (string)r["title"],
                     description = (string)r["description"],
@@ -109,11 +97,14 @@ ORDER BY orderNumber DESC
 
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetRandomArticles(bool isAboutFolktale = false, int num = 5, IEnumerable<string> wordsToExclude = null) {
+        public IEnumerable<Article> GetRandomArticles(bool isAboutFolktale = false, int num = 5, IEnumerable<string> wordsToExclude = null)
+        {
 
-            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num + wordsToExclude.Join(), () => {
+            return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num + string.Join("", wordsToExclude), () =>
+            {
 
-                if (wordsToExclude == null) {
+                if (wordsToExclude == null)
+                {
                     wordsToExclude = new List<string>();
                 }
 
@@ -130,7 +121,8 @@ ORDER BY orderNumber DESC
                             }
                      );
 
-                return result.Select(r => new Article() {
+                return result.Select(r => new Article()
+                {
                     url = (string)r["url"],
                     title = (string)r["title"],
                     description = (string)r["description"],
@@ -140,7 +132,8 @@ ORDER BY orderNumber DESC
         }
 
         [HttpGet("[action]/")]
-        public Article GetArticleForEdit(string p) {
+        public Article GetArticleForEdit(string p)
+        {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
 SELECT title, description, articleContent, released, isAboutFolktale
@@ -149,13 +142,15 @@ WHERE url = @p
 ", new Dictionary<string, object[]> { { "@p", new object[2] { SqlDbType.NVarChar, p } } }
             ).FirstOrDefault();
 
-            if (result == null) {
+            if (result == null)
+            {
                 // 1件もデータがなければ、
                 // フロントから不正なパラメータが来ている可能性があるためエラー
                 throw new Exception();
             }
 
-            return new Article() {
+            return new Article()
+            {
                 title = (string)result["title"],
                 description = (string)result["description"],
                 articleContent = (string)result["articleContent"],
@@ -165,7 +160,8 @@ WHERE url = @p
         }
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetAllArticlesForEdit() {
+        public IEnumerable<Article> GetAllArticlesForEdit()
+        {
             var con = new DBCon();
             var result = con.ExecuteSelect(@"
 SELECT url, title, description, released, isAboutFolktale
@@ -173,7 +169,8 @@ FROM tblArticles
 ORDER BY orderNumber DESC
 ", null);
 
-            var articles = result.Select(r => new Article() {
+            var articles = result.Select(r => new Article()
+            {
                 url = (string)r["url"],
                 title = (string)r["title"],
                 description = (string)r["description"],
@@ -185,16 +182,20 @@ ORDER BY orderNumber DESC
         }
 
         [HttpPost("[action]/")]
-        public string AddNewUrl(string url, string token) {
-            if (token != PrivateConsts.REGISTER_PASS) {
+        public string AddNewUrl(string url, string token)
+        {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
                 return "Password is wrong";
             }
 
-            if (url.Length <= 0) {
+            if (url.Length <= 0)
+            {
                 return "Url is empty";
             }
 
-            try {
+            try
+            {
                 var con = new DBCon();
 
                 string sql = "INSERT INTO tblArticles(url) VALUES (@url);";
@@ -202,10 +203,13 @@ ORDER BY orderNumber DESC
                 bool result = con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
                     { "@url", new object[2] { SqlDbType.NVarChar, url } } });
 
-                if (!result) {
+                if (!result)
+                {
                     return "Failed to register";
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return "Something is wrong";
             }
 
@@ -215,12 +219,15 @@ ORDER BY orderNumber DESC
 
         [HttpPost("[action]/")]
         public string UpdateContents(string url, string token, string title, string description,
-            string articleContent, string imgPath, bool isAboutFolktale) {
-            if (token != PrivateConsts.REGISTER_PASS) {
+            string articleContent, string imgPath, bool isAboutFolktale)
+        {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
                 return "Password is wrong";
             }
 
-            try {
+            try
+            {
                 var con = new DBCon();
 
                 string sql = @"
@@ -242,10 +249,13 @@ WHERE  url = @url;
                     { "@isAboutFolktale", new object[2] { SqlDbType.Bit, isAboutFolktale } }
                 });
 
-                if (!result) {
+                if (!result)
+                {
                     return "Failed to register";
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return "Something is wrong";
             }
 
@@ -253,12 +263,15 @@ WHERE  url = @url;
         }
 
         [HttpPost("[action]/")]
-        public string Register(string url, string token) {
-            if (token != PrivateConsts.REGISTER_PASS) {
+        public string Register(string url, string token)
+        {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
                 return "Password is wrong";
             }
 
-            try {
+            try
+            {
                 var con = new DBCon();
 
                 string sql = @"
@@ -271,10 +284,13 @@ WHERE  url = @url;
                     { "@url", new object[2] { SqlDbType.NVarChar, url } },
                 });
 
-                if (!result) {
+                if (!result)
+                {
                     return "Failed to register";
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return "Something is wrong";
             }
 
@@ -282,12 +298,15 @@ WHERE  url = @url;
         }
 
         [HttpPost("[action]/")]
-        public string Hide(string url, string token) {
-            if (token != PrivateConsts.REGISTER_PASS) {
+        public string Hide(string url, string token)
+        {
+            if (token != PrivateConsts.REGISTER_PASS)
+            {
                 return "Password is wrong";
             }
 
-            try {
+            try
+            {
                 var con = new DBCon();
 
                 string sql = @"
@@ -300,10 +319,13 @@ WHERE  url = @url;
                     { "@url", new object[2] { SqlDbType.NVarChar, url } },
                 });
 
-                if (!result) {
+                if (!result)
+                {
                     return "Failed to hide";
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return "Something is wrong";
             }
 

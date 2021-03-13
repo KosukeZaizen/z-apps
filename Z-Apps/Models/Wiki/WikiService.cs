@@ -56,10 +56,10 @@ public class WikiService {
     [DataContract]
     class Data {
         [DataMember]
-        public int? wordId;
+        public int? wordId { get; set; }
 
         [DataMember]
-        public string snippet;
+        public string snippet { get; set; }
     }
     class DictionaryResult {
         public int? wordId { get; set; }

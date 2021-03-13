@@ -117,7 +117,7 @@ namespace Z_Apps.Util {
                 url = "ApiCache",
                 operationName = "ApiCache DeleteOldCache",
                 userId = "ApiCache",
-                parameters = "Removed: " + removedCache.Join(", ")
+                parameters = "Removed: " + string.Join(", ", removedCache)
             });
         }
 

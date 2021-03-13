@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Z_Apps.Controllers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace Z_Apps {
 
@@ -33,7 +34,7 @@ namespace Z_Apps {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => {
@@ -54,7 +55,7 @@ namespace Z_Apps {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DBCon con, SiteMapService siteMapService) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DBCon con, SiteMapService siteMapService) {
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
@@ -296,10 +297,9 @@ namespace Z_Apps {
                 }
             });
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+            app.UseRouting();
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa => {

@@ -85,10 +85,10 @@ namespace Z_Apps.Controllers
         }
         public class DataToBeSaved
         {
-            public IEnumerable<WordEdit> words;
-            public IEnumerable<SentenceEdit> sentences;
-            public StoryEdit storyDesc;
-            public string token;
+            public IEnumerable<WordEdit> words { get; set; }
+            public IEnumerable<SentenceEdit> sentences { get; set; }
+            public StoryEdit storyDesc { get; set; }
+            public string token { get; set; }
         }
 
         [HttpPost("[action]")]
@@ -98,10 +98,10 @@ namespace Z_Apps.Controllers
         }
         public class DataToBeRegistered
         {
-            public IEnumerable<Word> words;
-            public IEnumerable<Sentence> sentences;
-            public Story storyDesc;
-            public string token;
+            public IEnumerable<Word> words { get; set; }
+            public IEnumerable<Sentence> sentences { get; set; }
+            public Story storyDesc { get; set; }
+            public string token { get; set; }
         }
     }
 }

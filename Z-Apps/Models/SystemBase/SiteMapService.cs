@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using Z_Apps.Util;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Controllers;
+using Z_Apps.Models.Articles;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -100,9 +101,9 @@ namespace Z_Apps.Models.SystemBase
                         lstSitemap.Add(articleTopDic);
 
                         //Articlesの各記事
-                        var articlesController = new ArticlesController();
-                        var allArticles = articlesController.GetAllArticles(true)
-                                    .Concat(articlesController.GetAllArticles(false));
+                        var articlesService = new ArticlesService();
+                        var allArticles = articlesService.GetAllArticles(true)
+                                    .Concat(articlesService.GetAllArticles(false));
 
                         foreach (var article in allArticles)
                         {

@@ -24,8 +24,8 @@ namespace Z_Apps.Controllers {
             });
         }
         public class GenreAndVocab {
-            public VocabGenre vocabGenre;
-            public IEnumerable<Vocab> vocabList;
+            public VocabGenre vocabGenre { get; set; }
+            public IEnumerable<Vocab> vocabList { get; set; }
         }
 
         [HttpGet("[action]")]

@@ -26,8 +26,8 @@ namespace Z_Apps.Controllers {
             return result;
         }
         public class DataToBeRegistered {
-            public IEnumerable<Dictionary<string, string>> sitemap;
-            public string token;
+            public IEnumerable<Dictionary<string, string>> sitemap { get; set; }
+            public string token { get; set; }
         }
     }
 }

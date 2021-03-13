@@ -87,12 +87,12 @@ namespace Z_Apps.Models.Stories {
         }
 
         public class WordsAndArticles {
-            public Dictionary<int, List<Word>> words;
-            public Dictionary<int, List<ArticleUrlAndTitle>> articles;
+            public Dictionary<int, List<Word>> words { get; set; }
+            public Dictionary<int, List<ArticleUrlAndTitle>> articles { get; set; }
         }
         public class ArticleUrlAndTitle {
-            public string url;
-            public string title;
+            public string url { get; set; }
+            public string title { get; set; }
         }
         public WordsAndArticles GetWordsAndArticles(int storyId) {
             var words = wordManager.GetWords(storyId);

@@ -9,7 +9,7 @@ using Z_Apps.Models;
 using System.Linq;
 using static Z_Apps.Models.Stories.StoriesService;
 using Z_Apps.Util;
-using System;
+
 
 namespace Z_Apps.Controllers {
     [Route("api/[controller]")]
@@ -62,8 +62,8 @@ namespace Z_Apps.Controllers {
         }
 
         public class OneSnetenceAndWords {
-            public Sentence sentence;
-            public IEnumerable<Word> words;
+            public Sentence sentence { get; set; }
+            public IEnumerable<Word> words { get; set; }
         }
         [HttpGet("[action]/{storyName?}/{lineNumber?}")]
         public OneSnetenceAndWords GetOneSentence(string storyName, int lineNumber) {
