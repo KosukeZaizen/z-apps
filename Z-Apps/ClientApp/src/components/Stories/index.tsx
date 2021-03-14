@@ -549,33 +549,33 @@ class Stories extends React.Component<Props, State> {
                                                 allowFullScreen
                                             ></iframe>
                                         </div>
-                                        <Button
-                                            style={{
-                                                marginTop: 5,
-                                                width: "100%",
+                                        <a
+                                            href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
+                                            target="_blank"
+                                            rel="noopener noreferrer nofollow"
+                                            onClick={() => {
+                                                setTimeout(() => {
+                                                    sendClientOpeLog(
+                                                        "click YouTube channel",
+                                                        "from folktale video bottom"
+                                                    );
+                                                }, 1000);
                                             }}
-                                            size="sm"
-                                            color="primary"
+                                            style={{ color: "white" }}
                                         >
-                                            <a
-                                                href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-                                                target="_blank"
-                                                rel="noopener noreferrer nofollow"
-                                                onClick={() => {
-                                                    setTimeout(() => {
-                                                        sendClientOpeLog(
-                                                            "click YouTube channel",
-                                                            "from folktale video bottom"
-                                                        );
-                                                    }, 1000);
+                                            <Button
+                                                style={{
+                                                    marginTop: 5,
+                                                    width: "100%",
                                                 }}
-                                                style={{ color: "white" }}
+                                                size="sm"
+                                                color="primary"
                                             >
                                                 {
                                                     "Click here to subscribe to this YouTube channel!"
                                                 }
-                                            </a>
-                                        </Button>
+                                            </Button>
+                                        </a>
                                     </div>
                                 </div>
                             </section>
