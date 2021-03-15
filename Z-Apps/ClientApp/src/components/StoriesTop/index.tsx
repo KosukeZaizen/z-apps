@@ -15,7 +15,7 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
-import GoogleAd from "../parts/GoogleAd";
+//import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import PleaseScrollDown from "../parts/PleaseScrollDown";
@@ -353,7 +353,7 @@ I hope this application helps you to study Japanese!
                 </main>
                 <FB />
                 <br />
-                <GoogleAd />
+                {/* <GoogleAd /> */}
                 <PleaseScrollDown
                     criteriaRef={this.ref}
                     screenWidth={screenWidth}

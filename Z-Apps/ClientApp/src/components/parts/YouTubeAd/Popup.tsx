@@ -12,7 +12,8 @@ export const PopupAd = () => {
                 if (savedDate) {
                     const date = new Date(savedDate);
                     const dif = new Date().getTime() - date.getTime();
-                    if (dif < 1000 * 60 * 60 * 24) {
+                    if (dif < 1000 * 60 * 60 * 24 * 14) {
+                        // ２週間出さない
                         return;
                     }
                 }

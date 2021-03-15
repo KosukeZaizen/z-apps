@@ -1,7 +1,7 @@
 import React from "react";
 import { sendClientOpeLog } from "../../../common/functions";
 
-export const YouTubeAd = ({ width }: { width?: number }) => (
+export const YouTubeAd = ({ width }: { width?: number | string }) => (
     <a
         href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
         target="_blank"
@@ -17,7 +17,7 @@ export const YouTubeAd = ({ width }: { width?: number }) => (
             alt="Lingual Ninja YouTube Channel"
             style={{
                 width: width || "100%",
-                height: width || "100%",
+                height: "auto",
                 margin: "7px 0",
             }}
         />

@@ -9,12 +9,13 @@ import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-import GoogleAd from "../parts/GoogleAd";
+// import GoogleAd from "../parts/GoogleAd";
 import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
+import { YouTubeAd } from "../parts/YouTubeAd";
 import { StoriesList } from "../StoriesTop/StoriesList";
 import "./style.css";
 import { ArticlesList } from "./Top";
@@ -137,7 +138,7 @@ const Articles = (props: Props) => {
                 isAboutFolktale={isAboutFolktale}
                 hash={hash}
             />
-            <GoogleAd />
+            {/* <GoogleAd /> */}
             <SeasonAnimation frequencySec={2} screenWidth={width} />
         </div>
     );
@@ -348,13 +349,19 @@ export function ArticleContent({
                             )}
                         </div>
                     </ScrollBox>
-                    {adsense ? (
-                        <GoogleAd style={{ flex: 1 }} />
-                    ) : (
-                        <aside
-                            style={{ flex: 1, backgroundColor: "gray" }}
-                        ></aside>
-                    )}
+                    <div
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: "center",
+                            marginTop: isWide ? undefined : 25,
+                        }}
+                    >
+                        <YouTubeAd width={isWide ? "90%" : undefined} />
+                    </div>
                 </div>
                 {content ? (
                     <Markdown

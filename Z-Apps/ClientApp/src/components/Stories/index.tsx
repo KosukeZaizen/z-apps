@@ -16,7 +16,7 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
-import GoogleAd from "../parts/GoogleAd";
+// import GoogleAd from "../parts/GoogleAd";
 import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
@@ -24,6 +24,7 @@ import { PointBox } from "../parts/Markdown/PointBox";
 import "../parts/PleaseScrollDown.css";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
+import { YouTubeAd } from "../parts/YouTubeAd";
 import { StoriesList } from "../StoriesTop/StoriesList";
 import { AudioControl } from "./AudioControl";
 import { WordList } from "./WordList";
@@ -360,7 +361,17 @@ class Stories extends React.Component<Props, State> {
                         )}
                     </div>
                 </ScrollBox>
-                <GoogleAd style={{ flex: 1 }} />
+                <div
+                    style={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <YouTubeAd width={isVeryWide ? "80%" : "90%"} />
+                </div>
             </div>
         );
 
@@ -664,8 +675,6 @@ class Stories extends React.Component<Props, State> {
                             />
                         </div>
                         <hr />
-                        <GoogleAd />
-                        <hr />
                         <section>
                             <h2
                                 style={{
@@ -728,8 +737,6 @@ class Stories extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                     />
                     <FB />
-                    <br />
-                    <GoogleAd />
                     <PleaseScrollDown
                         pleaseScrollDown={pleaseScrollDown}
                         screenWidth={screenWidth}
