@@ -7,7 +7,6 @@ using Z_Apps.Util;
 using System;
 using Microsoft.EntityFrameworkCore.Internal;
 using Z_Apps.Models.Articles;
-using System.Text.Json;
 
 namespace Z_Apps.Controllers
 {
@@ -53,7 +52,6 @@ AND title != N'folktale'
         [HttpGet("[action]/")]
         public IEnumerable<Article> GetAllArticles(bool isAboutFolktale = false)
         {
-
             ArticlesService articleService = new ArticlesService();
 
             var res = ApiCache.UseCache(
