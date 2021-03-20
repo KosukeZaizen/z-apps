@@ -96,6 +96,96 @@ namespace Z_Apps.Util {
         }
 
 
+
+        public static async Task<Result> UseCacheAsync<Result>(string param, Func<Task<Result>> action) where Result : class
+        {
+
+            // StackFrameクラスをインスタンス化する
+            StackFrame objStackFrame = new StackFrame(1);// フレーム数1なら直接呼び出したメソッド
+
+            // 呼び出し元のクラス名を取得する
+            string strClassName = objStackFrame.GetMethod().ReflectedType.FullName;
+            // 呼び出し元のメソッド名を取得する
+            string strMethodName = objStackFrame.GetMethod().Name;
+
+
+            if (
+                Cache.ContainsKey(strClassName)
+                && Cache[strClassName].ContainsKey(strMethodName)
+                && Cache[strClassName][strMethodName].ContainsKey(param)
+                )
+            {
+                //キャッシュ登録済み
+                var task = Task.Run(async () => {
+                    await Task.Delay(5000);
+                    Cache[strClassName][strMethodName][param] = new CacheData()
+                    {
+                        CachedDate = DateTime.Now,
+                        Data = await action()
+                    };
+                });
+
+                return (Result)Cache[strClassName][strMethodName][param]?.Data;
+            }
+
+
+            //キャッシュ未登録
+            Result result = await action();
+
+            if (result == null || "".Equals(result))
+            {
+                return result;
+            }
+
+            var t = Task.Run(async () => {
+                await Task.Delay(3000);
+
+                var dicParam = new Dictionary<string, CacheData>{
+                    {
+                        param,
+                        new CacheData(){
+                            CachedDate = DateTime.Now,
+                            Data = result
+                        }
+                    }
+                };
+
+
+                if (!Cache.ContainsKey(strClassName))
+                {
+                    // クラス名未登録
+                    Cache.Add(strClassName, new Dictionary<string, Dictionary<string, CacheData>>{
+                        { strMethodName, dicParam }
+                    });
+                }
+                else
+                {
+                    if (!Cache[strClassName].ContainsKey(strMethodName))
+                    {
+                        // メソッド名未登録
+                        Cache[strClassName].Add(strMethodName, dicParam);
+                    }
+                    else
+                    {
+                        // メソッド名登録済み（パラメータが未登録）
+                        if (Cache[strClassName][strMethodName].Count < 10000)
+                        {
+                            // 1つのメソッドに対して登録可能なパラメータは10000種類までとする
+                            Cache[strClassName][strMethodName].Add(param, new CacheData()
+                            {
+                                CachedDate = DateTime.Now,
+                                Data = result
+                            });
+                        }
+                    }
+                }
+            });
+
+            return result;
+        }
+
+
+
         public static void DeleteOldCache() {
 
             var removedCache = new List<string>() { };

@@ -92,40 +92,9 @@ namespace Z_Apps
                 {
                     context.Response.Headers.Add("Content-Type", "application/xml");
 
-                    if (siteMapService.sitemapChunks == null || siteMapService.sitemapChunks.Count() <= 0)
-                    {
-                        await context.Response.WriteAsync(
-                            await siteMapService.GetSiteMapText(false, 0)
-                        );
-                    }
-                    else
-                    {
-                        var task = Task.Run(async () =>
-                        {
-                            await Task.Delay(5 * 1000);// 5秒
-                            await siteMapService.GetSiteMapText(false, 0);
-                        });
-
-                        await context.Response.WriteAsync(
-                            siteMapService.GetSitemapWithoutStorageFromCache()
-                        );
-                    }
-
-                }
-                else if (Regex.IsMatch(url, "sitemap[1-9][0-9]*.xml"))
-                {
-                    int number = Int32.Parse(Regex.Replace(url, @"[^0-9]", ""));
-                    string resultXML = await siteMapService.GetSiteMapText(false, number);
-                    context.Response.Headers.Add("Content-Type", "application/xml");
-
-                    var task = Task.Run(async () =>
-                    {
-                        await Task.Delay(5 * 1000);// 5秒
-                        await siteMapService.GetSiteMapText(false, 0);
-                    });
-
-                    await context.Response.WriteAsync(resultXML);
-
+                    await context.Response.WriteAsync(
+                        await siteMapService.GetSiteMapText()
+                    );
                 }
                 else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))
                 {

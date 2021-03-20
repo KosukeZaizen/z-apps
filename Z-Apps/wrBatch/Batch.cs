@@ -23,7 +23,9 @@ namespace Z_Apps.wrBatch {
 
                     await Task.Delay(1000 * 60 * 60 * 24);//１日待機
 
-                } catch (Exception ex) { }
+                } catch (Exception ex) {
+                    ErrorLog.InsertErrorLog(ex.Message);
+                }
             }
         }
 
