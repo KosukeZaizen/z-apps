@@ -236,7 +236,12 @@ class Dictionary extends React.Component<Props, State> {
 
         return (
             <div className="center">
-                <Head title={title} desc={snippet} noindex={noindex} />
+                <Head
+                    title={title}
+                    desc={snippet}
+                    // noindex={noindex}
+                    noindex
+                />
                 <div style={{ maxWidth: 900 }}>
                     <div
                         className="breadcrumbs"
