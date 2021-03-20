@@ -144,7 +144,8 @@ const Articles = (props: Props) => {
     );
 };
 
-export const excludedArticleTitles = ["Kamikaze"];
+// export const excludedArticleTitles = ["Kamikaze"];
+export const excludedArticleTitles = [];
 
 interface ArticleContentProps {
     pageName: string;
@@ -259,7 +260,7 @@ export function ArticleContent({
                             }}
                         >
                             <span itemProp="name">
-                                {"Articles about Japan"}
+                                {"Articles about Japanese"}
                             </span>
                             <meta itemProp="position" content="2" />
                         </Link>

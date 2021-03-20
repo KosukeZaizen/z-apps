@@ -35,8 +35,8 @@ const Ninja1 = lazy(() => import("./components/NinjaGame"));
 const Ninja2 = lazy(() => import("./components/NinjaGame2"));
 const Ninja3 = lazy(() => import("./components/NinjaGame3"));
 const GameOver = lazy(() => import("./components/GameOver"));
-const Dictionary = lazy(() => import("./components/Dictionary"));
-const DictionaryTop = lazy(() => import("./components/Dictionary/Top"));
+// const Dictionary = lazy(() => import("./components/Dictionary"));
+// const DictionaryTop = lazy(() => import("./components/Dictionary/Top"));
 const DictionaryEdit = lazy(() => import("./components/Dictionary/Edit"));
 const DictionaryExclude = lazy(() => import("./components/Dictionary/Exclude"));
 const Articles = lazy(() => import("./components/Articles"));
@@ -169,7 +169,7 @@ export default class App extends React.Component {
                             path="/game-over"
                             component={GameOver}
                         />
-                        <Route
+                        {/* <Route
                             sensitive
                             exact
                             path="/dictionary"
@@ -180,7 +180,7 @@ export default class App extends React.Component {
                             exact
                             path="/dictionary/:word"
                             component={Dictionary}
-                        />
+                        /> */}
                         <Route
                             sensitive
                             exact

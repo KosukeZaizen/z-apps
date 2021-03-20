@@ -53,7 +53,7 @@ const ArticlesTop = () => {
         }
     }, []);
 
-    const title = "Articles about Japan";
+    const title = "Articles about Japanese";
     const description =
         "Articles about studying Japanese language and culture! I hope these articles help you to learn about Japan!";
 

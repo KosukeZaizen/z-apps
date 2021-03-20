@@ -175,10 +175,17 @@ export default class Home extends React.Component<
                                     </Button>
                                 </Card>
                             </Link>
+                        </div>
 
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: isWide ? "row" : "column",
+                            }}
+                        >
                             <Link
                                 to="/vocabulary-quiz"
-                                style={{ margin: cardMargin }}
+                                style={{ margin: cardMargin, flex: 1 }}
                             >
                                 <Card
                                     body
@@ -202,14 +209,7 @@ export default class Home extends React.Component<
                                     </Button>
                                 </Card>
                             </Link>
-                        </div>
 
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: isWide ? "row" : "column",
-                            }}
-                        >
                             <Link
                                 to="/kanji-quiz"
                                 style={{ margin: cardMargin, flex: 1 }}
@@ -322,33 +322,6 @@ export default class Home extends React.Component<
                                     </Button>
                                 </Card>
                             </Link>
-
-                            <Link
-                                to="/dictionary"
-                                style={{ margin: cardMargin, flex: 1 }}
-                            >
-                                <Card
-                                    body
-                                    style={{
-                                        backgroundColor: "#333",
-                                        borderColor: "#333",
-                                        color: "white",
-                                        height: "100%",
-                                    }}
-                                >
-                                    <CardTitle>Japanese Dictionary</CardTitle>
-                                    <CardText>
-                                        A web app to learn the meaning of
-                                        Japanese words!
-                                    </CardText>
-                                    <Button
-                                        color="secondary"
-                                        style={{ marginTop: "auto" }}
-                                    >
-                                        Try!
-                                    </Button>
-                                </Card>
-                            </Link>
                         </div>
                     </div>
                 </div>
@@ -379,7 +352,7 @@ export default class Home extends React.Component<
                                 fontSize: "xx-large",
                             }}
                         >
-                            {"More articles about Japan >>"}
+                            {"More articles about Japanese >>"}
                         </Link>
                     </div>
                 </section>
