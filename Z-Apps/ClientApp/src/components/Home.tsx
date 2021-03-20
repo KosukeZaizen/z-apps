@@ -57,7 +57,7 @@ export default class Home extends React.Component<
     }
 
     fetchArticles = async () => {
-        const url = "api/Articles/GetNewArticles";
+        const url = "api/Articles/GetNewArticles?num=10";
         const response: Response = await cFetch(url);
         const articles: Page[] = await response.json();
 
