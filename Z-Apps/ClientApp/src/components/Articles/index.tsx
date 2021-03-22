@@ -9,7 +9,6 @@ import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-// import GoogleAd from "../parts/GoogleAd";
 import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
@@ -136,10 +135,10 @@ const Articles = (props: Props) => {
                 content={content}
                 adsense={true}
                 isAboutFolktale={isAboutFolktale}
-                hash={hash}
             />
             {/* <GoogleAd /> */}
             <SeasonAnimation frequencySec={2} screenWidth={width} />
+            <HashScroll hash={hash} allLoadFinished={indexLi.length > 0} />
         </div>
     );
 };
@@ -157,7 +156,6 @@ interface ArticleContentProps {
     indexLi: JSX.Element[];
     content: string;
     adsense: boolean;
-    hash: string;
 }
 export function ArticleContent({
     pageName,
@@ -167,9 +165,8 @@ export function ArticleContent({
     width,
     indexLi,
     content,
-    adsense,
+    //adsense,
     isAboutFolktale,
-    hash,
 }: ArticleContentProps) {
     const [otherArticles, setOtherArticles] = useState<Page[]>([]);
     const [folktales, setFolktales] = useState<storyDesc[]>([]);
@@ -453,7 +450,6 @@ export function ArticleContent({
                 <FolktaleMenu screenWidth={width} style={{ marginTop: 45 }} />
             </section>
             <FB />
-            <HashScroll hash={hash} allLoadFinished={folktales.length > 0} />
         </main>
     );
 }
