@@ -463,7 +463,18 @@ export function getIndex(content: string, pageName: string) {
             const encodedUrl = encodeURIComponent(linkText);
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <a href={`/articles/${pageName}#${encodedUrl}`}>
+                    <a
+                        href={`/articles/${pageName}#${encodedUrl}`}
+                        onClick={e => {
+                            e.preventDefault();
+                            document
+                                .getElementById(encodedUrl)
+                                ?.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                });
+                        }}
+                    >
                         {linkText}
                     </a>
                 </li>
