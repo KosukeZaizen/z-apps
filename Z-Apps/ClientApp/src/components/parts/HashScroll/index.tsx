@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { sleepAsync } from "../../../common/functions";
 
 /**
  * ページ内遷移を実現する
@@ -20,19 +21,30 @@ export function HashScroll({
             if (!target) {
                 return;
             }
-            const scroll = (count: number) => {
-                if (count > 30) {
-                    return;
-                }
-                void target.scrollIntoView(true);
-                setTimeout(() => {
-                    const { top } = target.getBoundingClientRect();
-                    if (top > 10 || top < -10) {
-                        scroll(count + 1);
+            const scrollToTarget = async () => {
+                void target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+
+                let count = 0;
+                let top = 100;
+                while (count < 30 && (top > 10 || top < -10)) {
+                    await sleepAsync(300);
+
+                    const newTop = target.getBoundingClientRect().top;
+
+                    if (top === newTop) {
+                        void target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
                     }
-                }, 300);
+                    top = newTop;
+                    count++;
+                }
             };
-            scroll(0);
+            scrollToTarget();
         }
     }, [replacedHash, allLoadFinished]);
 
