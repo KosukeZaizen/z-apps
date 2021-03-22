@@ -40,7 +40,7 @@ export function getImgNumber(num: number = 0) {
 interface Props {
     match: { params: { pageName: string } };
     history: { push: (url: string) => void };
-    location: { hash: string };
+    location: Location;
 }
 const Articles = (props: Props) => {
     const {
@@ -48,7 +48,7 @@ const Articles = (props: Props) => {
             params: { pageName },
         },
         history,
-        location: { hash },
+        location,
     } = props;
 
     const [title, setTitle] = useState<Page["title"]>("");
@@ -138,7 +138,10 @@ const Articles = (props: Props) => {
             />
             {/* <GoogleAd /> */}
             <SeasonAnimation frequencySec={2} screenWidth={width} />
-            <HashScroll hash={hash} allLoadFinished={indexLi.length > 0} />
+            <HashScroll
+                allLoadFinished={indexLi.length > 0}
+                location={location}
+            />
         </div>
     );
 };
@@ -463,20 +466,9 @@ export function getIndex(content: string, pageName: string) {
             const encodedUrl = encodeURIComponent(linkText);
             return (
                 <li key={linkText} style={{ marginTop: 10, marginBottom: 5 }}>
-                    <a
-                        href={`/articles/${pageName}#${encodedUrl}`}
-                        onClick={e => {
-                            e.preventDefault();
-                            document
-                                .getElementById(encodedUrl)
-                                ?.scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "start",
-                                });
-                        }}
-                    >
+                    <Link to={`/articles/${pageName}#${encodedUrl}`}>
                         {linkText}
-                    </a>
+                    </Link>
                 </li>
             );
         });

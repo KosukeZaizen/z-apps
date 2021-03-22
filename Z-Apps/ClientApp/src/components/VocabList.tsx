@@ -28,7 +28,7 @@ import "./parts/PleaseScrollDown.css";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.IActionCreators & {
-        location: { pathname: string; hash: string };
+        location: Location;
     };
 type State = {
     screenWidth: number;
@@ -93,11 +93,7 @@ class VocabList extends React.Component<Props, State> {
     };
 
     render() {
-        const {
-            allVocabs,
-            allGenres,
-            location: { hash },
-        } = this.props;
+        const { allVocabs, allGenres, location } = this.props;
         const { screenWidth, imgNumber } = this.state;
         return (
             <div className="center">
@@ -205,7 +201,7 @@ class VocabList extends React.Component<Props, State> {
                     />
                 </div>
                 <HashScroll
-                    hash={hash}
+                    location={location}
                     allLoadFinished={
                         allGenres?.length > 0 && allVocabs?.length > 0
                     }

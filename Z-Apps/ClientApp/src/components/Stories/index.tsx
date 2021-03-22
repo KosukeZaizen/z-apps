@@ -33,7 +33,7 @@ type BtnType = "kanji" | "hiragana" | "romaji" | "english";
 
 type Props = storiesStore.StoriesState &
     storiesStore.IActionCreators & {
-        location: { pathname: string; hash: string };
+        location: Location;
         otherStories: storyDesc[];
         match: { params: { [key: string]: string } };
     };
@@ -122,7 +122,7 @@ class Stories extends React.Component<Props, State> {
     }
 
     componentDidUpdate(previousProps: Props) {
-        if (previousProps.location !== this.props.location) {
+        if (previousProps.location.pathname !== this.props.location.pathname) {
             const storyName =
                 this.props.location.pathname
                     .split("/")
@@ -258,7 +258,7 @@ class Stories extends React.Component<Props, State> {
             explanation,
             otherStories,
             allLoadFinished,
-            location: { hash },
+            location,
         } = this.props;
 
         const isSlightlyWide = screenWidth > 600;
@@ -308,7 +308,7 @@ class Stories extends React.Component<Props, State> {
                     key={linkText}
                     allLoadFinished={allLoadFinished}
                     linkText={linkText}
-                    hash={hash}
+                    hash={location.hash}
                     storyName={storyName}
                 />
             );
@@ -747,7 +747,10 @@ class Stories extends React.Component<Props, State> {
                     screenWidth={screenWidth}
                     season={storyDesc.season || "none"}
                 />
-                <HashScroll hash={hash} allLoadFinished={allLoadFinished} />
+                <HashScroll
+                    location={location}
+                    allLoadFinished={allLoadFinished}
+                />
             </div>
         );
     }
