@@ -43,6 +43,9 @@ const Articles = lazy(() => import("./components/Articles"));
 const ArticlesTop = lazy(() => import("./components/Articles/Top"));
 const ArticlesEditTop = lazy(() => import("./components/Articles/EditTop"));
 const ArticlesEdit = lazy(() => import("./components/Articles/Edit"));
+const KanjiNameGenerator = lazy(
+    () => import("./components/KanjiNameGenerator")
+);
 const SiteMapEdit = lazy(() => import("./components/SiteMapEdit"));
 const Admin = lazy(() => import("./components/Admin"));
 const ApiCache = lazy(() => import("./components/Admin/ApiCache"));
@@ -184,22 +187,6 @@ export default class App extends React.Component {
                         <Route
                             sensitive
                             exact
-                            path="/how-to-read-japanese/:word"
-                            component={(props: {
-                                match: { params: { word: string } };
-                            }) => {
-                                const {
-                                    match: {
-                                        params: { word },
-                                    },
-                                } = props;
-                                window.location.href = `/dictionary/${word}`;
-                                return null;
-                            }}
-                        />
-                        <Route
-                            sensitive
-                            exact
                             path="/dictionaryEdit/:word"
                             component={DictionaryEdit}
                         />
@@ -232,6 +219,11 @@ export default class App extends React.Component {
                             exact
                             path="/articlesEdit/:pageName"
                             component={ArticlesEdit}
+                        />
+                        <Route
+                            sensitive
+                            path="/kanji-name-generator"
+                            component={KanjiNameGenerator}
                         />
                         <Route
                             sensitive
