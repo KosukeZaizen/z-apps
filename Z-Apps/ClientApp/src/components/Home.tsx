@@ -277,7 +277,7 @@ export default class Home extends React.Component<
                             }}
                         >
                             <Link
-                                to="/kanji-name-generator"
+                                to="/kanji-converter"
                                 style={{ margin: cardMargin, flex: 1 }}
                             >
                                 <Card
@@ -285,33 +285,6 @@ export default class Home extends React.Component<
                                     inverse
                                     color="primary"
                                     style={{ height: "100%" }}
-                                >
-                                    <CardTitle>Kanji Name Generator</CardTitle>
-                                    <CardText>
-                                        You can convert your name into Kanji
-                                        characters!
-                                    </CardText>
-                                    <Button
-                                        color="secondary"
-                                        style={{ marginTop: "auto" }}
-                                    >
-                                        Try!
-                                    </Button>
-                                </Card>
-                            </Link>
-
-                            <Link
-                                to="/kanji-converter"
-                                style={{ margin: cardMargin, flex: 1 }}
-                            >
-                                <Card
-                                    body
-                                    style={{
-                                        backgroundColor: "#333",
-                                        borderColor: "#333",
-                                        color: "white",
-                                        height: "100%",
-                                    }}
                                 >
                                     <CardTitle>Kanji Converter</CardTitle>
                                     <CardText>
