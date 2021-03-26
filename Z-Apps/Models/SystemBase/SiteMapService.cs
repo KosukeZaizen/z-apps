@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Xml.Linq;
 using Z_Apps.Util;
 using Z_Apps.Models.Stories.Stories;
-using Z_Apps.Controllers;
 using Z_Apps.Models.Articles;
 
 namespace Z_Apps.Models.SystemBase
@@ -48,7 +46,11 @@ namespace Z_Apps.Models.SystemBase
 
         public async Task<string> GetSiteMapText(bool onlyStrageXmlFile = false)
         {
-            return await ApiCache.UseCacheAsync(onlyStrageXmlFile ? "true" : "false", async () =>
+            return await ApiCache.UseCacheAsync(
+                "Z_Apps.Models.SystemBase.SiteMapService",
+                "GetSiteMapText",
+                onlyStrageXmlFile ? "true" : "false",
+                async () =>
              {
                  return await _GetSiteMapText(onlyStrageXmlFile);
              });

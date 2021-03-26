@@ -97,17 +97,13 @@ namespace Z_Apps.Util {
 
 
 
-        public static async Task<Result> UseCacheAsync<Result>(string param, Func<Task<Result>> action) where Result : class
+        public static async Task<Result> UseCacheAsync<Result>(
+            string strClassName, 
+            string strMethodName, 
+            string param, 
+            Func<Task<Result>> action
+            ) where Result : class
         {
-
-            // StackFrameクラスをインスタンス化する
-            StackFrame objStackFrame = new StackFrame(1);// フレーム数1なら直接呼び出したメソッド
-
-            // 呼び出し元のクラス名を取得する
-            string strClassName = objStackFrame.GetMethod().ReflectedType.FullName;
-            // 呼び出し元のメソッド名を取得する
-            string strMethodName = objStackFrame.GetMethod().Name;
-
 
             if (
                 Cache.ContainsKey(strClassName)
