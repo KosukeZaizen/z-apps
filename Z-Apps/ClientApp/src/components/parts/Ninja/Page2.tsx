@@ -1,4 +1,5 @@
 import * as React from "react";
+import { gameStorage } from "../../../common/consts";
 import { Ninja } from "../../NinjaGame";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
@@ -6,70 +7,70 @@ import { Obj } from "./objs/obj";
 //オブジェクト素材画像----------------
 
 //岩
-const imgRock = require("./objs/rock.png");
+const imgRock = `${gameStorage}ninja1/objs/rock.png`;
 //岩（上下反転）
-const imgRockR = require("./objs/rockRiverse.png");
+const imgRockR = `${gameStorage}ninja1/objs/rockRiverse.png`;
 //木
-const imgTree1 = require("./objs/tree1.png");
+const imgTree1 = `${gameStorage}ninja1/objs/tree1.png`;
 //看板
-const imgKanban1 = require("./objs/kanban1.png");
+const imgKanban1 = `${gameStorage}ninja1/objs/kanban1.png`;
 //看板の矢印
-const imgArrow1 = require("./objs/arrow1.png");
+const imgArrow1 = `${gameStorage}ninja1/objs/arrow1.png`;
 //鳥居
-const imgTorii = require("./objs/torii.png");
+const imgTorii = `${gameStorage}ninja1/objs/torii.png`;
 //Welcomeのフレーム
-const imgFrame = require("./objs/frame.jpg");
+const imgFrame = `${gameStorage}ninja1/objs/frame.jpg`;
 //火
-const imgfire1 = require("./objs/fire1.png");
+const imgfire1 = `${gameStorage}ninja1/objs/fire1.png`;
 //火（上下反転）
-const imgfireR = require("./objs/fireReverse.png");
+const imgfireR = `${gameStorage}ninja1/objs/fireReverse.png`;
 //ポチ
-const imgPochi = require("./objs/pochi.png");
+const imgPochi = `${gameStorage}ninja1/objs/pochi.png`;
 //閉じている巻物
-const imgScroll = require("./objs/scrollObj.png");
+const imgScroll = `${gameStorage}ninja1/objs/scrollObj.png`;
 //開いている巻物
-const imgScrollOpen = require("./objs/scrollOpen.png");
+const imgScrollOpen = `${gameStorage}ninja1/objs/scrollOpen.png`;
 //仏壇
-const imgButsudan = require("./objs/butsudan.png");
+const imgButsudan = `${gameStorage}ninja1/objs/butsudan.png`;
 //シノ（先輩くのいち）
-const imgShino = require("./objs/shino.png");
+const imgShino = `${gameStorage}ninja1/objs/shino.png`;
 //地蔵
-const imgJizo = require("./objs/jizo.png");
+const imgJizo = `${gameStorage}ninja1/objs/jizo.png`;
 //ハニワ
-const imgHaniwa = require("./objs/haniwa.png");
+const imgHaniwa = `${gameStorage}ninja1/objs/haniwa.png`;
 //コウスケ
-const imgKosuke = require("./objs/kosuke.png");
+const imgKosuke = `${gameStorage}ninja1/objs/kosuke.png`;
 
 //背景画像//---------------------------
 
 //stage1
-const furuie = require("./img/background/furuie5.jpg");
+const furuie = `${gameStorage}ninja1/background/furuie5.jpg`;
 //stage2
-const town1 = require("./img/background/town1.jpg");
+const town1 = `${gameStorage}ninja1/background/town1.jpg`;
 //stage3
-const ryokan1 = require("./img/background/ryokan1.jpg");
+const ryokan1 = `$${gameStorage}ninja1/background/ryokan1.jpg`;
 //stage4
-const riverside1 = require("./img/background/riverside.jpg");
+const riverside1 = `${gameStorage}ninja1/background/riverside.jpg`;
 //stage5
-const river1 = require("./img/background/river.jpg");
+const river1 = `${gameStorage}ninja1/background/river.jpg`;
 //stage6
-const river2 = require("./img/background/river2.jpg");
+const river2 = `${gameStorage}ninja1/background/river2.jpg`;
 //stage7
-const jizos = require("./img/background/jizos.jpg");
+const jizos = `${gameStorage}ninja1/background/jizos.jpg`;
 //stage8
-const gardianDog = require("./img/background/gardianDog.jpg");
+const gardianDog = `${gameStorage}ninja1/background/gardianDog.jpg`;
 //stage9
-const shrine = require("./img/background/shrine.jpg");
+const shrine = `${gameStorage}ninja1/background/shrine.jpg`;
 //stage10
-const skyStone = require("./img/background/sky1.jpg");
+const skyStone = `${gameStorage}ninja1/background/sky1.jpg`;
 //stage11
-const castleRiver = require("./img/background/castleRiver.jpg");
+const castleRiver = `${gameStorage}ninja1/background/castleRiver.jpg`;
 //stage12
-const castleWall = require("./img/background/castleWall.jpg");
+const castleWall = `${gameStorage}ninja1/background/castleWall.jpg`;
 //stage13
-const castle = require("./img/background/castle.jpg");
+const castle = `${gameStorage}ninja1/background/castle.jpg`;
 //stage14
-const heaven = require("./img/background/heaven.png");
+const heaven = `${gameStorage}ninja1/background/heaven.png`;
 
 export type EventFunc = (keyType: string | undefined) => void;
 export interface Game extends Page2 {

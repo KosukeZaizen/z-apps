@@ -2,95 +2,95 @@
 //　全てのオブジェクトの画像をconstし、exportするモジュール
 //------------------------------------------------------------
 
-import { appsPublicImg } from "../../../common/consts";
+import { appsPublicImg, gameStorage } from "../../../common/consts";
 
 //＜過去要素引継ぎ＞
 
 //岩
-const Rock = require("./../Ninja/objs/rock.png");
+const Rock = `${gameStorage}ninja1/objs/rock.png`;
 //逆向きの岩
-const RockR = require("./../Ninja/objs/rockRiverse.png");
+const RockR = `${gameStorage}ninja1/objs/rockRiverse.png`;
 //逆向きの炎
-const FireR = require("./../Ninja/objs/fireReverse.png");
+const FireR = `${gameStorage}ninja1/objs/fireReverse.png`;
 //ポチ
-const Pochi = require("./../Ninja/objs/pochi.png");
+const Pochi = `${gameStorage}ninja1/objs/pochi.png`;
 //閉じている巻物
-const Scroll = require("./../Ninja/objs/scrollObj.png");
+const Scroll = `${gameStorage}ninja1/objs/scrollObj.png`;
 //開いている巻物
-const ScrollOpen = require("./../Ninja/objs/scrollOpen.png");
+const ScrollOpen = `${gameStorage}ninja1/objs/scrollOpen.png`;
 //シノ（先輩くのいち）
-const Shino = require("./../Ninja/objs/shino.png");
+const Shino = `${gameStorage}ninja1/objs/shino.png`;
 //看板
-const Kanban1 = require("./../Ninja/objs/kanban1.png");
+const Kanban1 = `${gameStorage}ninja1/objs/kanban1.png`;
 //看板の矢印
-const Arrow1 = require("./../Ninja/objs/arrow1.png");
+const Arrow1 = `${gameStorage}ninja1/objs/arrow1.png`;
 //鳥居
-const Torii = require("./../Ninja/objs/torii.png");
+const Torii = `${gameStorage}ninja1/objs/torii.png`;
 //額縁
-const Frame = require("./../Ninja/objs/frame.jpg");
+const Frame = `${gameStorage}ninja1/objs/frame.jpg`;
 //木
-const Tree = require("./../Ninja/objs/tree1.png");
+const Tree = `${gameStorage}ninja1/objs/tree1.png`;
 //仏壇
-const Butsudan = require("./../Ninja/objs/butsudan.png");
+const Butsudan = `${gameStorage}ninja1/objs/butsudan.png`;
 //地蔵
-const Jizo = require("./../Ninja/objs/jizo.png");
+const Jizo = `${gameStorage}ninja1/objs/jizo.png`;
 
 //鬼
-const Oni = require("./../Ninja2/objs/oni.png");
+const Oni = `${gameStorage}ninja2/objs/oni.png`;
 //おばけ1
-const Obake1 = require("./../Ninja2/objs/cat.png");
+const Obake1 = `${gameStorage}ninja2/objs/cat.png`;
 //おばけ2
-const Obake2 = require("./../Ninja2/objs/bat.png");
+const Obake2 = `${gameStorage}ninja2/objs/bat.png`;
 //一つ目
-const Hitotsume = require("./../Ninja2/objs/hitotsume.png");
+const Hitotsume = `${gameStorage}ninja2/objs/hitotsume.png`;
 //火の玉
-const Hinotama = require("./../Ninja2/objs/hinotama.png");
+const Hinotama = `${gameStorage}ninja2/objs/hinotama.png`;
 //ボス
-const Boss = require("./../Ninja2/objs/badDog.png");
+const Boss = `${gameStorage}ninja2/objs/badDog.png`;
 //炎（右）
-const FireRight = require("./../Ninja2/objs/fireBallR.png");
+const FireRight = `${gameStorage}ninja2/objs/fireBallR.png`;
 //木ブロック
-const Block = require("./../Ninja2/objs/woodenBox.jpg");
+const Block = `${gameStorage}ninja2/objs/woodenBox.jpg`;
 //ブロック
-const StoneBlock = require("./../Ninja2/objs/block.jpg");
+const StoneBlock = `${gameStorage}ninja2/objs/block.jpg`;
 
 //------------------------------------------------------------
 //＜新要素＞
 
 //雪だるま
-const Snowman = require("./objs/snowman.png");
+const Snowman = `${gameStorage}ninja3/objs/snowman.png`;
 //小僧
-const Monk = require("./objs/monk.png");
+const Monk = `${gameStorage}ninja3/objs/monk.png`;
 //氷
-const Ice = require("./objs/ice.jpg");
+const Ice = `${gameStorage}ninja3/objs/ice.jpg`;
 //岩（右）
-const RockRight = appsPublicImg + "rockRight.png";
+const RockRight = `${appsPublicImg}rockRight.png`;
 //扉
-const DarkDoor = require("./objs/darkDoor.jpg");
+const DarkDoor = `${gameStorage}ninja3/objs/darkDoor.jpg`;
 //死神
-const Shinigami = require("./objs/shinigami.png");
+const Shinigami = `${gameStorage}ninja3/objs/shinigami.png`;
 //墓
-const Grave = require("./objs/grave.png");
+const Grave = `${gameStorage}ninja3/objs/grave.png`;
 //老婆
-const OldWoman = require("./objs/oldWoman.png");
+const OldWoman = `${gameStorage}ninja3/objs/oldWoman.png`;
 //少女１
-const Girl1 = require("./objs/girl1.png");
+const Girl1 = `${gameStorage}ninja3/objs/girl1.png`;
 //少女２
-const Girl2 = require("./objs/girl2.png");
+const Girl2 = `${gameStorage}ninja3/objs/girl2.png`;
 //仙人
-const Sennin = require("./objs/sennin.png");
+const Sennin = `${gameStorage}ninja3/objs/sennin.png`;
 //サファイア
-const Sapphire = require("./objs/sapphire.png");
+const Sapphire = `${gameStorage}ninja3/objs/sapphire.png`;
 //雪の結晶
-const IceStone = require("./objs/iceStone.png");
+const IceStone = `${gameStorage}ninja3/objs/iceStone.png`;
 //下向きの看板
-const DownArrow = require("./objs/downArrow.png");
+const DownArrow = `${gameStorage}ninja3/objs/downArrow.png`;
 //青キノコ
-const AoKinoko = require("./objs/aoKinoko.png");
+const AoKinoko = `${gameStorage}ninja3/objs/aoKinoko.png`;
 //赤キノコ
-const AkaKinoko = require("./objs/akaKinoko.png");
+const AkaKinoko = `${gameStorage}ninja3/objs/akaKinoko.png`;
 //ひげ
-const Hige = require("./objs/hige.gif");
+const Hige = `${gameStorage}ninja3/objs/hige.gif`;
 
 export default {
     Rock,

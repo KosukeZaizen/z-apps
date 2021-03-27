@@ -1,4 +1,5 @@
 //タイムステップごとの処理
+import { gameStorage } from "../../../../common/consts";
 import * as EachTime from "../EachTime";
 //各オブジェクト用画像の読み込み
 import Imgs from "../ImportImgs";
@@ -7,7 +8,7 @@ import * as OnTouch from "../OnTouch";
 //ステージの部品作成用関数群の読み込み
 import * as StageParts from "./StagePartsGenerator";
 //背景画像
-const bgImg = require("../img/background/washitsu.jpg");
+const bgImg = `${gameStorage}ninja3/background/washitsu.jpg`;
 
 const Stage: any = {};
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { appsPublicImg } from "../../../common/consts";
+import { appsPublicImg, gameStorage } from "../../../common/consts";
 import { Ninja } from "../../NinjaGame2";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
@@ -7,98 +7,98 @@ import { Obj } from "./objs/obj";
 //オブジェクト素材画像----------------
 
 //岩
-const imgRock = require("./../Ninja/objs/rock.png");
+const imgRock = `${gameStorage}ninja1/objs/rock.png`;
 //岩（上下反転）
-const imgRockR = require("./../Ninja/objs/rockRiverse.png");
+const imgRockR = `${gameStorage}ninja1/objs/rockRiverse.png`;
 //ポチ
-const imgPochi = require("./../Ninja/objs/pochi.png");
+const imgPochi = `${gameStorage}ninja1/objs/pochi.png`;
 //閉じている巻物
-const imgScroll = require("./../Ninja/objs/scrollObj.png");
+const imgScroll = `${gameStorage}ninja1/objs/scrollObj.png`;
 //開いている巻物
-const imgScrollOpen = require("./../Ninja/objs/scrollOpen.png");
+const imgScrollOpen = `${gameStorage}ninja1/objs/scrollOpen.png`;
 //シノ（先輩くのいち）
-const imgShino = require("./../Ninja/objs/shino.png");
+const imgShino = `${gameStorage}ninja1/objs/shino.png`;
 //屋敷（屋根）
-const imgHouse1 = require("./objs/house.png");
+const imgHouse1 = `${gameStorage}ninja2/objs/house.png`;
 //悪忍者
-const imgBadNinja = appsPublicImg + "ninja_bad.png";
+const imgBadNinja = `${appsPublicImg}ninja_bad.png`;
 //鷲
-const imgWashi = require("./objs/washi.png");
+const imgWashi = `${gameStorage}ninja2/objs/washi.png`;
 //木箱
-const imgBox1 = require("./objs/box.jpg");
+const imgBox1 = `${gameStorage}ninja2/objs/box.jpg`;
 //レンガ
-const imgBlock1 = require("./objs/block.jpg");
+const imgBlock1 = `${gameStorage}ninja2/objs/block.jpg`;
 //カニ
-const imgKani = require("./objs/kani.png");
+const imgKani = `${gameStorage}ninja2/objs/kani.png`;
 //フグ
-const imgFugu = require("./objs/fugu.png");
+const imgFugu = `${gameStorage}ninja2/objs/fugu.png`;
 //海藻
-const imgKaisou = require("./objs/kaisou.png");
+const imgKaisou = `${gameStorage}ninja2/objs/kaisou.png`;
 //デカい魚
-const imgKimme = require("./objs/onikinme.png");
+const imgKimme = `${gameStorage}ninja2/objs/onikinme.png`;
 //FireBall
-const imgFireBallR = require("./objs/fireBallR.png");
+const imgFireBallR = `${gameStorage}ninja2/objs/fireBallR.png`;
 //扉
-const imgDoor = require("./objs/tobira.jpg");
+const imgDoor = `${gameStorage}ninja2/objs/tobira.jpg`;
 //木のブロック
-const imgWoodenBlock = require("./objs/woodenBox.jpg");
+const imgWoodenBlock = `${gameStorage}ninja2/objs/woodenBox.jpg`;
 //鍵
-const imgKey = require("./objs/kagi.png");
+const imgKey = `${gameStorage}ninja2/objs/kagi.png`;
 //はしご
-const imgHashigo = require("./objs/hashigo_wood.png");
+const imgHashigo = `${gameStorage}ninja2/objs/hashigo_wood.png`;
 //一つ目
-const imgOneEye = require("./objs/hitotsume.png");
+const imgOneEye = `${gameStorage}ninja2/objs/hitotsume.png`;
 //青い火の玉
-const imgBlueFire = require("./objs/hinotama.png");
+const imgBlueFire = `${gameStorage}ninja2/objs/hinotama.png`;
 //鬼
-const imgOni = require("./objs/oni.png");
+const imgOni = `${gameStorage}ninja2/objs/oni.png`;
 //ボス
-const imgBoss = require("./objs/badDog.png");
+const imgBoss = `${gameStorage}ninja2/objs/badDog.png`;
 //コウモリ
-const imgBat = require("./objs/bat.png");
+const imgBat = `${gameStorage}ninja2/objs/bat.png`;
 //看板
-const imgKanban1 = require("./../Ninja/objs/kanban1.png");
+const imgKanban1 = `${gameStorage}ninja1/objs/kanban1.png`;
 //看板の矢印
-const imgArrow1 = require("./../Ninja/objs/arrow1.png");
+const imgArrow1 = `${gameStorage}ninja1/objs/arrow1.png`;
 //鳥居
-const imgTorii = require("./../Ninja/objs/torii.png");
+const imgTorii = `${gameStorage}ninja1/objs/torii.png`;
 
 //背景画像//---------------------------
 
 //stage1
-const stage1 = require("./img/background/castle1.jpg");
+const stage1 = `${gameStorage}ninja2/background/castle1.jpg`;
 //stage2
-const stage2 = require("./img/background/whiteWall.jpg");
+const stage2 = `${gameStorage}ninja2/background/whiteWall.jpg`;
 //stage3
-const stage3 = require("./img/background/whiteWall2.jpg");
+const stage3 = `${gameStorage}ninja2/background/whiteWall2.jpg`;
 //stage4
-const stage4 = require("./img/background/whiteWall3.jpg");
+const stage4 = `${gameStorage}ninja2/background/whiteWall3.jpg`;
 //stage5
-const stage5 = require("./img/background/waterCastle.jpg");
+const stage5 = `${gameStorage}ninja2/background/waterCastle.jpg`;
 //stage6～8
-const inWater = require("./img/background/rockWall.jpg");
+const inWater = `${gameStorage}ninja2/background/rockWall.jpg`;
 //stage9
-const stage9 = require("./img/background/furo.jpg");
+const stage9 = `${gameStorage}ninja2/background/furo.jpg`;
 //stage10
-const stage10 = require("./img/background/datsuiJo.jpg");
+const stage10 = `${gameStorage}ninja2/background/datsuiJo.jpg`;
 //stage11～13
-const twoLayer = require("./img/background/washitsu.jpg");
+const twoLayer = `${gameStorage}ninja2/background/washitsu.jpg`;
 //stage14
-const stage14 = require("./img/background/wa1.jpg");
+const stage14 = `${gameStorage}ninja2/background/wa1.jpg`;
 //stage15
-const stage15 = require("./img/background/soto.jpg");
+const stage15 = `${gameStorage}ninja2/background/soto.jpg`;
 //stage16
-const stage16 = require("./img/background/wa2.jpg");
+const stage16 = `${gameStorage}ninja2/background/wa2.jpg`;
 //stage17
-const stage17 = require("./img/background/wa3.jpg");
+const stage17 = `${gameStorage}ninja2/background/wa3.jpg`;
 //stage18
-const stage18 = require("./img/background/wa4.jpg");
+const stage18 = `${gameStorage}ninja2/background/wa4.jpg`;
 //stage19
-const stage19 = require("./img/background/boss.jpg");
+const stage19 = `${gameStorage}ninja2/background/boss.jpg`;
 //stage19（クリア後）
-const stage19a = require("./img/background/afterBoss.jpg");
+const stage19a = `${gameStorage}ninja2/background/afterBoss.jpg`;
 //stage20
-const stage20 = require("./img/background/wa5.jpg");
+const stage20 = `${gameStorage}ninja2/background/wa5.jpg`;
 
 export default class Page2 extends React.Component {
     props: any;

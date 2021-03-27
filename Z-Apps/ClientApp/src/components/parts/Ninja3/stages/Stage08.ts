@@ -1,11 +1,12 @@
 //各オブジェクト用画像の読み込み
+import { gameStorage } from "../../../../common/consts";
 import Imgs from "../ImportImgs";
 //ステージの部品作成用関数群の読み込み
 import * as StageParts from "./StagePartsGenerator";
 
 //背景画像
-const bgImg1 = require("../img/background/snow4.jpg");
-const bgImg2 = require("../img/background/snow4-2.jpg");
+const bgImg1 = `${gameStorage}ninja3/background/snow4.jpg`;
+const bgImg2 = `${gameStorage}ninja3/background/snow4-2.jpg`;
 
 const Stage: any = {};
 
