@@ -1,10 +1,10 @@
 import * as React from "react";
-import { initializeAnimation } from "../common/animation";
-import { getParams } from "../common/functions";
-import "../css/NinjaGame2.css";
-import Head from "./parts/Helmet";
-import { Page1 } from "./parts/Ninja2/Page1";
-import { Page2 } from "./parts/Ninja2/Page2";
+import { initializeAnimation } from "../../common/animation";
+import { getParams } from "../../common/functions";
+import "../../css/NinjaGame2.css";
+import Head from "../parts/Helmet";
+import { Page1 } from "../parts/Ninja2/Page1";
+import { Page2 } from "../parts/Ninja2/Page2";
 
 export type Language = string;
 export interface Ninja {

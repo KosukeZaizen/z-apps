@@ -1,6 +1,6 @@
 import * as React from "react";
 import { appsPublicImg, gameStorage } from "../../../common/consts";
-import { Ninja } from "../../NinjaGame2";
+import { Ninja } from "../../Games/NinjaGame2";
 import { NinjaChar } from "./objs/ninja/ninja";
 import { Obj } from "./objs/obj";
 

@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { appsPublicImg } from "../common/consts";
-import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import FB from "./parts/FaceBook";
-import { isGoogleAdsDisplayed } from "./parts/GoogleAd";
-import Head from "./parts/Helmet";
+import { appsPublicImg } from "../../common/consts";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import FB from "../parts/FaceBook";
+import { isGoogleAdsDisplayed } from "../parts/GoogleAd";
+import Head from "../parts/Helmet";
 
 const logo1 = appsPublicImg + "game-logo-1.png";
 const logo2 = appsPublicImg + "game-logo-2.png";

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { initializeAnimation } from "../common/animation";
-import "../css/NinjaGame.css";
-import Head from "./parts/Helmet";
-import { Page1 } from "./parts/Ninja/Page1";
-import { Game, Page2 } from "./parts/Ninja/Page2";
+import { initializeAnimation } from "../../common/animation";
+import "../../css/NinjaGame.css";
+import Head from "../parts/Helmet";
+import { Page1 } from "../parts/Ninja/Page1";
+import { Game, Page2 } from "../parts/Ninja/Page2";
 
 export type Language = "English" | "Japanese";
 export interface Ninja {
