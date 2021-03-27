@@ -4,14 +4,6 @@ import "./animation.css";
 
 export let finishWelcomeAnimation: () => void = () => {};
 
-interface StateToAnimate {
-    shown: boolean;
-    isOpen: boolean;
-    underBarLength: number;
-    underBarOpacity: number;
-    time: number;
-}
-
 export default function WelcomeAnimation() {
     const [shown, setIsShown] = useState(true);
     const [isOpen, setIsOpen] = useState(false);

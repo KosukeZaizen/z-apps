@@ -209,8 +209,16 @@ export function shuffle(array: any[]) {
     return array;
 }
 
-export async function sleepAsync(milliSec: number) {
+export async function sleepAsync(milliSecond: number) {
     return new Promise(resolve =>
-        setTimeout(() => resolve(undefined), milliSec)
+        setTimeout(() => resolve(undefined), milliSecond)
     );
+}
+
+export function debounce<T>(fn: (arg: T) => void, milliSecond: number) {
+    let timer: number;
+    return function (arg: T) {
+        clearTimeout(timer);
+        timer = window.setTimeout(() => fn(arg), milliSecond);
+    };
 }

@@ -1,0 +1,22 @@
+html {
+    /* ダブルクリックによるズーム防止 */
+    touch-action: manipulation;
+    /* スマホ長押しによる反転防止 */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer */
+    -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none; /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+
+@media screen and (orientation: portrait) {
+    /* 縦画面 */
+
+    #game-screen {
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+    }
+}

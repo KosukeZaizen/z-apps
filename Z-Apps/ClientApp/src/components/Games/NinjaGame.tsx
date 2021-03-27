@@ -1,5 +1,5 @@
 import * as React from "react";
-import { initializeAnimation } from "../../common/animation";
+import { StopAnimation } from "../../common/animation";
 import "../../css/NinjaGame.css";
 import Head from "../parts/Helmet";
 import { HideHeaderAndFooter } from "../parts/Layout";
@@ -31,8 +31,6 @@ class NinjaGame extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
-        setTimeout(initializeAnimation, 4000); //ゲーム以外のアニメーションを止める
 
         let ninja: Ninja;
         let stage: number;
@@ -104,11 +102,12 @@ class NinjaGame extends React.Component<Props, State> {
 
         return (
             <div className="center" id="ninja-game" style={style}>
-                <HideHeaderAndFooter />
                 <Head
                     title="Lingual Ninja Games - Scrolls of The Four Elements"
                     desc="Japanese action game! Be a Ninja, and collect the scrolls in Japan!"
                 />
+                <HideHeaderAndFooter />
+                <StopAnimation />
                 <Pages
                     state={this.state}
                     changePage={(i: number, lang: Language) => {
