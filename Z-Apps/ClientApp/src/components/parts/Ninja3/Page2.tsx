@@ -437,81 +437,161 @@ function RenderButtons(props) {
     };
 
     return (
-        <table id="controller" style={controllerStyle}>
-            <tbody>
-                <tr>
-                    <td align="right">
-                        <button
-                            style={sideButtonStyle}
-                            className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => {
-                                props.onClickButton("left");
-                            }}
-                            onTouchStart={() => {
-                                props.onClickButton("left");
-                            }}
-                            onMouseUp={() => {
-                                props.onMouseUp("left");
-                            }}
-                            onMouseOut={() => {
-                                props.onMouseUp("left");
-                            }}
-                            onTouchEnd={() => {
-                                props.onMouseUp("left");
-                            }}
-                        >
-                            {"＜"}
-                        </button>
-                    </td>
-                    <td align="center">
-                        <button
-                            style={jumpButtonStyle}
-                            className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => {
-                                props.onClickButton("jump");
-                            }}
-                            onTouchStart={() => {
-                                props.onClickButton("jump");
-                            }}
-                            onMouseUp={() => {
-                                props.onMouseUp("jump");
-                            }}
-                            onMouseOut={() => {
-                                props.onMouseUp("jump");
-                            }}
-                            onTouchEnd={() => {
-                                props.onMouseUp("jump");
-                            }}
-                        >
-                            {"↑　jump　↑"}
-                        </button>
-                    </td>
-                    <td align="left">
-                        <button
-                            style={sideButtonStyle}
-                            className={"btn btn-info btn-lg btn-block"}
-                            onMouseDown={() => {
-                                props.onClickButton("right");
-                            }}
-                            onTouchStart={() => {
-                                props.onClickButton("right");
-                            }}
-                            onMouseUp={() => {
-                                props.onMouseUp("right");
-                            }}
-                            onMouseOut={() => {
-                                props.onMouseUp("right");
-                            }}
-                            onTouchEnd={() => {
-                                props.onMouseUp("right");
-                            }}
-                        >
-                            {"＞"}
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <>
+            <table id="controller" style={controllerStyle}>
+                <tbody>
+                    <tr>
+                        <td align="right">
+                            <button
+                                style={sideButtonStyle}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("left");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("left");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("left");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("left");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("left");
+                                }}
+                            >
+                                {"＜"}
+                            </button>
+                        </td>
+                        <td align="center">
+                            <button
+                                style={jumpButtonStyle}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("jump");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("jump");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                            >
+                                {"↑　jump　↑"}
+                            </button>
+                        </td>
+                        <td align="left">
+                            <button
+                                style={sideButtonStyle}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("right");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("right");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("right");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("right");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("right");
+                                }}
+                            >
+                                {"＞"}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table
+                id="controller"
+                style={{ ...controllerStyle, top: 60 * UL, opacity: 0 }}
+            >
+                <tbody>
+                    <tr>
+                        <td align="right">
+                            <button
+                                style={{ ...sideButtonStyle, height: 30 * UL }}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("left");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("left");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("left");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("left");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("left");
+                                }}
+                            >
+                                {"＜"}
+                            </button>
+                        </td>
+                        <td align="center">
+                            <button
+                                style={{ ...jumpButtonStyle, height: 30 * UL }}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("jump");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("jump");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("jump");
+                                }}
+                            >
+                                {"↑　jump　↑"}
+                            </button>
+                        </td>
+                        <td align="left">
+                            <button
+                                style={{ ...sideButtonStyle, height: 30 * UL }}
+                                className={"btn btn-info btn-lg btn-block"}
+                                onMouseDown={() => {
+                                    props.onClickButton("right");
+                                }}
+                                onTouchStart={() => {
+                                    props.onClickButton("right");
+                                }}
+                                onMouseUp={() => {
+                                    props.onMouseUp("right");
+                                }}
+                                onMouseOut={() => {
+                                    props.onMouseUp("right");
+                                }}
+                                onTouchEnd={() => {
+                                    props.onMouseUp("right");
+                                }}
+                            >
+                                {"＞"}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </>
     );
 }
 

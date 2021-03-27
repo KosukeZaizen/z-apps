@@ -29,7 +29,7 @@ export default class Obj extends React.Component<Props> {
                 let posX = this.props.obj.posX * UL;
                 let posY = this.props.obj.posY * UL;
                 let zIndex = this.props.obj.zIndex;
-                let fontSize = this.props.obj.fontSize * UL || 4 * UL;
+                let fontSize = (this.props.obj.fontSize || 4) * UL;
                 let title = this.props.obj.title;
                 let message = this.props.obj.message;
                 let speakerImg = this.props.obj.speakerImg;
@@ -69,7 +69,11 @@ export default class Obj extends React.Component<Props> {
 
                 let arrlines = message.split("\n");
                 const listlines = arrlines.map(
-                    (line: string, index: number) => <p key={index}>{line}</p>
+                    (line: string, index: number) => (
+                        <p key={index} style={{ fontSize: fontSize }}>
+                            {line}
+                        </p>
+                    )
                 );
 
                 return (
