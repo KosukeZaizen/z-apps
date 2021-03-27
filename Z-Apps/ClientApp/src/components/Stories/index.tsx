@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import * as consts from "../../common/consts";
 import { sendClientOpeLog } from "../../common/functions";
 import "../../css/Stories.css";
-import { TReducers } from "../../store/configureStore";
+import { ApplicationState } from "../../store/configureStore";
 import * as storiesStore from "../../store/StoriesStore";
 import { sentence, storyDesc, word } from "../../types/stories";
 import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
@@ -32,7 +32,7 @@ import { WordList } from "./WordList";
 type BtnType = "kanji" | "hiragana" | "romaji" | "english";
 
 type Props = storiesStore.StoriesState &
-    storiesStore.IActionCreators & {
+    storiesStore.ActionCreators & {
         location: Location;
         otherStories: storyDesc[];
         match: { params: { [key: string]: string } };
@@ -1161,6 +1161,6 @@ function IndexItem({
 }
 
 export default connect(
-    (state: TReducers) => state.stories,
-    dispatch => bindActionCreators(storiesStore.actionCreators as any, dispatch)
+    (state: ApplicationState) => state.stories,
+    dispatch => bindActionCreators(storiesStore.actionCreators, dispatch)
 )(Stories);

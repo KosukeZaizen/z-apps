@@ -3,6 +3,7 @@ import { initializeAnimation } from "../../common/animation";
 import { getParams } from "../../common/functions";
 import "../../css/NinjaGame2.css"; //CSSは2のもの
 import Head from "../parts/Helmet";
+import { HideHeaderAndFooter } from "../parts/Layout";
 import * as Consts from "../parts/Ninja3/Consts";
 import { Page1 } from "../parts/Ninja3/Page1";
 import { Page2 } from "../parts/Ninja3/Page2";
@@ -126,6 +127,7 @@ class NinjaGame extends React.Component<Props, State> {
 
         return (
             <div className="center" id="ninja-game" style={style}>
+                <HideHeaderAndFooter />
                 <Head
                     title="Lingual Ninja Games - Frozen Nightmare"
                     desc="Japanese action game! Be a ninja, and save the village from the monsters!"

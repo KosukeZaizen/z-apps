@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as consts from "../common/consts";
-import { TReducers } from "../store/configureStore";
+import { ApplicationState } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { vocab, vocabGenre } from "../types/vocab";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
@@ -27,7 +27,7 @@ import PleaseScrollDown from "./parts/PleaseScrollDown";
 import "./parts/PleaseScrollDown.css";
 
 type Props = vocabStore.IVocabQuizState &
-    vocabStore.IActionCreators & {
+    vocabStore.ActionCreators & {
         location: Location;
     };
 type State = {
@@ -655,6 +655,6 @@ class Speaker extends React.Component<
 }
 
 export default connect(
-    (state: TReducers) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators as any, dispatch)
+    (state: ApplicationState) => state.vocabQuiz,
+    dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
 )(VocabList);

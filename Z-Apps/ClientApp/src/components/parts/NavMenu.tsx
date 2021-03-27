@@ -39,12 +39,17 @@ function NavigationItems(props: { closeToggle: () => void }) {
     );
 }
 
-export default class NavMenu extends React.Component {
-    state: {
-        isOpen: boolean;
-    };
+interface OuterProps {}
 
-    constructor(props: {}) {
+type InnerProps = OuterProps;
+
+class NavMenu extends React.Component<
+    InnerProps,
+    {
+        isOpen: boolean;
+    }
+> {
+    constructor(props: InnerProps) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
@@ -96,3 +101,5 @@ export default class NavMenu extends React.Component {
         );
     }
 }
+
+export default NavMenu;

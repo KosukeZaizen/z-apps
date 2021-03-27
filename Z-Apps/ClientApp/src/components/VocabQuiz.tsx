@@ -12,7 +12,7 @@ import { Button, Card, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as consts from "../common/consts";
 import { sendClientOpeLog, shuffle } from "../common/functions";
-import { TReducers } from "../store/configureStore";
+import { ApplicationState } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../types/vocab";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
@@ -29,7 +29,7 @@ import AllKanjiList from "./parts/VocabQuiz/AllKanjiList";
 import AllVocabList from "./parts/VocabQuiz/AllVocabList";
 
 type Props = vocabStore.IVocabQuizState &
-    vocabStore.IActionCreators & {
+    vocabStore.ActionCreators & {
         location: { pathname: string };
         match: { params: { [key: string]: string } };
     };
@@ -1152,6 +1152,6 @@ function Page3(props: TPage3Props) {
 }
 
 export default connect(
-    (state: TReducers) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators as any, dispatch)
+    (state: ApplicationState) => state.vocabQuiz,
+    dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
 )(VocabQuiz);

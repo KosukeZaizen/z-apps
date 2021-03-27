@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import { cFetch } from "../../common/util/cFetch";
-import { TReducers } from "../../store/configureStore";
+import { ApplicationState } from "../../store/configureStore";
 import { actionCreators } from "../../store/StoriesTopStore";
 import { storyDesc } from "../../types/stories";
 import { Page } from "../Articles";
@@ -365,6 +365,6 @@ I hope this application helps you to study Japanese!
 }
 
 export default connect(
-    (state: TReducers) => state.storiesTop,
+    (state: ApplicationState) => state.storiesTop,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(StoriesTop);
