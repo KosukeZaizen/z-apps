@@ -1,6 +1,6 @@
 import React from "react";
 import { Direction, StageItem } from ".";
-import { gameStorage } from "../../../../../common/consts";
+import { gameStorage } from "../../../../../../common/consts";
 import { Ninja } from "../Ninja";
 
 interface RockProps {
@@ -8,19 +8,21 @@ interface RockProps {
     x: number;
     y: number;
     width: number;
+    zIndex: number;
 }
 
 export class Rock extends StageItem {
     key: string;
 
-    constructor({ key, x, y, width }: RockProps) {
-        super({ type: "rock", x, y, width });
+    constructor({ key, ...rest }: RockProps) {
+        super({ type: "rock", ...rest });
         this.key = key;
     }
 
     renderItem(UL: number) {
         return (
             <img
+                alt="rock"
                 key={this.key}
                 src={`${gameStorage}ninja1/objs/rock.png`}
                 style={{

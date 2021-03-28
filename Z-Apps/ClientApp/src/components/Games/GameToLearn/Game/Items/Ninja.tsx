@@ -1,7 +1,7 @@
 import React from "react";
-import { timeStep } from ".";
-import { appsPublicImg } from "../../../../common/consts";
-import { Renderable } from "./Items";
+import { timeStep } from "..";
+import { appsPublicImg } from "../../../../../common/consts";
+import { Renderable } from "./StageItems";
 
 const ninjaUrl = `${appsPublicImg}ninja_hashiru.png`;
 
@@ -29,15 +29,18 @@ export class Ninja extends Renderable {
     renderItem(UL: number) {
         return (
             <img
+                key="Japanese running ninja"
+                alt="Japanese running ninja"
                 src={ninjaUrl}
                 style={{
-                    width: 15 * UL,
+                    width: this.width * UL,
                     position: "absolute",
                     top: this.y * UL,
                     left: this.x * UL,
                     transition: `${timeStep}ms`,
                     transitionProperty: "top left",
                     transitionTimingFunction: "linear",
+                    zIndex: 10,
                 }}
             />
         );

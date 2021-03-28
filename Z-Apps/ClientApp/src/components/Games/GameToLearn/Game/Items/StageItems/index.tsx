@@ -16,6 +16,7 @@ interface StageItemProps {
     x: number;
     y: number;
     width: number;
+    zIndex: number;
     isUntouchable?: boolean;
 }
 
@@ -26,20 +27,23 @@ export const Direction = {
     right: "right",
 } as const;
 export type Direction = typeof Direction[keyof typeof Direction];
+
 export class StageItem extends Renderable {
     type: ItemType;
     x: number;
     y: number;
     width: number;
+    zIndex: number;
     isUntouchable: boolean; // 巻物など、当たり判定常にfalseのもの
 
-    constructor({ type, x, y, width, isUntouchable }: StageItemProps) {
+    constructor({ type, x, y, width, zIndex, isUntouchable }: StageItemProps) {
         super();
 
         this.type = type;
         this.x = x;
         this.y = y;
         this.width = width;
+        this.zIndex = zIndex;
         this.isUntouchable = !!isUntouchable;
     }
 

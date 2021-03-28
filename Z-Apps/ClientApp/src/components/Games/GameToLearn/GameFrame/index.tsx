@@ -56,7 +56,6 @@ export function GameFrame() {
                     backgroundColor: "white",
                     width: 160 * UL,
                     height: 90 * UL,
-                    zIndex: 1000,
                     transition: "1s",
                 }}
             >
