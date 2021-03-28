@@ -7,12 +7,14 @@ const ninjaUrl = `${appsPublicImg}ninja_hashiru.png`;
 export interface Ninja {
     x: number;
     y: number;
+    width: number;
 }
 
 export function getInitialNinja(): Ninja {
     return {
         x: 140,
         y: 0,
+        width: 15,
     };
 }
 
@@ -27,7 +29,7 @@ export function Ninja({ ninja, UL }: { ninja: Ninja; UL: number }) {
                 left: ninja.x * UL,
                 transition: `${timeStep}ms`,
                 transitionProperty: "top left",
-                transitionTimingFunction: "linear"
+                transitionTimingFunction: "linear",
             }}
         />
     );
