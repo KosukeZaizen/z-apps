@@ -9,7 +9,7 @@ export const timeStep = 50;
 
 export function Game({ UL }: { UL: number }) {
     const [stageItems, setStageItems] = useState<StageItem[]>(
-        stages.firstStage1
+        stages.emptyStage
     );
     const [ninja, setNinja] = useState<Ninja>(
         new Ninja({
@@ -20,6 +20,8 @@ export function Game({ UL }: { UL: number }) {
             width: 10,
             isGoingRight: false,
             jumpable: false,
+            currentStage: "firstStage1",
+            cssAnimation: true,
         })
     );
     const [fixedItems, setFixedItems] = useState<Renderable[]>([]);
@@ -35,9 +37,8 @@ export function Game({ UL }: { UL: number }) {
     );
 
     useEffect(() => {
-        //-----------------------
         // 初回のみの処理
-        //-----------------------
+
         setFixedItems([
             new BlackFrame(),
             new GameController({
@@ -49,9 +50,7 @@ export function Game({ UL }: { UL: number }) {
     }, []);
 
     useEffect(() => {
-        //-----------------------
         // タイムステップ毎の処理
-        //-----------------------
 
         // 次のタイムステップ用の忍者のインスタンス生成
         const nextNinja: Ninja = new Ninja(ninja);
@@ -72,6 +71,8 @@ export function Game({ UL }: { UL: number }) {
                 item.onTouchNinja(nextNinja);
             }
         });
+
+        setStageItems(stages[nextNinja.currentStage]);
 
         setTimeout(() => {
             // 新しいninjaをセットしてタイムステップを進める

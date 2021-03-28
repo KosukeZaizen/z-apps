@@ -1,14 +1,20 @@
 import React from "react";
 import { timeStep } from "..";
 import { appsPublicImg } from "../../../../../common/consts";
+import { StageName } from "../Stages";
 import { Renderable } from "./StageItems";
 
-const ninjaUrl = `${appsPublicImg}ninja_hashiru.png`;
-
-type NinjaProps = Omit<
-    Ninja,
-    "renderItem" | "updateNinjaData" | "calcNextNinjaPosition"
->;
+type NinjaProps = {
+    x: number;
+    y: number;
+    speedY: number;
+    speedX: number;
+    width: number;
+    isGoingRight: boolean;
+    jumpable: boolean;
+    currentStage: StageName;
+    cssAnimation: boolean;
+};
 
 export class Ninja extends Renderable {
     x: number;
@@ -18,6 +24,8 @@ export class Ninja extends Renderable {
     width: number;
     isGoingRight: boolean;
     jumpable: boolean;
+    currentStage: StageName;
+    cssAnimation: boolean;
 
     constructor({
         x,
@@ -27,6 +35,8 @@ export class Ninja extends Renderable {
         width,
         isGoingRight,
         jumpable,
+        currentStage,
+        cssAnimation,
     }: NinjaProps) {
         super();
 
@@ -37,23 +47,8 @@ export class Ninja extends Renderable {
         this.width = width;
         this.isGoingRight = isGoingRight;
         this.jumpable = jumpable;
-    }
-
-    updateNinjaData({
-        x,
-        y,
-        speedX,
-        speedY,
-        width,
-        isGoingRight,
-        jumpable,
-    }: NinjaProps) {
-        this.x = x;
-        this.y = y;
-        this.speedY = speedY;
-        this.width = width;
-        this.isGoingRight = isGoingRight;
-        this.jumpable = jumpable;
+        this.currentStage = currentStage;
+        this.cssAnimation = cssAnimation;
     }
 
     calcNextNinjaPosition({
@@ -78,33 +73,40 @@ export class Ninja extends Renderable {
             this.speedY -= 7;
         }
 
-        // ジャンプ判定直後に毎回、床から離れたとみなす
-        this.jumpable = false;
-
         // 重力
         this.speedY += 1;
 
         // 速度から位置更新
         this.x += this.speedX;
         this.y += this.speedY;
+
+        // 他のItemから影響を受けた状態をタイムステップ毎にリセットする
+        this.jumpable = false; // 床
+        this.cssAnimation = true; // StageChanger
     }
 
     renderItem(UL: number) {
+        const transitionStyle = this.cssAnimation
+            ? {
+                  transition: `${timeStep}ms`,
+                  transitionProperty: "top, left",
+                  transitionTimingFunction: "linear",
+              }
+            : {};
+
         return (
             <img
                 key="Japanese running ninja"
                 alt="Japanese running ninja"
-                src={ninjaUrl}
+                src={`${appsPublicImg}ninja_hashiru.png`}
                 style={{
                     width: this.width * UL,
                     position: "absolute",
                     top: this.y * UL,
                     left: this.x * UL,
-                    transition: `${timeStep}ms`,
-                    transitionProperty: "top, left",
-                    transitionTimingFunction: "linear",
                     zIndex: 10,
                     transform: this.isGoingRight ? "scale(-1, 1)" : undefined,
+                    ...transitionStyle,
                 }}
             />
         );

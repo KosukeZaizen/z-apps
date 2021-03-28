@@ -39,12 +39,9 @@ export class Floor extends StageItem {
         switch (ninjaDirection) {
             case Direction.top: {
                 // 忍者が上にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    y: this.y - ninja.width,
-                    speedY: 0,
-                    jumpable: true,
-                });
+                ninja.y = this.y - ninja.width;
+                ninja.speedY = 0;
+                ninja.jumpable = true;
                 break;
             }
         }

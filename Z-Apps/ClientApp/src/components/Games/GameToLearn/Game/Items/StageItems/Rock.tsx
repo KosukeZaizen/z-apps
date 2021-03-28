@@ -42,39 +42,27 @@ export class Rock extends StageItem {
         switch (ninjaDirection) {
             case Direction.top: {
                 // 忍者が上にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    y: this.y - ninja.width,
-                    speedY: 0,
-                    jumpable: true,
-                });
+                ninja.y = this.y - ninja.width;
+                ninja.speedY = 0;
+                ninja.jumpable = true;
                 break;
             }
             case Direction.bottom: {
                 // 忍者が下にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    y: this.y + this.width,
-                    speedY: 0,
-                });
+                ninja.y = this.y + this.width;
+                ninja.speedY = 0;
                 break;
             }
             case Direction.left: {
                 // 忍者が左にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    x: this.x - ninja.width,
-                    speedX: 0,
-                });
+                ninja.x = this.x - ninja.width;
+                ninja.speedX = 0;
                 break;
             }
             case Direction.right: {
                 // 忍者が右にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    x: this.x + this.width,
-                    speedX: 0,
-                });
+                ninja.x = this.x + this.width;
+                ninja.speedX = 0;
                 break;
             }
         }
