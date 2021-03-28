@@ -1,5 +1,5 @@
 import React from "react";
-import { Direction, Item } from ".";
+import { Direction, StageItem } from ".";
 import { gameStorage } from "../../../../../common/consts";
 import { Ninja } from "../Ninja";
 
@@ -10,7 +10,7 @@ interface RockProps {
     width: number;
 }
 
-export class Rock extends Item {
+export class Rock extends StageItem {
     key: string;
 
     constructor({ key, x, y, width }: RockProps) {
@@ -18,7 +18,7 @@ export class Rock extends Item {
         this.key = key;
     }
 
-    getItem(UL: number) {
+    renderItem(UL: number) {
         return (
             <img
                 key={this.key}
@@ -35,27 +35,31 @@ export class Rock extends Item {
 
     onEachTime() {}
 
-    onTouchNinja(ninja: Ninja): Ninja {
+    onTouchNinja(ninja: Ninja) {
         const ninjaDirection = this.getTargetDirection(ninja);
         switch (ninjaDirection) {
             case Direction.top: {
                 // 忍者が上にいる
-                return { ...ninja, y: this.y - ninja.width };
+                ninja.updateNinjaData({
+                    ...ninja,
+                    y: this.y - ninja.width,
+                });
+                break;
             }
             case Direction.bottom: {
                 // 忍者が下にいる
-                return { ...ninja, y: this.y + this.width };
+                ninja.updateNinjaData({ ...ninja, y: this.y + this.width });
+                break;
             }
             case Direction.left: {
                 // 忍者が左にいる
-                return { ...ninja, x: this.x - ninja.width };
+                ninja.updateNinjaData({ ...ninja, x: this.x - ninja.width });
+                break;
             }
             case Direction.right: {
                 // 忍者が右にいる
-                return { ...ninja, x: this.x + this.width };
-            }
-            default: {
-                return ninja;
+                ninja.updateNinjaData({ ...ninja, x: this.x + this.width });
+                break;
             }
         }
     }

@@ -4,7 +4,14 @@ import { Ninja } from "../Ninja";
 export const itemTypes = { rock: "rock" } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
-interface ItemProps {
+export class Renderable {
+    renderItem(UL: number) {
+        throw new Error(
+            "getItemが子クラスに実装されていません。オーバーライドしてください。"
+        );
+    }
+}
+interface StageItemProps {
     type: ItemType;
     x: number;
     y: number;
@@ -19,14 +26,16 @@ export const Direction = {
     right: "right",
 } as const;
 export type Direction = typeof Direction[keyof typeof Direction];
-export class Item {
+export class StageItem extends Renderable {
     type: ItemType;
     x: number;
     y: number;
     width: number;
     isUntouchable: boolean; // 巻物など、当たり判定常にfalseのもの
 
-    constructor({ type, x, y, width, isUntouchable }: ItemProps) {
+    constructor({ type, x, y, width, isUntouchable }: StageItemProps) {
+        super();
+
         this.type = type;
         this.x = x;
         this.y = y;
@@ -87,13 +96,7 @@ export class Item {
         }
     }
 
-    onTouchNinja(ninja: Ninja): Ninja {
-        throw new Error(
-            "getItemが子クラスに実装されていません。オーバーライドしてください。"
-        );
-    }
-
-    getItem(UL: number) {
+    onTouchNinja(ninja: Ninja) {
         throw new Error(
             "getItemが子クラスに実装されていません。オーバーライドしてください。"
         );
@@ -109,6 +112,6 @@ export class Item {
     }
 }
 
-export function Items({ items, UL }: { items: Item[]; UL: number }) {
-    return <>{items.map(item => item.getItem(UL))}</>;
+export function Items({ items, UL }: { items: Renderable[]; UL: number }) {
+    return <>{items.map(item => item.renderItem(UL))}</>;
 }

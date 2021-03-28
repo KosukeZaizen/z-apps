@@ -1,36 +1,45 @@
 import React from "react";
 import { timeStep } from ".";
 import { appsPublicImg } from "../../../../common/consts";
+import { Renderable } from "./Items";
 
 const ninjaUrl = `${appsPublicImg}ninja_hashiru.png`;
 
-export interface Ninja {
+type NinjaProps = Omit<Ninja, "renderItem" | "updateNinjaData">;
+
+export class Ninja extends Renderable {
     x: number;
     y: number;
     width: number;
-}
 
-export function getInitialNinja(): Ninja {
-    return {
-        x: 140,
-        y: 0,
-        width: 15,
-    };
-}
+    constructor({ x, y, width }: NinjaProps) {
+        super();
 
-export function Ninja({ ninja, UL }: { ninja: Ninja; UL: number }) {
-    return (
-        <img
-            src={ninjaUrl}
-            style={{
-                width: 15 * UL,
-                position: "absolute",
-                top: ninja.y * UL,
-                left: ninja.x * UL,
-                transition: `${timeStep}ms`,
-                transitionProperty: "top left",
-                transitionTimingFunction: "linear",
-            }}
-        />
-    );
+        this.x = x;
+        this.y = y;
+        this.width = width;
+    }
+
+    updateNinjaData({ x, y, width }: NinjaProps) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+    }
+
+    renderItem(UL: number) {
+        return (
+            <img
+                src={ninjaUrl}
+                style={{
+                    width: 15 * UL,
+                    position: "absolute",
+                    top: this.y * UL,
+                    left: this.x * UL,
+                    transition: `${timeStep}ms`,
+                    transitionProperty: "top left",
+                    transitionTimingFunction: "linear",
+                }}
+            />
+        );
+    }
 }

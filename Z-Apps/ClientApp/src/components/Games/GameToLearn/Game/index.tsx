@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Item, Items } from "./Items";
-import { getInitialNinja, Ninja } from "./Ninja";
+import { Items, StageItem } from "./Items";
+import { Ninja } from "./Ninja";
 import { stages } from "./Stages";
 
 export const timeStep = 100;
 
 export function Game({ UL }: { UL: number }) {
-    const [stageItems, setStageItems] = useState<Item[]>(stages.firstStage1);
-    const [ninja, setNinja] = useState<Ninja>(getInitialNinja());
+    const [stageItems, setStageItems] = useState<StageItem[]>(
+        stages.firstStage1
+    );
+    const [ninja, setNinja] = useState<Ninja>(
+        new Ninja({
+            x: 140,
+            y: 0,
+            width: 15,
+        })
+    );
 
     useEffect(() => {
         setTimeout(() => {
-            let tmpNinja: Ninja = { ...ninja };
+            let tmpNinja: Ninja = new Ninja(ninja);
+
             // 各オブジェクトのタイムステップ毎の処理
 
             // 重力
-            tmpNinja = { ...ninja, y: ninja.y + 2 };
+            tmpNinja.updateNinjaData({ ...tmpNinja, y: tmpNinja.y + 2 });
 
-            // 忍者に触れているItemの取得
-            tmpNinja = stageItems.reduce((n, item) => {
-                if (item.checkIfTouched(n)) {
-                    return item.onTouchNinja(n);
+            stageItems.forEach(item => {
+                if (item.checkIfTouched(tmpNinja)) {
+                    // 要素が忍者に触れていた場合
+                    item.onTouchNinja(tmpNinja);
                 }
-                return n;
-            }, tmpNinja);
+            });
 
             // 新しいninjaをセットしてタイムステップを進める
             setNinja(tmpNinja);
@@ -32,8 +40,7 @@ export function Game({ UL }: { UL: number }) {
 
     return (
         <>
-            <Ninja ninja={ninja} UL={UL} />
-            <Items items={stageItems} UL={UL} />
+            <Items items={[ninja, ...stageItems]} UL={UL} />
         </>
     );
 }
