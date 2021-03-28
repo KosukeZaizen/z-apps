@@ -169,6 +169,9 @@ function SmartPhoneButtons({
                 onTouchEnd={() => {
                     onMouseUp("left");
                 }}
+                onTouchCancel={() => {
+                    onMouseUp("left");
+                }}
             />
             <Button
                 color="info"
@@ -205,6 +208,9 @@ function SmartPhoneButtons({
                     onMouseUp("jump");
                 }}
                 onTouchEnd={() => {
+                    onMouseUp("jump");
+                }}
+                onTouchCancel={() => {
                     onMouseUp("jump");
                 }}
             />
@@ -245,68 +251,10 @@ function SmartPhoneButtons({
                 onTouchEnd={() => {
                     onMouseUp("right");
                 }}
+                onTouchCancel={() => {
+                    onMouseUp("right");
+                }}
             />
         </>
     );
 }
-
-// function setKeyboardEvent() {
-//     // ------------------------------------------------------------
-//     // キーボードを押したときに実行されるイベント
-//     // ------------------------------------------------------------
-//     document.onkeydown = function (e: any) {
-//         if (!e) e = window.event; // レガシー
-
-//         // ------------------------------------------------------------
-//         // 入力情報を取得
-//         // ------------------------------------------------------------
-//         // キーコード
-//         let keyCode = e.keyCode;
-//         let keyType;
-//         if (keyCode === 37) {
-//             keyType = "left";
-//         } else if (keyCode === 39) {
-//             keyType = "right";
-//         } else if (keyCode === 38) {
-//             keyType = "jump";
-//         } else if (keyCode === 32) {
-//             keyType = "jump";
-//         } else if (
-//             keyCode === 13 ||
-//             keyCode === 8 ||
-//             keyCode === 46 ||
-//             keyCode === 27
-//         ) {
-//             keyType = "close";
-//         }
-//         objGame.onClickButton(keyType);
-//     };
-
-//     // ------------------------------------------------------------
-//     // キーボードを離したときに実行されるイベント
-//     // ------------------------------------------------------------
-//     document.onkeyup = function (e: any) {
-//         if (!e) e = window.event; // レガシー
-
-//         // キーコード
-//         let keyCode = e.keyCode;
-//         let keyType;
-//         if (keyCode === 37) {
-//             keyType = "left";
-//         } else if (keyCode === 39) {
-//             keyType = "right";
-//         } else if (keyCode === 38) {
-//             keyType = "jump";
-//         } else if (keyCode === 32) {
-//             keyType = "jump";
-//         } else if (
-//             keyCode === 13 ||
-//             keyCode === 8 ||
-//             keyCode === 46 ||
-//             keyCode === 27
-//         ) {
-//             keyType = "close";
-//         }
-//         onMouseUp(keyType);
-//     };
-// }
