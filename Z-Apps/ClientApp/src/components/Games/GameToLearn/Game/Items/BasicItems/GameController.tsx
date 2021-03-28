@@ -21,6 +21,7 @@ export class GameController extends Renderable {
             /(iPhone|iPad|iPod|Android)/i
         );
         this.setButtonStatus = setButtonStatus;
+        this.setKeyboardEvent();
     }
 
     //ボタン押下時処理
@@ -32,6 +33,55 @@ export class GameController extends Renderable {
     onMouseUp = (buttonName: ButtonName) => {
         this.setButtonStatus[buttonName](false);
     };
+
+    setKeyboardEvent() {
+        const that = this;
+        document.onkeydown = function (e: any) {
+            if (!e) e = window.event; // レガシー
+
+            switch (e.keyCode) {
+                case 37: {
+                    that.onClickButton("left");
+                    break;
+                }
+                case 39: {
+                    that.onClickButton("right");
+                    break;
+                }
+                case 32:
+                case 38:
+                case 13:
+                case 8:
+                case 46:
+                case 27: {
+                    that.onClickButton("jump");
+                }
+            }
+
+            document.onkeyup = function (e: any) {
+                if (!e) e = window.event; // レガシー
+
+                switch (e.keyCode) {
+                    case 37: {
+                        that.onMouseUp("left");
+                        break;
+                    }
+                    case 39: {
+                        that.onMouseUp("right");
+                        break;
+                    }
+                    case 32:
+                    case 38:
+                    case 13:
+                    case 8:
+                    case 46:
+                    case 27: {
+                        that.onMouseUp("jump");
+                    }
+                }
+            };
+        };
+    }
 
     renderItem(UL: number) {
         if (this.isTerminalPC) {
