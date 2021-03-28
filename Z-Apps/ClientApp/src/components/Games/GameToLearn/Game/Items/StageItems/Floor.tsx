@@ -1,9 +1,8 @@
 import React from "react";
 import { Direction, StageItem } from ".";
-import { gameStorage } from "../../../../../../common/consts";
 import { Ninja } from "../Ninja";
 
-interface RockProps {
+interface FloorProps {
     key: string;
     x: number;
     y: number;
@@ -11,20 +10,18 @@ interface RockProps {
     zIndex: number;
 }
 
-export class Rock extends StageItem {
+export class Floor extends StageItem {
     key: string;
 
-    constructor({ key, ...rest }: RockProps) {
-        super({ type: "rock", ...rest });
+    constructor({ key, ...rest }: FloorProps) {
+        super({ type: "floor", ...rest });
         this.key = key;
     }
 
     renderItem(UL: number) {
         return (
-            <img
-                alt="rock"
+            <div
                 key={this.key}
-                src={`${gameStorage}ninja1/objs/rock.png`}
                 style={{
                     position: "absolute",
                     top: this.y * UL,
@@ -47,25 +44,6 @@ export class Rock extends StageItem {
                     y: this.y - ninja.width,
                     speedY: 0,
                 });
-                break;
-            }
-            case Direction.bottom: {
-                // 忍者が下にいる
-                ninja.updateNinjaData({
-                    ...ninja,
-                    y: this.y + this.width,
-                    speedY: 0,
-                });
-                break;
-            }
-            case Direction.left: {
-                // 忍者が左にいる
-                ninja.updateNinjaData({ ...ninja, x: this.x - ninja.width });
-                break;
-            }
-            case Direction.right: {
-                // 忍者が右にいる
-                ninja.updateNinjaData({ ...ninja, x: this.x + this.width });
                 break;
             }
         }

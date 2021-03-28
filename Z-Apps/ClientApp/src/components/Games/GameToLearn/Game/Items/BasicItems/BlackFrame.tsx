@@ -41,7 +41,7 @@ export class BlackFrame extends Renderable {
                     backgroundColor: "black",
                     zIndex: 10000,
                     position: "absolute",
-                    top: 90 * UL,
+                    top: 75 * UL,
                     left: -50 * UL,
                     height: 50 * UL,
                     width: 260 * UL,

@@ -5,25 +5,58 @@ import { Renderable } from "./StageItems";
 
 const ninjaUrl = `${appsPublicImg}ninja_hashiru.png`;
 
-type NinjaProps = Omit<Ninja, "renderItem" | "updateNinjaData">;
+type NinjaProps = Omit<
+    Ninja,
+    "renderItem" | "updateNinjaData" | "calcNextNinjaPosition"
+>;
 
 export class Ninja extends Renderable {
     x: number;
     y: number;
+    speedY: number;
     width: number;
 
-    constructor({ x, y, width }: NinjaProps) {
+    constructor({ x, y, speedY, width }: NinjaProps) {
         super();
 
         this.x = x;
         this.y = y;
+        this.speedY = speedY;
         this.width = width;
     }
 
-    updateNinjaData({ x, y, width }: NinjaProps) {
+    updateNinjaData({ x, y, speedY, width }: NinjaProps) {
         this.x = x;
         this.y = y;
+        this.speedY = speedY;
         this.width = width;
+    }
+
+    calcNextNinjaPosition({
+        isLeftButtonClicked,
+        isRightButtonClicked,
+        isJumpButtonClicked,
+    }: {
+        isLeftButtonClicked: boolean;
+        isRightButtonClicked: boolean;
+        isJumpButtonClicked: boolean;
+    }) {
+        // 忍者の位置更新
+        if (isLeftButtonClicked) {
+            this.x -= 3;
+        }
+        if (isRightButtonClicked) {
+            this.x += 3;
+        }
+        if (isJumpButtonClicked) {
+            this.speedY -= 10;
+        }
+
+        // 重力
+        this.speedY += 2;
+
+        // 速度から位置更新
+        this.y += this.speedY;
     }
 
     renderItem(UL: number) {

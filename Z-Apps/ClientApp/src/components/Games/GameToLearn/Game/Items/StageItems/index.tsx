@@ -1,7 +1,7 @@
 import React from "react";
 import { Ninja } from "../Ninja";
 
-export const itemTypes = { rock: "rock" } as const;
+export const itemTypes = { rock: "rock", floor: "floor" } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
 export class Renderable {
