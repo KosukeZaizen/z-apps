@@ -14,24 +14,45 @@ export class Ninja extends Renderable {
     x: number;
     y: number;
     speedY: number;
+    speedX: number;
     width: number;
+    isGoingRight: boolean;
     jumpable: boolean;
 
-    constructor({ x, y, speedY, width, jumpable }: NinjaProps) {
+    constructor({
+        x,
+        y,
+        speedX,
+        speedY,
+        width,
+        isGoingRight,
+        jumpable,
+    }: NinjaProps) {
         super();
 
         this.x = x;
         this.y = y;
+        this.speedX = speedX;
         this.speedY = speedY;
         this.width = width;
+        this.isGoingRight = isGoingRight;
         this.jumpable = jumpable;
     }
 
-    updateNinjaData({ x, y, speedY, width, jumpable }: NinjaProps) {
+    updateNinjaData({
+        x,
+        y,
+        speedX,
+        speedY,
+        width,
+        isGoingRight,
+        jumpable,
+    }: NinjaProps) {
         this.x = x;
         this.y = y;
         this.speedY = speedY;
         this.width = width;
+        this.isGoingRight = isGoingRight;
         this.jumpable = jumpable;
     }
 
@@ -46,9 +67,11 @@ export class Ninja extends Renderable {
     }) {
         // 忍者の位置更新
         if (isLeftButtonClicked) {
+            this.isGoingRight = false;
             this.x -= 2;
         }
         if (isRightButtonClicked) {
+            this.isGoingRight = true;
             this.x += 2;
         }
         if (isJumpButtonClicked && this.jumpable) {
@@ -62,6 +85,7 @@ export class Ninja extends Renderable {
         this.speedY += 1;
 
         // 速度から位置更新
+        this.x += this.speedX;
         this.y += this.speedY;
     }
 
@@ -77,9 +101,10 @@ export class Ninja extends Renderable {
                     top: this.y * UL,
                     left: this.x * UL,
                     transition: `${timeStep}ms`,
-                    transitionProperty: "top left",
+                    transitionProperty: "top, left",
                     transitionTimingFunction: "linear",
                     zIndex: 10,
+                    transform: this.isGoingRight ? "scale(-1, 1)" : undefined,
                 }}
             />
         );

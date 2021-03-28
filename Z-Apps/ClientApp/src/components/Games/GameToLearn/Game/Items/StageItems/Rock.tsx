@@ -61,12 +61,20 @@ export class Rock extends StageItem {
             }
             case Direction.left: {
                 // 忍者が左にいる
-                ninja.updateNinjaData({ ...ninja, x: this.x - ninja.width });
+                ninja.updateNinjaData({
+                    ...ninja,
+                    x: this.x - ninja.width,
+                    speedX: 0,
+                });
                 break;
             }
             case Direction.right: {
                 // 忍者が右にいる
-                ninja.updateNinjaData({ ...ninja, x: this.x + this.width });
+                ninja.updateNinjaData({
+                    ...ninja,
+                    x: this.x + this.width,
+                    speedX: 0,
+                });
                 break;
             }
         }

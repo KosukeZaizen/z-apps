@@ -15,8 +15,10 @@ export function Game({ UL }: { UL: number }) {
         new Ninja({
             x: 140,
             y: 0,
+            speedX: 0,
             speedY: 0,
             width: 10,
+            isGoingRight: false,
             jumpable: false,
         })
     );
