@@ -46,20 +46,20 @@ export class Ninja extends Renderable {
     }) {
         // 忍者の位置更新
         if (isLeftButtonClicked) {
-            this.x -= 3;
+            this.x -= 2;
         }
         if (isRightButtonClicked) {
-            this.x += 3;
+            this.x += 2;
         }
         if (isJumpButtonClicked && this.jumpable) {
-            this.speedY -= 10;
+            this.speedY -= 7;
         }
 
         // ジャンプ判定直後に毎回、床から離れたとみなす
         this.jumpable = false;
 
         // 重力
-        this.speedY += 2;
+        this.speedY += 1;
 
         // 速度から位置更新
         this.y += this.speedY;

@@ -5,7 +5,7 @@ import { Ninja } from "./Items/Ninja";
 import { Items, Renderable, StageItem } from "./Items/StageItems";
 import { stages } from "./Stages";
 
-export const timeStep = 100;
+export const timeStep = 50;
 
 export function Game({ UL }: { UL: number }) {
     const [stageItems, setStageItems] = useState<StageItem[]>(
