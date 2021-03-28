@@ -17,6 +17,7 @@ export function Game({ UL }: { UL: number }) {
             y: 0,
             speedY: 0,
             width: 10,
+            jumpable: false,
         })
     );
     const [fixedItems, setFixedItems] = useState<Renderable[]>([]);

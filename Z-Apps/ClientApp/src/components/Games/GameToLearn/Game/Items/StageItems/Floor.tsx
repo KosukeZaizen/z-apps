@@ -43,6 +43,7 @@ export class Floor extends StageItem {
                     ...ninja,
                     y: this.y - ninja.width,
                     speedY: 0,
+                    jumpable: true,
                 });
                 break;
             }

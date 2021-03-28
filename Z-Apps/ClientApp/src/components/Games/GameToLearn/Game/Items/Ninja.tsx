@@ -15,21 +15,24 @@ export class Ninja extends Renderable {
     y: number;
     speedY: number;
     width: number;
+    jumpable: boolean;
 
-    constructor({ x, y, speedY, width }: NinjaProps) {
+    constructor({ x, y, speedY, width, jumpable }: NinjaProps) {
         super();
 
         this.x = x;
         this.y = y;
         this.speedY = speedY;
         this.width = width;
+        this.jumpable = jumpable;
     }
 
-    updateNinjaData({ x, y, speedY, width }: NinjaProps) {
+    updateNinjaData({ x, y, speedY, width, jumpable }: NinjaProps) {
         this.x = x;
         this.y = y;
         this.speedY = speedY;
         this.width = width;
+        this.jumpable = jumpable;
     }
 
     calcNextNinjaPosition({
@@ -48,9 +51,12 @@ export class Ninja extends Renderable {
         if (isRightButtonClicked) {
             this.x += 3;
         }
-        if (isJumpButtonClicked) {
+        if (isJumpButtonClicked && this.jumpable) {
             this.speedY -= 10;
         }
+
+        // ジャンプ判定直後に毎回、床から離れたとみなす
+        this.jumpable = false;
 
         // 重力
         this.speedY += 2;
