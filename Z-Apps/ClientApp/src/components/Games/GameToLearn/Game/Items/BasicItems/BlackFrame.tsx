@@ -3,12 +3,6 @@ import { Renderable } from "../StageItems";
 
 // 画面からはみ出したコンポーネントを隠すための黒いフレーム
 export class BlackFrame extends Renderable {
-    itemsToRender: React.ReactNode;
-
-    constructor() {
-        super();
-    }
-
     renderItem(UL: number) {
         return [
             <div

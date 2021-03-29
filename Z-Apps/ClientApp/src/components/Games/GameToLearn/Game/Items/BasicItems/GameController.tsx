@@ -1,5 +1,5 @@
+import { Button } from "@material-ui/core";
 import React from "react";
-import { Button } from "reactstrap";
 import { Renderable } from "../StageItems";
 
 type ButtonName = "right" | "left" | "jump";
@@ -133,7 +133,8 @@ function SmartPhoneButtons({
     return (
         <>
             <Button
-                color="dark"
+                variant="contained"
+                color="primary"
                 style={{
                     position: "absolute",
                     top: 77 * UL,
@@ -174,7 +175,8 @@ function SmartPhoneButtons({
                 }}
             />
             <Button
-                color="dark"
+                variant="contained"
+                color="primary"
                 style={{
                     position: "absolute",
                     top: 77 * UL,
@@ -215,7 +217,8 @@ function SmartPhoneButtons({
                 }}
             />
             <Button
-                color="dark"
+                variant="contained"
+                color="primary"
                 style={{
                     position: "absolute",
                     top: 77 * UL,

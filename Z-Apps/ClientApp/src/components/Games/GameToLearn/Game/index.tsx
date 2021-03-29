@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BlackFrame } from "./Items/BasicItems/BlackFrame";
 import { GameController } from "./Items/BasicItems/GameController";
+import { Menu } from "./Items/BasicItems/Menu";
 import { Ninja } from "./Items/Ninja";
 import { Items, Renderable, StageItem } from "./Items/StageItems";
 import { stages } from "./Stages";
@@ -46,6 +47,7 @@ export function Game({ UL }: { UL: number }) {
                 left: setIsLeftButtonClicked,
                 jump: setIsJumpButtonClicked,
             }),
+            new Menu(),
         ]);
     }, []);
 
