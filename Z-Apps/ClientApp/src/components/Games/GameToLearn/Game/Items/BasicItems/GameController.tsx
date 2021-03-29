@@ -133,7 +133,7 @@ function SmartPhoneButtons({
     return (
         <>
             <Button
-                color="info"
+                color="dark"
                 style={{
                     position: "absolute",
                     top: 77 * UL,
@@ -174,7 +174,7 @@ function SmartPhoneButtons({
                 }}
             />
             <Button
-                color="info"
+                color="dark"
                 style={{
                     position: "absolute",
                     top: 77 * UL,
@@ -215,7 +215,7 @@ function SmartPhoneButtons({
                 }}
             />
             <Button
-                color="info"
+                color="dark"
                 style={{
                     position: "absolute",
                     top: 77 * UL,
