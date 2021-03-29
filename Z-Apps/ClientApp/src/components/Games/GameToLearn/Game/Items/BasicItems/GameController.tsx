@@ -86,38 +86,42 @@ export class GameController extends Renderable {
     renderItem(UL: number) {
         if (this.isTerminalPC) {
             return (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 75 * UL,
-                        width: 160 * UL,
-                        height: 15 * UL,
-                        zIndex: 10001,
-                        backgroundColor: "black",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        transition: "1s",
-                    }}
-                >
-                    <span
+                UL && (
+                    <div
                         style={{
-                            fontSize: 5 * UL,
-                            color: "white",
+                            position: "absolute",
+                            top: 75 * UL,
+                            width: 160 * UL,
+                            height: 15 * UL,
+                            zIndex: 10001,
+                            backgroundColor: "black",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                             transition: "1s",
                         }}
                     >
-                        On a PC, please use [←], [↑], and [→] keys to play!
-                    </span>
-                </div>
+                        <span
+                            style={{
+                                fontSize: 5 * UL,
+                                color: "white",
+                                transition: "1s",
+                            }}
+                        >
+                            On a PC, please use [←], [↑], and [→] keys to play!
+                        </span>
+                    </div>
+                )
             );
         } else {
             return (
-                <SmartPhoneButtons
-                    onClickButton={this.onClickButton}
-                    onMouseUp={this.onMouseUp}
-                    UL={UL}
-                />
+                UL && (
+                    <SmartPhoneButtons
+                        onClickButton={this.onClickButton}
+                        onMouseUp={this.onMouseUp}
+                        UL={UL}
+                    />
+                )
             );
         }
     }
@@ -145,7 +149,6 @@ function SmartPhoneButtons({
                     width: 35 * UL,
                     zIndex: 10001,
                     fontSize: 5 * UL,
-                    transition: "1s",
                 }}
             >
                 {"＜"}
@@ -189,7 +192,6 @@ function SmartPhoneButtons({
                     width: 86 * UL,
                     zIndex: 10001,
                     fontSize: 5 * UL,
-                    transition: "1s",
                 }}
             >
                 {"↑ jump ↑"}
@@ -232,7 +234,6 @@ function SmartPhoneButtons({
                     height: 13 * UL,
                     width: 35 * UL,
                     zIndex: 10001,
-                    transition: "1s",
                     fontSize: 5 * UL,
                 }}
             >

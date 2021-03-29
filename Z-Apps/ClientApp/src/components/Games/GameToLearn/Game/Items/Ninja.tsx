@@ -95,20 +95,24 @@ export class Ninja extends Renderable {
             : {};
 
         return (
-            <img
-                key="Japanese running ninja"
-                alt="Japanese running ninja"
-                src={`${appsPublicImg}ninja_hashiru.png`}
-                style={{
-                    width: this.width * UL,
-                    position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    zIndex: 10,
-                    transform: this.isGoingRight ? "scale(-1, 1)" : undefined,
-                    ...transitionStyle,
-                }}
-            />
+            UL && (
+                <img
+                    key="Japanese running ninja"
+                    alt="Japanese running ninja"
+                    src={`${appsPublicImg}ninja_hashiru.png`}
+                    style={{
+                        width: this.width * UL,
+                        position: "absolute",
+                        top: this.y * UL,
+                        left: this.x * UL,
+                        zIndex: 10,
+                        transform: this.isGoingRight
+                            ? "scale(-1, 1)"
+                            : undefined,
+                        ...transitionStyle,
+                    }}
+                />
+            )
         );
     }
 }

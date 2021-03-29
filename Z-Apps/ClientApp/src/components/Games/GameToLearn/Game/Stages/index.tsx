@@ -12,6 +12,7 @@ export const stages = {
     emptyStage: [],
     firstStage1: [
         new Rock({ key: "rock1", x: 135, y: 50, width: 30, zIndex: 10 }),
+        new Rock({ key: "rock2", x: 15, y: 65, width: 13, zIndex: 10 }),
         new Floor({ key: "floor1", x: -50, y: 75, width: 260, zIndex: 10 }),
         new StageChanger({
             key: "stageChanger1",

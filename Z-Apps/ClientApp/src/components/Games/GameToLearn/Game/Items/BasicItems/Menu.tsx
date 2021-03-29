@@ -14,25 +14,26 @@ function GameMenu({ UL }: { UL: number }) {
     const btnRef = useRef(null);
     return (
         <>
-            <Button
-                variant="contained"
-                color="primary"
-                style={{
-                    zIndex: 20001,
-                    position: "absolute",
-                    top: 1 * UL,
-                    left: 139 * UL,
-                    width: 20 * UL,
-                    height: 8 * UL,
-                    fontSize: 3 * UL,
-                    fontWeight: "bold",
-                    transition: "1s",
-                }}
-                onClick={() => setOpen(true)}
-                ref={btnRef}
-            >
-                Menu
-            </Button>
+            {UL && (
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{
+                        zIndex: 20001,
+                        position: "absolute",
+                        top: 1 * UL,
+                        left: 139 * UL,
+                        width: 20 * UL,
+                        height: 8 * UL,
+                        fontSize: 3 * UL,
+                        fontWeight: "bold",
+                    }}
+                    onClick={() => setOpen(true)}
+                    ref={btnRef}
+                >
+                    Menu
+                </Button>
+            )}
             <Popover
                 open={open}
                 anchorEl={btnRef?.current}
