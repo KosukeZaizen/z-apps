@@ -97,12 +97,14 @@ export class GameController extends Renderable {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        transition: "1s",
                     }}
                 >
                     <span
                         style={{
                             fontSize: 5 * UL,
                             color: "white",
+                            transition: "1s",
                         }}
                     >
                         On a PC, please use [←], [↑], and [→] keys to play!
@@ -142,6 +144,8 @@ function SmartPhoneButtons({
                     height: 13 * UL,
                     width: 35 * UL,
                     zIndex: 10001,
+                    fontSize: 5 * UL,
+                    transition: "1s",
                 }}
             >
                 {"＜"}
@@ -184,6 +188,8 @@ function SmartPhoneButtons({
                     height: 13 * UL,
                     width: 86 * UL,
                     zIndex: 10001,
+                    fontSize: 5 * UL,
+                    transition: "1s",
                 }}
             >
                 {"↑ jump ↑"}
@@ -226,6 +232,8 @@ function SmartPhoneButtons({
                     height: 13 * UL,
                     width: 35 * UL,
                     zIndex: 10001,
+                    transition: "1s",
+                    fontSize: 5 * UL,
                 }}
             >
                 {"＞"}

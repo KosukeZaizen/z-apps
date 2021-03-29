@@ -1,4 +1,4 @@
-import { Button, Popover, Slide } from "@material-ui/core";
+import { Button, Fade, Popover } from "@material-ui/core";
 import React, { useRef, useState } from "react";
 import { Renderable } from "../StageItems";
 
@@ -23,7 +23,10 @@ function GameMenu({ UL }: { UL: number }) {
                     top: 1 * UL,
                     left: 139 * UL,
                     width: 20 * UL,
+                    height: 8 * UL,
+                    fontSize: 3 * UL,
                     fontWeight: "bold",
+                    transition: "1s",
                 }}
                 onClick={() => setOpen(true)}
                 ref={btnRef}
@@ -38,23 +41,21 @@ function GameMenu({ UL }: { UL: number }) {
             >
                 hello
             </Popover>
-            {open && (
-                <Slide in={open} direction="up">
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: 160 * UL,
-                            height: 90 * UL,
-                            zIndex: 20000,
-                            backgroundColor: "black",
-                            opacity: 0.5,
-                        }}
-                        //onClick={() => setOpen(false)}
-                    />
-                </Slide>
-            )}
+            <Fade in={open} timeout={1000}>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 160 * UL,
+                        height: 90 * UL,
+                        zIndex: 20000,
+                        backgroundColor: "black",
+                        opacity: 0.5,
+                    }}
+                    //onClick={() => setOpen(false)}
+                />
+            </Fade>
         </>
     );
 }

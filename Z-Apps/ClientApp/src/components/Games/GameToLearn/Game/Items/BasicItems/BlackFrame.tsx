@@ -15,6 +15,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 50 * UL,
                     width: 260 * UL,
+                    transition: "1s",
                 }}
             />,
             <div
@@ -27,6 +28,7 @@ export class BlackFrame extends Renderable {
                     left: 160 * UL,
                     height: 190 * UL,
                     width: 50 * UL,
+                    transition: "1s",
                 }}
             />,
             <div
@@ -39,6 +41,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 50 * UL,
                     width: 260 * UL,
+                    transition: "1s",
                 }}
             />,
             <div
@@ -51,6 +54,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 190 * UL,
                     width: 50 * UL,
+                    transition: "1s",
                 }}
             />,
         ];

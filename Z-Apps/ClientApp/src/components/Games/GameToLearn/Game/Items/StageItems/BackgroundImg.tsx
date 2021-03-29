@@ -37,9 +37,9 @@ export class BackgroundImg extends StageItem {
                     left: 0,
                     width: 160 * UL,
                     height: 75 * UL,
-                    backgroundColor: "gray",
                     objectFit: "cover",
                     zIndex: 1,
+                    transition: "1s",
                 }}
             />
         );
