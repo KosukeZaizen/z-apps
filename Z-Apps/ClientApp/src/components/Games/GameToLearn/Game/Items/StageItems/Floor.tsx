@@ -2,7 +2,7 @@ import React from "react";
 import { Direction, StageItem } from ".";
 import { Ninja } from "../Ninja";
 
-interface FloorProps {
+interface Props {
     key: string;
     x: number;
     y: number;
@@ -13,7 +13,7 @@ interface FloorProps {
 export class Floor extends StageItem {
     key: string;
 
-    constructor({ key, ...rest }: FloorProps) {
+    constructor({ key, ...rest }: Props) {
         super({ type: "floor", ...rest });
         this.key = key;
     }

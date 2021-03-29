@@ -1,36 +1,45 @@
 import React from "react";
 import { Direction, StageItem } from ".";
-import { gameStorage } from "../../../../../../common/consts";
 import { Ninja } from "../Ninja";
 
 interface Props {
     key: string;
-    x: number;
-    y: number;
-    width: number;
-    zIndex: number;
+    src: string;
 }
 
-export class Rock extends StageItem {
+export class BackgroundImg extends StageItem {
     key: string;
+    src: string;
 
-    constructor({ key, ...rest }: Props) {
-        super({ type: "rock", ...rest });
+    constructor({ key, src, ...rest }: Props) {
+        super({
+            type: "backgroundImg",
+            x: 0,
+            y: 0,
+            zIndex: 0,
+            width: 0,
+            isUntouchable: true,
+            ...rest,
+        });
         this.key = key;
+        this.src = src;
     }
 
     renderItem(UL: number) {
         return (
             <img
-                alt="rock"
+                alt={this.key}
                 key={this.key}
-                src={`${gameStorage}ninja1/objs/rock.png`}
+                src={this.src}
                 style={{
                     position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    width: this.width * UL,
-                    zIndex: this.zIndex,
+                    top: 0,
+                    left: 0,
+                    width: 160 * UL,
+                    height: 75 * UL,
+                    backgroundColor: "gray",
+                    objectFit: "cover",
+                    zIndex: 1,
                 }}
             />
         );

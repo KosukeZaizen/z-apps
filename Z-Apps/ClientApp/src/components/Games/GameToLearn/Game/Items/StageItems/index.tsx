@@ -5,6 +5,7 @@ export const itemTypes = {
     rock: "rock",
     floor: "floor",
     stageChanger: "stageChanger",
+    backgroundImg: "backgroundImg",
 } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
@@ -15,14 +16,14 @@ export class Renderable {
         );
     }
 }
-interface StageItemProps {
+type StageItemProps = {
     type: ItemType;
     x: number;
     y: number;
     width: number;
     zIndex: number;
     isUntouchable?: boolean;
-}
+};
 
 export const Direction = {
     top: "top",

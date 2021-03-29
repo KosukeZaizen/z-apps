@@ -3,12 +3,11 @@ import { StageItem } from ".";
 import { StageName } from "../../Stages";
 import { Ninja } from "../Ninja";
 
-interface StageChangerProps {
+interface Props {
     key: string;
     x: number;
     y: number;
     width: number;
-    zIndex: number;
     nextStage: StageName;
     nextX?: number;
     nextY?: number;
@@ -20,8 +19,8 @@ export class StageChanger extends StageItem {
     nextX?: number;
     nextY?: number;
 
-    constructor({ key, nextStage, nextX, nextY, ...rest }: StageChangerProps) {
-        super({ type: "stageChanger", ...rest });
+    constructor({ key, nextStage, nextX, nextY, ...rest }: Props) {
+        super({ type: "stageChanger", zIndex: 0, ...rest });
         this.key = key;
         this.nextStage = nextStage;
         this.nextX = nextX;
