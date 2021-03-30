@@ -84,47 +84,54 @@ export class GameController extends Renderable {
     }
 
     renderItem(UL: number) {
-        if (this.isTerminalPC) {
-            return (
-                UL && (
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: 75 * UL,
-                            width: 160 * UL,
-                            height: 15 * UL,
-                            zIndex: 10001,
-                            backgroundColor: "black",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            transition: "1s",
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontSize: 5 * UL,
-                                color: "white",
-                                transition: "1s",
-                            }}
-                        >
-                            On a PC, please use [←], [↑], and [→] keys to play!
-                        </span>
-                    </div>
-                )
-            );
-        } else {
-            return (
-                UL && (
-                    <SmartPhoneButtons
-                        onClickButton={this.onClickButton}
-                        onMouseUp={this.onMouseUp}
-                        UL={UL}
-                    />
-                )
-            );
-        }
+        return (
+            UL && (
+                <div
+                    key="game controller"
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                >
+                    {this.isTerminalPC ? (
+                        <PCMessage UL={UL} />
+                    ) : (
+                        <SmartPhoneButtons
+                            onClickButton={this.onClickButton}
+                            onMouseUp={this.onMouseUp}
+                            UL={UL}
+                        />
+                    )}
+                </div>
+            )
+        );
     }
+}
+
+function PCMessage({ UL }: { UL: number }) {
+    return (
+        <div
+            style={{
+                position: "absolute",
+                top: 75 * UL,
+                width: 160 * UL,
+                height: 15 * UL,
+                zIndex: 10001,
+                backgroundColor: "black",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "1s",
+            }}
+        >
+            <span
+                style={{
+                    fontSize: 5 * UL,
+                    color: "white",
+                    transition: "1s",
+                }}
+            >
+                On a PC, please use [←], [↑], and [→] keys to play!
+            </span>
+        </div>
+    );
 }
 
 function SmartPhoneButtons({
