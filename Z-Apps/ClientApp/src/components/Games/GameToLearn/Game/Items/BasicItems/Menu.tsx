@@ -1,18 +1,54 @@
 import { Button, Slide } from "@material-ui/core";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Articles from "../../../../../Articles";
 import { Renderable } from "../StageItems";
 
+// サイドメニュー
+const SideMenu = {
+    base: "Base",
+    folktale: "Folktale",
+    article: "Article",
+} as const;
+type SideMenu = typeof SideMenu[keyof typeof SideMenu];
+
 // ゲームメニューボタン
 export class Menu extends Renderable {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+    constructor({
+        open,
+        setOpen,
+    }: {
+        open: boolean;
+        setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    }) {
+        super();
+        this.open = open;
+        this.setOpen = setOpen;
+    }
     renderItem(UL: number) {
-        return <GameMenu key="game menu" UL={UL} />;
+        return (
+            <GameMenu
+                key="game menu"
+                UL={UL}
+                open={this.open}
+                setOpen={this.setOpen}
+            />
+        );
     }
 }
 
-function GameMenu({ UL }: { UL: number }) {
-    const [open, setOpen] = useState(false);
-    const btnRef = useRef(null);
+function GameMenu({
+    UL,
+    open,
+    setOpen,
+}: {
+    UL: number;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+    const [sideMenu, setSideMenu] = useState<SideMenu>(SideMenu.base);
     return (
         <>
             {UL && (
@@ -32,24 +68,10 @@ function GameMenu({ UL }: { UL: number }) {
                         transitionDuration: "1s",
                     }}
                     onClick={() => setOpen(!open)}
-                    ref={btnRef}
                 >
                     {open ? "Close" : "Menu"}
                 </Button>
             )}
-            {/* <div
-                style={{
-                    position: "absolute",
-                    top: 1 * UL,
-                    right: 1 * UL,
-                    width: 20 * UL,
-                    height: open ? 88 * UL : 0,
-                    transition: "500ms",
-                    zIndex: 20003,
-                    backgroundColor: "black",
-                    borderRadius: 1 * UL,
-                }}
-            ></div> */}
             <div
                 style={{
                     position: "absolute",
@@ -62,15 +84,14 @@ function GameMenu({ UL }: { UL: number }) {
                     backgroundColor: "white",
                     borderRadius: 3 * UL,
                     overflow: "hidden",
-                    opacity: 0.85,
                 }}
             >
                 <div
                     style={{
-                        opacity: 1,
-                        width: 150 * UL,
-                        height: 80 * UL,
-                        overflow: "scroll",
+                        marginTop: 3 * UL,
+                        width: 138 * UL,
+                        height: 82 * UL,
+                        overflowY: "scroll",
                     }}
                 >
                     {open && (
