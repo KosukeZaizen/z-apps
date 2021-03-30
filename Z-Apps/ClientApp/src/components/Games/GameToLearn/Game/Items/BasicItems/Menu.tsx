@@ -1,5 +1,6 @@
 import { Button, Slide } from "@material-ui/core";
 import React, { useRef, useState } from "react";
+import Articles from "../../../../../Articles";
 import { Renderable } from "../StageItems";
 
 // ゲームメニューボタン
@@ -69,9 +70,18 @@ function GameMenu({ UL }: { UL: number }) {
                         opacity: 1,
                         width: 150 * UL,
                         height: 80 * UL,
+                        overflow: "scroll",
                     }}
                 >
-                    helloaaaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa
+                    {open && (
+                        <Articles
+                            match={{
+                                params: { pageName: "japanese-particle-no" },
+                            }}
+                            location={window.location}
+                            history={window.history as any}
+                        />
+                    )}
                 </div>
             </div>
             <Slide in={open} direction="down">
