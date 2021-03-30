@@ -1,6 +1,5 @@
-import { Button, Fade } from "@material-ui/core";
+import { Button, Slide } from "@material-ui/core";
 import React, { useRef, useState } from "react";
-import { ScrollBox } from "../../../../../parts/ScrollBox";
 import { Renderable } from "../StageItems";
 
 // ゲームメニューボタン
@@ -18,9 +17,9 @@ function GameMenu({ UL }: { UL: number }) {
             {UL && (
                 <Button
                     variant="contained"
-                    color="primary"
+                    color={open ? "secondary" : "primary"}
                     style={{
-                        zIndex: 20002,
+                        zIndex: 20005,
                         position: "absolute",
                         top: 1 * UL,
                         left: 139 * UL,
@@ -28,28 +27,54 @@ function GameMenu({ UL }: { UL: number }) {
                         height: 6 * UL,
                         fontSize: 3 * UL,
                         fontWeight: "bold",
-                        opacity: 0.9,
+                        opacity: open ? 1 : 0.9,
+                        transitionDuration: "1s",
                     }}
-                    onClick={() => setOpen(true)}
+                    onClick={() => setOpen(!open)}
                     ref={btnRef}
                 >
-                    Menu
+                    {open ? "Close" : "Menu"}
                 </Button>
             )}
-            <ScrollBox
+            {/* <div
                 style={{
                     position: "absolute",
-                    top: 3 * UL,
-                    left: 5 * UL,
-                    width: 0,
-                    height: 70 * UL,
+                    top: 1 * UL,
+                    right: 1 * UL,
+                    width: 20 * UL,
+                    height: open ? 88 * UL : 0,
+                    transition: "500ms",
                     zIndex: 20003,
+                    backgroundColor: "black",
+                    borderRadius: 1 * UL,
+                }}
+            ></div> */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 1 * UL,
+                    right: open ? 21 * UL : 1,
+                    width: open ? 138 * UL : 0,
+                    height: open ? 88 * UL : 0,
+                    transition: "500ms",
+                    zIndex: 20002,
                     backgroundColor: "white",
+                    borderRadius: 3 * UL,
+                    overflow: "hidden",
+                    opacity: 0.85,
                 }}
             >
-                hello
-            </ScrollBox>
-            <Fade in={open} timeout={1000}>
+                <div
+                    style={{
+                        opacity: 1,
+                        width: 150 * UL,
+                        height: 80 * UL,
+                    }}
+                >
+                    helloaaaaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa
+                </div>
+            </div>
+            <Slide in={open} direction="down">
                 <div
                     style={{
                         position: "absolute",
@@ -63,7 +88,7 @@ function GameMenu({ UL }: { UL: number }) {
                     }}
                     onClick={() => setOpen(false)}
                 />
-            </Fade>
+            </Slide>
         </>
     );
 }
