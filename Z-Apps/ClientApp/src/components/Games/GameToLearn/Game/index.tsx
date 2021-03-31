@@ -82,21 +82,19 @@ export function Game({ UL }: { UL: number }) {
             }
         });
 
+        // メニュー開閉状態のセット
+        menu.open = isMenuOpen;
+
+        // ステージ用のItemを描画対象にセット
         setStageItems(stages[nextNinja.currentStage]);
 
         if (!isMenuOpen) {
-            // メニューが開かれていない場合は次のタイムステップへ
+            // メニューが開かれているとき以外はアニメーション続行
             setTimeout(() => {
                 setNinja(nextNinja);
             }, timeStep);
         }
-    }, [ninja]);
-
-    useEffect(() => {
-        // メニューの状態が変わったら、タイムステップを一つ進めてみる
-        menu.open = isMenuOpen;
-        setNinja(new Ninja(ninja));
-    }, [isMenuOpen]);
+    }, [ninja, isMenuOpen]);
 
     return (
         <>
