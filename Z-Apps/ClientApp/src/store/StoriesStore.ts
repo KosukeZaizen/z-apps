@@ -1,6 +1,7 @@
 import { reloadAndRedirect_OneTimeReload } from "../common/functions";
 import { cFetch } from "../common/util/cFetch";
 import { sentence, storyDesc, word } from "../types/stories";
+import { AsMapObject } from "./configureStore";
 
 const initializeType = "INITIALIZE";
 const receiveStoryType = "RECEIVE_STORY";
@@ -29,11 +30,13 @@ export interface StoriesState {
     allLoadFinished: boolean;
 }
 
-export interface IActionCreators {
+export type ActionCreators = AsMapObject<IActionCreators>;
+
+interface IActionCreators {
     loadStory: (storyName: string) => void;
 }
 
-export const actionCreators: IActionCreators = {
+export const actionCreators: ActionCreators = {
     loadStory: storyName => async (dispatch: Function) => {
         try {
             dispatch({ type: initializeType });

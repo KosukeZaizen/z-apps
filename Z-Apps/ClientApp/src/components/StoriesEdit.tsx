@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { initializeAnimation } from "../common/animation";
+import { StopAnimation } from "../common/animation";
 import * as consts from "../common/consts";
 import * as storiesEditStore from "../store/StoriesEditStore";
 import { sentence, word } from "../types/stories";
@@ -33,8 +33,6 @@ class StoriesEdit extends React.Component<Props, State> {
 
         this.props.loadStory(this.state.storyName);
         this.props.setInitialToken();
-
-        initializeAnimation();
     }
 
     componentDidUpdate() {
@@ -86,6 +84,7 @@ class StoriesEdit extends React.Component<Props, State> {
         return (
             <div className="center">
                 <Head title={title + " Story"} noindex={true} />
+                <StopAnimation />
                 <div
                     style={{
                         width: "100%",

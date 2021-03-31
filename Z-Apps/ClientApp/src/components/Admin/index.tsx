@@ -13,6 +13,9 @@ export default function Admin() {
                 <li>
                     <Link to="/opeLogTable">Ope Log</Link>
                 </li>
+                <li>
+                    <Link to="/game-to-learn-japanese">Game to learn</Link>
+                </li>
             </ul>
         </div>
     );

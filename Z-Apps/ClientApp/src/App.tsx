@@ -34,6 +34,7 @@ const NinjaTop = lazy(() => import("./components/Games/NinjaGameTop"));
 const Ninja1 = lazy(() => import("./components/Games/NinjaGame"));
 const Ninja2 = lazy(() => import("./components/Games/NinjaGame2"));
 const Ninja3 = lazy(() => import("./components/Games/NinjaGame3"));
+const GameToLearn = lazy(() => import("./components/Games/GameToLearn"));
 const GameOver = lazy(() => import("./components/Games/GameOver"));
 const Dictionary = lazy(() => import("./components/Dictionary"));
 const DictionaryTop = lazy(() => import("./components/Dictionary/Top"));
@@ -164,6 +165,11 @@ export default class App extends React.Component {
                         <Route sensitive path="/ninja1" component={Ninja1} />
                         <Route sensitive path="/ninja2" component={Ninja2} />
                         <Route sensitive path="/ninja3" component={Ninja3} />
+                        <Route
+                            sensitive
+                            path="/game-to-learn-japanese"
+                            component={GameToLearn}
+                        />
                         <Route
                             sensitive
                             path="/game-over"

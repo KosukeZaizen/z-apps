@@ -1,7 +1,12 @@
 import { cFetch } from "../common/util/cFetch";
+import { storyDesc } from "../types/stories";
 
 const receiveStoriesType = "RECEIVE_STORIES";
 const initialState = { allStories: [] };
+
+export interface State {
+    allStories: storyDesc[];
+}
 
 export const actionCreators = {
     loadAllStories: () => async (dispatch: Function) => {

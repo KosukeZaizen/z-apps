@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import * as consts from "../common/consts";
-import { TReducers } from "../store/configureStore";
+import { ApplicationState } from "../store/configureStore";
 import { actionCreators } from "../store/StoriesEditTopStore";
 import ShurikenProgress from "./parts/Animations/ShurikenProgress";
 import Head from "./parts/Helmet";
@@ -241,6 +241,6 @@ class StoriesTop extends React.Component<StoriesTopProps> {
 }
 
 export default connect(
-    (state: TReducers) => state.storiesTop,
+    (state: ApplicationState) => state.storiesTop,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(StoriesTop);

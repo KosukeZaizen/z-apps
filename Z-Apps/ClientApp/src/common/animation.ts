@@ -1,5 +1,8 @@
-import { finishFooterAnimation } from "../components/parts/Animations/FooterAnimation";
-import { finishWelcomeAnimation } from "../components/parts/Animations/WelcomeAnimation";
+import { useEffect } from "react";
+import {
+    finishFooterAnimation,
+    restartFooterAnimation,
+} from "../components/parts/Animations/FooterAnimation";
 
 export const timeStep = 1000; //ms
 
@@ -53,9 +56,11 @@ export class AnimationEngine<StateToAnimate extends MinimumAnimationState> {
     };
 }
 
+let intervalId = 0;
+
 //アプリケーションの初期化時に一度呼び出す関数
 export function startAnimation() {
-    setInterval(() => {
+    intervalId = window.setInterval(() => {
         //タイムステップごとのオブジェクト状態更新
         animationObjects.forEach(obj => {
             //各オブジェクト毎の処理
@@ -68,8 +73,20 @@ export function startAnimation() {
 }
 
 //アニメーションの初期化（登録済みのアニメーションの除去）
-export function initializeAnimation() {
-    animationObjects = [];
-    finishWelcomeAnimation();
-    finishFooterAnimation();
+export function StopAnimation() {
+    useEffect(() => {
+        const previousAnimationObjects = [...animationObjects];
+
+        animationObjects = [];
+        //finishWelcomeAnimation();
+        finishFooterAnimation();
+        clearInterval(intervalId);
+
+        return () => {
+            animationObjects = previousAnimationObjects;
+            startAnimation();
+            restartFooterAnimation();
+        };
+    }, []);
+    return null;
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
     AnimationEngine,
     smoothCSSProperty,
-    timeStep,
+    timeStep
 } from "../../../../common/animation";
 import { appsPublicImg } from "../../../../common/consts";
 
@@ -43,6 +43,7 @@ const baseStyle: React.CSSProperties = {
 };
 
 export let finishFooterAnimation: () => void;
+export let restartFooterAnimation: () => void;
 
 const smoothPosition = {
     transitionProperty: "top left",
@@ -55,6 +56,10 @@ export default function WelcomeAnimation() {
     useEffect(() => {
         finishFooterAnimation = () => {
             setAnimationState({ ...initialAnimationState, shown: false });
+        };
+
+        restartFooterAnimation = () => {
+            setAnimationState(initialAnimationState);
         };
 
         const animation = new AnimationEngine<StateToAnimate>(

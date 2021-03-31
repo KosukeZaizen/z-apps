@@ -5,6 +5,7 @@ import {
 } from "../common/functions";
 import { cFetch } from "../common/util/cFetch";
 import { sound, vocab, vocabGenre } from "../types/vocab";
+import { AsMapObject } from "./configureStore";
 
 const fileName = "VocabQuizStore";
 
@@ -33,14 +34,16 @@ export interface IVocabQuizState {
     currentPage: TPageNumber;
 }
 
-export interface IActionCreators {
+interface IActionCreators {
     loadVocabs: (genreName: string) => void;
     changePage: (nextPage: TPageNumber) => void;
     loadAllGenres: () => void;
     loadAllVocabs: () => void;
 }
 
-export const actionCreators: IActionCreators = {
+export type ActionCreators = AsMapObject<IActionCreators>;
+
+export const actionCreators: ActionCreators = {
     loadAllGenres: () => (dispatch: Function, getState: Function) => {
         loadLocalStorageOrDB(
             `api/VocabQuiz/GetAllGenres?v=${new Date().getDate()}`,

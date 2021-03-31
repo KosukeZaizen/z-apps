@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
-import { TReducers } from "../store/configureStore";
+import { ApplicationState } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";
@@ -16,7 +16,7 @@ import "./parts/PleaseScrollDown.css";
 import AllKanjiList from "./parts/VocabQuiz/AllKanjiList";
 
 type Props = vocabStore.IVocabQuizState &
-    vocabStore.IActionCreators & {
+    vocabStore.ActionCreators & {
         location: { pathname: string };
     };
 type State = {
@@ -214,6 +214,6 @@ class VocabQuizTop extends React.Component<Props, State> {
 }
 
 export default connect(
-    (state: TReducers) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators as any, dispatch)
+    (state: ApplicationState) => state.vocabQuiz,
+    dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
 )(VocabQuizTop);

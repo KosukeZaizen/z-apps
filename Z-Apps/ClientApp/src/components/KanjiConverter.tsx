@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "../css/KanjiConverter.css";
-import { TReducers } from "../store/configureStore";
+import { ApplicationState } from "../store/configureStore";
 import { actionCreators } from "../store/KanjiConverter";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
@@ -618,6 +618,6 @@ function execCopy(string: string) {
 }
 
 export default connect(
-    (state: TReducers) => state.kanjiConverter,
+    (state: ApplicationState) => state.kanjiConverter,
     dispatch => bindActionCreators(actionCreators, dispatch)
 )(KanjiConverter);

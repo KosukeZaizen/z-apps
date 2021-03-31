@@ -4,6 +4,12 @@ const requestKanjiConverterType = "REQUEST_KANJI_CONVERTER";
 const receiveKanjiConverterType = "RECEIVE_KANJI_CONVERTER";
 const initialState = { convertedWords: [], isLoading: false };
 
+export interface State {
+    kanjis: string;
+    convertedWords: { convertedWord: string }[];
+    isLoading: false;
+}
+
 interface RequestKanjiConverter {
     type: typeof requestKanjiConverterType;
     kanjis: string;
@@ -11,7 +17,7 @@ interface RequestKanjiConverter {
 interface ReceiveKanjiConverter {
     type: typeof receiveKanjiConverterType;
     kanjis: string;
-    convertedWords: any;
+    convertedWords: { convertedWord: string }[];
 }
 
 type KnownAction = RequestKanjiConverter | ReceiveKanjiConverter;
@@ -36,7 +42,7 @@ export const actionCreators = {
     },
 };
 
-export const reducer = (state: object, action: KnownAction) => {
+export const reducer = (state: State, action: KnownAction) => {
     state = state || initialState;
 
     if (action.type === requestKanjiConverterType) {

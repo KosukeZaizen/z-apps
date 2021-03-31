@@ -1,8 +1,9 @@
 import * as React from "react";
-import { initializeAnimation } from "../../common/animation";
+import { StopAnimation } from "../../common/animation";
 import { getParams } from "../../common/functions";
 import "../../css/NinjaGame2.css"; //CSSは2のもの
 import Head from "../parts/Helmet";
+import { HideHeaderAndFooter } from "../parts/Layout";
 import * as Consts from "../parts/Ninja3/Consts";
 import { Page1 } from "../parts/Ninja3/Page1";
 import { Page2 } from "../parts/Ninja3/Page2";
@@ -33,8 +34,6 @@ class NinjaGame extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
-        setTimeout(initializeAnimation, 4000); //ゲーム以外のアニメーションを止める
 
         let ninja: Ninja;
         let stage: number;
@@ -130,6 +129,8 @@ class NinjaGame extends React.Component<Props, State> {
                     title="Lingual Ninja Games - Frozen Nightmare"
                     desc="Japanese action game! Be a ninja, and save the village from the monsters!"
                 />
+                <HideHeaderAndFooter />
+                <StopAnimation />
                 <Pages
                     state={this.state}
                     changePage={(i: number, lang: string) => {
