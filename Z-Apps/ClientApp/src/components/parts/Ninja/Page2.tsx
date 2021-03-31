@@ -48,7 +48,7 @@ const furuie = `${gameStorage}ninja1/background/furuie5.jpg`;
 //stage2
 const town1 = `${gameStorage}ninja1/background/town1.jpg`;
 //stage3
-const ryokan1 = `$${gameStorage}ninja1/background/ryokan1.jpg`;
+const ryokan1 = `${gameStorage}ninja1/background/ryokan1.jpg`;
 //stage4
 const riverside1 = `${gameStorage}ninja1/background/riverside.jpg`;
 //stage5
