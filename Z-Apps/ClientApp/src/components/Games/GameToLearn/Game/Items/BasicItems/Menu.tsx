@@ -1,6 +1,7 @@
 import { Button, Slide } from "@material-ui/core";
 import React, { useState } from "react";
 import Articles from "../../../../../Articles";
+import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
 // サイドメニュー
@@ -13,27 +14,16 @@ type SideMenu = typeof SideMenu[keyof typeof SideMenu];
 
 // ゲームメニューボタン
 export class Menu extends Renderable {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
-    constructor({
-        open,
-        setOpen,
-    }: {
-        open: boolean;
-        setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    }) {
-        super();
-        this.open = open;
-        this.setOpen = setOpen;
-    }
     renderItem(UL: number) {
+        const { menu } = gameState;
         return (
             <GameMenu
                 key="game menu"
                 UL={UL}
-                open={this.open}
-                setOpen={this.setOpen}
+                open={menu.isMenuOpen}
+                setOpen={open => {
+                    menu.isMenuOpen = open;
+                }}
             />
         );
     }
@@ -46,7 +36,7 @@ function GameMenu({
 }: {
     UL: number;
     open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpen: (open: boolean) => void;
 }) {
     const [sideMenu, setSideMenu] = useState<SideMenu>(SideMenu.base);
     return (

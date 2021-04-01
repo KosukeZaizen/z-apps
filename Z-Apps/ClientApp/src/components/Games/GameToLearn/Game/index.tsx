@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BlackFrame } from "./Items/BasicItems/BlackFrame";
 import { GameController } from "./Items/BasicItems/GameController";
 import { Menu } from "./Items/BasicItems/Menu";
@@ -36,15 +36,6 @@ export function Game({ UL }: { UL: number }) {
     const [isJumpButtonClicked, setIsJumpButtonClicked] = useState<boolean>(
         false
     );
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menu = useMemo(
-        () =>
-            new Menu({
-                open: false,
-                setOpen: setIsMenuOpen,
-            }),
-        []
-    );
 
     useEffect(() => {
         // 初回のみの処理
@@ -56,6 +47,7 @@ export function Game({ UL }: { UL: number }) {
                 left: setIsLeftButtonClicked,
                 jump: setIsJumpButtonClicked,
             }),
+            new Menu(),
         ]);
     }, []);
 
@@ -82,26 +74,18 @@ export function Game({ UL }: { UL: number }) {
             }
         });
 
-        // メニュー開閉状態のセット
-        menu.open = isMenuOpen;
-
         // ステージ用のItemを描画対象にセット
         setStageItems(stages[nextNinja.currentStage]);
 
-        if (!isMenuOpen) {
-            // メニューが開かれているとき以外はアニメーション続行
-            setTimeout(() => {
-                setNinja(nextNinja);
-            }, timeStep);
-        }
-    }, [ninja, isMenuOpen]);
+        // メニューが開かれているとき以外はアニメーション続行
+        setTimeout(() => {
+            setNinja(nextNinja);
+        }, timeStep);
+    }, [ninja]);
 
     return (
         <>
-            <Items
-                items={[ninja, menu, ...fixedItems, ...stageItems]}
-                UL={UL}
-            />
+            <Items items={[ninja, ...fixedItems, ...stageItems]} UL={UL} />
         </>
     );
 }
