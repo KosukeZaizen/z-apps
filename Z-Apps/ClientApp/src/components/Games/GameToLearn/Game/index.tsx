@@ -26,22 +26,29 @@ export function Game({ UL }: { UL: number }) {
 
     useEffect(() => {
         // タイムステップ毎の処理
+        const {
+            menu: { isMenuOpen },
+        } = gameState;
 
-        // 各オブジェクトのタイムステップ毎の処理
+        if (!isMenuOpen) {
+            // アニメーションがストップされていない時
 
-        // ボタン押下と重力による忍者の位置更新
-        ninja.calcNextNinjaPosition();
+            // 各オブジェクトのタイムステップ毎の処理
 
-        // 忍者が触れている要素からの影響
-        stageItems.forEach(item => {
-            if (item.checkIfTouched(ninja)) {
-                // 要素が忍者に触れていた場合
-                item.onTouchNinja(ninja);
-            }
-        });
+            // ボタン押下と重力による忍者の位置更新
+            ninja.calcNextNinjaPosition();
 
-        // ステージ用のItemを描画対象にセット
-        setStageItems(stages[gameState.currentStage]);
+            // 忍者が触れている要素からの影響
+            stageItems.forEach(item => {
+                if (item.checkIfTouched(ninja)) {
+                    // 要素が忍者に触れていた場合
+                    item.onTouchNinja(ninja);
+                }
+            });
+
+            // ステージ用のItemを描画対象にセット
+            setStageItems(stages[gameState.currentStage]);
+        }
 
         // メニューが開かれているとき以外はアニメーション続行
         setTimeout(() => {
