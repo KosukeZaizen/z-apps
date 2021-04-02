@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BlackFrame } from "./Items/BasicItems/BlackFrame";
 import { GameController } from "./Items/BasicItems/GameController";
 import { Menu } from "./Items/BasicItems/Menu";
 import { Ninja } from "./Items/Ninja";
-import { Items, Renderable, StageItem } from "./Items/StageItems";
+import { Items, StageItem } from "./Items/StageItems";
 import { stages } from "./Stages";
 
 export const timeStep = 50;
@@ -25,45 +25,40 @@ export function Game({ UL }: { UL: number }) {
             cssAnimation: true,
         })
     );
-    const [fixedItems, setFixedItems] = useState<Renderable[]>([]);
 
-    useEffect(() => {
-        // 初回のみの処理
-
-        setFixedItems([new BlackFrame(), new GameController(), new Menu()]);
-    }, []);
+    const fixedItems = useMemo(
+        () => [new BlackFrame(), new GameController(), new Menu()],
+        []
+    );
 
     useEffect(() => {
         // タイムステップ毎の処理
 
-        // 次のタイムステップ用の忍者のインスタンス生成
-        const nextNinja: Ninja = new Ninja(ninja);
-
         // 各オブジェクトのタイムステップ毎の処理
 
         // ボタン押下と重力による忍者の位置更新
-        nextNinja.calcNextNinjaPosition();
+        ninja.calcNextNinjaPosition();
 
         // 忍者が触れている要素からの影響
         stageItems.forEach(item => {
-            if (item.checkIfTouched(nextNinja)) {
+            if (item.checkIfTouched(ninja)) {
                 // 要素が忍者に触れていた場合
-                item.onTouchNinja(nextNinja);
+                item.onTouchNinja(ninja);
             }
         });
 
         // ステージ用のItemを描画対象にセット
-        setStageItems(stages[nextNinja.currentStage]);
+        setStageItems(stages[ninja.currentStage]);
 
         // メニューが開かれているとき以外はアニメーション続行
         setTimeout(() => {
-            setNinja(nextNinja);
+            setNinja(new Ninja(ninja));
         }, timeStep);
     }, [ninja]);
 
     return (
         <>
-            <Items items={[ninja, ...fixedItems, ...stageItems]} UL={UL} />
+            <Items UL={UL} items={[ninja, ...fixedItems, ...stageItems]} />
         </>
     );
 }
