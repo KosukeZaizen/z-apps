@@ -68,6 +68,20 @@ function GameMenu({
                     onClick={() => setOpen(!open)}
                 />
             )}
+            <div
+                style={{
+                    backgroundColor: "white",
+                    opacity: 0.5,
+                    position: "absolute",
+                    top: 1 * UL,
+                    left: 139 * UL,
+                    width: 20 * UL,
+                    height: open ? 50 * UL : 0,
+                    transition: "500ms",
+                    zIndex: 20004,
+                    borderRadius: UL,
+                }}
+            ></div>
             <MenuScreen
                 UL={UL}
                 open={open}
