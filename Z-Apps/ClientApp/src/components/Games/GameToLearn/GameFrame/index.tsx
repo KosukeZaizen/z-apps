@@ -20,7 +20,11 @@ const setScreen = debounce<React.Dispatch<React.SetStateAction<number>>>(
     100
 );
 
-export function GameFrame() {
+export function GameFrame({
+    children,
+}: {
+    children: JSX.Element | JSX.Element[];
+}) {
     const [UL, setUL] = useState(0);
 
     useEffect(() => {
@@ -59,7 +63,7 @@ export function GameFrame() {
                     transition: "1s",
                 }}
             >
-                <Game UL={UL} />
+                <Game UL={UL}>{children}</Game>
             </div>
         </div>
     );

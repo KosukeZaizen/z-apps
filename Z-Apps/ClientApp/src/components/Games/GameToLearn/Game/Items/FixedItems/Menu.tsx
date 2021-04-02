@@ -1,6 +1,5 @@
 import { Button, Slide } from "@material-ui/core";
 import React, { useState } from "react";
-import Articles from "../../../../../Articles";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
@@ -14,7 +13,7 @@ type SideMenu = typeof SideMenu[keyof typeof SideMenu];
 
 // ゲームメニューボタン
 export class Menu extends Renderable {
-    renderItem(UL: number) {
+    renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
         const { menu } = gameState;
         return (
             <GameMenu
@@ -24,7 +23,9 @@ export class Menu extends Renderable {
                 setOpen={open => {
                     menu.isMenuOpen = open;
                 }}
-            />
+            >
+                {children}
+            </GameMenu>
         );
     }
 }
@@ -33,10 +34,12 @@ function GameMenu({
     UL,
     open,
     setOpen,
+    children,
 }: {
     UL: number;
     open: boolean;
     setOpen: (open: boolean) => void;
+    children: JSX.Element | JSX.Element[];
 }) {
     const [sideMenu, setSideMenu] = useState<SideMenu>(SideMenu.base);
     return (
@@ -84,15 +87,7 @@ function GameMenu({
                         overflowY: "scroll",
                     }}
                 >
-                    {open && (
-                        <Articles
-                            match={{
-                                params: { pageName: "japanese-particle-no" },
-                            }}
-                            location={window.location}
-                            history={window.history as any}
-                        />
-                    )}
+                    {open && children}
                 </div>
             </div>
             <Slide in={open} direction="down">

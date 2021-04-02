@@ -4,9 +4,8 @@ import ReactGA from "react-ga";
 import { Route, Switch } from "react-router";
 import ScrollMemory from "react-router-scroll-memory";
 import * as commonFncs from "./common/functions";
-import FooterAnimation from "./components/parts/Animations/FooterAnimation";
+import GameToLearn from "./components/Games/GameToLearn";
 import ShurikenProgress from "./components/parts/Animations/ShurikenProgress";
-import Layout from "./components/parts/Layout";
 import { PopupAd } from "./components/parts/YouTubeAd/Popup";
 import { APP_VERSION } from "./version";
 
@@ -34,7 +33,6 @@ const NinjaTop = lazy(() => import("./components/Games/NinjaGameTop"));
 const Ninja1 = lazy(() => import("./components/Games/NinjaGame"));
 const Ninja2 = lazy(() => import("./components/Games/NinjaGame2"));
 const Ninja3 = lazy(() => import("./components/Games/NinjaGame3"));
-const GameToLearn = lazy(() => import("./components/Games/GameToLearn"));
 const GameOver = lazy(() => import("./components/Games/GameOver"));
 const Dictionary = lazy(() => import("./components/Dictionary"));
 const DictionaryTop = lazy(() => import("./components/Dictionary/Top"));
@@ -65,7 +63,7 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Layout>
+            <GameToLearn>
                 <Suspense fallback={<LoadingAnimation num={1} />}>
                     <ScrollMemory />
                     <Switch>
@@ -165,11 +163,6 @@ export default class App extends React.Component {
                         <Route sensitive path="/ninja1" component={Ninja1} />
                         <Route sensitive path="/ninja2" component={Ninja2} />
                         <Route sensitive path="/ninja3" component={Ninja3} />
-                        <Route
-                            sensitive
-                            path="/game-to-learn-japanese"
-                            component={GameToLearn}
-                        />
                         <Route
                             sensitive
                             path="/game-over"
@@ -286,9 +279,9 @@ export default class App extends React.Component {
                         <Route component={NotFoundRedirect} />
                     </Switch>
                 </Suspense>
-                <FooterAnimation />
+                {/* <FooterAnimation /> */}
                 <PopupAd />
-            </Layout>
+            </GameToLearn>
         );
     }
 }

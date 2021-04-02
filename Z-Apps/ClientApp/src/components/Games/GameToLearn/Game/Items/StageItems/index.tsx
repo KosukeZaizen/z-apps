@@ -10,7 +10,7 @@ export const itemTypes = {
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
 export class Renderable {
-    renderItem(UL: number) {
+    renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
         throw new Error(
             "getItemが子クラスに実装されていません。オーバーライドしてください。"
         );
@@ -118,6 +118,14 @@ export class StageItem extends Renderable {
     }
 }
 
-export function Items({ items, UL }: { items: Renderable[]; UL: number }) {
-    return <>{items.map(item => item.renderItem(UL))}</>;
+export function Items({
+    items,
+    UL,
+    children,
+}: {
+    items: Renderable[];
+    UL: number;
+    children: JSX.Element | JSX.Element[];
+}) {
+    return <>{items.map(item => item.renderItem(UL, children))}</>;
 }
