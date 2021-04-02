@@ -9,10 +9,6 @@ import { sentence } from "../types/stories";
 import CharacterComment from "./parts/CharacterComment";
 import Head from "./parts/Helmet";
 
-interface CanvasElement extends HTMLCanvasElement {
-    captureStream(frameRate?: number): MediaStream;
-}
-
 type Props = storiesEditStore.StoriesEditState &
     storiesEditStore.IActionCreators & { match: { params: any } };
 type State = {
@@ -23,8 +19,6 @@ type State = {
     isFooterShown: boolean;
 };
 class StoriesVideo extends React.Component<Props, State> {
-    canvasRef: React.RefObject<CanvasElement>;
-
     constructor(props: Props) {
         super(props);
 
@@ -40,8 +34,6 @@ class StoriesVideo extends React.Component<Props, State> {
         };
 
         this.props.loadStory(this.state.storyName);
-
-        this.canvasRef = React.createRef();
     }
 
     startVideo = async () => {
