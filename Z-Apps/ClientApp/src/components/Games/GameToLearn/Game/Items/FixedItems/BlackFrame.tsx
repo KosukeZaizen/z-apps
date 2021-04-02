@@ -1,4 +1,5 @@
 import React from "react";
+import { gameOpenAnimationTime } from "../../../GameFrame";
 import { Renderable } from "../StageItems";
 
 // 画面からはみ出したコンポーネントを隠すための黒いフレーム
@@ -15,7 +16,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 50 * UL,
                     width: 260 * UL,
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             />,
             <div
@@ -28,7 +29,7 @@ export class BlackFrame extends Renderable {
                     left: 160 * UL,
                     height: 190 * UL,
                     width: 50 * UL,
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             />,
             <div
@@ -41,7 +42,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 50 * UL,
                     width: 260 * UL,
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             />,
             <div
@@ -54,7 +55,7 @@ export class BlackFrame extends Renderable {
                     left: -50 * UL,
                     height: 190 * UL,
                     width: 50 * UL,
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             />,
         ];

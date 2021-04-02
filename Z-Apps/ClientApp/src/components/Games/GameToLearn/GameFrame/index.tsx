@@ -20,12 +20,15 @@ const setScreen = debounce<React.Dispatch<React.SetStateAction<number>>>(
     100
 );
 
+export const gameOpenAnimationTime = "500ms";
+
 export function GameFrame({
     children,
 }: {
     children: JSX.Element | JSX.Element[];
 }) {
     const [UL, setUL] = useState(0);
+    const [isBackgroundBlack, setIsBackgroundBlack] = useState(false);
 
     useEffect(() => {
         window.onresize = () => {
@@ -33,7 +36,12 @@ export function GameFrame({
         };
 
         for (let i = 0; i < 5; i++) {
-            setTimeout(() => setScreen(setUL), i * 1000);
+            setTimeout(() => {
+                setScreen(setUL);
+                if (i === 4) {
+                    setIsBackgroundBlack(true); // 初期ロード時は白い背景を、それ以降黒く
+                }
+            }, i * 1000);
         }
     }, []);
 
@@ -57,10 +65,10 @@ export function GameFrame({
                 id={"game-screen"}
                 style={{
                     position: "absolute",
-                    backgroundColor: UL === 0 ? "white" : "black",
+                    backgroundColor: isBackgroundBlack ? "black" : "white",
                     width: 160 * UL,
                     height: 90 * UL,
-                    transition: "500ms",
+                    transition: gameOpenAnimationTime,
                 }}
             >
                 <Game UL={UL}>{children}</Game>

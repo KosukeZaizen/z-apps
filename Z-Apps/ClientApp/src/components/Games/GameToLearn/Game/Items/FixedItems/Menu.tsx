@@ -1,15 +1,8 @@
 import { Button, Slide } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
-
-// サイドメニュー
-const SideMenu = {
-    base: "Base",
-    folktale: "Folktale",
-    article: "Article",
-} as const;
-type SideMenu = typeof SideMenu[keyof typeof SideMenu];
 
 // ゲームメニューボタン
 export class Menu extends Renderable {
@@ -53,7 +46,6 @@ function GameMenu({
     setOpen: (open: boolean) => void;
     children: JSX.Element | JSX.Element[];
 }) {
-    const [sideMenu, setSideMenu] = useState<SideMenu>(SideMenu.base);
     return (
         <>
             {UL && (
@@ -70,7 +62,7 @@ function GameMenu({
                         fontSize: 3 * UL,
                         fontWeight: "bold",
                         opacity: open ? 1 : 0.9,
-                        transitionDuration: "1s",
+                        transitionDuration: gameOpenAnimationTime,
                     }}
                     onClick={() => setOpen(!open)}
                 >
@@ -84,7 +76,7 @@ function GameMenu({
                     right: open ? 21 * UL : 1,
                     width: open ? 138 * UL : 0,
                     height: open ? 88 * UL : 0,
-                    transition: "500ms",
+                    transition: gameOpenAnimationTime,
                     zIndex: 20002,
                     backgroundColor: "white",
                     borderRadius: 3 * UL,

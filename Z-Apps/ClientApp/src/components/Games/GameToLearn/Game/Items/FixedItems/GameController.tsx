@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import React from "react";
+import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
@@ -94,14 +95,14 @@ function PCMessage({ UL }: { UL: number }) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                transition: "1s",
+                transition: gameOpenAnimationTime,
             }}
         >
             <span
                 style={{
                     fontSize: 5 * UL,
                     color: "white",
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             >
                 On a PC, please use [←], [↑], and [→] keys to play!

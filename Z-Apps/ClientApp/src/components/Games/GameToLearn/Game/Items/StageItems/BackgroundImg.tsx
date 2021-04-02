@@ -1,5 +1,6 @@
 import React from "react";
 import { Direction, StageItem } from ".";
+import { gameOpenAnimationTime } from "../../../GameFrame";
 import { Ninja } from "../Ninja";
 
 interface Props {
@@ -39,7 +40,7 @@ export class BackgroundImg extends StageItem {
                     height: 75 * UL,
                     objectFit: "cover",
                     zIndex: 1,
-                    transition: "1s",
+                    transition: gameOpenAnimationTime,
                 }}
             />
         );
