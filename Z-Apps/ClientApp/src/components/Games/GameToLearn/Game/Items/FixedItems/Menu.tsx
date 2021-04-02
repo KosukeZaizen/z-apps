@@ -71,8 +71,6 @@ function GameMenu({
             <Collapse
                 in={open}
                 style={{
-                    backgroundColor: "white",
-                    opacity: 0.5,
                     position: "absolute",
                     top: 10 * UL,
                     left: 139 * UL,
