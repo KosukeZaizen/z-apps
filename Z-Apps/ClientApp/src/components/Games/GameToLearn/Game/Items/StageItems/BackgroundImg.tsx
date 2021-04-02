@@ -45,7 +45,7 @@ export class BackgroundImg extends StageItem {
         );
     }
 
-    onEachTime() {}
+    onEachTime(ninja: Ninja) {}
 
     onTouchNinja(ninja: Ninja) {
         const ninjaDirection = this.getTargetDirection(ninja);

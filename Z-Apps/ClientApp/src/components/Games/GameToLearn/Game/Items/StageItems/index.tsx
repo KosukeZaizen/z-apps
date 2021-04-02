@@ -111,10 +111,7 @@ export class StageItem extends Renderable {
         );
     }
 
-    onEachTime(
-        ninja: Ninja,
-        setNinja: (value: React.SetStateAction<Ninja>) => void
-    ) {
+    onEachTime(ninja: Ninja) {
         throw new Error(
             "onEachTimeが子クラスに実装されていません。オーバーライドしてください。"
         );

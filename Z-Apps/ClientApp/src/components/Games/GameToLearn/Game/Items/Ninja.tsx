@@ -38,7 +38,7 @@ export class Ninja extends Renderable {
         this.cssAnimation = props.cssAnimation;
     }
 
-    calcNextNinjaPosition() {
+    onEachTime() {
         const {
             isLeftButtonClicked,
             isRightButtonClicked,
@@ -101,3 +101,14 @@ export class Ninja extends Renderable {
         );
     }
 }
+
+export const initialNinja = new Ninja({
+    x: 140,
+    y: 0,
+    speedX: 0,
+    speedY: 0,
+    width: 10,
+    isGoingRight: false,
+    jumpable: false,
+    cssAnimation: true,
+});

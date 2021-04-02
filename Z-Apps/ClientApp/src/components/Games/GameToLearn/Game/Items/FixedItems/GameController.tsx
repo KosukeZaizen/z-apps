@@ -3,16 +3,22 @@ import React from "react";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
-function changeLeftButtonState(nextState: boolean) {
-    gameState.controller.isLeftButtonClicked = nextState;
+function changeLeftButtonState(isClick: boolean) {
+    gameState.controller.isLeftButtonClicked = isClick;
 }
 
-function changeRightButtonState(nextState: boolean) {
-    gameState.controller.isRightButtonClicked = nextState;
+function changeRightButtonState(isClick: boolean) {
+    gameState.controller.isRightButtonClicked = isClick;
 }
 
-function changeJumpButtonState(nextState: boolean) {
-    gameState.controller.isJumpButtonClicked = nextState;
+function changeJumpButtonState(isClick: boolean) {
+    gameState.controller.isJumpButtonClicked = isClick;
+}
+
+function onClickClose(isClick: boolean) {
+    if (isClick) {
+        gameState.menu.isMenuOpen = !gameState.menu.isMenuOpen;
+    }
 }
 
 export class GameController extends Renderable {
@@ -40,12 +46,14 @@ export class GameController extends Renderable {
                         changeRightButtonState(isClick);
                         break;
                     }
-                    case 32:
-                    case 38:
                     case 13:
                     case 8:
                     case 46:
-                    case 27: {
+                    case 27:
+                    case 32: {
+                        onClickClose(isClick);
+                    }
+                    case 38: {
                         changeJumpButtonState(isClick);
                     }
                 }
