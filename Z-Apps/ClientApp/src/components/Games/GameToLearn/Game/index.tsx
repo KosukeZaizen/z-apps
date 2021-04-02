@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gameState } from "./GameState";
 import { fixedItems } from "./Items/FixedItems";
 import { Ninja } from "./Items/Ninja";
 import { Items, StageItem } from "./Items/StageItems";
@@ -19,7 +20,6 @@ export function Game({ UL }: { UL: number }) {
             width: 10,
             isGoingRight: false,
             jumpable: false,
-            currentStage: "firstStage1",
             cssAnimation: true,
         })
     );
@@ -41,7 +41,7 @@ export function Game({ UL }: { UL: number }) {
         });
 
         // ステージ用のItemを描画対象にセット
-        setStageItems(stages[ninja.currentStage]);
+        setStageItems(stages[gameState.currentStage]);
 
         // メニューが開かれているとき以外はアニメーション続行
         setTimeout(() => {

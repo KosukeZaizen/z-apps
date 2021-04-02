@@ -1,3 +1,5 @@
+import { StageName } from "./Stages";
+
 export interface GameState {
     menu: { isMenuOpen: boolean };
     controller: {
@@ -5,6 +7,7 @@ export interface GameState {
         isRightButtonClicked: boolean;
         isJumpButtonClicked: boolean;
     };
+    currentStage: StageName;
 }
 
 export const gameState: GameState = {
@@ -14,4 +17,5 @@ export const gameState: GameState = {
         isRightButtonClicked: false,
         isJumpButtonClicked: false,
     },
+    currentStage: "firstStage1",
 };

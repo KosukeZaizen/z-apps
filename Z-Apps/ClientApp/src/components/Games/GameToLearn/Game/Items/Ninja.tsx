@@ -2,7 +2,6 @@ import React from "react";
 import { timeStep } from "..";
 import { appsPublicImg } from "../../../../../common/consts";
 import { gameState } from "../GameState";
-import { StageName } from "../Stages";
 import { Renderable } from "./StageItems";
 
 type NinjaProps = {
@@ -13,7 +12,6 @@ type NinjaProps = {
     width: number;
     isGoingRight: boolean;
     jumpable: boolean;
-    currentStage: StageName;
     cssAnimation: boolean;
 };
 
@@ -25,31 +23,19 @@ export class Ninja extends Renderable {
     width: number;
     isGoingRight: boolean;
     jumpable: boolean;
-    currentStage: StageName;
     cssAnimation: boolean;
 
-    constructor({
-        x,
-        y,
-        speedX,
-        speedY,
-        width,
-        isGoingRight,
-        jumpable,
-        currentStage,
-        cssAnimation,
-    }: NinjaProps) {
+    constructor(props: NinjaProps) {
         super();
 
-        this.x = x;
-        this.y = y;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.width = width;
-        this.isGoingRight = isGoingRight;
-        this.jumpable = jumpable;
-        this.currentStage = currentStage;
-        this.cssAnimation = cssAnimation;
+        this.x = props.x;
+        this.y = props.y;
+        this.speedX = props.speedX;
+        this.speedY = props.speedY;
+        this.width = props.width;
+        this.isGoingRight = props.isGoingRight;
+        this.jumpable = props.jumpable;
+        this.cssAnimation = props.cssAnimation;
     }
 
     calcNextNinjaPosition() {

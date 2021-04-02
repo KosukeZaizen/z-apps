@@ -1,5 +1,6 @@
 import React from "react";
 import { StageItem } from ".";
+import { gameState } from "../../GameState";
 import { StageName } from "../../Stages";
 import { Ninja } from "../Ninja";
 
@@ -45,7 +46,7 @@ export class StageChanger extends StageItem {
 
     onTouchNinja(ninja: Ninja) {
         ninja.cssAnimation = false;
-        ninja.currentStage = this.nextStage;
+        gameState.currentStage = this.nextStage;
         if (typeof this.nextX === "number") {
             ninja.x = this.nextX;
         }
