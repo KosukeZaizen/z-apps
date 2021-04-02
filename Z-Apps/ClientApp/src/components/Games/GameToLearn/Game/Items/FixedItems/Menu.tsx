@@ -1,5 +1,5 @@
 import { Button, Slide } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
@@ -15,6 +15,18 @@ type SideMenu = typeof SideMenu[keyof typeof SideMenu];
 export class Menu extends Renderable {
     renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
         const { menu } = gameState;
+
+        useEffect(() => {
+            const { pathname } = window.location;
+            if (pathname === "/game") {
+                // パスがgameの時のみ、初期時点でメニューを開かない
+                gameState.menu.isMenuOpen = false;
+            } else {
+                // パスがゲーム以外の時は、初期時点でメニューパネルを開く
+                gameState.menu.isMenuOpen = true;
+            }
+        }, []);
+
         return (
             <GameMenu
                 key="game menu"
