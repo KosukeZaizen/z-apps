@@ -1,5 +1,5 @@
 import { Button, Slide } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
@@ -8,6 +8,16 @@ import { Renderable } from "../StageItems";
 export class Menu extends Renderable {
     renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
         const { menu } = gameState;
+        const [isChildrenMounted, setIsChildrenMounted] = useState(
+            menu.isMenuOpen
+        );
+
+        useEffect(() => {
+            const time = menu.isMenuOpen ? 0 : 500;
+            setTimeout(() => {
+                setIsChildrenMounted(menu.isMenuOpen);
+            }, time);
+        }, [menu.isMenuOpen]);
 
         useEffect(() => {
             const { pathname } = window.location;
@@ -28,6 +38,7 @@ export class Menu extends Renderable {
                 setOpen={open => {
                     menu.isMenuOpen = open;
                 }}
+                isChildrenMounted={isChildrenMounted}
             >
                 {children}
             </GameMenu>
@@ -40,11 +51,13 @@ function GameMenu({
     open,
     setOpen,
     children,
+    isChildrenMounted,
 }: {
     UL: number;
     open: boolean;
     setOpen: (open: boolean) => void;
     children: JSX.Element | JSX.Element[];
+    isChildrenMounted: boolean;
 }) {
     return (
         <>
@@ -89,9 +102,11 @@ function GameMenu({
                         width: 138 * UL,
                         height: 82 * UL,
                         overflowY: "scroll",
+                        opacity: open ? 1 : 0,
+                        transition: "500ms",
                     }}
                 >
-                    {open && children}
+                    {isChildrenMounted && children}
                 </div>
             </div>
             <Slide in={open} direction="down">
