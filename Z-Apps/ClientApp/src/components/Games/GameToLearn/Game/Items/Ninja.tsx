@@ -55,11 +55,11 @@ export class Ninja extends Renderable {
             this.x += 2;
         }
         if (isJumpButtonClicked && this.jumpable) {
-            this.speedY -= 7;
+            this.speedY -= 5;
         }
 
         // 重力
-        this.speedY += 1;
+        this.speedY += 0.7;
 
         // 速度から位置更新
         this.x += this.speedX;
@@ -104,7 +104,7 @@ export class Ninja extends Renderable {
 
 export const initialNinja = new Ninja({
     x: 140,
-    y: 0,
+    y: -10,
     speedX: 0,
     speedY: 0,
     width: 10,

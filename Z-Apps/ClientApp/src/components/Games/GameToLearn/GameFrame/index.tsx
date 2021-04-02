@@ -60,7 +60,7 @@ export function GameFrame({
                     backgroundColor: UL === 0 ? "white" : "black",
                     width: 160 * UL,
                     height: 90 * UL,
-                    transition: "1s",
+                    transition: "500ms",
                 }}
             >
                 <Game UL={UL}>{children}</Game>
