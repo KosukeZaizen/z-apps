@@ -1,7 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { BlackFrame } from "./Items/BasicItems/BlackFrame";
-import { GameController } from "./Items/BasicItems/GameController";
-import { Menu } from "./Items/BasicItems/Menu";
+import React, { useEffect, useState } from "react";
+import { fixedItems } from "./Items/FixedItems";
 import { Ninja } from "./Items/Ninja";
 import { Items, StageItem } from "./Items/StageItems";
 import { stages } from "./Stages";
@@ -24,11 +22,6 @@ export function Game({ UL }: { UL: number }) {
             currentStage: "firstStage1",
             cssAnimation: true,
         })
-    );
-
-    const fixedItems = useMemo(
-        () => [new BlackFrame(), new GameController(), new Menu()],
-        []
     );
 
     useEffect(() => {
