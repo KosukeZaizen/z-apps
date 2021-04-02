@@ -57,7 +57,7 @@ export function GameFrame({
                 id={"game-screen"}
                 style={{
                     position: "absolute",
-                    backgroundColor: "white",
+                    backgroundColor: UL === 0 ? "white" : "black",
                     width: 160 * UL,
                     height: 90 * UL,
                     transition: "1s",
