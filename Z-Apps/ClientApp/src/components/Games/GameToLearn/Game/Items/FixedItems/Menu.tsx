@@ -1,8 +1,11 @@
 import { Button, Collapse, Slide } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
+
+export type SubMenu = "game" | "study";
 
 // ゲームメニューボタン
 export class Menu extends Renderable {
@@ -39,6 +42,7 @@ export class Menu extends Renderable {
                     menu.isMenuOpen = open;
                 }}
                 isChildrenMounted={isChildrenMounted}
+                subMenu={menu.subMenu}
             >
                 {children}
             </GameMenu>
@@ -52,12 +56,14 @@ function GameMenu({
     setOpen,
     children,
     isChildrenMounted,
+    subMenu,
 }: {
     UL: number;
     open: boolean;
     setOpen: (open: boolean) => void;
     children: JSX.Element | JSX.Element[];
     isChildrenMounted: boolean;
+    subMenu: SubMenu;
 }) {
     return (
         <>
@@ -89,7 +95,11 @@ function GameMenu({
                 >
                     <Button
                         variant="contained"
-                        color="default"
+                        color={
+                            gameState.menu.subMenu === "game"
+                                ? "default"
+                                : "primary"
+                        }
                         style={{
                             margin: 1 * UL,
                             width: 18 * UL,
@@ -97,24 +107,44 @@ function GameMenu({
                             fontSize: 3 * UL,
                             zIndex: 20004,
                             fontWeight: "bold",
+                            transition: "500ms",
+                        }}
+                        onClick={() => {
+                            gameState.menu.subMenu = "game";
                         }}
                     >
                         Game
                     </Button>
-                    <Button
-                        variant="outlined"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 2 * UL,
-                            fontWeight: "bold",
-                            zIndex: 20004,
-                        }}
-                    >
-                        Story
-                    </Button>
+                    <Collapse in={subMenu === "game"}>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                            }}
+                        >
+                            Status
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                            }}
+                        >
+                            Skills
+                        </Button>
+                    </Collapse>
                 </div>
                 <div
                     style={{
@@ -125,80 +155,89 @@ function GameMenu({
                         borderBottomRightRadius: UL,
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 3 * UL,
-                            zIndex: 20004,
-                            fontWeight: "bold",
-                        }}
-                    >
-                        Study
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 2 * UL,
-                            fontWeight: "bold",
-                            zIndex: 20004,
-                            lineHeight: 1.2,
-                        }}
-                    >
-                        Hiragana
-                        <br />
-                        Katakana
-                    </Button>
-
-                    <Button
-                        variant="outlined"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 2 * UL,
-                            fontWeight: "bold",
-                            zIndex: 20004,
-                        }}
-                    >
-                        Folktales
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 2 * UL,
-                            fontWeight: "bold",
-                            zIndex: 20004,
-                        }}
-                    >
-                        Articles
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="default"
-                        style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 2 * UL,
-                            fontWeight: "bold",
-                            zIndex: 20004,
-                        }}
-                    >
-                        Vocabulary
-                    </Button>
+                    <Link to="/">
+                        <Button
+                            variant="contained"
+                            color={
+                                gameState.menu.subMenu === "study"
+                                    ? "default"
+                                    : "primary"
+                            }
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 3 * UL,
+                                zIndex: 20004,
+                                fontWeight: "bold",
+                                transition: "500ms",
+                            }}
+                            onClick={() => {
+                                gameState.menu.subMenu = "study";
+                            }}
+                        >
+                            Study
+                        </Button>
+                    </Link>
+                    <Collapse in={subMenu === "study"}>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                                lineHeight: 1.2,
+                            }}
+                        >
+                            Hiragana Katakana
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                            }}
+                        >
+                            Folktales
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                            }}
+                        >
+                            Articles
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="default"
+                            style={{
+                                margin: 1 * UL,
+                                width: 18 * UL,
+                                height: 6 * UL,
+                                fontSize: 2 * UL,
+                                fontWeight: "bold",
+                                zIndex: 20004,
+                            }}
+                        >
+                            Vocabulary
+                        </Button>
+                    </Collapse>
                 </div>
             </Collapse>
             <MenuScreen

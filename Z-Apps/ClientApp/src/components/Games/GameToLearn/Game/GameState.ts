@@ -1,7 +1,8 @@
+import { SubMenu } from "./Items/FixedItems/Menu";
 import { StageName } from "./Stages";
 
 export interface GameState {
-    menu: { isMenuOpen: boolean };
+    menu: { isMenuOpen: boolean; subMenu: SubMenu };
     controller: {
         isLeftButtonClicked: boolean;
         isRightButtonClicked: boolean;
@@ -11,7 +12,7 @@ export interface GameState {
 }
 
 export const gameState: GameState = {
-    menu: { isMenuOpen: false },
+    menu: { isMenuOpen: false, subMenu: "game" },
     controller: {
         isLeftButtonClicked: false,
         isRightButtonClicked: false,
