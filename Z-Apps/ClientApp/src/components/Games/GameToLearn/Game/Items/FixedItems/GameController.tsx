@@ -53,6 +53,7 @@ export class GameController extends Renderable {
                     case 27:
                     case 32: {
                         onClickClose(isClick);
+                        break;
                     }
                     case 38: {
                         changeJumpButtonState(isClick);
