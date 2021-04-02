@@ -27,28 +27,10 @@ export function Game({ UL }: { UL: number }) {
     );
     const [fixedItems, setFixedItems] = useState<Renderable[]>([]);
 
-    const [isLeftButtonClicked, setIsLeftButtonClicked] = useState<boolean>(
-        false
-    );
-    const [isRightButtonClicked, setIsRightButtonClicked] = useState<boolean>(
-        false
-    );
-    const [isJumpButtonClicked, setIsJumpButtonClicked] = useState<boolean>(
-        false
-    );
-
     useEffect(() => {
         // 初回のみの処理
 
-        setFixedItems([
-            new BlackFrame(),
-            new GameController({
-                right: setIsRightButtonClicked,
-                left: setIsLeftButtonClicked,
-                jump: setIsJumpButtonClicked,
-            }),
-            new Menu(),
-        ]);
+        setFixedItems([new BlackFrame(), new GameController(), new Menu()]);
     }, []);
 
     useEffect(() => {
@@ -60,11 +42,7 @@ export function Game({ UL }: { UL: number }) {
         // 各オブジェクトのタイムステップ毎の処理
 
         // ボタン押下と重力による忍者の位置更新
-        nextNinja.calcNextNinjaPosition({
-            isJumpButtonClicked,
-            isLeftButtonClicked,
-            isRightButtonClicked,
-        });
+        nextNinja.calcNextNinjaPosition();
 
         // 忍者が触れている要素からの影響
         stageItems.forEach(item => {

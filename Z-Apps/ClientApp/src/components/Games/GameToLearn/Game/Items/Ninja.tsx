@@ -1,6 +1,7 @@
 import React from "react";
 import { timeStep } from "..";
 import { appsPublicImg } from "../../../../../common/consts";
+import { gameState } from "../GameState";
 import { StageName } from "../Stages";
 import { Renderable } from "./StageItems";
 
@@ -51,15 +52,13 @@ export class Ninja extends Renderable {
         this.cssAnimation = cssAnimation;
     }
 
-    calcNextNinjaPosition({
-        isLeftButtonClicked,
-        isRightButtonClicked,
-        isJumpButtonClicked,
-    }: {
-        isLeftButtonClicked: boolean;
-        isRightButtonClicked: boolean;
-        isJumpButtonClicked: boolean;
-    }) {
+    calcNextNinjaPosition() {
+        const {
+            isLeftButtonClicked,
+            isRightButtonClicked,
+            isJumpButtonClicked,
+        } = gameState.controller;
+
         // 忍者の位置更新
         if (isLeftButtonClicked) {
             this.isGoingRight = false;

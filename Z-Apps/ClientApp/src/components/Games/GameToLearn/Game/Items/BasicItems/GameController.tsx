@@ -1,73 +1,43 @@
 import { Button } from "@material-ui/core";
 import React from "react";
+import { gameState } from "../../GameState";
 import { Renderable } from "../StageItems";
 
-type ButtonName = "right" | "left" | "jump";
-export type ButtonClickStatus = { [key in ButtonName]: boolean };
-type OnButtonEvent = (keyType: ButtonName) => void;
+function changeLeftButtonState(nextState: boolean) {
+    gameState.controller.isLeftButtonClicked = nextState;
+}
 
-type SetButtonStatus = {
-    [key in ButtonName]: React.Dispatch<React.SetStateAction<boolean>>;
-};
+function changeRightButtonState(nextState: boolean) {
+    gameState.controller.isRightButtonClicked = nextState;
+}
 
-// 画面からはみ出したコンポーネントを隠すための黒いフレーム
+function changeJumpButtonState(nextState: boolean) {
+    gameState.controller.isJumpButtonClicked = nextState;
+}
+
 export class GameController extends Renderable {
     isTerminalPC: boolean;
-    setButtonStatus: SetButtonStatus;
 
-    constructor(setButtonStatus: SetButtonStatus) {
+    constructor() {
         super();
         this.isTerminalPC = !navigator.userAgent.match(
             /(iPhone|iPad|iPod|Android)/i
         );
-        this.setButtonStatus = setButtonStatus;
         this.setKeyboardEvent();
     }
 
-    //ボタン押下時処理
-    onClickButton = (buttonName: ButtonName) => {
-        this.setButtonStatus[buttonName](true);
-    };
-
-    //ボタン押下終了時処理
-    onMouseUp = (buttonName: ButtonName) => {
-        this.setButtonStatus[buttonName](false);
-    };
-
     setKeyboardEvent() {
-        const that = this;
-        document.onkeydown = function (e: any) {
-            if (!e) e = window.event; // レガシー
-
-            switch (e.keyCode) {
-                case 37: {
-                    that.onClickButton("left");
-                    break;
-                }
-                case 39: {
-                    that.onClickButton("right");
-                    break;
-                }
-                case 32:
-                case 38:
-                case 13:
-                case 8:
-                case 46:
-                case 27: {
-                    that.onClickButton("jump");
-                }
-            }
-
-            document.onkeyup = function (e: any) {
+        const getKeyEventFnc = function (isClick: boolean) {
+            return function (e: any) {
                 if (!e) e = window.event; // レガシー
 
                 switch (e.keyCode) {
                     case 37: {
-                        that.onMouseUp("left");
+                        changeLeftButtonState(isClick);
                         break;
                     }
                     case 39: {
-                        that.onMouseUp("right");
+                        changeRightButtonState(isClick);
                         break;
                     }
                     case 32:
@@ -76,11 +46,13 @@ export class GameController extends Renderable {
                     case 8:
                     case 46:
                     case 27: {
-                        that.onMouseUp("jump");
+                        changeJumpButtonState(isClick);
                     }
                 }
             };
         };
+        document.onkeydown = getKeyEventFnc(true);
+        document.onkeyup = getKeyEventFnc(false);
     }
 
     renderItem(UL: number) {
@@ -93,11 +65,7 @@ export class GameController extends Renderable {
                     {this.isTerminalPC ? (
                         <PCMessage UL={UL} />
                     ) : (
-                        <SmartPhoneButtons
-                            onClickButton={this.onClickButton}
-                            onMouseUp={this.onMouseUp}
-                            UL={UL}
-                        />
+                        <SmartPhoneButtons UL={UL} />
                     )}
                 </div>
             )
@@ -134,15 +102,7 @@ function PCMessage({ UL }: { UL: number }) {
     );
 }
 
-function SmartPhoneButtons({
-    onClickButton,
-    onMouseUp,
-    UL,
-}: {
-    onClickButton: OnButtonEvent;
-    onMouseUp: OnButtonEvent;
-    UL: number;
-}) {
+function SmartPhoneButtons({ UL }: { UL: number }) {
     return (
         <>
             <Button
@@ -170,22 +130,22 @@ function SmartPhoneButtons({
                     zIndex: 10002,
                 }}
                 onMouseDown={() => {
-                    onClickButton("left");
+                    changeLeftButtonState(true);
                 }}
                 onTouchStart={() => {
-                    onClickButton("left");
+                    changeLeftButtonState(true);
                 }}
                 onMouseUp={() => {
-                    onMouseUp("left");
+                    changeLeftButtonState(false);
                 }}
                 onMouseOut={() => {
-                    onMouseUp("left");
+                    changeLeftButtonState(false);
                 }}
                 onTouchEnd={() => {
-                    onMouseUp("left");
+                    changeLeftButtonState(false);
                 }}
                 onTouchCancel={() => {
-                    onMouseUp("left");
+                    changeLeftButtonState(false);
                 }}
             />
             <Button
@@ -213,22 +173,22 @@ function SmartPhoneButtons({
                     zIndex: 10002,
                 }}
                 onMouseDown={() => {
-                    onClickButton("jump");
+                    changeJumpButtonState(true);
                 }}
                 onTouchStart={() => {
-                    onClickButton("jump");
+                    changeJumpButtonState(true);
                 }}
                 onMouseUp={() => {
-                    onMouseUp("jump");
+                    changeJumpButtonState(false);
                 }}
                 onMouseOut={() => {
-                    onMouseUp("jump");
+                    changeJumpButtonState(false);
                 }}
                 onTouchEnd={() => {
-                    onMouseUp("jump");
+                    changeJumpButtonState(false);
                 }}
                 onTouchCancel={() => {
-                    onMouseUp("jump");
+                    changeJumpButtonState(false);
                 }}
             />
             <Button
@@ -256,22 +216,22 @@ function SmartPhoneButtons({
                     zIndex: 10002,
                 }}
                 onMouseDown={() => {
-                    onClickButton("right");
+                    changeRightButtonState(true);
                 }}
                 onTouchStart={() => {
-                    onClickButton("right");
+                    changeRightButtonState(true);
                 }}
                 onMouseUp={() => {
-                    onMouseUp("right");
+                    changeRightButtonState(false);
                 }}
                 onMouseOut={() => {
-                    onMouseUp("right");
+                    changeRightButtonState(false);
                 }}
                 onTouchEnd={() => {
-                    onMouseUp("right");
+                    changeRightButtonState(false);
                 }}
                 onTouchCancel={() => {
-                    onMouseUp("right");
+                    changeRightButtonState(false);
                 }}
             />
         </>
