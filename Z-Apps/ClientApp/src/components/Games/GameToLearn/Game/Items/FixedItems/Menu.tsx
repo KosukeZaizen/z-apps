@@ -1,4 +1,4 @@
-import { Button, Slide } from "@material-ui/core";
+import { Button, Collapse, Slide } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
@@ -68,20 +68,141 @@ function GameMenu({
                     onClick={() => setOpen(!open)}
                 />
             )}
-            <div
+            <Collapse
+                in={open}
                 style={{
                     backgroundColor: "white",
                     opacity: 0.5,
                     position: "absolute",
-                    top: 1 * UL,
+                    top: 10 * UL,
                     left: 139 * UL,
                     width: 20 * UL,
-                    height: open ? 50 * UL : 0,
-                    transition: "500ms",
                     zIndex: 20004,
-                    borderRadius: UL,
                 }}
-            ></div>
+                timeout={500}
+            >
+                <div
+                    style={{
+                        width: 20 * UL,
+                        backgroundColor: "rgba(255,255,255,0.7)",
+                        borderTopRightRadius: UL,
+                        borderBottomRightRadius: UL,
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 3 * UL,
+                            zIndex: 20004,
+                            fontWeight: "bold",
+                        }}
+                    >
+                        Game
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 2 * UL,
+                            fontWeight: "bold",
+                            zIndex: 20004,
+                        }}
+                    >
+                        Story
+                    </Button>
+                </div>
+                <div
+                    style={{
+                        marginTop: 3 * UL,
+                        width: 20 * UL,
+                        backgroundColor: "rgba(255,255,255,0.7)",
+                        borderTopRightRadius: UL,
+                        borderBottomRightRadius: UL,
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 3 * UL,
+                            zIndex: 20004,
+                            fontWeight: "bold",
+                        }}
+                    >
+                        Study
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 2 * UL,
+                            fontWeight: "bold",
+                            zIndex: 20004,
+                            lineHeight: 1.2,
+                        }}
+                    >
+                        Hiragana
+                        <br />
+                        Katakana
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 2 * UL,
+                            fontWeight: "bold",
+                            zIndex: 20004,
+                        }}
+                    >
+                        Folktales
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 2 * UL,
+                            fontWeight: "bold",
+                            zIndex: 20004,
+                        }}
+                    >
+                        Articles
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="default"
+                        style={{
+                            margin: 1 * UL,
+                            width: 18 * UL,
+                            height: 6 * UL,
+                            fontSize: 2 * UL,
+                            fontWeight: "bold",
+                            zIndex: 20004,
+                        }}
+                    >
+                        Vocabulary
+                    </Button>
+                </div>
+            </Collapse>
             <MenuScreen
                 UL={UL}
                 open={open}
