@@ -1,18 +1,16 @@
 import React from "react";
-import { Direction, StageItem } from ".";
+import { Direction, ImgSrc, StageItem } from ".";
 import { gameOpenAnimationTime } from "../../../GameFrame";
+import { BackgroundSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 interface Props {
     key: string;
-    src: string;
+    imgSrc: ImgSrc | BackgroundSrc;
 }
 
 export class BackgroundImg extends StageItem {
-    key: string;
-    src: string;
-
-    constructor({ key, src, ...rest }: Props) {
+    constructor(props: Props) {
         super({
             type: "backgroundImg",
             x: 0,
@@ -20,10 +18,8 @@ export class BackgroundImg extends StageItem {
             zIndex: 0,
             width: 0,
             isUntouchable: true,
-            ...rest,
+            ...props,
         });
-        this.key = key;
-        this.src = src;
     }
 
     renderItem(UL: number) {
@@ -31,7 +27,7 @@ export class BackgroundImg extends StageItem {
             <img
                 alt={this.key}
                 key={this.key}
-                src={this.src}
+                src={this.imgSrc}
                 style={{
                     position: "absolute",
                     top: 0,

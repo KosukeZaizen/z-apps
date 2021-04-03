@@ -1,23 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { menuStyle } from "..";
 
 export const MenuContent = Content;
 
 function Content({
     open,
-    location,
     children,
     UL,
 }: {
     open: boolean;
-    location: Location;
     children: JSX.Element | JSX.Element[];
     UL: number;
 }) {
-    useEffect(() => {
-        console.log("location changed");
-    }, [location]);
-
     return (
         <div
             style={{

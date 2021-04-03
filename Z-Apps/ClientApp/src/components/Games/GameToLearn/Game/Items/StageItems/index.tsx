@@ -1,13 +1,19 @@
 import React from "react";
+import { gameStorage } from "../../../../../../common/consts";
+import { BackgroundSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 export const itemTypes = {
-    rock: "rock",
+    block: "block",
     floor: "floor",
     stageChanger: "stageChanger",
     backgroundImg: "backgroundImg",
+    speakingCharacter: "speakingCharacter",
 } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
+
+export const imgSrc = { rock: `${gameStorage}ninja1/objs/rock.png` } as const;
+export type ImgSrc = typeof imgSrc[keyof typeof imgSrc];
 
 export class Renderable {
     renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
@@ -16,14 +22,6 @@ export class Renderable {
         );
     }
 }
-type StageItemProps = {
-    type: ItemType;
-    x: number;
-    y: number;
-    width: number;
-    zIndex: number;
-    isUntouchable?: boolean;
-};
 
 export const Direction = {
     top: "top",
@@ -33,23 +31,37 @@ export const Direction = {
 } as const;
 export type Direction = typeof Direction[keyof typeof Direction];
 
+type StageItemProps = {
+    key: string;
+    type: ItemType;
+    x: number;
+    y: number;
+    width: number;
+    zIndex: number;
+    isUntouchable?: boolean;
+    imgSrc?: ImgSrc | BackgroundSrc;
+};
 export class StageItem extends Renderable {
+    key: string;
     type: ItemType;
     x: number;
     y: number;
     width: number;
     zIndex: number;
     isUntouchable: boolean; // 巻物など、当たり判定常にfalseのもの
+    imgSrc?: ImgSrc | BackgroundSrc;
 
-    constructor({ type, x, y, width, zIndex, isUntouchable }: StageItemProps) {
+    constructor(props: StageItemProps) {
         super();
 
-        this.type = type;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.zIndex = zIndex;
-        this.isUntouchable = !!isUntouchable;
+        this.key = props.key;
+        this.type = props.type;
+        this.x = props.x;
+        this.y = props.y;
+        this.width = props.width;
+        this.zIndex = props.zIndex;
+        this.isUntouchable = !!props.isUntouchable;
+        this.imgSrc = props.imgSrc;
     }
 
     checkIfTouched(target: { x: number; y: number; width: number }): boolean {
@@ -114,6 +126,34 @@ export class StageItem extends Renderable {
     onEachTime(ninja: Ninja) {
         throw new Error(
             "onEachTimeが子クラスに実装されていません。オーバーライドしてください。"
+        );
+    }
+
+    renderItem(UL: number) {
+        return this.imgSrc ? (
+            <img
+                alt={this.key}
+                key={this.key}
+                src={this.imgSrc}
+                style={{
+                    position: "absolute",
+                    top: this.y * UL,
+                    left: this.x * UL,
+                    width: this.width * UL,
+                    zIndex: this.zIndex,
+                }}
+            />
+        ) : (
+            <div
+                key={this.key}
+                style={{
+                    position: "absolute",
+                    top: this.y * UL,
+                    left: this.x * UL,
+                    width: this.width * UL,
+                    zIndex: this.zIndex,
+                }}
+            />
         );
     }
 }

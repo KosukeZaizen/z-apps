@@ -1,4 +1,3 @@
-import React from "react";
 import { Direction, StageItem } from ".";
 import { Ninja } from "../Ninja";
 
@@ -11,25 +10,8 @@ interface Props {
 }
 
 export class Floor extends StageItem {
-    key: string;
-
-    constructor({ key, ...rest }: Props) {
-        super({ type: "floor", ...rest });
-        this.key = key;
-    }
-
-    renderItem(UL: number) {
-        return (
-            <div
-                key={this.key}
-                style={{
-                    position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    width: this.width * UL,
-                }}
-            />
-        );
+    constructor(props: Props) {
+        super({ type: "floor", ...props });
     }
 
     onEachTime() {}

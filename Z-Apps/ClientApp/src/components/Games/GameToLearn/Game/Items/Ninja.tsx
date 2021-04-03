@@ -48,11 +48,11 @@ export class Ninja extends Renderable {
         // 忍者の位置更新
         if (isLeftButtonClicked) {
             this.isGoingRight = false;
-            this.x -= 2;
+            this.x -= 2.5;
         }
         if (isRightButtonClicked) {
             this.isGoingRight = true;
-            this.x += 2;
+            this.x += 2.5;
         }
         if (isJumpButtonClicked && this.jumpable) {
             this.speedY -= 5;

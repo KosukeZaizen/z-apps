@@ -1,6 +1,4 @@
-import React from "react";
-import { Direction, StageItem } from ".";
-import { gameStorage } from "../../../../../../common/consts";
+import { Direction, ImgSrc, StageItem } from ".";
 import { Ninja } from "../Ninja";
 
 interface Props {
@@ -9,31 +7,12 @@ interface Props {
     y: number;
     width: number;
     zIndex: number;
+    imgSrc: ImgSrc;
 }
 
-export class Rock extends StageItem {
-    key: string;
-
-    constructor({ key, ...rest }: Props) {
-        super({ type: "rock", ...rest });
-        this.key = key;
-    }
-
-    renderItem(UL: number) {
-        return (
-            <img
-                alt="rock"
-                key={this.key}
-                src={`${gameStorage}ninja1/objs/rock.png`}
-                style={{
-                    position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    width: this.width * UL,
-                    zIndex: this.zIndex,
-                }}
-            />
-        );
+export class Block extends StageItem {
+    constructor(props: Props) {
+        super({ type: "block", ...props });
     }
 
     onEachTime() {}

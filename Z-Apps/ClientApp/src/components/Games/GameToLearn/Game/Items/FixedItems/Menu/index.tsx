@@ -55,11 +55,7 @@ export class Menu extends Renderable {
                 isChildrenMounted={isChildrenMounted}
                 subMenu={menu.subMenu}
             >
-                <MenuContent
-                    open={menu.isMenuOpen}
-                    location={window.location}
-                    UL={UL}
-                >
+                <MenuContent open={menu.isMenuOpen} UL={UL}>
                     {children}
                 </MenuContent>
             </GameMenu>
