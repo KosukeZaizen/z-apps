@@ -7,6 +7,16 @@ import { Renderable } from "../StageItems";
 
 export type SubMenu = "game" | "study";
 
+const menuStyle = {
+    screenMargin: 1,
+    buttonWidth: 28,
+    buttonHeight: 7,
+    buttonMargin: 1,
+    sectionMargin: 2,
+    buttonFontSize: 3,
+    smallButtonFontSize: 2,
+};
+
 // ゲームメニューボタン
 export class Menu extends Renderable {
     renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
@@ -78,17 +88,24 @@ function GameMenu({
                 in={open}
                 style={{
                     position: "absolute",
-                    top: subMenu === "game" ? 10 * UL : 9 * UL,
+                    top:
+                        (menuStyle.screenMargin +
+                            menuStyle.buttonHeight +
+                            menuStyle.sectionMargin +
+                            (subMenu === "game" ? menuStyle.buttonMargin : 0)) *
+                        UL,
                     transition: "500ms",
-                    left: 139 * UL,
-                    width: 20 * UL,
+                    right: menuStyle.screenMargin * UL,
+                    width:
+                        (menuStyle.buttonWidth + 2 * menuStyle.buttonMargin) *
+                        UL,
                     zIndex: 20004,
                 }}
                 timeout={500}
             >
                 <div
                     style={{
-                        width: 20 * UL,
+                        width: "100%",
                         backgroundColor:
                             subMenu === "game"
                                 ? "rgba(255,255,255,0.7)"
@@ -102,10 +119,10 @@ function GameMenu({
                         variant="contained"
                         color={subMenu === "game" ? "primary" : "default"}
                         style={{
-                            margin: 1 * UL,
-                            width: 18 * UL,
-                            height: 6 * UL,
-                            fontSize: 3 * UL,
+                            margin: menuStyle.buttonMargin * UL,
+                            width: menuStyle.buttonWidth * UL,
+                            height: menuStyle.buttonHeight * UL,
+                            fontSize: menuStyle.buttonFontSize * UL,
                             zIndex: 20004,
                             fontWeight: "bold",
                             transition: "500ms",
@@ -121,10 +138,10 @@ function GameMenu({
                             variant="outlined"
                             color="default"
                             style={{
-                                margin: 1 * UL,
-                                width: 18 * UL,
-                                height: 6 * UL,
-                                fontSize: 2 * UL,
+                                margin: menuStyle.buttonMargin * UL,
+                                width: menuStyle.buttonWidth * UL,
+                                height: menuStyle.buttonHeight * UL,
+                                fontSize: menuStyle.smallButtonFontSize * UL,
                                 fontWeight: "bold",
                                 zIndex: 20004,
                             }}
@@ -135,10 +152,10 @@ function GameMenu({
                             variant="outlined"
                             color="default"
                             style={{
-                                margin: 1 * UL,
-                                width: 18 * UL,
-                                height: 6 * UL,
-                                fontSize: 2 * UL,
+                                margin: menuStyle.buttonMargin * UL,
+                                width: menuStyle.buttonWidth * UL,
+                                height: menuStyle.buttonHeight * UL,
+                                fontSize: menuStyle.smallButtonFontSize * UL,
                                 fontWeight: "bold",
                                 zIndex: 20004,
                             }}
@@ -149,8 +166,11 @@ function GameMenu({
                 </div>
                 <div
                     style={{
-                        marginTop: 2 * UL,
-                        width: 20 * UL,
+                        marginTop: menuStyle.sectionMargin * UL,
+                        width:
+                            (menuStyle.buttonWidth +
+                                2 * menuStyle.buttonMargin) *
+                            UL,
                         backgroundColor:
                             subMenu === "study"
                                 ? "rgba(255,255,255,0.7)"
@@ -165,10 +185,10 @@ function GameMenu({
                             variant="contained"
                             color={subMenu === "study" ? "primary" : "default"}
                             style={{
-                                margin: 1 * UL,
-                                width: 18 * UL,
-                                height: 6 * UL,
-                                fontSize: 3 * UL,
+                                margin: menuStyle.buttonMargin * UL,
+                                width: menuStyle.buttonWidth * UL,
+                                height: menuStyle.buttonHeight * UL,
+                                fontSize: menuStyle.buttonFontSize * UL,
                                 zIndex: 20004,
                                 fontWeight: "bold",
                                 transition: "500ms",
@@ -181,32 +201,16 @@ function GameMenu({
                         </Button>
                     </Link>
                     <Collapse in={subMenu === "study"}>
-                        <Link to="/hiragana-katakana">
-                            <Button
-                                variant="outlined"
-                                color="default"
-                                style={{
-                                    margin: 1 * UL,
-                                    width: 18 * UL,
-                                    height: 6 * UL,
-                                    fontSize: 2 * UL,
-                                    fontWeight: "bold",
-                                    zIndex: 20004,
-                                    lineHeight: 1.2,
-                                }}
-                            >
-                                Hiragana Katakana
-                            </Button>
-                        </Link>
                         <Link to="/folktales">
                             <Button
                                 variant="outlined"
                                 color="default"
                                 style={{
-                                    margin: 1 * UL,
-                                    width: 18 * UL,
-                                    height: 6 * UL,
-                                    fontSize: 2 * UL,
+                                    margin: menuStyle.buttonMargin * UL,
+                                    width: menuStyle.buttonWidth * UL,
+                                    height: menuStyle.buttonHeight * UL,
+                                    fontSize:
+                                        menuStyle.smallButtonFontSize * UL,
                                     fontWeight: "bold",
                                     zIndex: 20004,
                                 }}
@@ -219,10 +223,11 @@ function GameMenu({
                                 variant="outlined"
                                 color="default"
                                 style={{
-                                    margin: 1 * UL,
-                                    width: 18 * UL,
-                                    height: 6 * UL,
-                                    fontSize: 2 * UL,
+                                    margin: menuStyle.buttonMargin * UL,
+                                    width: menuStyle.buttonWidth * UL,
+                                    height: menuStyle.buttonHeight * UL,
+                                    fontSize:
+                                        menuStyle.smallButtonFontSize * UL,
                                     fontWeight: "bold",
                                     zIndex: 20004,
                                 }}
@@ -230,20 +235,39 @@ function GameMenu({
                                 Articles
                             </Button>
                         </Link>
+                        <Link to="/hiragana-katakana">
+                            <Button
+                                variant="outlined"
+                                color="default"
+                                style={{
+                                    margin: menuStyle.buttonMargin * UL,
+                                    width: menuStyle.buttonWidth * UL,
+                                    height: menuStyle.buttonHeight * UL,
+                                    fontSize:
+                                        menuStyle.smallButtonFontSize * UL,
+                                    fontWeight: "bold",
+                                    zIndex: 20004,
+                                    lineHeight: 1.2,
+                                }}
+                            >
+                                Characters
+                            </Button>
+                        </Link>
                         <Link to="/vocabulary-list">
                             <Button
                                 variant="outlined"
                                 color="default"
                                 style={{
-                                    margin: 1 * UL,
-                                    width: 18 * UL,
-                                    height: 6 * UL,
-                                    fontSize: 2 * UL,
+                                    margin: menuStyle.buttonMargin * UL,
+                                    width: menuStyle.buttonWidth * UL,
+                                    height: menuStyle.buttonHeight * UL,
+                                    fontSize:
+                                        menuStyle.smallButtonFontSize * UL,
                                     fontWeight: "bold",
                                     zIndex: 20004,
                                 }}
                             >
-                                Vocabulary
+                                Vocab
                             </Button>
                         </Link>
                     </Collapse>
@@ -277,11 +301,11 @@ function MenuButton({
             style={{
                 zIndex: 20005,
                 position: "absolute",
-                top: 1 * UL,
-                left: 140 * UL,
-                width: 18 * UL,
-                height: 6 * UL,
-                fontSize: 3 * UL,
+                top: menuStyle.screenMargin * UL,
+                right: (menuStyle.screenMargin + menuStyle.buttonMargin) * UL,
+                width: menuStyle.buttonWidth * UL,
+                height: menuStyle.buttonHeight * UL,
+                fontSize: menuStyle.buttonFontSize * UL,
                 fontWeight: "bold",
                 opacity: open ? 1 : 0.9,
                 transitionDuration: gameOpenAnimationTime,
@@ -308,22 +332,32 @@ function MenuScreen({
         <div
             style={{
                 position: "absolute",
-                top: 1 * UL,
-                right: open ? 21 * UL : 1,
-                width: open ? 138 * UL : 0,
-                height: open ? 88 * UL : 0,
+                top: menuStyle.screenMargin * UL,
+                right: open
+                    ? (menuStyle.screenMargin +
+                          2 * menuStyle.buttonMargin +
+                          menuStyle.buttonWidth) *
+                      UL
+                    : menuStyle.screenMargin,
+                width: open
+                    ? (160 -
+                          (2 * menuStyle.screenMargin +
+                              2 * menuStyle.buttonMargin +
+                              menuStyle.buttonWidth)) *
+                      UL
+                    : 0,
+                height: open ? (90 - 2 * menuStyle.screenMargin) * UL : 0,
                 transition: gameOpenAnimationTime,
                 zIndex: 20002,
                 backgroundColor: "white",
-                borderRadius: 3 * UL,
+                borderRadius: 1 * UL,
                 overflow: "hidden",
             }}
         >
             <div
                 style={{
-                    marginTop: 3 * UL,
-                    width: 138 * UL,
-                    height: 82 * UL,
+                    width: "100%",
+                    height: "100%",
                     overflowY: "scroll",
                     opacity: open ? 1 : 0,
                     transition: "500ms",
