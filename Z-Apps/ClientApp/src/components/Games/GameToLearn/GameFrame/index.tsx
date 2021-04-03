@@ -15,6 +15,7 @@ const setScreen = debounce<React.Dispatch<React.SetStateAction<number>>>(
         }
 
         const UL = Math.min(screenWidth / 168, screenHeight / 94.5);
+        console.log("UL", UL);
         setUL(UL);
     },
     100
@@ -31,9 +32,9 @@ export function GameFrame({
     const [isBackgroundBlack, setIsBackgroundBlack] = useState(false);
 
     useEffect(() => {
-        window.onresize = () => {
+        window.addEventListener("resize", () => {
             setScreen(setUL);
-        };
+        });
 
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
