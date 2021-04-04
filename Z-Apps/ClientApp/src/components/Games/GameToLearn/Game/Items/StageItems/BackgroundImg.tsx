@@ -1,7 +1,7 @@
 import React from "react";
-import { Direction, ImgSrc, StageItem } from ".";
+import { Direction, StageItem } from ".";
 import { gameOpenAnimationTime } from "../../../GameFrame";
-import { BackgroundSrc } from "../../Stages";
+import { BackgroundSrc, ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 interface Props {

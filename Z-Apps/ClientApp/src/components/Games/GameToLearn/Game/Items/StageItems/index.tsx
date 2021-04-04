@@ -1,6 +1,5 @@
 import React from "react";
-import { gameStorage } from "../../../../../../common/consts";
-import { BackgroundSrc } from "../../Stages";
+import { BackgroundSrc, ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 export const itemTypes = {
@@ -11,9 +10,6 @@ export const itemTypes = {
     speakingCharacter: "speakingCharacter",
 } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
-
-export const imgSrc = { rock: `${gameStorage}ninja1/objs/rock.png` } as const;
-export type ImgSrc = typeof imgSrc[keyof typeof imgSrc];
 
 export class Renderable {
     renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
@@ -37,7 +33,7 @@ type StageItemProps = {
     x: number;
     y: number;
     width: number;
-    zIndex: number;
+    zIndex?: number;
     isUntouchable?: boolean;
     imgSrc?: ImgSrc | BackgroundSrc;
 };
@@ -47,7 +43,7 @@ export class StageItem extends Renderable {
     x: number;
     y: number;
     width: number;
-    zIndex: number;
+    zIndex?: number;
     isUntouchable: boolean; // 巻物など、当たり判定常にfalseのもの
     imgSrc?: ImgSrc | BackgroundSrc;
 
@@ -130,32 +126,62 @@ export class StageItem extends Renderable {
     }
 
     renderItem(UL: number) {
-        return this.imgSrc ? (
-            <img
-                alt={this.key}
+        return (
+            <BasicElementToRender
+                imgSrc={this.imgSrc}
                 key={this.key}
-                src={this.imgSrc}
-                style={{
-                    position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    width: this.width * UL,
-                    zIndex: this.zIndex,
-                }}
-            />
-        ) : (
-            <div
-                key={this.key}
-                style={{
-                    position: "absolute",
-                    top: this.y * UL,
-                    left: this.x * UL,
-                    width: this.width * UL,
-                    zIndex: this.zIndex,
-                }}
+                x={this.x}
+                y={this.y}
+                width={this.width}
+                zIndex={this.zIndex}
+                UL={UL}
             />
         );
     }
+}
+
+export function BasicElementToRender({
+    imgSrc,
+    key,
+    x,
+    y,
+    width,
+    zIndex,
+    UL,
+}: {
+    imgSrc?: ImgSrc | BackgroundSrc;
+    key: string;
+    x: number;
+    y: number;
+    width: number;
+    zIndex?: number;
+    UL: number;
+}) {
+    return imgSrc ? (
+        <img
+            alt={key}
+            key={key}
+            src={imgSrc}
+            style={{
+                position: "absolute",
+                top: y * UL,
+                left: x * UL,
+                width: width * UL,
+                zIndex: zIndex || 10,
+            }}
+        />
+    ) : (
+        <div
+            key={key}
+            style={{
+                position: "absolute",
+                top: y * UL,
+                left: x * UL,
+                width: width * UL,
+                zIndex: zIndex,
+            }}
+        />
+    );
 }
 
 export function Items({

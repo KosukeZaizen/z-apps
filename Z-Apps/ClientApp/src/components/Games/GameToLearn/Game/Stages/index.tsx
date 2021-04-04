@@ -1,12 +1,19 @@
 import { gameStorage } from "../../../../../common/consts";
-import { imgSrc, StageItem } from "../Items/StageItems";
+import { StageItem } from "../Items/StageItems";
 import { BackgroundImg } from "../Items/StageItems/BackgroundImg";
 import { Block } from "../Items/StageItems/Block";
 import { Floor } from "../Items/StageItems/Floor";
+import { SpeakingCharacter } from "../Items/StageItems/SpeakingCharacter";
 import { StageChanger } from "../Items/StageItems/StageChanger";
 
 export type StageName = "emptyStage" | "firstStage1" | "firstStage2";
 export type Stages = { [key in StageName]: StageItem[] };
+
+export const imgSrc = {
+    pochi: `${gameStorage}ninja1/objs/pochi.png`,
+    rock: `${gameStorage}ninja1/objs/rock.png`,
+} as const;
+export type ImgSrc = typeof imgSrc[keyof typeof imgSrc];
 
 export const backgroundSrc = {
     furuie: `${gameStorage}ninja1/background/furuie5.jpg`,
@@ -17,6 +24,13 @@ export type BackgroundSrc = typeof backgroundSrc[keyof typeof backgroundSrc];
 export const stages = {
     emptyStage: [],
     firstStage1: [
+        new SpeakingCharacter({
+            key: "pochi",
+            imgSrc: imgSrc.pochi,
+            x: 40,
+            y: 62,
+            width: 10,
+        }),
         new Block({
             key: "rock1",
             x: 135,

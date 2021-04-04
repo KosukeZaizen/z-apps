@@ -1,4 +1,5 @@
-import { Direction, ImgSrc, StageItem } from ".";
+import { Direction, StageItem } from ".";
+import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 interface Props {
