@@ -67,6 +67,7 @@ function MenuButton({
     open: boolean;
     onClick: () => void;
 }) {
+    const opacity = UL ? (open ? 1 : 0.9) : 0;
     return (
         <Button
             variant="contained"
@@ -80,7 +81,7 @@ function MenuButton({
                 height: menuStyle.buttonHeight * UL,
                 fontSize: menuStyle.buttonFontSize * UL,
                 fontWeight: "bold",
-                opacity: open ? 1 : 0.9,
+                opacity,
                 transition: gameOpenAnimationTime,
             }}
             onClick={onClick}
