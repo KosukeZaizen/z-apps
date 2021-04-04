@@ -1,4 +1,5 @@
 import * as React from "react";
+import { StopAnimation } from "../../common/animation";
 import { getParams } from "../../common/functions";
 import "../../css/NinjaGame2.css"; //CSSは2のもの
 import Head from "../parts/Helmet";
@@ -129,6 +130,7 @@ class NinjaGame extends React.Component<Props, State> {
                     desc="Japanese action game! Be a ninja, and save the village from the monsters!"
                 />
                 <HideHeaderAndFooter />
+                <StopAnimation />
                 <Pages
                     state={this.state}
                     changePage={(i: number, lang: string) => {

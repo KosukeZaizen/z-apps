@@ -7,13 +7,7 @@ import { stages } from "./Stages";
 
 export const timeStep = 50;
 
-export function Game({
-    UL,
-    children,
-}: {
-    UL: number;
-    children: JSX.Element | JSX.Element[];
-}) {
+export function Game({ UL }: { UL: number }) {
     const [ninja, setNinja] = useState<Ninja>(initialNinja);
 
     useEffect(() => {
@@ -49,9 +43,7 @@ export function Game({
 
     return (
         <>
-            <Items UL={UL} items={[ninja, ...fixedItems, ...stageItems]}>
-                {children}
-            </Items>
+            <Items UL={UL} items={[ninja, ...fixedItems, ...stageItems]} />
         </>
     );
 }

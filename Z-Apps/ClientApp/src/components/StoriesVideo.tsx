@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 import { bindActionCreators } from "redux";
+import { StopAnimation } from "../common/animation";
 import * as consts from "../common/consts";
 import { sleepAsync } from "../common/functions";
 import * as storiesEditStore from "../store/StoriesEditStore";
@@ -118,6 +119,7 @@ class StoriesVideo extends React.Component<Props, State> {
         return (
             <div className="center" style={{ overflow: "hidden" }}>
                 <Head title={title + " Story"} noindex />
+                <StopAnimation />
                 <div
                     style={{
                         width: "100%",

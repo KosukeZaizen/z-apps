@@ -12,7 +12,7 @@ export const itemTypes = {
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
 export class Renderable {
-    renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
+    renderItem(UL: number) {
         throw new Error(
             "getItemが子クラスに実装されていません。オーバーライドしてください。"
         );
@@ -126,15 +126,29 @@ export class StageItem extends Renderable {
     }
 
     renderItem(UL: number) {
-        return (
-            <BasicElementToRender
-                imgSrc={this.imgSrc}
+        return this.imgSrc ? (
+            <img
+                alt={this.key}
                 key={this.key}
-                x={this.x}
-                y={this.y}
-                width={this.width}
-                zIndex={this.zIndex}
-                UL={UL}
+                src={this.imgSrc}
+                style={{
+                    position: "absolute",
+                    top: this.y * UL,
+                    left: this.x * UL,
+                    width: this.width * UL,
+                    zIndex: this.zIndex || 10,
+                }}
+            />
+        ) : (
+            <div
+                key={this.key}
+                style={{
+                    position: "absolute",
+                    top: this.y * UL,
+                    left: this.x * UL,
+                    width: this.width * UL,
+                    zIndex: this.zIndex,
+                }}
             />
         );
     }
@@ -156,42 +170,8 @@ export function BasicElementToRender({
     width: number;
     zIndex?: number;
     UL: number;
-}) {
-    return imgSrc ? (
-        <img
-            alt={key}
-            key={key}
-            src={imgSrc}
-            style={{
-                position: "absolute",
-                top: y * UL,
-                left: x * UL,
-                width: width * UL,
-                zIndex: zIndex || 10,
-            }}
-        />
-    ) : (
-        <div
-            key={key}
-            style={{
-                position: "absolute",
-                top: y * UL,
-                left: x * UL,
-                width: width * UL,
-                zIndex: zIndex,
-            }}
-        />
-    );
-}
+}) {}
 
-export function Items({
-    items,
-    UL,
-    children,
-}: {
-    items: Renderable[];
-    UL: number;
-    children: JSX.Element | JSX.Element[];
-}) {
-    return <>{items.map(item => item.renderItem(UL, children))}</>;
+export function Items({ items, UL }: { items: Renderable[]; UL: number }) {
+    return <>{items.map(item => item.renderItem(UL))}</>;
 }

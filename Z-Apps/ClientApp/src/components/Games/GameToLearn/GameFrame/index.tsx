@@ -22,11 +22,7 @@ const setScreen = debounce<React.Dispatch<React.SetStateAction<number>>>(
 
 export const gameOpenAnimationTime = "500ms";
 
-export function GameFrame({
-    children,
-}: {
-    children: JSX.Element | JSX.Element[];
-}) {
+export function GameFrame() {
     const [UL, setUL] = useState(0);
     const [isBackgroundBlack, setIsBackgroundBlack] = useState(false);
 
@@ -71,7 +67,7 @@ export function GameFrame({
                     transition: gameOpenAnimationTime,
                 }}
             >
-                <Game UL={UL}>{children}</Game>
+                <Game UL={UL} />
             </div>
         </div>
     );

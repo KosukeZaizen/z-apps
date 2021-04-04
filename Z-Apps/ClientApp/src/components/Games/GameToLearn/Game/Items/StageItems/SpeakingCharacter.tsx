@@ -1,6 +1,5 @@
-import { Popover } from "@material-ui/core";
 import React from "react";
-import { BasicElementToRender, StageItem } from ".";
+import { StageItem } from ".";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
@@ -18,7 +17,7 @@ export class SpeakingCharacter extends StageItem {
 
     constructor(props: Props) {
         super({ type: "speakingCharacter", ...props });
-        this.isSpeaking = true;
+        this.isSpeaking = false;
     }
 
     onEachTime() {}
@@ -29,18 +28,10 @@ export class SpeakingCharacter extends StageItem {
 
     renderItem(UL: number) {
         return (
-            <>
-                <BasicElementToRender
-                    imgSrc={this.imgSrc}
-                    key={this.key}
-                    x={this.x}
-                    y={this.y}
-                    width={this.width}
-                    zIndex={this.zIndex}
-                    UL={UL}
-                />
-                <Popover open={this.isSpeaking}>Hello!</Popover>
-            </>
+            <div key={this.key}>
+                {super.renderItem(UL)}
+                {/* <Popover open={this.isSpeaking}>Hello!</Popover> */}
+            </div>
         );
     }
 }

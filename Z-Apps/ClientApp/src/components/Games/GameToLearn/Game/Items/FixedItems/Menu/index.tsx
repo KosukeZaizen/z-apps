@@ -20,7 +20,7 @@ export const menuStyle = {
 
 // ゲームメニューボタン
 export class Menu extends Renderable {
-    renderItem(UL: number, children: JSX.Element | JSX.Element[]) {
+    renderItem(UL: number) {
         const { menu } = gameState;
         const [isChildrenMounted, setIsChildrenMounted] = useState(
             menu.isMenuOpen
@@ -33,30 +33,20 @@ export class Menu extends Renderable {
             }, time);
         }, [menu.isMenuOpen]);
 
-        useEffect(() => {
-            const { pathname } = window.location;
-            if (pathname === "/game") {
-                // パスがgameの時のみ、初期時点でメニューを開かない
-                gameState.menu.isMenuOpen = false;
-            } else {
-                // パスがゲーム以外の時は、初期時点でメニューパネルを開く
-                gameState.menu.isMenuOpen = true;
-            }
-        }, []);
-
         return (
             <GameMenu
                 key="game menu"
                 UL={UL}
                 open={menu.isMenuOpen}
                 setOpen={open => {
+                    console.log("open", open);
                     menu.isMenuOpen = open;
                 }}
                 isChildrenMounted={isChildrenMounted}
                 subMenu={menu.subMenu}
             >
                 <MenuContent open={menu.isMenuOpen} UL={UL}>
-                    {children}
+                    <div>hello</div>
                 </MenuContent>
             </GameMenu>
         );

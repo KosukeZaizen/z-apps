@@ -90,7 +90,7 @@ export class Ninja extends Renderable {
                         position: "absolute",
                         top: this.y * UL,
                         left: this.x * UL,
-                        zIndex: 10,
+                        zIndex: 11,
                         transform: this.isGoingRight
                             ? "scale(-1, 1)"
                             : undefined,

@@ -6,6 +6,7 @@ import ReactGA from "react-ga";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import App from "./App";
+import { startAnimation } from "./common/animation";
 import { azureUrl, siteUrl } from "./common/consts";
 import * as commonFncs from "./common/functions";
 import { checkAppVersion } from "./common/functions";
@@ -35,6 +36,8 @@ history.listen(({ pathname }) => {
         commonFncs.sendClientOpeLog("change page");
     }, 1000);
 });
+
+startAnimation();
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const initialState = window["initialReduxState" as any];

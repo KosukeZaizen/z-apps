@@ -1,13 +1,10 @@
 import React from "react";
+import { StopAnimation } from "../../../common/animation";
 import { Helmet } from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/Layout";
 import { GameFrame } from "./GameFrame";
 
-export default function GameToLearn({
-    children,
-}: {
-    children: JSX.Element | JSX.Element[];
-}) {
+export default function GameToLearn() {
     return (
         <>
             <Helmet
@@ -15,7 +12,8 @@ export default function GameToLearn({
                 desc="You can learn Japanese vocabulary while playing an action game!"
             />
             <HideHeaderAndFooter />
-            <GameFrame>{children}</GameFrame>
+            <StopAnimation />
+            <GameFrame />
         </>
     );
 }
