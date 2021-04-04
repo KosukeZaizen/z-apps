@@ -3,15 +3,7 @@ import { menuStyle } from "..";
 
 export const MenuContent = Content;
 
-function Content({
-    open,
-    children,
-    UL,
-}: {
-    open: boolean;
-    children: JSX.Element | JSX.Element[];
-    UL: number;
-}) {
+function Content({ open, UL }: { open: boolean; UL: number }) {
     return (
         <div
             style={{
@@ -22,13 +14,11 @@ function Content({
                             menuStyle.buttonWidth)) *
                     UL,
                 height: (90 - 2 * menuStyle.screenMargin) * UL,
-                overflowY: "scroll",
-                overflowX: "hidden",
                 opacity: open ? 1 : 0,
                 transition: "500ms",
             }}
         >
-            {children}
+            Hello
         </div>
     );
 }

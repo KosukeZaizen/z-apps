@@ -1,5 +1,5 @@
 import { Button, Collapse, Slide } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { gameOpenAnimationTime } from "../../../../GameFrame";
 import { gameState } from "../../../GameState";
@@ -22,16 +22,6 @@ export const menuStyle = {
 export class Menu extends Renderable {
     renderItem(UL: number) {
         const { menu } = gameState;
-        const [isChildrenMounted, setIsChildrenMounted] = useState(
-            menu.isMenuOpen
-        );
-
-        useEffect(() => {
-            const time = menu.isMenuOpen ? 0 : 500;
-            setTimeout(() => {
-                setIsChildrenMounted(menu.isMenuOpen);
-            }, time);
-        }, [menu.isMenuOpen]);
 
         return (
             <GameMenu
@@ -39,16 +29,10 @@ export class Menu extends Renderable {
                 UL={UL}
                 open={menu.isMenuOpen}
                 setOpen={open => {
-                    console.log("open", open);
                     menu.isMenuOpen = open;
                 }}
-                isChildrenMounted={isChildrenMounted}
                 subMenu={menu.subMenu}
-            >
-                <MenuContent open={menu.isMenuOpen} UL={UL}>
-                    <div>hello</div>
-                </MenuContent>
-            </GameMenu>
+            />
         );
     }
 }
@@ -57,34 +41,18 @@ function GameMenu({
     UL,
     open,
     setOpen,
-    children,
-    isChildrenMounted,
     subMenu,
 }: {
     UL: number;
     open: boolean;
     setOpen: (open: boolean) => void;
-    children: JSX.Element | JSX.Element[];
-    isChildrenMounted: boolean;
     subMenu: SubMenu;
 }) {
     return (
         <>
-            {UL && (
-                <MenuButton
-                    UL={UL}
-                    open={open}
-                    onClick={() => setOpen(!open)}
-                />
-            )}
+            <MenuButton UL={UL} open={open} onClick={() => setOpen(!open)} />
             <SideBar UL={UL} open={open} subMenu={subMenu} />
-            <MenuScreen
-                UL={UL}
-                open={open}
-                isChildrenMounted={isChildrenMounted}
-            >
-                {children}
-            </MenuScreen>
+            <MenuScreen UL={UL} open={open} />
             <BlackLayer open={open} UL={UL} onClick={() => setOpen(false)} />
         </>
     );
@@ -113,7 +81,7 @@ function MenuButton({
                 fontSize: menuStyle.buttonFontSize * UL,
                 fontWeight: "bold",
                 opacity: open ? 1 : 0.9,
-                transitionDuration: gameOpenAnimationTime,
+                transition: gameOpenAnimationTime,
             }}
             onClick={onClick}
         >
@@ -226,26 +194,24 @@ function SideBar({
                     borderBottomRightRadius: UL,
                 }}
             >
-                <Link to="/">
-                    <Button
-                        variant="contained"
-                        color={subMenu === "study" ? "primary" : "default"}
-                        style={{
-                            margin: menuStyle.buttonMargin * UL,
-                            width: menuStyle.buttonWidth * UL,
-                            height: menuStyle.buttonHeight * UL,
-                            fontSize: menuStyle.buttonFontSize * UL,
-                            zIndex: 20004,
-                            fontWeight: "bold",
-                            transition: "500ms",
-                        }}
-                        onClick={() => {
-                            gameState.menu.subMenu = "study";
-                        }}
-                    >
-                        Study
-                    </Button>
-                </Link>
+                <Button
+                    variant="contained"
+                    color={subMenu === "study" ? "primary" : "default"}
+                    style={{
+                        margin: menuStyle.buttonMargin * UL,
+                        width: menuStyle.buttonWidth * UL,
+                        height: menuStyle.buttonHeight * UL,
+                        fontSize: menuStyle.buttonFontSize * UL,
+                        zIndex: 20004,
+                        fontWeight: "bold",
+                        transition: "500ms",
+                    }}
+                    onClick={() => {
+                        gameState.menu.subMenu = "study";
+                    }}
+                >
+                    Study
+                </Button>
                 <Collapse in={subMenu === "study"}>
                     <Link to="/folktales">
                         <Button
@@ -318,17 +284,7 @@ function SideBar({
     );
 }
 
-function MenuScreen({
-    UL,
-    open,
-    isChildrenMounted,
-    children,
-}: {
-    UL: number;
-    open: boolean;
-    isChildrenMounted: boolean;
-    children: JSX.Element | JSX.Element[];
-}) {
+function MenuScreen({ UL, open }: { UL: number; open: boolean }) {
     return (
         <div
             style={{
@@ -355,7 +311,7 @@ function MenuScreen({
                 overflow: "hidden",
             }}
         >
-            {isChildrenMounted && children}
+            <MenuContent open={open} UL={UL} />
         </div>
     );
 }
