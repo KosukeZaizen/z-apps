@@ -10,6 +10,8 @@ export const timeStep = 50;
 export function Game({ UL }: { UL: number }) {
     const [ninja, setNinja] = useState<Ninja>(initialNinja);
 
+    const stageItems = stages[gameState.currentStage];
+
     useEffect(() => {
         // タイムステップ毎の処理
         const {
@@ -33,13 +35,11 @@ export function Game({ UL }: { UL: number }) {
             });
         }
 
-        // メニューが開かれているとき以外はアニメーション続行
+        // 次のタイムステップに進める
         setTimeout(() => {
             setNinja(new Ninja(ninja));
         }, timeStep);
     }, [ninja]);
-
-    const stageItems = stages[gameState.currentStage];
 
     return (
         <>

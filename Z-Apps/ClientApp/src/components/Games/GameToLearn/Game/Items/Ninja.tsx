@@ -18,8 +18,8 @@ type NinjaProps = {
 export class Ninja extends Renderable {
     x: number;
     y: number;
-    speedY: number;
     speedX: number;
+    speedY: number;
     width: number;
     isGoingRight: boolean;
     jumpable: boolean;

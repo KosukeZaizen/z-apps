@@ -8,6 +8,7 @@ export const itemTypes = {
     stageChanger: "stageChanger",
     backgroundImg: "backgroundImg",
     speakingCharacter: "speakingCharacter",
+    enemy: "enemy",
 } as const;
 export type ItemType = typeof itemTypes[keyof typeof itemTypes];
 
@@ -86,15 +87,15 @@ export class StageItem extends Renderable {
         //Itemから見た忍者の位置を返す関数
 
         //中心座標計算
-        let ninja_center = [
+        const ninja_center = [
             target.x + target.width / 2,
             target.y + target.width / 2,
         ];
-        let item_center = [this.x + this.width / 2, this.y + this.width / 2];
+        const item_center = [this.x + this.width / 2, this.y + this.width / 2];
 
         //2オブジェクトの中心間の差を計算
-        let dX = item_center[0] - ninja_center[0];
-        let dY = item_center[1] - ninja_center[1];
+        const dX = item_center[0] - ninja_center[0];
+        const dY = item_center[1] - ninja_center[1];
 
         //0除算除外
         if (dX === 0) {
@@ -103,7 +104,7 @@ export class StageItem extends Renderable {
         }
 
         //傾き
-        let a = dY / dX;
+        const a = dY / dX;
 
         //傾きから相対位置判定
         if (1 > a && a > -1) {
@@ -147,30 +148,12 @@ export class StageItem extends Renderable {
                     top: this.y * UL,
                     left: this.x * UL,
                     width: this.width * UL,
-                    zIndex: this.zIndex,
+                    zIndex: this.zIndex || 10,
                 }}
             />
         );
     }
 }
-
-export function BasicElementToRender({
-    imgSrc,
-    key,
-    x,
-    y,
-    width,
-    zIndex,
-    UL,
-}: {
-    imgSrc?: ImgSrc | BackgroundSrc;
-    key: string;
-    x: number;
-    y: number;
-    width: number;
-    zIndex?: number;
-    UL: number;
-}) {}
 
 export function Items({ items, UL }: { items: Renderable[]; UL: number }) {
     return <>{items.map(item => item.renderItem(UL))}</>;
