@@ -1,5 +1,5 @@
 import React from "react";
-import { StageItem } from ".";
+import { Direction, StageItem } from ".";
 import { timeStep } from "../..";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
@@ -11,14 +11,19 @@ interface Props {
     width: number;
     zIndex?: number;
     imgSrc: ImgSrc;
+    life: number;
 }
 
 export class Enemy extends StageItem {
     isGoingRight: boolean;
+    currentLife: number;
+    initialLife: number;
 
     constructor(props: Props) {
         super({ type: "enemy", ...props });
         this.isGoingRight = false;
+        this.currentLife = props.life;
+        this.initialLife = props.life;
     }
 
     onEachTime(ninja: Ninja) {
@@ -36,31 +41,50 @@ export class Enemy extends StageItem {
         this.x += dX / d;
         this.y += dY / d;
 
-        this.isGoingRight = dX < 0;
+        this.isGoingRight = dX > 0;
     }
 
     onTouchNinja(ninja: Ninja) {
+        const ninjaDirection = this.getTargetDirection(ninja);
+        if (ninjaDirection === Direction.top) {
+            this.currentLife--;
+            ninja.speedY = -8;
+        }
         console.log("touched!");
     }
 
     renderItem(UL: number) {
         return (
-            <img
-                alt={this.key}
+            <div
                 key={this.key}
-                src={this.imgSrc}
                 style={{
                     position: "absolute",
                     top: this.y * UL,
                     left: this.x * UL,
-                    width: this.width * UL,
-                    zIndex: this.zIndex || 10,
                     transition: `${timeStep}ms`,
                     transitionProperty: "top, left",
                     transitionTimingFunction: "linear",
-                    transform: this.isGoingRight ? "scale(-1, 1)" : undefined,
+                    zIndex: this.zIndex || 10,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
-            />
+            >
+                <meter
+                    value={this.currentLife / this.initialLife}
+                    style={{ margin: 2 * UL }}
+                />
+                <img
+                    alt={this.key}
+                    src={this.imgSrc}
+                    style={{
+                        width: this.width * UL,
+                        transform: this.isGoingRight
+                            ? undefined
+                            : "scale(-1, 1)",
+                    }}
+                />
+            </div>
         );
     }
 }

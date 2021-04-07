@@ -1,5 +1,6 @@
 import { SubMenu } from "./Items/FixedItems/Menu";
-import { StageName } from "./Stages";
+import { StageItem } from "./Items/StageItems";
+import { stages } from "./Stages";
 
 export interface GameState {
     menu: { isMenuOpen: boolean; subMenu: SubMenu };
@@ -8,7 +9,7 @@ export interface GameState {
         isRightButtonClicked: boolean;
         isJumpButtonClicked: boolean;
     };
-    currentStage: StageName;
+    stageItems: StageItem[];
 }
 
 export const gameState: GameState = {
@@ -18,5 +19,5 @@ export const gameState: GameState = {
         isRightButtonClicked: false,
         isJumpButtonClicked: false,
     },
-    currentStage: "firstStage1",
+    stageItems: stages[1](),
 };

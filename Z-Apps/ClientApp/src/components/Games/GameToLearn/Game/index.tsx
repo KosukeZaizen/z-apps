@@ -3,19 +3,17 @@ import { gameState } from "./GameState";
 import { fixedItems } from "./Items/FixedItems";
 import { initialNinja, Ninja } from "./Items/Ninja";
 import { Items } from "./Items/StageItems";
-import { stages } from "./Stages";
 
 export const timeStep = 50;
 
 export function Game({ UL }: { UL: number }) {
     const [ninja, setNinja] = useState<Ninja>(initialNinja);
 
-    const stageItems = stages[gameState.currentStage];
-
     useEffect(() => {
         // タイムステップ毎の処理
         const {
             menu: { isMenuOpen },
+            stageItems,
         } = gameState;
 
         if (!isMenuOpen) {
@@ -43,7 +41,10 @@ export function Game({ UL }: { UL: number }) {
 
     return (
         <>
-            <Items UL={UL} items={[ninja, ...fixedItems, ...stageItems]} />
+            <Items
+                UL={UL}
+                items={[ninja, ...fixedItems, ...gameState.stageItems]}
+            />
         </>
     );
 }
