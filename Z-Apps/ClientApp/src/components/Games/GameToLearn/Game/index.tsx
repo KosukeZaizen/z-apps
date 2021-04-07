@@ -40,11 +40,9 @@ export function Game({ UL }: { UL: number }) {
     }, [ninja]);
 
     return (
-        <>
-            <Items
-                UL={UL}
-                items={[ninja, ...fixedItems, ...gameState.stageItems]}
-            />
-        </>
+        <Items
+            UL={UL}
+            items={[ninja, ...fixedItems, ...gameState.stageItems]}
+        />
     );
 }
