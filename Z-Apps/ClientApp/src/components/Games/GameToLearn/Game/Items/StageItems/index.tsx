@@ -116,7 +116,7 @@ export class StageItem extends Renderable {
 
     onTouchNinja(ninja: Ninja) {
         throw new Error(
-            "getItemが子クラスに実装されていません。オーバーライドしてください。"
+            "onTouchNinjaが子クラスに実装されていません。オーバーライドしてください。"
         );
     }
 
