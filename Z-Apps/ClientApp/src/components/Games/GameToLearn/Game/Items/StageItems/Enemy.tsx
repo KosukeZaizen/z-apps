@@ -1,6 +1,7 @@
 import React from "react";
 import { Direction, StageItem } from ".";
 import { timeStep } from "../..";
+import { gameState } from "../../GameState";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
@@ -47,8 +48,13 @@ export class Enemy extends StageItem {
     onTouchNinja(ninja: Ninja) {
         const ninjaDirection = this.getTargetDirection(ninja);
         if (ninjaDirection === Direction.top) {
-            this.currentLife--;
             ninja.speedY = -8;
+
+            if (--this.currentLife <= 0) {
+                gameState.stageItems = gameState.stageItems.filter(
+                    item => item.key !== this.key
+                );
+            }
         }
         console.log("touched!");
     }
