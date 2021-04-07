@@ -1,6 +1,6 @@
 import { SubMenu } from "./Items/FixedItems/Menu";
 import { StageItem } from "./Items/StageItems";
-import { stages } from "./Stages";
+import { stageGetters } from "./Stages";
 
 export interface GameState {
     menu: { isMenuOpen: boolean; subMenu: SubMenu };
@@ -19,5 +19,5 @@ export const gameState: GameState = {
         isRightButtonClicked: false,
         isJumpButtonClicked: false,
     },
-    stageItems: stages[1](),
+    stageItems: stageGetters[1](),
 };

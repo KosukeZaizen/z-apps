@@ -1,6 +1,6 @@
 import { StageItem } from ".";
 import { gameState } from "../../GameState";
-import { stages } from "../../Stages";
+import { stageGetters } from "../../Stages";
 import { Ninja } from "../Ninja";
 
 interface Props {
@@ -29,7 +29,7 @@ export class StageChanger extends StageItem {
 
     onTouchNinja(ninja: Ninja) {
         ninja.cssAnimation = false;
-        gameState.stageItems = stages[this.nextStage]();
+        gameState.stageItems = stageGetters[this.nextStage]();
 
         if (typeof this.nextX === "number") {
             ninja.x = this.nextX;
