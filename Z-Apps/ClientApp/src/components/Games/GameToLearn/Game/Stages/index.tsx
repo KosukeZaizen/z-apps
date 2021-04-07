@@ -15,4 +15,4 @@ export const backgroundSrc = {
 } as const;
 export type BackgroundSrc = typeof backgroundSrc[keyof typeof backgroundSrc];
 
-export const stages = [() => [], getStage1, getStage2];
+export const stageGetters = [() => [], getStage1, getStage2];
