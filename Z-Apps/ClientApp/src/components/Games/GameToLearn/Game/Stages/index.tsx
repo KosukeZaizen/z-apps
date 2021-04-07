@@ -1,9 +1,6 @@
 import { gameStorage } from "../../../../../common/consts";
-import { StageItem } from "../Items/StageItems";
 import { getStage1 } from "./stage1";
 import { getStage2 } from "./stage2";
-
-export type Stages = StageItem[][];
 
 export const imgSrc = {
     pochi: `${gameStorage}ninja1/objs/pochi.png`,
