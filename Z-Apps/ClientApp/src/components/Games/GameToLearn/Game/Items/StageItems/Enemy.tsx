@@ -1,3 +1,4 @@
+import { css, StyleSheet } from "aphrodite";
 import React from "react";
 import { Direction, StageItem } from ".";
 import { timeStep } from "../..";
@@ -5,6 +6,33 @@ import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
+
+const DamageAnimationDuration = 500; //ms
+
+const opacityKeyframes = {
+    "0%": {
+        opacity: 1,
+    },
+    "25%": {
+        opacity: 0,
+    },
+    "50%": {
+        opacity: 1,
+    },
+    "75%": {
+        opacity: 0,
+    },
+    "100%": {
+        opacity: 1,
+    },
+};
+
+const styles = StyleSheet.create({
+    blink: {
+        animationName: opacityKeyframes,
+        animationDuration: `${DamageAnimationDuration}ms`,
+    },
+});
 
 interface Props {
     key: string;
@@ -20,10 +48,12 @@ export class Enemy extends StageItem {
     isGoingRight: boolean;
     currentLife: number;
     initialLife: number;
+    isDamaged: boolean;
 
     constructor(props: Props) {
         super({ type: "enemy", ...props });
         this.isGoingRight = false;
+        this.isDamaged = false;
         this.currentLife = props.life;
         this.initialLife = props.life;
     }
@@ -50,6 +80,12 @@ export class Enemy extends StageItem {
         const ninjaDirection = this.getTargetDirection(ninja);
         if (ninjaDirection === Direction.top) {
             ninja.speedY = -8;
+
+            // ダメージ時の点滅制御
+            this.isDamaged = true;
+            setTimeout(() => {
+                this.isDamaged = false;
+            }, DamageAnimationDuration);
 
             if (--this.currentLife <= 0) {
                 gameState.stageItems = gameState.stageItems.filter(
@@ -93,6 +129,7 @@ export class Enemy extends StageItem {
                             ? undefined
                             : "scale(-1, 1)",
                     }}
+                    className={this.isDamaged ? css(styles.blink) : undefined}
                 />
             </div>
         );
