@@ -1,6 +1,7 @@
 import React from "react";
 import { Direction, StageItem } from ".";
 import { timeStep } from "../..";
+import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
@@ -64,11 +65,14 @@ export class Enemy extends StageItem {
             <div
                 key={this.key}
                 style={{
+                    opacity: UL ? 1 : 0,
                     position: "absolute",
                     top: this.y * UL,
                     left: this.x * UL,
-                    transition: `${timeStep}ms`,
-                    transitionProperty: "top, left",
+                    transition:
+                        `top ${timeStep}ms, ` +
+                        `left ${timeStep}ms, ` +
+                        `opacity ${gameOpenAnimationTime}`,
                     transitionTimingFunction: "linear",
                     zIndex: this.zIndex || 10,
                     display: "flex",
