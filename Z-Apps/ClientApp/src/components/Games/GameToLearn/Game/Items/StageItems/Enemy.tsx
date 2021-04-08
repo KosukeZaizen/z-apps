@@ -7,7 +7,7 @@ import { gameState } from "../../GameState";
 import { ImgSrc } from "../../Stages";
 import { Ninja } from "../Ninja";
 
-const DamageAnimationDuration = 500; //ms
+const damageAnimationDuration = 500; //ms
 
 const opacityKeyframes = {
     "0%": {
@@ -30,7 +30,7 @@ const opacityKeyframes = {
 const styles = StyleSheet.create({
     blink: {
         animationName: opacityKeyframes,
-        animationDuration: `${DamageAnimationDuration}ms`,
+        animationDuration: `${damageAnimationDuration}ms`,
     },
 });
 
@@ -85,7 +85,7 @@ export class Enemy extends StageItem {
             this.isDamaged = true;
             setTimeout(() => {
                 this.isDamaged = false;
-            }, DamageAnimationDuration);
+            }, damageAnimationDuration);
 
             if (--this.currentLife <= 0) {
                 gameState.stageItems = gameState.stageItems.filter(
