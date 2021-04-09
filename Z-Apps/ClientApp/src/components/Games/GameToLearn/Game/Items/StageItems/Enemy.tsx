@@ -49,16 +49,38 @@ export class Enemy extends StageItem {
     currentLife: number;
     initialLife: number;
     isDamaged: boolean;
+    speedY: number;
+    isDead: boolean;
 
     constructor(props: Props) {
         super({ type: "enemy", ...props });
         this.isGoingRight = false;
         this.isDamaged = false;
+        this.speedY = 0;
+        this.isDead = false;
         this.currentLife = props.life;
         this.initialLife = props.life;
     }
 
     onEachTime(ninja: Ninja) {
+        if (!this.isDead) {
+            // 敵キャラ生存時の位置更新
+            this.calcNextPosition(ninja);
+        } else {
+            // 速度から位置更新（死亡時の落下）
+            this.speedY += 2;
+            this.y += this.speedY;
+
+            if (this.y > 90) {
+                gameState.stageItems = gameState.stageItems.filter(
+                    item => item.key !== this.key
+                );
+            }
+        }
+    }
+
+    private calcNextPosition(ninja: Ninja) {
+        // 忍者に向かって近づいてくる
         const ninjaCenter = [
             ninja.x + ninja.width / 2,
             ninja.y + ninja.width / 2,
@@ -73,6 +95,7 @@ export class Enemy extends StageItem {
         this.x += dX / d;
         this.y += dY / d;
 
+        // 左右の向きの判定
         this.isGoingRight = dX > 0;
     }
 
@@ -80,6 +103,7 @@ export class Enemy extends StageItem {
         const ninjaDirection = this.getTargetDirection(ninja);
         if (ninjaDirection === Direction.top) {
             ninja.speedY = -8;
+            ninja.y = this.y - ninja.width;
 
             // ダメージ時の点滅制御
             this.isDamaged = true;
@@ -88,9 +112,7 @@ export class Enemy extends StageItem {
             }, damageAnimationDuration);
 
             if (--this.currentLife <= 0) {
-                gameState.stageItems = gameState.stageItems.filter(
-                    item => item.key !== this.key
-                );
+                this.isDead = true;
             }
         }
         console.log("touched!");
@@ -125,9 +147,9 @@ export class Enemy extends StageItem {
                     src={this.imgSrc}
                     style={{
                         width: this.width * UL,
-                        transform: this.isGoingRight
-                            ? undefined
-                            : "scale(-1, 1)",
+                        transform: `scale(${this.isGoingRight ? 1 : -1}, ${
+                            this.isDead ? -1 : 1
+                        })`,
                     }}
                     className={this.isDamaged ? css(styles.blink) : undefined}
                 />

@@ -55,7 +55,7 @@ export class Ninja extends Renderable {
             this.x += 2.5;
         }
         if (isJumpButtonClicked && this.jumpable) {
-            this.speedY -= 5;
+            this.speedY -= 6;
         }
 
         // 重力

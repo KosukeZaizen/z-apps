@@ -14,7 +14,7 @@ export function getStage1() {
             x: 0,
             y: 0,
             width: 10,
-            life: 5,
+            life: 2,
         }),
         new SpeakingCharacter({
             key: "pochi",
