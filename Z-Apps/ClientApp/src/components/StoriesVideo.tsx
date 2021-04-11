@@ -89,18 +89,6 @@ class StoriesVideo extends React.Component<Props, State> {
         const storyName = this.props.storyDesc.storyName || "";
         const title = storyName.split("--").join(" - ").split("_").join(" ");
 
-        const typeButton = (type: string) => (
-            <Button
-                color="success"
-                style={{
-                    fontSize: "x-large",
-                    fontWeight: "bold",
-                }}
-                size="sm"
-            >
-                {type}
-            </Button>
-        );
         const line = (type: keyof sentence) => {
             const r = sentences[playingSentence]["romaji"];
             const size =
@@ -109,10 +97,26 @@ class StoriesVideo extends React.Component<Props, State> {
                     : r?.length < 210
                     ? { fontSize: 27 }
                     : { fontSize: 26 };
+
+            const isHidden = r?.length > 330 && type === "kanji";
             return (
-                <ul style={{ margin: "5px 0 20px", ...size }}>
-                    <li>{sentences[playingSentence][type]}</li>
-                </ul>
+                !isHidden && (
+                    <>
+                        <Button
+                            color="success"
+                            style={{
+                                fontSize: "x-large",
+                                fontWeight: "bold",
+                            }}
+                            size="sm"
+                        >
+                            {type}
+                        </Button>
+                        <ul style={{ margin: "5px 0 20px", ...size }}>
+                            <li>{sentences[playingSentence][type]}</li>
+                        </ul>
+                    </>
+                )
             );
         };
 
@@ -221,13 +225,9 @@ class StoriesVideo extends React.Component<Props, State> {
                             {playingSentence >= 0 ? (
                                 !isEnding ? (
                                     <div className="whiteShadow">
-                                        {typeButton("Kanji")}
                                         {line("kanji")}
-                                        {typeButton("Hiragana")}
                                         {line("hiragana")}
-                                        {typeButton("Romaji")}
                                         {line("romaji")}
-                                        {typeButton("English")}
                                         {line("english")}
                                     </div>
                                 ) : (
