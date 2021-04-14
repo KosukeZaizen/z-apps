@@ -99,6 +99,7 @@ class StoriesVideo extends React.Component<Props, State> {
                     : { fontSize: 26 };
 
             const isHidden = r?.length > 330 && type === "kanji";
+            const capitalType = type.charAt(0).toUpperCase() + type.slice(1);
             return (
                 !isHidden && (
                     <>
@@ -110,7 +111,7 @@ class StoriesVideo extends React.Component<Props, State> {
                             }}
                             size="sm"
                         >
-                            {type}
+                            {capitalType}
                         </Button>
                         <ul style={{ margin: "5px 0 20px", ...size }}>
                             <li>{sentences[playingSentence][type]}</li>
