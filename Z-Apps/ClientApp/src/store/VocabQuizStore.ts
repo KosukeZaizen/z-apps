@@ -1,3 +1,4 @@
+import { Action } from "redux";
 import * as consts from "../common/consts";
 import {
     loadLocalStorageOrDB,
@@ -5,15 +6,32 @@ import {
 } from "../common/functions";
 import { cFetch } from "../common/util/cFetch";
 import { sound, vocab, vocabGenre } from "../types/vocab";
-import { AsMapObject } from "./configureStore";
+import { AppThunkAction, AsMapObject } from "./configureStore";
 
 const fileName = "VocabQuizStore";
 
-const initializeType = "INITIALIZE";
-const receiveGenreAndVocabType = "RECEIVE_GENRE_AND_VOCAB";
-const receiveAllGenresType = "RECEIVE_ALL_GENRES";
-const receiveAllVocabsType = "RECEIVE_ALL_VOCABS";
-const changePageType = "CHANGE_PAGE";
+type initializeAction = { type: "INITIALIZE" };
+type receiveGenreAndVocabAction = {
+    type: "RECEIVE_GENRE_AND_VOCAB";
+    genreAndVocab: Pick<IVocabQuizState, "vocabGenre" | "vocabList">;
+};
+type receiveAllGenresAction = {
+    type: "RECEIVE_ALL_GENRES";
+    allGenres: vocabGenre[];
+};
+type receiveAllVocabsAction = {
+    type: "RECEIVE_ALL_VOCABS";
+    allVocabs: vocab[];
+};
+type changePageAction = { type: "CHANGE_PAGE"; nextPage: TPageNumber };
+
+type KnownAction =
+    | initializeAction
+    | receiveGenreAndVocabAction
+    | receiveAllGenresAction
+    | receiveAllVocabsAction
+    | changePageAction;
+
 const initialState = {
     vocabGenre: null, //specific page
     vocabList: [], //specific page
@@ -35,36 +53,36 @@ export interface IVocabQuizState {
 }
 
 interface IActionCreators {
-    loadVocabs: (genreName: string) => void;
-    changePage: (nextPage: TPageNumber) => void;
-    loadAllGenres: () => void;
-    loadAllVocabs: () => void;
+    loadVocabs: (genreName: string) => AppThunkAction<Action>;
+    changePage: (nextPage: TPageNumber) => AppThunkAction<Action>;
+    loadAllGenres: () => AppThunkAction<Action>;
+    loadAllVocabs: () => AppThunkAction<Action>;
 }
 
 export type ActionCreators = AsMapObject<IActionCreators>;
 
 export const actionCreators: ActionCreators = {
-    loadAllGenres: () => (dispatch: Function, getState: Function) => {
+    loadAllGenres: () => dispatch => {
         loadLocalStorageOrDB(
             `api/VocabQuiz/GetAllGenres?v=${new Date().getDate()}`,
-            receiveAllGenresType,
+            "RECEIVE_ALL_GENRES",
             "allGenres",
             fileName,
             dispatch
         );
     },
-    loadAllVocabs: () => (dispatch: Function, getState: Function) => {
+    loadAllVocabs: () => dispatch => {
         loadLocalStorageOrDB(
             `api/VocabQuiz/GetAllVocabs?v=${new Date().getDate()}`,
-            receiveAllVocabsType,
+            "RECEIVE_ALL_VOCABS",
             "allVocabs",
             fileName,
             dispatch
         );
     },
-    loadVocabs: genreName => (dispatch: Function, getState: Function) => {
+    loadVocabs: genreName => dispatch => {
         try {
-            dispatch({ type: initializeType });
+            dispatch({ type: "INITIALIZE" });
 
             const loadVocabsFromDB = async () => {
                 try {
@@ -85,7 +103,7 @@ export const actionCreators: ActionCreators = {
                     } = await response.json();
 
                     dispatch({
-                        type: receiveGenreAndVocabType,
+                        type: "RECEIVE_GENRE_AND_VOCAB",
                         genreAndVocab,
                     });
 
@@ -137,28 +155,28 @@ export const actionCreators: ActionCreators = {
                 !navigator.userAgent.includes("Googlebot")
             ) {
                 const genreAndVocab = { vocabGenre: genre, vocabList: vocabs };
-                dispatch({ type: receiveGenreAndVocabType, genreAndVocab });
+                dispatch({ type: "RECEIVE_GENRE_AND_VOCAB", genreAndVocab });
             }
             loadVocabsFromDB();
         } catch (e) {
             reloadAndRedirect_OneTimeReload("db-access-error-time");
         }
     },
-    changePage: nextPage => (dispatch: Function, getState: Function) => {
+    changePage: nextPage => dispatch => {
         void document.getElementById("h1title")?.scrollIntoView(true);
-        dispatch({ type: changePageType, nextPage });
+        dispatch({ type: "CHANGE_PAGE", nextPage });
     },
 };
 
-export const reducer = (state: any, action: any) => {
+export const reducer = (state: IVocabQuizState, action: KnownAction) => {
     state = state || initialState;
 
-    if (action.type === initializeType) {
+    if (action.type === "INITIALIZE") {
         const { allGenres, allVocabs, ...rest } = initialState;
         return rest;
     }
 
-    if (action.type === receiveGenreAndVocabType) {
+    if (action.type === "RECEIVE_GENRE_AND_VOCAB") {
         const { vocabGenre, vocabList } = action.genreAndVocab;
         const vocabSounds: {
             audio: HTMLAudioElement;
@@ -181,21 +199,21 @@ export const reducer = (state: any, action: any) => {
         };
     }
 
-    if (action.type === receiveAllGenresType) {
+    if (action.type === "RECEIVE_ALL_GENRES") {
         return {
             ...state,
             allGenres: action.allGenres,
         };
     }
 
-    if (action.type === receiveAllVocabsType) {
+    if (action.type === "RECEIVE_ALL_VOCABS") {
         return {
             ...state,
             allVocabs: action.allVocabs,
         };
     }
 
-    if (action.type === changePageType) {
+    if (action.type === "CHANGE_PAGE") {
         return {
             ...state,
             currentPage: action.nextPage,
