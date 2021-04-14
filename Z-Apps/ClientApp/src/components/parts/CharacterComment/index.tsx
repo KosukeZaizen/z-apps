@@ -8,9 +8,17 @@ type TProps = {
     comment: string | React.ReactNode;
     style?: React.CSSProperties;
     commentStyle?: React.CSSProperties;
+    imgStyle?: React.CSSProperties;
 };
 export default function CharacterComment(props: TProps) {
-    const { imgNumber, screenWidth, comment, style, commentStyle } = props;
+    const {
+        imgNumber,
+        screenWidth,
+        comment,
+        style,
+        commentStyle,
+        imgStyle,
+    } = props;
     return (
         <div
             style={{
@@ -29,6 +37,7 @@ export default function CharacterComment(props: TProps) {
                         maxWidth: 120,
                         height: "auto",
                         verticalAlign: "top",
+                        ...imgStyle,
                     }}
                     className="ninjaPic"
                 />
