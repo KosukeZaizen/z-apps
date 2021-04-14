@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../common/animation";
-import * as consts from "../common/consts";
 import { ApplicationState } from "../store/configureStore";
 import * as vocabStore from "../store/VocabQuizStore";
 import CharacterComment from "./parts/CharacterComment";
@@ -18,14 +17,9 @@ type Props = vocabStore.IVocabQuizState &
 type State = {
     genreName: string;
     screenWidth: number;
-    pleaseScrollDown: boolean;
-    imgNumber: number;
 };
 
 class VocabVideo extends React.Component<Props, State> {
-    correctSounds = [new Audio(), new Audio()];
-    ref: React.RefObject<HTMLHeadingElement>;
-
     constructor(props: Props) {
         super(props);
 
@@ -35,8 +29,6 @@ class VocabVideo extends React.Component<Props, State> {
         this.state = {
             genreName,
             screenWidth: window.innerWidth,
-            pleaseScrollDown: false,
-            imgNumber: this.getImgNumber(genreName?.length),
         };
 
         let timer: number;
@@ -49,8 +41,6 @@ class VocabVideo extends React.Component<Props, State> {
                 this.changeScreenSize();
             }, 100);
         };
-
-        this.ref = React.createRef();
     }
 
     componentDidMount() {
@@ -65,11 +55,6 @@ class VocabVideo extends React.Component<Props, State> {
                 this.changeScreenSize();
             }, i * 1000);
         }
-        this.correctSounds[0].src =
-            consts.BLOB_URL + "/appsPublic/sound/correctSound.mp3";
-        this.correctSounds[1].src =
-            consts.BLOB_URL + "/appsPublic/sound/incorrectSound.mp3";
-        this.correctSounds.forEach(s => s.load);
     }
 
     componentDidUpdate(previousProps: Props) {
@@ -83,7 +68,6 @@ class VocabVideo extends React.Component<Props, State> {
                     .pop() || "";
             this.setState({
                 genreName,
-                imgNumber: this.getImgNumber(genreName?.length),
             });
             this.props.loadVocabs(genreName);
         }
@@ -97,15 +81,6 @@ class VocabVideo extends React.Component<Props, State> {
         }
     };
 
-    getImgNumber = (num: number = 0) => {
-        const today = new Date();
-        const todayNumber = today.getMonth() + today.getDate() + num;
-        const mod = todayNumber % 27;
-        if (mod > 13) return 1;
-        if (mod > 5) return 2;
-        return 3;
-    };
-
     render() {
         const {
             vocabGenre,
@@ -114,7 +89,7 @@ class VocabVideo extends React.Component<Props, State> {
             vocabList,
             vocabSounds,
         } = this.props;
-        const { screenWidth, imgNumber } = this.state;
+        const { screenWidth } = this.state;
 
         const genreName =
             (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
@@ -168,7 +143,7 @@ function Page1({
                     fontSize: 90,
                 }}
             >
-                <p>{"Japanese Vocabulary Quiz"}</p>
+                {"Japanese Vocabulary Quiz"}
             </h1>
             <CharacterComment
                 imgNumber={1}
