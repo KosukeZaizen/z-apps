@@ -6,6 +6,7 @@ import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/Layout";
+import { ListPage } from "./ListPage";
 import { MenuPage } from "./MenuPage";
 import { TitlePage } from "./TitlePage";
 
@@ -95,7 +96,12 @@ class VocabVideo extends React.Component<Props, State> {
         let pageContent: React.ReactNode;
         switch (currentPage) {
             case Page.menu: {
-                pageContent = <MenuPage changePage={this.changePage} />;
+                pageContent = (
+                    <MenuPage
+                        changePage={this.changePage}
+                        vocabSounds={vocabSounds}
+                    />
+                );
                 break;
             }
             case Page.title: {
@@ -109,7 +115,15 @@ class VocabVideo extends React.Component<Props, State> {
                 break;
             }
             case Page.list: {
-                pageContent = <div>hello</div>;
+                pageContent = (
+                    <ListPage
+                        titleToShowUpper={titleToShowUpper}
+                        screenWidth={screenWidth}
+                        changePage={this.changePage}
+                        vocabList={vocabList}
+                        vocabSounds={vocabSounds.map(s => s?.audio)}
+                    />
+                );
                 break;
             }
         }
