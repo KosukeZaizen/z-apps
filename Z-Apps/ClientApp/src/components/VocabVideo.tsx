@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../common/animation";
@@ -9,6 +9,17 @@ import Head from "./parts/Helmet";
 import { HideHeaderAndFooter } from "./parts/Layout";
 import "./parts/PleaseScrollDown.css";
 
+const Page = {
+    menu: 0,
+    title: 1,
+    list: 2,
+    quiz: 3,
+    last: 4,
+};
+type Page = typeof Page[keyof typeof Page];
+
+type ChangePage = (nextPage: Page) => void;
+
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
         location: { pathname: string };
@@ -17,6 +28,7 @@ type Props = vocabStore.IVocabQuizState &
 type State = {
     genreName: string;
     screenWidth: number;
+    currentPage: Page;
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -29,6 +41,7 @@ class VocabVideo extends React.Component<Props, State> {
         this.state = {
             genreName,
             screenWidth: window.innerWidth,
+            currentPage: Page.menu,
         };
 
         let timer: number;
@@ -81,15 +94,13 @@ class VocabVideo extends React.Component<Props, State> {
         }
     };
 
+    changePage = (nextPage: Page) => {
+        this.setState({ currentPage: nextPage });
+    };
+
     render() {
-        const {
-            vocabGenre,
-            currentPage,
-            changePage,
-            vocabList,
-            vocabSounds,
-        } = this.props;
-        const { screenWidth } = this.state;
+        const { vocabGenre, vocabList, vocabSounds } = this.props;
+        const { screenWidth, currentPage } = this.state;
 
         const genreName =
             (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
@@ -98,6 +109,28 @@ class VocabVideo extends React.Component<Props, State> {
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
         const titleToShowLower = genreName.split("_").join(" ");
+
+        let pageContent: React.ReactNode;
+        switch (currentPage) {
+            case Page.menu: {
+                pageContent = <MenuPage changePage={this.changePage} />;
+                break;
+            }
+            case Page.title: {
+                pageContent = (
+                    <Page1
+                        titleToShowUpper={titleToShowUpper}
+                        screenWidth={screenWidth}
+                        changePage={this.changePage}
+                    />
+                );
+                break;
+            }
+            case Page.list: {
+                pageContent = <div>hello</div>;
+                break;
+            }
+        }
 
         return (
             <div>
@@ -116,23 +149,46 @@ class VocabVideo extends React.Component<Props, State> {
                         justifyContent: "center",
                     }}
                 >
-                    <Page1
-                        titleToShowUpper={titleToShowUpper}
-                        screenWidth={screenWidth}
-                    />
+                    {pageContent}
                 </div>
             </div>
         );
     }
 }
 
+function MenuPage({ changePage }: { changePage: ChangePage }) {
+    const [isButtonShown, setIsButtonShown] = useState(true);
+    return isButtonShown ? (
+        <>
+            <button
+                onClick={() => {
+                    setTimeout(() => {
+                        changePage(Page.title);
+                    }, 3000);
+                    setIsButtonShown(false);
+                }}
+            >
+                Title Page
+            </button>
+        </>
+    ) : null;
+}
+
 function Page1({
     titleToShowUpper,
     screenWidth,
+    changePage,
 }: {
     titleToShowUpper: string;
     screenWidth: number;
+    changePage: ChangePage;
 }) {
+    useEffect(() => {
+        setTimeout(() => {
+            changePage(Page.list);
+        }, 4000);
+    }, []);
+
     return (
         <div>
             <h1
