@@ -32,7 +32,7 @@ export function LastPage({
             <CharacterComment
                 imgNumber={1}
                 screenWidth={screenWidth}
-                comment={"Don't forget to subscribe this YouTube channel!"}
+                comment={"Don't forget to subscribe to this YouTube channel!"}
                 style={{ maxWidth: 1000, marginBottom: 40 }}
                 commentStyle={{
                     fontSize: 50,
