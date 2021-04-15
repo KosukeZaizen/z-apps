@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
@@ -6,6 +6,7 @@ import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/Layout";
+import { MenuPage } from "./MenuPage";
 import { TitlePage } from "./TitlePage";
 
 export const Page = {
@@ -135,24 +136,6 @@ class VocabVideo extends React.Component<Props, State> {
             </div>
         );
     }
-}
-
-function MenuPage({ changePage }: { changePage: ChangePage }) {
-    const [isButtonShown, setIsButtonShown] = useState(true);
-    return isButtonShown ? (
-        <>
-            <button
-                onClick={() => {
-                    setTimeout(() => {
-                        changePage(Page.title);
-                    }, 3000);
-                    setIsButtonShown(false);
-                }}
-            >
-                Title Page
-            </button>
-        </>
-    ) : null;
 }
 
 export default connect(
