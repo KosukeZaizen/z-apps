@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { StopAnimation } from "../common/animation";
-import { ApplicationState } from "../store/configureStore";
-import * as vocabStore from "../store/VocabQuizStore";
-import CharacterComment from "./parts/CharacterComment";
-import Head from "./parts/Helmet";
-import { HideHeaderAndFooter } from "./parts/Layout";
-import "./parts/PleaseScrollDown.css";
+import { StopAnimation } from "../../../common/animation";
+import { ApplicationState } from "../../../store/configureStore";
+import * as vocabStore from "../../../store/VocabQuizStore";
+import Head from "../../parts/Helmet";
+import { HideHeaderAndFooter } from "../../parts/Layout";
+import { TitlePage } from "./TitlePage";
 
-const Page = {
+export const Page = {
     menu: 0,
     title: 1,
     list: 2,
     quiz: 3,
     last: 4,
 };
-type Page = typeof Page[keyof typeof Page];
+export type Page = typeof Page[keyof typeof Page];
 
-type ChangePage = (nextPage: Page) => void;
+export type ChangePage = (nextPage: Page) => void;
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
@@ -57,32 +56,14 @@ class VocabVideo extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { loadVocabs, loadAllGenres, loadAllVocabs } = this.props;
+        const { loadVocabs } = this.props;
         const { genreName } = this.state;
         loadVocabs(genreName);
-        loadAllGenres();
-        setTimeout(loadAllVocabs, 15000);
 
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 this.changeScreenSize();
             }, i * 1000);
-        }
-    }
-
-    componentDidUpdate(previousProps: Props) {
-        if (previousProps.location !== this.props.location) {
-            const genreName =
-                this.props.location.pathname
-                    .split("/")
-                    .filter(a => a)
-                    .pop()
-                    ?.split("#")
-                    .pop() || "";
-            this.setState({
-                genreName,
-            });
-            this.props.loadVocabs(genreName);
         }
     }
 
@@ -118,7 +99,7 @@ class VocabVideo extends React.Component<Props, State> {
             }
             case Page.title: {
                 pageContent = (
-                    <Page1
+                    <TitlePage
                         titleToShowUpper={titleToShowUpper}
                         screenWidth={screenWidth}
                         changePage={this.changePage}
@@ -172,57 +153,6 @@ function MenuPage({ changePage }: { changePage: ChangePage }) {
             </button>
         </>
     ) : null;
-}
-
-function Page1({
-    titleToShowUpper,
-    screenWidth,
-    changePage,
-}: {
-    titleToShowUpper: string;
-    screenWidth: number;
-    changePage: ChangePage;
-}) {
-    useEffect(() => {
-        setTimeout(() => {
-            changePage(Page.list);
-        }, 4000);
-    }, []);
-
-    return (
-        <div>
-            <h1
-                id="h1title"
-                style={{
-                    marginBottom: 100,
-                    fontWeight: "bold",
-                    fontSize: 90,
-                }}
-            >
-                {"Japanese Vocabulary Quiz"}
-            </h1>
-            <CharacterComment
-                imgNumber={1}
-                screenWidth={screenWidth}
-                comment={titleToShowUpper.split(" ").map((t, i) => {
-                    const str = i ? " " + t : t;
-                    return t.includes("-") ? (
-                        <span style={{ display: "inline-block" }}>{str}</span>
-                    ) : (
-                        str
-                    );
-                })}
-                style={{ maxWidth: 1000, marginBottom: 40 }}
-                commentStyle={{
-                    fontSize: 100,
-                    fontWeight: "bold",
-                    maxWidth: 900,
-                    marginLeft: 40,
-                    textAlign: "center",
-                }}
-            />
-        </div>
-    );
 }
 
 export default connect(

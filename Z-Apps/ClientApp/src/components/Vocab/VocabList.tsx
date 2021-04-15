@@ -11,20 +11,20 @@ import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as consts from "../common/consts";
-import { ApplicationState } from "../store/configureStore";
-import * as vocabStore from "../store/VocabQuizStore";
-import { vocab, vocabGenre } from "../types/vocab";
-import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import CharacterComment from "./parts/CharacterComment";
-import FB from "./parts/FaceBook";
-import { FolktaleMenu } from "./parts/FolktaleMenu";
-import GoogleAd from "./parts/GoogleAd";
-import { HashScroll } from "./parts/HashScroll";
-import Head from "./parts/Helmet";
-import PleaseScrollDown from "./parts/PleaseScrollDown";
-import "./parts/PleaseScrollDown.css";
+import * as consts from "../../common/consts";
+import { ApplicationState } from "../../store/configureStore";
+import * as vocabStore from "../../store/VocabQuizStore";
+import { vocab, vocabGenre } from "../../types/vocab";
+import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
+import ShurikenProgress from "../parts/Animations/ShurikenProgress";
+import CharacterComment from "../parts/CharacterComment";
+import FB from "../parts/FaceBook";
+import { FolktaleMenu } from "../parts/FolktaleMenu";
+import GoogleAd from "../parts/GoogleAd";
+import { HashScroll } from "../parts/HashScroll";
+import Head from "../parts/Helmet";
+import PleaseScrollDown from "../parts/PleaseScrollDown";
+import "../parts/PleaseScrollDown.css";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {

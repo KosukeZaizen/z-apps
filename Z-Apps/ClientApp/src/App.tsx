@@ -20,12 +20,14 @@ const HiraganaAndKatakana = lazy(
 );
 const HiraganaQuiz = lazy(() => import("./components/HiraganaQuiz"));
 const KatakanaQuiz = lazy(() => import("./components/KatakanaQuiz"));
-const VocabList = lazy(() => import("./components/VocabList"));
-const VocabQuiz = lazy(() => import("./components/VocabQuiz"));
-const VocabQuizTop = lazy(() => import("./components/VocabQuizTop"));
-const VocabKanjiQuiz = lazy(() => import("./components/VocabKanjiQuiz"));
-const VocabKanjiQuizTop = lazy(() => import("./components/VocabKanjiQuizTop"));
-const VocabVideo = lazy(() => import("./components/VocabVideo"));
+const VocabList = lazy(() => import("./components/Vocab/VocabList"));
+const VocabQuiz = lazy(() => import("./components/Vocab/VocabQuiz"));
+const VocabQuizTop = lazy(() => import("./components/Vocab/VocabQuizTop"));
+const VocabKanjiQuiz = lazy(() => import("./components/Vocab/VocabKanjiQuiz"));
+const VocabKanjiQuizTop = lazy(
+    () => import("./components/Vocab/VocabKanjiQuizTop")
+);
+const VocabVideo = lazy(() => import("./components/Vocab/VocabVideo"));
 const Stories = lazy(() => import("./components/Stories"));
 const StoriesTop = lazy(() => import("./components/StoriesTop"));
 const StoriesEdit = lazy(() => import("./components/StoriesEdit"));
