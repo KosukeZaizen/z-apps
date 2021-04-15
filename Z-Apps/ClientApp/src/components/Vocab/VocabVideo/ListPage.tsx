@@ -60,6 +60,16 @@ export function ListPage({
                     commentStyle={{ marginLeft: 15, paddingLeft: 25 }}
                 />
             </div>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 20,
+                    fontSize: 40,
+                }}
+            >
+                {`${vocabList.indexOf(currentVocab) + 1} / ${vocabList.length}`}
+            </div>
         </div>
     );
 }

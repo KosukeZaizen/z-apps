@@ -40,12 +40,12 @@ export function QuizPage({
                 await sleepAsync(2000);
                 setShowAnswer(false);
             }
-            changePage(Page.quiz);
+            changePage(Page.last);
         };
         setTimeout(() => {
             setIsInitialScreen(false);
             play();
-        }, 3000);
+        }, 5000);
     }, []);
 
     return isInitialScreen ? (
@@ -99,6 +99,16 @@ export function QuizPage({
                         width: 300,
                     }}
                 />
+            </div>
+            <div
+                style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 20,
+                    fontSize: 40,
+                }}
+            >
+                {`${vocabList.indexOf(currentVocab) + 1} / ${vocabList.length}`}
             </div>
             {count < 4 && (
                 <div
