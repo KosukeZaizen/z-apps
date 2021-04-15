@@ -8,6 +8,7 @@ import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/Layout";
 import { ListPage } from "./ListPage";
 import { MenuPage } from "./MenuPage";
+import { QuizPage } from "./QuizPage";
 import { TitlePage } from "./TitlePage";
 
 export const Page = {
@@ -117,7 +118,17 @@ class VocabVideo extends React.Component<Props, State> {
             case Page.list: {
                 pageContent = (
                     <ListPage
-                        titleToShowUpper={titleToShowUpper}
+                        screenWidth={screenWidth}
+                        changePage={this.changePage}
+                        vocabList={vocabList}
+                        vocabSounds={vocabSounds.map(s => s?.audio)}
+                    />
+                );
+                break;
+            }
+            case Page.quiz: {
+                pageContent = (
+                    <QuizPage
                         screenWidth={screenWidth}
                         changePage={this.changePage}
                         vocabList={vocabList}

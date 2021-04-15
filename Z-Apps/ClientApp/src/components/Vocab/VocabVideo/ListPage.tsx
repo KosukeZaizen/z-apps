@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ChangePage } from ".";
+import { ChangePage, Page } from ".";
 import { sleepAsync } from "../../../common/functions";
 import { audioPlayAsync } from "../../../common/util/audioPlayAsync";
 import { vocab } from "../../../types/vocab";
 import CharacterComment from "../../parts/CharacterComment";
 
 export function ListPage({
-    titleToShowUpper,
     screenWidth,
     changePage,
     vocabList,
     vocabSounds,
 }: {
-    titleToShowUpper: string;
     screenWidth: number;
     changePage: ChangePage;
     vocabList: vocab[];
@@ -30,6 +28,7 @@ export function ListPage({
                 await audioPlayAsync(audio);
                 await sleepAsync(2000);
             }
+            changePage(Page.quiz);
         };
         play();
     }, []);
@@ -58,7 +57,7 @@ export function ListPage({
                     }
                     imgStyle={{ width: 95 }}
                     screenWidth={screenWidth / 2}
-                    commentStyle={{ marginLeft: 10, paddingLeft: 25 }}
+                    commentStyle={{ marginLeft: 15, paddingLeft: 25 }}
                 />
             </div>
         </div>
