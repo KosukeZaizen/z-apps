@@ -145,7 +145,7 @@ export const SeasonAnimation = ({
                 src={appsPublicImg + "japanese-festival.png"}
                 style={{
                     position: "absolute",
-                    width: "130%",
+                    width: "128%",
                     top: 80 - screenWidth * 0.34,
                     left: -(screenWidth * 0.28),
                     zIndex: -110,
