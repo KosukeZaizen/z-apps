@@ -139,24 +139,18 @@ export const SeasonAnimation = ({
 
     return (
         <div>
-            <div
+            <img
+                alt="japanese festival"
+                title="japanese festival"
+                src={appsPublicImg + "japanese-festival.png"}
                 style={{
                     position: "absolute",
+                    width: "130%",
                     top: 80 - screenWidth * 0.34,
                     left: -(screenWidth * 0.28),
                     zIndex: -110,
-                    width: "100%",
                 }}
-            >
-                <img
-                    alt="japanese festival"
-                    title="japanese festival"
-                    src={appsPublicImg + "japanese-festival.png"}
-                    style={{
-                        width: "128%",
-                    }}
-                />
-            </div>
+            />
             {leaves.map(getImg)}
         </div>
     );
