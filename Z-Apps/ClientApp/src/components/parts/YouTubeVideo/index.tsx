@@ -70,10 +70,9 @@ export function YouTubeVideo({
                             backgroundColor: "red",
                             color: "white",
                         }}
-                        size="sm"
                         className={buttonHover}
                     >
-                        {"Click here to subscribe to this YouTube channel!"}
+                        {"Click to subscribe to this YouTube channel!"}
                     </Button>
                 </a>
             </div>
