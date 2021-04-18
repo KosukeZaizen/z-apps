@@ -1,14 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import {
-    Collapse,
-    Container,
-    Navbar,
-    NavbarBrand,
-    NavbarToggler,
-    NavLink,
-} from "reactstrap";
+import Collapse from "reactstrap/lib/Collapse";
+import Container from "reactstrap/lib/Container";
+import Navbar from "reactstrap/lib/Navbar";
+import NavbarBrand from "reactstrap/lib/NavbarBrand";
+import NavbarToggler from "reactstrap/lib/NavbarToggler";
+import NavLink from "reactstrap/lib/NavLink";
 import "./NavMenu.css";
 
 function NavigationItems(props: { closeToggle: () => void }) {

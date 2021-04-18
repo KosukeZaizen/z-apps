@@ -123,7 +123,7 @@ export default class Home extends React.Component<
                         >
                             <Link
                                 to="/hiragana-katakana"
-                                style={{ margin: cardMargin }}
+                                style={{ margin: cardMargin, flex: 1 }}
                             >
                                 <Card
                                     body
@@ -151,7 +151,7 @@ export default class Home extends React.Component<
 
                             <Link
                                 to="/vocabulary-list"
-                                style={{ margin: cardMargin }}
+                                style={{ margin: cardMargin, flex: 1 }}
                             >
                                 <Card
                                     body
