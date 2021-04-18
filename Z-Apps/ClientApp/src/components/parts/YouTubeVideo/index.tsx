@@ -13,11 +13,11 @@ export function YouTubeVideo({
     pageNameForLog: string;
     style?: CSSProperties;
 }) {
+    const isWide = screenWidth > 600;
     return (
         <div
             style={{
-                backgroundColor:
-                    screenWidth > 600 ? "rgb(231, 233, 231)" : undefined,
+                backgroundColor: isWide ? "rgb(231, 233, 231)" : undefined,
                 padding: "5px 0",
                 border: 0,
                 ...style,
@@ -66,7 +66,7 @@ export function YouTubeVideo({
                             backgroundColor: "red",
                             color: "white",
                             textTransform: "none",
-                            fontSize: "large",
+                            fontSize: isWide ? "large" : "small",
                         }}
                         size="small"
                     >
