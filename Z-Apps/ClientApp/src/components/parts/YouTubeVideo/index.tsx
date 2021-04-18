@@ -1,6 +1,11 @@
-import Button from "@material-ui/core/Button/Button";
 import React, { CSSProperties } from "react";
+import Button from "reactstrap/lib/Button";
 import { sendClientOpeLog } from "../../../common/functions";
+import { getHoverClassName } from "../../../common/util/getHoverClass";
+
+const buttonHover = getHoverClassName({
+    opacity: 0.5,
+});
 
 export function YouTubeVideo({
     videoId,
@@ -57,7 +62,6 @@ export function YouTubeVideo({
                             );
                         }, 1000);
                     }}
-                    style={{ color: "white" }}
                 >
                     <Button
                         style={{
@@ -65,10 +69,9 @@ export function YouTubeVideo({
                             width: "100%",
                             backgroundColor: "red",
                             color: "white",
-                            textTransform: "none",
-                            fontSize: isWide ? "large" : "small",
                         }}
-                        size="small"
+                        size="sm"
+                        className={buttonHover}
                     >
                         {"Click here to subscribe to this YouTube channel!"}
                     </Button>
