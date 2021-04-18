@@ -1,4 +1,4 @@
-import { Collapse } from "@material-ui/core";
+import Collapse from "@material-ui/core/Collapse/Collapse";
 import * as React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";

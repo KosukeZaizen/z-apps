@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import Button from "@material-ui/core/Button/Button";
 import React from "react";
 import { gameOpenAnimationTime } from "../../../GameFrame";
 import { gameState } from "../../GameState";

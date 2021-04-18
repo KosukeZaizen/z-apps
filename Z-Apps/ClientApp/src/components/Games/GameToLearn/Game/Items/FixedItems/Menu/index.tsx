@@ -1,4 +1,6 @@
-import { Button, Collapse, Slide } from "@material-ui/core";
+import Button from "@material-ui/core/Button/Button";
+import Collapse from "@material-ui/core/Collapse/Collapse";
+import Slide from "@material-ui/core/Slide/Slide";
 import React from "react";
 import { Link } from "react-router-dom";
 import { gameOpenAnimationTime } from "../../../../GameFrame";

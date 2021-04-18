@@ -1,4 +1,4 @@
-import { Collapse } from "@material-ui/core";
+import Collapse from "@material-ui/core/Collapse/Collapse";
 import React from "react";
 import { sentence, word } from "../../types/stories";
 
