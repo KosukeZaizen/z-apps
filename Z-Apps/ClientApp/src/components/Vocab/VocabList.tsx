@@ -10,6 +10,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Button from "reactstrap/lib/Button";
 import { bindActionCreators } from "redux";
 import * as consts from "../../common/consts";
 import { ApplicationState } from "../../store/configureStore";
@@ -412,7 +413,10 @@ function EachGenre(props: TEachGenreProps) {
                         .join(" ")}
             </h2>
             <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+                <Table
+                    aria-label="simple table"
+                    style={{ tableLayout: "fixed" }}
+                >
                     <TableHead>
                         <TableRow style={{ backgroundColor: "papayawhip" }}>
                             <TableCell style={tableHeadStyle} align="center">
@@ -457,16 +461,16 @@ function EachGenre(props: TEachGenreProps) {
                         <TableRow>
                             <TableCell style={tableElementStyle} align="center">
                                 <Link to={`/vocabulary-quiz/${g.genreName}`}>
-                                    <button className="btn btn-primary">
-                                        {"Try the Vocab Quiz"}
-                                    </button>
+                                    <Button color="primary">
+                                        {"Try Vocab Quiz"}
+                                    </Button>
                                 </Link>
                             </TableCell>
                             <TableCell style={tableElementStyle} align="center">
                                 <Link to={`/kanji-quiz/${g.genreName}`}>
-                                    <button className="btn btn-primary">
-                                        {"Try the Kanji Quiz"}
-                                    </button>
+                                    <Button color="primary">
+                                        {"Try Kanji Quiz"}
+                                    </Button>
                                 </Link>
                             </TableCell>
                         </TableRow>
@@ -488,16 +492,16 @@ function EachGenre(props: TEachGenreProps) {
                         <TableRow>
                             <TableCell style={tableElementStyle} align="center">
                                 <Link to={`/vocabulary-quiz/${g.genreName}`}>
-                                    <button className="btn btn-primary">
-                                        {"Try the Vocab Quiz"}
-                                    </button>
+                                    <Button color="primary">
+                                        {"Try Vocab Quiz"}
+                                    </Button>
                                 </Link>
                             </TableCell>
                             <TableCell style={tableElementStyle} align="center">
                                 <Link to={`/kanji-quiz/${g.genreName}`}>
-                                    <button className="btn btn-primary">
-                                        {"Try the Kanji Quiz"}
-                                    </button>
+                                    <Button color="primary">
+                                        {"Try Kanji Quiz"}
+                                    </Button>
                                 </Link>
                             </TableCell>
                         </TableRow>
