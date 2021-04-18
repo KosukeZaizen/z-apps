@@ -27,6 +27,7 @@ import "../parts/PleaseScrollDown.css";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import AllKanjiList from "../parts/VocabQuiz/AllKanjiList";
 import AllVocabList from "../parts/VocabQuiz/AllVocabList";
+import { YouTubeVideo } from "../parts/YouTubeVideo";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
@@ -180,6 +181,7 @@ class VocabQuiz extends React.Component<Props, State> {
                         changePage={changePage}
                         vocabSounds={vocabSounds}
                         criteriaRef={this.ref}
+                        vocabGenre={vocabGenre}
                     />
                 );
         }
@@ -327,6 +329,7 @@ type TPage1Props = {
     changePage: (nextPage: vocabStore.TPageNumber) => void;
     vocabSounds: sound[];
     criteriaRef: React.RefObject<HTMLHeadingElement>;
+    vocabGenre: vocabGenre;
 };
 function Page1(props: TPage1Props) {
     const {
@@ -336,6 +339,7 @@ function Page1(props: TPage1Props) {
         changePage,
         vocabSounds,
         criteriaRef,
+        vocabGenre,
     } = props;
 
     const tableHeadStyle: React.CSSProperties = {
@@ -377,6 +381,14 @@ function Page1(props: TPage1Props) {
                     {"Start the vocabulary quiz anyway >>"}
                 </button>
             </div>
+            {vocabGenre.youtube && (
+                <YouTubeVideo
+                    videoId={vocabGenre.youtube}
+                    screenWidth={screenWidth}
+                    pageNameForLog={`vocab quiz ${vocabGenre.genreName}`}
+                    style={{ marginBottom: 25 }}
+                />
+            )}
             <TableContainer component={Paper} ref={criteriaRef}>
                 <Table aria-label="simple table">
                     <TableHead>

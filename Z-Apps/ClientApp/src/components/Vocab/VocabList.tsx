@@ -25,6 +25,7 @@ import { HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
+import { YouTubeVideo } from "../parts/YouTubeVideo";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
@@ -179,6 +180,7 @@ class VocabList extends React.Component<Props, State> {
                         allGenres={allGenres}
                         criteriaRef={this.refForScroll}
                         refForReturnToIndex={this.refForReturnToIndex}
+                        screenWidth={screenWidth}
                     />
                     <hr />
                     <FolktaleMenu screenWidth={screenWidth} />
@@ -309,12 +311,14 @@ type TAllVocabListProps = {
     excludeGenreId?: number;
     criteriaRef?: React.RefObject<HTMLHeadingElement>;
     refForReturnToIndex?: React.RefObject<HTMLHeadingElement>;
+    screenWidth: number;
 };
 function AllVocabList({
     allGenres: vocabGenres,
     allVocabs,
     criteriaRef,
     refForReturnToIndex,
+    screenWidth,
 }: TAllVocabListProps) {
     return (
         <>
@@ -363,6 +367,7 @@ function AllVocabList({
                             key={g.genreId}
                             g={g}
                             vocabList={vocabList}
+                            screenWidth={screenWidth}
                         />
                     );
                 })
@@ -373,9 +378,13 @@ function AllVocabList({
     );
 }
 
-type TEachGenreProps = { g: vocabGenre; vocabList: vocab[] };
+type TEachGenreProps = {
+    g: vocabGenre;
+    vocabList: vocab[];
+    screenWidth: number;
+};
 function EachGenre(props: TEachGenreProps) {
-    const { g, vocabList } = props;
+    const { g, vocabList, screenWidth } = props;
 
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
@@ -467,7 +476,14 @@ function EachGenre(props: TEachGenreProps) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <br />
+            {g.youtube && (
+                <YouTubeVideo
+                    videoId={g.youtube}
+                    screenWidth={screenWidth}
+                    pageNameForLog={`vocabList ${g.genreName}`}
+                    style={{ marginTop: 10, marginBottom: 15 }}
+                />
+            )}
             <VList g={g} vocabList={vocabList} />
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -520,7 +536,7 @@ function VList(props: TVListProps) {
         (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
 
     return vocabList && vocabList.length > 0 ? (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{ marginTop: 20 }}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow style={{ backgroundColor: "papayawhip" }}>

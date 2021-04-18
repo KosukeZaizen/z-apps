@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardText, CardTitle } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as consts from "../../common/consts";
-import { sendClientOpeLog } from "../../common/functions";
 import "../../css/Stories.css";
 import { ApplicationState } from "../../store/configureStore";
 import * as storiesStore from "../../store/StoriesStore";
@@ -25,6 +24,7 @@ import "../parts/PleaseScrollDown.css";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import { YouTubeAd } from "../parts/YouTubeAd";
+import { YouTubeVideo } from "../parts/YouTubeVideo";
 import { StoriesList } from "../StoriesTop/StoriesList";
 import { AudioControl } from "./AudioControl";
 import { WordList } from "./WordList";
@@ -261,7 +261,6 @@ class Stories extends React.Component<Props, State> {
             location,
         } = this.props;
 
-        const isSlightlyWide = screenWidth > 600;
         const isWide = screenWidth > 767;
         const isVeryWide = screenWidth > 991;
 
@@ -512,9 +511,10 @@ class Stories extends React.Component<Props, State> {
                         {storyDesc.youtube && (
                             <section
                                 style={{
-                                    margin: isSlightlyWide
-                                        ? "5px 0 35px"
-                                        : "5px 0 40px",
+                                    margin:
+                                        screenWidth > 600
+                                            ? "5px 0 35px"
+                                            : "5px 0 40px",
                                 }}
                             >
                                 <h2
@@ -526,69 +526,11 @@ class Stories extends React.Component<Props, State> {
                                 >
                                     {`${title} Video`}
                                 </h2>
-                                <div
-                                    style={{
-                                        backgroundColor: isSlightlyWide
-                                            ? "rgb(231, 233, 231)"
-                                            : undefined,
-                                        padding: "5px 0",
-                                        border: 0,
-                                    }}
-                                >
-                                    <div style={{ maxWidth: 600 }}>
-                                        <div
-                                            style={{
-                                                position: "relative",
-                                                width: "100%",
-                                                paddingTop: "56.25%",
-                                            }}
-                                        >
-                                            <iframe
-                                                style={{
-                                                    position: "absolute",
-                                                    top: 0,
-                                                    right: 0,
-                                                    width: "100%",
-                                                    height: "100%",
-                                                }}
-                                                src={
-                                                    "https://www.youtube.com/embed/" +
-                                                    storyDesc.youtube
-                                                }
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            ></iframe>
-                                        </div>
-                                        <a
-                                            href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-                                            target="_blank"
-                                            rel="noopener noreferrer nofollow"
-                                            onClick={() => {
-                                                setTimeout(() => {
-                                                    sendClientOpeLog(
-                                                        "click YouTube channel",
-                                                        "from folktale video bottom"
-                                                    );
-                                                }, 1000);
-                                            }}
-                                            style={{ color: "white" }}
-                                        >
-                                            <Button
-                                                style={{
-                                                    marginTop: 5,
-                                                    width: "100%",
-                                                }}
-                                                size="sm"
-                                                color="primary"
-                                            >
-                                                {
-                                                    "Click here to subscribe to this YouTube channel!"
-                                                }
-                                            </Button>
-                                        </a>
-                                    </div>
-                                </div>
+                                <YouTubeVideo
+                                    videoId={storyDesc.youtube}
+                                    screenWidth={screenWidth}
+                                    pageNameForLog={`folktale ${title}`}
+                                />
                             </section>
                         )}
                         {storyDesc.storyId ? (
