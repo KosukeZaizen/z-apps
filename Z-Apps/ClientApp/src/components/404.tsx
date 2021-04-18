@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import { getParams } from "../common/functions";
 import "../css/Terms.css";
 import Head from "./parts/Helmet";

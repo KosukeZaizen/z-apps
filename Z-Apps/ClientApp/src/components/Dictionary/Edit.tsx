@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import { cFetch } from "../../common/util/cFetch";
 import Head from "../parts/Helmet";
 type Props = {

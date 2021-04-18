@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
+import Container from "reactstrap/lib/Container";
 import { compose } from "recompose";
 import { bindActionCreators } from "redux";
 import * as baseStore from "../../store/BaseStore";

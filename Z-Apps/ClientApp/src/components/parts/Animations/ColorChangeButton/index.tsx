@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import "./style.css";
 
 interface FolktaleMenuProps {

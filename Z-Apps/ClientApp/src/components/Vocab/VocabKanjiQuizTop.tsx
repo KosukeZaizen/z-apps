@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Card, CardTitle } from "reactstrap";
+import Button from "reactstrap/lib/Button";
+import Card from "reactstrap/lib/Card";
+import CardTitle from "reactstrap/lib/CardTitle";
 import { bindActionCreators } from "redux";
 import { ApplicationState } from "../../store/configureStore";
 import * as vocabStore from "../../store/VocabQuizStore";

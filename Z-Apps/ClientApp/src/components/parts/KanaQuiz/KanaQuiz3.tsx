@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, CardBody, CardHeader } from "reactstrap";
+import Button from "reactstrap/lib/Button";
+import Card from "reactstrap/lib/Card";
+import CardBody from "reactstrap/lib/CardBody";
+import CardHeader from "reactstrap/lib/CardHeader";
 
 class IncorrectTable extends React.Component<{
     incorrectList: any;

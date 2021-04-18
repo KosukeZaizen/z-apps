@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import { ColorChangeButton } from "./parts/Animations/ColorChangeButton";
 import { SeasonAnimation } from "./parts/Animations/SeasonAnimation";
 import CharacterComment from "./parts/CharacterComment";

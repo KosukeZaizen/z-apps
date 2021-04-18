@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, CardText, CardTitle } from "reactstrap";
+import Button from "reactstrap/lib/Button";
+import Card from "reactstrap/lib/Card";
+import CardText from "reactstrap/lib/CardText";
+import CardTitle from "reactstrap/lib/CardTitle";
 import { cFetch } from "../../common/util/cFetch";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import FB from "../parts/FaceBook";

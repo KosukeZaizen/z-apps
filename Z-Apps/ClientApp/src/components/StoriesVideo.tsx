@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../common/animation";
 import * as consts from "../common/consts";

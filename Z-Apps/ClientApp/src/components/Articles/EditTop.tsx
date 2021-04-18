@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import { getImgNumber } from ".";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";

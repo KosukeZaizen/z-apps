@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import Button from "reactstrap/lib/Button";
 import gfm from "remark-gfm";
 import * as consts from "../../../common/consts";
 import { sentence } from "../../../types/stories";
