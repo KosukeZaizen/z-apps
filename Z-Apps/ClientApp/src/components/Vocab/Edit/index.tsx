@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
+import { vocab } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 
 export const Page = {
@@ -25,7 +26,7 @@ type Props = vocabStore.IVocabQuizState &
 type State = {
     genreName: string;
     screenWidth: number;
-    currentPage: Page;
+    vocabList: vocab[];
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -38,7 +39,7 @@ class VocabVideo extends React.Component<Props, State> {
         this.state = {
             genreName,
             screenWidth: window.innerWidth,
-            currentPage: Page.menu,
+            vocabList: [],
         };
 
         let timer: number;
@@ -73,13 +74,15 @@ class VocabVideo extends React.Component<Props, State> {
         }
     };
 
-    changePage = (nextPage: Page) => {
-        this.setState({ currentPage: nextPage });
+    componentDidUpdate = (previousProps: Props) => {
+        if (this.props.vocabList !== previousProps.vocabList) {
+            this.setState({ vocabList: this.props.vocabList });
+        }
     };
 
     render() {
-        const { vocabGenre, vocabList, vocabSounds } = this.props;
-        const { screenWidth, currentPage } = this.state;
+        const { vocabGenre } = this.props;
+        const { screenWidth, vocabList } = this.state;
 
         const genreName =
             (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
@@ -93,20 +96,30 @@ class VocabVideo extends React.Component<Props, State> {
             <div>
                 <Head noindex />
                 <StopAnimation />
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    Hello
-                </div>
+                <table>
+                    <tr>
+                        <th>{"Kanji"}</th>
+                        <th>{"Hiragana"}</th>
+                        <th>{"English"}</th>
+                        <th>{"Order"}</th>
+                    </tr>
+                    {vocabList?.map(v => (
+                        <tr>
+                            <td>
+                                <input type="text" value={v.kanji} />
+                            </td>
+                            <td>
+                                <input type="text" value={v.hiragana} />
+                            </td>
+                            <td>
+                                <input type="text" value={v.english} />
+                            </td>
+                            <td>
+                                <input type="text" value={v.order} />
+                            </td>
+                        </tr>
+                    ))}
+                </table>
             </div>
         );
     }
