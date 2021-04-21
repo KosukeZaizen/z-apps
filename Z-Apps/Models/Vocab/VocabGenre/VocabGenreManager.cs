@@ -35,6 +35,35 @@ order by [order]
                 genre.genreName = (string)dicGenre["genreName"];
                 genre.order = order++;
                 genre.youtube = (string)dicGenre["youtube"];
+                genre.released = (bool)dicGenre["released"];
+
+                resultGenres.Add(genre);
+            }
+            return resultGenres;
+        }
+
+        public IEnumerable<VocabGenre> GetAllGenresForEdit()
+        {
+            //SQL文作成
+            string sql = @"
+select * 
+from tblVocabGenreMst 
+order by [order]
+;";
+
+            //List<Dictionary<string, Object>>型で取得
+            var genres = Con.ExecuteSelect(sql, null);
+
+            var order = 1;
+            var resultGenres = new List<VocabGenre>();
+            foreach (var dicGenre in genres)
+            {
+                var genre = new VocabGenre();
+                genre.genreId = (int)dicGenre["genreId"];
+                genre.genreName = (string)dicGenre["genreName"];
+                genre.order = order++;
+                genre.youtube = (string)dicGenre["youtube"];
+                genre.released = (bool)dicGenre["released"];
 
                 resultGenres.Add(genre);
             }
@@ -70,8 +99,9 @@ where genreName Like @genreName
                 genreId = (int)vocabGenre["genreId"],
                 genreName = (string)vocabGenre["genreName"],
                 order = (int)vocabGenre["order"],
-                youtube = (string)vocabGenre["youtube"]
-            };
+                youtube = (string)vocabGenre["youtube"],
+                released = (bool)vocabGenre["released"]
+        };
         }
     }
 }

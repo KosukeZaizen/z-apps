@@ -33,13 +33,17 @@ namespace Z_Apps.Models.VocabList
 
         public IEnumerable<Vocab> GetAllVocabs()
         {
-            var resultGenreAndVocabs = new List<GenreAndVocab>();
             return vocabManager.GetAllVocabLists();
         }
 
         public IEnumerable<VocabGenre> GetAllGenres()
         {
             return vocabGenreManager.GetAllGenres();
+        }
+
+        public IEnumerable<VocabGenre> GetAllGenresForEdit()
+        {
+            return vocabGenreManager.GetAllGenresForEdit();
         }
     }
 }
