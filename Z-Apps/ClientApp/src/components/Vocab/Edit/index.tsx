@@ -104,7 +104,7 @@ class VocabVideo extends React.Component<Props, State> {
                         <th>{"Order"}</th>
                     </tr>
                     {vocabList?.map(v => (
-                        <tr>
+                        <tr key={v.vocabId}>
                             <td>
                                 <input type="text" value={v.kanji} />
                             </td>
