@@ -16,9 +16,12 @@ namespace Z_Apps.Models.VocabList
         public IEnumerable<VocabGenre> GetAllGenres()
         {
             //SQL文作成
-            string sql = "";
-            sql += " select * from tblVocabGenreMst";
-            sql += " order by [order]";
+            string sql = @"
+select * 
+from tblVocabGenreMst 
+where released = 1
+order by [order]
+;";
 
             //List<Dictionary<string, Object>>型で取得
             var genres = Con.ExecuteSelect(sql, null);
@@ -41,9 +44,11 @@ namespace Z_Apps.Models.VocabList
         public VocabGenre GetVocabGenre(string genreName)
         {
             //SQL文作成
-            string sql = "";
-            sql += "select * from tblVocabGenreMst";
-            sql += " where genreName Like @genreName";
+            string sql = @"
+select * 
+from tblVocabGenreMst 
+where genreName Like @genreName
+;";
 
             //List<Dictionary<string, Object>>型で取得
             var vocabGenre = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {

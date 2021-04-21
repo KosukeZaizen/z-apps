@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using Z_Apps.Util;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Articles;
+using Z_Apps.Models.VocabList;
 
 namespace Z_Apps.Models.SystemBase
 {
@@ -76,7 +77,6 @@ namespace Z_Apps.Models.SystemBase
                     }
 
 
-
                     var lstSitemap = new List<Dictionary<string, string>>();
 
                     //------------------------------------------------------------
@@ -115,6 +115,38 @@ namespace Z_Apps.Models.SystemBase
                         dicArticleURL["loc"] = articlesBaseUrl + "/" + article.url;
                         lstSitemap.Add(dicArticleURL);
                     }
+
+                    //------------------------------------------------------------
+                    // Vocab List
+                    lstSitemap.Add(new Dictionary<string, string>() { 
+                        {"loc", "https://www.lingual-ninja.com/vocabulary-list" }
+                    });
+
+                    // Vocab Quiz Top
+                    string vocabQuizBase = "https://www.lingual-ninja.com/vocabulary-quiz";
+                    lstSitemap.Add(new Dictionary<string, string>() {
+                        {"loc", vocabQuizBase }
+                    });
+
+                    // Kanji Quiz Top
+                    string kanjiQuizBase = "https://www.lingual-ninja.com/kanji-quiz";
+                    lstSitemap.Add(new Dictionary<string, string>() {
+                        {"loc", kanjiQuizBase }
+                    });
+
+                    var vocabManager = new VocabGenreManager(new DBCon());
+                    var allVocabGenres = vocabManager.GetAllGenres();
+
+                    foreach (var vocabGenre in allVocabGenres)
+                    {
+                        lstSitemap.Add(new Dictionary<string, string>() { {
+                                "loc", $"{vocabQuizBase}/{vocabGenre.genreName}"
+                            } });
+                        lstSitemap.Add(new Dictionary<string, string>() { {
+                                "loc", $"{kanjiQuizBase}/{vocabGenre.genreName}"
+                            } });
+                    }
+
 
                     //------------------------------------------------------------
                     ////Dictionary機能
