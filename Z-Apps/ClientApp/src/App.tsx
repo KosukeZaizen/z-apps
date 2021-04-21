@@ -28,6 +28,7 @@ const VocabKanjiQuizTop = lazy(
     () => import("./components/Vocab/VocabKanjiQuizTop")
 );
 const VocabVideo = lazy(() => import("./components/Vocab/VocabVideo"));
+const VocabEdit = lazy(() => import("./components/Vocab/Edit"));
 const Stories = lazy(() => import("./components/Stories"));
 const StoriesTop = lazy(() => import("./components/StoriesTop"));
 const StoriesEdit = lazy(() => import("./components/StoriesEdit"));
@@ -139,6 +140,12 @@ export default class App extends React.Component {
                             exact
                             path="/vocabularyVideo/:genreName"
                             component={VocabVideo}
+                        />
+                        <Route
+                            sensitive
+                            exact
+                            path="/vocabularyEdit/:genreName"
+                            component={VocabEdit}
                         />
                         <Route
                             sensitive
