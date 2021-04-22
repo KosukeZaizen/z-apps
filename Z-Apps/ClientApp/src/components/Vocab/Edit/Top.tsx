@@ -21,15 +21,20 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
     }, []);
 
     useEffect(() => {
-        setAllGenres(pGenres);
+        setAllGenres(
+            pGenres.map(g => {
+                g.order *= 10;
+                return g;
+            })
+        );
     }, [pGenres]);
 
     const changeGenre = (
         originalGenre: vocabGenre,
-        target: keyof vocabGenre,
+        targetKey: keyof vocabGenre,
         newValue: vocabGenre[keyof vocabGenre]
     ) => {
-        const newGenre = { ...originalGenre, [target]: newValue };
+        const newGenre = { ...originalGenre, [targetKey]: newValue };
         setAllGenres([
             ...allGenres.filter(g => g.genreId !== newGenre.genreId),
             newGenre,
@@ -67,6 +72,13 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
             </div>
 
             <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Genre Name</th>
+                        <th>YouTube</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {[...allGenres]
                         .sort((a, b) => a.order - b.order)
@@ -75,18 +87,32 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
                                 <td>
                                     <input
                                         type="number"
-                                        value={g.order}
+                                        value={g.order
+                                            .toString()
+                                            .replace(/^0+/, "")}
                                         style={{ width: 50 }}
                                         onChange={ev => {
                                             changeGenre(
                                                 g,
                                                 "order",
+                                                Number(ev.target.value)
+                                            );
+                                        }}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={g.genreName}
+                                        onChange={ev => {
+                                            changeGenre(
+                                                g,
+                                                "genreName",
                                                 ev.target.value
                                             );
                                         }}
                                     />
                                 </td>
-                                <td>{g.genreName}</td>
                                 <td>
                                     <input
                                         type="text"
@@ -101,10 +127,12 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
                                     />
                                 </td>
                                 <td>
-                                    {g !==
+                                    {!compareGenres(
+                                        g,
                                         pGenres.find(
                                             pg => pg.genreId === g.genreId
-                                        ) && <button>Register</button>}
+                                        )
+                                    ) && <button>Register</button>}
                                 </td>
                                 <td>
                                     {!g.released && (
@@ -133,6 +161,14 @@ function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
         youtube: "",
         released: false,
     };
+}
+
+function compareGenres(a?: vocabGenre, b?: vocabGenre) {
+    if (!a || !b) {
+        return false;
+    }
+    const keys = Object.keys(a) as (keyof vocabGenre)[];
+    return keys.every(key => a[key] === b[key]);
 }
 
 export default connect(
