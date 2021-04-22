@@ -7,7 +7,6 @@
         "aphrodite": "^2.4.0",
         "bootstrap": "^4.4.1",
         "react": "^17.0.1",
-        "react-anchor-link-smooth-scroll": "^1.0.12",
         "react-dom": "^17.0.1",
         "react-ga": "^2.7.0",
         "react-google-ads": "^1.0.5",

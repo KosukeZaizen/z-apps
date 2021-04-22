@@ -1,6 +1,5 @@
 import Collapse from "@material-ui/core/Collapse/Collapse";
 import * as React from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "reactstrap/lib/Button";
@@ -19,7 +18,7 @@ import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 // import GoogleAd from "../parts/GoogleAd";
-import { HashScroll } from "../parts/HashScroll";
+import { AnchorLink, HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
 import { PointBox } from "../parts/Markdown/PointBox";
@@ -921,7 +920,7 @@ function PleaseScrollDown(props: TPleaseScrollDown) {
         >
             <span id="pleaseScroll">
                 <span></span>
-                <AnchorLink href="#aboutFolktale">Scroll</AnchorLink>
+                <AnchorLink targetHash="#aboutFolktale">Scroll</AnchorLink>
             </span>
         </div>
     );

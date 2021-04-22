@@ -1,5 +1,5 @@
 import * as React from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import { AnchorLink } from "./HashScroll";
 import "./PleaseScrollDown.css";
 
 interface Props {
@@ -92,7 +92,9 @@ export default class PleaseScrollDown extends React.Component<
                 >
                     <span id="pleaseScroll">
                         <span></span>
-                        <AnchorLink href={`#${targetId || (elem && elem.id)}`}>
+                        <AnchorLink
+                            targetHash={`#${targetId || (elem && elem.id)}`}
+                        >
                             Scroll
                         </AnchorLink>
                     </span>

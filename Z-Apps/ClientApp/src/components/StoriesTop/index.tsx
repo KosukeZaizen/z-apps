@@ -1,5 +1,4 @@
 import * as React from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "reactstrap/lib/Button";
@@ -18,6 +17,7 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
+import { AnchorLink } from "../parts/HashScroll";
 //import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
@@ -325,7 +325,7 @@ I am glad that you are interested in my country, Japan.
 I hope this application helps you to study Japanese!
 `}
                     />
-                    <AnchorLink href={`#${this.ref?.current?.id}`}>
+                    <AnchorLink targetHash={`#${this.ref?.current?.id}`}>
                         <Button color="primary">
                             Study Japanese from folktales!
                         </Button>
