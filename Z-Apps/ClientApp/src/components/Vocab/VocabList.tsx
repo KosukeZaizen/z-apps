@@ -477,12 +477,14 @@ function EachGenre(props: TEachGenreProps) {
                 </Table>
             </TableContainer>
             {g.youtube && (
-                <YouTubeVideo
-                    videoId={g.youtube}
-                    screenWidth={screenWidth}
-                    pageNameForLog={`vocabList ${g.genreName}`}
-                    style={{ marginTop: 10, marginBottom: 15 }}
-                />
+                <LazyLoad>
+                    <YouTubeVideo
+                        videoId={g.youtube}
+                        screenWidth={screenWidth}
+                        pageNameForLog={`vocabList ${g.genreName}`}
+                        style={{ marginTop: 10, marginBottom: 15 }}
+                    />
+                </LazyLoad>
             )}
             <VList g={g} vocabList={vocabList} />
             <TableContainer component={Paper}>
