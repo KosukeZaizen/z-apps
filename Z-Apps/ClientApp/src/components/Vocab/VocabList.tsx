@@ -6,7 +6,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import React from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import LazyLoad from "react-lazyload";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -21,7 +20,7 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-import { HashScroll } from "../parts/HashScroll";
+import { AnchorLink, HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
@@ -295,7 +294,7 @@ class ReturnToIndex extends React.Component<
                     backgroundColor: "#EEEEEE",
                 }}
             >
-                <AnchorLink href={`#indexOfVocabLists`}>
+                <AnchorLink targetHash={`#indexOfVocabLists`}>
                     {"▲ Return to the index ▲"}
                 </AnchorLink>
             </div>
@@ -335,7 +334,7 @@ function AllVocabList({
                     vocabGenres.map((g, idx) => {
                         return (
                             <span key={g.genreId}>
-                                <Link to={`#${g.genreName}`}>
+                                <AnchorLink targetHash={`#${g.genreName}`}>
                                     {g.genreName
                                         .split("_")
                                         .map(
@@ -344,7 +343,7 @@ function AllVocabList({
                                                 t[0].toUpperCase() + t.substr(1)
                                         )
                                         .join(" ")}
-                                </Link>
+                                </AnchorLink>
                                 {idx !== vocabGenres.length - 1 && " / "}
                             </span>
                         );

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 /**
  * ページ内遷移を実現する
@@ -12,13 +12,34 @@ export function HashScroll({
     allLoadFinished: boolean;
     location: Location;
 }) {
-    const replacedHash = location.hash.replace("#", "");
-
     useEffect(() => {
+        const replacedHash = location.hash.replace("#", "");
+
         if (allLoadFinished && replacedHash) {
             document.getElementById(replacedHash)?.scrollIntoView(true);
         }
-    }, [replacedHash, allLoadFinished, location]);
+    }, [allLoadFinished, location]);
 
     return null;
+}
+
+export function AnchorLink({
+    targetHash,
+    children,
+}: {
+    targetHash: string;
+    children: ReactNode;
+}) {
+    const replacedHash = targetHash.replace("#", "");
+    return (
+        <a
+            href={targetHash}
+            onClick={ev => {
+                ev.preventDefault();
+                document.getElementById(replacedHash)?.scrollIntoView(true);
+            }}
+        >
+            {children}
+        </a>
+    );
 }
