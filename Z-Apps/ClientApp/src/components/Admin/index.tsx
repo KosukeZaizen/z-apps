@@ -16,6 +16,9 @@ export default function Admin() {
                 <li>
                     <Link to="/game-to-learn-japanese">Game to learn</Link>
                 </li>
+                <li>
+                    <Link to="/vocabularyEdit">Vocab</Link>
+                </li>
             </ul>
         </div>
     );

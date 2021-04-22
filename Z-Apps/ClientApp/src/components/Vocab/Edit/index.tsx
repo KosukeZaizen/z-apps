@@ -24,7 +24,6 @@ type Props = vocabStore.IVocabQuizState &
         match: { params: { [key: string]: string } };
     };
 type State = {
-    genreName: string;
     screenWidth: number;
     vocabList: vocab[];
 };
@@ -33,11 +32,7 @@ class VocabVideo extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const { params } = props.match;
-        const genreName: string = params.genreName.toString().split("#")[0];
-
         this.state = {
-            genreName,
             screenWidth: window.innerWidth,
             vocabList: [],
         };
@@ -55,8 +50,11 @@ class VocabVideo extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        const { loadVocabs } = this.props;
-        const { genreName } = this.state;
+        const {
+            loadVocabs,
+            match: { params },
+        } = this.props;
+        const genreName: string = params.genreName.toString().split("#")[0];
         loadVocabs(genreName);
 
         for (let i = 0; i < 5; i++) {
@@ -82,20 +80,19 @@ class VocabVideo extends React.Component<Props, State> {
 
     render() {
         const { vocabGenre } = this.props;
-        const { screenWidth, vocabList } = this.state;
+        const { vocabList } = this.state;
 
-        const genreName =
-            (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
+        const genreName = vocabGenre?.genreName || "";
         const titleToShowUpper = genreName
             .split("_")
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
-        const titleToShowLower = genreName.split("_").join(" ");
 
         return (
             <div>
                 <Head noindex />
                 <StopAnimation />
+                <h1 style={{ marginBottom: 30 }}>{titleToShowUpper}</h1>
                 <table>
                     <tr>
                         <th>{"Kanji"}</th>
@@ -112,7 +109,11 @@ class VocabVideo extends React.Component<Props, State> {
                                 <input type="text" value={v.hiragana} />
                             </td>
                             <td>
-                                <input type="text" value={v.english} />
+                                <input
+                                    type="text"
+                                    value={v.english}
+                                    style={{ width: 250 }}
+                                />
                             </td>
                             <td>
                                 <input type="text" value={v.order} />

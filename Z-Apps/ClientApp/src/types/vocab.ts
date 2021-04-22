@@ -11,6 +11,7 @@ export type vocabGenre = {
     genreName: string;
     order: number;
     youtube: string;
+    released: boolean;
 };
 
 export type sound = {
