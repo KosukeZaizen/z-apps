@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import FB from "./parts/FaceBook";
-import GoogleAd from "./parts/GoogleAd";
 import Head from "./parts/Helmet";
 import "./parts/KanaQuiz/KanaQuiz.css";
 import { QuizCore } from "./parts/KanaQuiz/KanaQuizCore";
@@ -329,7 +328,6 @@ class HiraganaQuiz extends React.Component {
                 <br />
                 <FB />
                 <br />
-                <GoogleAd />
             </div>
         );
     }

@@ -22,7 +22,6 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
@@ -300,8 +299,6 @@ class VocabQuiz extends React.Component<Props, State> {
                     <FolktaleMenu screenWidth={screenWidth} />
                     <br />
                     <FB />
-                    <br />
-                    <GoogleAd />
                     <PleaseScrollDown
                         criteriaRef={this.ref}
                         screenWidth={screenWidth}

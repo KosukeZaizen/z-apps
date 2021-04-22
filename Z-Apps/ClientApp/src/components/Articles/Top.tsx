@@ -9,7 +9,6 @@ import { Author } from "../parts/Author";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import { ScrollBox } from "../parts/ScrollBox";
 import "./style.css";
@@ -130,7 +129,6 @@ const ArticlesTop = () => {
                     <FolktaleMenu screenWidth={width} />
                     <Author style={{ marginTop: 45 }} screenWidth={width} />
                 </div>
-                <GoogleAd />
                 <FB style={{ marginTop: 20 }} />
             </main>
             <SeasonAnimation frequencySec={2} screenWidth={width} />

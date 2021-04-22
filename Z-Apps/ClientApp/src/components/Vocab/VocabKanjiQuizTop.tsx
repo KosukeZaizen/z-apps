@@ -11,7 +11,6 @@ import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
-import GoogleAd from "../parts/GoogleAd";
 import Head from "../parts/Helmet";
 import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
@@ -199,7 +198,6 @@ class VocabQuizTop extends React.Component<Props, State> {
                     <br />
                     <FB />
                     <br />
-                    <GoogleAd />
                     <PleaseScrollDown
                         criteriaRef={this.ref}
                         screenWidth={screenWidth}
