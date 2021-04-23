@@ -2,7 +2,7 @@ import * as React from "react";
 import { StopAnimation } from "../../common/animation";
 import "../../css/NinjaGame.css";
 import Head from "../parts/Helmet";
-import { HideHeaderAndFooter } from "../parts/Layout";
+import { HideHeaderAndFooter } from "../parts/HideHeaderAndFooter";
 import { Page1 } from "../parts/Ninja/Page1";
 import { Game, Page2 } from "../parts/Ninja/Page2";
 

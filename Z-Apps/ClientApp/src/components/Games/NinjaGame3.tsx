@@ -3,7 +3,7 @@ import { StopAnimation } from "../../common/animation";
 import { getParams } from "../../common/functions";
 import "../../css/NinjaGame2.css"; //CSSは2のもの
 import Head from "../parts/Helmet";
-import { HideHeaderAndFooter } from "../parts/Layout";
+import { HideHeaderAndFooter } from "../parts/HideHeaderAndFooter";
 import * as Consts from "../parts/Ninja3/Consts";
 import { Page1 } from "../parts/Ninja3/Page1";
 import { Page2 } from "../parts/Ninja3/Page2";

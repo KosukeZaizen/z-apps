@@ -7,6 +7,7 @@ import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import { vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
+import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
@@ -46,6 +47,7 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
     return (
         <>
             <Head noindex />
+            <HideFooter />
             <StopAnimation />
             <h1 style={{ marginBottom: 30 }}>{"Vocabulary Edit"}</h1>
 
@@ -81,6 +83,8 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
                         <th>Order</th>
                         <th>Genre Name</th>
                         <th>YouTube</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,12 +135,23 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
                                     />
                                 </td>
                                 <td>
-                                    {compareGenres(
-                                        g,
-                                        pGenres.find(
-                                            pg => pg.genreId === g.genreId
-                                        )
-                                    ) ? (
+                                    Release:
+                                    <input
+                                        type="checkbox"
+                                        checked={g.released}
+                                        onChange={() => {
+                                            changeGenre(
+                                                g,
+                                                "released",
+                                                !g.released
+                                            );
+                                        }}
+                                    />
+                                </td>
+                                <td style={{ paddingLeft: 20 }}>
+                                    {pGenres.some(
+                                        pg => pg.genreId === g.genreId
+                                    ) && (
                                         <span style={{ margin: "0 10px" }}>
                                             <Link
                                                 to={`/vocabularyEdit/${g.genreName}`}
@@ -144,21 +159,6 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
                                                 Edit
                                             </Link>
                                         </span>
-                                    ) : (
-                                        <button>Save</button>
-                                    )}
-                                </td>
-                                <td>
-                                    {g.released ? (
-                                        <button>Hide</button>
-                                    ) : (
-                                        <button
-                                            style={{
-                                                color: "red",
-                                            }}
-                                        >
-                                            Release
-                                        </button>
                                     )}
                                 </td>
                             </tr>
@@ -181,14 +181,6 @@ function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
         youtube: "",
         released: false,
     };
-}
-
-function compareGenres(a?: vocabGenre, b?: vocabGenre) {
-    if (!a || !b) {
-        return false;
-    }
-    const keys = Object.keys(a) as (keyof vocabGenre)[];
-    return keys.every(key => a[key] === b[key]);
 }
 
 export default connect(

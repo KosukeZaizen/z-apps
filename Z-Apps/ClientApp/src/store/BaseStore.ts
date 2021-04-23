@@ -36,6 +36,8 @@ type KnownAction =
 interface IActionCreators {
     showHeaderAndFooter: () => AppThunkAction<KnownAction>;
     hideHeaderAndFooter: () => AppThunkAction<KnownAction>;
+    showFooter: () => AppThunkAction<KnownAction>;
+    hideFooter: () => AppThunkAction<KnownAction>;
 }
 
 export type ActionCreators = AsMapObject<IActionCreators>;
@@ -48,6 +50,12 @@ export const actionCreators: ActionCreators = {
     hideHeaderAndFooter: () => dispatch => {
         dispatch({ type: "BASE_HIDE_HEADER" });
         dispatch({ type: "BASE_HIDE_FOOTER" });
+    },
+    hideFooter: () => dispatch => {
+        dispatch({ type: "BASE_HIDE_FOOTER" });
+    },
+    showFooter: () => dispatch => {
+        dispatch({ type: "BASE_SHOW_FOOTER" });
     },
 };
 

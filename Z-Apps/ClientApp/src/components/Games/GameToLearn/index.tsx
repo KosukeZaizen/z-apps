@@ -1,7 +1,7 @@
 import React from "react";
 import { StopAnimation } from "../../../common/animation";
 import { Helmet } from "../../parts/Helmet";
-import { HideHeaderAndFooter } from "../../parts/Layout";
+import { HideHeaderAndFooter } from "../../parts/HideHeaderAndFooter";
 import { GameFrame } from "./GameFrame";
 
 export default function GameToLearn() {

@@ -5,7 +5,7 @@ import { StopAnimation } from "../../../common/animation";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import Head from "../../parts/Helmet";
-import { HideHeaderAndFooter } from "../../parts/Layout";
+import { HideHeaderAndFooter } from "../../parts/HideHeaderAndFooter";
 import { LastPage } from "./LastPage";
 import { ListPage } from "./ListPage";
 import { MenuPage } from "./MenuPage";
