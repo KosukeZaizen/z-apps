@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
 import { ApplicationState } from "../../../store/configureStore";
@@ -12,7 +13,8 @@ type Props = vocabStore.IVocabQuizState &
         location: { pathname: string };
     };
 
-function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
+function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
+    console.log("pGenres", pGenres);
     const [allGenres, setAllGenres] = useState(pGenres);
     const [newGenreName, setNewGenreName] = useState("");
 
@@ -48,7 +50,9 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
             <h1 style={{ marginBottom: 30 }}>{"Vocabulary Edit"}</h1>
 
             <div style={{ marginBottom: 30, backgroundColor: "lightyellow" }}>
-                <p>New Genre Name:</p>
+                <p style={{ fontWeight: "bold", marginBottom: 0 }}>
+                    New Genre Name:
+                </p>
                 <input
                     value={newGenreName}
                     onChange={ev => {
@@ -127,18 +131,34 @@ function VocabQuizTop({ loadAllGenres, allGenres: pGenres }: Props) {
                                     />
                                 </td>
                                 <td>
-                                    {!compareGenres(
+                                    {compareGenres(
                                         g,
                                         pGenres.find(
                                             pg => pg.genreId === g.genreId
                                         )
-                                    ) && <button>Register</button>}
+                                    ) ? (
+                                        <span style={{ margin: "0 10px" }}>
+                                            <Link
+                                                to={`/vocabularyEdit/${g.genreName}`}
+                                            >
+                                                Edit
+                                            </Link>
+                                        </span>
+                                    ) : (
+                                        <button>Save</button>
+                                    )}
                                 </td>
                                 <td>
-                                    {!g.released && (
-                                        <p style={{ color: "red", width: 100 }}>
-                                            not released
-                                        </p>
+                                    {g.released ? (
+                                        <button>Hide</button>
+                                    ) : (
+                                        <button
+                                            style={{
+                                                color: "red",
+                                            }}
+                                        >
+                                            Release
+                                        </button>
                                     )}
                                 </td>
                             </tr>
@@ -174,4 +194,4 @@ function compareGenres(a?: vocabGenre, b?: vocabGenre) {
 export default connect(
     (state: ApplicationState) => state.vocabQuiz,
     dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
-)(VocabQuizTop);
+)(VocabEditTop);

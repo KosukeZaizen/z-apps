@@ -173,7 +173,7 @@ export const reducer = (state: IVocabQuizState, action: KnownAction) => {
 
     if (action.type === "INITIALIZE") {
         const { allGenres, allVocabs, ...rest } = initialState;
-        return rest;
+        return { ...state, ...rest };
     }
 
     if (action.type === "RECEIVE_GENRE_AND_VOCAB") {

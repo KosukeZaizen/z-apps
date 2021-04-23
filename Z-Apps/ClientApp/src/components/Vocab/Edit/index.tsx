@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
 import { ApplicationState } from "../../../store/configureStore";
@@ -28,7 +29,7 @@ type State = {
     vocabList: vocab[];
 };
 
-class VocabVideo extends React.Component<Props, State> {
+class VocabEdit extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -93,33 +94,42 @@ class VocabVideo extends React.Component<Props, State> {
                 <Head noindex />
                 <StopAnimation />
                 <h1 style={{ marginBottom: 30 }}>{titleToShowUpper}</h1>
+
+                <div style={{ marginBottom: 20 }}>
+                    <Link to={"/vocabularyEdit"}>一覧へ戻る</Link>
+                </div>
+
                 <table>
-                    <tr>
-                        <th>{"Kanji"}</th>
-                        <th>{"Hiragana"}</th>
-                        <th>{"English"}</th>
-                        <th>{"Order"}</th>
-                    </tr>
-                    {vocabList?.map(v => (
-                        <tr key={v.vocabId}>
-                            <td>
-                                <input type="text" value={v.kanji} />
-                            </td>
-                            <td>
-                                <input type="text" value={v.hiragana} />
-                            </td>
-                            <td>
-                                <input
-                                    type="text"
-                                    value={v.english}
-                                    style={{ width: 250 }}
-                                />
-                            </td>
-                            <td>
-                                <input type="text" value={v.order} />
-                            </td>
+                    <thead>
+                        <tr>
+                            <th>{"Kanji"}</th>
+                            <th>{"Hiragana"}</th>
+                            <th>{"English"}</th>
+                            <th>{"Order"}</th>
                         </tr>
-                    ))}
+                    </thead>
+                    <tbody>
+                        {vocabList?.map(v => (
+                            <tr key={v.vocabId}>
+                                <td>
+                                    <input type="text" value={v.kanji} />
+                                </td>
+                                <td>
+                                    <input type="text" value={v.hiragana} />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={v.english}
+                                        style={{ width: 250 }}
+                                    />
+                                </td>
+                                <td>
+                                    <input type="text" value={v.order} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             </div>
         );
@@ -129,4 +139,4 @@ class VocabVideo extends React.Component<Props, State> {
 export default connect(
     (state: ApplicationState) => state.vocabQuiz,
     dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
-)(VocabVideo);
+)(VocabEdit);
