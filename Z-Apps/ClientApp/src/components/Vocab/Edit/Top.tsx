@@ -234,6 +234,19 @@ async function save(allGenres: vocabGenre[], fncAfterSaving: () => void) {
         return;
     }
 
+    const duplicatedGenre = allGenres.find(
+        g =>
+            allGenres.filter(
+                ge => g.genreName === ge.genreName || g.youtube === ge.youtube
+            ).length > 1
+    );
+    if (duplicatedGenre) {
+        alert(
+            `重複エラー：「${duplicatedGenre.genreName}」のgenreNameもしくはyoutubeIdが重複しています。`
+        );
+        return;
+    }
+
     if (!window.confirm("Do you really want to save?")) {
         return;
     }
