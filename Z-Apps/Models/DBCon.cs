@@ -122,9 +122,38 @@ namespace Z_Apps.Models
             }
         }
 
+        private Func<string, Dictionary<string, object[]>, int> GetUpdateFunc(
+            SqlCommand command)
+        {
+            return (string sql, Dictionary<string, object[]> dicParams) =>
+            {
+                command.CommandText = sql;
+                command.Parameters.Clear();
+
+                // パラーメータの置換
+                if (dicParams != null)
+                {
+                    foreach (KeyValuePair<string, object[]> kvp in dicParams)
+                    {
+                        var param = command.CreateParameter();
+                        param.ParameterName = kvp.Key;
+                        param.SqlDbType = (SqlDbType)kvp.Value[0];
+                        param.Direction = ParameterDirection.Input;
+                        param.Value = kvp.Value[1];
+
+                        command.Parameters.Add(param);
+                    }
+                }
+
+                // SQLの実行
+                int result = command.ExecuteNonQuery();
+                return result;
+            };
+        }
+
         // funcを引数として受け取り、そのfunc内の処理の前後に
         // TransactionのBeginやCommitを行う
-        public bool UpdateWithTransaction(
+        public bool OnDemandTransaction(
             Func<Func<string, Dictionary<string, object[]>, int>, bool> func
         )
         {
@@ -138,34 +167,9 @@ namespace Z_Apps.Models
                     command.Transaction = transaction;
                     try
                     {
-                        Func<string, Dictionary<string, object[]>, int> updateFunc = (
-                            string sql,
-                            Dictionary<string, object[]> dicParams
-                            ) =>
-                            {
-                                command.CommandText = sql;
-                                command.Parameters.Clear();
-
-                                // パラーメータの置換
-                                if (dicParams != null)
-                                {
-                                    foreach (KeyValuePair<string, object[]> kvp in dicParams)
-                                    {
-                                        var param = command.CreateParameter();
-                                        param.ParameterName = kvp.Key;
-                                        param.SqlDbType = (SqlDbType)kvp.Value[0];
-                                        param.Direction = ParameterDirection.Input;
-                                        param.Value = kvp.Value[1];
-
-                                        command.Parameters.Add(param);
-                                    }
-                                }
-
-                                // SQLの実行
-                                int result = command.ExecuteNonQuery();
-                                return result;
-                            };
-                        bool result = func(updateFunc);
+                        var execUpdate = GetUpdateFunc(command);
+                        // 引数で受け取った関数に、update実行用の関数を渡す
+                        bool result = func(execUpdate);
                         if (result)
                         {
                             transaction.Commit();

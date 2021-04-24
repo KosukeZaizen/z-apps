@@ -106,7 +106,7 @@ where genreName Like @genreName
 
         public bool SaveVocabGenres(IEnumerable<VocabGenre> genres)
         {
-            return Con.UpdateWithTransaction((execUpdate) =>
+            return Con.OnDemandTransaction((execUpdate) =>
             {
                 try
                 {

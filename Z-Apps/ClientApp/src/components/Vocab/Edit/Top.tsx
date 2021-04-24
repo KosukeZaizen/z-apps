@@ -202,15 +202,19 @@ function VocabEditTop() {
                         display: "flex",
                         flexDirection: "column",
                         width: "50%",
+                        alignItems: "center",
                     }}
                 >
-                    <InputRegisterToken style={{ marginBottom: 5 }} />
+                    <InputRegisterToken
+                        style={{ marginBottom: 5, width: "25%" }}
+                    />
                     <button
                         onClick={() => {
                             save(allGenres, () => {
                                 loadAllGenres();
                             });
                         }}
+                        style={{ width: "100%" }}
                     >
                         Save
                     </button>
