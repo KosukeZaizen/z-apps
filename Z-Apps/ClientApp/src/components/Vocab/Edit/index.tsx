@@ -18,7 +18,6 @@ type State = {
     screenWidth: number;
     vocabList: vocab[];
     vocabGenre?: vocabGenre;
-    orderBy: "order" | "vocabId";
 };
 
 class VocabEdit extends React.Component<Props, State> {
@@ -29,7 +28,6 @@ class VocabEdit extends React.Component<Props, State> {
             screenWidth: window.innerWidth,
             vocabList: [],
             vocabGenre: undefined,
-            orderBy: "order",
         };
     }
 
@@ -109,34 +107,13 @@ class VocabEdit extends React.Component<Props, State> {
     };
 
     render() {
-        const { vocabList, vocabGenre, orderBy } = this.state;
+        const { vocabList, vocabGenre } = this.state;
 
         const genreName = vocabGenre?.genreName || "";
         const titleToShowUpper = genreName
             .split("_")
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
-
-        const sortButton =
-            orderBy === "order" ? (
-                <button
-                    style={{ marginLeft: 20 }}
-                    onClick={() => {
-                        this.setState({ orderBy: "vocabId" });
-                    }}
-                >
-                    IDでソート
-                </button>
-            ) : (
-                <button
-                    style={{ marginLeft: 20 }}
-                    onClick={() => {
-                        this.setState({ orderBy: "order" });
-                    }}
-                >
-                    Orderでソート
-                </button>
-            );
 
         return (
             <div>
@@ -148,7 +125,28 @@ class VocabEdit extends React.Component<Props, State> {
 
                 <div style={{ marginBottom: 20 }}>
                     <Link to={"/vocabularyEdit"}>一覧へ戻る</Link>
-                    {sortButton}
+                    <button
+                        style={{ marginLeft: 20 }}
+                        onClick={() => {
+                            if (
+                                !window.confirm(
+                                    "音声アップロード済みの場合、整合性がズレるけど大丈夫？"
+                                )
+                            ) {
+                                return;
+                            }
+                            this.setState({
+                                vocabList: [...vocabList]
+                                    .sort((a, b) => a.order - b.order)
+                                    .map((v, i) => ({
+                                        ...v,
+                                        vocabId: i + 1,
+                                    })),
+                            });
+                        }}
+                    >
+                        ID再付与
+                    </button>
                 </div>
 
                 <table>
@@ -165,7 +163,7 @@ class VocabEdit extends React.Component<Props, State> {
                     </thead>
                     <tbody>
                         {vocabList
-                            ?.sort((a, b) => a[orderBy] - b[orderBy])
+                            ?.sort((a, b) => a.order - b.order)
                             ?.map(v => (
                                 <tr key={v.vocabId}>
                                     <td>{v.vocabId}</td>
