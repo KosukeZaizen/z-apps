@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.StoriesEdit.WordsEdit;
@@ -87,6 +89,62 @@ namespace Z_Apps.Models.VocabList
                 result.english = eng.ToLower();
             }
             return result;
+        }
+
+        public bool SaveVocabList(IEnumerable<Vocab> vocabList)
+        {
+            return Con.UseTransaction((execUpdate) =>
+            {
+                try
+                {
+                    var firstVocab = vocabList.FirstOrDefault();
+                    if (firstVocab == null)
+                    {
+                        return false;
+                    }
+
+                    string deleteSql = @"
+delete tblVocabList
+where genreId = @genreId
+;";
+                    execUpdate(deleteSql,
+                    new Dictionary<string, object[]> {
+                            { "@genreId", new object[2] { SqlDbType.Int, firstVocab.genreId } },
+                        }
+                    );
+
+                    int i = 1;
+                    foreach (var vocab in vocabList.OrderBy(v => v.order))
+                    {
+                        string insertSql = @"
+insert into tblVocabList
+    (genreId,vocabId,hiragana,kanji,english,[order])
+values
+    (@genreId,@vocabId,@hiragana,@kanji,@english,@order)
+;";
+                        var resultCount = execUpdate(insertSql, new Dictionary<string, object[]> {
+                            { "@genreId", new object[2] { SqlDbType.Int, vocab.genreId } },
+                            { "@vocabId", new object[2] { SqlDbType.Int, vocab.vocabId } },
+                            { "@hiragana", new object[2] { SqlDbType.NVarChar, vocab.hiragana } },
+                            { "@kanji", new object[2] { SqlDbType.NVarChar, vocab.kanji } },
+                            { "@english", new object[2] { SqlDbType.NVarChar, vocab.english } },
+                            { "@order", new object[2] { SqlDbType.Int, i } },
+                        });
+
+                        if (resultCount != 1)
+                        {
+                            return false;
+                        }
+                        i++;
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.InsertErrorLog(ex.Message);
+                }
+                return false;
+            });
         }
     }
 }

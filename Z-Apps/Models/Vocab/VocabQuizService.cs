@@ -52,6 +52,11 @@ namespace Z_Apps.Models.VocabList
             return vocabGenreManager.SaveVocabGenres(genres);
         }
 
+        public bool SaveVocabList(IEnumerable<Vocab> vocabList)
+        {
+            return vocabManager.SaveVocabList(vocabList);
+        }
+
         public async Task<TranslateResult> TranslateVocab(string kanji)
         {
             return await vocabManager.TranslateVocab(kanji);

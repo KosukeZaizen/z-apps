@@ -1,12 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
 import { sendPost } from "../../../common/functions";
-import { ApplicationState } from "../../../store/configureStore";
-import * as vocabStore from "../../../store/VocabQuizStore";
-import { vocab } from "../../../types/vocab";
+import { vocab, vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 import {
@@ -14,25 +10,15 @@ import {
     InputRegisterToken,
 } from "../../parts/InputRegisterToken";
 
-export const Page = {
-    menu: 0,
-    title: 1,
-    list: 2,
-    quiz: 3,
-    last: 4,
+type Props = {
+    location: { pathname: string };
+    match: { params: { [key: string]: string } };
 };
-export type Page = typeof Page[keyof typeof Page];
-
-export type ChangePage = (nextPage: Page) => void;
-
-type Props = vocabStore.IVocabQuizState &
-    vocabStore.ActionCreators & {
-        location: { pathname: string };
-        match: { params: { [key: string]: string } };
-    };
 type State = {
     screenWidth: number;
     vocabList: vocab[];
+    vocabGenre?: vocabGenre;
+    orderBy: "order" | "vocabId";
 };
 
 class VocabEdit extends React.Component<Props, State> {
@@ -42,45 +28,54 @@ class VocabEdit extends React.Component<Props, State> {
         this.state = {
             screenWidth: window.innerWidth,
             vocabList: [],
+            vocabGenre: undefined,
+            orderBy: "order",
         };
     }
 
-    componentDidMount() {
+    loadVocab = async () => {
         const {
-            loadVocabs,
             match: { params },
         } = this.props;
         const genreName: string = params.genreName.toString().split("#")[0];
-        loadVocabs(genreName);
-    }
+        const res = await fetch(
+            `api/VocabQuiz/GetQuizDataWithoutCache/${genreName}`
+        );
+        const result: {
+            vocabList: vocab[];
+            vocabGenre: vocabGenre;
+        } = await res.json();
 
-    componentDidUpdate = (previousProps: Props) => {
-        const { vocabList, vocabGenre } = this.props;
+        const { vocabList, vocabGenre } = result;
 
-        if (vocabList !== previousProps.vocabList) {
-            if (vocabList?.length) {
-                this.setState({
-                    vocabList: vocabList.map(v => {
-                        v.order *= 10;
-                        return v;
-                    }),
-                });
-            } else {
-                this.setState({
-                    vocabList: [
-                        {
-                            genreId: vocabGenre?.genreId,
-                            vocabId: 1,
-                            hiragana: "",
-                            kanji: "",
-                            english: "",
-                            order: 10,
-                        },
-                    ],
-                });
-            }
+        if (vocabList?.length) {
+            this.setState({
+                vocabList: vocabList.map(v => {
+                    v.order *= 10;
+                    return v;
+                }),
+                vocabGenre,
+            });
+        } else {
+            this.setState({
+                vocabList: [
+                    {
+                        genreId: vocabGenre?.genreId,
+                        vocabId: 1,
+                        hiragana: "",
+                        kanji: "",
+                        english: "",
+                        order: 10,
+                    },
+                ],
+                vocabGenre,
+            });
         }
     };
+
+    componentDidMount() {
+        this.loadVocab();
+    }
 
     getNewVocabId = () => {
         const { vocabList } = this.state;
@@ -114,14 +109,34 @@ class VocabEdit extends React.Component<Props, State> {
     };
 
     render() {
-        const { vocabGenre } = this.props;
-        const { vocabList } = this.state;
+        const { vocabList, vocabGenre, orderBy } = this.state;
 
         const genreName = vocabGenre?.genreName || "";
         const titleToShowUpper = genreName
             .split("_")
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
+
+        const sortButton =
+            orderBy === "order" ? (
+                <button
+                    style={{ marginLeft: 20 }}
+                    onClick={() => {
+                        this.setState({ orderBy: "vocabId" });
+                    }}
+                >
+                    IDでソート
+                </button>
+            ) : (
+                <button
+                    style={{ marginLeft: 20 }}
+                    onClick={() => {
+                        this.setState({ orderBy: "order" });
+                    }}
+                >
+                    Orderでソート
+                </button>
+            );
 
         return (
             <div>
@@ -133,23 +148,27 @@ class VocabEdit extends React.Component<Props, State> {
 
                 <div style={{ marginBottom: 20 }}>
                     <Link to={"/vocabularyEdit"}>一覧へ戻る</Link>
+                    {sortButton}
                 </div>
 
                 <table>
                     <thead>
                         <tr>
+                            <th>{"ID"}</th>
                             <th>{"Order"}</th>
                             <th>{"Kanji"}</th>
                             <th></th>
                             <th>{"Hiragana"}</th>
                             <th>{"English"}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {vocabList
-                            ?.sort((a, b) => a.order - b.order)
+                            ?.sort((a, b) => a[orderBy] - b[orderBy])
                             ?.map(v => (
                                 <tr key={v.vocabId}>
+                                    <td>{v.vocabId}</td>
                                     <td>
                                         <input
                                             type="number"
@@ -209,6 +228,28 @@ class VocabEdit extends React.Component<Props, State> {
                                             }}
                                         />
                                     </td>
+                                    <td>
+                                        <button
+                                            onClick={() => {
+                                                if (
+                                                    !window.confirm(
+                                                        "行削除しますか？"
+                                                    )
+                                                ) {
+                                                    return;
+                                                }
+                                                this.setState({
+                                                    vocabList: vocabList.filter(
+                                                        vocab =>
+                                                            vocab.vocabId !==
+                                                            v.vocabId
+                                                    ),
+                                                });
+                                            }}
+                                        >
+                                            ー
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
@@ -221,7 +262,7 @@ class VocabEdit extends React.Component<Props, State> {
                             vocabList: [
                                 ...vocabList,
                                 {
-                                    genreId: vocabGenre.genreId,
+                                    genreId: vocabGenre?.genreId || 0,
                                     vocabId: this.getNewVocabId(),
                                     hiragana: "",
                                     kanji: "",
@@ -276,11 +317,11 @@ class VocabEdit extends React.Component<Props, State> {
                             Translate All
                         </button>
                         <button
-                            // onClick={() => {
-                            //     save(allGenres, () => {
-                            //         loadAllGenres();
-                            //     });
-                            // }}
+                            onClick={() => {
+                                save(vocabList, () => {
+                                    this.loadVocab();
+                                });
+                            }}
                             style={{ width: "100%" }}
                         >
                             Save
@@ -290,6 +331,41 @@ class VocabEdit extends React.Component<Props, State> {
             </div>
         );
     }
+}
+
+async function save(vocabList: vocab[], fncAfterSaving: () => void) {
+    if (
+        !vocabList.every(
+            v => v.order && v.kanji && v.hiragana && v.english && v.genreId
+        )
+    ) {
+        alert("空白もしくはゼロを含む行があります。");
+        return;
+    }
+
+    if (!window.confirm("Do you really want to save?")) {
+        return;
+    }
+
+    try {
+        const result = await sendPost(
+            {
+                vocabList,
+                token: getCurrentToken(),
+            },
+            "/api/VocabQuiz/SaveVocabList"
+        );
+
+        if (result === true) {
+            alert("success!");
+            if (typeof fncAfterSaving === "function") {
+                fncAfterSaving();
+            }
+            return;
+        }
+    } catch (ex) {}
+
+    alert("failed...");
 }
 
 async function translate(kanji: string) {
@@ -308,7 +384,4 @@ async function translate(kanji: string) {
     return result;
 }
 
-export default connect(
-    (state: ApplicationState) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
-)(VocabEdit);
+export default VocabEdit;

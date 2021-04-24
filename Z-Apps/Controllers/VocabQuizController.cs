@@ -20,10 +20,8 @@ namespace Z_Apps.Controllers
         [HttpGet("[action]/{genreName?}")]
         public GenreAndVocab GetQuizData(string genreName)
         {
-
             return ApiCache.UseCache(genreName, () =>
             {
-
                 if (!string.IsNullOrEmpty(genreName))
                 {
                     return vocabQuizService.GetQuizData(genreName);
@@ -34,6 +32,20 @@ namespace Z_Apps.Controllers
                 }
             });
         }
+
+        [HttpGet("[action]/{genreName?}")]
+        public GenreAndVocab GetQuizDataWithoutCache(string genreName)
+        {
+            if (!string.IsNullOrEmpty(genreName))
+            {
+                return vocabQuizService.GetQuizData(genreName);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public class GenreAndVocab
         {
             public VocabGenre vocabGenre
@@ -88,6 +100,30 @@ namespace Z_Apps.Controllers
                 }
 
                 return vocabQuizService.SaveVocabGenres(data.genres);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.InsertErrorLog(ex.Message);
+                return false;
+            }
+        }
+
+        public class VocabListToSave
+        {
+            public IEnumerable<Vocab> vocabList { get; set; }
+            public string token { get; set; }
+        }
+        [HttpPost("[action]")]
+        public bool SaveVocabList([FromBody] VocabListToSave data)
+        {
+            try
+            {
+                if (data.token != PrivateConsts.REGISTER_PASS)
+                {
+                    throw new Exception("The token is wrongだね！");
+                }
+
+                return vocabQuizService.SaveVocabList(data.vocabList);
             }
             catch (Exception ex)
             {
