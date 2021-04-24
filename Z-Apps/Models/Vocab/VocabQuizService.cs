@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using static Z_Apps.Controllers.VocabQuizController;
 
 namespace Z_Apps.Models.VocabList
@@ -49,6 +50,11 @@ namespace Z_Apps.Models.VocabList
         public bool SaveVocabGenres(IEnumerable<VocabGenre> genres)
         {
             return vocabGenreManager.SaveVocabGenres(genres);
+        }
+
+        public async Task<TranslateResult> TranslateVocab(string kanji)
+        {
+            return await vocabManager.TranslateVocab(kanji);
         }
     }
 }

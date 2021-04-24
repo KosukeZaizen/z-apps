@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Z_Apps.Models;
 using Z_Apps.Models.VocabList;
@@ -93,6 +94,27 @@ namespace Z_Apps.Controllers
                 ErrorLog.InsertErrorLog(ex.Message);
                 return false;
             }
+        }
+
+        public class TranslateResult
+        {
+            public string hiragana { get; set; }
+            public string english { get; set; }
+        }
+        public class KanjiToTranslate
+        {
+            public string kanji { get; set; }
+            public string token { get; set; }
+        }
+        [HttpPost("[action]")]
+        public async Task<TranslateResult> TranslateVocab(
+            [FromBody] KanjiToTranslate data)
+        {
+            if (data.token != PrivateConsts.REGISTER_PASS)
+            {
+                throw new Exception("The token is wrongだね！");
+            }
+            return await vocabQuizService.TranslateVocab(data.kanji);
         }
     }
 }

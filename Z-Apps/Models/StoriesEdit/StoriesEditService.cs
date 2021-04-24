@@ -60,7 +60,7 @@ namespace Z_Apps.Models.StoriesEdit
 
         public async Task<TranslationResult> Translate(SentenceEdit sentence)
         {
-            var dicHiraganaKanji = MakeHigraganaAndKanji(sentence.Kanji);
+            var dicHiraganaKanji = MakeHiraganaAndKanji(sentence.Kanji);
             sentence.Hiragana = dicHiraganaKanji["hiragana"];
             sentence.Romaji = MakeRomaji(sentence.Hiragana);
             sentence.English = await MakeEnglish(sentence.Kanji);
@@ -124,7 +124,7 @@ namespace Z_Apps.Models.StoriesEdit
             return lstWords;
         }
 
-        private Dictionary<string, string> MakeHigraganaAndKanji(string kanjis)
+        public Dictionary<string, string> MakeHiraganaAndKanji(string kanjis)
         {
             var dicResult = new Dictionary<string, string>() { { "kanji", "" }, { "hiragana", "" } };
 
@@ -257,7 +257,7 @@ namespace Z_Apps.Models.StoriesEdit
             }
             else
             {
-                var dicHiraganaKanji = MakeHigraganaAndKanji(word.Kanji);
+                var dicHiraganaKanji = MakeHiraganaAndKanji(word.Kanji);
                 dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ", "");
                 word.Hiragana = (word.Kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
                 string eng = await MakeEnglish(word.Kanji);

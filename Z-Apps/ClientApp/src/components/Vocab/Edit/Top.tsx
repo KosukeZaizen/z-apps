@@ -1,10 +1,14 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StopAnimation } from "../../../common/animation";
 import { sendPost } from "../../../common/functions";
 import { vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
+import {
+    getCurrentToken,
+    InputRegisterToken,
+} from "../../parts/InputRegisterToken";
 
 async function fetchAllGenres(setAllGenres: (genres: vocabGenre[]) => void) {
     const res = await fetch("api/VocabQuiz/GetAllGenresForEdit");
@@ -224,49 +228,21 @@ function VocabEditTop() {
     );
 }
 
-export function InputRegisterToken({ style }: { style?: CSSProperties }) {
-    const [token, setToken] = useState("");
-
-    useEffect(() => {
-        const saveData = localStorage.getItem("folktales-register-token");
-        const objSaveData = saveData && JSON.parse(saveData);
-        const token = objSaveData?.token || "";
-        setToken(token);
-    }, []);
-
-    return (
-        <input
-            style={style}
-            value={token}
-            onChange={ev => {
-                const newToken = ev.target.value;
-                setToken(newToken);
-
-                if (newToken) {
-                    localStorage.setItem(
-                        "folktales-register-token",
-                        JSON.stringify({ token: newToken })
-                    );
-                }
-            }}
-        />
-    );
-}
-
 async function save(allGenres: vocabGenre[], fncAfterSaving: () => void) {
-    if (!window.confirm("Do you really want to save?")) {
+    if (!allGenres.every(g => g.order && g.genreName)) {
+        alert("「order」か「genreName」が、空白もしくはゼロの行があります。");
         return;
     }
 
-    const saveData = localStorage.getItem("folktales-register-token");
-    const objSaveData = saveData && JSON.parse(saveData);
-    const token = objSaveData?.token || "";
+    if (!window.confirm("Do you really want to save?")) {
+        return;
+    }
 
     try {
         const result = await sendPost(
             {
                 genres: allGenres,
-                token,
+                token: getCurrentToken(),
             },
             "/api/VocabQuiz/SaveVocabGenres"
         );

@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
+using Z_Apps.Models.StoriesEdit;
+using Z_Apps.Models.StoriesEdit.WordsEdit;
+using static Z_Apps.Controllers.VocabQuizController;
 
 namespace Z_Apps.Models.VocabList
 {
@@ -61,6 +65,28 @@ namespace Z_Apps.Models.VocabList
                 resultVocabList.Add(vocab);
             }
             return resultVocabList;
+        }
+
+        public async Task<TranslateResult> TranslateVocab(string kanji)
+        {
+            var result = new TranslateResult();
+            var wordEditManager = new WordEditManager(Con);
+            var storiesEditManager = new StoriesEditService(Con);
+            var dicWord = wordEditManager.GetWordMeaning(kanji);
+            if (dicWord.Count > 0)
+            {
+                result.hiragana = (string)dicWord["Hiragana"];
+                result.english = (string)dicWord["English"];
+            }
+            else
+            {
+                var dicHiraganaKanji = storiesEditManager.MakeHiraganaAndKanji(kanji);
+                dicHiraganaKanji["hiragana"] = dicHiraganaKanji["hiragana"].Replace(" ", "");
+                result.hiragana = (kanji == dicHiraganaKanji["hiragana"]) ? "" : dicHiraganaKanji["hiragana"];
+                string eng = await storiesEditManager.MakeEnglish(kanji);
+                result.english = eng.ToLower();
+            }
+            return result;
         }
     }
 }
