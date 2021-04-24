@@ -153,7 +153,7 @@ namespace Z_Apps.Models
 
         // funcを引数として受け取り、そのfunc内の処理の前後に
         // TransactionのBeginやCommitを行う
-        public bool OnDemandTransaction(
+        public bool UseTransaction(
             Func<Func<string, Dictionary<string, object[]>, int>, bool> func
         )
         {
