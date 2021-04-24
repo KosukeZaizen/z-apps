@@ -17,7 +17,7 @@ import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import Head from "../parts/Helmet";
-import { StoriesList } from "../StoriesTop/StoriesList";
+import { StoriesList } from "../Stories/StoriesTop/StoriesList";
 import { getRomaji } from "./romajiConvert";
 
 type Props = {

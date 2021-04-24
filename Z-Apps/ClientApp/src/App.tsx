@@ -31,10 +31,12 @@ const VocabVideo = lazy(() => import("./components/Vocab/VocabVideo"));
 const VocabEdit = lazy(() => import("./components/Vocab/Edit"));
 const VocabEditTop = lazy(() => import("./components/Vocab/Edit/Top"));
 const Stories = lazy(() => import("./components/Stories"));
-const StoriesTop = lazy(() => import("./components/StoriesTop"));
-const StoriesEdit = lazy(() => import("./components/StoriesEdit"));
-const StoriesEditTop = lazy(() => import("./components/StoriesEditTop"));
-const StoriesVideo = lazy(() => import("./components/StoriesVideo"));
+const StoriesTop = lazy(() => import("./components/Stories/StoriesTop"));
+const StoriesEdit = lazy(() => import("./components/Stories/StoriesEdit"));
+const StoriesEditTop = lazy(
+    () => import("./components/Stories/StoriesTop/StoriesEditTop")
+);
+const StoriesVideo = lazy(() => import("./components/Stories/StoriesVideo"));
 const NinjaTop = lazy(() => import("./components/Games/NinjaGameTop"));
 const Ninja1 = lazy(() => import("./components/Games/NinjaGame"));
 const Ninja2 = lazy(() => import("./components/Games/NinjaGame2"));

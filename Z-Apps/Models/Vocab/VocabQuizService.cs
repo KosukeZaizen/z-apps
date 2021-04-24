@@ -45,5 +45,10 @@ namespace Z_Apps.Models.VocabList
         {
             return vocabGenreManager.GetAllGenresForEdit();
         }
+
+        public bool SaveVocabGenres(IEnumerable<VocabGenre> genres)
+        {
+            return vocabGenreManager.SaveVocabGenres(genres);
+        }
     }
 }

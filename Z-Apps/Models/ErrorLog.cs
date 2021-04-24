@@ -16,10 +16,10 @@ namespace Z_Apps.Models
 
 
 
-            var con = new DBCon();
+            var con = new DBCon(DBCon.DBType.wiki_db);
 
             con.ExecuteUpdate(@"
-insert into ZAppsErrorLog 
+insert into ZAppsErrorLog(time, error)
 values (DATEADD(HOUR, 9, GETDATE()), @error);
 ;",
                 new Dictionary<string, object[]> {

@@ -17,8 +17,8 @@ namespace Z_Apps.Models.VocabList
         {
             //SQL文作成
             string sql = @"
-select * 
-from tblVocabGenreMst 
+select *
+from tblVocabGenreMst
 where released = 1
 order by [order]
 ;";
@@ -46,8 +46,8 @@ order by [order]
         {
             //SQL文作成
             string sql = @"
-select * 
-from tblVocabGenreMst 
+select *
+from tblVocabGenreMst
 order by [order]
 ;";
 
@@ -74,8 +74,8 @@ order by [order]
         {
             //SQL文作成
             string sql = @"
-select * 
-from tblVocabGenreMst 
+select *
+from tblVocabGenreMst
 where genreName Like @genreName
 ;";
 
@@ -101,7 +101,49 @@ where genreName Like @genreName
                 order = (int)vocabGenre["order"],
                 youtube = (string)vocabGenre["youtube"],
                 released = (bool)vocabGenre["released"]
-        };
+            };
+        }
+
+        public bool SaveVocabGenres(IEnumerable<VocabGenre> genres)
+        {
+            return Con.UpdateWithTransaction((execUpdate) =>
+            {
+                try
+                {
+                    string deleteSql = "delete tblVocabGenreMst;";
+                    execUpdate(deleteSql, null);
+
+                    int i = 1;
+                    foreach (var genre in genres.OrderBy(g => g.order))
+                    {
+                        string insertSql = @"
+insert into tblVocabGenreMst
+    (genreId,genreName,[order],youtube,released)
+values
+    (@genreId,@genreName,@order,@youtube,@released)
+;";
+                        var resultCount = execUpdate(insertSql, new Dictionary<string, object[]> {
+                            { "@genreId", new object[2] { SqlDbType.Int, genre.genreId } },
+                            { "@genreName", new object[2] { SqlDbType.NVarChar, genre.genreName } },
+                            { "@order", new object[2] { SqlDbType.Int, i } },
+                            { "@youtube", new object[2] { SqlDbType.NVarChar, genre.youtube } },
+                            { "@released", new object[2] { SqlDbType.Bit, genre.released ? 1 : 0 } },
+                        });
+
+                        if (resultCount != 1)
+                        {
+                            return false;
+                        }
+                        i++;
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.InsertErrorLog(ex.Message);
+                }
+                return false;
+            });
         }
     }
 }

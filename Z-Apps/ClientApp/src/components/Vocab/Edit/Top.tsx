@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
-import { ApplicationState } from "../../../store/configureStore";
-import * as vocabStore from "../../../store/VocabQuizStore";
+import { sendPost } from "../../../common/functions";
 import { vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 
-type Props = vocabStore.IVocabQuizState &
-    vocabStore.ActionCreators & {
-        location: { pathname: string };
-    };
+async function fetchAllGenres(setAllGenres: (genres: vocabGenre[]) => void) {
+    const res = await fetch("api/VocabQuiz/GetAllGenresForEdit");
+    setAllGenres(await res.json());
+}
 
-function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
-    console.log("pGenres", pGenres);
-    const [allGenres, setAllGenres] = useState(pGenres);
+function VocabEditTop() {
+    const [initGenres, setInitGenres] = useState<vocabGenre[]>([]);
+    const [allGenres, setAllGenres] = useState<vocabGenre[]>([]);
     const [newGenreName, setNewGenreName] = useState("");
+
+    const loadAllGenres = () => {
+        fetchAllGenres(genres => {
+            const g = genres.map(g => {
+                g.order *= 10;
+                return g;
+            });
+            setAllGenres(g);
+            setInitGenres(g);
+        });
+    };
 
     useEffect(() => {
         loadAllGenres();
     }, []);
-
-    useEffect(() => {
-        setAllGenres(
-            pGenres.map(g => {
-                g.order *= 10;
-                return g;
-            })
-        );
-    }, [pGenres]);
 
     const changeGenre = (
         originalGenre: vocabGenre,
@@ -43,6 +42,12 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
             newGenre,
         ]);
     };
+
+    const checkGenreChanged = (g: vocabGenre) =>
+        !compareGenres(
+            g,
+            initGenres.find(pg => pg.genreId === g.genreId)
+        );
 
     return (
         <>
@@ -90,83 +95,196 @@ function VocabEditTop({ loadAllGenres, allGenres: pGenres }: Props) {
                 <tbody>
                     {[...allGenres]
                         .sort((a, b) => a.order - b.order)
-                        .map(g => (
-                            <tr key={g.genreId}>
-                                <td>
-                                    <input
-                                        type="number"
-                                        value={g.order
-                                            .toString()
-                                            .replace(/^0+/, "")}
-                                        style={{ width: 50 }}
-                                        onChange={ev => {
-                                            changeGenre(
-                                                g,
-                                                "order",
-                                                Number(ev.target.value)
-                                            );
+                        .map(g => {
+                            return (
+                                <tr
+                                    key={g.genreId}
+                                    style={{
+                                        backgroundColor: checkGenreChanged(g)
+                                            ? "red"
+                                            : undefined,
+                                    }}
+                                >
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={g.order
+                                                .toString()
+                                                .replace(/^0+/, "")}
+                                            style={{ width: 70 }}
+                                            onChange={ev => {
+                                                changeGenre(
+                                                    g,
+                                                    "order",
+                                                    Number(ev.target.value)
+                                                );
+                                            }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={g.genreName}
+                                            onChange={ev => {
+                                                changeGenre(
+                                                    g,
+                                                    "genreName",
+                                                    ev.target.value
+                                                );
+                                            }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={g.youtube}
+                                            onChange={ev => {
+                                                changeGenre(
+                                                    g,
+                                                    "youtube",
+                                                    ev.target.value
+                                                );
+                                            }}
+                                        />
+                                    </td>
+                                    <td style={{ backgroundColor: "white" }}>
+                                        Release:
+                                        <input
+                                            type="checkbox"
+                                            checked={g.released}
+                                            onChange={() => {
+                                                changeGenre(
+                                                    g,
+                                                    "released",
+                                                    !g.released
+                                                );
+                                            }}
+                                        />
+                                    </td>
+                                    <td
+                                        style={{
+                                            paddingLeft: 20,
+                                            backgroundColor: "white",
                                         }}
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={g.genreName}
-                                        onChange={ev => {
-                                            changeGenre(
-                                                g,
-                                                "genreName",
-                                                ev.target.value
-                                            );
-                                        }}
-                                    />
-                                </td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        value={g.youtube}
-                                        onChange={ev => {
-                                            changeGenre(
-                                                g,
-                                                "youtube",
-                                                ev.target.value
-                                            );
-                                        }}
-                                    />
-                                </td>
-                                <td>
-                                    Release:
-                                    <input
-                                        type="checkbox"
-                                        checked={g.released}
-                                        onChange={() => {
-                                            changeGenre(
-                                                g,
-                                                "released",
-                                                !g.released
-                                            );
-                                        }}
-                                    />
-                                </td>
-                                <td style={{ paddingLeft: 20 }}>
-                                    {pGenres.some(
-                                        pg => pg.genreId === g.genreId
-                                    ) && (
-                                        <span style={{ margin: "0 10px" }}>
-                                            <Link
-                                                to={`/vocabularyEdit/${g.genreName}`}
-                                            >
-                                                Edit
-                                            </Link>
-                                        </span>
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
+                                    >
+                                        {initGenres.some(
+                                            pg => pg.genreId === g.genreId
+                                        ) && (
+                                            <span style={{ margin: "0 10px" }}>
+                                                <Link
+                                                    to={`/vocabularyEdit/${g.genreName}`}
+                                                >
+                                                    Edit
+                                                </Link>
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </table>
+            <div style={{ height: 50 }} />
+            <div
+                style={{
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    backgroundColor: "lightyellow",
+                    padding: 5,
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "50%",
+                    }}
+                >
+                    <InputRegisterToken style={{ marginBottom: 5 }} />
+                    <button
+                        onClick={() => {
+                            save(allGenres, () => {
+                                loadAllGenres();
+                            });
+                        }}
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
         </>
     );
+}
+
+export function InputRegisterToken({ style }: { style?: CSSProperties }) {
+    const [token, setToken] = useState("");
+
+    useEffect(() => {
+        const saveData = localStorage.getItem("folktales-register-token");
+        const objSaveData = saveData && JSON.parse(saveData);
+        const token = objSaveData?.token || "";
+        setToken(token);
+    }, []);
+
+    return (
+        <input
+            style={style}
+            value={token}
+            onChange={ev => {
+                const newToken = ev.target.value;
+                setToken(newToken);
+
+                if (newToken) {
+                    localStorage.setItem(
+                        "folktales-register-token",
+                        JSON.stringify({ token: newToken })
+                    );
+                }
+            }}
+        />
+    );
+}
+
+async function save(allGenres: vocabGenre[], fncAfterSaving: () => void) {
+    if (!window.confirm("Do you really want to save?")) {
+        return;
+    }
+
+    const saveData = localStorage.getItem("folktales-register-token");
+    const objSaveData = saveData && JSON.parse(saveData);
+    const token = objSaveData?.token || "";
+
+    try {
+        const result = await sendPost(
+            {
+                genres: allGenres,
+                token,
+            },
+            "/api/VocabQuiz/SaveVocabGenres"
+        );
+
+        if (result === true) {
+            if (typeof fncAfterSaving === "function") {
+                fncAfterSaving();
+            }
+            alert("success!");
+            return;
+        }
+    } catch (ex) {}
+
+    alert("failed...");
+}
+
+function compareGenres(a?: vocabGenre, b?: vocabGenre) {
+    if (!a || !b) {
+        return false;
+    }
+    const keys = Object.keys(a) as (keyof vocabGenre)[];
+    return keys.every(key => a[key] === b[key]);
 }
 
 function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
@@ -183,7 +301,4 @@ function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
     };
 }
 
-export default connect(
-    (state: ApplicationState) => state.vocabQuiz,
-    dispatch => bindActionCreators(vocabStore.actionCreators, dispatch)
-)(VocabEditTop);
+export default VocabEditTop;

@@ -2,11 +2,11 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import * as consts from "../common/consts";
-import { ApplicationState } from "../store/configureStore";
-import { actionCreators } from "../store/StoriesEditTopStore";
-import ShurikenProgress from "./parts/Animations/ShurikenProgress";
-import Head from "./parts/Helmet";
+import * as consts from "../../../common/consts";
+import { ApplicationState } from "../../../store/configureStore";
+import { actionCreators } from "../../../store/StoriesEditTopStore";
+import ShurikenProgress from "../../parts/Animations/ShurikenProgress";
+import Head from "../../parts/Helmet";
 
 interface StoriesTopProps {
     loadAllStories: () => void;

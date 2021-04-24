@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Z_Apps.Models;
 using Z_Apps.Models.VocabList;
 using Z_Apps.Util;
 
@@ -33,10 +35,12 @@ namespace Z_Apps.Controllers
         }
         public class GenreAndVocab
         {
-            public VocabGenre vocabGenre {
+            public VocabGenre vocabGenre
+            {
                 get; set;
             }
-            public IEnumerable<Vocab> vocabList {
+            public IEnumerable<Vocab> vocabList
+            {
                 get; set;
             }
         }
@@ -65,6 +69,30 @@ namespace Z_Apps.Controllers
         public IEnumerable<VocabGenre> GetAllGenresForEdit()
         {
             return vocabQuizService.GetAllGenresForEdit();
+        }
+
+        public class GenresToSave
+        {
+            public IEnumerable<VocabGenre> genres { get; set; }
+            public string token { get; set; }
+        }
+        [HttpPost("[action]")]
+        public bool SaveVocabGenres([FromBody] GenresToSave data)
+        {
+            try
+            {
+                if (data.token != PrivateConsts.REGISTER_PASS)
+                {
+                    throw new Exception("The token is wrongだね！");
+                }
+
+                return vocabQuizService.SaveVocabGenres(data.genres);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.InsertErrorLog(ex.Message);
+                return false;
+            }
         }
     }
 }

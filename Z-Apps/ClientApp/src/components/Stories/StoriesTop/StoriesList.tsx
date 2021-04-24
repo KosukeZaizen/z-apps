@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BLOB_URL } from "../../common/consts";
-import { storyDesc } from "../../types/stories";
-import { ScrollBox } from "../parts/ScrollBox";
+import { BLOB_URL } from "../../../common/consts";
+import { storyDesc } from "../../../types/stories";
+import { ScrollBox } from "../../parts/ScrollBox";
 
 const HeadTitle = ({
     children,

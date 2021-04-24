@@ -69,7 +69,7 @@ namespace Z_Apps.Models
                 }
                 catch (Exception exception)
                 {
-                    Console.WriteLine(exception.Message);
+                    ErrorLog.InsertErrorLog(exception.Message);
                     throw;
                 }
                 finally
@@ -111,13 +111,79 @@ namespace Z_Apps.Models
                 }
                 catch (Exception exception)
                 {
-                    Console.WriteLine(exception.Message);
+                    ErrorLog.InsertErrorLog(exception.Message);
                     throw;
                 }
                 finally
                 {
                     // データベースの接続終了
                     connection.Close();
+                }
+            }
+        }
+
+        // funcを引数として受け取り、そのfunc内の処理の前後に
+        // TransactionのBeginやCommitを行う
+        public bool UpdateWithTransaction(
+            Func<Func<string, Dictionary<string, object[]>, int>, bool> func
+        )
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    // データベースの接続開始
+                    connection.Open();
+                    SqlTransaction transaction = connection.BeginTransaction();
+                    command.Transaction = transaction;
+                    try
+                    {
+                        Func<string, Dictionary<string, object[]>, int> updateFunc = (
+                            string sql,
+                            Dictionary<string, object[]> dicParams
+                            ) =>
+                            {
+                                command.CommandText = sql;
+                                command.Parameters.Clear();
+
+                                // パラーメータの置換
+                                if (dicParams != null)
+                                {
+                                    foreach (KeyValuePair<string, object[]> kvp in dicParams)
+                                    {
+                                        var param = command.CreateParameter();
+                                        param.ParameterName = kvp.Key;
+                                        param.SqlDbType = (SqlDbType)kvp.Value[0];
+                                        param.Direction = ParameterDirection.Input;
+                                        param.Value = kvp.Value[1];
+
+                                        command.Parameters.Add(param);
+                                    }
+                                }
+
+                                // SQLの実行
+                                int result = command.ExecuteNonQuery();
+                                return result;
+                            };
+                        bool result = func(updateFunc);
+                        if (result)
+                        {
+                            transaction.Commit();
+                            return true;
+                        }
+                        transaction.Rollback();
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorLog.InsertErrorLog(ex.Message);
+                        transaction.Rollback();
+                        return false;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }

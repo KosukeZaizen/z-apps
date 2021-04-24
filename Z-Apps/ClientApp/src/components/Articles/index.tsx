@@ -15,7 +15,7 @@ import { Markdown } from "../parts/Markdown";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import { YouTubeAd } from "../parts/YouTubeAd";
-import { StoriesList } from "../StoriesTop/StoriesList";
+import { StoriesList } from "../Stories/StoriesTop/StoriesList";
 import "./style.css";
 import { ArticlesList } from "./Top";
 

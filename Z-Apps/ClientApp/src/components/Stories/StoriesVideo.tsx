@@ -2,13 +2,13 @@ import * as React from "react";
 import { connect } from "react-redux";
 import Button from "reactstrap/lib/Button";
 import { bindActionCreators } from "redux";
-import { StopAnimation } from "../common/animation";
-import * as consts from "../common/consts";
-import { sleepAsync } from "../common/functions";
-import * as storiesEditStore from "../store/StoriesEditStore";
-import { sentence } from "../types/stories";
-import CharacterComment from "./parts/CharacterComment";
-import Head from "./parts/Helmet";
+import { StopAnimation } from "../../common/animation";
+import * as consts from "../../common/consts";
+import { sleepAsync } from "../../common/functions";
+import * as storiesEditStore from "../../store/StoriesEditStore";
+import { sentence } from "../../types/stories";
+import CharacterComment from "../parts/CharacterComment";
+import Head from "../parts/Helmet";
 
 type Props = storiesEditStore.StoriesEditState &
     storiesEditStore.IActionCreators & { match: { params: any } };

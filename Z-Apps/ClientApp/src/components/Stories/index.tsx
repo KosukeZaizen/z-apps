@@ -27,8 +27,8 @@ import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import { YouTubeAd } from "../parts/YouTubeAd";
 import { YouTubeVideo } from "../parts/YouTubeVideo";
-import { StoriesList } from "../StoriesTop/StoriesList";
 import { AudioControl } from "./AudioControl";
+import { StoriesList } from "./StoriesTop/StoriesList";
 import { WordList } from "./WordList";
 
 type BtnType = "kanji" | "hiragana" | "romaji" | "english";
