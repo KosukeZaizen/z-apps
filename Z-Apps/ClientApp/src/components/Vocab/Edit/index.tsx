@@ -106,10 +106,11 @@ class VocabEdit extends React.Component<Props, State> {
         });
     };
 
-    translateVocab = (v: vocab) => {
-        translate(v.kanji, result => {
+    translateVocab = async (v: vocab) => {
+        const result = await translate(v.kanji);
+        if (result) {
             this.changeVocab(v.vocabId, result);
-        });
+        }
     };
 
     render() {
@@ -260,7 +261,15 @@ class VocabEdit extends React.Component<Props, State> {
                         />
                         <button
                             onClick={() => {
-                                vocabList.forEach(v => this.translateVocab(v));
+                                if (
+                                    window.confirm(
+                                        "Do you want to translate all?"
+                                    )
+                                ) {
+                                    vocabList.forEach(v =>
+                                        this.translateVocab(v)
+                                    );
+                                }
                             }}
                             style={{ width: "100%", marginBottom: 5 }}
                         >
@@ -283,10 +292,7 @@ class VocabEdit extends React.Component<Props, State> {
     }
 }
 
-async function translate(
-    kanji: string,
-    setResult: (result: { hiragana: string; english: string }) => void
-) {
+async function translate(kanji: string) {
     if (!kanji) {
         return;
     }
@@ -299,7 +305,7 @@ async function translate(
         "/api/VocabQuiz/TranslateVocab"
     );
 
-    setResult(result);
+    return result;
 }
 
 export default connect(
