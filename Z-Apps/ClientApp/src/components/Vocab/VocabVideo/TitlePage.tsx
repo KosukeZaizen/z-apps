@@ -19,7 +19,7 @@ export function TitlePage({
         }, 4000);
         setTimeout(() => {
             changePage(Page.list);
-        }, 9000);
+        }, 8000);
     }, []);
 
     let comment: React.ReactNode;

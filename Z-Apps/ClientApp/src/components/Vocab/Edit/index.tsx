@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { StopAnimation } from "../../../common/animation";
+import { BLOB_URL } from "../../../common/consts";
 import { sendPost } from "../../../common/functions";
-import { vocab, vocabGenre } from "../../../types/vocab";
+import { sound, vocab, vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 import {
     getCurrentToken,
     InputRegisterToken,
 } from "../../parts/InputRegisterToken";
+import { Speaker } from "../VocabQuiz";
 
 type Props = {
     location: { pathname: string };
@@ -18,6 +20,7 @@ type State = {
     screenWidth: number;
     vocabList: vocab[];
     vocabGenre?: vocabGenre;
+    vocabSounds: sound[];
 };
 
 class VocabEdit extends React.Component<Props, State> {
@@ -28,6 +31,7 @@ class VocabEdit extends React.Component<Props, State> {
             screenWidth: window.innerWidth,
             vocabList: [],
             vocabGenre: undefined,
+            vocabSounds: [],
         };
     }
 
@@ -43,6 +47,8 @@ class VocabEdit extends React.Component<Props, State> {
             vocabList: vocab[];
             vocabGenre: vocabGenre;
         } = await res.json();
+
+        this.makeSound(result);
 
         const { vocabList, vocabGenre } = result;
 
@@ -69,6 +75,27 @@ class VocabEdit extends React.Component<Props, State> {
                 vocabGenre,
             });
         }
+    };
+
+    makeSound = ({
+        vocabList,
+        vocabGenre,
+    }: {
+        vocabList: vocab[];
+        vocabGenre: vocabGenre;
+    }) => {
+        const vocabSounds: sound[] = [];
+
+        vocabList.length > 0 &&
+            vocabList.forEach((v: vocab) => {
+                const audio = new window.Audio();
+                audio.preload = "none";
+                audio.autoplay = false;
+                audio.src = `${BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+                vocabSounds[v.vocabId] = { audio, playable: false };
+            });
+
+        this.setState({ vocabSounds });
     };
 
     componentDidMount() {
@@ -107,7 +134,7 @@ class VocabEdit extends React.Component<Props, State> {
     };
 
     render() {
-        const { vocabList, vocabGenre } = this.state;
+        const { vocabList, vocabGenre, vocabSounds } = this.state;
 
         const genreName = vocabGenre?.genreName || "";
         const titleToShowUpper = genreName
@@ -123,10 +150,17 @@ class VocabEdit extends React.Component<Props, State> {
 
                 <h1 style={{ marginBottom: 30 }}>{titleToShowUpper}</h1>
 
-                <div style={{ marginBottom: 20 }}>
+                <div
+                    style={{
+                        marginBottom: 20,
+                        width: 500,
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
                     <Link to={"/vocabularyEdit"}>一覧へ戻る</Link>
+                    <Link to={`/vocabularyVideo/${genreName}`}>Make Video</Link>
                     <button
-                        style={{ marginLeft: 50 }}
                         onClick={() => {
                             if (
                                 !window.confirm(
@@ -154,6 +188,7 @@ class VocabEdit extends React.Component<Props, State> {
                         <tr>
                             <th>{"ID"}</th>
                             <th>{"Order"}</th>
+                            <th></th>
                             <th>{"Kanji"}</th>
                             <th></th>
                             <th>{"Hiragana"}</th>
@@ -181,6 +216,12 @@ class VocabEdit extends React.Component<Props, State> {
                                                     ),
                                                 });
                                             }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <Speaker
+                                            vocabSound={vocabSounds[v.vocabId]}
+                                            vocabId={v.vocabId}
                                         />
                                     </td>
                                     <td>

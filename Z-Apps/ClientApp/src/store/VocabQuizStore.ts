@@ -178,10 +178,7 @@ export const reducer = (state: IVocabQuizState, action: KnownAction) => {
 
     if (action.type === "RECEIVE_GENRE_AND_VOCAB") {
         const { vocabGenre, vocabList } = action.genreAndVocab;
-        const vocabSounds: {
-            audio: HTMLAudioElement;
-            playable: boolean;
-        }[] = [];
+        const vocabSounds: sound[] = [];
 
         vocabList.length > 0 &&
             vocabList.forEach((v: vocab) => {
