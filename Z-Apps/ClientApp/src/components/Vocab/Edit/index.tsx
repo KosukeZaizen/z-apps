@@ -126,7 +126,7 @@ class VocabEdit extends React.Component<Props, State> {
                 <div style={{ marginBottom: 20 }}>
                     <Link to={"/vocabularyEdit"}>一覧へ戻る</Link>
                     <button
-                        style={{ marginLeft: 20 }}
+                        style={{ marginLeft: 50 }}
                         onClick={() => {
                             if (
                                 !window.confirm(
