@@ -2,8 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../common/animation";
+import { BLOB_URL } from "../../../common/consts";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
+import { sound, vocab, vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/HideHeaderAndFooter";
 import { LastPage } from "./LastPage";
@@ -23,15 +25,17 @@ export type Page = typeof Page[keyof typeof Page];
 
 export type ChangePage = (nextPage: Page) => void;
 
-type Props = vocabStore.IVocabQuizState &
-    vocabStore.ActionCreators & {
-        location: { pathname: string };
-        match: { params: { [key: string]: string } };
-    };
+type Props = {
+    location: { pathname: string };
+    match: { params: { [key: string]: string } };
+};
 type State = {
     genreName: string;
     screenWidth: number;
     currentPage: Page;
+    vocabList: vocab[];
+    vocabGenre?: vocabGenre;
+    vocabSounds: sound[];
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -45,6 +49,9 @@ class VocabVideo extends React.Component<Props, State> {
             genreName,
             screenWidth: window.innerWidth,
             currentPage: Page.menu,
+            vocabList: [],
+            vocabGenre: undefined,
+            vocabSounds: [],
         };
 
         let timer: number;
@@ -59,10 +66,46 @@ class VocabVideo extends React.Component<Props, State> {
         };
     }
 
+    loadVocab = async () => {
+        const {
+            match: { params },
+        } = this.props;
+        const genreName: string = params.genreName.toString().split("#")[0];
+        const res = await fetch(
+            `api/VocabQuiz/GetQuizDataWithoutCache/${genreName}`
+        );
+        const result: {
+            vocabList: vocab[];
+            vocabGenre: vocabGenre;
+        } = await res.json();
+
+        this.makeSound(result);
+        this.setState(result);
+    };
+
+    makeSound = ({
+        vocabList,
+        vocabGenre,
+    }: {
+        vocabList: vocab[];
+        vocabGenre: vocabGenre;
+    }) => {
+        const vocabSounds: sound[] = [];
+
+        vocabList.length > 0 &&
+            vocabList.forEach((v: vocab) => {
+                const audio = new window.Audio();
+                audio.preload = "none";
+                audio.autoplay = false;
+                audio.src = `${BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
+                vocabSounds[v.vocabId] = { audio, playable: false };
+            });
+
+        this.setState({ vocabSounds });
+    };
+
     componentDidMount() {
-        const { loadVocabs } = this.props;
-        const { genreName } = this.state;
-        loadVocabs(genreName);
+        this.loadVocab();
 
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
@@ -84,8 +127,13 @@ class VocabVideo extends React.Component<Props, State> {
     };
 
     render() {
-        const { vocabGenre, vocabList, vocabSounds } = this.props;
-        const { screenWidth, currentPage } = this.state;
+        const {
+            vocabGenre,
+            vocabList,
+            vocabSounds,
+            screenWidth,
+            currentPage,
+        } = this.state;
 
         const genreName =
             (vocabGenre && vocabGenre.genreName) || this.state.genreName || "";
@@ -93,7 +141,6 @@ class VocabVideo extends React.Component<Props, State> {
             .split("_")
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
-        const titleToShowLower = genreName.split("_").join(" ");
 
         let pageContent: React.ReactNode;
         switch (currentPage) {
@@ -112,6 +159,7 @@ class VocabVideo extends React.Component<Props, State> {
                         titleToShowUpper={titleToShowUpper}
                         screenWidth={screenWidth}
                         changePage={this.changePage}
+                        vocabList={vocabList}
                     />
                 );
                 break;

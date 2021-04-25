@@ -9,6 +9,7 @@ type TProps = {
     style?: React.CSSProperties;
     commentStyle?: React.CSSProperties;
     imgStyle?: React.CSSProperties;
+    containerRef?: React.RefObject<HTMLDivElement>;
 };
 export default function CharacterComment(props: TProps) {
     const {
@@ -18,6 +19,7 @@ export default function CharacterComment(props: TProps) {
         style,
         commentStyle,
         imgStyle,
+        containerRef,
     } = props;
     return (
         <div
@@ -27,6 +29,7 @@ export default function CharacterComment(props: TProps) {
                 margin: "auto",
                 ...style,
             }}
+            ref={containerRef}
         >
             <div style={{ flex: 1 }}>
                 <img
