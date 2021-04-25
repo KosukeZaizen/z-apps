@@ -474,7 +474,7 @@ interface SpeakerProps {
     vocabSound: sound;
     vocabId: number;
 }
-export class Speaker extends React.Component<
+class Speaker extends React.Component<
     SpeakerProps,
     {
         showImg: boolean;

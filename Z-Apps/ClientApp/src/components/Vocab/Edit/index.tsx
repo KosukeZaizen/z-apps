@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { StopAnimation } from "../../../common/animation";
 import { BLOB_URL } from "../../../common/consts";
 import { sendPost } from "../../../common/functions";
+import { compareObjects } from "../../../common/util/compareObjects";
 import { sound, vocab, vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
@@ -10,7 +11,6 @@ import {
     getCurrentToken,
     InputRegisterToken,
 } from "../../parts/InputRegisterToken";
-import { Speaker } from "../VocabQuiz";
 
 type Props = {
     location: { pathname: string };
@@ -19,6 +19,7 @@ type Props = {
 type State = {
     screenWidth: number;
     vocabList: vocab[];
+    initialVocabList: vocab[]; // 初期状態との比較用
     vocabGenre?: vocabGenre;
     vocabSounds: sound[];
 };
@@ -30,6 +31,7 @@ class VocabEdit extends React.Component<Props, State> {
         this.state = {
             screenWidth: window.innerWidth,
             vocabList: [],
+            initialVocabList: [],
             vocabGenre: undefined,
             vocabSounds: [],
         };
@@ -50,29 +52,31 @@ class VocabEdit extends React.Component<Props, State> {
 
         this.makeSound(result);
 
-        const { vocabList, vocabGenre } = result;
-
-        if (vocabList?.length) {
+        if (result.vocabList?.length) {
+            const vocabList = result.vocabList.map(v => {
+                v.order *= 10;
+                return v;
+            });
             this.setState({
-                vocabList: vocabList.map(v => {
-                    v.order *= 10;
-                    return v;
-                }),
-                vocabGenre,
+                vocabList,
+                initialVocabList: [...vocabList],
+                vocabGenre: result.vocabGenre,
             });
         } else {
+            const vocabList = [
+                {
+                    genreId: result.vocabGenre?.genreId,
+                    vocabId: 1,
+                    hiragana: "",
+                    kanji: "",
+                    english: "",
+                    order: 10,
+                },
+            ];
             this.setState({
-                vocabList: [
-                    {
-                        genreId: vocabGenre?.genreId,
-                        vocabId: 1,
-                        hiragana: "",
-                        kanji: "",
-                        english: "",
-                        order: 10,
-                    },
-                ],
-                vocabGenre,
+                vocabList,
+                initialVocabList: [...vocabList],
+                vocabGenre: result.vocabGenre,
             });
         }
     };
@@ -131,6 +135,14 @@ class VocabEdit extends React.Component<Props, State> {
         if (result) {
             this.changeVocab(v.vocabId, result);
         }
+    };
+
+    checkVocabChanged = (v: vocab) => {
+        const { initialVocabList } = this.state;
+        return !compareObjects(
+            v,
+            initialVocabList?.find(vo => vo.vocabId === v.vocabId)
+        );
     };
 
     render() {
@@ -197,10 +209,19 @@ class VocabEdit extends React.Component<Props, State> {
                         </tr>
                     </thead>
                     <tbody>
-                        {vocabList
+                        {[...vocabList]
                             ?.sort((a, b) => a.order - b.order)
                             ?.map(v => (
-                                <tr key={v.vocabId}>
+                                <tr
+                                    key={v.vocabId}
+                                    style={{
+                                        backgroundColor: this.checkVocabChanged(
+                                            v
+                                        )
+                                            ? "red"
+                                            : undefined,
+                                    }}
+                                >
                                     <td>{v.vocabId}</td>
                                     <td>
                                         <input
@@ -219,10 +240,14 @@ class VocabEdit extends React.Component<Props, State> {
                                         />
                                     </td>
                                     <td>
-                                        <Speaker
-                                            vocabSound={vocabSounds[v.vocabId]}
-                                            vocabId={v.vocabId}
-                                        />
+                                        {vocabSounds[v.vocabId] && (
+                                            <Speaker
+                                                vocabSound={
+                                                    vocabSounds[v.vocabId]
+                                                }
+                                                vocabId={v.vocabId}
+                                            />
+                                        )}
                                     </td>
                                     <td>
                                         <input
@@ -382,6 +407,22 @@ async function save(vocabList: vocab[], fncAfterSaving: () => void) {
         return;
     }
 
+    const duplicatedVocab = vocabList.find(
+        v =>
+            vocabList.filter(
+                vo =>
+                    v.kanji === vo.kanji ||
+                    v.hiragana === vo.hiragana ||
+                    v.english === vo.english
+            ).length > 1
+    );
+    if (duplicatedVocab) {
+        alert(
+            `重複エラー：「${duplicatedVocab.kanji}」の内容と重複したレコードがあります。`
+        );
+        return;
+    }
+
     if (!window.confirm("Do you really want to save?")) {
         return;
     }
@@ -421,6 +462,67 @@ async function translate(kanji: string) {
     );
 
     return result;
+}
+
+interface SpeakerProps {
+    vocabSound: sound;
+    vocabId: number;
+}
+class Speaker extends React.Component<
+    SpeakerProps,
+    {
+        showImg: boolean;
+    }
+> {
+    didUnmount: boolean;
+
+    constructor(props: SpeakerProps) {
+        super(props);
+
+        this.state = {
+            showImg: props.vocabSound.playable,
+        };
+        this.didUnmount = false;
+    }
+
+    componentDidMount() {
+        setTimeout(this.loadSound, this.props.vocabId);
+    }
+
+    componentDidUpdate(previous: SpeakerProps) {
+        if (previous.vocabSound.audio !== this.props.vocabSound.audio) {
+            this.setState({ showImg: false });
+            setTimeout(this.loadSound);
+        }
+    }
+
+    loadSound = () => {
+        const { vocabSound } = this.props;
+        vocabSound.audio.oncanplaythrough = () => {
+            if (!this.didUnmount) this.setState({ showImg: true });
+            vocabSound.playable = true;
+        };
+        vocabSound.audio.load();
+    };
+
+    componentWillUnmount() {
+        this.didUnmount = true;
+    }
+
+    render() {
+        const { showImg } = this.state;
+        const { vocabSound } = this.props;
+        return showImg ? (
+            <img
+                alt="vocabulary speaker"
+                src={BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
+                style={{ width: "60%", maxWidth: 30, cursor: "pointer" }}
+                onClick={() => {
+                    void vocabSound?.audio?.play();
+                }}
+            />
+        ) : null;
+    }
 }
 
 export default VocabEdit;

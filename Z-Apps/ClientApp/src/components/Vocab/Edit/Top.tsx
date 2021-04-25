@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StopAnimation } from "../../../common/animation";
 import { sendPost } from "../../../common/functions";
+import { compareObjects } from "../../../common/util/compareObjects";
 import { vocabGenre } from "../../../types/vocab";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
@@ -48,7 +49,7 @@ function VocabEditTop() {
     };
 
     const checkGenreChanged = (g: vocabGenre) =>
-        !compareGenres(
+        !compareObjects(
             g,
             initGenres.find(pg => pg.genreId === g.genreId)
         );
@@ -134,6 +135,8 @@ function VocabEditTop() {
                                                     g,
                                                     "genreName",
                                                     ev.target.value
+                                                        .split(" ")
+                                                        .join("_")
                                                 );
                                             }}
                                         />
@@ -237,7 +240,9 @@ async function save(allGenres: vocabGenre[], fncAfterSaving: () => void) {
     const duplicatedGenre = allGenres.find(
         g =>
             allGenres.filter(
-                ge => g.genreName === ge.genreName || g.youtube === ge.youtube
+                ge =>
+                    g.genreName === ge.genreName ||
+                    (g.youtube && g.youtube === ge.youtube)
             ).length > 1
     );
     if (duplicatedGenre) {
@@ -270,14 +275,6 @@ async function save(allGenres: vocabGenre[], fncAfterSaving: () => void) {
     } catch (ex) {}
 
     alert("failed...");
-}
-
-function compareGenres(a?: vocabGenre, b?: vocabGenre) {
-    if (!a || !b) {
-        return false;
-    }
-    const keys = Object.keys(a) as (keyof vocabGenre)[];
-    return keys.every(key => a[key] === b[key]);
 }
 
 function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
