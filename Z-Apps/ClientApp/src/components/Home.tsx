@@ -355,7 +355,7 @@ export default class Home extends React.Component<
                                 fontSize: "xx-large",
                             }}
                         >
-                            {"More articles about Japanese >>"}
+                            {"More articles about Japan >>"}
                         </Link>
                     </div>
                 </section>

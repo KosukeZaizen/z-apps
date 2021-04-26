@@ -260,7 +260,7 @@ export function ArticleContent({
                             }}
                         >
                             <span itemProp="name">
-                                {"Articles about Japanese"}
+                                {"Articles about Japan"}
                             </span>
                             <meta itemProp="position" content="2" />
                         </Link>
