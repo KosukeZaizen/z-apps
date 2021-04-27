@@ -19,6 +19,12 @@ export default function Admin() {
                 <li>
                     <Link to="/vocabularyEdit">Vocab</Link>
                 </li>
+                <li>
+                    <Link to="/articlesEdit">Article</Link>
+                </li>
+                <li>
+                    <Link to="/folktalesEdit">Folktale</Link>
+                </li>
             </ul>
         </div>
     );
