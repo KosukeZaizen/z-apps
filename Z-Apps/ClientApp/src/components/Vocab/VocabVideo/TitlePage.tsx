@@ -92,7 +92,7 @@ export function TitlePage({
                         marginTop: 10,
                         marginBottom: isInitial ? 20 : 100,
                         fontWeight: "bold",
-                        fontSize: 90,
+                        fontSize: 100,
                     }}
                 >
                     {"Japanese Vocabulary Quiz"}
