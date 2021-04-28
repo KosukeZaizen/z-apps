@@ -8,7 +8,7 @@ import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 import {
     getCurrentToken,
-    InputRegisterToken,
+    InputRegisterToken
 } from "../../parts/InputRegisterToken";
 
 async function fetchAllGenres(setAllGenres: (genres: vocabGenre[]) => void) {
@@ -68,7 +68,7 @@ function VocabEditTop() {
                 <input
                     value={newGenreName}
                     onChange={ev => {
-                        setNewGenreName(ev.target.value);
+                        setNewGenreName(ev.target.value.split(" ").join("_"));
                     }}
                 />
                 <button
