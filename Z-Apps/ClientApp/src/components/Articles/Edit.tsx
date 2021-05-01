@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "reactstrap/lib/Button";
 import { ArticleContent, getIndex } from ".";
 import Head from "../parts/Helmet";
-import { checkImgExtension } from "../parts/Markdown";
+import { checkImgExtension } from "../parts/Markdown/ImageRender";
 import "./style.css";
 
 export interface Page {

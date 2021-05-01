@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { sentence, word } from "../../../../types/stories";
-import { AudioControl } from "../../../Stories/AudioControl";
-import { WordList } from "../../../Stories/WordList";
+import { sentence, word } from "../../../../../types/stories";
+import { AudioControl } from "../../../../Stories/AudioControl";
+import { WordList } from "../../../../Stories/WordList";
 
 interface BoldInfo {
     K?: number[];

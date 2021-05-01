@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ExampleSentence } from ".";
-import * as consts from "../../../../common/consts";
-import { BLOB_URL } from "../../../../common/consts";
-import { cFetch } from "../../../../common/util/cFetch";
-import { sentence, word } from "../../../../types/stories";
+import * as consts from "../../../../../common/consts";
+import { BLOB_URL } from "../../../../../common/consts";
+import { cFetch } from "../../../../../common/util/cFetch";
+import { sentence, word } from "../../../../../types/stories";
 
 export function FolktaleExample({
     storyName,

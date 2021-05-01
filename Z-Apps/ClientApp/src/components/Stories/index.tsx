@@ -21,7 +21,7 @@ import FB from "../parts/FaceBook";
 import { AnchorLink, HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
 import { Markdown } from "../parts/Markdown";
-import { PointBox } from "../parts/Markdown/PointBox";
+import { PointBox } from "../parts/Markdown/CodeRender/PointBox";
 import "../parts/PleaseScrollDown.css";
 import { ScrollBox } from "../parts/ScrollBox";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
