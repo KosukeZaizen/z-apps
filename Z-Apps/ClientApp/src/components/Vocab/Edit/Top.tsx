@@ -8,7 +8,7 @@ import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
 import {
     getCurrentToken,
-    InputRegisterToken
+    InputRegisterToken,
 } from "../../parts/InputRegisterToken";
 
 async function fetchAllGenres(setAllGenres: (genres: vocabGenre[]) => void) {
@@ -285,7 +285,7 @@ function getNewGenre(genreName: string, allGenres: vocabGenre[]): vocabGenre {
     return {
         genreName,
         genreId: maxGenreId + 1,
-        order: 0,
+        order: 1,
         youtube: "",
         released: false,
     };
