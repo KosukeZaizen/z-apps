@@ -24,7 +24,7 @@
 
 .ninjaPic {
     animation: 10s linear infinite ninjaCommentAnime;
-    animation-delay: 2s;
+    animation-delay: 1s;
 }
 @keyframes ninjaCommentAnime {
     0% {

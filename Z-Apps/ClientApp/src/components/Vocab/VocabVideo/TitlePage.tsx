@@ -26,10 +26,10 @@ export function TitlePage({
     useEffect(() => {
         setTimeout(() => {
             setIsInitial(false);
-        }, 4000);
+        }, 3000);
         setTimeout(() => {
             changePage(Page.list);
-        }, 8000);
+        }, 7000);
     }, []);
 
     useEffect(() => {
