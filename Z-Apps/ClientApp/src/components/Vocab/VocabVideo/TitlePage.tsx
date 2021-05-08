@@ -46,7 +46,7 @@ export function TitlePage({
         }, 3000);
         setTimeout(() => {
             changePage(Page.list);
-        }, 7000);
+        }, 8000);
     }, []);
 
     useEffect(() => {
