@@ -118,7 +118,7 @@ namespace Z_Apps.Models.SystemBase
 
                     //------------------------------------------------------------
                     // Vocab List
-                    lstSitemap.Add(new Dictionary<string, string>() { 
+                    lstSitemap.Add(new Dictionary<string, string>() {
                         {"loc", "https://www.lingual-ninja.com/vocabulary-list" }
                     });
 
