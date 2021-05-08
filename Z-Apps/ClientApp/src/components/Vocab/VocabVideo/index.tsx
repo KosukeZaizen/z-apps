@@ -15,6 +15,7 @@ import { LastPage } from "./LastPage";
 import { ListPage } from "./ListPage";
 import { MenuPage } from "./MenuPage";
 import { QuizPage } from "./QuizPage";
+import { Thumbnail } from "./Thumbnail";
 import { TitlePage } from "./TitlePage";
 
 export const Page = {
@@ -23,6 +24,7 @@ export const Page = {
     list: 2,
     quiz: 3,
     last: 4,
+    thumbnail: 5,
 };
 export type Page = typeof Page[keyof typeof Page];
 
@@ -210,6 +212,16 @@ class VocabVideo extends React.Component<Props, State> {
                 );
                 break;
             }
+            case Page.thumbnail: {
+                pageContent = (
+                    <Thumbnail
+                        titleToShowUpper={titleToShowUpper}
+                        screenWidth={screenWidth}
+                        vocabList={vocabList}
+                    />
+                );
+                break;
+            }
         }
 
         return (
@@ -230,12 +242,14 @@ class VocabVideo extends React.Component<Props, State> {
                 >
                     {pageContent}
                 </div>
-                <SeasonAnimation
-                    isFestivalHidden
-                    frequencySec={3}
-                    screenWidth={screenWidth}
-                    season={season}
-                />
+                {currentPage !== Page.thumbnail && (
+                    <SeasonAnimation
+                        isFestivalHidden
+                        frequencySec={3}
+                        screenWidth={screenWidth}
+                        season={season}
+                    />
+                )}
             </div>
         );
     }

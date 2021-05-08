@@ -110,6 +110,13 @@ export function MenuPage({
                     Last Page
                 </button>
             </div>
+            <button
+                onClick={() => {
+                    changePage(Page.thumbnail);
+                }}
+            >
+                {"サムネイル用画面"}
+            </button>
         </div>
     ) : null;
 }
