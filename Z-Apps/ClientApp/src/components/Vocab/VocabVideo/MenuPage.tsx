@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { ChangePage, Page } from ".";
 import { StopAnimation } from "../../../common/animation";
 import { sound } from "../../../types/vocab";
+import { Season } from "../../parts/Animations/SeasonAnimation";
 
 export function MenuPage({
     changePage,
     vocabSounds,
     music,
+    setSeason,
 }: {
     changePage: ChangePage;
     vocabSounds: sound[];
     music?: sound;
+    setSeason: (season: Season) => void;
 }) {
     const [isButtonShown, setIsButtonShown] = useState(true);
     const [playableArray, setPlayableArray] = useState(
@@ -66,32 +69,47 @@ export function MenuPage({
                     setIsButtonShown(false);
                 }}
             >
-                Title Page
+                Video Start
             </button>
-            <button
-                style={{ margin: 10 }}
-                onClick={() => {
-                    changePage(Page.list);
-                }}
-            >
-                List Page
-            </button>
-            <button
-                style={{ margin: 10 }}
-                onClick={() => {
-                    changePage(Page.quiz);
-                }}
-            >
-                Quiz Page
-            </button>
-            <button
-                style={{ margin: 10 }}
-                onClick={() => {
-                    changePage(Page.last);
-                }}
-            >
-                Last Page
-            </button>
+            <div style={{ display: "flex", margin: 20 }}>
+                <div>{"Season:"}</div>
+                <select
+                    onChange={ev => {
+                        setSeason(ev.target.value);
+                    }}
+                >
+                    {Object.keys(Season).map(s => (
+                        <option key={s}>{s}</option>
+                    ))}
+                </select>
+            </div>
+            <div style={{ border: "solid", margin: 20, padding: 10 }}>
+                <p>途中から</p>
+                <button
+                    style={{ margin: 10 }}
+                    onClick={() => {
+                        changePage(Page.list);
+                    }}
+                >
+                    List Page
+                </button>
+                <button
+                    style={{ margin: 10 }}
+                    onClick={() => {
+                        changePage(Page.quiz);
+                    }}
+                >
+                    Quiz Page
+                </button>
+                <button
+                    style={{ margin: 10 }}
+                    onClick={() => {
+                        changePage(Page.last);
+                    }}
+                >
+                    Last Page
+                </button>
+            </div>
         </div>
     ) : null;
 }

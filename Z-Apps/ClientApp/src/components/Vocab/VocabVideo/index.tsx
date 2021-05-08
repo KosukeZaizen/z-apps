@@ -5,6 +5,10 @@ import { BLOB_URL } from "../../../common/consts";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../../../types/vocab";
+import {
+    Season,
+    SeasonAnimation,
+} from "../../parts/Animations/SeasonAnimation";
 import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/HideHeaderAndFooter";
 import { LastPage } from "./LastPage";
@@ -35,6 +39,7 @@ type State = {
     vocabList: vocab[];
     vocabGenre?: vocabGenre;
     vocabSounds: sound[];
+    season: Season;
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -55,6 +60,7 @@ class VocabVideo extends React.Component<Props, State> {
             vocabList: [],
             vocabGenre: undefined,
             vocabSounds: [],
+            season: Season.spring,
         };
 
         let timer: number;
@@ -135,6 +141,7 @@ class VocabVideo extends React.Component<Props, State> {
             vocabSounds,
             screenWidth,
             currentPage,
+            season,
         } = this.state;
 
         const genreName =
@@ -152,6 +159,9 @@ class VocabVideo extends React.Component<Props, State> {
                         changePage={this.changePage}
                         vocabSounds={vocabSounds}
                         music={music}
+                        setSeason={(season: Season) => {
+                            this.setState({ season });
+                        }}
                     />
                 );
                 break;
@@ -220,6 +230,12 @@ class VocabVideo extends React.Component<Props, State> {
                 >
                     {pageContent}
                 </div>
+                <SeasonAnimation
+                    isFestivalHidden
+                    frequencySec={3}
+                    screenWidth={screenWidth}
+                    season={season}
+                />
             </div>
         );
     }
