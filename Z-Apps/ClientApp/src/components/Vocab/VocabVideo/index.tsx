@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { StopAnimation } from "../../../common/animation";
 import { BLOB_URL } from "../../../common/consts";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
@@ -207,7 +206,6 @@ class VocabVideo extends React.Component<Props, State> {
             <div>
                 <Head noindex />
                 <HideHeaderAndFooter />
-                <StopAnimation />
                 <div
                     style={{
                         position: "absolute",

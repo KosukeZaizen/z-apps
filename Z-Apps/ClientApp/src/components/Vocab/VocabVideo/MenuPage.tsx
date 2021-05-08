@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChangePage, Page } from ".";
+import { StopAnimation } from "../../../common/animation";
 import { sound } from "../../../types/vocab";
 
 export function MenuPage({
@@ -49,6 +50,7 @@ export function MenuPage({
                 alignItems: "center",
             }}
         >
+            <StopAnimation />
             <p
                 style={{ margin: 10 }}
             >{`Loaded Audio: ${playableCount} / ${totalCount}`}</p>
