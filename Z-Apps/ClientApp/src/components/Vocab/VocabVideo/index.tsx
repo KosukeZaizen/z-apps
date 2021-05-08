@@ -39,6 +39,10 @@ type State = {
 };
 
 class VocabVideo extends React.Component<Props, State> {
+    music: sound = getAudio({
+        src: `${BLOB_URL}/vocabulary-quiz/music.mp3`,
+    });
+
     constructor(props: Props) {
         super(props);
 
@@ -94,11 +98,9 @@ class VocabVideo extends React.Component<Props, State> {
 
         vocabList.length > 0 &&
             vocabList.forEach((v: vocab) => {
-                const audio = new window.Audio();
-                audio.preload = "none";
-                audio.autoplay = false;
-                audio.src = `${BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
-                vocabSounds[v.vocabId] = { audio, playable: false };
+                vocabSounds[v.vocabId] = getAudio({
+                    src: `${BLOB_URL}/vocabulary-quiz/audio/${vocabGenre.genreName}/Japanese-vocabulary${v.vocabId}.m4a`,
+                });
             });
 
         this.setState({ vocabSounds });
@@ -127,6 +129,7 @@ class VocabVideo extends React.Component<Props, State> {
     };
 
     render() {
+        const { music } = this;
         const {
             vocabGenre,
             vocabList,
@@ -149,6 +152,7 @@ class VocabVideo extends React.Component<Props, State> {
                     <MenuPage
                         changePage={this.changePage}
                         vocabSounds={vocabSounds}
+                        music={music}
                     />
                 );
                 break;
@@ -160,6 +164,7 @@ class VocabVideo extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                         changePage={this.changePage}
                         vocabList={vocabList}
+                        music={music}
                     />
                 );
                 break;
@@ -189,9 +194,9 @@ class VocabVideo extends React.Component<Props, State> {
             case Page.last: {
                 pageContent = (
                     <LastPage
-                        titleToShowUpper={titleToShowUpper}
                         screenWidth={screenWidth}
                         changePage={this.changePage}
+                        music={music}
                     />
                 );
                 break;
@@ -220,6 +225,14 @@ class VocabVideo extends React.Component<Props, State> {
             </div>
         );
     }
+}
+
+function getAudio({ src }: { src: string }) {
+    const audio = new window.Audio();
+    audio.preload = "none";
+    audio.autoplay = false;
+    audio.src = src;
+    return { audio, playable: false };
 }
 
 export default connect(

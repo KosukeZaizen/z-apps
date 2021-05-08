@@ -5,14 +5,17 @@ import { sound } from "../../../types/vocab";
 export function MenuPage({
     changePage,
     vocabSounds,
+    music,
 }: {
     changePage: ChangePage;
     vocabSounds: sound[];
+    music?: sound;
 }) {
     const [isButtonShown, setIsButtonShown] = useState(true);
     const [playableArray, setPlayableArray] = useState(
         vocabSounds.map(s => s.playable)
     );
+    const [musicPlayable, setMusicPlayable] = useState(false);
 
     useEffect(() => {
         vocabSounds.forEach(vocabSound => {
@@ -23,6 +26,17 @@ export function MenuPage({
             vocabSound.audio.load();
         });
     }, [vocabSounds]);
+
+    useEffect(() => {
+        if (!music) {
+            return;
+        }
+        music.audio.oncanplaythrough = () => {
+            music.playable = true;
+            setMusicPlayable(true);
+        };
+        music.audio.load();
+    }, [music]);
 
     const playableCount = playableArray.filter(p => p).length;
     const totalCount = vocabSounds.filter(s => s).length;
@@ -38,6 +52,9 @@ export function MenuPage({
             <p
                 style={{ margin: 10 }}
             >{`Loaded Audio: ${playableCount} / ${totalCount}`}</p>
+            <p style={{ margin: 10 }}>{`Music: ${
+                musicPlayable ? "OK!" : "Loading..."
+            }`}</p>
             <button
                 style={{ margin: 10 }}
                 onClick={() => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChangePage, Page } from ".";
-import { vocab } from "../../../types/vocab";
+import { sleepAsync } from "../../../common/functions";
+import { sound, vocab } from "../../../types/vocab";
 import CharacterComment from "../../parts/CharacterComment";
 import { ScrollBox } from "../../parts/ScrollBox";
 
@@ -9,11 +10,13 @@ export function TitlePage({
     screenWidth,
     changePage,
     vocabList,
+    music,
 }: {
     titleToShowUpper: string;
     screenWidth: number;
     changePage: ChangePage;
     vocabList: vocab[];
+    music: sound;
 }) {
     const scrollTextRef = useRef<HTMLSpanElement>(null);
     const characterCommentRef = useRef<HTMLDivElement>(null);
@@ -24,6 +27,20 @@ export function TitlePage({
     const [isCommentTwoLines, setIsCommentTwoLines] = useState(false);
 
     useEffect(() => {
+        setTimeout(() => {
+            const musicPlay = async () => {
+                const { audio } = music;
+                audio.volume = 0;
+                audio.onended = musicPlay;
+                audio.play();
+                while (audio.volume < 0.005) {
+                    audio.volume += 0.001;
+                    await sleepAsync(500);
+                }
+            };
+            musicPlay();
+        }, 500);
+
         setTimeout(() => {
             setIsInitial(false);
         }, 3000);

@@ -1,17 +1,30 @@
 import React, { useEffect } from "react";
 import { ChangePage, Page } from ".";
+import { sleepAsync } from "../../../common/functions";
+import { sound } from "../../../types/vocab";
 import CharacterComment from "../../parts/CharacterComment";
 
 export function LastPage({
-    titleToShowUpper,
     screenWidth,
     changePage,
+    music,
 }: {
-    titleToShowUpper: string;
     screenWidth: number;
     changePage: ChangePage;
+    music: sound;
 }) {
     useEffect(() => {
+        setTimeout(() => {
+            const soundFadeOut = async () => {
+                const { audio } = music;
+                while (audio.volume > 0) {
+                    audio.volume -= 0.001;
+                    await sleepAsync(1000);
+                }
+            };
+            soundFadeOut();
+        }, 13000);
+
         setTimeout(() => {
             changePage(Page.menu);
         }, 20000);
