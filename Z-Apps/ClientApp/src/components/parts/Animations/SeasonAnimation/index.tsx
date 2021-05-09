@@ -18,6 +18,8 @@ export const Season = {
     star: "star",
     mallet: "mallet",
     leaf: "leaf",
+    snail: "snail",
+    question: "question",
     none: "none",
 } as const;
 export type Season = typeof Season[keyof typeof Season];
@@ -34,6 +36,8 @@ const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
     star: { alt: "star", src: "star.png" },
     mallet: { alt: "mallet", src: "mallet.png" },
     leaf: { alt: "leaf", src: "leaf.png" },
+    snail: { alt: "snail", src: "snail.png" },
+    question: { alt: "question mark", src: "question.png" },
 };
 
 interface Leaf {
@@ -130,7 +134,8 @@ export const SeasonAnimation = ({
                 alt={`${seasonItem.alt} ${l.id}`}
                 title={`${seasonItem.alt} ${l.id}`}
                 style={{
-                    width: 50 * scale,
+                    maxWidth: 50 * scale,
+                    maxHeight: 50 * scale,
                     position: "fixed",
                     top: -1.5 * 90 * scale,
                     left: l.initialX,
