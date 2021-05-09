@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ChangePage, Page } from ".";
 import { StopAnimation } from "../../../common/animation";
 import { sound, vocab } from "../../../types/vocab";
+import { getFallingImages } from "../../parts/Animations/SeasonAnimation";
 
 export function MenuPage({
     changePage,
@@ -31,6 +32,7 @@ export function MenuPage({
         vocabSounds.map(s => s.playable)
     );
     const [musicPlayable, setMusicPlayable] = useState(false);
+    const [seasonNames, setSeasonNames] = useState<string[]>([]);
 
     useEffect(() => {
         vocabSounds.forEach(vocabSound => {
@@ -52,6 +54,14 @@ export function MenuPage({
         };
         music.audio.load();
     }, [music]);
+
+    useEffect(() => {
+        const load = async () => {
+            const seasons = await getFallingImages();
+            setSeasonNames(seasons.map(s => s.name));
+        };
+        load();
+    }, []);
 
     const playableCount = playableArray.filter(p => p).length;
     const totalCount = vocabSounds.filter(s => s).length;
@@ -115,9 +125,9 @@ export function MenuPage({
                                 setSeason(ev.target.value);
                             }}
                         >
-                            {/* {Object.keys(Season).map(s => (
+                            {seasonNames.map(s => (
                                 <option key={s}>{s}</option>
-                            ))} */}
+                            ))}
                         </select>
                     </div>
                     {!isOneSeason && (
@@ -136,9 +146,9 @@ export function MenuPage({
                                                     );
                                                 }}
                                             >
-                                                {/* {Object.keys(Season).map(s => (
+                                                {seasonNames.map(s => (
                                                     <option key={s}>{s}</option>
-                                                ))} */}
+                                                ))}
                                             </select>
                                         </td>
                                     </tr>
