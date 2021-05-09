@@ -1,44 +1,12 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { appsPublicImg } from "../../../../common/consts";
+import { cFetch } from "../../../../common/util/cFetch";
 import "./animation.css";
+import { fallingImage } from "./type";
 
 let count = 0;
 let ls: Leaf[] = [];
-
-export const Season = {
-    spring: "spring",
-    summer: "summer",
-    autumn: "autumn",
-    winter: "winter",
-    money: "money",
-    peach: "peach",
-    sake: "sake",
-    fish: "fish",
-    star: "star",
-    mallet: "mallet",
-    leaf: "leaf",
-    snail: "snail",
-    question: "question",
-    none: "none",
-} as const;
-export type Season = typeof Season[keyof typeof Season];
-type SeasonItem = { alt: string; src: string };
-const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
-    spring: { alt: "Japanese sakura", src: "sakura.png" },
-    summer: { alt: "Japanese fan", src: "japanese-fan.png" },
-    autumn: { alt: "Japanese red leaf", src: "momiji.png" },
-    winter: { alt: "snow", src: "snow.png" },
-    money: { alt: "Japanese money", src: "japanese-money.png" },
-    peach: { alt: "peach", src: "peach.png" },
-    sake: { alt: "Japanese sake", src: "sake.png" },
-    fish: { alt: "Japanese fish", src: "fish.png" },
-    star: { alt: "star", src: "star.png" },
-    mallet: { alt: "mallet", src: "mallet.png" },
-    leaf: { alt: "leaf", src: "leaf.png" },
-    snail: { alt: "snail", src: "snail.png" },
-    question: { alt: "question mark", src: "question.png" },
-};
 
 interface Leaf {
     id: number;
@@ -49,7 +17,7 @@ interface Leaf {
 interface Props {
     frequencySec: number;
     screenWidth: number;
-    season?: Season;
+    season?: string;
     isFestivalHidden?: boolean;
 }
 export const SeasonAnimation = ({
@@ -62,31 +30,41 @@ export const SeasonAnimation = ({
         (screenWidth + window.innerHeight) / 1000
     );
     const [leaves, setLeaves] = useState<Leaf[]>([]);
-    const [season, setSeason] = useState<Season>("none");
+    const [season, setSeason] = useState<string>("none");
+    const [seasonItems, setSeasonItems] = useState<fallingImage[]>([]);
 
     useEffect(() => {
-        if (pSeason) {
-            if (Object.keys(seasonItems).includes(pSeason)) {
-                setSeason(pSeason);
-            } else {
-                setSeason("none");
+        const load = async () => {
+            if (pSeason === "none") {
+                return;
             }
-        } else {
-            const month = new Date().getMonth() + 1;
-            if (9 <= month && month <= 11) {
-                //秋
-                setSeason("autumn");
-            } else if (12 === month || month <= 2) {
-                //冬
-                setSeason("winter");
-            } else if (3 <= month && month <= 4) {
-                //春
-                setSeason("spring");
+            const fallingImages = await getFallingImages();
+            setSeasonItems(fallingImages);
+
+            if (pSeason) {
+                if (fallingImages.some(im => im.name === pSeason)) {
+                    setSeason(pSeason);
+                } else {
+                    setSeason("none");
+                }
             } else {
-                //夏
-                setSeason("summer");
+                const month = new Date().getMonth() + 1;
+                if (9 <= month && month <= 11) {
+                    //秋
+                    setSeason("autumn");
+                } else if (12 === month || month <= 2) {
+                    //冬
+                    setSeason("winter");
+                } else if (3 <= month && month <= 4) {
+                    //春
+                    setSeason("spring");
+                } else {
+                    //夏
+                    setSeason("summer");
+                }
             }
-        }
+        };
+        load();
     }, [pSeason]);
 
     useEffect(() => {
@@ -123,14 +101,14 @@ export const SeasonAnimation = ({
     }, []);
 
     let getImg;
-    if (!season || season === "none") {
+    const seasonItem = seasonItems?.find(item => item.name === season);
+    if (!season || season === "none" || !seasonItem) {
         getImg = () => null;
     } else {
-        const seasonItem = seasonItems[season];
         getImg = (l: Leaf) => (
             <img
                 key={`falling item ${l.id}`}
-                src={appsPublicImg + seasonItem.src}
+                src={appsPublicImg + seasonItem.fileName}
                 alt={`${seasonItem.alt} ${l.id}`}
                 title={`${seasonItem.alt} ${l.id}`}
                 style={{
@@ -166,3 +144,9 @@ export const SeasonAnimation = ({
         </div>
     );
 };
+
+export async function getFallingImages() {
+    const response = await cFetch("api/FallingImage/GetFallingImages");
+    const fallingImages: fallingImage[] = await response.json();
+    return fallingImages;
+}

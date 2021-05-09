@@ -5,10 +5,7 @@ import { BLOB_URL } from "../../../common/consts";
 import { ApplicationState } from "../../../store/configureStore";
 import * as vocabStore from "../../../store/VocabQuizStore";
 import { sound, vocab, vocabGenre } from "../../../types/vocab";
-import {
-    Season,
-    SeasonAnimation,
-} from "../../parts/Animations/SeasonAnimation";
+import { SeasonAnimation } from "../../parts/Animations/SeasonAnimation";
 import Head from "../../parts/Helmet";
 import { HideHeaderAndFooter } from "../../parts/HideHeaderAndFooter";
 import { LastPage } from "./LastPage";
@@ -42,8 +39,8 @@ type State = {
     vocabGenre?: vocabGenre;
     vocabSounds: sound[];
     isOneSeason: boolean; // 動画全体でSeason単一
-    season: Season; // 動画全体でのベースのSeason
-    vocabSeasons: Season[]; // 単語ごとのSeason
+    season: string; // 動画全体でのベースのSeason
+    vocabSeasons: string[]; // 単語ごとのSeason
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -64,7 +61,7 @@ class VocabVideo extends React.Component<Props, State> {
             vocabList: [],
             vocabGenre: undefined,
             vocabSounds: [],
-            season: Season.spring,
+            season: "spring",
             vocabSeasons: [],
             isOneSeason: true,
         };
@@ -159,16 +156,16 @@ class VocabVideo extends React.Component<Props, State> {
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
 
-        const setSeason = (season: Season) => {
+        const setSeason = (season: string) => {
             this.setState({ season });
         };
 
-        const setVocabSeason = (vocabId: number, season: Season) => {
+        const setVocabSeason = (vocabId: number, season: string) => {
             const newVocabSeasons = [...vocabSeasons];
             newVocabSeasons[vocabId] = season;
             this.setState({ vocabSeasons: newVocabSeasons });
         };
-        const setVocabSeasons = (vocabSeasons: Season[]) => {
+        const setVocabSeasons = (vocabSeasons: string[]) => {
             this.setState({ vocabSeasons });
         };
 

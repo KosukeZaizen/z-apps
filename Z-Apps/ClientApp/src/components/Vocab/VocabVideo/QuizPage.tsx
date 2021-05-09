@@ -3,7 +3,6 @@ import { ChangePage, Page } from ".";
 import { sleepAsync } from "../../../common/functions";
 import { audioPlayAsync } from "../../../common/util/audioPlayAsync";
 import { vocab } from "../../../types/vocab";
-import { Season } from "../../parts/Animations/SeasonAnimation";
 import CharacterComment from "../../parts/CharacterComment";
 
 export function QuizPage({
@@ -20,10 +19,10 @@ export function QuizPage({
     changePage: ChangePage;
     vocabList: vocab[];
     vocabSounds: HTMLAudioElement[];
-    vocabSeasons: Season[];
+    vocabSeasons: string[];
     isOneSeason: boolean;
-    setSeason: (season: Season) => void;
-    season: Season;
+    setSeason: (season: string) => void;
+    season: string;
 }) {
     const [currentVocab, setCurrentVocab] = useState(vocabList[0]);
     const [isInitialScreen, setIsInitialScreen] = useState(true);
@@ -38,7 +37,7 @@ export function QuizPage({
                 const { vocabId } = vocabList[i];
 
                 if (!isOneSeason) {
-                    setSeason(Season.question);
+                    setSeason("question");
                 }
 
                 setCurrentVocab(vocabList[i]);

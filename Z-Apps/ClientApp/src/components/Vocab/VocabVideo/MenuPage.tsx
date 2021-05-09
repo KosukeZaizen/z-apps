@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ChangePage, Page } from ".";
 import { StopAnimation } from "../../../common/animation";
 import { sound, vocab } from "../../../types/vocab";
-import { Season } from "../../parts/Animations/SeasonAnimation";
 
 export function MenuPage({
     changePage,
@@ -19,13 +18,13 @@ export function MenuPage({
     changePage: ChangePage;
     vocabSounds: sound[];
     music?: sound;
-    setSeason: (season: Season) => void;
-    setVocabSeason: (vocabId: number, season: Season) => void;
-    setVocabSeasons: (vocabSeasons: Season[]) => void;
+    setSeason: (season: string) => void;
+    setVocabSeason: (vocabId: number, season: string) => void;
+    setVocabSeasons: (vocabSeasons: string[]) => void;
     vocabList: vocab[];
     isOneSeason: boolean;
     setIsOneSeason: (isOneSeason: boolean) => void;
-    vocabSeasons: Season[];
+    vocabSeasons: string[];
 }) {
     const [isButtonShown, setIsButtonShown] = useState(true);
     const [playableArray, setPlayableArray] = useState(
@@ -96,10 +95,10 @@ export function MenuPage({
                         onChange={() => {
                             setIsOneSeason(!isOneSeason);
                             if (isOneSeason) {
-                                const vocabSeasons = vocabList.reduce<Season[]>(
+                                const vocabSeasons = vocabList.reduce<string[]>(
                                     (acc, val) => {
                                         const seasons = [...acc];
-                                        seasons[val.vocabId] = Season.none;
+                                        seasons[val.vocabId] = "none";
                                         return seasons;
                                     },
                                     []
@@ -113,12 +112,12 @@ export function MenuPage({
                         <div>{"Base season:"}</div>
                         <select
                             onChange={ev => {
-                                setSeason(ev.target.value as Season);
+                                setSeason(ev.target.value);
                             }}
                         >
-                            {Object.keys(Season).map(s => (
+                            {/* {Object.keys(Season).map(s => (
                                 <option key={s}>{s}</option>
-                            ))}
+                            ))} */}
                         </select>
                     </div>
                     {!isOneSeason && (
@@ -133,14 +132,13 @@ export function MenuPage({
                                                 onChange={ev => {
                                                     setVocabSeason(
                                                         v.vocabId,
-                                                        ev.target
-                                                            .value as Season
+                                                        ev.target.value
                                                     );
                                                 }}
                                             >
-                                                {Object.keys(Season).map(s => (
+                                                {/* {Object.keys(Season).map(s => (
                                                     <option key={s}>{s}</option>
-                                                ))}
+                                                ))} */}
                                             </select>
                                         </td>
                                     </tr>

@@ -1,11 +1,9 @@
-import { Season } from "../components/parts/Animations/SeasonAnimation";
-
 export type storyDesc = {
     storyId: number;
     storyName: string;
     description: string;
     order?: number;
-    season?: Season;
+    season?: string;
     youtube?: string;
 };
 export type sentence = {
