@@ -33,6 +33,7 @@ export function MenuPage({
     );
     const [musicPlayable, setMusicPlayable] = useState(false);
     const [seasonNames, setSeasonNames] = useState<string[]>([]);
+    const [isAnimationStopped, setIsAnimationStopped] = useState(true);
 
     useEffect(() => {
         vocabSounds.forEach(vocabSound => {
@@ -74,7 +75,7 @@ export function MenuPage({
                 alignItems: "center",
             }}
         >
-            <StopAnimation />
+            {isAnimationStopped && <StopAnimation />}
 
             <p
                 style={{ margin: 10 }}
@@ -87,6 +88,7 @@ export function MenuPage({
             <button
                 style={{ margin: 10 }}
                 onClick={() => {
+                    setIsAnimationStopped(false);
                     setTimeout(() => {
                         changePage(Page.title);
                     }, 3000);
