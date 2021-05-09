@@ -41,7 +41,9 @@ type State = {
     vocabList: vocab[];
     vocabGenre?: vocabGenre;
     vocabSounds: sound[];
-    season: Season;
+    isOneSeason: boolean; // 動画全体でSeason単一
+    season: Season; // 動画全体でのベースのSeason
+    vocabSeasons: Season[]; // 単語ごとのSeason
 };
 
 class VocabVideo extends React.Component<Props, State> {
@@ -63,6 +65,8 @@ class VocabVideo extends React.Component<Props, State> {
             vocabGenre: undefined,
             vocabSounds: [],
             season: Season.spring,
+            vocabSeasons: [],
+            isOneSeason: true,
         };
 
         let timer: number;
@@ -144,6 +148,8 @@ class VocabVideo extends React.Component<Props, State> {
             screenWidth,
             currentPage,
             season,
+            isOneSeason,
+            vocabSeasons,
         } = this.state;
 
         const genreName =
@@ -153,6 +159,19 @@ class VocabVideo extends React.Component<Props, State> {
             .map(t => t && t[0].toUpperCase() + t.substr(1))
             .join(" ");
 
+        const setSeason = (season: Season) => {
+            this.setState({ season });
+        };
+
+        const setVocabSeason = (vocabId: number, season: Season) => {
+            const newVocabSeasons = [...vocabSeasons];
+            newVocabSeasons[vocabId] = season;
+            this.setState({ vocabSeasons: newVocabSeasons });
+        };
+        const setVocabSeasons = (vocabSeasons: Season[]) => {
+            this.setState({ vocabSeasons });
+        };
+
         let pageContent: React.ReactNode;
         switch (currentPage) {
             case Page.menu: {
@@ -161,9 +180,15 @@ class VocabVideo extends React.Component<Props, State> {
                         changePage={this.changePage}
                         vocabSounds={vocabSounds}
                         music={music}
-                        setSeason={(season: Season) => {
-                            this.setState({ season });
+                        setSeason={setSeason}
+                        setVocabSeason={setVocabSeason}
+                        setVocabSeasons={setVocabSeasons}
+                        vocabList={vocabList}
+                        isOneSeason={isOneSeason}
+                        setIsOneSeason={(isOneSeason: boolean) => {
+                            this.setState({ isOneSeason });
                         }}
+                        vocabSeasons={vocabSeasons}
                     />
                 );
                 break;
@@ -187,6 +212,10 @@ class VocabVideo extends React.Component<Props, State> {
                         changePage={this.changePage}
                         vocabList={vocabList}
                         vocabSounds={vocabSounds.map(s => s?.audio)}
+                        vocabSeasons={vocabSeasons}
+                        setSeason={setSeason}
+                        isOneSeason={isOneSeason}
+                        season={season}
                     />
                 );
                 break;

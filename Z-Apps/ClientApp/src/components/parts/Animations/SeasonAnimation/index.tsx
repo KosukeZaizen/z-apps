@@ -19,7 +19,7 @@ export const Season = {
     mallet: "mallet",
     leaf: "leaf",
     none: "none",
-};
+} as const;
 export type Season = typeof Season[keyof typeof Season];
 type SeasonItem = { alt: string; src: string };
 const seasonItems: { [key in Exclude<Season, "none">]: SeasonItem } = {
@@ -125,7 +125,7 @@ export const SeasonAnimation = ({
         const seasonItem = seasonItems[season];
         getImg = (l: Leaf) => (
             <img
-                key={`${seasonItem.alt} ${l.id}`}
+                key={`falling item ${l.id}`}
                 src={appsPublicImg + seasonItem.src}
                 alt={`${seasonItem.alt} ${l.id}`}
                 title={`${seasonItem.alt} ${l.id}`}
