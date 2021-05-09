@@ -227,6 +227,10 @@ class VocabVideo extends React.Component<Props, State> {
                         changePage={this.changePage}
                         vocabList={vocabList}
                         vocabSounds={vocabSounds.map(s => s?.audio)}
+                        vocabSeasons={vocabSeasons}
+                        setSeason={setSeason}
+                        isOneSeason={isOneSeason}
+                        season={season}
                     />
                 );
                 break;

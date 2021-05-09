@@ -3,6 +3,7 @@ import { ChangePage, Page } from ".";
 import { sleepAsync } from "../../../common/functions";
 import { audioPlayAsync } from "../../../common/util/audioPlayAsync";
 import { vocab } from "../../../types/vocab";
+import { Season } from "../../parts/Animations/SeasonAnimation";
 import CharacterComment from "../../parts/CharacterComment";
 
 export function QuizPage({
@@ -10,11 +11,19 @@ export function QuizPage({
     changePage,
     vocabList,
     vocabSounds,
+    vocabSeasons,
+    isOneSeason,
+    setSeason,
+    season,
 }: {
     screenWidth: number;
     changePage: ChangePage;
     vocabList: vocab[];
     vocabSounds: HTMLAudioElement[];
+    vocabSeasons: Season[];
+    isOneSeason: boolean;
+    setSeason: (season: Season) => void;
+    season: Season;
 }) {
     const [currentVocab, setCurrentVocab] = useState(vocabList[0]);
     const [isInitialScreen, setIsInitialScreen] = useState(true);
@@ -23,9 +32,17 @@ export function QuizPage({
 
     useEffect(() => {
         const play = async () => {
+            const initialSeason = season;
+
             for (let i in vocabList) {
+                const { vocabId } = vocabList[i];
+
+                if (!isOneSeason) {
+                    setSeason(Season.question);
+                }
+
                 setCurrentVocab(vocabList[i]);
-                const audio = vocabSounds[vocabList[i].vocabId];
+                const audio = vocabSounds[vocabId];
                 await audioPlayAsync(audio);
                 await sleepAsync(3000);
                 setCount(3);
@@ -35,11 +52,17 @@ export function QuizPage({
                 setCount(1);
                 await sleepAsync(1000);
                 setCount(4);
+
+                // 回答表示
+                if (!isOneSeason) {
+                    setSeason(vocabSeasons[vocabId]);
+                }
                 setShowAnswer(true);
                 await audioPlayAsync(audio);
                 await sleepAsync(2000);
                 setShowAnswer(false);
             }
+            setSeason(initialSeason);
             changePage(Page.last);
         };
         setTimeout(() => {

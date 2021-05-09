@@ -93,7 +93,7 @@ export function MenuPage({
                         type="checkbox"
                         checked={isOneSeason}
                         style={{ marginRight: 10 }}
-                        onClick={() => {
+                        onChange={() => {
                             setIsOneSeason(!isOneSeason);
                             if (isOneSeason) {
                                 const vocabSeasons = vocabList.reduce<Season[]>(
