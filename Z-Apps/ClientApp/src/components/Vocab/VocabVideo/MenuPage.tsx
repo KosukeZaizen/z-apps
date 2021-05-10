@@ -3,6 +3,7 @@ import { ChangePage, Page } from ".";
 import { StopAnimation } from "../../../common/animation";
 import { sound, vocab } from "../../../types/vocab";
 import { getFallingImages } from "../../parts/Animations/SeasonAnimation";
+import { FallingImageEdit } from "../../parts/Animations/SeasonAnimation/FallingImageEdit";
 
 export function MenuPage({
     changePage,
@@ -198,6 +199,7 @@ export function MenuPage({
                     </button>
                 </div>
             </div>
+            <FallingImageEdit />
         </div>
     ) : null;
 }
