@@ -340,6 +340,13 @@ class VocabEdit extends React.Component<Props, State> {
                     ＋
                 </button>
 
+                <div style={{ border: "solid", padding: 20 }}>
+                    <p style={{ fontWeight: "bold" }}>SNS Share</p>
+                    <div>{`【${titleToShowUpper}】 Japanese Vocabulary Quiz`}</div>
+                    <div>{vocabList.map(v => v.hiragana).join(", ")}</div>
+                    <div>{`https://youtu.be/${vocabGenre?.youtube}`}</div>
+                </div>
+
                 <div style={{ height: 50 }} />
                 <div
                     style={{
