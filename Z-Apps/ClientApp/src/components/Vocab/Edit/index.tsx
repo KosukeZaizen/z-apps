@@ -347,7 +347,7 @@ class VocabEdit extends React.Component<Props, State> {
                     <div>{`https://youtu.be/${vocabGenre?.youtube}`}</div>
                 </div>
 
-                <div style={{ height: 50 }} />
+                <div style={{ height: 70 }} />
                 <div
                     style={{
                         position: "fixed",
