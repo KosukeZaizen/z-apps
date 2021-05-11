@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getFallingImages } from ".";
 import { compareObjects } from "../../../../common/util/compareObjects";
+import { InputRegisterToken } from "../../InputRegisterToken";
 import { fallingImage } from "./type";
 
 export function FallingImageEdit() {
@@ -106,10 +107,78 @@ function Edit() {
                                     }}
                                 />
                             </td>
+                            <td>
+                                <button
+                                    onClick={() => {
+                                        if (
+                                            !window.confirm(
+                                                "Do you really want to delete?"
+                                            )
+                                        ) {
+                                            return;
+                                        }
+                                        setFallingImages(
+                                            fallingImages.filter(
+                                                im => im !== fi
+                                            )
+                                        );
+                                    }}
+                                >
+                                    {"ー"}
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <button
+                onClick={() => {
+                    setFallingImages([
+                        ...fallingImages,
+                        { name: "", alt: "", fileName: "" },
+                    ]);
+                }}
+            >
+                {"＋"}
+            </button>
+            <div style={{ marginTop: 40 }}>
+                <button
+                    style={{ width: 200 }}
+                    onClick={() => {
+                        saveFallingImages(fallingImages);
+                    }}
+                >
+                    {"Save"}
+                </button>
+                <InputRegisterToken style={{ marginLeft: 100, width: 100 }} />
+            </div>
         </div>
     );
+}
+
+function saveFallingImages(values: fallingImage[]) {
+    if (!values.every(v => v.name && v.alt && v.fileName)) {
+        window.alert("空欄があります");
+        return;
+    }
+
+    const duplicatedValue = values.find(
+        v =>
+            values.filter(
+                va =>
+                    v.name === va.name ||
+                    v.alt === va.alt ||
+                    v.fileName === va.fileName
+            ).length > 1
+    );
+    if (duplicatedValue) {
+        alert(
+            `重複エラー：「${duplicatedValue.name}」の内容と重複したレコードがあります。`
+        );
+        return;
+    }
+
+    if (!window.confirm("Do you really want to save?")) {
+        return;
+    }
 }
