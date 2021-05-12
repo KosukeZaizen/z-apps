@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getFallingImages } from ".";
+import { sendPost } from "../../../../common/functions";
 import { compareObjects } from "../../../../common/util/compareObjects";
-import { InputRegisterToken } from "../../InputRegisterToken";
+import { getCurrentToken, InputRegisterToken } from "../../InputRegisterToken";
 import { fallingImage } from "./type";
 
 export function FallingImageEdit() {
@@ -145,7 +146,9 @@ function Edit() {
                 <button
                     style={{ width: 200 }}
                     onClick={() => {
-                        saveFallingImages(fallingImages);
+                        saveFallingImages(fallingImages, () => {
+                            document.location.reload();
+                        });
                     }}
                 >
                     {"Save"}
@@ -156,15 +159,18 @@ function Edit() {
     );
 }
 
-function saveFallingImages(values: fallingImage[]) {
-    if (!values.every(v => v.name && v.alt && v.fileName)) {
+async function saveFallingImages(
+    fallingImages: fallingImage[],
+    fncAfterSaving: () => void
+) {
+    if (!fallingImages.every(v => v.name && v.alt && v.fileName)) {
         window.alert("空欄があります");
         return;
     }
 
-    const duplicatedValue = values.find(
+    const duplicatedValue = fallingImages.find(
         v =>
-            values.filter(
+            fallingImages.filter(
                 va =>
                     v.name === va.name ||
                     v.alt === va.alt ||
@@ -181,4 +187,24 @@ function saveFallingImages(values: fallingImage[]) {
     if (!window.confirm("Do you really want to save?")) {
         return;
     }
+
+    try {
+        const result = await sendPost(
+            {
+                fallingImages,
+                token: getCurrentToken(),
+            },
+            "/api/FallingImage/Save"
+        );
+
+        if (result === true) {
+            alert("success!");
+            if (typeof fncAfterSaving === "function") {
+                fncAfterSaving();
+            }
+            return;
+        }
+    } catch (ex) {}
+
+    alert("failed...");
 }
