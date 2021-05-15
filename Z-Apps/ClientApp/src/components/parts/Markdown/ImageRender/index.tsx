@@ -24,12 +24,17 @@ export const ImageRender = ({ src, alt }: { src?: string; alt?: string }) => {
         return null;
     }
 
-    if (src === "youtube") {
+    if (src.startsWith("youtube")) {
         return (
             <YouTubeVideo
                 screenWidth={window.innerWidth}
                 pageNameForLog={"markDown embedded"}
                 videoId={alt}
+                buttonLabel={
+                    src.includes("-")
+                        ? src.split("-")[1].split("_").join(" ")
+                        : ""
+                }
             />
         );
     }

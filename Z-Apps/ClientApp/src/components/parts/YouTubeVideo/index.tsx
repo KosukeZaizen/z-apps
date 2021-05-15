@@ -12,11 +12,13 @@ export function YouTubeVideo({
     screenWidth,
     pageNameForLog,
     style,
+    buttonLabel,
 }: {
     videoId: string;
     screenWidth: number;
     pageNameForLog: string;
     style?: CSSProperties;
+    buttonLabel?: string;
 }) {
     const isWide = screenWidth > 600;
     return (
@@ -72,7 +74,8 @@ export function YouTubeVideo({
                         }}
                         className={buttonHover}
                     >
-                        {"Click to subscribe to this YouTube channel!"}
+                        {buttonLabel ||
+                            "Click to subscribe to this YouTube channel!"}
                     </Button>
                 </a>
             </div>
