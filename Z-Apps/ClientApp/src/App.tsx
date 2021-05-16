@@ -43,10 +43,6 @@ const Ninja2 = lazy(() => import("./components/Games/NinjaGame2"));
 const Ninja3 = lazy(() => import("./components/Games/NinjaGame3"));
 const GameToLearn = lazy(() => import("./components/Games/GameToLearn"));
 const GameOver = lazy(() => import("./components/Games/GameOver"));
-const Dictionary = lazy(() => import("./components/Dictionary"));
-const DictionaryTop = lazy(() => import("./components/Dictionary/Top"));
-const DictionaryEdit = lazy(() => import("./components/Dictionary/Edit"));
-const DictionaryExclude = lazy(() => import("./components/Dictionary/Exclude"));
 const Articles = lazy(() => import("./components/Articles"));
 const ArticlesTop = lazy(() => import("./components/Articles/Top"));
 const ArticlesEditTop = lazy(() => import("./components/Articles/EditTop"));
@@ -204,13 +200,24 @@ export default class App extends React.Component {
                             sensitive
                             exact
                             path="/dictionary"
-                            component={DictionaryTop}
+                            component={() => {
+                                window.location.href =
+                                    "https://dictionary.lingual-ninja.com";
+                                return null;
+                            }}
                         />
                         <Route
                             sensitive
                             exact
                             path="/dictionary/:word"
-                            component={Dictionary}
+                            component={() => {
+                                window.location.href =
+                                    "https://dictionary.lingual-ninja.com" +
+                                    (window.location.href.split(
+                                        "lingual-ninja.com"
+                                    )[1] || "");
+                                return null;
+                            }}
                         />
                         <Route
                             sensitive
@@ -227,18 +234,6 @@ export default class App extends React.Component {
                                 window.location.href = `/dictionary/${word}`;
                                 return null;
                             }}
-                        />
-                        <Route
-                            sensitive
-                            exact
-                            path="/dictionaryEdit/:word"
-                            component={DictionaryEdit}
-                        />
-                        <Route
-                            sensitive
-                            exact
-                            path="/dictionaryExclude/:word"
-                            component={DictionaryExclude}
                         />
                         <Route
                             sensitive

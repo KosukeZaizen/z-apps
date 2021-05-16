@@ -96,7 +96,7 @@ export default class Developer extends React.Component {
                             <br />
                             <b>
                                 <a
-                                    href="https://www.lingual-ninja.com/"
+                                    href="https://blog.lingual-ninja.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

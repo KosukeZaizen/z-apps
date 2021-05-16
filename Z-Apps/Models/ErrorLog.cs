@@ -20,12 +20,12 @@ namespace Z_Apps.Models
 
             con.ExecuteUpdate(@"
 insert into ZAppsErrorLog(time, error)
-values (DATEADD(HOUR, 9, GETDATE()), @error);
+values (DATEADD(HOUR, 9, GETDATE()), @error)
 ;",
                 new Dictionary<string, object[]> {
                             { "@error", new object[2] { SqlDbType.NVarChar,
                                 $"{strClassName}.{strMethodName}(): {error}"
-                            } }
+                            }}
                 });
         }
     }
