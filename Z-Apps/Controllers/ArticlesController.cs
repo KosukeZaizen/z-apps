@@ -95,7 +95,11 @@ ORDER BY orderNumber DESC
 
 
         [HttpGet("[action]/")]
-        public IEnumerable<Article> GetRandomArticles(bool isAboutFolktale = false, int num = 5, IEnumerable<string> wordsToExclude = null)
+        public IEnumerable<Article> GetRandomArticles(
+            bool isAboutFolktale = false,
+            int num = 5,
+            IEnumerable<string> wordsToExclude = null
+        )
         {
 
             return ApiCache.UseCache(isAboutFolktale ? "true" : "false" + num + string.Join("", wordsToExclude), () =>
@@ -109,7 +113,7 @@ ORDER BY orderNumber DESC
                 var con = new DBCon();
                 var result = con.ExecuteSelect(@"
 SELECT url, title, description, imgPath
-FROM tblArticles 
+FROM tblArticles
 WHERE released = 1 and isAboutFolktale = @isAboutFolktale
 AND title != N'folktale'
 ORDER BY orderNumber DESC

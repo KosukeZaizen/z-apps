@@ -180,13 +180,13 @@ export function ArticleContent({
                 const url = "api/Articles/GetRandomArticles";
 
                 const titlesToExclude = [title, ...excludedArticleTitles];
-                const param = `?${titlesToExclude
+                const param = `?num=10&${titlesToExclude
                     .map(t => `wordsToExclude=${t}`)
                     .join("&")}${
                     isAboutFolktale ? "&isAboutFolktale=true" : ""
                 }`;
 
-                const response: Response = await fetch(url + param);
+                const response: Response = await cFetch(url + param);
                 const pages: Page[] = await response.json();
                 setOtherArticles(pages);
             };
