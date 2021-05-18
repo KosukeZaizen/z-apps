@@ -14,7 +14,6 @@ import CharacterComment from "./parts/CharacterComment";
 import FB from "./parts/FaceBook";
 import { FolktaleMenu } from "./parts/FolktaleMenu";
 import Head from "./parts/Helmet";
-import PleaseScrollDown from "./parts/PleaseScrollDown";
 
 export default class Home extends React.Component<
     {},
@@ -360,10 +359,10 @@ export default class Home extends React.Component<
                     </div>
                 </section>
                 <FB />
-                <PleaseScrollDown
+                {/* <PleaseScrollDown
                     criteriaRef={this.ref}
                     targetId="scrollTargetId"
-                />
+                /> */}
                 <SeasonAnimation frequencySec={2} screenWidth={screenWidth} />
             </div>
         );

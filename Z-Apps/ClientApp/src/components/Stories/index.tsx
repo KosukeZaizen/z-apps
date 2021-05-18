@@ -681,10 +681,10 @@ class Stories extends React.Component<Props, State> {
                         screenWidth={screenWidth}
                     />
                     <FB />
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         pleaseScrollDown={pleaseScrollDown}
                         screenWidth={screenWidth}
-                    />
+                    /> */}
                 </main>
                 <SeasonAnimation
                     frequencySec={2}

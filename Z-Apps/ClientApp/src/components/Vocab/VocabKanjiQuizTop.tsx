@@ -12,7 +12,6 @@ import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
 import Head from "../parts/Helmet";
-import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
 import AllKanjiList from "../parts/VocabQuiz/AllKanjiList";
 
@@ -198,11 +197,11 @@ class VocabQuizTop extends React.Component<Props, State> {
                     <br />
                     <FB />
                     <br />
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         criteriaRef={this.ref}
                         screenWidth={screenWidth}
                         targetId="h1title"
-                    />
+                    /> */}
                     <SeasonAnimation
                         frequencySec={2}
                         screenWidth={screenWidth}

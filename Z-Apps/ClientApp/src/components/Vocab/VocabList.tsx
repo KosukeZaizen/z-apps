@@ -22,7 +22,6 @@ import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
 import { AnchorLink, HashScroll } from "../parts/HashScroll";
 import Head from "../parts/Helmet";
-import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
 import { YouTubeVideo } from "../parts/YouTubeVideo";
 
@@ -185,11 +184,11 @@ class VocabList extends React.Component<Props, State> {
                     <FolktaleMenu screenWidth={screenWidth} />
                     <br />
                     <FB />
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         criteriaRef={this.refForScroll}
                         screenWidth={screenWidth}
                         targetId="h1title"
-                    />
+                    /> */}
                     <ReturnToIndex
                         screenWidth={screenWidth}
                         refForReturnToIndex={this.refForReturnToIndex}

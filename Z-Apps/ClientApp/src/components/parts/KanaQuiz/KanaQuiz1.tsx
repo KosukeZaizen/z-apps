@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Markdown } from "../Markdown";
-import PleaseScrollDown from "../PleaseScrollDown";
 
 interface Props {
     consts: {
@@ -196,7 +195,7 @@ I hope this application helps you to study Japanese!
                     </button>
                 </Link>
                 <br />
-                <PleaseScrollDown criteriaRef={this.ref} targetId="disp1" />
+                {/* <PleaseScrollDown criteriaRef={this.ref} targetId="disp1" /> */}
             </div>
         );
     }

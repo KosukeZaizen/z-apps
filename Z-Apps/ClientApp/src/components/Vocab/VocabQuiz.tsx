@@ -23,7 +23,6 @@ import CharacterComment from "../parts/CharacterComment";
 import FB from "../parts/FaceBook";
 import { FolktaleMenu } from "../parts/FolktaleMenu";
 import Head from "../parts/Helmet";
-import PleaseScrollDown from "../parts/PleaseScrollDown";
 import "../parts/PleaseScrollDown.css";
 import { FBShareBtn, TwitterShareBtn } from "../parts/SnsShareButton";
 import AllKanjiList from "../parts/VocabQuiz/AllKanjiList";
@@ -306,11 +305,11 @@ class VocabQuiz extends React.Component<Props, State> {
                     <FolktaleMenu screenWidth={screenWidth} />
                     <br />
                     <FB />
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         criteriaRef={this.ref}
                         screenWidth={screenWidth}
                         targetId="h1title"
-                    />
+                    /> */}
                     <SeasonAnimation
                         frequencySec={2}
                         screenWidth={screenWidth}

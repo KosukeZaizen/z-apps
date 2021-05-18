@@ -4,7 +4,6 @@ import { appsPublicImg } from "../common/consts";
 import "../css/Developer.css";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
-import PleaseScrollDown from "./parts/PleaseScrollDown";
 
 const image = appsPublicImg + "KosukeZaizen.jpg";
 function SayHello() {
@@ -122,10 +121,10 @@ export default class Developer extends React.Component {
                             <FB />
                         </div>
                     </div>
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         criteriaRef={this.ref}
                         targetId="scrollTargetId"
-                    />
+                    /> */}
                 </div>
             </div>
         );

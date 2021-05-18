@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "../css/Terms.css";
 import Head from "./parts/Helmet";
-import PleaseScrollDown from "./parts/PleaseScrollDown";
 
 export default class Terms extends React.Component {
     ref: React.RefObject<HTMLHRElement>;
@@ -52,10 +51,10 @@ export default class Terms extends React.Component {
                             {"　uni-browser >>"}
                         </a>
                     </div>
-                    <PleaseScrollDown
+                    {/* <PleaseScrollDown
                         criteriaRef={this.ref}
                         targetId="scrollTargetId"
-                    />
+                    /> */}
                 </div>
             </div>
         );

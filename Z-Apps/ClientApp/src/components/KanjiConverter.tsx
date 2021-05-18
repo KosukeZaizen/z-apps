@@ -6,7 +6,6 @@ import { ApplicationState } from "../store/configureStore";
 import { actionCreators } from "../store/KanjiConverter";
 import FB from "./parts/FaceBook";
 import Head from "./parts/Helmet";
-import PleaseScrollDown from "./parts/PleaseScrollDown";
 
 let objConst: any = {};
 
@@ -517,10 +516,10 @@ class KanjiConverter extends React.Component<Props, State> {
                     </span>
                 </div>
                 {/* End Yahoo! JAPAN Web Services Attribution Snippet */}
-                <PleaseScrollDown
+                {/* <PleaseScrollDown
                     criteriaRef={this.ref}
                     targetId="scrollTargetId"
-                />
+                /> */}
             </div>
         );
     }
