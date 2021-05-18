@@ -54,9 +54,9 @@ namespace Z_Apps.Models.SystemBase
                 "GetSiteMapText",
                 onlyStrageXmlFile ? "true" : "false",
                 async () =>
-             {
-                 return await _GetSiteMapText(onlyStrageXmlFile);
-             });
+                {
+                    return await _GetSiteMapText(onlyStrageXmlFile);
+                });
         }
 
 
