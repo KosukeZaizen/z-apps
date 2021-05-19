@@ -186,7 +186,6 @@ class VocabVideo extends React.Component<Props, State> {
                             this.setState({ isOneSeason });
                         }}
                         vocabSeasons={vocabSeasons}
-                        titleToShowUpper={titleToShowUpper}
                     />
                 );
                 break;

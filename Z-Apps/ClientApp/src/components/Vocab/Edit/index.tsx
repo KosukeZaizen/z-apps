@@ -347,6 +347,8 @@ class VocabEdit extends React.Component<Props, State> {
                     <div>{`https://youtu.be/${vocabGenre?.youtube}`}</div>
                 </div>
 
+                <YouTubeInfo titleToShowUpper={titleToShowUpper} />
+
                 <div style={{ height: 70 }} />
                 <div
                     style={{
@@ -530,6 +532,46 @@ class Speaker extends React.Component<
             />
         ) : null;
     }
+}
+
+function YouTubeInfo({ titleToShowUpper }: { titleToShowUpper: string }) {
+    return (
+        <div
+            style={{
+                whiteSpace: "pre-wrap",
+                border: "solid",
+                margin: "20px 0 50px",
+                padding: 20,
+            }}
+        >
+            <div
+                style={{
+                    marginBottom: 40,
+                }}
+            >
+                <p style={{ fontWeight: "bold" }}>{"Title"}</p>
+                {`【${titleToShowUpper}】 Japanese Vocabulary Quiz`}
+            </div>
+            <div>
+                <p style={{ fontWeight: "bold" }}>{"Description"}</p>
+                {`Japanese Vocabulary Quiz - ${titleToShowUpper}
+
+【All vocab lists and quizzes】
+https://www.lingual-ninja.com/vocabulary-list
+
+【Subscribe to this YouTube channel】
+http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1
+
+【Facebook Page】
+https://www.facebook.com/LingualNinja
+
+【Twitter】
+https://twitter.com/LingualNinja
+
+`}
+            </div>
+        </div>
+    );
 }
 
 export default VocabEdit;

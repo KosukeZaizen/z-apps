@@ -18,12 +18,18 @@ export function FallingImageEdit() {
                 画像マスタ編集
             </button>
 
-            {isShown && <Edit />}
+            {isShown && (
+                <Edit
+                    close={() => {
+                        setIsShown(false);
+                    }}
+                />
+            )}
         </div>
     );
 }
 
-function Edit() {
+function Edit({ close }: { close: () => void }) {
     const [fallingImages, setFallingImages] = useState<fallingImage[]>([]);
     const [initialFallingImages, setInitialFallingImages] = useState<
         fallingImage[]
@@ -57,7 +63,18 @@ function Edit() {
     };
 
     return (
-        <div style={{ border: "solid", padding: 30 }}>
+        <div
+            style={{
+                border: "solid",
+                padding: 30,
+                maxHeight: 600,
+                overflowY: "scroll",
+                position: "fixed",
+                top: 100,
+                left: 300,
+                backgroundColor: "ivory",
+            }}
+        >
             <table>
                 <thead>
                     <tr>
@@ -153,7 +170,15 @@ function Edit() {
                 >
                     {"Save"}
                 </button>
-                <InputRegisterToken style={{ marginLeft: 100, width: 100 }} />
+                <InputRegisterToken style={{ marginLeft: 60, width: 100 }} />
+                <button
+                    style={{ marginLeft: 60, width: 200 }}
+                    onClick={() => {
+                        close();
+                    }}
+                >
+                    close
+                </button>
             </div>
         </div>
     );

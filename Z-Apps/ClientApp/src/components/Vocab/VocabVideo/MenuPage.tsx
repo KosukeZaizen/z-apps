@@ -16,7 +16,6 @@ export function MenuPage({
     isOneSeason,
     setIsOneSeason,
     vocabSeasons,
-    titleToShowUpper,
 }: {
     changePage: ChangePage;
     vocabSounds: sound[];
@@ -28,7 +27,6 @@ export function MenuPage({
     isOneSeason: boolean;
     setIsOneSeason: (isOneSeason: boolean) => void;
     vocabSeasons: string[];
-    titleToShowUpper: string;
 }) {
     const [isButtonShown, setIsButtonShown] = useState(true);
     const [playableArray, setPlayableArray] = useState(
@@ -203,46 +201,6 @@ export function MenuPage({
                 </div>
             </div>
             <FallingImageEdit />
-            <YouTubeInfo titleToShowUpper={titleToShowUpper} />
         </div>
     ) : null;
-}
-
-function YouTubeInfo({ titleToShowUpper }: { titleToShowUpper: string }) {
-    return (
-        <div
-            style={{
-                whiteSpace: "pre-wrap",
-                border: "solid",
-                marginBottom: 50,
-            }}
-        >
-            <div
-                style={{
-                    marginBottom: 40,
-                }}
-            >
-                <p style={{ fontWeight: "bold" }}>{"Title"}</p>
-                {`【${titleToShowUpper}】 Japanese Vocabulary Quiz`}
-            </div>
-            <div>
-                <p style={{ fontWeight: "bold" }}>{"Description"}</p>
-                {`Japanese Vocabulary Quiz - ${titleToShowUpper}
-
-【All vocab lists and quizzes】
-https://www.lingual-ninja.com/vocabulary-list
-
-【Subscribe to this YouTube channel】
-http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1
-
-【Facebook Page】
-https://www.facebook.com/LingualNinja
-
-【Twitter】
-https://twitter.com/LingualNinja
-
-`}
-            </div>
-        </div>
-    );
 }
