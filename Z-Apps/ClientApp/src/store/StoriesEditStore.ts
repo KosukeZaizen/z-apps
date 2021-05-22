@@ -1,12 +1,14 @@
+import { Action } from "redux";
 import * as commonFnc from "../common/functions";
 import { sentence, storyDesc, word } from "../types/stories";
+import { AppThunkAction, AsMapObject } from "./configureStore";
 
-const receiveStoryType = "RECEIVE_STORY";
-const receiveSentencesType = "RECEIVE_SENTENCES";
-const receiveWordsType = "RECEIVE_WORDS";
-const changeTokenType = "CHANGTE_TOKEN";
-const beginTranslationType = "BEGIN_TRANSLATION";
-const finishTranslationType = "FINISH_TRANSLATION";
+const receiveStoryType = "RECEIVE_STORY_FOR_EDIT";
+const receiveSentencesType = "RECEIVE_SENTENCES_FOR_EDIT";
+const receiveWordsType = "RECEIVE_WORDS_FOR_EDIT";
+const changeTokenType = "CHANGE_TOKEN_FOR_EDIT";
+const beginTranslationType = "BEGIN_TRANSLATION_FOR_EDIT";
+const finishTranslationType = "FINISH_TRANSLATION_FOR_EDIT";
 
 export interface StoriesEditState {
     storyDesc: storyDesc;
@@ -25,31 +27,56 @@ const initialState = {
 };
 
 export interface IActionCreators {
-    loadStory: (storyName: string) => void;
-    loadSentences: (storyId: number) => void;
-    loadWords: (storyId: number) => void;
-    setInitialToken: () => void;
-    addLine: (idx: number, s?: string) => void;
-    removeBlankLine: () => void;
-    translateAllSentences: (saveWithoutConfirmation: () => void) => void;
-    saveWithoutConfirmation: () => void;
-    handleChangeDesc: () => void;
-    handleChangeSentence: () => void;
-    handleChangeWord: () => void;
-    addWord: () => void;
-    removeWord: () => void;
-    removeLine: () => void;
-    translate: () => void;
-    translateWord: () => void;
-    isTranslating: () => void;
-    mergeWord: () => void;
-    handleChangeToken: () => void;
-    save: () => void;
-    register: () => void;
+    loadStory: (storyName: string) => AppThunkAction<Action>;
+    loadSentences: (storyId: number) => AppThunkAction<Action>;
+    loadWords: (storyId: number) => AppThunkAction<Action>;
+    setInitialToken: () => AppThunkAction<Action>;
+    addLine: (
+        previousLineNumber: number,
+        kanjiToInsert?: string
+    ) => AppThunkAction<Action>;
+    removeBlankLine: () => AppThunkAction<Action>;
+    translateAllSentences: (
+        saveWithoutConfirmation: () => void
+    ) => AppThunkAction<Action>;
+    saveWithoutConfirmation: () => AppThunkAction<Action>;
+    handleChangeDesc: (
+        event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => AppThunkAction<Action>;
+    handleChangeSentence: (
+        event: React.ChangeEvent<HTMLInputElement>,
+        i: number,
+        lang: string
+    ) => AppThunkAction<Action>;
+    handleChangeWord: (
+        event: React.ChangeEvent<HTMLTextAreaElement>,
+        lineNumber: number,
+        wordNumber: number,
+        lang: string
+    ) => AppThunkAction<Action>;
+    addWord: (lineNumber: number, wordNumber: number) => AppThunkAction<Action>;
+    removeWord: (
+        lineNumber: number,
+        wordNumber: number
+    ) => AppThunkAction<Action>;
+    removeLine: (lineNumber: number) => AppThunkAction<Action>;
+    translate: (sentence: sentence) => AppThunkAction<Action>;
+    translateWord: (pWord: word) => AppThunkAction<Action>;
+    mergeWord: (
+        lineNumber: number,
+        wordNumber: number
+    ) => AppThunkAction<Action>;
+    handleChangeToken: (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => AppThunkAction<Action>;
+    save: () => AppThunkAction<Action>;
+    register: () => AppThunkAction<Action>;
 }
 
-export const actionCreators = {
-    loadStory: (storyName: string) => async (dispatch: Function) => {
+type ActionCreators = AsMapObject<IActionCreators>;
+
+export const actionCreators: ActionCreators = {
+    loadStory: storyName => async dispatch => {
         try {
             const url = `api/StoriesEdit/GetPageData/${storyName}`;
             const response = await fetch(url);
@@ -72,7 +99,7 @@ export const actionCreators = {
         }
     },
 
-    loadSentences: (storyId: number) => async (dispatch: Function) => {
+    loadSentences: storyId => async dispatch => {
         try {
             const url = `api/StoriesEdit/GetSentences/${storyId}`;
             const response = await fetch(url);
@@ -98,7 +125,7 @@ export const actionCreators = {
         }
     },
 
-    loadWords: (storyId: number) => async (dispatch: Function) => {
+    loadWords: storyId => async dispatch => {
         try {
             const url = `api/StoriesEdit/GetWords/${storyId}`;
             const response = await fetch(url);
@@ -124,24 +151,18 @@ export const actionCreators = {
         }
     },
 
-    handleChangeDesc: (event: React.ChangeEvent<HTMLInputElement>) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    handleChangeDesc: event => (dispatch, getState) => {
         const sd = Object.assign({}, getState().storiesEdit.storyDesc);
         sd.description = event.target.value;
         dispatch({ type: receiveStoryType, storyDesc: sd });
     },
 
-    handleChangeToken: (event: React.ChangeEvent<HTMLInputElement>) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    handleChangeToken: event => dispatch => {
         const token = event.target.value;
         dispatch({ type: changeTokenType, token });
     },
 
-    setInitialToken: () => (dispatch: Function) => {
+    setInitialToken: () => dispatch => {
         //セーブデータがあればそれを設定
         const saveData = localStorage.getItem("folktales-register-token");
         const objSaveData = saveData && JSON.parse(saveData);
@@ -155,10 +176,7 @@ export const actionCreators = {
         dispatch({ type: changeTokenType, token });
     },
 
-    translate: (sentence: sentence) => async (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    translate: sentence => async (dispatch, getState) => {
         try {
             if (!sentence.kanji || sentence.kanji.length <= 0) return;
 
@@ -197,9 +215,9 @@ export const actionCreators = {
         dispatch({ type: finishTranslationType });
     },
 
-    translateAllSentences: (saveWithoutConfirmation: Function) => async (
-        dispatch: Function,
-        getState: Function
+    translateAllSentences: saveWithoutConfirmation => async (
+        dispatch,
+        getState
     ) => {
         console.log("start import");
         dispatch({ type: beginTranslationType });
@@ -257,10 +275,7 @@ export const actionCreators = {
         saveWithoutConfirmation();
     },
 
-    translateWord: (pWord: word) => async (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    translateWord: pWord => async (dispatch, getState) => {
         try {
             if (!pWord.kanji || pWord.kanji.length <= 0) return;
 
@@ -286,25 +301,19 @@ export const actionCreators = {
         }
     },
 
-    handleChangeSentence: (
-        event: React.ChangeEvent<HTMLInputElement>,
-        i: number,
-        lang: string
-    ) => (dispatch: Function, getState: Function) => {
-        const s = getState().storiesEdit.sentences.concat();
+    handleChangeSentence: (event, i, lang) => (dispatch, getState) => {
+        const s: any = getState().storiesEdit.sentences.concat();
         s[i][lang] = event.target.value;
 
         dispatch({ type: receiveSentencesType, sentences: s });
     },
 
-    handleChangeWord: (
-        event: React.ChangeEvent<HTMLInputElement>,
-        lineNumber: number,
-        wordNumber: number,
-        lang: string
-    ) => (dispatch: Function, getState: Function) => {
+    handleChangeWord: (event, lineNumber, wordNumber, lang) => (
+        dispatch,
+        getState
+    ) => {
         const state = getState().storiesEdit;
-        const w = state.words.concat();
+        const w: any = state.words.concat();
 
         for (let key in w) {
             if (
@@ -317,10 +326,7 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    addLine: (previousLineNumber: number, kanjiToInsert: string) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    addLine: (previousLineNumber, kanjiToInsert) => (dispatch, getState) => {
         const state = getState().storiesEdit;
 
         const s = state.sentences.concat();
@@ -358,12 +364,9 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    addWord: (lineNumber: number, wordNumber: number) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    addWord: (lineNumber, wordNumber) => (dispatch, getState) => {
         const state = getState().storiesEdit;
-        const w = state.words.concat();
+        const w: any = state.words.concat();
 
         for (let key in w) {
             if (
@@ -385,10 +388,7 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    removeLine: (lineNumber: number) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    removeLine: lineNumber => (dispatch, getState) => {
         if (window.confirm("Are you sure that you want to remove this line?")) {
             const state: StoriesEditState = getState().storiesEdit;
 
@@ -416,7 +416,7 @@ export const actionCreators = {
         }
     },
 
-    removeBlankLine: () => (dispatch: Function, getState: Function) => {
+    removeBlankLine: () => (dispatch, getState) => {
         //sentences
         const state: StoriesEditState = getState().storiesEdit;
 
@@ -430,10 +430,7 @@ export const actionCreators = {
         dispatch({ type: receiveWordsType, words: w });
     },
 
-    removeWord: (lineNumber: number, wordNumber: number) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    removeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
         if (window.confirm("Are you sure that you want to remove this word?")) {
             const state: StoriesEditState = getState().storiesEdit;
             const w = state.words
@@ -458,10 +455,7 @@ export const actionCreators = {
         }
     },
 
-    mergeWord: (lineNumber: number, wordNumber: number) => (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    mergeWord: (lineNumber, wordNumber) => (dispatch, getState) => {
         if (window.confirm("Do you really want to marge the words?")) {
             const state: StoriesEditState = getState().storiesEdit;
             let w = state.words.concat().sort((a, b) => {
@@ -506,7 +500,7 @@ export const actionCreators = {
         }
     },
 
-    save: () => async (dispatch: Function, getState: Function) => {
+    save: () => async (dispatch, getState) => {
         try {
             if (window.confirm("Are you sure that you want to save?")) {
                 const {
@@ -538,10 +532,7 @@ export const actionCreators = {
         }
     },
 
-    saveWithoutConfirmation: () => async (
-        dispatch: Function,
-        getState: Function
-    ) => {
+    saveWithoutConfirmation: () => async (dispatch, getState) => {
         try {
             const {
                 storyDesc,
@@ -571,7 +562,7 @@ export const actionCreators = {
         }
     },
 
-    register: () => async (dispatch: Function, getState: Function) => {
+    register: () => async (dispatch, getState) => {
         try {
             if (window.confirm("Are you sure that you want to register?")) {
                 const {

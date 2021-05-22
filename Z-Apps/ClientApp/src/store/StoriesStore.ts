@@ -1,7 +1,8 @@
+import { Action } from "redux";
 import { reloadAndRedirect_OneTimeReload } from "../common/functions";
 import { cFetch } from "../common/util/cFetch";
 import { sentence, storyDesc, word } from "../types/stories";
-import { AsMapObject } from "./configureStore";
+import { AppThunkAction, AsMapObject } from "./configureStore";
 
 const initializeType = "INITIALIZE";
 const receiveStoryType = "RECEIVE_STORY";
@@ -33,11 +34,11 @@ export interface StoriesState {
 export type ActionCreators = AsMapObject<IActionCreators>;
 
 interface IActionCreators {
-    loadStory: (storyName: string) => void;
+    loadStory: (storyName: string) => AppThunkAction<Action>;
 }
 
 export const actionCreators: ActionCreators = {
-    loadStory: storyName => async (dispatch: Function) => {
+    loadStory: storyName => async dispatch => {
         try {
             dispatch({ type: initializeType });
 

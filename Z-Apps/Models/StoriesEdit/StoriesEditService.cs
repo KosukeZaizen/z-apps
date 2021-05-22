@@ -312,7 +312,8 @@ namespace Z_Apps.Models.StoriesEdit
                 {
                     return false;
                 }
-            });
+            }, 60 * 10// タイムアウト１０分とする
+            );
         }
 
         public bool SaveAllStories(AllStoriesToBeSaved data)

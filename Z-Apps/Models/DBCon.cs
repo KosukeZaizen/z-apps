@@ -155,13 +155,19 @@ namespace Z_Apps.Models
         // funcを引数として受け取り、そのfunc内の処理の前後に
         // TransactionのBeginやCommitを行う
         public bool UseTransaction(
-            Func<Func<string, Dictionary<string, object[]>, int>, bool> func
+            Func<Func<string, Dictionary<string, object[]>, int>, bool> func,
+            int timeoutSec = 0 // 0であればデフォルト値
         )
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 using (var command = connection.CreateCommand())
                 {
+                    if (timeoutSec != 0)
+                    {
+                        command.CommandTimeout = timeoutSec;
+                    }
+
                     // データベースの接続開始
                     connection.Open();
                     SqlTransaction transaction = connection.BeginTransaction();

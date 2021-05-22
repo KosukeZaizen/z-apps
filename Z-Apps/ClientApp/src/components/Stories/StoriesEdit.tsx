@@ -4,13 +4,20 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../common/animation";
 import * as consts from "../../common/consts";
+import { ApplicationState, AsMapObject } from "../../store/configureStore";
 import * as storiesEditStore from "../../store/StoriesEditStore";
 import { sentence, word } from "../../types/stories";
 import ShurikenProgress from "../parts/Animations/ShurikenProgress";
 import Head from "../parts/Helmet";
 
-type Props = storiesEditStore.StoriesEditState &
-    storiesEditStore.IActionCreators & { match: { params: any } };
+type OuterProps = {
+    match: { params: any };
+};
+
+type Props = OuterProps &
+    storiesEditStore.StoriesEditState &
+    AsMapObject<storiesEditStore.IActionCreators>;
+
 type State = {
     storyName: string;
     importData: string;
@@ -253,7 +260,7 @@ class StoriesEdit extends React.Component<Props, State> {
 
 interface DescriptionProps {
     desc: string;
-    handleChangeDesc: () => void;
+    handleChangeDesc: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 class Description extends React.Component<DescriptionProps> {
     constructor(props: DescriptionProps) {
@@ -281,7 +288,9 @@ class Description extends React.Component<DescriptionProps> {
                         border: "thin solid #594e46",
                     }}
                     value={this.props.desc}
-                    onChange={this.props.handleChangeDesc}
+                    onChange={ev => {
+                        this.props.handleChangeDesc(ev);
+                    }}
                 />
             </div>
         );
@@ -299,15 +308,20 @@ interface SentencesProps {
         i: number,
         type: string
     ) => void;
-    handleChangeWord: () => void;
-    addWord: () => void;
-    addLine: (idx: number, s?: string) => void;
-    removeWord: () => void;
+    handleChangeWord: (
+        event: React.ChangeEvent<HTMLTextAreaElement>,
+        lineNumber: number,
+        wordNumber: number,
+        lang: string
+    ) => void;
+    addWord: (lineNumber: number, wordNumber: number) => void;
+    addLine: (previousLineNumber: number, kanjiToInsert?: string) => void;
+    removeWord: (lineNumber: number, wordNumber: number) => void;
     removeLine: (lineNumber: number) => void;
     translate: (s: sentence) => void;
-    translateWord: () => void;
+    translateWord: (pWord: word) => void;
     isTranslating: boolean;
-    mergeWord: () => void;
+    mergeWord: (lineNumber: number, wordNumber: number) => void;
 }
 class Sentences extends React.Component<SentencesProps> {
     constructor(props: SentencesProps) {
@@ -776,6 +790,6 @@ class WordList extends React.Component<
 }
 
 export default connect(
-    (state: any) => state.storiesEdit,
+    (state: ApplicationState) => state.storiesEdit,
     dispatch => bindActionCreators(storiesEditStore.actionCreators, dispatch)
 )(StoriesEdit);

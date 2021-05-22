@@ -218,7 +218,7 @@ function StoriesEditTop() {
                                         ...allStories.map(s => s.storyId)
                                     ) + 1,
                                 storyName: "",
-                                description: "",
+                                description: "description",
                                 order: 0,
                                 season: "none",
                                 youtube: "",
@@ -260,9 +260,13 @@ async function loadAllStories(): Promise<storyDesc[]> {
 async function save(stories: storyDesc[], fncAfterSaving: () => void) {
     console.log("stories", stories);
 
-    if (!stories.every(s => s.storyId && s.storyName && s.season)) {
+    if (
+        !stories.every(
+            s => s.storyId && s.storyName && s.description && s.season
+        )
+    ) {
         alert(
-            "「storyId」か「storyName」か「season」が、空白もしくはゼロの行があります。"
+            "「storyId」か「storyName」か「description」か「season」が、空白もしくはゼロの行があります。"
         );
         return;
     }
