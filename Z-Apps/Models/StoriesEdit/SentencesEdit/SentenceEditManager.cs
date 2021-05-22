@@ -43,16 +43,23 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
             return resultSentences;
         }
 
-        public bool DeleteInsertSentences(int storyId, IEnumerable<SentenceEdit> sentences)
+        public bool DeleteInsertSentences(
+            int storyId,
+            IEnumerable<SentenceEdit> sentences,
+            Func<string, Dictionary<string, object[]>, int> execUpdate)
         {
             //SQL文作成
             string sql = "";
             sql += "delete from tblSentenceEdit";
             sql += " where StoryId = @storyId";
 
-            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+            int resultCount = execUpdate(
+                sql,
+                new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId } }
+                });
 
-            if(!result)
+            if (resultCount < 0)
             {
                 return false;
             }
@@ -65,7 +72,7 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
                 sql += "insert into tblSentenceEdit(StoryId, LineNumber, Kanji, Hiragana, Romaji, English) ";
                 sql += " values (@storyId, @lineNumber, @kanji, @hiragana, @romaji, @english) ";
 
-                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                resultCount = execUpdate(sql, new Dictionary<string, object[]> {
                     { "@storyId", new object[2] { SqlDbType.Int, sentence.StoryId } },
                     { "@lineNumber", new object[2] { SqlDbType.Int, sentence.LineNumber } },
                     { "@kanji", new object[2] { SqlDbType.NVarChar, sentence.Kanji } },
@@ -74,7 +81,7 @@ namespace Z_Apps.Models.StoriesEdit.SentencesEdit
                     { "@english", new object[2] { SqlDbType.NVarChar, sentence.English } }
                 });
 
-                if (!result)
+                if (resultCount < 0)
                 {
                     return false;
                 }

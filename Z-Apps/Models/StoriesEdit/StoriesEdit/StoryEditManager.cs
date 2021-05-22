@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Z_Apps.Models.StoriesEdit.StoriesEdit
 {
@@ -18,9 +15,9 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
         public IEnumerable<StoryEdit> GetAllStories()
         {
             //SQL文作成
-            string sql = "";
-            sql += " select * from tblStoryMstEdit";
-            sql += " order by storyId";
+            string sql = @"
+            select * from tblStoryMstEdit
+            order by storyId";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, null);
@@ -42,9 +39,9 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
         public StoryEdit GetStory(string storyName)
         {
             //SQL文作成
-            string sql = "";
-            sql += "select * from tblStoryMstEdit";
-            sql += " where StoryName Like @storyName";
+            string sql = @"
+            select * from tblStoryMstEdit
+            where StoryName Like @storyName";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyName", new object[2] { SqlDbType.NChar, storyName } } });
@@ -62,23 +59,30 @@ namespace Z_Apps.Models.StoriesEdit.StoriesEdit
             return null;
         }
 
-        public bool UpdateDesc(int storyId, string desc)
+        public bool UpdateDesc(
+            int storyId,
+            string desc,
+            Func<string, Dictionary<string, object[]>, int> execUpdate
+        )
         {
-            string replacedDesc = desc.Replace("\r", "\n").Replace("\n\n", "\n").Replace("\n\n", "\n")
-                .Replace("\n", "\\n");
+            string replacedDesc = desc
+                                    .Replace("\r", "\n")
+                                    .Replace("\n\n", "\n")
+                                    .Replace("\n\n", "\n")
+                                    .Replace("\n", "\\n");
 
             //SQL文作成
-            string sql = "";
-            sql += "update tblStoryMstEdit";
-            sql += " set Description = @desc where StoryId Like @storyId";
+            string sql = @"
+            update tblStoryMstEdit
+            set Description = @desc where StoryId Like @storyId";
 
             //List<Dictionary<string, Object>>型で取得
-            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+            int resultCount = execUpdate(sql, new Dictionary<string, object[]> {
                 { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
                 { "@storyId", new object[2] { SqlDbType.Int, storyId }}
             });
 
-            return result;
+            return resultCount == 1;
         }
     }
 }

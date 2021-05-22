@@ -72,17 +72,23 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
             return new Dictionary<string, object>();
         }
 
-        public bool DeleteInsertWords(int storyId, IEnumerable<WordEdit> words)
+        public bool DeleteInsertWords(
+            int storyId,
+            IEnumerable<WordEdit> words,
+            Func<string, Dictionary<string, object[]>, int> execUpdate)
         {
             //SQL文作成
-            string sql = "";
-            sql += "delete from tblDictionaryEdit";
-            sql += " where StoryId = @storyId";
+            string sql = @"
+            delete from tblDictionaryEdit
+            where StoryId = @storyId";
 
 
-            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+            int result = execUpdate(
+                sql, new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId } }
+                });
 
-            if (!result)
+            if (result < 0)
             {
                 return false;
             }
@@ -95,8 +101,10 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
                 sql += "insert into tblDictionaryEdit(StoryId, LineNumber, WordNumber, Kanji, Hiragana, English) ";
                 sql += " values (@storyId, @lineNumber, @wordNumber, @kanji, @hiragana, @english) ";
 
-                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
-                    { "@storyId", new object[2] { SqlDbType.Int, word.StoryId } },
+                result = execUpdate(sql, new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, word.StoryId
+    }
+},
                     { "@lineNumber", new object[2] { SqlDbType.Int, word.LineNumber } },
                     { "@wordNumber", new object[2] { SqlDbType.Int, word.WordNumber } },
                     { "@kanji", new object[2] { SqlDbType.NVarChar, word.Kanji } },
@@ -104,7 +112,7 @@ namespace Z_Apps.Models.StoriesEdit.WordsEdit
                     { "@english", new object[2] { SqlDbType.NVarChar, word.English } }
                 });
 
-                if (!result)
+                if (result < 0)
                 {
                     return false;
                 }

@@ -22,6 +22,7 @@ namespace Z_Apps.Models.StoriesEdit
         private readonly StoryEditManager storyEditManager;
         private readonly SentenceEditManager sentenceEditManager;
         private readonly WordEditManager wordEditManager;
+        private readonly DBCon con;
 
         public StoriesEditService(DBCon con)
         {
@@ -32,6 +33,7 @@ namespace Z_Apps.Models.StoriesEdit
             storyManager = new StoryManager(con);
             sentenceManager = new SentenceManager(con);
             wordManager = new WordManager(con);
+            this.con = con;
         }
 
         public IEnumerable<StoryEdit> GetAllStories()
@@ -268,52 +270,82 @@ namespace Z_Apps.Models.StoriesEdit
 
         public bool Save(DataToBeSaved data)
         {
-            try
+            return con.UseTransaction((execUpdate) =>
             {
-                if (data.token == PrivateConsts.REGISTER_PASS)
+                try
                 {
-                    if (storyEditManager.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.Description))
+                    if (data.token != PrivateConsts.REGISTER_PASS)
                     {
-                        if (sentenceEditManager.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
-                        {
-                            if (wordEditManager.DeleteInsertWords(data.storyDesc.StoryId, data.words))
-                            {
-                                return true;
-                            }
-                        }
+                        return false;
                     }
+                    if (!storyEditManager.UpdateDesc(
+                        data.storyDesc.StoryId,
+                        data.storyDesc.Description,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    if (!sentenceEditManager.DeleteInsertSentences(
+                        data.storyDesc.StoryId,
+                        data.sentences,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    if (!wordEditManager.DeleteInsertWords(
+                        data.storyDesc.StoryId, data.words,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            });
         }
 
         public bool Register(DataToBeRegistered data)
         {
-            try
+            return con.UseTransaction((execUpdate) =>
             {
-                if (data.token == PrivateConsts.REGISTER_PASS)
+                try
                 {
-                    if (storyManager.UpdateDesc(data.storyDesc.StoryId, data.storyDesc.StoryName, data.storyDesc.Description))
+                    if (data.token != PrivateConsts.REGISTER_PASS)
                     {
-                        if (sentenceManager.DeleteInsertSentences(data.storyDesc.StoryId, data.sentences))
-                        {
-                            if (wordManager.DeleteInsertWords(data.storyDesc.StoryId, data.words))
-                            {
-                                return true;
-                            }
-                        }
+                        return false;
                     }
+                    if (!storyManager.UpdateDesc(
+                        data.storyDesc.StoryId,
+                        data.storyDesc.StoryName,
+                        data.storyDesc.Description,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    if (!sentenceManager.DeleteInsertSentences(
+                        data.storyDesc.StoryId,
+                        data.sentences,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    if (!wordManager.DeleteInsertWords(
+                        data.storyDesc.StoryId,
+                        data.words,
+                        execUpdate))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            });
         }
     }
 }

@@ -5,14 +5,18 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Z_Apps.Models.Stories.Sentences {
-    public class SentenceManager {
+namespace Z_Apps.Models.Stories.Sentences
+{
+    public class SentenceManager
+    {
         private readonly DBCon Con;
-        public SentenceManager(DBCon con) {
+        public SentenceManager(DBCon con)
+        {
             Con = con;
         }
 
-        public IEnumerable<Sentence> GetSentences(int storyId) {
+        public IEnumerable<Sentence> GetSentences(int storyId)
+        {
             //SQL文作成
             string sql = "";
             sql += "select * from tblSentence";
@@ -22,7 +26,8 @@ namespace Z_Apps.Models.Stories.Sentences {
             //List<Dictionary<string, Object>>型で取得
             var sentences = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
 
-            if (!sentences.Any()) {
+            if (!sentences.Any())
+            {
                 // 1件もデータがなければ、
                 // フロントから不正なパラメータが来ている可能性があるためエラー
                 throw new Exception();
@@ -30,7 +35,8 @@ namespace Z_Apps.Models.Stories.Sentences {
 
             //List<Sentence>型に変換してreturn
             var resultSentences = new List<Sentence>();
-            foreach (var dicSentence in sentences) {
+            foreach (var dicSentence in sentences)
+            {
                 var sentence = new Sentence();
                 sentence.StoryId = (int)dicSentence["StoryId"];
                 sentence.LineNumber = (int)dicSentence["LineNumber"];
@@ -44,7 +50,8 @@ namespace Z_Apps.Models.Stories.Sentences {
             return resultSentences;
         }
 
-        public Sentence GetOneSentence(string storyName, int lineNumber) {
+        public Sentence GetOneSentence(string storyName, int lineNumber)
+        {
             //SQL文作成
             string sql = @"
 select * from tblSentence
@@ -61,13 +68,15 @@ and LineNumber = @lineNumber;
                 })
                 .FirstOrDefault();
 
-            if (dicSentence == null) {
+            if (dicSentence == null)
+            {
                 // 1件もデータがなければ、
                 // フロントから不正なパラメータが来ている可能性があるためエラー
                 throw new Exception();
             }
 
-            return new Sentence() {
+            return new Sentence()
+            {
                 StoryId = (int)dicSentence["StoryId"],
                 LineNumber = (int)dicSentence["LineNumber"],
                 Kanji = (string)dicSentence["Kanji"],
@@ -77,26 +86,36 @@ and LineNumber = @lineNumber;
             };
         }
 
-        public bool DeleteInsertSentences(int storyId, IEnumerable<Sentence> sentences) {
+        public bool DeleteInsertSentences(
+            int storyId,
+            IEnumerable<Sentence> sentences,
+            Func<string, Dictionary<string, object[]>, int> execUpdate)
+        {
             //SQL文作成
-            string sql = "";
-            sql += "delete from tblSentence";
-            sql += " where StoryId = @storyId";
+            string sql = @"
+            delete from tblSentence
+            where StoryId = @storyId";
 
-            bool result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
+            int result = execUpdate(
+                sql,
+                new Dictionary<string, object[]> {
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId } }
+                });
 
-            if (!result) {
+            if (result < 0)
+            {
                 return false;
             }
 
 
-            foreach (Sentence sentence in sentences) {
+            foreach (Sentence sentence in sentences)
+            {
                 //SQL文作成
-                sql = "";
-                sql += "insert into tblSentence(StoryId, LineNumber, Kanji, Hiragana, Romaji, English) ";
-                sql += " values (@storyId, @lineNumber, @kanji, @hiragana, @romaji, @english) ";
+                sql = @"
+                insert into tblSentence(StoryId, LineNumber, Kanji, Hiragana, Romaji, English)
+                values (@storyId, @lineNumber, @kanji, @hiragana, @romaji, @english)";
 
-                result = Con.ExecuteUpdate(sql, new Dictionary<string, object[]> {
+                result = execUpdate(sql, new Dictionary<string, object[]> {
                     { "@storyId", new object[2] { SqlDbType.Int, sentence.StoryId } },
                     { "@lineNumber", new object[2] { SqlDbType.Int, sentence.LineNumber } },
                     { "@kanji", new object[2] { SqlDbType.NVarChar, sentence.Kanji } },
@@ -105,7 +124,8 @@ and LineNumber = @lineNumber;
                     { "@english", new object[2] { SqlDbType.NVarChar, sentence.English } }
                 });
 
-                if (!result) {
+                if (result != 1)
+                {
                     return false;
                 }
             }
