@@ -1,8 +1,6 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
-using Z_Apps.Models.StoriesEdit.StoriesEdit;
-using Z_Apps.Models.StoriesEdit.SentencesEdit;
-using Z_Apps.Models.StoriesEdit.WordsEdit;
 using Z_Apps.Models.Stories.Stories;
 using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
@@ -18,49 +16,47 @@ namespace Z_Apps.Models.StoriesEdit
         private readonly StoryManager storyManager;
         private readonly SentenceManager sentenceManager;
         private readonly WordManager wordManager;
-
-        private readonly StoryEditManager storyEditManager;
-        private readonly SentenceEditManager sentenceEditManager;
-        private readonly WordEditManager wordEditManager;
         private readonly DBCon con;
 
         public StoriesEditService(DBCon con)
         {
-            storyEditManager = new StoryEditManager(con);
-            sentenceEditManager = new SentenceEditManager(con);
-            wordEditManager = new WordEditManager(con);
-
             storyManager = new StoryManager(con);
             sentenceManager = new SentenceManager(con);
             wordManager = new WordManager(con);
             this.con = con;
         }
 
-        public IEnumerable<StoryEdit> GetAllStories()
+        public IEnumerable<Story> GetAllStories()
         {
-            var stories = storyEditManager.GetAllStories();
+            var stories = storyManager.GetAllStories(true);
             return stories;
         }
 
-        public StoryEdit GetPageData(string storyName)
+        public Story GetPageData(string storyName)
         {
-            var story = storyEditManager.GetStory(storyName);
+            var story = storyManager.GetStory(storyName);
             return story;
         }
 
-        public IEnumerable<SentenceEdit> GetSentences(int storyId)
+        public IEnumerable<Sentence> GetSentences(int storyId)
         {
-            var sentences = sentenceEditManager.GetSentences(storyId);
+            var sentences = sentenceManager.GetSentences(storyId);
             return sentences;
         }
 
-        public IEnumerable<WordEdit> GetWords(int storyId)
+        public IEnumerable<Word> GetWords(int storyId)
         {
-            var words = wordEditManager.GetWords(storyId);
-            return words;
+            var words = wordManager.GetWords(storyId);
+            foreach (var KV in words)
+            {
+                foreach (var word in KV.Value)
+                {
+                    yield return word;
+                }
+            }
         }
 
-        public async Task<TranslationResult> Translate(SentenceEdit sentence)
+        public async Task<TranslationResult> Translate(Sentence sentence)
         {
             var dicHiraganaKanji = MakeHiraganaAndKanji(sentence.Kanji);
             sentence.Hiragana = dicHiraganaKanji["hiragana"];
@@ -78,20 +74,30 @@ namespace Z_Apps.Models.StoriesEdit
 
         public class TranslationResult
         {
-            public SentenceEdit sentence { get; set; }
-            public IEnumerable<WordEdit> words { get; set; }
+            public Sentence sentence { get; set; }
+            public IEnumerable<Word> words { get; set; }
         }
 
-        public async Task<IEnumerable<WordEdit>> GetTranslatedWordList(Dictionary<string, string> dicHiraganaKanji, SentenceEdit sentence)
+        public async Task<IEnumerable<Word>> GetTranslatedWordList(
+            Dictionary<string, string> dicHiraganaKanji,
+            Sentence sentence)
         {
-            var lstWords = new List<WordEdit>();
+            var lstWords = new List<Word>();
 
             var arrHiragana = dicHiraganaKanji["hiragana"]
-                .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
+                .Replace("。", "")
+                .Replace("、", "")
+                .Replace("「", "")
+                .Replace("」", "")
+                .Replace("！", "")
                 .Split(" ");
 
             var arrKanji = dicHiraganaKanji["kanji"]
-                .Replace("。", "").Replace("、", "").Replace("「", "").Replace("」", "").Replace("！", "")
+                .Replace("。", "")
+                .Replace("、", "")
+                .Replace("「", "")
+                .Replace("」", "")
+                .Replace("！", "")
                 .Split(" ");
 
 
@@ -102,13 +108,13 @@ namespace Z_Apps.Models.StoriesEdit
                 {
                     j++;
 
-                    var w = new WordEdit();
+                    var w = new Word();
                     w.StoryId = sentence.StoryId;
                     w.LineNumber = sentence.LineNumber;
                     w.WordNumber = j;
                     w.Kanji = arrKanji[i];
 
-                    var dicWord = wordEditManager.GetWordMeaning(w.Kanji);
+                    var dicWord = wordManager.GetWordMeaning(w.Kanji);
                     if (dicWord.Count > 0)
                     {
                         w.Hiragana = (string)dicWord["Hiragana"];
@@ -249,9 +255,9 @@ namespace Z_Apps.Models.StoriesEdit
             }
         }
 
-        public async Task<WordEdit> TranslateWord(WordEdit word)
+        public async Task<Word> TranslateWord(Word word)
         {
-            var dicWord = wordEditManager.GetWordMeaning(word.Kanji);
+            var dicWord = wordManager.GetWordMeaning(word.Kanji);
             if (dicWord.Count > 0)
             {
                 word.Hiragana = (string)dicWord["Hiragana"];
@@ -278,21 +284,22 @@ namespace Z_Apps.Models.StoriesEdit
                     {
                         return false;
                     }
-                    if (!storyEditManager.UpdateDesc(
+                    if (!storyManager.UpdateDesc(
                         data.storyDesc.StoryId,
+                        data.storyDesc.StoryName,
                         data.storyDesc.Description,
                         execUpdate))
                     {
                         return false;
                     }
-                    if (!sentenceEditManager.DeleteInsertSentences(
+                    if (!sentenceManager.DeleteInsertSentences(
                         data.storyDesc.StoryId,
                         data.sentences,
                         execUpdate))
                     {
                         return false;
                     }
-                    if (!wordEditManager.DeleteInsertWords(
+                    if (!wordManager.DeleteInsertWords(
                         data.storyDesc.StoryId, data.words,
                         execUpdate))
                     {

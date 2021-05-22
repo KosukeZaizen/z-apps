@@ -87,7 +87,7 @@ order by WordNumber;
             return resultWords;
         }
 
-        public string GetWordMeaning(string kanji)
+        public Dictionary<string, object> GetWordMeaning(string kanji)
         {
             //SQL文作成
             string sql = "";
@@ -107,13 +107,18 @@ order by WordNumber;
             sql += "	v)";
 
             //List<Dictionary<string, Object>>型で取得
-            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } } });
+            var word = Con.ExecuteSelect(
+                sql,
+                new Dictionary<string, object[]> {
+                    { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } }
+                })
+                .FirstOrDefault();
 
-            foreach (var dicWord in words)
+            if (word == null)
             {
-                return (string)dicWord["English"];
+                return new Dictionary<string, object>();
             }
-            return "";
+            return word;
         }
 
         public bool DeleteInsertWords(
@@ -125,7 +130,6 @@ order by WordNumber;
             string sql = @"
             delete from tblDictionary
             where StoryId = @storyId";
-
 
             int result = execUpdate(
                 sql,

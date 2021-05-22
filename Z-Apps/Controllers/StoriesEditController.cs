@@ -6,9 +6,6 @@ using Z_Apps.Models.Stories.Sentences;
 using Z_Apps.Models.Stories.Words;
 using static Z_Apps.Models.StoriesEdit.StoriesEditService;
 using Z_Apps.Models.StoriesEdit;
-using Z_Apps.Models.StoriesEdit.SentencesEdit;
-using Z_Apps.Models.StoriesEdit.StoriesEdit;
-using Z_Apps.Models.StoriesEdit.WordsEdit;
 
 namespace Z_Apps.Controllers
 {
@@ -22,13 +19,13 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/")]
-        public IEnumerable<StoryEdit> GetAllStories()
+        public IEnumerable<Story> GetAllStories()
         {
             return storiesEditService.GetAllStories();
         }
 
         [HttpGet("[action]/{storyName?}")]
-        public StoryEdit GetPageData(string storyName)
+        public Story GetPageData(string storyName)
         {
             if (!string.IsNullOrEmpty(storyName))
             {
@@ -41,7 +38,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<SentenceEdit> GetSentences(int storyId)
+        public IEnumerable<Sentence> GetSentences(int storyId)
         {
             if (storyId > 0)
             {
@@ -54,7 +51,7 @@ namespace Z_Apps.Controllers
         }
 
         [HttpGet("[action]/{storyId?}")]
-        public IEnumerable<WordEdit> GetWords(int storyId)
+        public IEnumerable<Word> GetWords(int storyId)
         {
             if (storyId > 0)
             {
@@ -67,13 +64,13 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<TranslationResult> Translate([FromBody] SentenceEdit sentence)
+        public async Task<TranslationResult> Translate([FromBody] Sentence sentence)
         {
             return await storiesEditService.Translate(sentence);
         }
 
         [HttpPost("[action]")]
-        public async Task<WordEdit> TranslateWord([FromBody] WordEdit word)
+        public async Task<Word> TranslateWord([FromBody] Word word)
         {
             return await storiesEditService.TranslateWord(word);
         }
@@ -85,9 +82,9 @@ namespace Z_Apps.Controllers
         }
         public class DataToBeSaved
         {
-            public IEnumerable<WordEdit> words { get; set; }
-            public IEnumerable<SentenceEdit> sentences { get; set; }
-            public StoryEdit storyDesc { get; set; }
+            public IEnumerable<Word> words { get; set; }
+            public IEnumerable<Sentence> sentences { get; set; }
+            public Story storyDesc { get; set; }
             public string token { get; set; }
         }
 

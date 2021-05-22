@@ -1,246 +1,286 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import * as consts from "../../../common/consts";
-import { ApplicationState } from "../../../store/configureStore";
-import { actionCreators } from "../../../store/StoriesEditTopStore";
+import { StopAnimation } from "../../../common/animation";
+import { sendPost } from "../../../common/functions";
+import { compareObjects } from "../../../common/util/compareObjects";
+import { storyDesc } from "../../../types/stories";
+import { getFallingImages } from "../../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../../parts/Animations/ShurikenProgress";
 import Head from "../../parts/Helmet";
+import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
+import { getCurrentToken } from "../../parts/InputRegisterToken";
 
-interface StoriesTopProps {
-    loadAllStories: () => void;
-    allStories: {
-        storyName: string;
-        storyId: number;
-        description: string;
-    }[];
-}
-class StoriesTop extends React.Component<StoriesTopProps> {
-    state: { screenWidth: number };
+function StoriesTop() {
+    const [allStories, setAllStories] = useState<storyDesc[]>([]);
+    const [initialStories, setInitialStories] = useState<storyDesc[]>([]);
+    const [seasonNames, setSeasonNames] = useState<string[]>([]);
 
-    constructor(props: StoriesTopProps) {
-        super(props);
+    useEffect(() => {
+        const load = async () => {
+            // stories
+            const stories = await loadAllStories();
+            setAllStories(stories);
+            setInitialStories([...stories]);
 
-        this.state = {
-            screenWidth: window.innerWidth,
+            // seasons
+            const seasons = await getFallingImages();
+            setSeasonNames(seasons.map(s => s.name));
         };
+        load();
+    }, []);
 
-        let timer: number;
-        window.onresize = () => {
-            if (timer > 0) {
-                clearTimeout(timer);
-            }
-
-            timer = window.setTimeout(() => {
-                this.changeScreenSize();
-            }, 100);
-        };
-
-        alert("edit");
-    }
-
-    componentDidMount() {
-        this.props.loadAllStories();
-    }
-
-    changeScreenSize = () => {
-        this.setState({
-            screenWidth: window.innerWidth,
-        });
+    const changeStories = (storyId: number, keyValue: Partial<storyDesc>) => {
+        setAllStories(
+            allStories.map(story => {
+                if (storyId === story.storyId) {
+                    return { ...story, ...keyValue };
+                }
+                return { ...story };
+            })
+        );
     };
 
-    render() {
-        const allStories = this.props.allStories;
-        const { screenWidth } = this.state;
-        return (
-            <div className="center">
-                <Head title="Japanese Folktales" noindex={true} />
-                <div style={{ maxWidth: 700 }}>
-                    <div className="breadcrumbs" style={{ textAlign: "left" }}>
-                        <Link
-                            to="/"
-                            style={{ marginRight: "5px", marginLeft: "5px" }}
-                        >
-                            <span>Home</span>
-                        </Link>
-                        ＞
-                        <span style={{ marginRight: "5px", marginLeft: "5px" }}>
-                            Japanese Folktales
-                        </span>
-                    </div>
-                    <h1
-                        style={{
-                            margin: "30px",
-                            lineHeight: "40px",
-                        }}
-                    >
-                        <b>Japanese Folktales</b>
-                    </h1>
-                    <br />
-                    {allStories && allStories.length > 0 ? null : (
-                        <div className="center">
-                            <ShurikenProgress key="circle" size="20%" />
-                        </div>
-                    )}
-                    {allStories &&
-                        allStories.map(s => {
-                            const nameForUrl = s.storyName;
-                            const nameToShow = s.storyName
-                                .split("--")
-                                .join(" - ")
-                                .split("_")
-                                .join(" ");
+    const checkStoriesChanged = (s: storyDesc) =>
+        !compareObjects(
+            s,
+            initialStories.find(st => st.storyId === s.storyId)
+        );
 
-                            return (
-                                <a
-                                    key={s.storyId}
-                                    href={`/folktalesEdit/${nameForUrl}`}
-                                >
-                                    <div
+    console.log("all", allStories);
+
+    return (
+        <div className="center">
+            <StopAnimation />
+            <HideFooter />
+            <Head title="Japanese Folktales" noindex={true} />
+            <div>
+                <div className="breadcrumbs" style={{ textAlign: "left" }}>
+                    <Link
+                        to="/"
+                        style={{ marginRight: "5px", marginLeft: "5px" }}
+                    >
+                        <span>Home</span>
+                    </Link>
+                    ＞
+                    <span style={{ marginRight: "5px", marginLeft: "5px" }}>
+                        Japanese Folktales
+                    </span>
+                </div>
+                <h1
+                    style={{
+                        margin: "30px",
+                        lineHeight: "40px",
+                        fontWeight: "bold",
+                    }}
+                >
+                    Japanese Folktales
+                </h1>
+                {allStories && allStories.length > 0 ? null : (
+                    <div className="center">
+                        <ShurikenProgress key="circle" size="20%" />
+                    </div>
+                )}
+                <table style={{ textAlign: "left" }}>
+                    <thead>
+                        <tr
+                            style={{
+                                backgroundColor: "ivory",
+                                textAlign: "center",
+                            }}
+                        >
+                            <th style={{ border: "solid" }}>released</th>
+                            <th style={{ border: "solid" }}>order</th>
+                            <th style={{ border: "solid" }}>url</th>
+                            <th style={{ border: "solid" }}>season</th>
+                            <th style={{ border: "solid" }}>youtube</th>
+                            <th style={{ border: "solid" }}>name to show</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allStories &&
+                            [...allStories]
+                                .sort((a, b) => (b.order || 0) - (a.order || 0))
+                                .map(s => (
+                                    <tr
+                                        key={s.storyId}
                                         style={{
-                                            padding: "10px",
-                                            marginBottom: "10px",
-                                            border: "5px double #333333",
+                                            border: "solid",
+                                            backgroundColor: checkStoriesChanged(
+                                                s
+                                            )
+                                                ? "red"
+                                                : undefined,
                                         }}
                                     >
-                                        {screenWidth > 500 ? (
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colSpan={2}>
-                                                            <div className="center">
-                                                                <h2
-                                                                    style={{
-                                                                        color:
-                                                                            "black",
-                                                                        marginBottom:
-                                                                            "20px",
-                                                                    }}
-                                                                >
-                                                                    <b>
-                                                                        {
-                                                                            nameToShow
-                                                                        }
-                                                                    </b>
-                                                                </h2>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td
-                                                            style={{
-                                                                width: "50%",
-                                                            }}
-                                                        >
-                                                            <img
-                                                                src={`${
-                                                                    consts.BLOB_URL
-                                                                }/folktalesImg/${
-                                                                    nameForUrl.split(
-                                                                        "--"
-                                                                    )[0]
-                                                                }.png`}
-                                                                width="90%"
-                                                                alt={nameToShow}
-                                                                title={
-                                                                    nameToShow
-                                                                }
-                                                                style={{
-                                                                    marginLeft:
-                                                                        "10px",
-                                                                    marginBottom:
-                                                                        "10px",
-                                                                }}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            {s.description
-                                                                .split("\\n")
-                                                                .map((d, i) => (
-                                                                    <span
-                                                                        key={i}
-                                                                        style={{
-                                                                            color:
-                                                                                "black",
-                                                                        }}
-                                                                    >
-                                                                        {d}
-                                                                        <br />
-                                                                    </span>
-                                                                ))}
-                                                            <div className="center">
-                                                                <p
-                                                                    style={{
-                                                                        margin:
-                                                                            "20px",
-                                                                    }}
-                                                                >{`Read ${nameToShow} >>`}</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        ) : (
-                                            <div>
-                                                <b>
-                                                    <h2
-                                                        style={{
-                                                            color: "black",
-                                                            marginBottom:
-                                                                "20px",
-                                                        }}
-                                                    >
-                                                        {nameToShow}
-                                                    </h2>
-                                                </b>
-                                                <img
-                                                    src={`${
-                                                        consts.BLOB_URL
-                                                    }/folktalesImg/${
-                                                        nameForUrl.split(
-                                                            "--"
-                                                        )[0]
-                                                    }.png`}
-                                                    width="90%"
-                                                    alt={nameToShow}
-                                                    title={nameToShow}
-                                                />
-                                                <div
-                                                    style={{
-                                                        textAlign: "left",
-                                                        margin: "10px",
-                                                    }}
-                                                >
-                                                    {s.description
-                                                        .split("\\n")
-                                                        .map((d, i) => (
-                                                            <span
-                                                                key={i}
-                                                                style={{
-                                                                    color:
-                                                                        "black",
-                                                                }}
-                                                            >
-                                                                {d}
-                                                                <br />
-                                                            </span>
-                                                        ))}
-                                                </div>
-                                                <p>{`Read ${nameToShow} >>`}</p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </a>
-                            );
-                        })}
-                </div>
+                                        <td style={{ textAlign: "center" }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={s.released}
+                                                onChange={() => {
+                                                    changeStories(s.storyId, {
+                                                        released: !s.released,
+                                                    });
+                                                }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="number"
+                                                value={s.order
+                                                    ?.toString()
+                                                    ?.replace(/^0+/, "")}
+                                                onChange={ev => {
+                                                    changeStories(s.storyId, {
+                                                        order: Number(
+                                                            ev.target.value
+                                                        ),
+                                                    });
+                                                }}
+                                                style={{ width: 100 }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                value={s.storyName}
+                                                onChange={ev => {
+                                                    changeStories(s.storyId, {
+                                                        storyName:
+                                                            ev.target.value,
+                                                    });
+                                                }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <select
+                                                value={s.season}
+                                                onChange={ev => {
+                                                    changeStories(s.storyId, {
+                                                        season: ev.target.value,
+                                                    });
+                                                }}
+                                            >
+                                                {seasonNames.map(se => (
+                                                    <option key={se}>
+                                                        {se}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input
+                                                value={s.youtube}
+                                                onChange={ev => {
+                                                    changeStories(s.storyId, {
+                                                        youtube:
+                                                            ev.target.value,
+                                                    });
+                                                }}
+                                            />
+                                        </td>
+                                        <td>
+                                            {s.storyName
+                                                .split("--")
+                                                .join(" - ")
+                                                .split("_")
+                                                .join(" ")}
+                                        </td>
+                                    </tr>
+                                ))}
+                    </tbody>
+                </table>
             </div>
-        );
+            <div style={{ textAlign: "left" }}>
+                <button
+                    style={{ margin: 30 }}
+                    onClick={() => {
+                        setAllStories([
+                            ...allStories,
+                            {
+                                storyId:
+                                    Math.max(
+                                        ...allStories.map(s => s.storyId)
+                                    ) + 1,
+                                storyName: "",
+                                description: "",
+                                released: false,
+                            },
+                        ]);
+                    }}
+                >
+                    {"＋"}
+                </button>
+                <button
+                    style={{ margin: 30 }}
+                    onClick={() => {
+                        save(allStories, () => {
+                            loadAllStories();
+                        });
+                    }}
+                >
+                    Save
+                </button>
+            </div>
+        </div>
+    );
+}
+
+async function loadAllStories(): Promise<storyDesc[]> {
+    try {
+        const url = `api/StoriesEdit/GetAllStories`;
+        const response = await fetch(url);
+
+        return await response.json();
+    } catch (e) {
+        alert(e);
+        return [];
     }
 }
 
-export default connect(
-    (state: ApplicationState) => state.storiesTop,
-    dispatch => bindActionCreators(actionCreators, dispatch)
-)(StoriesTop);
+async function save(stories: storyDesc[], fncAfterSaving: () => void) {
+    if (!stories.every(s => s.storyId && s.storyName)) {
+        alert("「storyId」か「storyName」が、空白もしくはゼロの行があります。");
+        return;
+    }
+
+    const duplicatedGenre = stories.find(
+        s =>
+            stories.filter(
+                st =>
+                    s.storyName === st.storyName ||
+                    (s.youtube && s.youtube === st.youtube)
+            ).length > 1
+    );
+    if (duplicatedGenre) {
+        alert(
+            `重複エラー：「${duplicatedGenre.storyName}」のstoryNameもしくはyoutubeIdが重複しています。`
+        );
+        return;
+    }
+
+    if (!window.confirm("Do you really want to save?")) {
+        return;
+    }
+
+    try {
+        const result = await sendPost(
+            {
+                stories,
+                token: getCurrentToken(),
+            },
+            "/api/StoriesEdit/SaveAllStories"
+        );
+
+        if (result === true) {
+            if (typeof fncAfterSaving === "function") {
+                fncAfterSaving();
+            }
+            alert("success!");
+            return;
+        }
+    } catch (ex) {}
+
+    alert("failed...");
+}
+
+export default StoriesTop;

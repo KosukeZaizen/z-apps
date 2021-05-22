@@ -5,6 +5,7 @@ export type storyDesc = {
     order?: number;
     season?: string;
     youtube?: string;
+    released: boolean;
 };
 export type sentence = {
     storyId: number;

@@ -585,23 +585,14 @@ export const actionCreators = {
                     JSON.stringify({ token })
                 );
 
-                let result = await commonFnc.sendPost(
+                const result = await commonFnc.sendPost(
                     { storyDesc, sentences, words, token },
-                    "api/StoriesEdit/Save"
+                    "api/StoriesEdit/Register"
                 );
-
                 if (result) {
-                    result = await commonFnc.sendPost(
-                        { storyDesc, sentences, words, token },
-                        "api/StoriesEdit/Register"
-                    );
-                    if (result) {
-                        alert("Success to register!");
-                    } else {
-                        alert("Failed to register...");
-                    }
+                    alert("Success to register!");
                 } else {
-                    alert("Failed to save...");
+                    alert("Failed to register...");
                 }
             }
         } catch (e) {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Z_Apps.Models.Stories.Words;
 using Z_Apps.Models.StoriesEdit;
-using Z_Apps.Models.StoriesEdit.WordsEdit;
 using static Z_Apps.Controllers.VocabQuizController;
 
 namespace Z_Apps.Models.VocabList
@@ -72,9 +72,9 @@ namespace Z_Apps.Models.VocabList
         public async Task<TranslateResult> TranslateVocab(string kanji)
         {
             var result = new TranslateResult();
-            var wordEditManager = new WordEditManager(Con);
+            var wordManager = new WordManager(Con);
             var storiesEditManager = new StoriesEditService(Con);
-            var dicWord = wordEditManager.GetWordMeaning(kanji);
+            var dicWord = wordManager.GetWordMeaning(kanji);
             if (dicWord.Count > 0)
             {
                 result.hiragana = (string)dicWord["Hiragana"];

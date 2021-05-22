@@ -13,12 +13,17 @@ namespace Z_Apps.Models.Stories.Stories
             Con = con;
         }
 
-        public IEnumerable<Story> GetAllStories()
+        public IEnumerable<Story> GetAllStories(bool isEdit = false)
         {
             //SQL文作成
-            string sql = "";
-            sql += " select * from tblStoryMst";
-            sql += " order by [Order] desc";
+            string sql =
+                isEdit ?
+                    @"select * from tblStoryMst
+                    order by [Order] desc"
+                :
+                    @"select * from tblStoryMst
+                    where Released = 1
+                    order by [Order] desc";
 
             //List<Dictionary<string, Object>>型で取得
             var stories = Con.ExecuteSelect(sql, null);
@@ -27,13 +32,17 @@ namespace Z_Apps.Models.Stories.Stories
             var resultStories = new List<Story>();
             foreach (var dicStory in stories)
             {
-                var story = new Story();
-                story.StoryId = (int)dicStory["StoryId"];
-                story.StoryName = (string)dicStory["StoryName"];
-                story.Description = (string)dicStory["Description"];
-                story.Order = (int?)dicStory["Order"];
-
-                resultStories.Add(story);
+                resultStories.Add(
+                    new Story()
+                    {
+                        StoryId = (int)dicStory["StoryId"],
+                        StoryName = (string)dicStory["StoryName"],
+                        Description = (string)dicStory["Description"],
+                        Order = (int?)dicStory["Order"],
+                        Season = (string)dicStory["Season"],
+                        Youtube = (string)dicStory["Youtube"],
+                        Released = (bool)dicStory["Released"]
+                    });
             }
             return resultStories;
         }
@@ -41,9 +50,9 @@ namespace Z_Apps.Models.Stories.Stories
         public Story GetStory(string storyName)
         {
             //SQL文作成
-            string sql = "";
-            sql += "select * from tblStoryMst";
-            sql += " where StoryName Like @storyName";
+            string sql = @"
+            select * from tblStoryMst
+            where StoryName Like @storyName";
 
             //List<Dictionary<string, Object>>型で取得
             var result = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {
@@ -72,9 +81,9 @@ namespace Z_Apps.Models.Stories.Stories
         public Story GetStoryById(int storyId)
         {
             //SQL文作成
-            string sql = "";
-            sql += "select * from tblStoryMst";
-            sql += " where StoryId Like @storyId";
+            string sql = @"
+            select * from tblStoryMst
+            where StoryId Like @storyId";
 
             //List<Dictionary<string, Object>>型で取得
             var result = Con.ExecuteSelect(sql, new Dictionary<string, object[]> {
@@ -108,34 +117,43 @@ namespace Z_Apps.Models.Stories.Stories
                                     .Replace("\n\n", "\n")
                                     .Replace("\n", "\\n");
 
-            string sql;
-            if (GetStoryById(storyId) == null)
-            {
-                //レコードがなければInsert
-                sql = @"
-                Insert into tblStoryMst (StoryId, StoryName, Description)
-                values(@storyId, @storyName, @desc)";
+            string sql = @"
+                update tblStoryMst
+                set Description = @desc where StoryId Like @storyId";
 
-                //List<Dictionary<string, Object>>型で取得
-                result = execUpdate(sql, new Dictionary<string, object[]> {
-                    { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
-                    { "@storyId", new object[2] { SqlDbType.Int, storyId }},
-                    { "@storyName", new object[2] { SqlDbType.NVarChar, storyName }}
-                });
-            }
-            else
-            {
-                //レコードがあればUpdate
-                sql = "";
-                sql += "update tblStoryMst";
-                sql += " set Description = @desc where StoryId Like @storyId";
-
-                //List<Dictionary<string, Object>>型で取得
-                result = execUpdate(sql, new Dictionary<string, object[]> {
+            //List<Dictionary<string, Object>>型で取得
+            result = execUpdate(sql, new Dictionary<string, object[]> {
                     { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
                     { "@storyId", new object[2] { SqlDbType.Int, storyId }}
                 });
-            }
+            return result == 1;
+        }
+
+        public bool UpdateDescAndRelease(
+            int storyId,
+            string storyName,
+            string desc,
+            Func<string, Dictionary<string, object[]>, int> execUpdate)
+        {
+            int result;
+            string replacedDesc = desc
+                                    .Replace("\r", "\n")
+                                    .Replace("\n\n", "\n")
+                                    .Replace("\n\n", "\n")
+                                    .Replace("\n", "\\n");
+
+            string sql = @"
+                update tblStoryMst
+                set
+                    Description = @desc,
+                    Released = 1
+                where StoryId Like @storyId";
+
+            //List<Dictionary<string, Object>>型で取得
+            result = execUpdate(sql, new Dictionary<string, object[]> {
+                    { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
+                    { "@storyId", new object[2] { SqlDbType.Int, storyId }}
+                });
             return result == 1;
         }
     }
