@@ -9,24 +9,28 @@ import { getFallingImages } from "../../parts/Animations/SeasonAnimation";
 import ShurikenProgress from "../../parts/Animations/ShurikenProgress";
 import Head from "../../parts/Helmet";
 import { HideFooter } from "../../parts/HideHeaderAndFooter/HideFooter";
-import { getCurrentToken } from "../../parts/InputRegisterToken";
+import {
+    getCurrentToken,
+    InputRegisterToken,
+} from "../../parts/InputRegisterToken";
 
-function StoriesTop() {
+function StoriesEditTop() {
     const [allStories, setAllStories] = useState<storyDesc[]>([]);
     const [initialStories, setInitialStories] = useState<storyDesc[]>([]);
     const [seasonNames, setSeasonNames] = useState<string[]>([]);
 
-    useEffect(() => {
-        const load = async () => {
-            // stories
-            const stories = await loadAllStories();
-            setAllStories(stories);
-            setInitialStories([...stories]);
+    const load = async () => {
+        // stories
+        const stories = await loadAllStories();
+        setAllStories(stories);
+        setInitialStories([...stories]);
 
-            // seasons
-            const seasons = await getFallingImages();
-            setSeasonNames(seasons.map(s => s.name));
-        };
+        // seasons
+        const seasons = await getFallingImages();
+        setSeasonNames([...seasons.map(s => s.name), "none"]);
+    };
+
+    useEffect(() => {
         load();
     }, []);
 
@@ -46,8 +50,6 @@ function StoriesTop() {
             s,
             initialStories.find(st => st.storyId === s.storyId)
         );
-
-    console.log("all", allStories);
 
     return (
         <div className="center">
@@ -179,11 +181,25 @@ function StoriesTop() {
                                             />
                                         </td>
                                         <td>
-                                            {s.storyName
-                                                .split("--")
-                                                .join(" - ")
-                                                .split("_")
-                                                .join(" ")}
+                                            {initialStories.some(
+                                                is => is.storyId === s.storyId
+                                            ) ? (
+                                                <Link
+                                                    to={`/folktalesEdit/${s.storyName}`}
+                                                >
+                                                    {s.storyName
+                                                        .split("--")
+                                                        .join(" - ")
+                                                        .split("_")
+                                                        .join(" ")}
+                                                </Link>
+                                            ) : (
+                                                s.storyName
+                                                    .split("--")
+                                                    .join(" - ")
+                                                    .split("_")
+                                                    .join(" ")
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
@@ -203,6 +219,9 @@ function StoriesTop() {
                                     ) + 1,
                                 storyName: "",
                                 description: "",
+                                order: 0,
+                                season: "none",
+                                youtube: "",
                                 released: false,
                             },
                         ]);
@@ -214,12 +233,13 @@ function StoriesTop() {
                     style={{ margin: 30 }}
                     onClick={() => {
                         save(allStories, () => {
-                            loadAllStories();
+                            load();
                         });
                     }}
                 >
                     Save
                 </button>
+                <InputRegisterToken style={{ margin: 30, width: 40 }} />
             </div>
         </div>
     );
@@ -238,8 +258,12 @@ async function loadAllStories(): Promise<storyDesc[]> {
 }
 
 async function save(stories: storyDesc[], fncAfterSaving: () => void) {
-    if (!stories.every(s => s.storyId && s.storyName)) {
-        alert("「storyId」か「storyName」が、空白もしくはゼロの行があります。");
+    console.log("stories", stories);
+
+    if (!stories.every(s => s.storyId && s.storyName && s.season)) {
+        alert(
+            "「storyId」か「storyName」か「season」が、空白もしくはゼロの行があります。"
+        );
         return;
     }
 
@@ -283,4 +307,4 @@ async function save(stories: storyDesc[], fncAfterSaving: () => void) {
     alert("failed...");
 }
 
-export default StoriesTop;
+export default StoriesEditTop;

@@ -27,13 +27,6 @@ order by WordNumber;
                 { "@storyId", new object[2] { SqlDbType.Int, storyId } }
             });
 
-            if (!words.Any())
-            {
-                // 1件もデータがなければ、
-                // フロントから不正なパラメータが来ている可能性があるためエラー
-                throw new Exception();
-            }
-
             //List<Sentence>型に変換してreturn
             var resultWords = new Dictionary<int, List<Word>>();
             foreach (var dicWord in words)
@@ -90,35 +83,30 @@ order by WordNumber;
         public Dictionary<string, object> GetWordMeaning(string kanji)
         {
             //SQL文作成
-            string sql = "";
-            sql += "SELECT English, count(*) as cnt";
-            sql += "  FROM [dbo].[tblDictionary]";
-            sql += "  where Kanji like @kanji";
-            sql += "  group by English";
-            sql += "  having count(*) = (";
-            sql += "	select max(cnt)";
-            sql += "		from";
-            sql += "			(";
-            sql += "				select count(*) as cnt";
-            sql += "				from tblDictionary";
-            sql += "				where Kanji like @kanji";
-            sql += "				group by English";
-            sql += "			)";
-            sql += "	v)";
+            string sql = @"
+            select English, Hiragana, count(*) as cnt
+            from tblDictionary
+            where Kanji like @kanji
+            group by English, Hiragana
+                having count(*) = (
+            	    select max(cnt)
+            		from
+            			(
+            				select count(*) as cnt
+            				from tblDictionary
+            				where Kanji like @kanji
+            				group by English, Hiragana
+            			)
+            	v)";
 
             //List<Dictionary<string, Object>>型で取得
-            var word = Con.ExecuteSelect(
-                sql,
-                new Dictionary<string, object[]> {
-                    { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } }
-                })
-                .FirstOrDefault();
+            var words = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@kanji", new object[2] { SqlDbType.NVarChar, kanji } } });
 
-            if (word == null)
+            foreach (var dicWord in words)
             {
-                return new Dictionary<string, object>();
+                return dicWord;
             }
-            return word;
+            return new Dictionary<string, object>();
         }
 
         public bool DeleteInsertWords(

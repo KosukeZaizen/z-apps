@@ -73,8 +73,10 @@ namespace Z_Apps.Models.Stories.Stories
                 StoryId = (int)result["StoryId"],
                 StoryName = (string)result["StoryName"],
                 Description = (string)result["Description"],
+                Order = (int?)result["Order"],
                 Season = (string)result["Season"],
-                Youtube = (string)result["Youtube"]
+                Youtube = (string)result["Youtube"],
+                Released = (bool)result["Released"],
             };
         }
 
@@ -121,7 +123,6 @@ namespace Z_Apps.Models.Stories.Stories
                 update tblStoryMst
                 set Description = @desc where StoryId Like @storyId";
 
-            //List<Dictionary<string, Object>>型で取得
             result = execUpdate(sql, new Dictionary<string, object[]> {
                     { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
                     { "@storyId", new object[2] { SqlDbType.Int, storyId }}
@@ -129,32 +130,54 @@ namespace Z_Apps.Models.Stories.Stories
             return result == 1;
         }
 
-        public bool UpdateDescAndRelease(
-            int storyId,
-            string storyName,
-            string desc,
-            Func<string, Dictionary<string, object[]>, int> execUpdate)
+        public bool SaveAllStories(IEnumerable<Story> stories)
         {
-            int result;
-            string replacedDesc = desc
-                                    .Replace("\r", "\n")
-                                    .Replace("\n\n", "\n")
-                                    .Replace("\n\n", "\n")
-                                    .Replace("\n", "\\n");
+            return Con.UseTransaction((execUpdate) =>
+                        {
+                            var result = execUpdate("delete tblStoryMst;", null);
+                            if (result < 0)
+                            {
+                                return false;
+                            }
 
-            string sql = @"
-                update tblStoryMst
-                set
-                    Description = @desc,
-                    Released = 1
-                where StoryId Like @storyId";
+                            foreach (var story in stories)
+                            {
+                                //SQL文作成
+                                var sql = @"
+                                    insert into tblStoryMst(
+                                        StoryId,
+                                        StoryName,
+                                        Description,
+                                        [Order],
+                                        Season,
+                                        Youtube,
+                                        Released)
+                                    values (
+                                        @StoryId,
+                                        @StoryName,
+                                        @Description,
+                                        @Order,
+                                        @Season,
+                                        @Youtube,
+                                        @Released)";
 
-            //List<Dictionary<string, Object>>型で取得
-            result = execUpdate(sql, new Dictionary<string, object[]> {
-                    { "@desc", new object[2] { SqlDbType.NVarChar, replacedDesc }},
-                    { "@storyId", new object[2] { SqlDbType.Int, storyId }}
-                });
-            return result == 1;
+                                result = execUpdate(sql, new Dictionary<string, object[]> {
+                                    { "@StoryId", new object[2] { SqlDbType.Int, story.StoryId } },
+                                    { "@StoryName", new object[2] { SqlDbType.NVarChar, story.StoryName } },
+                                    { "@Description", new object[2] { SqlDbType.NVarChar, story.Description } },
+                                    { "@Order", new object[2] { SqlDbType.Int, story.Order == null ? 0 : story.Order } },
+                                    { "@Season", new object[2] { SqlDbType.NVarChar, story.Season } },
+                                    { "@Youtube", new object[2] { SqlDbType.NVarChar, story.Youtube } },
+                                    { "@Released", new object[2] { SqlDbType.Bit, story.Released } }
+                                });
+
+                                if (result != 1)
+                                {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        });
         }
     }
 }

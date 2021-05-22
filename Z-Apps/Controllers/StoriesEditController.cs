@@ -89,15 +89,13 @@ namespace Z_Apps.Controllers
         }
 
         [HttpPost("[action]")]
-        public bool Register([FromBody] DataToBeRegistered data)
+        public bool SaveAllStories([FromBody] AllStoriesToBeSaved data)
         {
-            return storiesEditService.Register(data);
+            return storiesEditService.SaveAllStories(data);
         }
-        public class DataToBeRegistered
+        public class AllStoriesToBeSaved
         {
-            public IEnumerable<Word> words { get; set; }
-            public IEnumerable<Sentence> sentences { get; set; }
-            public Story storyDesc { get; set; }
+            public IEnumerable<Story> stories { get; set; }
             public string token { get; set; }
         }
     }

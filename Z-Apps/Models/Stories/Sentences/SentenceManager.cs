@@ -26,13 +26,6 @@ namespace Z_Apps.Models.Stories.Sentences
             //List<Dictionary<string, Object>>型で取得
             var sentences = Con.ExecuteSelect(sql, new Dictionary<string, object[]> { { "@storyId", new object[2] { SqlDbType.Int, storyId } } });
 
-            if (!sentences.Any())
-            {
-                // 1件もデータがなければ、
-                // フロントから不正なパラメータが来ている可能性があるためエラー
-                throw new Exception();
-            }
-
             //List<Sentence>型に変換してreturn
             var resultSentences = new List<Sentence>();
             foreach (var dicSentence in sentences)

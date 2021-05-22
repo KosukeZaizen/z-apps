@@ -35,12 +35,10 @@ class StoriesEdit extends React.Component<Props, State> {
         this.props.setInitialToken();
     }
 
-    componentDidUpdate() {
-        if (this.props.storyDesc.storyId) {
-            if (!this.props.sentences || this.props.sentences.length <= 0) {
-                this.props.loadSentences(this.props.storyDesc.storyId);
-                this.props.loadWords(this.props.storyDesc.storyId);
-            }
+    componentDidUpdate(prevProps: Props) {
+        if (this.props.storyDesc.storyId !== prevProps.storyDesc.storyId) {
+            this.props.loadSentences(this.props.storyDesc.storyId);
+            this.props.loadWords(this.props.storyDesc.storyId);
         }
     }
 
@@ -235,44 +233,17 @@ class StoriesEdit extends React.Component<Props, State> {
                             style={{
                                 marginTop: 10,
                                 marginBottom: 10,
+                                marginRight: 30,
                                 height: 28,
                                 paddingTop: 0,
                                 color: "black",
+                                fontWeight: "bold",
                             }}
                             className="btn btn-dark btn-xs"
                             onClick={this.props.save}
                         >
-                            <b>Save</b>
+                            Save
                         </button>
-                        "　"
-                        <button
-                            style={{
-                                marginTop: 10,
-                                marginBottom: 10,
-                                height: 28,
-                                paddingTop: 0,
-                                color: "black",
-                            }}
-                            className="btn btn-dark btn-xs"
-                            onClick={this.props.register}
-                        >
-                            <b>Register</b>
-                        </button>
-                        "　"
-                        <a href="/sitemapEdit" target="_blank" rel="noopener">
-                            <button
-                                style={{
-                                    marginTop: 10,
-                                    marginBottom: 10,
-                                    height: 28,
-                                    paddingTop: 0,
-                                    color: "black",
-                                }}
-                                className="btn btn-dark btn-xs"
-                            >
-                                <b>Sitemap</b>
-                            </button>
-                        </a>
                     </div>
                 </div>
             </div>

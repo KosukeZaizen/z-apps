@@ -330,7 +330,7 @@ export const actionCreators = {
             }
         }
         const sToAdd = {
-            storyId: s[0].storyId,
+            storyId: s[0]?.storyId,
             lineNumber: previousLineNumber + 1,
             kanji: kanjiToInsert || "",
             hiragana: "",

@@ -276,14 +276,15 @@ namespace Z_Apps.Models.StoriesEdit
 
         public bool Save(DataToBeSaved data)
         {
+            if (data.token != PrivateConsts.REGISTER_PASS)
+            {
+                return false;
+            }
+
             return con.UseTransaction((execUpdate) =>
             {
                 try
                 {
-                    if (data.token != PrivateConsts.REGISTER_PASS)
-                    {
-                        return false;
-                    }
                     if (!storyManager.UpdateDesc(
                         data.storyDesc.StoryId,
                         data.storyDesc.StoryName,
@@ -314,45 +315,14 @@ namespace Z_Apps.Models.StoriesEdit
             });
         }
 
-        public bool Register(DataToBeRegistered data)
+        public bool SaveAllStories(AllStoriesToBeSaved data)
         {
-            return con.UseTransaction((execUpdate) =>
+            if (data.token != PrivateConsts.REGISTER_PASS)
             {
-                try
-                {
-                    if (data.token != PrivateConsts.REGISTER_PASS)
-                    {
-                        return false;
-                    }
-                    if (!storyManager.UpdateDesc(
-                        data.storyDesc.StoryId,
-                        data.storyDesc.StoryName,
-                        data.storyDesc.Description,
-                        execUpdate))
-                    {
-                        return false;
-                    }
-                    if (!sentenceManager.DeleteInsertSentences(
-                        data.storyDesc.StoryId,
-                        data.sentences,
-                        execUpdate))
-                    {
-                        return false;
-                    }
-                    if (!wordManager.DeleteInsertWords(
-                        data.storyDesc.StoryId,
-                        data.words,
-                        execUpdate))
-                    {
-                        return false;
-                    }
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            });
+                return false;
+            }
+
+            return storyManager.SaveAllStories(data.stories);
         }
     }
 }
