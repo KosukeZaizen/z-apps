@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChangePage, Page } from ".";
+import { StopAnimation } from "../../../common/animation";
 import { sleepAsync } from "../../../common/functions";
 import { sound, vocab } from "../../../types/vocab";
 import CharacterComment from "../../parts/CharacterComment";
@@ -25,6 +26,7 @@ export function TitlePage({
     const [vList, setVList] = useState<vocab[]>(vocabList.map(v => ({ ...v })));
     const [isOmitted, setIsOmitted] = useState(false);
     const [isCommentTwoLines, setIsCommentTwoLines] = useState(false);
+    const [isAnimationStopped, setIsAnimationStopped] = useState(true);
 
     useEffect(() => {
         setTimeout(() => {
@@ -42,11 +44,15 @@ export function TitlePage({
         }, 500);
 
         setTimeout(() => {
+            setIsAnimationStopped(false);
+        }, 2000);
+
+        setTimeout(() => {
             setIsInitial(false);
-        }, 3000);
+        }, 5000);
         setTimeout(() => {
             changePage(Page.list);
-        }, 8000);
+        }, 10000);
     }, []);
 
     useEffect(() => {
@@ -102,6 +108,7 @@ export function TitlePage({
                     : {}
             }
         >
+            {isAnimationStopped && <StopAnimation />}
             {isInitial && (
                 <h1
                     id="h1title"
