@@ -22,7 +22,10 @@ namespace Z_Apps.Models.SystemBase
             this.storageService = storageService;
             this.storageBkService = storageBkService;
 
-            var _ = GetSiteMapText();
+            Task.Run(() =>
+            {
+                var _ = GetSiteMapText();
+            });
         }
 
         public async Task<IEnumerable<Dictionary<string, string>>> GetSiteMap(bool onlyStrageXmlFile = false)

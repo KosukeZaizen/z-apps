@@ -15,8 +15,6 @@ using Z_Apps.Models.StoriesEdit;
 using Z_Apps.Models.VocabList;
 using Microsoft.AspNetCore.Rewrite;
 using Z_Apps.Controllers;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 
 namespace Z_Apps
