@@ -33,18 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\origin\components\Home.tsx" />
-    <None Remove="ClientApp\origin\components\KanjiConverter.tsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\components\parts\Stories\" />
     <Folder Include="Connected Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\origin\components\Home.tsx" />
-    <TypeScriptCompile Include="ClientApp\origin\components\KanjiConverter.tsx" />
   </ItemGroup>
 
   <ItemGroup>
