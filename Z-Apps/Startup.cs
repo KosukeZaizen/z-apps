@@ -16,6 +16,7 @@ using Z_Apps.Models.VocabList;
 using Microsoft.AspNetCore.Rewrite;
 using Z_Apps.Controllers;
 using Microsoft.Extensions.Hosting;
+using System.Web;
 
 namespace Z_Apps
 {
@@ -86,7 +87,48 @@ namespace Z_Apps
                 var ua = context.Request.Headers["User-Agent"].ToString();
                 string url = context.Request.Path.Value;
 
-                if (url.EndsWith("sitemap.xml"))
+                if (url.StartsWith("/2018/"))
+                {
+                    var page = url.Replace("/2018/", "");
+                    context.Response.Redirect(
+                        $"https://blog.lingual-ninja.com/2018/{page}",
+                        true
+                    );
+                }
+                else if (url.StartsWith("/dictionary"))
+                {
+                    var page = url.Replace("/dictionary", "");
+                    if (page.Length > 1)
+                    {
+                        var pageWithoutSlash = HttpUtility
+                                                .UrlEncode(page)
+                                                .Replace("%2f", "");
+                        context.Response.Redirect(
+                            $"https://dictionary.lingual-ninja.com/dictionary/{pageWithoutSlash}",
+                            true
+                        );
+                    }
+                    else
+                    {
+                        context.Response.Redirect(
+                            $"https://dictionary.lingual-ninja.com",
+                            true
+                        );
+                    }
+                }
+                else if (url.StartsWith("/how-to-read-japanese/"))
+                {
+                    var page = url.Replace("/how-to-read-japanese/", "");
+                    var pageWithoutSlash = HttpUtility
+                                            .UrlEncode(page)
+                                            .Replace("%2f", "");
+
+                    context.Response.Redirect(
+                        $"https://dictionary.lingual-ninja.com/dictionary/{pageWithoutSlash}",
+                        true
+                    );
+                }
+                else if (url.EndsWith("sitemap.xml"))
                 {
                     context.Response.Headers.Add("Content-Type", "application/xml");
 

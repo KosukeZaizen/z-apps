@@ -199,45 +199,6 @@ export default class App extends React.Component {
                         <Route
                             sensitive
                             exact
-                            path="/dictionary"
-                            component={() => {
-                                window.location.href =
-                                    "https://dictionary.lingual-ninja.com";
-                                return null;
-                            }}
-                        />
-                        <Route
-                            sensitive
-                            exact
-                            path="/dictionary/:word"
-                            component={() => {
-                                window.location.href =
-                                    "https://dictionary.lingual-ninja.com" +
-                                    (window.location.href.split(
-                                        "lingual-ninja.com"
-                                    )[1] || "");
-                                return null;
-                            }}
-                        />
-                        <Route
-                            sensitive
-                            exact
-                            path="/how-to-read-japanese/:word"
-                            component={(props: {
-                                match: { params: { word: string } };
-                            }) => {
-                                const {
-                                    match: {
-                                        params: { word },
-                                    },
-                                } = props;
-                                window.location.href = `/dictionary/${word}`;
-                                return null;
-                            }}
-                        />
-                        <Route
-                            sensitive
-                            exact
                             path="/articles"
                             component={ArticlesTop}
                         />
@@ -284,19 +245,6 @@ export default class App extends React.Component {
                             sensitive
                             path="/boscobel"
                             component={Boscobel}
-                        />
-                        <Route
-                            sensitive
-                            exact
-                            path="/2018/:month/:article"
-                            component={() => {
-                                window.location.href =
-                                    "https://blog.lingual-ninja.com" +
-                                    (window.location.href.split(
-                                        "lingual-ninja.com"
-                                    )[1] || "");
-                                return null;
-                            }}
                         />
                         <Route
                             sensitive
