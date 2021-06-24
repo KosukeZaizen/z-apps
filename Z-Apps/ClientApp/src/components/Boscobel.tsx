@@ -69,6 +69,8 @@ export default class Boscobel extends React.Component {
     };
 
     uploadFile = (imageType: string) => {
+        this.setState({ isUploading: true });
+
         let file = null;
         if (imageType === this.consts.background) {
             file = this.state.background;
@@ -78,6 +80,7 @@ export default class Boscobel extends React.Component {
 
         if (!file || file.name.split(".").pop()?.toLowerCase() !== "png") {
             alert("Error! Please select a png file.");
+            this.setState({ isUploading: false });
             return;
         }
 
@@ -101,9 +104,11 @@ export default class Boscobel extends React.Component {
                 } else {
                     alert("Failed to upload... Status:" + response.status);
                 }
+                this.setState({ isUploading: false });
             })
             .catch(() => {
                 alert("Failed to upload...");
+                this.setState({ isUploading: false });
             });
     };
 
@@ -276,8 +281,13 @@ export default class Boscobel extends React.Component {
                             onClick={() =>
                                 this.uploadFile(this.consts.background)
                             }
+                            disabled={isUploading}
                         >
-                            <b>Upload</b>
+                            {isUploading ? (
+                                <b>アップロード中…</b>
+                            ) : (
+                                <b>Upload</b>
+                            )}
                         </button>
                     </div>
                     <br />
@@ -307,7 +317,7 @@ export default class Boscobel extends React.Component {
                             type="file"
                             name="top"
                             onChange={e =>
-                                this.handleChangeFile(e, this.consts.menu)
+                                this.handleChangeFile(e, this.consts.top)
                             }
                         />
                         <br />
@@ -320,9 +330,14 @@ export default class Boscobel extends React.Component {
                                 paddingTop: 0,
                             }}
                             className="btn btn-primary btn-xs"
-                            onClick={() => this.uploadFile(this.consts.menu)}
+                            onClick={() => this.uploadFile(this.consts.top)}
+                            disabled={isUploading}
                         >
-                            <b>Upload</b>
+                            {isUploading ? (
+                                <b>アップロード中…</b>
+                            ) : (
+                                <b>Upload</b>
+                            )}
                         </button>
                     </div>
                     <br />
