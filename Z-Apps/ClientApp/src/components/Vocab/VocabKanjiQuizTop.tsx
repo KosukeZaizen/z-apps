@@ -94,6 +94,7 @@ class VocabQuizTop extends React.Component<Props, State> {
                     desc={
                         "Free web app to learn Japanese Kanji! Try to get a perfect score on all the quizzes!"
                     }
+                    noindex
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div
