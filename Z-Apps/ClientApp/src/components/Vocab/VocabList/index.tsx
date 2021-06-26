@@ -11,19 +11,19 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "reactstrap/lib/Button";
 import { bindActionCreators } from "redux";
-import * as consts from "../../common/consts";
-import { ApplicationState } from "../../store/configureStore";
-import * as vocabStore from "../../store/VocabQuizStore";
-import { vocab, vocabGenre } from "../../types/vocab";
-import { SeasonAnimation } from "../parts/Animations/SeasonAnimation";
-import ShurikenProgress from "../parts/Animations/ShurikenProgress";
-import CharacterComment from "../parts/CharacterComment";
-import FB from "../parts/FaceBook";
-import { FolktaleMenu } from "../parts/FolktaleMenu";
-import { AnchorLink, HashScroll } from "../parts/HashScroll";
-import Head from "../parts/Helmet";
-import "../parts/PleaseScrollDown.css";
-import { YouTubeVideo } from "../parts/YouTubeVideo";
+import { ApplicationState } from "../../../store/configureStore";
+import * as vocabStore from "../../../store/VocabQuizStore";
+import { vocab, vocabGenre } from "../../../types/vocab";
+import { SeasonAnimation } from "../../parts/Animations/SeasonAnimation";
+import ShurikenProgress from "../../parts/Animations/ShurikenProgress";
+import CharacterComment from "../../parts/CharacterComment";
+import FB from "../../parts/FaceBook";
+import { FolktaleMenu } from "../../parts/FolktaleMenu";
+import { AnchorLink, HashScroll } from "../../parts/HashScroll";
+import Head from "../../parts/Helmet";
+import "../../parts/PleaseScrollDown.css";
+import { YouTubeVideo } from "../../parts/YouTubeVideo";
+import { VList } from "./List";
 
 type Props = vocabStore.IVocabQuizState &
     vocabStore.ActionCreators & {
@@ -485,7 +485,9 @@ function EachGenre(props: TEachGenreProps) {
                     />
                 </LazyLoad>
             )}
-            <VList g={g} vocabList={vocabList} />
+            <TableContainer component={Paper} style={{ marginTop: 20 }}>
+                <VList g={g} vocabList={vocabList} />
+            </TableContainer>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableBody>
@@ -511,164 +513,6 @@ function EachGenre(props: TEachGenreProps) {
             <br />
         </div>
     );
-}
-
-type TVListProps = { g: vocabGenre; vocabList: vocab[] };
-function VList(props: TVListProps) {
-    const { g, vocabList } = props;
-
-    const tableHeadStyle: React.CSSProperties = {
-        fontSize: "medium",
-        fontWeight: "bold",
-    };
-    const tableElementStyle: React.CSSProperties = {
-        fontSize: "medium",
-    };
-
-    const savedVocabIds = localStorage.getItem(
-        `vocab-quiz-incorrectIds-${g.genreId}`
-    );
-    const vocabIncorrectIds: number[] =
-        (savedVocabIds && JSON.parse(savedVocabIds)) || [];
-    const savedKanjiIds = localStorage.getItem(
-        `kanji-quiz-incorrectIds-${g.genreId}`
-    );
-    const kanjiIncorrectIds: number[] =
-        (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
-
-    return vocabList && vocabList.length > 0 ? (
-        <TableContainer component={Paper} style={{ marginTop: 20 }}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow style={{ backgroundColor: "papayawhip" }}>
-                        <TableCell style={tableHeadStyle} align="center">
-                            Kanji
-                        </TableCell>
-                        <TableCell style={tableHeadStyle} align="center">
-                            Hiragana
-                        </TableCell>
-                        <TableCell style={tableHeadStyle} align="center">
-                            Meaning
-                        </TableCell>
-                        <TableCell style={tableHeadStyle} align="center">
-                            Sound
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {vocabList.map((v: vocab) => (
-                        <TableRow key={v.vocabId}>
-                            <TableCell
-                                style={
-                                    kanjiIncorrectIds.includes(v.vocabId)
-                                        ? {
-                                              ...tableElementStyle,
-                                              color: "red",
-                                              fontWeight: "bold",
-                                          }
-                                        : tableElementStyle
-                                }
-                                align="center"
-                            >
-                                {v.kanji}
-                            </TableCell>
-                            <TableCell
-                                style={
-                                    vocabIncorrectIds.includes(v.vocabId)
-                                        ? {
-                                              ...tableElementStyle,
-                                              color: "red",
-                                              fontWeight: "bold",
-                                          }
-                                        : tableElementStyle
-                                }
-                                align="center"
-                            >
-                                {v.hiragana}
-                            </TableCell>
-                            <TableCell style={tableElementStyle} align="center">
-                                {v.english}
-                            </TableCell>
-                            <TableCell style={tableElementStyle} align="center">
-                                <LazyLoad>
-                                    <Speaker v={v} g={g} />
-                                </LazyLoad>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    ) : (
-        <ShurikenProgress key="circle" size="20%" />
-    );
-}
-
-interface SpeakerProps {
-    v: vocab;
-    g: vocabGenre;
-}
-class Speaker extends React.Component<
-    SpeakerProps,
-    {
-        showImg: boolean;
-    }
-> {
-    vocabSound?: HTMLAudioElement;
-    didUnmount: boolean;
-
-    constructor(props: SpeakerProps) {
-        super(props);
-
-        this.state = {
-            showImg: false,
-        };
-
-        this.didUnmount = false;
-    }
-
-    componentDidMount = () => {
-        this.loadSound();
-    };
-
-    loadSound = () => {
-        const { v, g } = this.props;
-
-        this.vocabSound = new Audio();
-        this.vocabSound.preload = "none";
-        this.vocabSound.autoplay = false;
-        this.vocabSound.src = `${consts.BLOB_URL}/vocabulary-quiz/audio/${g.genreName}/Japanese-vocabulary${v.vocabId}.m4a`;
-
-        this.vocabSound.oncanplaythrough = () => {
-            if (!this.didUnmount) this.setState({ showImg: true });
-        };
-        this.vocabSound.load();
-    };
-
-    componentWillUnmount() {
-        this.didUnmount = true;
-    }
-
-    render() {
-        const { showImg } = this.state;
-        const { vocabSound } = this;
-        return showImg ? (
-            <img
-                alt="vocab speaker"
-                src={consts.BLOB_URL + "/vocabulary-quiz/img/speaker.png"}
-                style={{ width: "60%", maxWidth: 30, cursor: "pointer" }}
-                onClick={() => {
-                    vocabSound && vocabSound.play();
-                }}
-            />
-        ) : (
-            <ShurikenProgress
-                key="circle"
-                size="100%"
-                style={{ width: "60%", maxWidth: 30 }}
-            />
-        );
-    }
 }
 
 export default connect(

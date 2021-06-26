@@ -1,6 +1,7 @@
 import React from "react";
 import { YouTubeVideo } from "../../YouTubeVideo";
 import { Speaker } from "./Speaker";
+import { VocabList } from "./VocabList";
 
 const imgExtensions = [".png", ".jpg"];
 const soundExtensions = [".m4a"];
@@ -37,9 +38,10 @@ export const ImageRender = ({ src, alt }: { src?: string; alt?: string }) => {
                 }
             />
         );
-    }
-    if (checkSoundExtension(src)) {
+    } else if (checkSoundExtension(src)) {
         return <Speaker src={src} alt={alt} />;
+    } else if (src.startsWith("vocab")) {
+        return <VocabList genreName={alt} />;
     }
     return <img src={src} alt={alt} title={alt} className="renderedImg" />;
 };

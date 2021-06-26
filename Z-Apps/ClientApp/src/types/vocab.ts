@@ -13,7 +13,6 @@ export type vocabGenre = {
     youtube: string;
     released: boolean;
 };
-
 export type sound = {
     audio: HTMLAudioElement;
     playable: boolean;
