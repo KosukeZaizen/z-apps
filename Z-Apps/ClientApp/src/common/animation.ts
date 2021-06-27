@@ -2,14 +2,9 @@ import { useEffect } from "react";
 import {
     finishFooterAnimation,
     restartFooterAnimation,
-} from "../components/parts/Animations/FooterAnimation";
+} from "../components/shared/Animations/FooterAnimation";
 
-export const timeStep = 1000; //ms
-
-export const smoothCSSProperty = {
-    transitionDuration: `${timeStep / 1000}s`,
-    transitionTimingFunction: "linear",
-};
+const timeStep = 1000; //ms
 
 let animationObjects: AnimationObject<any>[] = [];
 
