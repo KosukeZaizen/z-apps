@@ -132,8 +132,17 @@ namespace Z_Apps
                 {
                     context.Response.Headers.Add("Content-Type", "application/xml");
 
+                    var targetApp = Apps
+                                    .apps
+                                    .FirstOrDefault(
+                                        h => context
+                                            .Request
+                                            .Host
+                                            .Host
+                                            .Contains($"{h.Key}.lingual-ninja.com"));
+
                     await context.Response.WriteAsync(
-                        await siteMapService.GetSiteMapText()
+                        await siteMapService.GetSiteMapText($"{targetApp.Key}.lingual-ninja.com")
                     );
                 }
                 else if (ua.StartsWith("facebookexternalhit") || ua.StartsWith("Twitterbot"))

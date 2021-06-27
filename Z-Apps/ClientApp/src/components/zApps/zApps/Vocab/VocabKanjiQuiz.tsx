@@ -192,7 +192,6 @@ class VocabQuiz extends React.Component<Props, State> {
                         titleToShowLower +
                         "! Try to get a perfect score on all the quizzes!"
                     }
-                    noindex
                 />
                 <div style={{ maxWidth: 700 }}>
                     <div
