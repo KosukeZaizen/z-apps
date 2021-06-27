@@ -30,7 +30,6 @@ export function VocabList({ genreName }: { genreName: string }) {
         <VList
             g={genreAndVocab.vocabGenre}
             vocabList={genreAndVocab.vocabList}
-            noLazyLoad
         />
     );
 }
