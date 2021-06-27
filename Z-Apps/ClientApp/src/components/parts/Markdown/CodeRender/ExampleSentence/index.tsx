@@ -42,133 +42,151 @@ export function ExampleSentence({
     return (
         <>
             <span style={{ fontSize: "small", marginBottom: 5 }}>
-                <span
-                    style={{
-                        backgroundColor: "#fff0f2",
-                        padding: 2,
-                        margin: 3,
-                    }}
-                >
-                    <b>K</b>: Kanji
-                </span>
-                <span
-                    style={{
-                        backgroundColor: "#ffffe0",
-                        padding: 2,
-                        margin: 3,
-                    }}
-                >
-                    <b>H</b>: Hiragana
-                </span>
-                <span
-                    style={{
-                        backgroundColor: "#f0fff2",
-                        padding: 2,
-                        margin: 3,
-                    }}
-                >
-                    <b>R</b>: Romaji
-                </span>
-                <span
-                    style={{
-                        backgroundColor: "#f0f8ff",
-                        padding: 2,
-                        margin: 3,
-                    }}
-                >
-                    <b>E</b>: English
-                </span>
+                {s.kanji && (
+                    <span
+                        style={{
+                            backgroundColor: "#fff0f2",
+                            padding: 2,
+                            margin: 3,
+                        }}
+                    >
+                        <b>K</b>: Kanji
+                    </span>
+                )}
+                {s.hiragana && (
+                    <span
+                        style={{
+                            backgroundColor: "#ffffe0",
+                            padding: 2,
+                            margin: 3,
+                        }}
+                    >
+                        <b>H</b>: Hiragana
+                    </span>
+                )}
+                {s.romaji && (
+                    <span
+                        style={{
+                            backgroundColor: "#f0fff2",
+                            padding: 2,
+                            margin: 3,
+                        }}
+                    >
+                        <b>R</b>: Romaji
+                    </span>
+                )}
+                {s.english && (
+                    <span
+                        style={{
+                            backgroundColor: "#f0f8ff",
+                            padding: 2,
+                            margin: 3,
+                        }}
+                    >
+                        <b>E</b>: English
+                    </span>
+                )}
             </span>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    backgroundColor: "#fff0f2",
-                    borderRadius: 5,
-                }}
-            >
+            {s.kanji && (
                 <div
                     style={{
-                        fontWeight: "bold",
-                        marginRight: "1em",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        backgroundColor: "#fff0f2",
+                        borderRadius: 5,
                     }}
                 >
-                    <abbr title="kanji">Ｋ</abbr>:
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            marginRight: "1em",
+                        }}
+                    >
+                        <abbr title="kanji">Ｋ</abbr>:
+                    </div>
+                    <div style={{ width: "100%" }}>
+                        {getBoldSentence(s.kanji, bold?.K)}
+                    </div>
                 </div>
-                <div style={{ width: "100%" }}>
-                    {getBoldSentence(s.kanji, bold?.K)}
-                </div>
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    backgroundColor: "#ffffe0",
-                    borderRadius: 5,
-                }}
-            >
+            )}
+            {s.hiragana && (
                 <div
                     style={{
-                        fontWeight: "bold",
-                        marginRight: "1em",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        backgroundColor: "#ffffe0",
+                        borderRadius: 5,
                     }}
                 >
-                    <abbr title="hiragana">Ｈ</abbr>:
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            marginRight: "1em",
+                        }}
+                    >
+                        <abbr title="hiragana">Ｈ</abbr>:
+                    </div>
+                    <div style={{ width: "100%" }}>
+                        {getBoldSentence(s.hiragana, bold?.H)}
+                    </div>
                 </div>
-                <div style={{ width: "100%" }}>
-                    {getBoldSentence(s.hiragana, bold?.H)}
-                </div>
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    backgroundColor: "#f0fff2",
-                    borderRadius: 5,
-                }}
-            >
+            )}
+            {s.romaji && (
                 <div
                     style={{
-                        fontWeight: "bold",
-                        marginRight: "1em",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        backgroundColor: "#f0fff2",
+                        borderRadius: 5,
                     }}
                 >
-                    <abbr title="romaji">Ｒ</abbr>:
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            marginRight: "1em",
+                        }}
+                    >
+                        <abbr title="romaji">Ｒ</abbr>:
+                    </div>
+                    <div style={{ width: "100%" }}>
+                        {getBoldSentence(s.romaji, bold?.R)}
+                    </div>
                 </div>
-                <div style={{ width: "100%" }}>
-                    {getBoldSentence(s.romaji, bold?.R)}
-                </div>
-            </div>
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    backgroundColor: "#f0f8ff",
-                    borderRadius: 5,
-                }}
-            >
+            )}
+            {s.english && (
                 <div
                     style={{
-                        fontWeight: "bold",
-                        marginRight: "1em",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                        backgroundColor: "#f0f8ff",
+                        borderRadius: 5,
                     }}
                 >
-                    <abbr title="english">Ｅ</abbr>:
+                    <div
+                        style={{
+                            fontWeight: "bold",
+                            marginRight: "1em",
+                        }}
+                    >
+                        <abbr title="english">Ｅ</abbr>:
+                    </div>
+                    <div style={{ width: "100%" }}>
+                        {getBoldSentence(s.english, bold?.E)}
+                    </div>
                 </div>
-                <div style={{ width: "100%" }}>
-                    {getBoldSentence(s.english, bold?.E)}
-                </div>
-            </div>
+            )}
             {audioPath && <AudioControl audioPath={audioPath} />}
-            <WordList
-                words={{ [s.lineNumber]: words }}
-                s={s}
-                storyId={s.storyId}
-            />
+            {words?.length > 0 && (
+                <WordList
+                    words={{ [s.lineNumber]: words }}
+                    s={s}
+                    storyId={s.storyId}
+                />
+            )}
         </>
     );
 }

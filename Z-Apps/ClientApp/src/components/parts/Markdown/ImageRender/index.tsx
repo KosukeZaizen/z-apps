@@ -40,7 +40,7 @@ export const ImageRender = ({ src, alt }: { src?: string; alt?: string }) => {
         );
     } else if (checkSoundExtension(src)) {
         return <Speaker src={src} alt={alt} />;
-    } else if (src.startsWith("vocab")) {
+    } else if (src === "vocab") {
         return <VocabList genreName={alt} />;
     }
     return <img src={src} alt={alt} title={alt} className="renderedImg" />;
