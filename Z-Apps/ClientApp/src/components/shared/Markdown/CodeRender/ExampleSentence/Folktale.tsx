@@ -4,6 +4,7 @@ import * as consts from "../../../../../common/consts";
 import { BLOB_URL } from "../../../../../common/consts";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { sentence, word } from "../../../../../types/stories";
+import { ATargetBlank } from "../../../ATargetBlank";
 
 export function FolktaleExample({
     storyName,
@@ -67,11 +68,11 @@ export function FolktaleExample({
             />
             <div style={{ fontWeight: "bold", marginBottom: 20 }}>
                 {"Below is a sentence from the folktale "}
-                <a
+                <ATargetBlank
                     href={`https://www.lingual-ninja.com/folktales/${storyName}`}
                 >
                     {`${folktaleTitle}>>`}
-                </a>
+                </ATargetBlank>
             </div>
             <ExampleSentence
                 s={s}
