@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import { sendClientOpeLog } from "../../../common/functions";
+import { ATargetBlank } from "../ATargetBlank";
 
 export const YouTubeAd = ({
     width,
@@ -8,10 +9,9 @@ export const YouTubeAd = ({
     width?: number | string;
     style?: CSSProperties;
 }) => (
-    <a
+    <ATargetBlank
+        nofollow
         href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
         onClick={() => {
             setTimeout(() => {
                 sendClientOpeLog("click YouTube channel", "from popup");
@@ -28,5 +28,5 @@ export const YouTubeAd = ({
                 margin: "7px 0",
             }}
         />
-    </a>
+    </ATargetBlank>
 );

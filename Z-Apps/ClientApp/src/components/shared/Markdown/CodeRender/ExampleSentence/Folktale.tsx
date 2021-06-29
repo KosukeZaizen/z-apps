@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ExampleSentence } from ".";
 import * as consts from "../../../../../common/consts";
 import { BLOB_URL } from "../../../../../common/consts";
@@ -68,9 +67,11 @@ export function FolktaleExample({
             />
             <div style={{ fontWeight: "bold", marginBottom: 20 }}>
                 {"Below is a sentence from the folktale "}
-                <Link to={`/folktales/${storyName}`}>
+                <a
+                    href={`https://www.lingual-ninja.com/folktales/${storyName}`}
+                >
                     {`${folktaleTitle}>>`}
-                </Link>
+                </a>
             </div>
             <ExampleSentence
                 s={s}

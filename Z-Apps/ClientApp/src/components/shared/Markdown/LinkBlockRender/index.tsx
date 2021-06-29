@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ATargetBlank } from "../../ATargetBlank";
 
 export const LinkRender = (props: {
     href: string;
@@ -7,11 +8,7 @@ export const LinkRender = (props: {
 }) => {
     const { href, children } = props;
     if (href.includes("https://") || href.includes("http://")) {
-        return (
-            <a href={href} target="_blank" rel="noopener noreferrer">
-                {children}
-            </a>
-        );
+        return <ATargetBlank href={href}>{children}</ATargetBlank>;
     }
     return <Link to={href}>{children}</Link>;
 };
