@@ -17,13 +17,19 @@ export function VocabList({ genreName }: { genreName: string }) {
     });
 
     useEffect(() => {
-        const load = async () => {
-            const result = await fetchGenreAndVocab(genreName);
-            if (result) {
-                setGenreAndVocab(result);
-            }
+        let unmounted = false;
+        if (genreName) {
+            const load = async () => {
+                const result = await fetchGenreAndVocab(genreName);
+                if (!unmounted && result) {
+                    setGenreAndVocab(result);
+                }
+            };
+            void load();
+        }
+        return () => {
+            unmounted = true;
         };
-        void load();
     }, [genreName]);
 
     return (

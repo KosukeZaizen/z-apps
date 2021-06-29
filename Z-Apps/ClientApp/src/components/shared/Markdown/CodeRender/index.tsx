@@ -82,7 +82,7 @@ function OriginalExample({ params }: { params: { [key: number]: string } }) {
     }));
 
     return (
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 20, marginTop: 10 }}>
             <ExampleSentence
                 s={s}
                 boldInfo={params[4]}
