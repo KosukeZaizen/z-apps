@@ -53,7 +53,11 @@ export function FolktaleExample({
         .join(" ");
 
     return (
-        <div id={id} key={id} style={{ marginBottom: 25 }}>
+        <div
+            id={id}
+            key={id}
+            style={{ marginBottom: 25, textShadow: "initial" }}
+        >
             <img
                 src={`${consts.BLOB_URL}/folktalesImg/${
                     storyName.split("--")[0]

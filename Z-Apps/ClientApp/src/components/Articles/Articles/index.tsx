@@ -146,6 +146,11 @@ const Articles = (props: Props) => {
 // export const excludedArticleTitles = ["Kamikaze"];
 export const excludedArticleTitles = [];
 
+// 0 から 4.9 まで 0.1 刻み
+const textShadow = Array.from(Array(50).keys())
+    .map(n => `0 0 ${n / 10}px white`)
+    .join(",");
+
 interface ArticleContentProps {
     pageName: string;
     title: string;
@@ -352,7 +357,7 @@ export function ArticleContent({
                 {content ? (
                     <Markdown
                         source={content}
-                        style={{ margin: "25px 0 40px" }}
+                        style={{ margin: "25px 0 40px", textShadow }}
                     />
                 ) : (
                     <ShurikenProgress size="20%" />

@@ -33,7 +33,12 @@ export function VocabList({ genreName }: { genreName: string }) {
     }, [genreName]);
 
     return (
-        <div style={{ marginBottom: 30, textAlign: "center" }}>
+        <div
+            style={{
+                marginBottom: 30,
+                textAlign: "center",
+            }}
+        >
             <VList
                 g={genreAndVocab.vocabGenre}
                 vocabList={genreAndVocab.vocabList}

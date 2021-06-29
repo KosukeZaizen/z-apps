@@ -42,6 +42,13 @@ export function Markdown({ source, style, section }: MarkdownProps) {
 
 function ParagraphRender({ children }: { children: ReactChildren }) {
     return (
-        <span style={{ display: "block", marginBottom: 15 }}>{children}</span>
+        <span
+            style={{
+                display: "block",
+                marginBottom: 15,
+            }}
+        >
+            {children}
+        </span>
     );
 }
