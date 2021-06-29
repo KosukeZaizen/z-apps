@@ -27,10 +27,26 @@ export function VocabList({ genreName }: { genreName: string }) {
     }, [genreName]);
 
     return (
-        <VList
-            g={genreAndVocab.vocabGenre}
-            vocabList={genreAndVocab.vocabList}
-        />
+        <div style={{ marginBottom: 30, textAlign: "center" }}>
+            <VList
+                g={genreAndVocab.vocabGenre}
+                vocabList={genreAndVocab.vocabList}
+                style={{ marginBottom: 0 }}
+            />
+            <a
+                href={`https://www.lingual-ninja.com/vocabulary-list#${encodeURIComponent(
+                    genreAndVocab.vocabGenre.genreName
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                }}
+            >
+                {"Check all vocab lists >>"}
+            </a>
+        </div>
     );
 }
 

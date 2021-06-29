@@ -9,10 +9,13 @@ import { BLOB_URL } from "../../../../../common/consts";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
 import ShurikenProgress from "../../../Animations/ShurikenProgress";
 
-type TVListProps = { g: vocabGenre; vocabList: vocab[]; noLazyLoad?: boolean };
-export function VList(props: TVListProps) {
-    const { g, vocabList, noLazyLoad } = props;
-
+type TVListProps = {
+    g: vocabGenre;
+    vocabList: vocab[];
+    noLazyLoad?: boolean;
+    style?: React.CSSProperties;
+};
+export function VList({ g, vocabList, noLazyLoad, style }: TVListProps) {
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
         fontWeight: "bold",
@@ -33,7 +36,7 @@ export function VList(props: TVListProps) {
         (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
 
     return vocabList && vocabList.length > 0 ? (
-        <Table aria-label="simple table">
+        <Table aria-label="simple table" style={style}>
             <TableHead>
                 <TableRow style={{ backgroundColor: "papayawhip" }}>
                     <TableCell style={tableHeadStyle} align="center">
