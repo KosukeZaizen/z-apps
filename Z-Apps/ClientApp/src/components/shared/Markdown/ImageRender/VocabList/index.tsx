@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
-import { ATargetBlank } from "../../../ATargetBlank";
+import { ATargetBlank } from "../../../Link/ATargetBlank";
 import { linkShadowStyle } from "../../LinkBlockRender/linkShadowStyle";
 import { VList } from "./List";
 

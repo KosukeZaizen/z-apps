@@ -4,9 +4,9 @@ import { bindActionCreators } from "redux";
 import "../../../css/KanjiConverter.css";
 import { ApplicationState } from "../../../store/configureStore";
 import { actionCreators } from "../../../store/KanjiConverter";
-import { ATargetBlank } from "../../shared/ATargetBlank";
 import FB from "../../shared/FaceBook";
 import Head from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 let objConst: any = {};
 

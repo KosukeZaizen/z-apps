@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ATargetBlank } from "../../ATargetBlank";
+import { ATargetBlank } from "../../Link/ATargetBlank";
 import { linkShadowStyle } from "./linkShadowStyle";
 
 export const LinkRender = (props: {

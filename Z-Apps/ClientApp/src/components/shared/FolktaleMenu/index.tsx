@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Z_APPS_TOP_URL } from "../../../common/consts";
 import { ColorChangeButton } from "../Animations/ColorChangeButton";
-import { ATargetBlank } from "../ATargetBlank";
+import { ATargetBlank } from "../Link/ATargetBlank";
 import { ScrollBox } from "../ScrollBox";
 
 interface FolktaleMenuProps {

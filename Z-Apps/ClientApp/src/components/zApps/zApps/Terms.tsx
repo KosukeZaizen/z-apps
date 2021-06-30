@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import "../../../css/Terms.css";
-import { ATargetBlank } from "../../shared/ATargetBlank";
 import Helmet from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 export default class Terms extends React.Component {
     ref: React.RefObject<HTMLHRElement>;

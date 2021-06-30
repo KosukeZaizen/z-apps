@@ -4,7 +4,7 @@ import * as consts from "../../../../../common/consts";
 import { BLOB_URL } from "../../../../../common/consts";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { sentence, word } from "../../../../../types/stories";
-import { ATargetBlank } from "../../../ATargetBlank";
+import { ATargetBlank } from "../../../Link/ATargetBlank";
 
 export function FolktaleExample({
     storyName,

@@ -1,8 +1,8 @@
 import * as React from "react";
 import "../../../css/RomajiConverter.css";
-import { ATargetBlank } from "../../shared/ATargetBlank";
 import FB from "../../shared/FaceBook";
 import Head from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 let objConst: any = {};
 

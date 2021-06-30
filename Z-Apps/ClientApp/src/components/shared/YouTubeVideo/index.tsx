@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react";
 import Button from "reactstrap/lib/Button";
 import { sendClientOpeLog } from "../../../common/functions";
 import { getHoverClassName } from "../../../common/util/getHoverClass";
-import { ATargetBlank } from "../ATargetBlank";
+import { ATargetBlank } from "../Link/ATargetBlank";
 
 const buttonHover = getHoverClassName({
     opacity: 0.5,

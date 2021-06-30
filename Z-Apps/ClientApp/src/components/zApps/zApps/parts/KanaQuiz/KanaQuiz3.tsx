@@ -4,7 +4,7 @@ import Button from "reactstrap/lib/Button";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
 import CardHeader from "reactstrap/lib/CardHeader";
-import { ATargetBlank } from "../../../../shared/ATargetBlank";
+import { ATargetBlank } from "../../../../shared/Link/ATargetBlank";
 
 class IncorrectTable extends React.Component<{
     incorrectList: any;

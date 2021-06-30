@@ -7,6 +7,7 @@ import Navbar from "reactstrap/lib/Navbar";
 import NavbarBrand from "reactstrap/lib/NavbarBrand";
 import NavbarToggler from "reactstrap/lib/NavbarToggler";
 import NavLink from "reactstrap/lib/NavLink";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 import "./NavMenu.css";
 
 function NavigationItems(props: { closeToggle: () => void }) {
@@ -14,10 +15,20 @@ function NavigationItems(props: { closeToggle: () => void }) {
         "Japanese Folktales": "/folktales",
         "Hiragana / Katakana": "/hiragana-katakana",
         Vocabulary: "/vocabulary-list",
-        Articles: "/articles",
         "Action Games": "/ninja",
     } as const;
-    let linkList = [];
+
+    let linkList = [
+        <NavLink
+            key={"Articles"}
+            tag={ATargetBlank}
+            className="text-light dropdown"
+            href={"https://articles.lingual-ninja.com"}
+        >
+            {"Articles"}
+        </NavLink>,
+    ];
+
     for (let key in objLinks) {
         linkList.push(
             <NavLink

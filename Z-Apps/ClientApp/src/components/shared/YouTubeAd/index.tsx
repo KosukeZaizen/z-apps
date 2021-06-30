@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { sendClientOpeLog } from "../../../common/functions";
-import { ATargetBlank } from "../ATargetBlank";
+import { ATargetBlank } from "../Link/ATargetBlank";
 
 export const YouTubeAd = ({
     width,

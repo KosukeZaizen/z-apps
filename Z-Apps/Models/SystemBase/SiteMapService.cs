@@ -73,11 +73,11 @@ namespace Z_Apps.Models.SystemBase
             {
                 if (hostName == "articles.lingual-ninja.com")
                 {
-                    return GetSiteMapTextForArticles();
+                    return GetSiteMapTextForArticles(hostName);
                 }
                 else if (hostName == "www.lingual-ninja.com")
                 {
-                    return await GetSiteMapTextForZApps();
+                    return await GetSiteMapTextForZApps(hostName);
                 }
                 ErrorLog.InsertErrorLog("Message from Lingual Ninja: The url is invalid.");
             }
@@ -88,15 +88,14 @@ namespace Z_Apps.Models.SystemBase
             return null;
         }
 
-        public string GetSiteMapTextForArticles()
+        public string GetSiteMapTextForArticles(string hostName)
         {
             var lstSitemap = new List<Dictionary<string, string>>();
 
             //------------------------------------------------------------
             //Articles Topページ
-            var articlesBaseUrl = "https://articles.lingual-ninja.com/articles";
             var articleTopDic = new Dictionary<string, string>();
-            articleTopDic["loc"] = articlesBaseUrl;
+            articleTopDic["loc"] = $"https://{hostName}";
             lstSitemap.Add(articleTopDic);
 
             //Articlesの各記事
@@ -107,7 +106,7 @@ namespace Z_Apps.Models.SystemBase
             foreach (var article in allArticles)
             {
                 var dicArticleURL = new Dictionary<string, string>();
-                dicArticleURL["loc"] = articlesBaseUrl + "/" + article.url;
+                dicArticleURL["loc"] = $"https://{hostName}/articles/" + article.url;
                 lstSitemap.Add(dicArticleURL);
             }
 
@@ -120,7 +119,7 @@ namespace Z_Apps.Models.SystemBase
             );
         }
 
-        public async Task<string> GetSiteMapTextForZApps()
+        public async Task<string> GetSiteMapTextForZApps(string hostName)
         {
             //Startup.csのSitemapリクエスト時の処理と、
             //サイトマップ編集画面の内容をストレージに登録する処理の両方から呼ばれる
@@ -133,7 +132,7 @@ namespace Z_Apps.Models.SystemBase
 
                 //------------------------------------------------------------
                 //Folktales Topページ
-                var folktaleBaseUrl = "https://www.lingual-ninja.com/folktales";
+                var folktaleBaseUrl = $"https://{hostName}/folktales";
                 var topDic = new Dictionary<string, string>();
                 topDic["loc"] = folktaleBaseUrl;
                 lstSitemap.Add(topDic);
@@ -153,17 +152,17 @@ namespace Z_Apps.Models.SystemBase
                 //------------------------------------------------------------
                 // Vocab List
                 lstSitemap.Add(new Dictionary<string, string>() {
-                        {"loc", "https://www.lingual-ninja.com/vocabulary-list" }
+                        {"loc", $"https://{hostName}/vocabulary-list" }
                     });
 
                 // Vocab Quiz Top
-                string vocabQuizBase = "https://www.lingual-ninja.com/vocabulary-quiz";
+                string vocabQuizBase = $"https://{hostName}/vocabulary-quiz";
                 lstSitemap.Add(new Dictionary<string, string>() {
                         {"loc", vocabQuizBase }
                     });
 
                 // Kanji Quiz Top
-                string kanjiQuizBase = "https://www.lingual-ninja.com/kanji-quiz";
+                string kanjiQuizBase = $"https://{hostName}/kanji-quiz";
                 lstSitemap.Add(new Dictionary<string, string>() {
                         {"loc", kanjiQuizBase }
                     });

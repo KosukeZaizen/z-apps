@@ -1,6 +1,6 @@
 import * as React from "react";
 import { appsPublicImg } from "../../../../../common/consts";
-import { ATargetBlank } from "../../../../shared/ATargetBlank";
+import { ATargetBlank } from "../../../../shared/Link/ATargetBlank";
 
 const logo = appsPublicImg + "game-logo-1.png";
 

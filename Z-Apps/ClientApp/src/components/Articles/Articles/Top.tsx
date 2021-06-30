@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
 import { cFetch } from "../../../common/util/cFetch";
 import { SeasonAnimation } from "../../shared/Animations/SeasonAnimation";
@@ -10,6 +9,7 @@ import CharacterComment from "../../shared/CharacterComment";
 import FB from "../../shared/FaceBook";
 import { FolktaleMenu } from "../../shared/FolktaleMenu";
 import Head from "../../shared/Helmet";
+import { LinkOrA } from "../../shared/Link/LinkOrA";
 import { ScrollBox } from "../../shared/ScrollBox";
 import "./style.css";
 
@@ -99,13 +99,19 @@ interface ArticlesListProps {
     articles: Page[];
     screenWidth: number;
     titleH: "h2" | "h3";
+    isTargetBlank?: boolean;
 }
 export function ArticlesList({
     articles,
     screenWidth,
     titleH,
+    isTargetBlank,
 }: ArticlesListProps) {
     const isWide = screenWidth > 767;
+
+    const url = isTargetBlank
+        ? "https://articles.lingual-ninja.com/articles"
+        : "/articles";
 
     return (
         <>
@@ -120,7 +126,7 @@ export function ArticlesList({
                         }}
                     >
                         <ScrollBox>
-                            <Link to={`/articles/${page.url}`}>
+                            <LinkOrA href={`${url}/${page.url}`}>
                                 {titleH === "h3" ? (
                                     <h3
                                         style={{
@@ -145,7 +151,7 @@ export function ArticlesList({
                                         {page.title}
                                     </h2>
                                 )}
-                            </Link>
+                            </LinkOrA>
                             <div
                                 style={{
                                     display: "flex",
@@ -154,8 +160,8 @@ export function ArticlesList({
                                 }}
                             >
                                 {page.imgPath && (
-                                    <Link
-                                        to={`/articles/${page.url}`}
+                                    <LinkOrA
+                                        href={`${url}/${page.url}`}
                                         style={{ display: "block", flex: 1 }}
                                     >
                                         <img
@@ -168,7 +174,7 @@ export function ArticlesList({
                                                 margin: "0",
                                             }}
                                         />
-                                    </Link>
+                                    </LinkOrA>
                                 )}
                                 <div
                                     style={{

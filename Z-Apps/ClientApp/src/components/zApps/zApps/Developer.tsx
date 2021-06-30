@@ -2,9 +2,9 @@ import { css, StyleSheet } from "aphrodite";
 import * as React from "react";
 import { appsPublicImg } from "../../../common/consts";
 import "../../../css/Developer.css";
-import { ATargetBlank } from "../../shared/ATargetBlank";
 import FB from "../../shared/FaceBook";
 import Helmet from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 const image = appsPublicImg + "KosukeZaizen.jpg";
 function SayHello() {

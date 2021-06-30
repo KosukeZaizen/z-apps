@@ -91,6 +91,32 @@ namespace Z_Apps
             {
                 var ua = context.Request.Headers["User-Agent"].ToString();
                 string url = context.Request.Path.Value;
+                string host = context.Request.Host.Host;
+
+                if (host.Contains("www.lingual-ninja.com"))
+                {
+                    if (url.StartsWith("/articles"))
+                    {
+                        // articlesへのリダイレクト
+                        if (url.Length <= 10)
+                        {
+                            // トップページ
+                            context.Response.Redirect(
+                                $"https://articles.lingual-ninja.com",
+                                true
+                            );
+                        }
+                        else
+                        {
+                            // 各記事
+                            var page = url.Replace("/articles/", "");
+                            context.Response.Redirect(
+                                $"https://articles.lingual-ninja.com/articles/{page}",
+                                true
+                            );
+                        }
+                    }
+                }
 
                 if (url.StartsWith("/2018/"))
                 {

@@ -14,6 +14,7 @@ import CharacterComment from "../../shared/CharacterComment";
 import FB from "../../shared/FaceBook";
 import { FolktaleMenu } from "../../shared/FolktaleMenu";
 import Helmet from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 export default class Home extends React.Component<
     {},
@@ -346,16 +347,17 @@ export default class Home extends React.Component<
                         titleH={"h3"}
                         articles={articles}
                         screenWidth={screenWidth}
+                        isTargetBlank
                     />
                     <div style={{ textAlign: "center", marginBottom: 50 }}>
-                        <Link
-                            to="/articles"
+                        <ATargetBlank
+                            href="https://articles.lingual-ninja.com"
                             style={{
                                 fontSize: "xx-large",
                             }}
                         >
                             {"More articles about Japan >>"}
-                        </Link>
+                        </ATargetBlank>
                     </div>
                 </section>
                 <FB />

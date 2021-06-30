@@ -20,6 +20,7 @@ import FB from "../../../shared/FaceBook";
 // import GoogleAd from "../parts/GoogleAd";
 import { AnchorLink, HashScroll } from "../../../shared/HashScroll";
 import Head from "../../../shared/Helmet";
+import { ATargetBlank } from "../../../shared/Link/ATargetBlank";
 import { Markdown } from "../../../shared/Markdown";
 import { AudioControl } from "../../../shared/Markdown/CodeRender/ExampleSentence/AudioControl";
 import { WordList } from "../../../shared/Markdown/CodeRender/ExampleSentence/WordList";
@@ -882,12 +883,12 @@ function Grammar({
                             marginBottom: 10,
                         }}
                     >
-                        <Link
-                            to={`/articles/${a.url}`}
+                        <ATargetBlank
+                            href={`https://articles.lingual-ninja.com/articles/${a.url}`}
                             style={{ textDecoration: "underline" }}
                         >
                             {`${a.title.split(" - ")[0]} >>`}
-                        </Link>
+                        </ATargetBlank>
                     </li>
                 ))}
             </ul>
