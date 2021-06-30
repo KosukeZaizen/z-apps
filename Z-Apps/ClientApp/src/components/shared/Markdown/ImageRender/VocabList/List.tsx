@@ -9,6 +9,14 @@ import { BLOB_URL } from "../../../../../common/consts";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
 import ShurikenProgress from "../../../Animations/ShurikenProgress";
 
+const tableHeadStyle: React.CSSProperties = {
+    fontSize: "medium",
+    fontWeight: "bold",
+};
+const tableElementStyle: React.CSSProperties = {
+    fontSize: "medium",
+};
+
 type TVListProps = {
     g: vocabGenre;
     vocabList: vocab[];
@@ -25,14 +33,6 @@ export function VList({
     vocabIncorrectIds,
     kanjiIncorrectIds,
 }: TVListProps) {
-    const tableHeadStyle: React.CSSProperties = {
-        fontSize: "medium",
-        fontWeight: "bold",
-    };
-    const tableElementStyle: React.CSSProperties = {
-        fontSize: "medium",
-    };
-
     return vocabList && vocabList.length > 0 ? (
         <Table aria-label="simple table" style={style}>
             <TableHead>
