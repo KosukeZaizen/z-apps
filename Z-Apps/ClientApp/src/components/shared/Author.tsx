@@ -11,15 +11,16 @@ const image = appsPublicImg + "KosukeZaizen.jpg";
 type AuthorProps = {
     screenWidth: number;
     style?: CSSProperties;
+    isLink?: boolean;
 };
-export const Author = ({ style, screenWidth }: AuthorProps) => {
+export const Author = ({ style, screenWidth, isLink }: AuthorProps) => {
     const isCommentUsed = screenWidth > 767;
     const isVeryNarrow = screenWidth < 500;
+    const author = isLink ? <Link to="/developer">Author</Link> : "Author";
+
     return (
         <ScrollBox style={{ textAlign: "center", ...style }}>
-            <h2 style={{ marginBottom: 25 }}>
-                <Link to="/developer">Author</Link>
-            </h2>
+            <h2 style={{ marginBottom: 25 }}>{author}</h2>
             {isCommentUsed ? (
                 <PersonComment
                     screenWidth={screenWidth}

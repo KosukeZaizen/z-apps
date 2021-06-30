@@ -228,40 +228,6 @@ export function ArticleContent({
                     itemScope
                     itemType="http://schema.org/ListItem"
                 >
-                    {isAboutFolktale ? (
-                        <Link
-                            to="/folktales"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">{"Japanese Folktales"}</span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
-                    ) : (
-                        <Link
-                            to="/articles"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">
-                                {"Articles about Japan"}
-                            </span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
-                    )}
-                </span>
-                {" > "}
-                <span
-                    itemProp="itemListElement"
-                    itemScope
-                    itemType="http://schema.org/ListItem"
-                >
                     <span
                         itemProp="name"
                         style={{
@@ -271,7 +237,7 @@ export function ArticleContent({
                     >
                         {title}
                     </span>
-                    <meta itemProp="position" content="3" />
+                    <meta itemProp="position" content="2" />
                 </span>
             </div>
             <article style={{ textAlign: "left" }}>

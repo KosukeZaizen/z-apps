@@ -60,47 +60,6 @@ const ArticlesTop = () => {
         <div style={{ width: "100%" }} className="center">
             <Head title={title} desc={description} />
             <main style={{ maxWidth: 900, textAlign: "left" }}>
-                <div
-                    className="breadcrumbs"
-                    itemScope
-                    itemType="https://schema.org/BreadcrumbList"
-                    style={{ textAlign: "left" }}
-                >
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <Link
-                            to="/"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">Home</span>
-                        </Link>
-                        <meta itemProp="position" content="1" />
-                    </span>
-                    {" > "}
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <span
-                            itemProp="name"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            {title}
-                        </span>
-                        <meta itemProp="position" content="2" />
-                    </span>
-                </div>
                 <h1
                     style={{
                         margin: "25px 0 40px",
@@ -126,7 +85,7 @@ const ArticlesTop = () => {
                         articles={articles}
                         screenWidth={width}
                     />
-                    <FolktaleMenu screenWidth={width} />
+                    <FolktaleMenu targetBlank screenWidth={width} />
                     <Author style={{ marginTop: 45 }} screenWidth={width} />
                 </div>
                 <FB style={{ marginTop: 20 }} />

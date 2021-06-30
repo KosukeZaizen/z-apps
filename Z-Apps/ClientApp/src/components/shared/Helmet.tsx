@@ -16,7 +16,7 @@ export const Helmet = (props: {
         return null;
     }
 
-    const topUrl = consts.TOP_URL;
+    const topUrl = consts.Z_APPS_TOP_URL;
 
     return (
         <div className="application">
@@ -28,24 +28,6 @@ export const Helmet = (props: {
                 {props.noindex ? (
                     <meta name="robots" content="noindex" />
                 ) : null}
-                {props.title ? (
-                    <meta property="og:title" content={props.title} />
-                ) : null}
-                {props.isHome ? (
-                    <meta property="og:type" content="website" />
-                ) : (
-                    <meta property="og:type" content="article" />
-                )}
-                {props.desc ? (
-                    <meta property="og:description" content={props.desc} />
-                ) : null}
-                {props.img ? (
-                    <meta property="og:image" content={props.img} />
-                ) : null}
-                <meta
-                    property="og:url"
-                    content={topUrl + window.location.pathname}
-                />
             </ReactHelmet>
         </div>
     );
