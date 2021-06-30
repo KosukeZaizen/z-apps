@@ -94,7 +94,7 @@ namespace Z_Apps.Models.SystemBase
 
             //------------------------------------------------------------
             //Articles Topページ
-            var articlesBaseUrl = "https://www.lingual-ninja.com/articles";
+            var articlesBaseUrl = "https://articles.lingual-ninja.com/articles";
             var articleTopDic = new Dictionary<string, string>();
             articleTopDic["loc"] = articlesBaseUrl;
             lstSitemap.Add(articleTopDic);
