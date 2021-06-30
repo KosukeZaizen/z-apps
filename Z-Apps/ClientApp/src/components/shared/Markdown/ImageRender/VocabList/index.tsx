@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
 import { ATargetBlank } from "../../../ATargetBlank";
+import { linkShadowStyle } from "../../LinkBlockRender/linkShadowStyle";
 import { VList } from "./List";
 
 const initialVocabGenre = {
@@ -38,12 +39,13 @@ export function VocabList({ genreName }: { genreName: string }) {
             style={{
                 marginBottom: 30,
                 textAlign: "center",
+                textShadow: "initial",
             }}
         >
             <VList
                 g={genreAndVocab.vocabGenre}
                 vocabList={genreAndVocab.vocabList}
-                style={{ marginBottom: 0 }}
+                style={{ marginBottom: 5 }}
             />
             <ATargetBlank
                 href={`https://www.lingual-ninja.com/vocabulary-list#${encodeURIComponent(
@@ -52,6 +54,7 @@ export function VocabList({ genreName }: { genreName: string }) {
                 style={{
                     marginRight: "auto",
                     marginLeft: "auto",
+                    ...linkShadowStyle,
                 }}
             >
                 {"Check all vocab lists >>"}
