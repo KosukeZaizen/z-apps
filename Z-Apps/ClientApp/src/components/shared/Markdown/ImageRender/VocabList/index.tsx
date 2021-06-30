@@ -13,26 +13,7 @@ const initialVocabGenre = {
     released: true,
 };
 export function VocabList({ genreName }: { genreName: string }) {
-    const [genreAndVocab, setGenreAndVocab] = useState<GenreAndVocab>({
-        vocabGenre: initialVocabGenre,
-        vocabList: [],
-    });
-
-    useEffect(() => {
-        let unmounted = false;
-        if (genreName) {
-            const load = async () => {
-                const result = await fetchGenreAndVocab(genreName);
-                if (!unmounted && result) {
-                    setGenreAndVocab(result);
-                }
-            };
-            void load();
-        }
-        return () => {
-            unmounted = true;
-        };
-    }, [genreName]);
+    const genreAndVocab = useGenreAndVocab(genreName);
 
     return (
         <div
@@ -61,6 +42,31 @@ export function VocabList({ genreName }: { genreName: string }) {
             </ATargetBlank>
         </div>
     );
+}
+
+function useGenreAndVocab(genreName: string) {
+    const [genreAndVocab, setGenreAndVocab] = useState<GenreAndVocab>({
+        vocabGenre: initialVocabGenre,
+        vocabList: [],
+    });
+
+    useEffect(() => {
+        let unmounted = false;
+        if (genreName) {
+            const load = async () => {
+                const result = await fetchGenreAndVocab(genreName);
+                if (!unmounted && result) {
+                    setGenreAndVocab(result);
+                }
+            };
+            void load();
+        }
+        return () => {
+            unmounted = true;
+        };
+    }, [genreName]);
+
+    return genreAndVocab;
 }
 
 interface GenreAndVocab {
