@@ -394,6 +394,18 @@ function EachGenre(props: TEachGenreProps) {
     const kanjiPercentage =
         Number(localStorage.getItem(`kanji-quiz-percentage-${g.genreId}`)) || 0;
 
+    const savedVocabIds = localStorage.getItem(
+        `vocab-quiz-incorrectIds-${g.genreId}`
+    );
+    const vocabIncorrectIds: number[] | undefined =
+        (savedVocabIds && JSON.parse(savedVocabIds)) || undefined;
+
+    const savedKanjiIds = localStorage.getItem(
+        `kanji-quiz-incorrectIds-${g.genreId}`
+    );
+    const kanjiIncorrectIds: number[] | undefined =
+        (savedKanjiIds && JSON.parse(savedKanjiIds)) || undefined;
+
     return (
         <div>
             <h2
@@ -486,7 +498,12 @@ function EachGenre(props: TEachGenreProps) {
                 </LazyLoad>
             )}
             <TableContainer component={Paper} style={{ marginTop: 20 }}>
-                <VList g={g} vocabList={vocabList} />
+                <VList
+                    g={g}
+                    vocabList={vocabList}
+                    vocabIncorrectIds={vocabIncorrectIds}
+                    kanjiIncorrectIds={kanjiIncorrectIds}
+                />
             </TableContainer>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">

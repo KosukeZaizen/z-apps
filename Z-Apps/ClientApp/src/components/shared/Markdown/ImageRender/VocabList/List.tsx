@@ -14,8 +14,17 @@ type TVListProps = {
     vocabList: vocab[];
     noLazyLoad?: boolean;
     style?: React.CSSProperties;
+    vocabIncorrectIds?: number[];
+    kanjiIncorrectIds?: number[];
 };
-export function VList({ g, vocabList, noLazyLoad, style }: TVListProps) {
+export function VList({
+    g,
+    vocabList,
+    noLazyLoad,
+    style,
+    vocabIncorrectIds,
+    kanjiIncorrectIds,
+}: TVListProps) {
     const tableHeadStyle: React.CSSProperties = {
         fontSize: "medium",
         fontWeight: "bold",
@@ -23,17 +32,6 @@ export function VList({ g, vocabList, noLazyLoad, style }: TVListProps) {
     const tableElementStyle: React.CSSProperties = {
         fontSize: "medium",
     };
-
-    const savedVocabIds = localStorage.getItem(
-        `vocab-quiz-incorrectIds-${g.genreId}`
-    );
-    const vocabIncorrectIds: number[] =
-        (savedVocabIds && JSON.parse(savedVocabIds)) || [];
-    const savedKanjiIds = localStorage.getItem(
-        `kanji-quiz-incorrectIds-${g.genreId}`
-    );
-    const kanjiIncorrectIds: number[] =
-        (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
 
     return vocabList && vocabList.length > 0 ? (
         <Table aria-label="simple table" style={style}>
@@ -58,7 +56,7 @@ export function VList({ g, vocabList, noLazyLoad, style }: TVListProps) {
                     <TableRow key={v.vocabId}>
                         <TableCell
                             style={
-                                kanjiIncorrectIds.includes(v.vocabId)
+                                kanjiIncorrectIds?.includes(v.vocabId)
                                     ? {
                                           ...tableElementStyle,
                                           color: "red",
@@ -72,7 +70,7 @@ export function VList({ g, vocabList, noLazyLoad, style }: TVListProps) {
                         </TableCell>
                         <TableCell
                             style={
-                                vocabIncorrectIds.includes(v.vocabId)
+                                vocabIncorrectIds?.includes(v.vocabId)
                                     ? {
                                           ...tableElementStyle,
                                           color: "red",
