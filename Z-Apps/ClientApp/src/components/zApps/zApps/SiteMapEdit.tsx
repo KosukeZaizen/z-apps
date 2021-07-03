@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { Z_APPS_TOP_URL } from "../../../common/consts";
 import * as commonFnc from "../../../common/functions";
 import ShurikenProgress from "../../shared/Animations/ShurikenProgress";
 import Helmet from "../../shared/Helmet";
@@ -103,8 +104,7 @@ export default class SiteMapEdit extends React.Component<
 
     checkInput = (s: any) => {
         try {
-            if (s.loc.indexOf("https://www.lingual-ninja.com") < 0)
-                return "The URL is strange.";
+            if (s.loc.indexOf(Z_APPS_TOP_URL) < 0) return "The URL is strange.";
 
             if (s.lastmod.length !== 25)
                 return "Length of lastmod need to be 25.";

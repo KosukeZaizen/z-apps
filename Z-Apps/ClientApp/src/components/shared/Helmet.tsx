@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Helmet as ReactHelmet } from "react-helmet";
-import * as consts from "../../common/consts";
 import { isGoogleAdsDisplayed } from "./GoogleAd";
 
 export const Helmet = (props: {
@@ -15,8 +14,6 @@ export const Helmet = (props: {
         window.location.reload();
         return null;
     }
-
-    const topUrl = consts.Z_APPS_TOP_URL;
 
     return (
         <div className="application">

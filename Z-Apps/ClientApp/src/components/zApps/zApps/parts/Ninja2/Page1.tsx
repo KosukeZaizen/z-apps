@@ -1,5 +1,5 @@
 import * as React from "react";
-import { appsPublicImg } from "../../../../../common/consts";
+import { appsPublicImg, BLOG_URL } from "../../../../../common/consts";
 import { ATargetBlank } from "../../../../shared/Link/ATargetBlank";
 const logo = appsPublicImg + "game-logo-2.png";
 
@@ -124,7 +124,9 @@ export default class Page1 extends React.Component {
                 <div className="center" style={{ color: "white" }}>
                     If you want to be a real Ninja, please check this:
                     <br />
-                    <ATargetBlank href="https://www.lingual-ninja.com/2018/09/how-to-be-ninja.html">
+                    <ATargetBlank
+                        href={`${BLOG_URL}/2018/09/how-to-be-ninja.html`}
+                    >
                         {"How to be a Ninja >>"}
                     </ATargetBlank>
                 </div>

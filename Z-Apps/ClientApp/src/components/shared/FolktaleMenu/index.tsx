@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Z_APPS_TOP_URL } from "../../../common/consts";
+import { BLOB_URL, Z_APPS_TOP_URL } from "../../../common/consts";
 import { ColorChangeButton } from "../Animations/ColorChangeButton";
 import { ATargetBlank } from "../Link/ATargetBlank";
 import { ScrollBox } from "../ScrollBox";
@@ -24,9 +24,7 @@ export const FolktaleMenu = ({
     const image = (
         <img
             style={{ width: "100%", objectFit: "contain" }}
-            src={
-                "https://lingualninja.blob.core.windows.net/lingual-storage/folktalesImg/Momotaro.png"
-            }
+            src={`${BLOB_URL}/folktalesImg/Momotaro.png`}
             alt="Japanese Folktale Momotaro"
         />
     );

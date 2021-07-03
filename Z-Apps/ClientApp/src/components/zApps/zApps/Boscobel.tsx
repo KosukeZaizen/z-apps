@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BLOB_URL } from "../../../common/consts";
 import Head from "../../shared/Helmet";
 
 export default class Boscobel extends React.Component {
@@ -252,7 +253,7 @@ export default class Boscobel extends React.Component {
                         Current image:
                         <br />
                         <img
-                            src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/background.png"
+                            src={`${BLOB_URL}/boscobel/background.png`}
                             style={{ width: "100%" }}
                             alt="boscobel background"
                         />
@@ -304,7 +305,7 @@ export default class Boscobel extends React.Component {
                         Current image:
                         <br />
                         <img
-                            src="https://lingualninja.blob.core.windows.net/lingual-storage/boscobel/top.png"
+                            src={`${BLOB_URL}/boscobel/top.png`}
                             style={{ width: "100%" }}
                             alt="boscobel top"
                         />

@@ -4,6 +4,7 @@ import Button from "reactstrap/lib/Button";
 import { bindActionCreators } from "redux";
 import { StopAnimation } from "../../../../common/animation";
 import * as consts from "../../../../common/consts";
+import { BLOB_URL } from "../../../../common/consts";
 import { sleepAsync } from "../../../../common/functions";
 import * as storiesEditStore from "../../../../store/StoriesEditStore";
 import { sentence } from "../../../../types/stories";
@@ -44,7 +45,7 @@ class StoriesVideo extends React.Component<Props, State> {
             return new Promise(async r => {
                 const shortStoryName = storyDesc.storyName.split("--")[0];
                 const music = new Audio(
-                    `https://lingualninja.blob.core.windows.net/lingual-storage/folktalesAudio/${shortStoryName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
+                    `${BLOB_URL}/folktalesAudio/${shortStoryName}/folktale-audio${sentences[currentIndex].lineNumber}.m4a`
                 );
                 music.onended = async () => {
                     await sleepAsync(1000);
@@ -315,7 +316,7 @@ class StoriesVideo extends React.Component<Props, State> {
                                         .replace("Video", "")
                                         .replace(
                                             "localhost:5001",
-                                            "www.lingual-ninja.com"
+                                            consts.Z_APPS_HOST
                                         )}
                                 </span>
                             </div>

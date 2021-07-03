@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ExampleSentence } from ".";
 import * as consts from "../../../../../common/consts";
-import { BLOB_URL } from "../../../../../common/consts";
+import { BLOB_URL, Z_APPS_TOP_URL } from "../../../../../common/consts";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { sentence, word } from "../../../../../types/stories";
 import { ATargetBlank } from "../../../Link/ATargetBlank";
@@ -68,9 +68,7 @@ export function FolktaleExample({
             />
             <div style={{ fontWeight: "bold", marginBottom: 20 }}>
                 {"Below is a sentence from the folktale "}
-                <ATargetBlank
-                    href={`https://www.lingual-ninja.com/folktales/${storyName}`}
-                >
+                <ATargetBlank href={`${Z_APPS_TOP_URL}/folktales/${storyName}`}>
                     {`${folktaleTitle}>>`}
                 </ATargetBlank>
             </div>

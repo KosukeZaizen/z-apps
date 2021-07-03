@@ -970,18 +970,12 @@ function Page3(props: TPage3Props) {
                 {percentage} %
             </p>
             <FBShareBtn
-                urlToShare={
-                    "https://www.lingual-ninja.com/vocabulary-quiz/" +
-                    vocabGenre.genreName
-                }
+                urlToShare={`${consts.Z_APPS_TOP_URL}/kanji-quiz/${vocabGenre.genreName}`}
                 style={shareButtonStyle}
             />
             <br />
             <TwitterShareBtn
-                urlToShare={
-                    "https://www.lingual-ninja.com/vocabulary-quiz/" +
-                    vocabGenre.genreName
-                }
+                urlToShare={`${consts.Z_APPS_TOP_URL}/kanji-quiz/${vocabGenre.genreName}`}
                 textToShare={`I got ${percentage}％ on the Japanese Kanji Quiz for ${titleToShowUpper}!`}
                 style={shareButtonStyle}
             />

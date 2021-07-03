@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BLOG_URL } from "../../../common/consts";
 import "../../../css/RomajiConverter.css";
 import FB from "../../shared/FaceBook";
 import Head from "../../shared/Helmet";
@@ -426,7 +427,7 @@ class RomajiConverter extends React.Component<
                 </button>
                 <br />
                 If you want to check Romaji chart, please check this:{" "}
-                <ATargetBlank href="https://www.lingual-ninja.com/2018/07/romaji.html">
+                <ATargetBlank href={`${BLOG_URL}/2018/07/romaji.html`}>
                     <b>{"Romaji Chart >>"}</b>
                 </ATargetBlank>
                 <br />

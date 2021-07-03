@@ -6,7 +6,7 @@ import ReactGA from "react-ga";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import { startAnimation } from "./common/animation";
-import { azureUrl, siteUrl } from "./common/consts";
+import { azureUrl, Z_APPS_HOST, Z_APPS_TOP_URL } from "./common/consts";
 import * as commonFncs from "./common/functions";
 import { checkAppVersion } from "./common/functions";
 import { GOOGLE_ANALYTICS } from "./common/privateConsts";
@@ -20,7 +20,7 @@ import configureStore from "./store/configureStore";
 
 //AzureUrlから通常のURLへリダイレクト
 if (window.location.href.includes(azureUrl)) {
-    window.location.href = window.location.href.replace(azureUrl, siteUrl);
+    window.location.href = window.location.href.replace(azureUrl, Z_APPS_HOST);
 }
 
 checkAppVersion();
@@ -65,7 +65,7 @@ if (appObject?.key === "LocalDebugMenu") {
 }
 
 if (!appObject) {
-    window.location.href = "https://www.lingual-ninja.com";
+    window.location.href = Z_APPS_TOP_URL;
 } else {
     const render = async () => {
         const App = await appObject.getApp();

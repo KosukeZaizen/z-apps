@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { StopAnimation } from "../../../../../common/animation";
-import { BLOB_URL } from "../../../../../common/consts";
+import { BLOB_URL, Z_APPS_TOP_URL } from "../../../../../common/consts";
 import { sendPost } from "../../../../../common/functions";
 import { compareObjects } from "../../../../../common/util/compareObjects";
 import { sound, vocab, vocabGenre } from "../../../../../types/vocab";
@@ -9,7 +9,7 @@ import Head from "../../../../shared/Helmet";
 import { HideFooter } from "../../../../shared/HideHeaderAndFooter/HideFooter";
 import {
     getCurrentToken,
-    InputRegisterToken,
+    InputRegisterToken
 } from "../../../../shared/InputRegisterToken";
 
 type Props = {
@@ -557,7 +557,7 @@ function YouTubeInfo({ titleToShowUpper }: { titleToShowUpper: string }) {
                 {`Japanese Vocabulary Quiz - ${titleToShowUpper}
 
 【All vocab lists and quizzes】
-https://www.lingual-ninja.com/vocabulary-list
+${Z_APPS_TOP_URL}/vocabulary-list
 
 【Subscribe to this YouTube channel】
 http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1

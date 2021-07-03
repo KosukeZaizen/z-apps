@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { BLOG_URL } from "../../../common/consts";
 import "../../../css/KanjiConverter.css";
 import { ApplicationState } from "../../../store/configureStore";
 import { actionCreators } from "../../../store/KanjiConverter";
@@ -487,7 +488,9 @@ class KanjiConverter extends React.Component<Props, State> {
                 </button>
                 <br />
                 If you want to know about Kanji, please check this:{" "}
-                <ATargetBlank href="https://www.lingual-ninja.com/2018/09/what-is-kanji-why-is-kanji-necessary.html">
+                <ATargetBlank
+                    href={`${BLOG_URL}/2018/09/what-is-kanji-why-is-kanji-necessary.html`}
+                >
                     <b>{"What is Kanji? >>"}</b>
                 </ATargetBlank>
                 <br />

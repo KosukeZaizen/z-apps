@@ -75,7 +75,7 @@ namespace Z_Apps.Models.SystemBase
                 {
                     return GetSiteMapTextForArticles(hostName);
                 }
-                else if (hostName == "www.lingual-ninja.com")
+                else if (hostName == Consts.Z_APPS_HOST)
                 {
                     return await GetSiteMapTextForZApps(hostName);
                 }
@@ -232,7 +232,7 @@ namespace Z_Apps.Models.SystemBase
         public async Task<bool> RegisterSitemap(IEnumerable<Dictionary<string, string>> sitemapItems)
         {
             //backup
-            var previousXML = await GetSiteMapText("www.lingual-ninja.com");
+            var previousXML = await GetSiteMapText(Consts.Z_APPS_HOST);
             DateTime dt = DateTime.Now;
             await storageBkService.UploadAndOverwriteFileAsync(previousXML, "lingual-storage-bk/sitemap/" + dt.ToString("yyyy-MM") + "-sitemap.xml");
 

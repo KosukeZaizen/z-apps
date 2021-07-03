@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Z_APPS_TOP_URL } from "../../../common/consts";
 import { cFetch } from "../../../common/util/cFetch";
 import { SeasonAnimation } from "../../shared/Animations/SeasonAnimation";
 import ShurikenProgress from "../../shared/Animations/ShurikenProgress";
@@ -337,7 +338,7 @@ export function ArticleContent({
                     <FBShareBtn
                         key="fbShareButton"
                         urlToShare={
-                            "https://www.lingual-ninja.com/articles/" + pageName
+                            `${Z_APPS_TOP_URL}/articles/${pageName}`
                         }
                         style={{
                             width: "200px",
@@ -347,7 +348,7 @@ export function ArticleContent({
                     <TwitterShareBtn
                         key="twitterShareButton"
                         urlToShare={
-                            "https://www.lingual-ninja.com/articles/" + pageName
+                            `${Z_APPS_TOP_URL}/articles/${pageName}`
                         }
                         textToShare={title}
                         style={{

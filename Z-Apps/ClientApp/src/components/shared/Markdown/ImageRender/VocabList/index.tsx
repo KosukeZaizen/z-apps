@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Z_APPS_TOP_URL } from "../../../../../common/consts";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
 import { ATargetBlank } from "../../../Link/ATargetBlank";
@@ -29,7 +30,7 @@ export function VocabList({ genreName }: { genreName: string }) {
                 style={{ marginBottom: 5 }}
             />
             <ATargetBlank
-                href={`https://www.lingual-ninja.com/vocabulary-list#${encodeURIComponent(
+                href={`${Z_APPS_TOP_URL}/vocabulary-list#${encodeURIComponent(
                     genreAndVocab.vocabGenre.genreName
                 )}`}
                 style={{

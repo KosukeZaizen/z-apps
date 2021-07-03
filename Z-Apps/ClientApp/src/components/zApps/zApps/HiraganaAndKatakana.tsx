@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "reactstrap/lib/Button";
+import { BLOG_URL, Z_APPS_TOP_URL } from "../../../common/consts";
 import { ColorChangeButton } from "../../shared/Animations/ColorChangeButton";
 import { SeasonAnimation } from "../../shared/Animations/SeasonAnimation";
 import CharacterComment from "../../shared/CharacterComment";
@@ -169,7 +170,9 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                                 label="Hiragana Quiz"
                             />
                         </Link>
-                        <a href="https://www.lingual-ninja.com/2018/07/hiragana-list.html">
+                        <a
+                            href={`${Z_APPS_TOP_URL}/2018/07/hiragana-list.html`}
+                        >
                             <Button
                                 style={{
                                     margin: 5,
@@ -196,7 +199,7 @@ class HiraganaAndKatakana extends React.Component<{}, TState> {
                                 label="Katakana Quiz"
                             />
                         </Link>
-                        <a href="https://www.lingual-ninja.com/2018/08/katakana-chart.html">
+                        <a href={`${BLOG_URL}/2018/08/katakana-chart.html`}>
                             <Button
                                 style={{ margin: 5, width: buttonWidth }}
                                 color="secondary"

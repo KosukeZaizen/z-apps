@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { BLOG_URL } from "../../../../../common/consts";
 import { Markdown } from "../../../../shared/Markdown";
 
 interface Props {
@@ -141,7 +142,7 @@ Katakana is used in the limited cases below:
 
 We use Katakana for the two purposes above.
 If you want to know more detailed information, please check this link:
- [When should we use Katakana? >>](https://www.lingual-ninja.com/2018/08/katakana-chart.html#Katakana-chart6)
+ [When should we use Katakana? >>](${BLOG_URL}/2018/08/katakana-chart.html#Katakana-chart6)
 
 ## What you should do before taking this Katakana Quiz
 

@@ -7,7 +7,7 @@ import Card from "reactstrap/lib/Card";
 import CardText from "reactstrap/lib/CardText";
 import CardTitle from "reactstrap/lib/CardTitle";
 import { bindActionCreators } from "redux";
-import { BLOB_URL } from "../../../../common/consts";
+import { BLOB_URL, Z_APPS_TOP_URL } from "../../../../common/consts";
 import "../../../../css/Stories.css";
 import { ApplicationState } from "../../../../store/configureStore";
 import * as storiesStore from "../../../../store/StoriesStore";
@@ -593,10 +593,7 @@ class Stories extends React.Component<Props, State> {
                                     </p>,
                                     <FBShareBtn
                                         key="fbShareButton"
-                                        urlToShare={
-                                            "https://www.lingual-ninja.com/folktales/" +
-                                            storyName
-                                        }
+                                        urlToShare={`${Z_APPS_TOP_URL}/folktales/${storyName}`}
                                         style={{
                                             width: "200px",
                                             marginTop: "10px",
@@ -604,10 +601,7 @@ class Stories extends React.Component<Props, State> {
                                     />,
                                     <TwitterShareBtn
                                         key="twitterShareButton"
-                                        urlToShare={
-                                            "https://www.lingual-ninja.com/folktales/" +
-                                            storyName
-                                        }
+                                        urlToShare={`${Z_APPS_TOP_URL}/folktales/${storyName}`}
                                         textToShare={title}
                                         style={{
                                             width: "200px",

@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react";
+import { BLOB_URL } from "../../../common/consts";
 import { sendClientOpeLog } from "../../../common/functions";
 import { ATargetBlank } from "../Link/ATargetBlank";
 
@@ -20,7 +21,7 @@ export const YouTubeAd = ({
         style={{ maxWidth: 500, ...style }}
     >
         <img
-            src="https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/ad/ad1.png"
+            src={`${BLOB_URL}/appsPublic/ad/ad1.png`}
             alt="Lingual Ninja YouTube Channel"
             style={{
                 width: width || "100%",
