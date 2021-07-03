@@ -16,7 +16,7 @@ export const Helmet = (props: {
         return null;
     }
 
-    const topUrl = consts.Z_APPS_TOP_URL;
+    const topUrl = consts.TOP_URL;
 
     return (
         <div className="application">

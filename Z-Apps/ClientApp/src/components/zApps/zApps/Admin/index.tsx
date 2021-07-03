@@ -20,7 +20,7 @@ export default function Admin() {
                     <Link to="/vocabularyEdit">Vocab</Link>
                 </li>
                 <li>
-                    <a href="/articlesEdit">Article</a>
+                    <Link to="/articlesEdit">Article</Link>
                 </li>
                 <li>
                     <Link to="/folktalesEdit">Folktale</Link>

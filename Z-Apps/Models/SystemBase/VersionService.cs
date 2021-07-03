@@ -1,33 +1,20 @@
-using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Z_Apps.Util;
 
 namespace Z_Apps.Models.SystemBase
 {
     public class VersionService
     {
-        public async Task<string> GetVersion(HttpContext httpContext)
+        public async Task<string> GetVersion()
         {
-            try
+            string resultText = "";
+            using (var client = new HttpClient())
             {
-                using (var sr = new StreamReader("./ClientApp/build/version.txt"))
-                {
-                    return sr.ReadToEnd();
-                }
+                var response = await client.GetAsync(Consts.SITE_URL + "/version.txt");
+                resultText = await response.Content.ReadAsStringAsync();
             }
-            catch (Exception)
-            {
-                // ローカルデバッグでは「ClientApp/build」未作成の場合があるため
-                using (var client = new HttpClient())
-                {
-                    return await Fetch.GetAsync(
-                        "https://" + httpContext.Request.Host.Value + "/version.txt"
-                    );
-                }
-            }
+            return resultText;
         }
     }
 }
