@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "../../../css/Terms.css";
 import Helmet from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 export default class Terms extends React.Component {
     ref: React.RefObject<HTMLHRElement>;
@@ -43,13 +44,9 @@ export default class Terms extends React.Component {
                         <h2>Contact</h2>
                         If you have trouble, please contact using this link:
                         <br />
-                        <a
-                            href="https://uni-browser.lingual-ninja.com/?pageId=4"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <ATargetBlank href="https://uni-browser.lingual-ninja.com/?pageId=4">
                             {"　uni-browser >>"}
-                        </a>
+                        </ATargetBlank>
                     </div>
                     {/* <PleaseScrollDown
                         criteriaRef={this.ref}

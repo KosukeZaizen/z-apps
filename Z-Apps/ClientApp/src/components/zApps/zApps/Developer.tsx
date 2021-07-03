@@ -4,6 +4,7 @@ import { appsPublicImg } from "../../../common/consts";
 import "../../../css/Developer.css";
 import FB from "../../shared/FaceBook";
 import Helmet from "../../shared/Helmet";
+import { ATargetBlank } from "../../shared/Link/ATargetBlank";
 
 const image = appsPublicImg + "KosukeZaizen.jpg";
 function SayHello() {
@@ -94,26 +95,18 @@ export default class Developer extends React.Component {
                             I am writing a blog for people studying Japanese!:
                             <br />
                             <b>
-                                <a
-                                    href="https://blog.lingual-ninja.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <ATargetBlank href="https://blog.lingual-ninja.com/">
                                     {"Lingual Ninja! >>"}
-                                </a>
+                                </ATargetBlank>
                             </b>
                             <br />
                             <br />
                             Also, this is my Japanese blog!:
                             <br />
                             <b>
-                                <a
-                                    href="https://web.lingual-ninja.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <ATargetBlank href="https://web.lingual-ninja.com/">
                                     {"IT / Web技術 >>"}
-                                </a>
+                                </ATargetBlank>
                             </b>
                             <br />
                             <br />

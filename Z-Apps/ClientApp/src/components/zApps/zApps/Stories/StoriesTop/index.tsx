@@ -213,6 +213,7 @@ class StoriesTop extends React.Component<StoriesTopProps, StoriesTopState> {
                                     articles={pages}
                                     screenWidth={screenWidth}
                                     titleH="h3"
+                                    isTargetBlank
                                 />
                             </section>
                         )}

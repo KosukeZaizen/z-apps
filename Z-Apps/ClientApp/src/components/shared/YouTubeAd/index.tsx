@@ -1,16 +1,23 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { sendClientOpeLog } from "../../../common/functions";
+import { ATargetBlank } from "../Link/ATargetBlank";
 
-export const YouTubeAd = ({ width }: { width?: number | string }) => (
-    <a
+export const YouTubeAd = ({
+    width,
+    style,
+}: {
+    width?: number | string;
+    style?: CSSProperties;
+}) => (
+    <ATargetBlank
+        nofollow
         href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
         onClick={() => {
             setTimeout(() => {
                 sendClientOpeLog("click YouTube channel", "from popup");
             }, 1000);
         }}
+        style={{ maxWidth: 500, ...style }}
     >
         <img
             src="https://lingualninja.blob.core.windows.net/lingual-storage/appsPublic/ad/ad1.png"
@@ -21,5 +28,5 @@ export const YouTubeAd = ({ width }: { width?: number | string }) => (
                 margin: "7px 0",
             }}
         />
-    </a>
+    </ATargetBlank>
 );

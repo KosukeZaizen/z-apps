@@ -1,4 +1,4 @@
-export const TOP_URL = "https://www.lingual-ninja.com";
+export const Z_APPS_TOP_URL = "https://www.lingual-ninja.com";
 export const BLOB_URL =
     "https://lingualninja.blob.core.windows.net/lingual-storage";
 

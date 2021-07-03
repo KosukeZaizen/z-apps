@@ -8,8 +8,8 @@ import { APP_VERSION } from "../../version";
 import { ReturnToLocalMenu } from "../LocalDebug/App";
 import FooterAnimation from "../shared/Animations/FooterAnimation";
 import ShurikenProgress from "../shared/Animations/ShurikenProgress";
-import Layout from "../shared/Layout";
 import { PopupAd } from "../shared/YouTubeAd/Popup";
+import Layout from "./Layout";
 
 const Home = lazy(() => import("./zApps/Home"));
 const Terms = lazy(() => import("./zApps/Terms"));

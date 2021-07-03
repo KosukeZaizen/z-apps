@@ -1,0 +1,13 @@
+footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    background-color: #eeeeee;
+    padding-top: 7px;
+    padding-bottom: 10px;
+    font-size: small;
+}
+
+footer .container {
+    line-height: 10px;
+}

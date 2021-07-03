@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getImgNumber, Page } from ".";
 import { cFetch } from "../../../common/util/cFetch";
 import { SeasonAnimation } from "../../shared/Animations/SeasonAnimation";
@@ -10,6 +9,7 @@ import CharacterComment from "../../shared/CharacterComment";
 import FB from "../../shared/FaceBook";
 import { FolktaleMenu } from "../../shared/FolktaleMenu";
 import Head from "../../shared/Helmet";
+import { LinkOrA } from "../../shared/Link/LinkOrA";
 import { ScrollBox } from "../../shared/ScrollBox";
 import "./style.css";
 
@@ -60,47 +60,6 @@ const ArticlesTop = () => {
         <div style={{ width: "100%" }} className="center">
             <Head title={title} desc={description} />
             <main style={{ maxWidth: 900, textAlign: "left" }}>
-                <div
-                    className="breadcrumbs"
-                    itemScope
-                    itemType="https://schema.org/BreadcrumbList"
-                    style={{ textAlign: "left" }}
-                >
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <Link
-                            to="/"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">Home</span>
-                        </Link>
-                        <meta itemProp="position" content="1" />
-                    </span>
-                    {" > "}
-                    <span
-                        itemProp="itemListElement"
-                        itemScope
-                        itemType="http://schema.org/ListItem"
-                    >
-                        <span
-                            itemProp="name"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            {title}
-                        </span>
-                        <meta itemProp="position" content="2" />
-                    </span>
-                </div>
                 <h1
                     style={{
                         margin: "25px 0 40px",
@@ -126,7 +85,7 @@ const ArticlesTop = () => {
                         articles={articles}
                         screenWidth={width}
                     />
-                    <FolktaleMenu screenWidth={width} />
+                    <FolktaleMenu targetBlank screenWidth={width} />
                     <Author style={{ marginTop: 45 }} screenWidth={width} />
                 </div>
                 <FB style={{ marginTop: 20 }} />
@@ -140,13 +99,19 @@ interface ArticlesListProps {
     articles: Page[];
     screenWidth: number;
     titleH: "h2" | "h3";
+    isTargetBlank?: boolean;
 }
 export function ArticlesList({
     articles,
     screenWidth,
     titleH,
+    isTargetBlank,
 }: ArticlesListProps) {
     const isWide = screenWidth > 767;
+
+    const url = isTargetBlank
+        ? "https://articles.lingual-ninja.com/articles"
+        : "/articles";
 
     return (
         <>
@@ -161,7 +126,7 @@ export function ArticlesList({
                         }}
                     >
                         <ScrollBox>
-                            <Link to={`/articles/${page.url}`}>
+                            <LinkOrA href={`${url}/${page.url}`}>
                                 {titleH === "h3" ? (
                                     <h3
                                         style={{
@@ -186,7 +151,7 @@ export function ArticlesList({
                                         {page.title}
                                     </h2>
                                 )}
-                            </Link>
+                            </LinkOrA>
                             <div
                                 style={{
                                     display: "flex",
@@ -195,8 +160,8 @@ export function ArticlesList({
                                 }}
                             >
                                 {page.imgPath && (
-                                    <Link
-                                        to={`/articles/${page.url}`}
+                                    <LinkOrA
+                                        href={`${url}/${page.url}`}
                                         style={{ display: "block", flex: 1 }}
                                     >
                                         <img
@@ -209,7 +174,7 @@ export function ArticlesList({
                                                 margin: "0",
                                             }}
                                         />
-                                    </Link>
+                                    </LinkOrA>
                                 )}
                                 <div
                                     style={{

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as consts from "../../common/consts";
 import { sendClientOpeLog } from "../../common/functions";
+import { ATargetBlank } from "./Link/ATargetBlank";
 
 type TFBProps = {
     style: React.CSSProperties;
@@ -10,10 +11,9 @@ export const FBShareBtn = (props: TFBProps) => {
     const { style, urlToShare } = props;
 
     return (
-        <a
+        <ATargetBlank
             href={`https://www.facebook.com/share.php?u=${urlToShare}`}
-            rel="nofollow noopener noreferrer"
-            target="_blank"
+            nofollow
         >
             <img
                 src={
@@ -27,7 +27,7 @@ export const FBShareBtn = (props: TFBProps) => {
                     }, 1000);
                 }}
             />
-        </a>
+        </ATargetBlank>
     );
 };
 
@@ -40,10 +40,9 @@ export const TwitterShareBtn = (props: TTWProps) => {
     const { style, urlToShare, textToShare } = props;
 
     return (
-        <a
+        <ATargetBlank
             href={`https://twitter.com/share?url=${urlToShare}&text=${textToShare}&hashtags=nihongo,Japanese,LingualNinja`}
-            rel="nofollow noopener noreferrer"
-            target="_blank"
+            nofollow
         >
             <img
                 src={
@@ -57,6 +56,6 @@ export const TwitterShareBtn = (props: TTWProps) => {
                     }, 1000);
                 }}
             />
-        </a>
+        </ATargetBlank>
     );
 };

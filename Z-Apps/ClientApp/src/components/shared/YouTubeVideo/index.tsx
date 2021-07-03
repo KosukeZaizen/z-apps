@@ -2,6 +2,7 @@ import React, { CSSProperties } from "react";
 import Button from "reactstrap/lib/Button";
 import { sendClientOpeLog } from "../../../common/functions";
 import { getHoverClassName } from "../../../common/util/getHoverClass";
+import { ATargetBlank } from "../Link/ATargetBlank";
 
 const buttonHover = getHoverClassName({
     opacity: 0.5,
@@ -52,10 +53,9 @@ export function YouTubeVideo({
                         allowFullScreen
                     ></iframe>
                 </div>
-                <a
+                <ATargetBlank
+                    nofollow
                     href="http://www.youtube.com/channel/UCii35PcojqMUNkSRalUw35g?sub_confirmation=1"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
                     onClick={() => {
                         setTimeout(() => {
                             sendClientOpeLog(
@@ -77,7 +77,7 @@ export function YouTubeVideo({
                         {buttonLabel ||
                             "Click to subscribe to this YouTube channel!"}
                     </Button>
-                </a>
+                </ATargetBlank>
             </div>
         </div>
     );

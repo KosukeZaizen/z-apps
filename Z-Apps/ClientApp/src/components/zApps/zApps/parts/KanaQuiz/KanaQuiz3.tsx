@@ -4,6 +4,7 @@ import Button from "reactstrap/lib/Button";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
 import CardHeader from "reactstrap/lib/CardHeader";
+import { ATargetBlank } from "../../../../shared/Link/ATargetBlank";
 
 class IncorrectTable extends React.Component<{
     incorrectList: any;
@@ -55,13 +56,9 @@ class RelatedArticles extends React.Component<{
                     <span className="font-large">
                         &nbsp; &nbsp;
                         <u>
-                            <a
-                                href={this.props.objLinks[key]}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <ATargetBlank href={this.props.objLinks[key]}>
                                 {key} &gt;&gt;
-                            </a>
+                            </ATargetBlank>
                         </u>
                     </span>
                     <br />

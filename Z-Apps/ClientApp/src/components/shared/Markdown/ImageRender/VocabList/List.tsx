@@ -9,31 +9,32 @@ import { BLOB_URL } from "../../../../../common/consts";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
 import ShurikenProgress from "../../../Animations/ShurikenProgress";
 
-type TVListProps = { g: vocabGenre; vocabList: vocab[]; noLazyLoad?: boolean };
-export function VList(props: TVListProps) {
-    const { g, vocabList, noLazyLoad } = props;
+const tableHeadStyle: React.CSSProperties = {
+    fontSize: "medium",
+    fontWeight: "bold",
+};
+const tableElementStyle: React.CSSProperties = {
+    fontSize: "medium",
+};
 
-    const tableHeadStyle: React.CSSProperties = {
-        fontSize: "medium",
-        fontWeight: "bold",
-    };
-    const tableElementStyle: React.CSSProperties = {
-        fontSize: "medium",
-    };
-
-    const savedVocabIds = localStorage.getItem(
-        `vocab-quiz-incorrectIds-${g.genreId}`
-    );
-    const vocabIncorrectIds: number[] =
-        (savedVocabIds && JSON.parse(savedVocabIds)) || [];
-    const savedKanjiIds = localStorage.getItem(
-        `kanji-quiz-incorrectIds-${g.genreId}`
-    );
-    const kanjiIncorrectIds: number[] =
-        (savedKanjiIds && JSON.parse(savedKanjiIds)) || [];
-
+type TVListProps = {
+    g: vocabGenre;
+    vocabList: vocab[];
+    noLazyLoad?: boolean;
+    style?: React.CSSProperties;
+    vocabIncorrectIds?: number[];
+    kanjiIncorrectIds?: number[];
+};
+export function VList({
+    g,
+    vocabList,
+    noLazyLoad,
+    style,
+    vocabIncorrectIds,
+    kanjiIncorrectIds,
+}: TVListProps) {
     return vocabList && vocabList.length > 0 ? (
-        <Table aria-label="simple table">
+        <Table aria-label="simple table" style={style}>
             <TableHead>
                 <TableRow style={{ backgroundColor: "papayawhip" }}>
                     <TableCell style={tableHeadStyle} align="center">
@@ -55,7 +56,7 @@ export function VList(props: TVListProps) {
                     <TableRow key={v.vocabId}>
                         <TableCell
                             style={
-                                kanjiIncorrectIds.includes(v.vocabId)
+                                kanjiIncorrectIds?.includes(v.vocabId)
                                     ? {
                                           ...tableElementStyle,
                                           color: "red",
@@ -69,7 +70,7 @@ export function VList(props: TVListProps) {
                         </TableCell>
                         <TableCell
                             style={
-                                vocabIncorrectIds.includes(v.vocabId)
+                                vocabIncorrectIds?.includes(v.vocabId)
                                     ? {
                                           ...tableElementStyle,
                                           color: "red",

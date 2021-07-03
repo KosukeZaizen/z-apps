@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ExampleSentence } from ".";
 import * as consts from "../../../../../common/consts";
 import { BLOB_URL } from "../../../../../common/consts";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { sentence, word } from "../../../../../types/stories";
+import { ATargetBlank } from "../../../Link/ATargetBlank";
 
 export function FolktaleExample({
     storyName,
@@ -53,7 +53,11 @@ export function FolktaleExample({
         .join(" ");
 
     return (
-        <div id={id} key={id} style={{ marginBottom: 25 }}>
+        <div
+            id={id}
+            key={id}
+            style={{ marginBottom: 25, textShadow: "initial" }}
+        >
             <img
                 src={`${consts.BLOB_URL}/folktalesImg/${
                     storyName.split("--")[0]
@@ -64,9 +68,11 @@ export function FolktaleExample({
             />
             <div style={{ fontWeight: "bold", marginBottom: 20 }}>
                 {"Below is a sentence from the folktale "}
-                <Link to={`/folktales/${storyName}`}>
+                <ATargetBlank
+                    href={`https://www.lingual-ninja.com/folktales/${storyName}`}
+                >
                     {`${folktaleTitle}>>`}
-                </Link>
+                </ATargetBlank>
             </div>
             <ExampleSentence
                 s={s}

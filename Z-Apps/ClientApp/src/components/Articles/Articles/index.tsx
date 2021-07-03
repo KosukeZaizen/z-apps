@@ -146,6 +146,11 @@ const Articles = (props: Props) => {
 // export const excludedArticleTitles = ["Kamikaze"];
 export const excludedArticleTitles = [];
 
+// 0 から 4.9 まで 0.1 刻み
+const textShadow = Array.from(Array(50).keys())
+    .map(n => `0 0 ${n / 10}px white`)
+    .join(",");
+
 interface ArticleContentProps {
     pageName: string;
     title: string;
@@ -223,40 +228,6 @@ export function ArticleContent({
                     itemScope
                     itemType="http://schema.org/ListItem"
                 >
-                    {isAboutFolktale ? (
-                        <Link
-                            to="/folktales"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">{"Japanese Folktales"}</span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
-                    ) : (
-                        <Link
-                            to="/articles"
-                            itemProp="item"
-                            style={{
-                                marginRight: "5px",
-                                marginLeft: "5px",
-                            }}
-                        >
-                            <span itemProp="name">
-                                {"Articles about Japan"}
-                            </span>
-                            <meta itemProp="position" content="2" />
-                        </Link>
-                    )}
-                </span>
-                {" > "}
-                <span
-                    itemProp="itemListElement"
-                    itemScope
-                    itemType="http://schema.org/ListItem"
-                >
                     <span
                         itemProp="name"
                         style={{
@@ -266,7 +237,7 @@ export function ArticleContent({
                     >
                         {title}
                     </span>
-                    <meta itemProp="position" content="3" />
+                    <meta itemProp="position" content="2" />
                 </span>
             </div>
             <article style={{ textAlign: "left" }}>
@@ -352,7 +323,7 @@ export function ArticleContent({
                 {content ? (
                     <Markdown
                         source={content}
-                        style={{ margin: "25px 0 40px" }}
+                        style={{ margin: "25px 0 40px", textShadow }}
                     />
                 ) : (
                     <ShurikenProgress size="20%" />

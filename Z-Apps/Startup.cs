@@ -57,6 +57,11 @@ namespace Z_Apps
             services.AddSingleton(new StoriesService(con));
             services.AddSingleton(new StoriesEditService(con));
             services.AddSingleton(new VocabQuizService(con));
+
+#if DEBUG
+#else
+            services.AddSingleton(new IndexHtml());
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +91,32 @@ namespace Z_Apps
             {
                 var ua = context.Request.Headers["User-Agent"].ToString();
                 string url = context.Request.Path.Value;
+                string host = context.Request.Host.Host;
+
+                if (host.Contains("www.lingual-ninja.com"))
+                {
+                    if (url.StartsWith("/articles"))
+                    {
+                        // articlesへのリダイレクト
+                        if (url.Length <= 10)
+                        {
+                            // トップページ
+                            context.Response.Redirect(
+                                $"https://articles.lingual-ninja.com",
+                                true
+                            );
+                        }
+                        else
+                        {
+                            // 各記事
+                            var page = url.Replace("/articles/", "");
+                            context.Response.Redirect(
+                                $"https://articles.lingual-ninja.com/articles/{page}",
+                                true
+                            );
+                        }
+                    }
+                }
 
                 if (url.StartsWith("/2018/"))
                 {
@@ -358,20 +389,38 @@ namespace Z_Apps
             });
 
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
-            });
 
-            app.UseSpa(spa =>
+            if (env.IsDevelopment())
             {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
+                app.UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{action=Index}/{id?}"
+                    );
+                });
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                });
+            }
+            else
+            {
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+                });
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapFallbackToController("Index", "Home");
+                });
+            }
         }
     }
 }

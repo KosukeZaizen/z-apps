@@ -49,7 +49,7 @@ export const CodeRender = ({
     }
 
     return (
-        <PointBox language={language}>
+        <PointBox language={language} style={{ textShadow: "initial" }}>
             <Markdown source={value} />
         </PointBox>
     );
@@ -82,7 +82,7 @@ function OriginalExample({ params }: { params: { [key: number]: string } }) {
     }));
 
     return (
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 20, marginTop: 10, textShadow: "initial" }}>
             <ExampleSentence
                 s={s}
                 boldInfo={params[4]}

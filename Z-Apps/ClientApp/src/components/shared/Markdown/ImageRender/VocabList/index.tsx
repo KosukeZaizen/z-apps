@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { cFetch } from "../../../../../common/util/cFetch";
 import { vocab, vocabGenre } from "../../../../../types/vocab";
+import { ATargetBlank } from "../../../Link/ATargetBlank";
+import { linkShadowStyle } from "../../LinkBlockRender/linkShadowStyle";
 import { VList } from "./List";
 
 const initialVocabGenre = {
@@ -11,27 +13,60 @@ const initialVocabGenre = {
     released: true,
 };
 export function VocabList({ genreName }: { genreName: string }) {
+    const genreAndVocab = useGenreAndVocab(genreName);
+
+    return (
+        <div
+            style={{
+                marginBottom: 30,
+                textAlign: "center",
+                textShadow: "initial",
+            }}
+        >
+            <VList
+                g={genreAndVocab.vocabGenre}
+                vocabList={genreAndVocab.vocabList}
+                style={{ marginBottom: 5 }}
+            />
+            <ATargetBlank
+                href={`https://www.lingual-ninja.com/vocabulary-list#${encodeURIComponent(
+                    genreAndVocab.vocabGenre.genreName
+                )}`}
+                style={{
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                    ...linkShadowStyle,
+                }}
+            >
+                {"Check all vocab lists >>"}
+            </ATargetBlank>
+        </div>
+    );
+}
+
+function useGenreAndVocab(genreName: string) {
     const [genreAndVocab, setGenreAndVocab] = useState<GenreAndVocab>({
         vocabGenre: initialVocabGenre,
         vocabList: [],
     });
 
     useEffect(() => {
-        const load = async () => {
-            const result = await fetchGenreAndVocab(genreName);
-            if (result) {
-                setGenreAndVocab(result);
-            }
+        let unmounted = false;
+        if (genreName) {
+            const load = async () => {
+                const result = await fetchGenreAndVocab(genreName);
+                if (!unmounted && result) {
+                    setGenreAndVocab(result);
+                }
+            };
+            void load();
+        }
+        return () => {
+            unmounted = true;
         };
-        void load();
     }, [genreName]);
 
-    return (
-        <VList
-            g={genreAndVocab.vocabGenre}
-            vocabList={genreAndVocab.vocabList}
-        />
-    );
+    return genreAndVocab;
 }
 
 interface GenreAndVocab {

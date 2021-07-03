@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ATargetBlank } from "../../Link/ATargetBlank";
+import { linkShadowStyle } from "./linkShadowStyle";
 
 export const LinkRender = (props: {
     href: string;
@@ -8,10 +10,14 @@ export const LinkRender = (props: {
     const { href, children } = props;
     if (href.includes("https://") || href.includes("http://")) {
         return (
-            <a href={href} target="_blank" rel="noopener noreferrer">
+            <ATargetBlank href={href} style={linkShadowStyle}>
                 {children}
-            </a>
+            </ATargetBlank>
         );
     }
-    return <Link to={href}>{children}</Link>;
+    return (
+        <Link to={href} style={linkShadowStyle}>
+            {children}
+        </Link>
+    );
 };
