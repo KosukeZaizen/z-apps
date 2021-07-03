@@ -49,7 +49,7 @@ export function App() {
                     <Route
                         sensitive
                         exact
-                        path="/articlesEdit"
+                        path="/edit"
                         component={ArticlesEditTop}
                     />
                     <Route

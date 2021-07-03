@@ -57,6 +57,11 @@ namespace Z_Apps
             services.AddSingleton(new StoriesService(con));
             services.AddSingleton(new StoriesEditService(con));
             services.AddSingleton(new VocabQuizService(con));
+
+#if DEBUG
+#else
+            services.AddSingleton(new IndexHtml());
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -171,7 +176,6 @@ namespace Z_Apps
                                 "<meta property='fb:page_id' content='491712431290062'>" + Environment.NewLine +
                                 "</head>" + Environment.NewLine +
                                 "<body>Content for SNS bot</body></html>";
-
                         }
                         else if (url.Contains("articles/") && url.Length > 10)
                         {
@@ -358,20 +362,38 @@ namespace Z_Apps
             });
 
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
-            });
 
-            app.UseSpa(spa =>
+            if (env.IsDevelopment())
             {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
+                app.UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{action=Index}/{id?}"
+                    );
+                });
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                });
+            }
+            else
+            {
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+                });
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapFallbackToController("Index", "Home");
+                });
+            }
         }
     }
 }
