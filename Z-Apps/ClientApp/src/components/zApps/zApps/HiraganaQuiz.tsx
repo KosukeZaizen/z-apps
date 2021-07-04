@@ -124,10 +124,6 @@ class HiraganaQuiz extends React.Component {
         },
     } as const;
 
-    constructor(props: {}) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="kana-quiz center">

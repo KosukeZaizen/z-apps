@@ -1,4 +1,4 @@
-import React, { ReactChildren } from "react";
+import React, { Children, ReactChildren } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { CodeRender } from "./CodeRender";
@@ -24,6 +24,7 @@ export function Markdown({ source, style, section }: MarkdownProps) {
                 code: CodeRender,
                 inlineCode: InlineCodeRender,
                 paragraph: ParagraphRender,
+                tableCell: test,
             }}
             plugins={[gfm]}
         />
@@ -37,6 +38,38 @@ export function Markdown({ source, style, section }: MarkdownProps) {
         <div style={style} className="markdownArea">
             {markdown}
         </div>
+    );
+}
+
+function test({
+    children,
+    isHeader,
+    align,
+    ...rest
+}: {
+    children: JSX.Element | JSX.Element[];
+    isHeader: boolean;
+    align: "left" | "right" | "center";
+    [key: string]: any;
+}) {
+    let content = Children.map(children, (c: JSX.Element) => {
+        if (c.props.value === "<br />") {
+            return <br />;
+        }
+        return c;
+    });
+
+    if (isHeader) {
+        return (
+            <th style={{ textAlign: align }} {...rest}>
+                {content}
+            </th>
+        );
+    }
+    return (
+        <td style={{ textAlign: align }} {...rest}>
+            {content}
+        </td>
     );
 }
 

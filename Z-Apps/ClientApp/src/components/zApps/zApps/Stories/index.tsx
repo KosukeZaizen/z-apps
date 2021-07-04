@@ -18,7 +18,7 @@ import { Author } from "../../../shared/Author";
 import CharacterComment from "../../../shared/CharacterComment";
 import FB from "../../../shared/FaceBook";
 // import GoogleAd from "../parts/GoogleAd";
-import { AnchorLink, HashScroll } from "../../../shared/HashScroll";
+import { HashScroll } from "../../../shared/HashScroll";
 import Head from "../../../shared/Helmet";
 import { ATargetBlank } from "../../../shared/Link/ATargetBlank";
 import { Markdown } from "../../../shared/Markdown";
@@ -249,7 +249,7 @@ class Stories extends React.Component<Props, State> {
 
         const {
             screenWidth,
-            pleaseScrollDown,
+            //pleaseScrollDown,
             showFooterMenu,
             imgNumber,
         } = this.state;
@@ -890,36 +890,36 @@ function Grammar({
     );
 }
 
-type TPleaseScrollDown = {
-    pleaseScrollDown: boolean;
-    screenWidth: number;
-};
-function PleaseScrollDown(props: TPleaseScrollDown) {
-    const { screenWidth, pleaseScrollDown } = props;
+// type TPleaseScrollDown = {
+//     pleaseScrollDown: boolean;
+//     screenWidth: number;
+// };
+// function PleaseScrollDown(props: TPleaseScrollDown) {
+//     const { screenWidth, pleaseScrollDown } = props;
 
-    return (
-        <div
-            style={{
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                zIndex: pleaseScrollDown ? 999999990 : 0,
-                width: `${screenWidth}px`,
-                height: "70px",
-                opacity: pleaseScrollDown ? 1.0 : 0,
-                transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
-                fontSize: "x-large",
-                backgroundColor: "#EEEEEE",
-                borderRadius: "30px 30px 0px 0px",
-            }}
-        >
-            <span id="pleaseScroll">
-                <span></span>
-                <AnchorLink targetHash="#aboutFolktale">Scroll</AnchorLink>
-            </span>
-        </div>
-    );
-}
+//     return (
+//         <div
+//             style={{
+//                 position: "fixed",
+//                 bottom: 0,
+//                 left: 0,
+//                 zIndex: pleaseScrollDown ? 999999990 : 0,
+//                 width: `${screenWidth}px`,
+//                 height: "70px",
+//                 opacity: pleaseScrollDown ? 1.0 : 0,
+//                 transition: pleaseScrollDown ? "all 2s ease" : "all 2s ease",
+//                 fontSize: "x-large",
+//                 backgroundColor: "#EEEEEE",
+//                 borderRadius: "30px 30px 0px 0px",
+//             }}
+//         >
+//             <span id="pleaseScroll">
+//                 <span></span>
+//                 <AnchorLink targetHash="#aboutFolktale">Scroll</AnchorLink>
+//             </span>
+//         </div>
+//     );
+// }
 
 interface FooterMenuProps {
     onClickLangBtn: (btnType: any) => void;

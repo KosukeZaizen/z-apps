@@ -121,10 +121,6 @@ class KatakanaQuiz extends React.Component {
         },
     };
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="kana-quiz center">
