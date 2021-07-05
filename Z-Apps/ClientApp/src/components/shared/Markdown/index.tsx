@@ -6,20 +6,26 @@ import { HeadingRenderer } from "./HeadingRenderer";
 import { ImageRender } from "./ImageRender";
 import "./index.css";
 import { InlineCodeRender } from "./InlineCodeRender";
-import { LinkRender } from "./LinkBlockRender";
+import { LinkRender, LinkWithoutShadowRender } from "./LinkBlockRender";
 import { TableCellRender } from "./Table/TableCellRender";
 
 interface MarkdownProps {
     source: string;
     style?: React.CSSProperties;
     section?: boolean;
+    noLinkShadow?: boolean;
 }
-export function Markdown({ source, style, section }: MarkdownProps) {
+export function Markdown({
+    source,
+    style,
+    section,
+    noLinkShadow,
+}: MarkdownProps) {
     const markdown = (
         <ReactMarkdown
             source={source}
             renderers={{
-                link: LinkRender,
+                link: noLinkShadow ? LinkWithoutShadowRender : LinkRender,
                 heading: HeadingRenderer,
                 image: ImageRender,
                 code: CodeRender,

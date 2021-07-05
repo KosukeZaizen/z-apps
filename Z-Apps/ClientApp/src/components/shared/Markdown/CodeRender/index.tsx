@@ -43,14 +43,14 @@ export const CodeRender = ({
     } else if (language === "box") {
         return (
             <div className="greenBox">
-                <Markdown source={value} />
+                <Markdown source={value} noLinkShadow />
             </div>
         );
     }
 
     return (
         <PointBox language={language} style={{ textShadow: "initial" }}>
-            <Markdown source={value} />
+            <Markdown source={value} noLinkShadow />
         </PointBox>
     );
 };
